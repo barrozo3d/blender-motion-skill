@@ -563,6 +563,17 @@ Each entry format:
 - **Summary:** Introduces the "Triforce of 3D Realism" — Subject, Lighting, Camera — as the three pillars that together produce convincing photorealism. Covers using KIRI Engine for free mobile 3D scanning to generate realistic subjects without years of modeling skill, optimal scanning conditions (overcast outdoor vs. controlled indoor lighting), and how all three forces compound.
 - **File:** tutorials/the-key-to-realism-in-blender-or-3d.md
 
+
+
+### Tutorial: How to make a volumetric projector in Blender 4.5
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=F8pqNeVam54
+- **Author:** Polyfjord
+- **Blender Version:** (check file)
+- **Tags:** (check file)
+- **Summary:** (analyze file to extract summary)
+- **File:** tutorials/tutorial-how-to-make-a-volumetric-projector-in-blender-45.md
+
 ---
 
 ## Tag Reference
