@@ -569,9 +569,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=F8pqNeVam54
 - **Author:** Polyfjord
-- **Blender Version:** (check file)
-- **Tags:** (check file)
-- **Summary:** (analyze file to extract summary)
+- **Blender Version:** 4.5
+- **Tags:** #lighting #volume #animation #rendering #cycles #intermediate #god-rays #projector #video-texture
+- **Summary:** Creates a volumetric projector effect by setting the World Shader to Volume Scatter (density ~0.1) as scene fog, then assigning a video image texture to a Spotlight via Use Nodes + Node Wrangler (Ctrl+T). Animated video travels through the fog as god rays. Key trick: set image color space to AGX Base sRGB for correct vibrant color.
 - **File:** tutorials/tutorial-how-to-make-a-volumetric-projector-in-blender-45.md
 
 
@@ -580,9 +580,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://youtu.be/aJF2sAjRsy0?si=sF4GyRUcpJzAkv37
 - **Author:** InLightVFX
-- **Blender Version:** (check file)
-- **Tags:** (check file)
-- **Summary:** (analyze file to extract summary)
+- **Blender Version:** Any
+- **Tags:** #compositing #rendering #color-management #aces #vfx #theory #intermediate #advanced
+- **Summary:** Theory-focused Part 1: explains color gamut (ACES 2065-1 covers the full visible spectrum), linear vs non-linear gamma, and why Blender's linear light math enables accurate multi-pass compositing. Essential conceptual foundation before tackling the practical ACES workflow in Part 2.
 - **File:** tutorials/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-par.md
 
 
@@ -591,9 +591,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://youtu.be/LssHxDCM7H4?si=WAKlvRJI_VfoW2rY
 - **Author:** InLightVFX
-- **Blender Version:** (check file)
-- **Tags:** (check file)
-- **Summary:** (analyze file to extract summary)
+- **Blender Version:** Any
+- **Tags:** #compositing #rendering #color-management #aces #vfx #davinci-resolve #workflow #advanced
+- **Summary:** Practical ACES pipeline: set DaVinci Resolve to ACESccc workspace, apply IDT per LOG clip, disable ODT before exporting EXR (RGB Half). In Blender, use Mario Cazares' ACES config, set background plate color space to ACES 2065-1, render VFX in ACEScg. EXR is the only format that preserves full ACES data.
 - **File:** tutorials/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces.md
 
 
@@ -602,9 +602,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://youtu.be/WmldjCv9P84?si=8OfevIgZN31ZV4_A
 - **Author:** Blender Made Easy
-- **Blender Version:** (check file)
-- **Tags:** (check file)
-- **Summary:** (analyze file to extract summary)
+- **Blender Version:** Any
+- **Tags:** #animation #motion-design #logo-animation #curves #svg #wireframe #beginner #intermediate #build-animation
+- **Summary:** Recreates the Eternals self-drawing wireframe animation using a curve object (SVG or hand-traced): delete segments (not vertices) to create a loop gap, then keyframe Geometry > Mapping > End from 0→1. Apply scale and reset Mean Radius to 1.0 before animating. Use Switch Direction to control which way each curve builds.
 - **File:** tutorials/blender-tutorial-eternals-gold-wireframe-animation.md
 
 
@@ -613,9 +613,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://youtu.be/J_mweAPcO4M?si=_bc3120mdobqksIE
 - **Author:** Extra 3d
-- **Blender Version:** (check file)
-- **Tags:** (check file)
-- **Summary:** (analyze file to extract summary)
+- **Blender Version:** Any
+- **Tags:** #realism #photorealism #materials #textures #lighting #workflow #intermediate #3dscanning #imperfections
+- **Summary:** Comprehensive photorealism pipeline: reference gathering in PureRef → camera focal length/height decision early → high-res stacked textures with imperfections (Polyhaven, Ambient CG, Megascans) → photoscanned or AI-generated assets (Tripo3D: 1-4 photo input → 4K PBR output) → bevel all edges → scale verification with Rigify rig.
 - **File:** tutorials/photorealistic-renders-in-blender.md
 
 ---

@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/LssHxDCM7H4?si=WAKlvRJI_VfoW2rY
 author: InLightVFX
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: any
+tags: [compositing rendering color-management aces vfx davinci-resolve workflow intermediate advanced]
 ---
 
 # Add VFX to Cinematic RAW and LOG Footage (the right way) | ACES Part 2
@@ -47,16 +47,32 @@ Kind: captions Language: en aces is a powerful free color management pipeline th
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Full ACES pipeline for compositing VFX into RAW/LOG footage: convert footage to ACES 2065-1 in DaVinci Resolve via IDT, export as EXR, then render and composite VFX in Blender with matching ACES color setup.
 
 ### Key Steps
-[To be extracted]
+1. **DaVinci Resolve setup:** New project → Project Settings → Color Management → set Project Color Workspace to ACESccc
+2. Import LOG/RAW footage; apply IDT per clip: right-click clip → select IDT matching camera/color profile (converts to ACES 2065-1 linear)
+3. Set ODT to sRGB for preview on standard monitors
+4. Color correct only safe operations: white balance, exposure, offset/gain wheels — avoid operations that destroy linear light data
+5. Before export: **disable ODT** to ensure export is in ACES 2065-1 color space (footage will look flat/bad — this is correct)
+6. Export as **EXR (RGB Half)** — only format that stores full ACES color information
+7. **Blender setup:** Install ACES config (Mario Cazares tutorial); in Color Management, set Display Device to ACES, View Transform to sRGB, Sequencer to ACEScg
+8. Import EXR sequence as camera background plate; set its Color Space to ACES 2065-1
+9. Render VFX elements in ACEScg color space; composite over the ACES footage
+10. Final export: render out with ACES color management applied
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Color Management: Display Device → ACES; View Transform → sRGB; Sequencer → ACEScg
+- Camera background plate Color Space: ACES 2065-1
+- Use F-spy (free) for camera matching on static shots
+- DaVinci: IDT per clip (right-click), ODT for preview, disable ODT before export
+- Export: EXR RGB Half codec only
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Advanced — requires DaVinci Resolve + Blender ACES config + understanding from Part 1
+
+### Blender Version
+Any (ACES config required via Mario Cazares setup)
 
 ### Tags
-[To be added]
+compositing rendering color-management aces vfx davinci-resolve workflow intermediate advanced log raw exr camera-tracking multi-pass

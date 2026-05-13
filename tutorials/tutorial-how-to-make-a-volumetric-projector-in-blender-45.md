@@ -4,8 +4,8 @@ source: YouTube
 url: https://www.youtube.com/watch?v=F8pqNeVam54
 author: Polyfjord
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "4.5"
+tags: [lighting volume animation rendering cycles intermediate]
 ---
 
 # Tutorial: How to make a volumetric projector in Blender 4.5
@@ -43,16 +43,33 @@ Kind: captions Language: en [Music] In this tutorial, I'm going to show how to m
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Create a volumetric projector by combining a World Shader Volume Scatter fog with a Spotlight that has a video image texture assigned via Use Nodes — projecting animated patterns as god rays through the scene.
 
 ### Key Steps
-[To be extracted]
+1. Set render engine to Cycles; switch viewport to Rendered view
+2. In Shader Editor → change from Object to World; delete Background node
+3. Add Volume Scatter node → connect to World Output Volume socket; set density to ~0.1
+4. Add a Spotlight to scene; adjust light power until cone is visible
+5. Select spotlight → click "Use Nodes" in light properties to enable material nodes
+6. With emission node selected, press Ctrl+T (Node Wrangler) to auto-add Texture Coordinate + Mapping + Image Texture nodes
+7. In Image Texture node → click Open → load a video file
+8. In node side panel (N) → Node tab → click refresh icon → enable Auto Refresh for video animation
+9. Change Image Texture color space from sRGB to AGX Base sRGB for vibrant, correct colors
+10. Adjust spotlight size and aspect ratio to match the video's 16:9 ratio
 
 ### Blender Nodes / Settings
-[To be extracted]
+- **World Shader:** Volume Scatter (density ~0.1) → World Output (Volume socket)
+- **Spotlight nodes:** Emission → Texture Coordinate → Mapping → Image Texture
+- Image Texture color space: **AGX Base sRGB** (not sRGB)
+- Auto Refresh: enabled in node side panel for video playback
+- Node Wrangler addon required for Ctrl+T shortcut
+- Transform Pivot Point → 3D Cursor: rotate spotlight around scene
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate — requires basic Cycles, shader nodes, and Node Wrangler knowledge
+
+### Blender Version
+4.5
 
 ### Tags
-[To be added]
+lighting volume animation rendering cycles intermediate god-rays projector video-texture world-shader spotlight node-wrangler

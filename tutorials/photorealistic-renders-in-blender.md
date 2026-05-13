@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/J_mweAPcO4M?si=_bc3120mdobqksIE
 author: Extra 3d
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: any
+tags: [realism photorealism materials textures lighting workflow 3dscanning intermediate]
 ---
 
 # Photorealistic Renders In Blender
@@ -46,16 +46,31 @@ Kind: captions Language: en Photo realism is hard and even though I have made a 
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Comprehensive photorealism workflow: reference gathering → camera/scale setup → high-quality textures (stacked + imperfections) → photoscanned or AI-generated assets → lighting → post-processing.
 
 ### Key Steps
-[To be extracted]
+1. **References:** Collect in PureRef — general scene photos, individual assets, lighting/environment refs; include real brand details for believability
+2. **Blockout:** Place camera early; decide focal length and height; use Rigify human rig (free addon) to set proper human-scale perspective
+3. **Textures:** Use high-res textures from Polyhaven, Ambient CG, Megascans; stack multiple texture layers; add imperfections; use image-as-roughness/bump via Color Ramp
+4. **Assets:** Never use low-poly or sharp-edged models; bevel all edges (no sharp edges in real life); verify scale with Rigify rig or set exact dimensions in Item panel (in meters)
+5. **Photoscans:** Use Megascans library OR generate with AI (Tripo3D: upload 1–4 images → Ultra model → 4K textures → PBR maps → export as OBJ/FBX → import to Blender)
+6. **Imperfections:** Add fingerprints, dust, scratches, wear — the key differentiator for photorealism
+7. **Lighting:** Match reference photos; use HDRI + area lights; position carefully for shadow interest
+8. **Camera:** Depth of field, correct focal length, slight camera shake or imperfection
+9. **Post:** Color grading, subtle grain, chromatic aberration, vignette
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Texture workflow: Image Texture → Color Ramp → use as Roughness and Bump simultaneously
+- Rigify human rig for scale checking (free built-in addon)
+- Item panel dimensions (N key → Item tab) for precise object sizing in meters — scale ≠ dimensions
+- Tripo3D: external AI tool for generating photoscanned-quality models from photos
+- Megascans: free with Unreal/Fab subscription; import via Bridge or direct OBJ
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate — no single complex technique; requires mastery of multiple Blender systems together
+
+### Blender Version
+Any (workflow is version-agnostic)
 
 ### Tags
-[To be added]
+realism photorealism materials textures lighting workflow 3dscanning intermediate imperfections scale reference megascans polyhaven camera depth-of-field

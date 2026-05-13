@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/aJF2sAjRsy0?si=sF4GyRUcpJzAkv37
 author: InLightVFX
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: any
+tags: [compositing rendering color-management aces vfx theory intermediate advanced]
 ---
 
 # Add VFX into Cinematic RAW+LOG Footage (the right way) | ACES Part 1
@@ -44,16 +44,28 @@ Kind: captions Language: en as you progress as a vfx artist at some point you'll
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Conceptual foundation for the ACES color pipeline: understanding color gamut, gamma transfer functions (linear vs non-linear), and why ACES 2065-1 is the ideal working color space for VFX compositing into RAW/LOG footage.
 
 ### Key Steps
-[To be extracted]
+1. Understand color gamut: the range of colors a camera or display can capture/show, represented as a triangle on the CIE 1931 chromaticity diagram
+2. Understand that ACES 2065-1 color space encompasses the entire human visible spectrum — larger than any camera or display gamut
+3. Understand linear gamma: Blender uses linear light math by default (doubling input = doubling output), matching real-world light physics
+4. Understand non-linear gamma: human eyes perceive brightness non-linearly (more sensitive to dark changes); displays apply gamma encoding to compensate
+5. Understand why linear compositing enables multi-pass rendering (separate render passes add correctly in linear space)
+6. LOG/RAW footage uses non-linear gamma encoding to preserve dynamic range — must be transformed into ACES linear space before VFX work
+7. ACES IDT (Input Device Transform) handles converting any footage type into ACES 2065-1
+8. Note: practical workflow is in Part 2 — this video is pure theory
 
 ### Blender Nodes / Settings
-[To be extracted]
+- No specific nodes — this is a theory/conceptual video
+- Key concept: Blender renders in linear light by default → correct for multi-pass compositing
+- Follow-up: see ACES Part 2 for the actual Blender/DaVinci Resolve setup
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate — requires understanding of color theory; essential before tackling RAW/LOG VFX work
+
+### Blender Version
+Any (color theory is version-agnostic)
 
 ### Tags
-[To be added]
+compositing rendering color-management aces vfx theory intermediate advanced log raw color-gamut gamma linear workflow

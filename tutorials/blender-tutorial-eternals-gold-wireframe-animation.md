@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/WmldjCv9P84?si=8OfevIgZN31ZV4_A
 author: Blender Made Easy
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: any
+tags: [animation motion-design logo-animation curves svg wireframe brand-video beginner intermediate]
 ---
 
 # Blender Tutorial - Eternals Gold Wireframe Animation
@@ -51,16 +51,33 @@ Kind: captions Language: en hello everyone and welcome to another blender made e
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Animate a curve-based wireframe "build" effect by animating the Geometry > Mapping > Start/End values on a curve object — creating a self-drawing line animation inspired by the Eternals weapon construction scene.
 
 ### Key Steps
-[To be extracted]
+1. Import SVG logo: File → Import → SVG; box-select all and scale up significantly
+2. Select the curve → Ctrl+J to join into one curve object
+3. In curve properties → Fill Mode: None (removes face fill)
+4. Open Geometry tab → set Depth for wire thickness
+5. Ctrl+A → Apply Scale (critical — large scale causes huge bevel values)
+6. Edit Mode → press A → open N panel → reset Mean Radius to 1.0
+7. To create the build gap: select two adjacent vertices → X → Delete Segments (NOT vertices)
+8. Extrude one vertex back to close the gap at the correct starting point
+9. Keyframe Geometry > Mapping > End: value 0 at frame 0, value 1 at frame 200
+10. To reverse direction: Edit Mode → select curve → right-click → Switch Direction
+11. For separate inner/outer curves to build in opposite directions: select inner with Ctrl+L → Switch Direction
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Curve Properties → Geometry → Depth: controls wire thickness
+- Curve Properties → Geometry → Mapping → **Start / End**: animate these for the build effect
+- Fill Mode: **None** (in curve Shape section)
+- Mean Radius: reset to **1.0** in Edit Mode (N panel) after applying scale
+- Mapping mode: Resolution vs Uniform — Resolution makes speed proportional to geometry density
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner/Intermediate — no shader nodes; pure curve and animation workflow
+
+### Blender Version
+Any (tested with a version showing the Eternals film era, ~3.x)
 
 ### Tags
-[To be added]
+animation motion-design logo-animation curves svg wireframe brand-video beginner intermediate build-animation self-drawing draw-on eternals
