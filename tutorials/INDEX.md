@@ -563,6 +563,37 @@ Each entry format:
 - **Summary:** (analyze file to extract summary)
 - **File:** tutorials/blender-tutorial-connect-the-dots-with-geometry-nodes-the-pl.md
 
+
+
+### 🎞️ Procedural Grass in Blender Geometry Nodes 🌿 | Fast Viewport Setup & Optimization Tutorial
+- **Source:** YouTube
+- **URL:** https://youtu.be/8wFnzrRz0Xg
+- **Author:** RTF Dimensions
+- **Blender Version:** (check file)
+- **Tags:** (check file)
+- **Summary:** (analyze file to extract summary)
+- **File:** tutorials/procedural-grass-in-blender-geometry-nodes-fast-viewport-se.md
+
+
+### 🎞️ Procedural Grass in Blender Geometry Nodes 🌿 | Fast Viewport Setup & Optimization Tutorial
+- **Source:** YouTube
+- **URL:** https://youtu.be/8wFnzrRz0Xg
+- **Author:** RTF Dimensions
+- **Blender Version:** (check file)
+- **Tags:** (check file)
+- **Summary:** (analyze file to extract summary)
+- **File:** tutorials/procedural-grass-in-blender-geometry-nodes-fast-viewport-se.md
+
+
+### Introduction to Geometry Nodes - اتعلم اقوي اداة علي بلندر
+- **Source:** YouTube
+- **URL:** https://youtu.be/RU3VO-qb91o
+- **Author:** Tabasheer
+- **Blender Version:** (check file)
+- **Tags:** (check file)
+- **Summary:** (analyze file to extract summary)
+- **File:** tutorials/introduction-to-geometry-nodes-اتعلم-اقوي-اداة-علي-بلندر.md
+
 ---
 
 ## Tag Reference
