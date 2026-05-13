@@ -574,6 +574,17 @@ Each entry format:
 - **Summary:** (analyze file to extract summary)
 - **File:** tutorials/tutorial-how-to-make-a-volumetric-projector-in-blender-45.md
 
+
+
+### Add VFX into Cinematic RAW+LOG Footage (the right way) | ACES Part 1
+- **Source:** YouTube
+- **URL:** https://youtu.be/aJF2sAjRsy0?si=sF4GyRUcpJzAkv37
+- **Author:** InLightVFX
+- **Blender Version:** (check file)
+- **Tags:** (check file)
+- **Summary:** (analyze file to extract summary)
+- **File:** tutorials/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-par.md
+
 ---
 
 ## Tag Reference
