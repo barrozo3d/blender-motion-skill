@@ -552,6 +552,17 @@ Each entry format:
 - **Summary:** Professional mechanical robot arm rigging using IK constraints for full arm control with a single end-effector bone, per-joint rotation limits, dynamic pistons via Stretch To constraints, and a single-bone claw/gripper controller. Uses Shift+S > Cursor to Selected for precision bone placement at mechanical pivot points.
 - **File:** tutorials/your-guide-to-mechanical-rigging-in-blender-robot-arm-tutori.md
 
+
+
+### The Key to Realism in Blender (or 3D)
+- **Source:** YouTube
+- **URL:** https://youtu.be/0OVEJVbklV0?si=9fHvKcSM0pjBBy2G
+- **Author:** Kaizen
+- **Blender Version:** (check file)
+- **Tags:** (check file)
+- **Summary:** (analyze file to extract summary)
+- **File:** tutorials/the-key-to-realism-in-blender-or-3d.md
+
 ---
 
 ## Tag Reference
