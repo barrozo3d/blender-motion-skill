@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/0OVEJVbklV0?si=9fHvKcSM0pjBBy2G
 author: Kaizen
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: any
+tags: [realism photorealism 3dscanning lighting camera photoscan kiri-engine workflow beginner]
 ---
 
 # The Key to Realism in Blender (or 3D)
@@ -35,26 +35,29 @@ Kind: captions Language: en for a lot of 3D artists achieving realism is both th
 
 ## Structured Notes
 
-*Fill in manually or ask Claude to analyze:*
-> "Analyze the content of tutorials/the-key-to-realism-in-blender-or-3d.md and extract:
-> - Core Blender technique taught
-> - Step-by-step workflow
-> - Key nodes or settings
-> - Blender version
-> - Difficulty level
-> - Tags"
-
 ### Core Technique
-[To be extracted]
+Achieving photorealism through the "Triforce of 3D Realism": combining a realistic Subject (via 3D scanning), natural Lighting, and cinematic Camera work — all three pillars must work together.
 
 ### Key Steps
-[To be extracted]
+1. Understand the three pillars: Subject quality, Lighting, and Camera — all three must work together
+2. Use 3D scanning (KIRI Engine app, free tier available) instead of manual modeling to capture real-world surface detail, imperfections, and complex geometry
+3. Choose subjects with clear feature points (shape/color definition) for best scan quality; featureless objects need Pro neural surface reconstruction mode
+4. For outdoor scanning: shoot on overcast days — clouds create a natural softbox, producing even diffuse lighting with no harsh shadows
+5. For indoor scanning: use a room with abundant natural light, avoid direct sunlight, keep lighting soft, single-color, and uniform around the object
+6. Place subject on a textured background (wood/stone) with minimal clutter
+7. Import scan into Blender and integrate into scene with matching environment lighting
+8. Apply camera settings that mimic real photography: depth of field, focal length, subtle motion blur
 
 ### Blender Nodes / Settings
-[To be extracted]
+- No specific node graph — this is a workflow/conceptual guide, not a node tutorial
+- Key Blender settings implied: Depth of Field (camera properties), environment HDRI lighting, Cycles for accurate light simulation
+- 3D scan import: OBJ/FBX from KIRI Engine → Blender import, UV and texture intact
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner — conceptual framework + accessible 3D scanning workflow, no advanced Blender skills required
+
+### Blender Version
+Not specified — applies to any recent version (3.x / 4.x)
 
 ### Tags
-[To be added]
+realism photorealism 3dscanning lighting camera photoscan kiri-engine workflow beginner subject scanning-technique overcast hdri

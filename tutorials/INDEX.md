@@ -558,9 +558,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://youtu.be/0OVEJVbklV0?si=9fHvKcSM0pjBBy2G
 - **Author:** Kaizen
-- **Blender Version:** (check file)
-- **Tags:** (check file)
-- **Summary:** (analyze file to extract summary)
+- **Blender Version:** Any (3.x / 4.x)
+- **Tags:** #realism #photorealism #3dscanning #lighting #camera #workflow #beginner
+- **Summary:** Introduces the "Triforce of 3D Realism" — Subject, Lighting, Camera — as the three pillars that together produce convincing photorealism. Covers using KIRI Engine for free mobile 3D scanning to generate realistic subjects without years of modeling skill, optimal scanning conditions (overcast outdoor vs. controlled indoor lighting), and how all three forces compound.
 - **File:** tutorials/the-key-to-realism-in-blender-or-3d.md
 
 ---
