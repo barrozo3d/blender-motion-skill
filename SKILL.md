@@ -7,16 +7,52 @@ description: Analyze a photo, video frame, or render reference and generate step
 
 Analyze any visual reference (image, video frame, render) and either produce a step-by-step tutorial plan **or build the scene directly inside Blender** using the Blender MCP connection.
 
-## Three Modes
+## Modes
+
+### Mode 0 — Validate Connection
+User says "check blender connection", "is blender connected", "validate blender", or "test mcp". Run the connection check and report status. Do not proceed with any build work.
 
 ### Mode 1 — Analyze & Recreate (tutorial output)
 User provides a reference image or video frame. The skill deconstructs it and outputs a structured tutorial plan.
 
 ### Mode 2 — Build in Blender (direct execution via MCP)
-User provides a reference and says "build it" or "do it in Blender". The skill analyzes the reference, writes Python scripts, and executes them live in the user's open Blender scene via the Blender MCP server.
+User provides a reference and says "build it" or "do it in Blender". The skill analyzes the reference, writes Python scripts, and executes them live in the user's open Blender scene via the Blender MCP server. **Always run the connection check (Mode 0) before any build work.**
 
 ### Mode 3 — Ingest Tutorial
 User provides a URL (YouTube, article, documentation). The skill fetches, summarizes, and stores it as a searchable tutorial entry. **This is how the skill learns.**
+
+---
+
+## Blender MCP — Connection Validation
+
+**Run this check at the start of every Mode 2 session, and whenever the user asks to validate.**
+
+### Validation Procedure
+
+1. Call `get_scene_info` (lightweight — reads scene metadata only).
+2. **If it succeeds:** report the following and confirm connection is live:
+   ```
+   ✓ Blender MCP connected
+   Scene: [scene name]
+   Objects: [count]
+   Active object: [name or "none"]
+   ```
+3. **If it fails** (error, timeout, or tool not found): stop immediately. Do not attempt any build work. Show this checklist:
+
+   ```
+   ✗ Blender MCP not connected
+
+   Fix checklist — complete in order:
+   1. Open Blender (must be running before Claude Code)
+   2. Edit → Preferences → Add-ons → search "BlenderMCP" → enable it
+   3. Press N in the viewport → BlenderMCP tab → click "Connect"
+      Confirm it shows: "Running on port 9876"
+   4. Restart Claude Code (MCP tools only register at session start)
+   5. Run "check blender connection" again
+
+   Note: first connection after Blender opens takes ~40 seconds.
+   Blender must be open and warmed up for at least a minute.
+   ```
 
 ---
 
@@ -67,13 +103,14 @@ tree.links.new(inst.outputs["Instances"],   out_node.inputs["Geometry"])
 
 ### Build Workflow (Mode 2)
 
-1. **Get scene info** — understand what's already in the scene
-2. **Take screenshot** — see the current state
-3. **Analyze reference** — deconstruct the visual (use visual-deconstruction.md)
-4. **Plan in phases** — break the setup into 3–5 Python scripts (one per phase)
-5. **Execute phase 1** — run script, take screenshot, verify
-6. **Iterate** — fix errors, adjust values, continue to next phase
-7. **Final screenshot** — confirm result matches reference
+1. **Validate connection** — run the connection check above. Stop if it fails.
+2. **Get scene info** — understand what's already in the scene
+3. **Take screenshot** — see the current state
+4. **Analyze reference** — deconstruct the visual (use visual-deconstruction.md)
+5. **Plan in phases** — break the setup into 3–5 Python scripts (one per phase)
+6. **Execute phase 1** — run script, take screenshot, verify
+7. **Iterate** — fix errors, adjust values, continue to next phase
+8. **Final screenshot** — confirm result matches reference
 
 ### Error handling
 
@@ -209,7 +246,8 @@ Use WebFetch to retrieve the page content, then follow Steps 1–6 above manuall
 
 ## Key Rules
 
-1. **Never invent node names** — only use nodes confirmed to exist in the target Blender version
+1. **Always validate before building** — call `get_scene_info` before any Mode 2 work; report the result; stop if the connection is not live
+2. **Never invent node names** — only use nodes confirmed to exist in the target Blender version
 2. **Version-check everything** — simulation zones, certain GeoNodes, and rendering features are version-specific
 3. **Always check INDEX.md first** — the tutorial library grows with every ingest
 4. **Cite the reference files** — tell the user which technique library entry you're drawing from
