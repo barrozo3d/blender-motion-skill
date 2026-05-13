@@ -585,6 +585,17 @@ Each entry format:
 - **Summary:** (analyze file to extract summary)
 - **File:** tutorials/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-par.md
 
+
+
+### Add VFX to Cinematic RAW and LOG Footage (the right way) | ACES Part 2
+- **Source:** YouTube
+- **URL:** https://youtu.be/LssHxDCM7H4?si=WAKlvRJI_VfoW2rY
+- **Author:** InLightVFX
+- **Blender Version:** (check file)
+- **Tags:** (check file)
+- **Summary:** (analyze file to extract summary)
+- **File:** tutorials/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces.md
+
 ---
 
 ## Tag Reference
