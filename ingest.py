@@ -13,6 +13,15 @@ Supports:
 Output:
   - Creates tutorials/<slug>.md with structured content
   - Updates tutorials/INDEX.md with new entry
+  - Flags file for Claude to extract structured notes after saving
+    (extraction is done by Claude Code skill context, not this script)
+
+NOTE ON AUTO-EXTRACTION:
+After this script saves the file, the blender-motion skill automatically
+runs the extraction pass (reads transcript, fills Structured Notes section).
+This is triggered by the skill workflow in SKILL.md — not by this script directly.
+To manually trigger extraction on a file:
+  "extract notes from tutorials/<filename>.md"
 """
 
 import sys
