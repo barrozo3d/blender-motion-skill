@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/erICwexR7Iw
 author: Bad Normals
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [materials, glass, shaders, rendering, cycles, organic, abstract, geometry-nodes, intermediate]
 ---
 
 # Remake this in Blender in 20 mins
@@ -48,16 +48,37 @@ Kind: captions Language: en I was looking for web design inspiration and I've al
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Recreating an AI-generated glass flower in Blender in 20 minutes: organic sculpting from a remeshed cylinder base, creating a glass material with distance-based center glow emission using Texture Coordinate node, and capturing colored refractions for luminescent petals.
 
 ### Key Steps
-[To be extracted]
+1. Create a base mesh for sculpting: add a circle, extrude it (creating a cylinder), add a Remesh modifier for dense sculpting geometry; add a Geometry Nodes setup that blurs/smooths the disc positions.
+2. Sculpt the overall flower petal shape (large forms first); scale down a copy for the inner petals; duplicate and rotate for layered petal arrangement.
+3. For stamens: create a Bezier curve, add thickness (bevel depth), duplicate ~6-7 times and arrange.
+4. Add a background plane behind the flower (glass needs something to refract against).
+5. Create a Glass material: select all flower objects > Shader Editor > New > glass setup; Ctrl+L > Link Materials to share the material across all parts.
+6. Set Transmission to 1.0; set Roughness to 0.1 (not 0 — adds definition without looking CG); add a slight blue tint to Base Color.
+7. For distance-based glow: add Texture Coordinate node (Object mode) to get position of each surface point relative to flower center.
+8. Use a Math (Distance) or Vector Math (Length) node to get distance from center; feed through a Color Ramp to control falloff.
+9. Connect the falloff mask to the Emission Strength socket on the glass shader — center glows brighter, edges less.
+10. Adjust emission color (purple/blue inside, green outside) with Color Ramp for multi-color luminescence matching the reference.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Remesh modifier (sculpting base)
+- Geometry Nodes: Blur Attribute / smooth positions (for disc smoothing)
+- Glass BSDF / Principled BSDF: Transmission: 1.0, Roughness: 0.1, blue tint
+- Ctrl+L > Link Materials (share material across objects)
+- Texture Coordinate node (Object space)
+- Vector Math: Length (distance from center)
+- Color Ramp node (emission falloff mask)
+- Emission: color + strength (center glow)
+- Bezier curve + bevel (stamens)
+- Cycles render (for proper glass/caustics)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#materials #glass #shaders #rendering #cycles #organic #abstract #geometry-nodes #intermediate

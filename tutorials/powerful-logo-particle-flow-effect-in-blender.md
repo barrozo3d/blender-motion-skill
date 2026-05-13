@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/TTGcr-45jCE
 author: Ducky 3D
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [geometry-nodes, particles, particles-reveal, animation, logo-animation, typography, materials, shaders, motion-design, intermediate]
 ---
 
 # Powerful Logo Particle Flow Effect in Blender
@@ -42,16 +42,37 @@ Kind: captions Language: en How's it going, guys? So, today we are going to be c
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Converting text or logos into a dusty particle flow effect in Blender using Geometry Nodes' Distribute Points on Faces, then selectively displacing portions of the point cloud with two Noise Textures and Mix Vector, so parts remain readable while others disperse dramatically.
 
 ### Key Steps
-[To be extracted]
+1. Add a Text object (Shift+A > Text); type text in Edit Mode; set font, line spacing, center alignment; apply Scale (Ctrl+A) — scale affects point distribution density.
+2. In Geometry Nodes on the Text object: add Distribute Points on Faces node (Density: 10,000+); add Set Point Radius node (Radius: ~0.00009) — smaller radius looks more dustlike and enables better glow.
+3. Add Set Position node; connect a Noise Texture (Normalize: off, Color output not Factor) to the Offset socket for 3D displacement in all axes.
+4. Adjust Roughness up on the Noise Texture for a more dusty appearance.
+5. Add a Vector Math (Scale) node to control displacement strength globally.
+6. For selective displacement: add a second Noise Texture → RGB Curves node (invert/flip the curve); use its output as the Factor socket of a Mix Vector node between zero displacement and full displacement.
+7. Connect the Mix Vector output to the Offset socket — now some regions stay intact (readable text) while others flow away.
+8. Animate the overall displacement scale or the second Noise Texture's W value over time for animated reveal/dispersion.
+9. For shading: in the material, use a Noise Texture connected to a Color Ramp to color the particles procedurally (hot core, cool edges, etc.).
+10. Apply an Emission or Point shader material for a glowing particle look; render in Cycles or Eevee.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Distribute Points on Faces node (Density: 10,000+)
+- Set Point Radius node (Radius: ~0.00009)
+- Set Position node
+- Noise Texture node x2 (Normalize: off, Color output; Roughness: high)
+- Vector Math: Scale (displacement strength)
+- Mix Vector node (Factor = second noise output for selective displacement)
+- RGB Curves node (invert for mask)
+- Noise Texture in material (particle color)
+- Color Ramp node (color gradient)
+- Emission shader
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#geometry-nodes #particles #particles-reveal #animation #logo-animation #typography #materials #shaders #motion-design #intermediate

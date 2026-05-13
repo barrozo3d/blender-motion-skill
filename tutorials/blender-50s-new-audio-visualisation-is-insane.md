@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/YOx9me2MnGA
 author: MTR Animation
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "5.0"
+tags: [geometry-nodes, simulation, animation, smoke-fire, volume, motion-design, blender-5x, intermediate]
 ---
 
 # Blender 5.0's NEW Audio Visualisation is INSANE!
@@ -49,16 +49,35 @@ Kind: captions Language: en Audio visualization is everywhere like festivals or 
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Building a music-reactive smoke simulation in Blender 5.0 by using the Graph Editor's Sound to Samples feature to drive an Empty's Z location from an audio file, then using that Empty as a force controller for a Geometry Nodes volume/smoke simulation.
 
 ### Key Steps
-[To be extracted]
+1. Import royalty-free audio (e.g., 15-second Electro House track from Epidemic Sound) for use in the visualizer.
+2. Add an Empty (Shift+A > Empty > Plane Axis); insert a Location keyframe (K) on its Z axis.
+3. Split the screen to show the Graph Editor; remove X and Y location curves, keeping only Z.
+4. In the Graph Editor: select Z Location > Channel > Sound to Samples; choose the audio file; make sure timeline cursor is at frame 1 before running.
+5. Extend the End Frame (e.g., 350) to cover the full audio length.
+6. Convert the audio-driven graph to individual keyframes: Channel > Samples to Keys.
+7. Select all keyframes (A), scale on Y axis (S + Y) to exaggerate amplitude, then move down (G + Y) so beats jump from zero upward (peaks at ~5).
+8. Import audio into Blender's Video Sequencer: Shift+A > Sound; set start frame to 1; assign sequencer to scene.
+9. Use the Empty's Z value to drive the smoke simulation parameters in Geometry Nodes using the new Grid Nodes for volumetric simulation.
+10. Set up lighting and rendering for the final audio-reactive smoke visualization.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Empty (Plane Axis type) — Z Location as controller
+- Graph Editor: Sound to Samples (Channel menu)
+- Graph Editor: Samples to Keys (Channel menu)
+- Keyframe scaling: S + Y (amplitude), G + Y (offset)
+- Video Sequencer: Sound import, assign to scene
+- Geometry Nodes Grid Nodes (Blender 5.0 volume grid)
+- Simulation Zone with volumetric smoke
+- End Frame: 350
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate
+
+### Blender Version
+5.0
 
 ### Tags
-[To be added]
+#geometry-nodes #simulation #animation #smoke-fire #volume #motion-design #blender-5x #intermediate

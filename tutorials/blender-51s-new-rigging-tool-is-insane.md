@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/NwYZ1QKQhx0
 author: MTR Animation
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "5.1"
+tags: [rigging, geometry-nodes, animation, particles, procedural, blender-5x, intermediate, advanced]
 ---
 
 # Blender 5.1's NEW Rigging Tool is INSANE!
@@ -90,16 +90,34 @@ Timestamps:
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Using Blender 5.1's new Bone Info Node to bridge Geometry Nodes and armature rigging, replacing bones with procedurally scattered geometry (rocks, spikes, leaves) that follow the rig — demonstrated by building a golem character.
 
 ### Key Steps
-[To be extracted]
+1. Generate a Rigify rig for the character (add armature, generate Rigify rig from the armature).
+2. Set up a Geometry Nodes modifier on the mesh object.
+3. Use the Bone Info Node to read a single bone's head/tail positions, length, and rotation from the armature.
+4. Replace one bone visually with a Mesh Line (head to tail positions) to prototype the workflow.
+5. Extend the setup to replace all bones with Mesh Lines driven by Bone Info Nodes.
+6. Convert Mesh Lines to Curves for each bone segment.
+7. Use Sample Curve or Distribute Points on Curves to scatter rock instances along each curve/bone.
+8. Scatter spike instances on top of the rock instances for layered detail.
+9. Scatter leaf instances on the rocks for organic variety.
+10. Fix armature parenting issues; attach the head object to the armature; pose the character and add lighting for the final render.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Bone Info Node (Blender 5.1 — reads head/tail/length/rotation of named bones)
+- Mesh Line node (from bone head to tail positions)
+- Curve from Mesh Line
+- Distribute Points on Curves node
+- Instance on Points node
+- Rigify rig (armature generation)
+- Sample Curve node
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Advanced
+
+### Blender Version
+5.1
 
 ### Tags
-[To be added]
+#rigging #geometry-nodes #animation #particles #procedural #blender-5x #intermediate #advanced

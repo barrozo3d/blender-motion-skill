@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/ZmoL0Wa5n0Y
 author: NextFrameSaga
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "4.x"
+tags: [geometry-nodes, procedural, materials, shaders, rendering, cycles, eevee, motion-design, blender-4x, beginner]
 ---
 
 # Blender Geometry Nodes – Sci-Fi Cube Creation (Step-by-Step Tutorial) #Blender
@@ -71,16 +71,32 @@ Tips for lighting and final rendering
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Creating a fully procedural sci-fi glowing cube grid in Blender 4.x using Geometry Nodes to distribute, instance, and scale cubes, combined with emission and metallic materials for a futuristic look.
 
 ### Key Steps
-[To be extracted]
+1. Set up a Geometry Nodes modifier on a base mesh object.
+2. Distribute points in a grid pattern using the Distribute Points on Faces or Mesh Grid node.
+3. Instance cube objects on the distributed points using an Instance on Points node.
+4. Procedurally control the scale of each instance (e.g., using a Noise Texture or Random Value to vary heights).
+5. Add emission and metallic materials to the instanced cubes for a sci-fi glow effect.
+6. Adjust node values iteratively to find an appealing futuristic arrangement.
+7. Set up lighting suited to showcase the glowing material.
+8. Render in Cycles or Eevee.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Distribute Points on Faces node (or Mesh Grid)
+- Instance on Points node
+- Random Value node (scale variation)
+- Noise Texture node (procedural scale variation)
+- Emission material (glow effect)
+- Metallic material (sci-fi look)
+- Cycles / Eevee render engines
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+4.x
 
 ### Tags
-[To be added]
+#geometry-nodes #procedural #materials #shaders #rendering #cycles #eevee #motion-design #blender-4x #beginner

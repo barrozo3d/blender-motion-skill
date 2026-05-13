@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/IgpUXXg2Vbs
 author: JB 3D Studio
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "4.4"
+tags: [animation, rigging, rendering, materials, camera, blender-4x, beginner, intermediate]
 ---
 
 # The COMPLETE BLENDER 3D Animation COURSE (5+ HOURS) #blender #b3d #animation
@@ -52,16 +52,34 @@ Kind: captions Language: en Hi, and welcome to the Blender 3D animation course. 
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Complete 5-hour Blender 4.4 animation course covering the full production pipeline: basics, the 12 Principles of Animation (basketball project), robot modeling and rigging, scene setup, animation, texturing, and final rendering.
 
 ### Key Steps
-[To be extracted]
+1. Module 1-2: Download and install Blender 4.4; learn the interface (3D viewport, timeline, properties panel); basic navigation (Numpad views, G/R/S transforms).
+2. Module 2: Blender basics for animation: keyframing (I key), timeline, F-curves introduction; basic mesh editing (Loop Cuts Ctrl+R, Extrude E, Inset I).
+3. Module 3: Advanced animation concepts: the Graph Editor, interpolation modes (Bezier, Linear), dope sheet management.
+4. Module 4: 12 Principles of Animation — applied to a bouncing basketball: Squash & Stretch, Anticipation, Staging, Follow Through, Overlapping Action, Arcs, Ease In/Out, Secondary Action, Timing, Solid Drawing, Appeal, Straight Ahead/Pose to Pose.
+5. Module 5: Model a robot character: low-poly hard-surface modeling techniques, edge loops, modifiers.
+6. Module 6: Rig the robot: armature setup, bone parenting, IK (Inverse Kinematics) constraints, weight painting.
+7. Module 7: Storyboarding and scene planning.
+8. Module 8: Scene and environment setup: lighting, background, camera placement.
+9. Module 9: Animating the robot scene with all principles applied; breaking the glass capsule effect.
+10. Final render: output animation as video with correct render settings.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Timeline + Dope Sheet (keyframe management)
+- Graph Editor (F-curve editing, Bezier interpolation)
+- Armature + IK Constraint (robot rigging)
+- Weight Painting (bone influence)
+- Keyframe insertion: I key (Location/Rotation/Scale/All)
+- 12 Principles of Animation (Squash/Stretch, Ease In/Out, Arcs, etc.)
+- Render Properties (video output settings)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+4.4
 
 ### Tags
-[To be added]
+#animation #rigging #rendering #materials #camera #blender-4x #beginner #intermediate

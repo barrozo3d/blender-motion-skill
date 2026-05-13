@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/_7N7emOvDko
 author: SharpWind
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [compositing, rendering, materials, shaders, beginner, intermediate]
 ---
 
 # A FULL Blender Compositor Course!
@@ -49,16 +49,35 @@ Kind: captions Language: en What is the Blender compositor? In short, it's all o
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Comprehensive guide to Blender's node-based compositor system, covering post-processing workflows from basic brightness/contrast adjustments to using render passes and masks for advanced image compositing.
 
 ### Key Steps
-[To be extracted]
+1. Open the Compositor tab; enable Use Nodes to get the Render Layers and Composite output nodes.
+2. Enable the Node Wrangler add-on; use Ctrl+Shift+Click on any node to preview its output via a Viewer node.
+3. Hide the backdrop (click Backdrop button) and split the window — change one panel to UV Editor and set it to display the Viewer node for a live preview of compositing changes.
+4. Add nodes via Shift+A or the Add menu and use the search function to find nodes quickly.
+5. Insert a Brightness/Contrast node between the Render Layers and Composite nodes to adjust overall image tone.
+6. Add a Color Ramp node connected to the render output to create grayscale masks where black = 0 (no effect) and white = 1 (full effect).
+7. Plug Color Ramp output into parameter inputs of other nodes (e.g., Brightness input) to apply non-uniform, spatially-varying adjustments.
+8. Use Render Passes (enable in Render Properties > View Layer) to separate the image into diffuse, specular, shadow, and other components for individual processing.
+9. Combine processed passes back using Add or Mix nodes to reconstruct the final composite.
+10. Use the Composite node as the final output and the Viewer node for monitoring intermediate results.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Render Layers node
+- Composite node (final output)
+- Viewer node (Ctrl+Shift+Click via Node Wrangler)
+- Brightness/Contrast node
+- Color Ramp node (grayscale masking, 0=black, 1=white)
+- Mix node / Add node
+- Node Wrangler add-on (required)
+- UV Editor set to Viewer Node display
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#compositing #rendering #materials #shaders #beginner #intermediate

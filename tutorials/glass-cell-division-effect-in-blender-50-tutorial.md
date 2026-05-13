@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/XOLuYDLYEgI
 author: Ducky 3D
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "5.0"
+tags: [geometry-nodes, simulation, glass, materials, shaders, animation, motion-design, abstract, blender-5x, intermediate]
 ---
 
 # Glass Cell Division Effect in Blender 5.0 (tutorial)
@@ -46,16 +46,38 @@ Kind: captions Language: en How's it going, guys? In this tutorial, we're going 
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Creating a metaball-style cell division animation in Blender 5.0 using the new SDF Grid nodes (Points to SDF Grid and Grid to Mesh) to generate smooth organic blob geometry from animated point clouds, then applying a RGB glass dispersion material.
 
 ### Key Steps
-[To be extracted]
+1. Start with an empty Geometry Nodes setup on any geometry; delete the Group Input; add an Icosphere as the container shape.
+2. Convert the Icosphere to a volume using Mesh to Volume node; then Distribute Points in Volume node for the metaball center points.
+3. Animate the points: add Set Position node; feed it a Noise Texture (4D mode, scale ~2) through a Vector Math (Scale) node; click Normalize on the vector math; this animates the blobs' positions over time.
+4. Reduce point count for manageable performance.
+5. Convert animated points to SDF Grid: add Points to SDF Grid node — this is the Blender 5.0 new workflow replacing the old instances→volume pipeline.
+6. Convert SDF Grid back to mesh: add Grid to Mesh node — produces smooth metaball-like geometry much more efficiently than previous methods.
+7. Reduce voxel size (e.g., 0.03) for higher polygon detail.
+8. Fix geometry artifacts: add Set Shade Smooth node; then add the Smooth Geometry group node (double-clickable: internally uses Blur Attribute + Set Position); increase iterations to smooth circular boundary artifacts.
+9. Create a beautiful RGB glass dispersion material in Cycles with Transmission weight, Roughness: 0, and dispersion/IOR variation.
+10. Set up background and lighting for the final animated render.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Mesh to Volume node
+- Distribute Points in Volume node
+- Set Position node
+- Noise Texture node (4D mode)
+- Vector Math: Scale, Normalize
+- Points to SDF Grid node (Blender 5.0 new node)
+- Grid to Mesh node (Blender 5.0 new node)
+- Voxel Size: ~0.03 (for detail)
+- Set Shade Smooth node
+- Smooth Geometry group node (built-in Blender 5.0 group)
+- Principled BSDF: Transmission weight, Roughness: 0, IOR variation for dispersion
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate
+
+### Blender Version
+5.0
 
 ### Tags
-[To be added]
+#geometry-nodes #simulation #glass #materials #shaders #animation #motion-design #abstract #blender-5x #intermediate

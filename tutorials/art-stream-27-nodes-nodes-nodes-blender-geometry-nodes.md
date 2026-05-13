@@ -4,8 +4,8 @@ source: YouTube
 url: https://www.youtube.com/live/7FdfSKOkzXg
 author: Midge "Mantissa" Sinnaeve
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [geometry-nodes, particles, volume, procedural, abstract, intermediate, advanced]
 ---
 
 # Art Stream #27: Nodes, nodes, nodes! [Blender / Geometry Nodes]
@@ -26,12 +26,12 @@ Go listen to our EP! https://open.spotify.com/artist/75VNDP9SUFELIRIcvztV5m
 
 PC specs because people always ask: Core Ultra 7 265K, 96GB RAM, RTX 3090
 
-For more of my stuff find me here:
-
+For more of my stuff find me here:
+
 Website: https://mantissa.xyz/
 Mastodon: https://mastodon.art/@mantissa
 Bluesky: https://bsky.app/profile/mantissa.bsky.social
-Instagram: https://www.instagram.com/mantissa.xyz
+Instagram: https://www.instagram.com/mantissa.xyz
 X: https://www.x.com/t
 
 ---
@@ -54,16 +54,36 @@ Kind: captions Language: en Hello. How are you all doing tonight? Hope you're we
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Live art stream exploring procedural nebula creation in Geometry Nodes by distributing points in a Volume Cube and using iterated/repeated noise texture offsets to generate organic space nebula shapes.
 
 ### Key Steps
-[To be extracted]
+1. Start with a Volume Cube node; add a Distribute Points in Volume node with a density of ~1000 to scatter points.
+2. Add a Noise Texture node; connect its output as a position offset via a Set Position node to displace the point cloud.
+3. Uncheck Normalize on the Noise Texture to get offsets in all directions for more natural spread.
+4. To get nebula tendrils, scale the noise vector before input; simple scaling alone doesn't produce nebula feel even at high scales.
+5. Use a Repeat Zone (loop) on the noise offset: run the noise offset through multiple iterations (repeat a few times) and reduce scale — this creates layered, tendril-like nebula formations.
+6. Switch the noise to 4D mode; scrub the W value to explore different nebula shapes in real time.
+7. Reduce the point radius to achieve finer nebula texture.
+8. Experiment with converting points to volume (Points to Volume node) then back to mesh (Volume to Mesh node) for a smoother blob-like nebula.
+9. Use Set Position followed by a Blur Attribute node to smooth out the resulting mesh positions for a soft nebula surface.
+10. Iterate on scale, repeat count, and W value interactively for real-time design exploration.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Volume Cube node
+- Distribute Points in Volume node (Density: ~1000)
+- Noise Texture node (4D mode, Normalize unchecked, W value for variation)
+- Set Position node
+- Repeat Zone (loop iterations for layered noise)
+- Points to Volume node
+- Volume to Mesh node
+- Blur Attribute node (smoothing mesh positions)
+- Point radius adjustment
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#geometry-nodes #particles #volume #procedural #abstract #intermediate #advanced

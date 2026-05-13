@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/KnYGp58REUk
 author: Ahad Animates
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [cloth, simulation, animation, rendering, beginner, intermediate]
 ---
 
 # Realistic Cloth Physics in Blender – Full Tutorial
@@ -118,16 +118,34 @@ Main Topics:
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Insufficient transcript — video may not have captions. Based on description: step-by-step cloth simulation setup in Blender, covering cloth modifier settings, collision objects, and achieving smooth natural fabric movement.
 
 ### Key Steps
-[To be extracted]
+1. Create a plane mesh as the cloth object; add geometry for enough resolution to simulate properly.
+2. Add Cloth modifier (Physics Properties > Cloth) to the plane.
+3. Adjust cloth settings: Quality Steps, Mass, Stiffness, Damping for realistic fabric behavior.
+4. Create a collision object (e.g., sphere or table); add Collision modifier to it.
+5. Run the simulation (Play) and observe cloth interaction with the collision object.
+6. Pin groups: select vertices to pin (vertex group) and assign them in the Cloth Shape section to hold part of the cloth in place.
+7. Bake the simulation for reliable playback (Physics > Cloth Cache > Bake).
+8. Apply a fabric material (Principled BSDF with appropriate roughness and normal map).
+9. Adjust Self Collision settings to prevent cloth from passing through itself.
+10. Render the final cloth animation.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Cloth modifier (Physics Properties > Cloth)
+- Quality Steps, Mass, Stiffness, Damping settings
+- Collision modifier (on collision objects)
+- Cloth Shape: Pin Group (vertex group)
+- Self Collision settings
+- Cloth Cache: Bake
+- Principled BSDF (fabric material)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#cloth #simulation #animation #rendering #beginner #intermediate

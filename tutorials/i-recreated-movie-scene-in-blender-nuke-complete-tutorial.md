@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/iW6WF8guDMY
 author: MISSING PIXEL VFX
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [rendering, compositing, animation, camera, lighting, materials, intermediate, advanced]
 ---
 
 # I Recreated movie scene in Blender & Nuke | Complete  Tutorial
@@ -44,16 +44,36 @@ Kind: captions Language: en Hello friends, welcome back. Today we are going to r
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Complete VFX pipeline tutorial recreating a Kong: Skull Island-style cinematic shot in Blender and Nuke using free Sketchfab assets, Mixamo animation retargeting, large-scale scene setup with a 700m camera-to-subject distance, and final compositing in Nuke.
 
 ### Key Steps
-[To be extracted]
+1. Download free assets from Sketchfab: Kong model (FBX, ~6MB) and Apache helicopter (GLTF); import into Blender and fix textures (fur alpha, body texture, normal maps).
+2. Fix Kong model: hide fur; Tab into Edit Mode; P > By Loose Parts to separate; delete armor pieces; Alt+H to restore; fix fur texture Color Ramp to darken slightly.
+3. Connect helicopter blade as separate object with an Empty parent for independent blade rotation control (animated rotation for spinning blades).
+4. Animate Kong in Mixamo: upload character, search "stand up" animation; adjust arm space parameter; download at 30FPS (BVH).
+5. Import animated character back into Blender; scale Kong to ~80m tall (use Measure tool to verify).
+6. Position camera ~700m from character (long lens = cinematic telephoto compression); set up camera framing.
+7. Set up scene lighting: atmospheric fog/volume, dramatic backlit mood to create silhouette effect (character mostly silhouette, minimal texture detail needed).
+8. Set up helicopter flight path animation with keyframes.
+9. Render in Blender with multi-pass render outputs (diffuse, specular, shadow passes) for Nuke compositing.
+10. Composite in Nuke: assemble passes, add atmospheric effects, color grade for cinematic Kong: Skull Island feel.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Image Texture nodes (fur, body, normal map textures)
+- Color Ramp node (fur darkening)
+- Empty parent (helicopter blade rotation control)
+- Measure tool (80m character scale verification)
+- Volume Scatter (atmospheric fog)
+- Camera: long lens (~300–400mm equivalent for telephoto compression)
+- Mixamo: animation retargeting, arm space parameter
+- Multi-pass rendering for Nuke compositing
+- Ctrl+J (join meshes)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Advanced
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#rendering #compositing #animation #camera #lighting #materials #intermediate #advanced

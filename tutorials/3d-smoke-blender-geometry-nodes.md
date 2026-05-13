@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/Vqe4jBf3wx4
 author: Seanterelle
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "5.0"
+tags: [geometry-nodes, simulation, smoke-fire, volume, blender-5x, advanced]
 ---
 
 # 3D Smoke (Blender Geometry Nodes)
@@ -40,16 +40,36 @@ Kind: captions Language: en Hello everybody and welcome to this geometry nodes t
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Creating a physically-based 3D smoke simulation in Blender 5.0 using Geometry Nodes volume grid nodes, implementing velocity, divergence, pressure, and density fields within a simulation zone to enforce fluid incompressibility.
 
 ### Key Steps
-[To be extracted]
+1. Create a simulation domain using a subdivided cube; set up global parameters in a dedicated node group for solver resolution (e.g., 64) and smoke resolution (e.g., 256).
+2. Create the initial volume using the Volume Cube node with min/max bounds from the parameters node group.
+3. Voxelize the volume grid using the Voxelize node to ensure all voxels are available for divergence/pressure calculations (disables OpenVDB memory optimization during simulation).
+4. Initialize additional grids — velocity (vector), divergence (float), pressure (float) — using Field to Grid nodes sharing the same voxelized topology.
+5. Add the smoke density grid at a higher resolution (smoke resolution) than the solver grid for more visual detail without proportional simulation cost.
+6. Set up the Simulation Zone with inputs and outputs; implement velocity advection, divergence calculation, and pressure projection inside the zone.
+7. Run at low solver resolution (32–64) to prototype interactively; bake at high smoke resolution (128–256) for final detail.
+8. Add post-processing after the simulation zone to remove unnecessary grids, improving memory efficiency of baked output.
+9. Use M (mask) to toggle baked output and compare low vs. high resolution results.
+10. Render using Blender 5.0's volume rendering with an emitter object (e.g., Suzanne) as the smoke source.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Volume Cube node
+- Voxelize node
+- Field to Grid node (creates grids from topology)
+- Simulation Zone (simulation input/output nodes)
+- Store Named Attribute node
+- Parameters node group (global values via Ctrl+H to hide/show outputs)
+- Solver Resolution: 64 (interactive), Smoke Resolution: 128–256 (final)
+- Bake node (M to mask/unmask)
+- Bounds: -2 to +2
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Advanced
+
+### Blender Version
+5.0
 
 ### Tags
-[To be added]
+#geometry-nodes #simulation #smoke-fire #volume #blender-5x #advanced

@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/RQvTplfsz8k
 author: Rob Tuytel
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "5.0"
+tags: [materials, rendering, cycles, eevee, lighting, hdri, beginner, blender-5x]
 ---
 
 # Blender 5 Beginner Tutorial - Part 2 - Materials and rendering
@@ -53,16 +53,34 @@ Kind: captions Language: en and welcome to part two. In this part, we focus on m
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Beginner introduction to Blender 5 materials and rendering, covering the difference between Eevee and Cycles render engines, adding and configuring PBR materials with textures, UV mapping, and lighting a scene with a Sun lamp in Cycles.
 
 ### Key Steps
-[To be extracted]
+1. Open Render Properties and compare render engines: Workbench (modeling preview), Eevee (real-time, default), and Cycles (path-tracing, physically accurate).
+2. In Eevee: switch to Material Preview mode to see materials without render; switch to Rendered mode to see full Eevee lighting with lamp contribution.
+3. Enable Ray Tracing in Eevee settings for more realistic light bouncing and environment reflections.
+4. Switch render engine to Cycles; understand that noise is normal — it clears up with more samples.
+5. Delete the default Point lamp; add a Sun Light (Add > Light > Sun) for directional outdoor lighting that maintains constant intensity regardless of distance.
+6. In front view (Numpad 1) or top view, rotate the Sun lamp (R) to set shadow direction; return to camera view (Numpad 0) to judge angle.
+7. Set Sun Light Intensity to 10 for strong directional light to fill the factory/interior scene.
+8. In Render Properties, increase samples for less noise; enable Denoising for Cycles.
+9. Add a material to an object: select object > Material Properties (sphere icon) > New; set base color and other PBR parameters.
+10. Work with UV maps for texture-mapped materials on complex geometry.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Render Engines: Workbench, Eevee, Cycles
+- Eevee: Ray Tracing (enable for reflections)
+- Cycles: Denoising, Samples
+- Sun Light: Intensity 10
+- Material Properties panel (sphere icon)
+- UV Maps
+- Material Preview mode vs. Rendered mode
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+5.0
 
 ### Tags
-[To be added]
+#materials #rendering #cycles #eevee #lighting #hdri #beginner #blender-5x

@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/FYJb10NIMH8
 author: Max Hay
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [lighting, hdri, volume, rendering, cycles, eevee]
 ---
 
 # 3 Easy Lighting Setups | Blender Tutorial
@@ -46,16 +46,32 @@ Kind: captions Language: en In this one, I'm going to show you three easy lighti
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Three practical lighting setups for Blender environments: dramatic spotlights with volume scatter atmosphere, outdoor sunlight, and dark futuristic emissive/reflective scenes.
 
 ### Key Steps
-[To be extracted]
+1. Add a Volume Scatter material on a cube covering the entire scene to create atmospheric depth; set Display As Bounds in object properties.
+2. Place a main Spotlight as the primary driver (around 80% of total scene lighting); increase Light Radius to soften shadows rather than adjusting spot size.
+3. Narrow the Spot Size for dramatic beam effects; add an Area Light as a fill light just above the scene to reveal detail in pitch-black areas without washing out highlights.
+4. Duplicate the main spotlight and aim it at secondary areas of interest for additional pockets of light.
+5. Add a rim-fill spotlight at a low angle; in Object Properties > Visibility > Ray Visibility, uncheck Volume Scatter so it doesn't cast a visible cone in the volume while still illuminating surfaces.
+6. In the Shader Editor, click a light, enable Use Nodes, then add a Light Falloff node to control how quickly light intensity drops with distance.
+7. For outdoor sunlight setup: use a Sun Light; rotate it to control shadow direction and increase intensity (e.g., 10) for strong directional light.
+8. For dark futuristic renders: rely on emissive materials and reflective surfaces combined with minimal fill lighting.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Volume Scatter (material on bounding cube)
+- Spotlight: Light Radius (shadow softness), Spot Size (beam angle)
+- Area Light (fill light)
+- Object Properties > Visibility > Ray Visibility > Volume Scatter (checkbox)
+- Shader Editor > Use Nodes (on lights)
+- Light Falloff node
+- Sun Light with Intensity: 10
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#lighting #volume #rendering #cycles #eevee #hdri

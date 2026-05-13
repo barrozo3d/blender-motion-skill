@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/qrYmDg0HpYI
 author: Ryan King Art
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [geometry-nodes, typography, animation, procedural, particles-reveal, beginner, intermediate]
 ---
 
 # Create Text in Geometry Nodes! (Blender Tutorial)
@@ -51,16 +51,35 @@ Kind: captions Language: en In this Blender tutorial, I'll show you how to creat
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Creating and animating text entirely within Geometry Nodes using the String to Curves node, covering typography controls, extrusion, wireframe effects, and per-letter random transforms and particle animations.
 
 ### Key Steps
-[To be extracted]
+1. Add a cube as the host object; open Geometry Nodes workspace and click New; disconnect the Group Input from the output (don't use the original cube geometry).
+2. Shift+A > Utilities > Text > String to Curves; plug Curve Instances into the Group Output geometry socket.
+3. Type text in the String field; set Size and load a custom font file (e.g., from 1001fonts.com) via the font file picker.
+4. Open text settings: set Alignment to Center, Vertical Alignment to Middle, Pivot Point to Midpoint for animation pivoting.
+5. Adjust Spacing (character spacing, word spacing, line spacing); use Text Box Overflow and Width to control line wrapping.
+6. Add thickness: use a Fill Curve node then an Extrude Mesh node on the filled text.
+7. Create a wireframe effect: use a Wireframe node on the filled text geometry.
+8. For per-letter random transforms: use an Instance on Points approach with Random Value nodes driving Scale, Rotation, and Location on each letter instance.
+9. For animated particle reveal: use a combination of Distribute Points on Faces and Instance on Points with a time-based mask.
+10. For bubbly animated text: keyframe random Location, Rotation, and Scale values changing per letter using Index-based random seeds driven by the current frame.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- String to Curves node (String input, Size, Font file, Alignment, Pivot Point)
+- Fill Curve node
+- Extrude Mesh node (thickness)
+- Wireframe node
+- Instance on Points node
+- Random Value node (per-letter variation)
+- Text Box settings: Overflow, Width, Character/Word/Line Spacing
+- Distribute Points on Faces node
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#geometry-nodes #typography #animation #procedural #particles-reveal #beginner #intermediate

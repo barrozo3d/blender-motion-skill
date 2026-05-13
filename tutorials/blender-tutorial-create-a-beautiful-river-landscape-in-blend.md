@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/csvduOcQpIw
 author: Fattu Tutorials
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [materials, displacement, rendering, cycles, lighting, hdri, organic, beginner]
 ---
 
 # Blender  Tutorial - Create a Beautiful River Landscape in Blender | Free Addon
@@ -63,16 +63,28 @@ Facebook: https://www.facebook.com/Fattu-Tutorials-237567819766368/
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Insufficient transcript — video may not have captions. Based on description: creating a river landscape in Blender using the free Biome Reader add-on for vegetation and environment scattering.
 
 ### Key Steps
-[To be extracted]
+1. Install and enable the free Biome Reader add-on.
+2. Create a terrain/landscape mesh as the base for the scene.
+3. Shape and sculpt the terrain to include a river channel.
+4. Apply water/river materials with appropriate transparency and displacement.
+5. Use the Biome Reader add-on to scatter vegetation (trees, grass, rocks) across the landscape.
+6. Set up HDRI or sun lighting for outdoor rendering.
+7. Adjust render settings (likely Cycles) for final output.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Biome Reader add-on (free, for vegetation scattering)
+- Displacement (terrain shaping)
+- Water/river material (transparency, normal maps)
+- HDRI lighting
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#materials #displacement #rendering #cycles #lighting #hdri #organic #beginner

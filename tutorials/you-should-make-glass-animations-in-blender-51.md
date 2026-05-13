@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/vemW4ceygRg
 author: Ducky 3D
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "5.1"
+tags: [glass, animation, materials, shaders, motion-design, abstract, rendering, cycles, blender-5x, intermediate]
 ---
 
 # You Should Make Glass Animations in Blender 5.1
@@ -44,16 +44,36 @@ Kind: captions Language: en How's it going, guys? Today, I'm going to talk about
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Six glass animation design patterns in Blender 5.1: using transparent glass objects (spheres, ribbed panels, disks) as magnifying lenses over animated emissive textures (Wave, Noise, Color Ramp) placed beneath them — with no lights, letting the textures themselves be the light source.
 
 ### Key Steps
-[To be extracted]
+1. Core concept: all animations use glass geometry placed above an emissive texture plane; the glass refracts/bends the texture into beautiful highlights with zero lights in the scene.
+2. Animation 1 (interlocking spheres): Array modifier × 2 (X and Y directions with offset) to create a grid of spheres; no Geometry Nodes needed; Wave Texture (large scale, high Distortion, Phase Offset animation) on the emissive plane below.
+3. Wave Texture settings: Scale ~0.7 for good variation; animate Phase Offset for movement; W animation for secondary variation.
+4. Animation 2 (ribbed glass): Use a thick plane with a full Bevel modifier (not wave-displaced) for the ribbed glass look; Array modifier for the ribbed grid; Noise Texture + Color Ramp (B-Spline interpolation, two black control points at edges) on the emissive plane; squish the Mapping to complement the ribs.
+5. Emissive plane distance matters: too close = flat look; slightly below the glass = beautiful refraction spots; too far = muddy.
+6. Color Ramp tips: use B-Spline mode for smooth transitions; two black points to control the dark range; Detail: 0 for clean noise.
+7. Animate the emissive texture W value (Noise 4D mode) for time-varied organic movement.
+8. Material setup: glass objects get Transmission: 1.0, Roughness: 0.1 (Principled BSDF); emissive plane gets Emission shader + texture.
+9. Render in Cycles for accurate glass refraction and caustics.
+10. Scale consideration: smaller texture scale = larger features = more dramatic bending; adjust to taste.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Array modifier (×2, X and Y axes with offset, for sphere/rib grids)
+- Bevel modifier (thick ribbed glass, full bevel)
+- Principled BSDF: Transmission: 1.0, Roughness: 0.1 (glass)
+- Emission shader (no lights — texture is the light)
+- Wave Texture (Scale ~0.7, Distortion high, Phase Offset animated)
+- Noise Texture (4D mode, Detail: 0, W animated)
+- Color Ramp (B-Spline mode, two black edge points)
+- Mapping node (squish texture to complement ribs)
+- Cycles render engine
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate
+
+### Blender Version
+5.1
 
 ### Tags
-[To be added]
+#glass #animation #materials #shaders #motion-design #abstract #rendering #cycles #blender-5x #intermediate

@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/upUPrc35DYw
 author: Max Hay
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [animation, motion-design, camera, compositing, rendering, materials, shaders, intermediate]
 ---
 
 # How I Built This Gate Animation in Blender | Scene Breakdown
@@ -43,16 +43,34 @@ Kind: captions Language: en In this video, I'm going to show you a quick breakdo
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Breaking down and teaching a sci-fi gate opening animation in Blender using location keyframes, the Graph Editor for precise timing control, Mirror modifier for symmetrical animation, and layered emissive/wireframe textures for a complex futuristic visual.
 
 ### Key Steps
-[To be extracted]
+1. Model interlocking puzzle-piece gate geometry blocks; apply Mirror modifier on the Z-axis so animating one side automatically mirrors the other.
+2. Open the Graph Editor (switch Timeline to Graph Editor mode) for visual keyframe editing with curves.
+3. Insert location keyframe at frame 20 (K > Location) for the starting position of each gate piece.
+4. Move forward N frames; move the piece to its extended position; insert another location keyframe.
+5. Set interpolation mode to Bezier (smooth ease in/out) for all keyframes.
+6. Stagger keyframe timings for different gate pieces to create a sequential opening choreography.
+7. Add pauses: insert a holding keyframe at the same position to pause movement, then a keyframe later to resume.
+8. Repeat the same simple keyframing approach for all gate layers — complexity emerges from repetition and staggering.
+9. Overlay wireframe objects with red emissive grid textures on top of the gate geometry for the sci-fi grid effect (red grid lines).
+10. Add particles and lighting; finalize textures and render the animation.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Mirror modifier (Z-axis, real-time mirroring during animation)
+- Graph Editor (keyframe curve editing)
+- Location keyframes (K > Location)
+- Bezier interpolation (smooth ease in/out)
+- Emissive material (red wireframe grid texture)
+- Wireframe overlay (on duplicate objects)
+- Particle system (accent details)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#animation #motion-design #camera #compositing #rendering #materials #shaders #intermediate

@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/4ULxB4PzbAc
 author: Graphical Ninja
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [rigid-body, simulation, particles, smoke-fire, animation, rendering, compositing, advanced]
 ---
 
 # Superhero Landing Tutorial 02 | Ground Destruction VFX in Blender
@@ -53,16 +53,37 @@ Kind: captions Language: en foreign [Music] [Applause] welcome to part two of my
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Creating superhero ground-destruction VFX in Blender combining Cell Fracture rigid body simulation (with a Force Field strength keyframed at the landing moment), a particle system for flying debris chunks, and a smoke simulation for dust trails — with speed ramping for slow-motion effect.
 
 ### Key Steps
-[To be extracted]
+1. Add a road surface plane; cut out a center section (Tab > Edit Mode > Loop Cuts); P > Separate by Selection for the breakable chunk; move to "groundbreak" collection.
+2. Add more geometry to the chunk (Ctrl+R loop cuts); extrude downward to meet the ground plane.
+3. Cell Fracture: search for Cell Fracture add-on; use Point Source: Own Verts; Recursive Fracture: 2; execute to shatter the chunk into pieces.
+4. Set up rigid body simulation: add Force Field (Force type) below the ground; select one chunk > Rigid Body > Active Dynamic; then select all groundbreak objects > Object > Rigid Body > Copy from Active.
+5. Rigid Body World settings: Steps Per Frame: 20, Substeps: 20; Cache Start: 50, End: 100 (landing frame = 50).
+6. Speed ramp: at frame 3, I key on Speed = 1.0; at frame 6, I key Speed = 0.25 for slow-motion after landing.
+7. Make ground plane a Passive Rigid Body for collision; keyframe Force Field Strength: at frame 50 = 10,000; frame 52 = 0; Fall Off Power: 1 for edge falloff.
+8. Particle system for debris: select a chunk > Particle Properties > New; Count: 2,000; Start: 50, End: 200, Lifetime: 50; Rotation: on, Angular Velocity: Random, Amount: 5; Randomize Phase: on; Physics: Brownian: 0.1, Damping: 0.05, Gravity: 0.05; Force: all off.
+9. Create a rocks Collection; import small stones pack; add Decimate modifier (Ratio: 0.1); Apply to all rocks; Particle Render Mode: Collection; Pick Random: on; Scale: 0.1–0.2, Scale Randomness: 0.8; Normal Velocity: 0, Object Velocity: inherit.
+10. Add a Smoke Simulation for dust trails: smoke domain cube over the breakable area; smoke flow from the breaking ground; render with Cycles for volumetric smoke.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Cell Fracture add-on (Point Source: Own Verts, Recursive: 2)
+- Rigid Body: Active Dynamic (chunks), Passive (ground)
+- Rigid Body World: Steps: 20, Substeps: 20, Cache: frame 50–100
+- Force Field (Force type): Strength keyframed (0 → 10,000 at frame 50 → 0 at frame 52)
+- Fall Off Power: 1 (edge falloff)
+- Speed keyframes: frame 3 = 1.0, frame 6 = 0.25 (slow-motion)
+- Particle System: Count: 2000, Rotation, Angular Velocity: Random
+- Particle Render: Collection (rocks), Pick Random
+- Decimate modifier (Ratio: 0.1) on rock models
+- Smoke Simulation (fluid domain + flow)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Advanced
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#rigid-body #simulation #particles #smoke-fire #animation #rendering #compositing #advanced

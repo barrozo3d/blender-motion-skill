@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/QJhiYYf6qJI
 author: vfx world
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [rendering, lighting, hdri, camera, animation, organic, beginner]
 ---
 
 # How to create a Cinematic Landscape inside Blender | Full tutorial with Project file
@@ -134,16 +134,28 @@ thank you.......................................................................
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Insufficient transcript — video may not have captions. Based on description and chapter markers: creating a cinematic landscape in Blender using the Biome Reader add-on for foliage scattering, path-based camera animation, lighting/texturing, and a final HDRI sky.
 
 ### Key Steps
-[To be extracted]
+1. Basic scene setup: create a landscape terrain mesh as the foundation.
+2. Lighting and texturing: apply terrain materials and set up initial lighting.
+3. Add foliage using the Biome Reader add-on (scatter trees, grass, plants procedurally on the landscape).
+4. Set up a camera path: add a Bezier curve as a motion path; constrain the camera to follow the curve using Follow Path constraint.
+5. Animate camera along the path by keyframing the Offset value or using the Evaluate Time feature.
+6. Set a final HDRI sky in the World Shader for cinematic sky and ambient lighting.
+7. Render the final cinematic sequence.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Biome Reader add-on (foliage scattering)
+- Camera: Follow Path constraint (Bezier curve path)
+- World Shader: HDRI sky texture
+- Terrain displacement material
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#rendering #lighting #hdri #camera #animation #organic #beginner

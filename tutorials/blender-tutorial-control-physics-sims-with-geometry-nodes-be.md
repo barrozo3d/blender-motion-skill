@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/Fec4BhDFBUo
 author: Skramble 
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "4.5"
+tags: [geometry-nodes, rigid-body, simulation, animation, procedural, blender-4x, intermediate]
 ---
 
 # Blender Tutorial - Control Physics Sims with Geometry Nodes (Beginner Friendly)
@@ -47,16 +47,34 @@ Kind: captions Language: en [music] Here is a standard Blender rigid body physic
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Building a non-destructive Geometry Nodes system in Blender 4.5 that gives flexible, non-linear playback control over baked rigid body physics simulations — allowing start frame, end frame, playback speed, direction reversal, and spatial proximity-based triggering without rebaking.
 
 ### Key Steps
-[To be extracted]
+1. Create a floor (scaled cube, origin at top) and a test cube; enable cavity shading for legibility.
+2. Go into Edit Mode on the cube, subdivide 4 times for more geometry; add a Solidify modifier for a hollow look.
+3. Use Quick Effects > Cell Fracture (enable in Preferences first; ~100 particles) to break the cube into fragments.
+4. Without clicking away, press M to move all fragments into a new collection named "static".
+5. Shift+D to duplicate all fragments; M to move them into a second collection named "physics" — both collections must have identical pieces in the same order.
+6. Add Rigid Body physics to the physics collection pieces; bake the simulation.
+7. Create a Geometry Nodes modifier on a new controller object; build the playback controller: map a custom start/end frame input to the baked simulation's frame range using a Map Range node.
+8. Use the mapped frame value to drive the Evaluate at Frame node (or equivalent) to sample the static collection's transforms at the computed frame.
+9. Set piece transforms from the sampled positions/rotations to display the physics at any controllable point in time.
+10. For spatial control variant: replace the time parameter with an Empty's proximity distance to drive the physics playback, creating a spatially-triggered simulation.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Cell Fracture add-on (Quick Effects > Cell Fracture, ~100 particles)
+- Rigid Body physics (baked simulation)
+- Collections: "static" (no physics), "physics" (with physics — same order required)
+- Geometry Nodes: Map Range node, Evaluate at Frame (or equivalent)
+- Instance on Points node (transform sampling)
+- Empty object (proximity driver for spatial variant)
+- Solidify modifier
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate
+
+### Blender Version
+4.5
 
 ### Tags
-[To be added]
+#geometry-nodes #rigid-body #simulation #animation #procedural #blender-4x #intermediate

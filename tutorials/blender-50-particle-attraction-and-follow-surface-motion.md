@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/QHJXi25OczQ
 author: Zack (3D animation)
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "5.0"
+tags: [geometry-nodes, simulation, particles, animation, procedural, intermediate, blender-5x]
 ---
 
 # Blender 5.0 particle attraction and follow surface motion
@@ -40,16 +40,42 @@ Kind: captions Language: en [music] &gt;&gt; Hi, today I will show you how to ma
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Creating a particle system in Blender 5.0 Geometry Nodes where particles are attracted to a surface (text or mesh) using two vector forces: a normalized attraction force toward the nearest surface point and a cross-product-based force to make particles flow along the surface.
 
 ### Key Steps
-[To be extracted]
+1. Create text geometry using Geometry Nodes: add a String to Curve node, fill the curve, Realize Instances, Extrude Mesh (distance: 0.1), fix normals with Flip Face, and Merge by Distance to clean shared vertices.
+2. Optionally use Mesh to Volume then Volume to Mesh with Subdivide Surface for a smoother mesh surface to attract particles to.
+3. Use Transform Geometry to center the text geometry at the origin.
+4. On a separate cube, scale it (e.g., 5) and use Mesh to Volume then Distribute Points in Volume to scatter particle starting positions.
+5. Set up a Simulation Zone on the particle object for per-frame movement using a Set Position node.
+6. For the attraction force: get the current particle Position; use Sample Nearest Surface on the target text mesh to get the closest point position; subtract particle position from the surface position and Normalize to get a unit direction vector; Scale it down (e.g., < 0.1) for gentle attraction.
+7. For noise: add a Noise Texture connected to a Normalize node (range 0–1) and Scale the result to be smaller than the attraction force (< 0.1); Add the noise to the attraction vector.
+8. For the surface-following force: use the Cross Product of the surface Normal and the noise vector to generate a tangential movement direction.
+9. Add all three forces (attraction + noise + cross product) in the Set Position Offset socket.
+10. Connect the simulation output to the group output to display the animated particles.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- String to Curve node
+- Fill Curve node
+- Realize Instances node
+- Extrude Mesh node (Distance: 0.1)
+- Flip Face node
+- Merge by Distance node
+- Mesh to Volume node
+- Volume to Mesh node
+- Distribute Points in Volume node
+- Simulation Zone (input/output)
+- Set Position node (Offset socket)
+- Sample Nearest Surface node
+- Position node
+- Vector Math: Subtract, Normalize, Scale, Cross Product, Add
+- Noise Texture node (strength: < 0.1)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate
+
+### Blender Version
+5.0
 
 ### Tags
-[To be added]
+#geometry-nodes #simulation #particles #animation #procedural #intermediate #blender-5x

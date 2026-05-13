@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/DvMyxyMG0Mk
 author: The Visual Vibe
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [materials, shaders, animation, product-viz, brand-video, beginner]
 ---
 
 # Credit Card Texture and Animation SaaS FinTech [ PART – 1 ] #blender #tutorial #material #beginners
@@ -51,16 +51,33 @@ Kind: captions Language: en In this video, I'll show you how to create this beau
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Designing a credit card texture in Figma (card face and back at 860×540px with safe areas) then importing it into Blender to create a SaaS/FinTech product animation with gradient and multi-material card surfaces.
 
 ### Key Steps
-[To be extracted]
+1. In Figma: create a frame at 860×540 (physical card size scaled) for card face; duplicate for card back.
+2. Add layout guides (columns and rows) for safe areas: 48px margins on left/right/top/bottom.
+3. Add card elements with the text tool: card issuer name (font: Helvetica or Roboto Mono, 56pt uppercase), 16-digit card number (52pt), expiration date (40pt).
+4. Add a Visa logo PNG: create a rectangle, set Fill > Upload from Computer; position in card.
+5. Create the chip graphic: draw a rounded rectangle with the rectangle tool; use the pen tool to draw chip circuit lines; duplicate and flip horizontally for symmetry; group all chip elements.
+6. Set all text colors to white; export card face and back as PNG with transparent background (remove fill).
+7. Import the PNG textures into Blender using Image Texture nodes in the shader editor.
+8. Build the card 3D model: a flat beveled box at real proportions (85.6mm × 54mm).
+9. Apply gradient and material transitions using Color Ramp and Mix Shader nodes for the metallic/holographic card look.
+10. Set up the animation (covered in Part 2) with card flip and reveal motion.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Image Texture node (PNG card artwork)
+- Color Ramp node (gradient transition)
+- Mix Shader node (material blending)
+- Principled BSDF (metallic finish)
+- Bevel modifier (card edges)
+- Figma: Rectangle tool, Pen tool, Text tool, Layout Guides, Group (Ctrl+G), Flip Horizontal
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#materials #shaders #animation #product-viz #brand-video #beginner

@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/EvWAcSA86fw
 author: MTR Animation
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "5.0"
+tags: [geometry-nodes, procedural, abstract, animation, blender-5x, expert, advanced]
 ---
 
 # Math x Blender 5.0 = UNLIMITED POWER!
@@ -46,16 +46,36 @@ Kind: captions Language: en [music] This is the appalonian gasket. It's a mathem
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Building an Apollonian Gasket (infinite fractal of tangent circles) in Blender 5.0 Geometry Nodes using complex mathematical formulas — Descartes' Circle Theorem curvature equations — implemented with Math nodes, Repeat Zones, For Each Element Zones, and pre-built node group formulas.
 
 ### Key Steps
-[To be extracted]
+1. Download the provided Blender file with pre-built formula node groups (curvature calculation formulas).
+2. Start with three points: one large circle (radius 2) and two smaller ones (radius = half of large circle radius); position small circles at X = (large radius − small radius) using Subtract Math nodes.
+3. Add a third circle filling the gap between the two small circles: radius = large radius − small circle radius; position X = -(large radius − third radius) × -1 (flipped).
+4. Add Instance on Points + Curve Circle (radius driven by point radius) to visualize circles from the points.
+5. Use Descartes Circle Theorem: K4 = K1 + K2 + K3 + 2√(K1·K2 + K2·K3 + K1·K3), where K = 1/radius (curvature). Implement this formula with Math nodes: Add, Multiply, Sqrt.
+6. Calculate the position of the new tangent circle using the Apollonius formula from the pre-built node group.
+7. Use Repeat Zone to iteratively add new circles in each gap, repeating the curvature calculation and placement for each iteration.
+8. Use For Each Element Zone to process each existing circle and compute its new neighbor circles.
+9. Layer iterations to build up the full fractal gasket pattern.
+10. Render the final Apollonian Gasket as a 2D procedural pattern or animate it by varying the initial radius parameter.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Points node (individual point placement with specific radius)
+- Join Geometry node
+- Combine XYZ node (X position control)
+- Math nodes: Subtract, Multiply, Add, Sqrt (Descartes' theorem implementation)
+- Instance on Points node
+- Curve Circle node (radius from point radius)
+- Repeat Zone (Blender 5.0 iteration)
+- For Each Element Zone (Blender 5.0 per-element processing)
+- Pre-built curvature formula node groups
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Expert
+
+### Blender Version
+5.0
 
 ### Tags
-[To be added]
+#geometry-nodes #procedural #abstract #animation #blender-5x #expert #advanced

@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/RU3VO-qb91o
 author: Tabasheer
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [geometry-nodes, procedural, animation, particles, displacement, materials, beginner, intermediate]
 ---
 
 # Introduction to Geometry Nodes - اتعلم اقوي اداة علي بلندر
@@ -79,16 +79,39 @@ https://www.youtube.com/watch?v=IhjMb3QChzc&t=8s
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Arabic-language comprehensive introduction to Geometry Nodes covering objects, joining geometry, basic shapes, object info, scaling, extruding, insetting, displacement, particles, curves, geometry proximity, drawing curves, and materials — in a 3.5+ hour beginner course.
 
 ### Key Steps
-[To be extracted]
+1. Objects in Geo Nodes: how to reference other objects in the node tree using the Object Info node.
+2. Joining Geometry: use the Join Geometry node to combine multiple geometry streams.
+3. Basic Shapes: create mesh primitives (grid, sphere, cube) directly in the node tree.
+4. Object Info: read position, rotation, scale of referenced objects; use Geometry socket for the object's geometry.
+5. Scaling: control object scale procedurally via Set Scale or Transform Geometry node.
+6. Extruding: use Extrude Mesh node to add thickness or face extrusions.
+7. Insetting: use Inset Faces node to create panel/inset patterns on faces.
+8. Displacement: use Set Position node with a Noise Texture or other texture for surface displacement.
+9. Particles: use Distribute Points on Faces + Instance on Points for particle scattering on surfaces.
+10. Curves and Draw Curves: work with curve geometry; Geometry Proximity for proximity-based effects; apply materials via Set Material node.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Object Info node
+- Join Geometry node
+- Mesh primitive nodes (Grid, UV Sphere, Cube)
+- Transform Geometry node
+- Extrude Mesh node
+- Inset Faces node
+- Set Position node + Noise Texture (displacement)
+- Distribute Points on Faces node
+- Instance on Points node
+- Geometry Proximity node
+- Set Material node
+- Group Input node (user parameters)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#geometry-nodes #procedural #animation #particles #displacement #materials #beginner #intermediate

@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/ENnEYoUpFfU
 author: Blender Guru
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [lighting, rendering, cycles, hdri, beginner]
 ---
 
 # Fundamentals of Lighting in Blender
@@ -60,16 +60,34 @@ Kind: captions Language: en Lighting is one of the highest leverage skills that 
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Teaching the four core fundamentals of Blender lighting — positioning, fall-off, size, and color — using a sci-fi crate as a practical example, demonstrating how each property affects shadow, form readability, mood, and overall render quality.
 
 ### Key Steps
-[To be extracted]
+1. Set the World Background strength to 0 (World Properties > Surface > Strength: 0) to remove ambient environment light and start with pure darkness.
+2. Split the viewport: left side Rendered view, right side 3D Viewport for simultaneous manipulation and preview.
+3. Add a Point lamp (Shift+A > Light > Point); increase strength to see the crate; position as the key light (primary directional source).
+4. Avoid adding multiple equal-strength lights from all sides — this kills shadows; instead, embrace shadows as essential for form reading.
+5. Add a fill light (Shift+D duplicate the key light; move to opposite side); reduce its strength significantly (much less than key) so the viewer can still see shadow detail but not be blinded.
+6. Understand fall-off (Inverse Square falloff by default): light diminishes with distance squared; closer lights illuminate more intensely; use this to control the drama.
+7. Understand light size: small radius = hard crisp shadows; large radius = soft shadows; adjust Light Radius in light properties.
+8. Consider light color: cool-colored fill vs. warm key light creates visual contrast and mood; use the Color picker in light properties.
+9. Always evaluate lighting from the final camera angle (Numpad 0) as perspective completely changes the light's perceived impact.
+10. "Polish" phase: fine-tune strength, position, and color to serve the story and direct the viewer's eye.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- World Properties > Surface > Strength: 0 (remove ambient)
+- Point Light (omnidirectional, Strength, Radius, Color)
+- Sun Light (directional, rotation controls shadow direction)
+- Area Light (large soft source)
+- Light Radius (shadow softness: 0 = crisp, high = soft)
+- Light Color (warm/cool contrast for mood)
+- Rendered view mode
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#lighting #rendering #cycles #hdri #beginner

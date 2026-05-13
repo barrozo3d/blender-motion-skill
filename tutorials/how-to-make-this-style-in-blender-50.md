@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/rbPOL9ibooY
 author: Ducky 3D
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "5.0"
+tags: [geometry-nodes, animation, motion-design, materials, shaders, eevee, compositing, abstract, blender-5x, beginner, intermediate]
 ---
 
 # How To Make This Style in Blender 5.0
@@ -45,16 +45,42 @@ Kind: captions Language: en How's it going guys? So, in today's tutorial, we are
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Creating a stacked-curve looping motion graphics animation in Blender 5.0 using Geometry Nodes to build 120 Curve Circles on a Mesh Line, driven by randomized Wave and Noise Textures via stored attributes for organic animated color patterns in Eevee.
 
 ### Key Steps
-[To be extracted]
+1. Add a Plane; open Geometry Nodes, click New, delete Group Input; add a Mesh Line node (Count: 120) plugged into the group output via Instance on Points.
+2. Add a Curve Circle (radius: 7, resolution: 80) plugged into the Instance socket; set Z offset on Mesh Line to 0.7 to stack circles tightly.
+3. Set up a Store Named Attribute node before the Instance on Points: feed it a Spline Parameter node's Factor output, name it "S" (for spline position along each circle).
+4. Add Curve to Mesh node (profile: Curve Circle, radius: 0.5, resolution: 3) to give curves renderable geometry.
+5. Add another Store Named Attribute with a Random Value node plugged into Value, named "R" — this randomizes the wave texture position per curve instance.
+6. Add Set Material node; click New > change from Principled to Emission.
+7. Set up camera: focal length 8mm (extreme wide angle) positioned to look through the ring stack from just outside the outer ring.
+8. Switch render engine to Eevee; set World brightness to black; increase Emission brightness to make curves look thicker.
+9. In the Shader Editor: add Wave Texture node; connect the stored "S" attribute via Attribute node to the Vector input; use the stored "R" attribute to offset the wave randomly per curve.
+10. Add Noise Texture for color variation; use Mix Color and Color Ramp nodes to create the final animated color effect; add compositing (glow/glare) for polish.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Mesh Line node (Count: 120, Z Offset: 0.7)
+- Instance on Points node
+- Curve Circle node (Radius: 7, Resolution: 80)
+- Store Named Attribute node x2 ("S" for spline factor, "R" for random per instance)
+- Spline Parameter node (Factor output)
+- Random Value node
+- Curve to Mesh node (profile Circle: Radius: 0.5, Resolution: 3)
+- Set Material node
+- Emission shader
+- Wave Texture node (Attribute driven by "S")
+- Noise Texture node (color)
+- Mix Color node
+- Color Ramp node
+- Eevee render engine, World Strength: 0
+- Camera focal length: 8mm
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+5.0
 
 ### Tags
-[To be added]
+#geometry-nodes #animation #motion-design #materials #shaders #eevee #compositing #abstract #blender-5x #beginner #intermediate

@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/SybPYdsd_DI
 author: Max Hay
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [materials, shaders, lighting, rendering, compositing, procedural, displacement, intermediate]
 ---
 
 # How to Make Cyberpunk Scenes in Blender
@@ -50,16 +50,36 @@ Kind: captions Language: en This is going to be an intermediate guide on making 
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Intermediate-level guide to building a cyberpunk alleyway scene in Blender, covering wet concrete procedural materials (noise-driven roughness and normal strength for puddle effects), building modeling from photo reference, and neon lighting atmosphere.
 
 ### Key Steps
-[To be extracted]
+1. Get a floor plane; apply the Polyhaven add-on to drag-and-drop free PBR textures (e.g., "ashvault" concrete) in 4K; remove displacement in the Shader Editor; keep only Base Color, Roughness, and Normal.
+2. UV-unwrap the floor in UV Editor; scale UVs up ~4x so the texture tiles realistically.
+3. Build the wet street look: disconnect the Roughness map; replace with a Noise Texture → Color Ramp → Roughness (squash Color Ramp to create shiny wet areas vs. dry areas).
+4. Add normal map variation using the same Noise Texture → Color Ramp → Normal Map Strength to create subtle puddle bump variation.
+5. Set up a 24mm wide-angle camera for the alleyway composition; use a split viewport with Solid view above and Rendered camera view below.
+6. Block out buildings with cubes; use Ian Hubert's photo reference technique: download a free storefront image (Pexels), apply it to a cube as Base Color, cube-project UV, trace the main features with extrusions to get quick building detail.
+7. Create neon signs using emissive materials with saturated colors as light sources; position signs on building surfaces.
+8. Add fog/atmosphere with a Volume Scatter cube over the scene.
+9. Use spotlights and point lights to illuminate wet reflective surfaces for neon puddle reflections.
+10. Add free Polyhaven props, free 3D people assets (3Dfarm), and finalize the scene composition.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Polyhaven add-on (free PBR textures drag-and-drop)
+- Principled BSDF: Base Color, Roughness, Normal
+- Noise Texture node (wet puddle roughness variation)
+- Color Ramp node (x2: one for roughness, one for normal strength)
+- Normal Map node
+- UV Editor: Cube Projection unwrap, UV scale
+- Emissive material (neon signs)
+- Volume Scatter (atmosphere cube)
+- Camera focal length: 24mm
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#materials #shaders #lighting #rendering #compositing #procedural #displacement #intermediate

@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/KhBaHDvIamw
 author: Ducky 3D
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [materials, glass, animation, rendering, cycles, motion-design, abstract, beginner, intermediate]
 ---
 
 # How Apple Makes 3D Wallpapers (Blender Tutorial)
@@ -45,16 +45,33 @@ Kind: captions Language: en How's it going, guys? So, in today's tutorial, we ar
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Recreating the Apple MacBook Air 3D wallpaper in Blender using a tall teardrop cylinder (Z: 47, X/Y: 2) with an Array modifier set to Circle distribution, combined with a glass transmission material in Cycles and an emissive highlight plane for the signature glowing band effect.
 
 ### Key Steps
-[To be extracted]
+1. Add a Mesh Cylinder with ~84 vertices; in Edit Mode with the Move tool, hold Ctrl and drag origin to the cylinder bottom (anchor at base).
+2. Scale it very tall (Z: 47, X/Y: 2) to make a toothpick/tube shape; Apply Scale (Ctrl+A).
+3. Select the bottom face (Face Select mode); scale it down to near-zero to create a teardrop shape; slightly scale up the top face too.
+4. Apply Scale again; Add Modifier > Array; change Fit Type to Fixed Count; set Mode to Circle (circular arrangement); enable Align Rotation Y; adjust Count until ~14 cylinders visible in frame.
+5. Right-click > Shade Auto Smooth on the array.
+6. Add a Camera (Shift+A > Camera); align view with numpad 0; position with G + Middle Click to frame the spiral composition nicely.
+7. Add a circle plane beneath the cylinders; Apply Scale.
+8. Switch to Cycles render engine; go to the Shading tab.
+9. For the cylinders: New material > Principled BSDF; set Transmission: 1.0, Roughness: 0 for perfect glass.
+10. For the background plane: New material with an Emission node or emissive Principled BSDF; use a Color Ramp or gradient to create the glowing band highlight that mimics the Apple design.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Array modifier (Mode: Circle, Align Rotation: Y, Count: ~14)
+- Shade Auto Smooth
+- Principled BSDF: Transmission: 1.0, Roughness: 0 (glass material)
+- Emission node / emissive material (highlight plane)
+- Color Ramp node (gradient highlight)
+- Cycles render engine
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#materials #glass #animation #rendering #cycles #motion-design #abstract #beginner #intermediate

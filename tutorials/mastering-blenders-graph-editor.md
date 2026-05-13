@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/MS1z9diLUOI
 author: elijah sheffield
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [animation, rigging, camera, beginner, intermediate]
 ---
 
 # Mastering Blender's Graph Editor
@@ -45,16 +45,34 @@ Kind: captions Language: en A lot of artists, whether new to 3D, new to Blender,
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Demystifying Blender's Graph Editor for animation — covering F-curves, interpolation modes, animation modifiers, and practical application by animating a pan flip, demonstrating how to add weight, anticipation, and easing to keyframe animation.
 
 ### Key Steps
-[To be extracted]
+1. Open the project file; locate the Graph Editor by switching an editor pane to it (Timeline > Graph Editor icon).
+2. The Graph Editor visualizes F-curves: one curve per animated property channel showing value over time.
+3. Set a starting keyframe: N panel > Item tab > right-click a channel value (e.g., X Rotation) > Insert Single Keyframe; or use I key in viewport for location/rotation/scale.
+4. Enable Auto Keying (the red record button in the timeline) so position changes automatically create keyframes.
+5. Set keyframes: frame 12 (start at 0°), frame 20 (pan at -30°, counterclockwise), frame 28 (return to 0°) — this creates a flat/linear animation with no weight.
+6. In the Graph Editor, select keyframes; change interpolation from Linear to Bezier (T key > Bezier) for smooth easing.
+7. Adjust Bezier handles by selecting a keyframe handle and G-dragging to reshape the curve — steeper slope = faster movement, flat slope = hold/pause.
+8. Apply Animation Modifiers (Graph Editor > Sidebar > Modifiers) such as: Cycles (loop), Noise (random wobble), Envelope (min/max bounds clamp), Generator.
+9. For the fish flip demo: set up anticipation (small opposite-direction movement before the main action), main action, and overshoot/settle back.
+10. Use V key on a handle to change it between Auto, Vector, Aligned, and Free types for precise curve control.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Graph Editor (F-curve visualization)
+- F-curves: one per animated channel (X Rotation, Y Location, etc.)
+- Auto Keying (red record button)
+- Keyframe interpolation: Linear, Bezier (T key to change)
+- Bezier handle types: Auto, Vector, Aligned, Free (V key)
+- Graph Editor Animation Modifiers: Cycles, Noise, Envelope, Generator
+- Insert Single Keyframe (right-click channel value in N panel > Item)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#animation #rigging #camera #beginner #intermediate

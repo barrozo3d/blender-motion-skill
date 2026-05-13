@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/9Fvw8HlWHpo
 author: Ducky 3D
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [geometry-nodes, animation, motion-design, abstract, glass, procedural, intermediate]
 ---
 
 # A New Way To Loop Animations in Blender
@@ -46,16 +46,37 @@ Kind: captions Language: en So, I was working on this animation recently and tho
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Creating perfectly seamless looping animations in Blender using Geometry Nodes' Mesh Line node by adding the offset value to the start position keyframe, guaranteeing a mathematically perfect loop regardless of spacing.
 
 ### Key Steps
-[To be extracted]
+1. Model a thin beveled cube object: scale it in Properties, bevel edges in Edit Mode, apply scale (Ctrl+A), then add a Bevel modifier for smooth glass-compatible edges.
+2. Assign a glass/transmissive Cycles material with very low roughness; enable Denoising in render settings.
+3. In the Geometry Nodes workspace on a Plane, add a Mesh Line node and an Instance on Points node; plug the glass cube (hidden from render via camera icon in outliner) into the Instance input.
+4. On the Mesh Line's Z Offset, set spacing to stack or space the instances as desired; set Count to ~40.
+5. Center the array using the Z of Start Location.
+6. To create the perfect loop: copy the Z Offset value, go to frame 0 on Z Start Location, insert keyframe (I); go to the last frame, type the copied value using "+" paste (Blender math input) and insert a second keyframe.
+7. Set animation interpolation to Linear (Preferences > Animation > Default Interpolation: Linear) to ensure smooth constant movement.
+8. Add a Gradient Texture (Spherical) connected to the Scale of the instances to fade/scale the top and bottom of the array using a Combine XYZ to isolate axes.
+9. Add a Noise Texture to a Set Position node via Combine XYZ to displace only desired axes; use a Math (Multiply) node to control strength.
+10. Set up Cycles rendering for 40 frames with glass material; use Denoising for clean output.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Mesh Line node (Count: ~40, Z Offset for spacing)
+- Instance on Points node
+- Combine XYZ node (axis isolation)
+- Gradient Texture (Spherical type)
+- Noise Texture (displacement)
+- Math node: Multiply (strength control)
+- Set Position node
+- Bevel modifier
+- Animation interpolation: Linear
+- Cycles render engine with Denoising
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#geometry-nodes #animation #motion-design #abstract #glass #procedural #intermediate

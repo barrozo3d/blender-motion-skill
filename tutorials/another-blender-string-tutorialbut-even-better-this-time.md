@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/0lBaaCMpZGs
 author: Ducky 3D
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [geometry-nodes, simulation, animation, motion-design, procedural, intermediate]
 ---
 
 # Another Blender String Tutorial....But even Better This Time!
@@ -45,16 +45,37 @@ Kind: captions Language: en How's it going? In this tutorial, I'm going to show 
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Using Geometry Nodes Simulation Zones to generate an array of curves (strings) that can be individually displaced with per-string randomized W values in a Noise Texture, then animated with two distinct reveal modes.
 
 ### Key Steps
-[To be extracted]
+1. In the Geometry Nodes editor, start from a new node group on a Plane; delete the Group Input and add a Quadratic Bezier node (Y value: 4, Resolution: 400) for the base string shape.
+2. Center the curve with a Transform Geometry node.
+3. Add a Simulation Zone; inside, place a Transform Geometry node to move the curve a fixed offset each frame, and a Join Geometry node outside the zone to accumulate the array.
+4. Play the simulation to build up instances; stop when count reaches ~38, then Bake the result.
+5. Center the array again with another Transform Geometry node.
+6. Add a Set Position node; connect a Noise Texture set to 4D mode; use a Combine XYZ to route displacement to only the X axis; use Math (Multiply) to control strength. Use Normalize to keep the effect centered.
+7. Give each string its own random W value: add a Store Named Attribute node with a Random Value input; use this stored attribute on the W socket of the Noise Texture to randomize each string's look.
+8. For Animation Mode 1 (center swell): use Math nodes to isolate displacement to the center of the curve using index-based falloff.
+9. For Animation Mode 2 (string reveal): use a different node chain to animate strings coming in and out.
+10. Add color and lighting to complete the scene.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Quadratic Bezier node (Y: 4, Resolution: 400)
+- Transform Geometry node
+- Simulation Zone (input/output)
+- Join Geometry node
+- Set Position node
+- Noise Texture (4D mode, W socket for per-string seed)
+- Combine XYZ node (axis isolation)
+- Math node: Multiply (strength), Normalize
+- Store Named Attribute node
+- Random Value node
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#geometry-nodes #simulation #animation #motion-design #procedural #intermediate

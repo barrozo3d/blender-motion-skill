@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/JU70u6cJZqI
 author: Default Cube
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "4.5"
+tags: [geometry-nodes, procedural, blender-4x, beginner, intermediate]
 ---
 
 # I'll teach you Geometry Nodes
@@ -40,16 +40,32 @@ Kind: captions Language: en How do you learn geometry nodes? First of all, by pl
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Comprehensive Geometry Nodes course (5.5 hours) in Blender 4.5, starting from absolute basics of the GN workspace, node editor, and Spreadsheet editor, and building up through a 3D fractal Menger Sponge project to demonstrate procedural power.
 
 ### Key Steps
-[To be extracted]
+1. Navigate to the Geometry Nodes workspace (top tab bar); understand the three editors: 3D Viewport (see output), Node Editor (draw code/blueprints left-to-right), Spreadsheet Editor (inspect live data like vertex positions).
+2. Alternative workspace setup: open Geometry Node editor manually via editor type dropdown; customize layout to have a large node editor + large viewport.
+3. Learn left-to-right node flow: data enters from the left (Group Input), gets processed through a chain of nodes, and exits to the right (Group Output) affecting the 3D object.
+4. Understand the Spreadsheet as a live viewer: move vertices and watch positions update in real time; inspect attributes per element.
+5. First project: build a Menger Sponge fractal — demonstrates procedural iteration, instancing, and scaling that would be impossible to model by hand.
+6. Learn to add nodes: Shift+A in the Node Editor; search for node names; connect sockets by drag-and-drop.
+7. Use Blender 4.5 specifically — prerequisite for full node access; course stays valid for 4.x and 5.x versions as GN only gains features.
+8. Follow along on a large screen/desktop for best visibility of small node labels.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Group Input / Group Output nodes
+- Node Editor (left-to-right workflow)
+- Spreadsheet Editor (live vertex/attribute data)
+- Shift+A (add node menu)
+- Geometry Nodes workspace (top tab)
+- Custom workspace: editor type dropdown
+- Menger Sponge fractal (first project)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+4.5
 
 ### Tags
-[To be added]
+#geometry-nodes #procedural #blender-4x #beginner #intermediate

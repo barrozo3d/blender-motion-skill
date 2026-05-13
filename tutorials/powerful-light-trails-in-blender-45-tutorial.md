@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/965bgIUHoxA
 author: Ducky 3D
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "4.5"
+tags: [geometry-nodes, simulation, animation, motion-design, materials, shaders, camera, abstract, blender-4x, intermediate]
 ---
 
 # Powerful Light Trails in Blender 4.5 (tutorial)
@@ -42,16 +42,39 @@ Kind: captions Language: en How's it going? So, in today's tutorial, we're going
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Creating topographic map-inspired light trail animations in Blender 4.5 using Geometry Nodes to generate a duplicated array of Quadratic Bezier curves via a Simulation Zone, then displacing them with Noise Texture and using camera-parented gradient transparency to reveal curves as the camera moves in a seamless loop.
 
 ### Key Steps
-[To be extracted]
+1. Add a Plane named "geo"; create new Geometry Nodes; delete default group input.
+2. Add a Quadratic Bezier node (Resolution: 300, Y scale: 10, X: 0) as the base curve.
+3. Create an array of curves using a Simulation Zone: inside, use Set Position (offset Y: 13) + Join Geometry to accumulate 77 duplicated curves over frames; Bake the simulation.
+4. Center the array with a second Set Position node (X: -5, Y: -5).
+5. Displace curves on Z: Set Position + Combine XYZ + Noise Texture (Normalize: off, Scale: 0.5) → Vector Math Scale → Z socket.
+6. Shape the displacement with RGB Curves node (add control points to create flat ground areas with nuance, not perfectly flat) to get topographic look.
+7. For the looping mirror system in Geometry Nodes: create a mirrored second half of the array so first and last frames match seamlessly.
+8. Create the camera-parented gradient: parent an Empty to the camera; in the material, use a Gradient Texture aligned to the Empty's position to create a reveal zone that moves with the camera.
+9. Edit the gradient with a Color Ramp to create a glowing bright band at the reveal edge and fading transparency behind it.
+10. Use a Wave Texture to select and brighten center curves for a focal point; add a simple metallic floor material; render the animation loop.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Quadratic Bezier node (Resolution: 300, Y: 10)
+- Simulation Zone (array duplication with Y offset: 13, 77 frames)
+- Bake node
+- Set Position node (centering: X/Y: -5)
+- Combine XYZ node
+- Noise Texture node (Normalize: off, Scale: 0.5)
+- Vector Math: Scale (strength control)
+- RGB Curves node (topographic flat areas)
+- Gradient Texture (camera-parented reveal)
+- Color Ramp node (glow + transparency)
+- Wave Texture node (center curve highlight)
+- Metallic Principled BSDF (floor)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate
+
+### Blender Version
+4.5
 
 ### Tags
-[To be added]
+#geometry-nodes #simulation #animation #motion-design #materials #shaders #camera #abstract #blender-4x #intermediate

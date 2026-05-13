@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/Kep7URnyXgU
 author: c g s l a v
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [geometry-nodes, volume, rendering, cycles, lighting, hdri, organic, intermediate, advanced]
 ---
 
 # How I Made Realistic Storm Clouds in Blender!
@@ -42,16 +42,37 @@ Kind: captions Language: en [Music] An amazing landscape just isn't complete wit
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Creating realistic storm clouds in Blender using a multi-pass Geometry Nodes pipeline: converting a sphere mesh to volume → distributing points → converting points back to volume → mesh → volume again, with a Noise Texture (Normalize unchecked) displacing points for organic detail and a Spotlight inside a Volume Scatter cube for god rays.
 
 ### Key Steps
-[To be extracted]
+1. Quick sky methods: (1) Rotate a plane behind the scene, apply a sky image to Base Color + Emission; (2) Use an HDRI sky texture in the World Shader — both easy but lack light interaction.
+2. For atmospheric god rays: add a cube with a Volume Scatter material (density low); place a Spotlight inside the volume cube; rotate spotlight to direct light beams toward desired scene areas.
+3. For true cloud geometry: add a UV Sphere; Apply Scale; add a Geometry Nodes modifier.
+4. In Geometry Nodes: Mesh to Volume node (clouds start as volume from sphere shape).
+5. Distribute Points in Volume node (creates point cloud inside the volume).
+6. Set Position node + Noise Texture (Normalize: off) to randomize point positions organically; use Amount/Size values instead of Scale for proper scaling behavior.
+7. Points to Volume node (converts point cloud back to volume for cloud density look).
+8. Volume to Mesh node (convert for viewport preview and further editing).
+9. Back to volume a final time for the final cloud render; the mesh→volume cycle adds the fine organic detail that raw volume lacks.
+10. Duplicate the cloud sphere and build up a large storm cloud formation; set up dramatic sky lighting with storm atmosphere.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- World Shader: Sky Texture or HDRI
+- Volume Scatter material (cube for god rays)
+- Spotlight (inside volume for light beams)
+- Mesh to Volume node
+- Distribute Points in Volume node
+- Set Position node
+- Noise Texture node (Normalize: unchecked, Amount/Size for scaling)
+- Points to Volume node
+- Volume to Mesh node
+- Transparent render settings (Render Properties > Transparent)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#geometry-nodes #volume #rendering #cycles #lighting #hdri #organic #intermediate #advanced

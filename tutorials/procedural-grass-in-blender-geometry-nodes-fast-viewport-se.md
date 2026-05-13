@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/8wFnzrRz0Xg
 author: RTF Dimensions
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [geometry-nodes, procedural, particles, organic, rendering, beginner, intermediate]
 ---
 
 # 🎞️ Procedural Grass in Blender Geometry Nodes 🌿 | Fast Viewport Setup & Optimization Tutorial
@@ -42,16 +42,33 @@ Kind: captions Language: en Hello and welcome. In this video, we're going to cre
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Building a viewport-optimized procedural grass system in Blender using Geometry Nodes with Instance on Points, removing invisible blades outside camera bounds for performance, and linking camera visibility bounds to the geometry nodes setup for efficient real-time preview.
 
 ### Key Steps
-[To be extracted]
+1. Delete all default scene objects; create a new Plane named "grass"; switch to the Geometry Nodes workspace.
+2. Click New node to start the Geometry Nodes setup.
+3. Adjust scene environment: set up lighting and background for a grass-appropriate outdoor look.
+4. Use Distribute Points on Faces node to scatter points across the plane surface.
+5. Model or import a single grass blade; use Instance on Points to place the blade at each distributed point.
+6. Add random rotation and scale variation to the grass instances using Random Value nodes.
+7. Optimize performance: remove invisible grass blades outside the camera's field of view by linking camera bounds properties to the node setup — detect and delete instances outside camera range.
+8. Remove internal/invisible geometry from the grass blade model for cleaner instances and faster viewport.
+9. Understand and leverage Instances: modify the original grass blade object and all instances update automatically without duplicating geometry.
+10. Tune the distribution density, rotation randomness, and scale variation until the grass looks natural in the viewport.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Distribute Points on Faces node
+- Instance on Points node
+- Random Value node (rotation, scale variation)
+- Delete Geometry node (camera bounds culling)
+- Camera bounds / view distance linking (viewport optimization)
+- Realize Instances node (when needed for further processing)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#geometry-nodes #procedural #particles #organic #rendering #beginner #intermediate

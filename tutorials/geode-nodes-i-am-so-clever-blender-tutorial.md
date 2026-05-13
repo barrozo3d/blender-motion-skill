@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/1hKAkCP-tFQ
 author: CGMatter
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "4.5"
+tags: [geometry-nodes, procedural, displacement, materials, shaders, organic, abstract, blender-4x, advanced]
 ---
 
 # Geode Nodes (i am so clever) // Blender Tutorial
@@ -45,16 +45,40 @@ Kind: captions Language: en [Music] This is a tutorial about notes, specifically
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Procedurally generating an amethyst geode in Blender 4.5 Geometry Nodes: creating a noise-distorted rock exterior, cutting it open with a Mesh Boolean (new Manifold mode), isolating the cross-section boundary, extruding crystal shards with variable heights, and instancing crystal spike geometry.
 
 ### Key Steps
-[To be extracted]
+1. Start with a high-resolution Ico Sphere; apply organic distortion via Set Position with a Noise Texture (uncheck Normalize to center the offset) and reduce scale for subtle rocklike bumps.
+2. Create a cube "cutter" mesh; use Mesh Boolean (Difference mode) with the new Manifold mode (Blender 4.5) for reliable watertight boolean cutting; shift the cutter to expose one side.
+3. Optionally rotate the cutter on Y-axis for angled cross-sections; adjust cube height.
+4. On the cut cross-section: isolate boundary edges using Geometry Proximity to the cutter; use Blur Attribute to expand the selection outward; use Delete Geometry on unwanted interior faces.
+5. Extrude the cross-section faces with Extrude Mesh (not individual); join to the rock with Merge by Distance; fix inverted normals with Flip Faces.
+6. Add variable solidification: drive extrude amount with a Noise Texture filtered through Map Range (from 0.4 to 0.6 range for high contrast); ensures crystals vary in height.
+7. Scatter crystal spike instances on the cross-section face points; orient them along face normals.
+8. Apply an amethyst/crystal material with transparency and emission for the inner crystal faces.
+9. Add a rocky exterior material for the outer surface.
+10. Group nodes into labeled node groups for the initial rock, cutter, cross-section, and crystal layers.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Ico Sphere (high resolution)
+- Set Position node
+- Noise Texture node (Normalize: off, for centered offset)
+- Mesh Boolean node (Manifold mode — new in Blender 4.5, Difference operation)
+- Geometry Proximity node (distance to cutter mesh)
+- Blur Attribute node (expand edge selection)
+- Delete Geometry node (face selection)
+- Extrude Mesh node (non-individual)
+- Flip Faces node
+- Merge by Distance node
+- Map Range node (noise from 0.4–0.6 → 0–1 for high contrast)
+- Instance on Points node (crystal spikes)
+- Material node (amethyst shader)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Advanced
+
+### Blender Version
+4.5
 
 ### Tags
-[To be added]
+#geometry-nodes #procedural #displacement #materials #shaders #organic #abstract #blender-4x #advanced

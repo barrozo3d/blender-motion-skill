@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/WbrjlYM0Qno
 author: Deayan Studios
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [geometry-nodes, procedural, beginner, intermediate]
 ---
 
 # Demystifying Geometry Nodes: The Ultimate Guide to Mastering Blender's Procedural Power
@@ -42,16 +42,34 @@ Kind: captions Language: en In today's video, we're going to dive deep into demy
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Comprehensive conceptual guide to Geometry Nodes covering data types (integer, float, vector, boolean, string, geometry), socket color-coding, node type categories, data flow, and the Spreadsheet editor — aimed at building a solid foundation for procedural Blender workflows.
 
 ### Key Steps
-[To be extracted]
+1. Understand how to add Geometry Nodes: Modifier Properties > Add Modifier > Geometry Nodes; click + to create a new node tree; open the Geometry Node Editor window.
+2. Learn data types: Integer (lime green socket, whole numbers only, auto-rounds decimals), Float (gray socket, decimal values), Vector (purple socket, XYZ), Boolean (dark green socket), String (dark gray), Color (yellow socket), Geometry (blue-green socket).
+3. Cross-type connections: plugging integer into float converts to float; plugging float into integer truncates to whole number — visualize via the Spreadsheet.
+4. Understand the Geometry data type: complex container holding mesh/curve/point data including vertex positions, edge/face topology, and attributes.
+5. Learn node categories by color: Input (purple), Output (red/orange), Geometry (blue-green), Mesh (blue), Curve (pink), Point (green), Instances (orange), Volume (gray), Material (lighter blue), Utilities (gray/dark).
+6. Learn about fields vs. single values: field sockets (diamond shape) carry per-element data, single value sockets (circle shape) carry one value for the whole geometry.
+7. Understand field context: the same field node outputs different domain data depending on which downstream node it's connected to.
+8. Use the Spreadsheet Editor to visualize attribute values in different domains (Vertex, Edge, Face, Spline, Instance).
+9. Learn about Group Input / Group Output nodes as the interface between the modifier and the node tree.
+10. Build intuition for data flow: data enters Group Input, gets processed by node chain, exits Group Output to replace or modify the object's geometry.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Group Input / Group Output nodes
+- Modifier Properties > Geometry Nodes modifier
+- Geometry Node Editor window
+- Spreadsheet Editor (attribute visualization)
+- Socket colors: lime green (integer), gray (float), purple (vector/rotation), blue-green (geometry)
+- Math node (manipulate integer/float values)
+- Data type auto-conversion on cross-type connections
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#geometry-nodes #procedural #beginner #intermediate

@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/Y0zAZnbBcQU
 author: RADIUM
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "4.3"
+tags: [geometry-nodes, procedural, blender-4x, beginner, intermediate, advanced]
 ---
 
 # ALL 300+ Geometry Nodes in Blender
@@ -55,16 +55,33 @@ Kind: captions Language: en There's a wide wide world of geometry nodes. &gt;&gt
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Comprehensive reference covering all 275+ Geometry Nodes in Blender 4.3, explaining each node's purpose, socket types, fields vs. single values, and field context — serving as a complete workshop inventory for geometry node artists.
 
 ### Key Steps
-[To be extracted]
+1. Understand Constant/Input nodes (Boolean, Color, Image, Integer, Material, Rotation, String, Vector, Value, Collection, Object) — fixed values fed into the node tree.
+2. Learn the concept of Fields: circle sockets = single value; diamond sockets = field (multiple values per geometry element); diamond-with-circle = field capable but currently single.
+3. Understand Field Context: input nodes like Position adapt their output domain (point, edge, face, spline) depending on the node they are connected to.
+4. Use the Spreadsheet Editor to inspect attribute values across different domains.
+5. Understand Attributes: data corresponding to geometry elements in a specific domain (e.g., position attribute in point domain stores XYZ per vertex).
+6. Learn that the same attribute type (e.g., Position) can exist in multiple domains simultaneously and outputs different values depending on context.
+7. Survey all node categories: Geometry, Mesh, Curve, Point, Instance, Volume, Material, Texture, Utilities, and Input/Output nodes.
+8. Use the Spreadsheet to verify attribute domains and values when debugging node trees.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Boolean node, Color node, Image node, Integer node, Material node
+- Rotation node, String node, Vector node, Value node
+- Collection node, Object node
+- Position node (field, adapts to domain context)
+- Index node, ID node, Normal node (field outputs)
+- Set Position node (operates on point domain by default)
+- Spreadsheet Editor (attribute inspection)
+- Node socket types: circle (single), diamond (field), diamond+circle (convertible)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+4.3
 
 ### Tags
-[To be added]
+#geometry-nodes #procedural #blender-4x #beginner #intermediate #advanced

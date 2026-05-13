@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/PgRax5MeZgY
 author: Jacob Zirkle
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "4.5"
+tags: [geometry-nodes, compositing, rendering, lighting, hdri, camera, blender-4x, intermediate, advanced]
 ---
 
 # Using Geometry Nodes for VFX in Blender
@@ -49,16 +49,35 @@ Kind: captions Language: en By the end of this tutorial, you'll know everything 
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Full VFX compositing pipeline in Blender 4.5 — integrating a 3D asset into live-action footage using camera tracking, shadow catcher, ACES color workflow, HDRI lighting calibrated to match the footage, and Geometry Nodes for the procedural VFX element.
 
 ### Key Steps
-[To be extracted]
+1. Set up camera tracking (using pre-solved tracking data); a shadow catcher plane is textured with the actual movie clip via Window Projection for ground shadow integration.
+2. Import the 3D asset (glove) via File > Append from the provided blend script; scale and position to match the tracked scene.
+3. Set up HDRI lighting in the World shader: add Environment Texture node; plug into Background node; set color space to Linear sRGB (following filename convention).
+4. Hold Ctrl+T (Node Wrangler) to add Texture Coordinate and Mapping nodes to the HDRI; rotate the Mapping node so the HDRI environment matches the real-world orientation in the footage.
+5. Calibrate HDRI brightness to match footage using a Mix Color node (Mode: Multiply) with RGB correction values; this is the ACES workflow in Blender 4.5.
+6. Enable transparency in Render Properties > Film > Transparent for compositing.
+7. Apply a geometry nodes effect to the 3D asset (the core VFX element — specific effect details in the procedural geometry nodes).
+8. Set up the Blender compositor: use Render Layers, Alpha Over, and Color Correction nodes to composite the CG over the live-action footage.
+9. Use the shadow catcher output to blend real shadows into the composite.
+10. Color grade the final composite to match the footage's color temperature and tone.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Environment Texture node (HDRI, Linear sRGB color space)
+- Ctrl+T — Texture Coordinate + Mapping nodes (Node Wrangler)
+- Mix Color node (Mode: Multiply, HDRI calibration)
+- Render Properties: Film > Transparent
+- Shadow Catcher (Object Visibility > Shadow Catcher)
+- Camera tracking (pre-solved motion data)
+- Compositor: Render Layers, Alpha Over, Color Correction nodes
+- ACES color workflow (Blender 4.5)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Advanced
+
+### Blender Version
+4.5
 
 ### Tags
-[To be added]
+#geometry-nodes #compositing #rendering #lighting #hdri #camera #blender-4x #intermediate #advanced

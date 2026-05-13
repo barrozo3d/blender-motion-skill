@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/tj6ZZYO5qPY
 author: Entagma
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "3.4"
+tags: [geometry-nodes, procedural, particles, animation, motion-design, abstract, blender-3x, advanced]
 ---
 
 # Blender Tutorial: Connect The Dots with Geometry Nodes, The "Plexus" Effect
@@ -46,16 +46,36 @@ Kind: captions Language: en hello this is Manuel with intagma and I'm here with 
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Recreating the "Plexus" effect in Geometry Nodes by distributing a point cloud inside a mesh volume, then using a serialized loop (abusing geometry to fake nested loops) to test all pairwise point distances and draw connecting lines only for pairs below a threshold distance.
 
 ### Key Steps
-[To be extracted]
+1. Add a Suzanne mesh, subdivide it, and apply the subdivision modifier as the point cloud source volume.
+2. Create a new plane object named "GN" as the geometry nodes host; create a new node tree named "TN_connect_the_dots".
+3. Bring in the Suzanne object node (use Relative coordinates) and convert it to a volume using the Mesh to Volume node.
+4. Use Distribute Points in Volume node on the volume; start with low density (e.g., 5) to prototype.
+5. Design the serialized loop: to test all N×N point pairs without nested loops, create a geometry with N copies of each point paired with every other point index — representing all combinations as a linear sequence.
+6. For each pair, compute the vector from point A to point B and measure its length using Vector Math (Length).
+7. Compare the distance against a threshold; use a Compare node (less than) to create a boolean selection mask.
+8. Use the selected pairs to create edges or lines between points using the Edges of Corner or Mesh Line approaches.
+9. Delete pairs that exceed the threshold distance, leaving only the connected short-distance lines.
+10. Adjust the density (Distribute Points in Volume) and threshold distance to control the visual density of the plexus network.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Object node (relative coordinate space)
+- Mesh to Volume node
+- Distribute Points in Volume node (Density: 5–10)
+- Vector Math nodes: Subtract, Length
+- Compare node (Less Than threshold)
+- Reroute nodes (for labeling/organization)
+- Index node (point indices for pairing logic)
+- Delete Geometry node (filter by threshold)
+- Blender 3.4 (required for Distribute Points in Volume)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Advanced
+
+### Blender Version
+3.4
 
 ### Tags
-[To be added]
+#geometry-nodes #procedural #particles #animation #motion-design #abstract #blender-3x #advanced

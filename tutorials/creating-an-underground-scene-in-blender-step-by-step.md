@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/-QbetK8c1As
 author: Max Hay
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [materials, rendering, lighting, compositing, intermediate]
 ---
 
 # Creating an Underground Scene in Blender (Step by Step)
@@ -47,16 +47,36 @@ Kind: captions Language: en Okay, in this one I'm going to show you how I made t
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Full scene-building walkthrough for an industrial underground environment in Blender: modeling a large cylindrical silo interior with custom stairs, platforms, and structural elements, then developing the complete scene with materials and lighting.
 
 ### Key Steps
-[To be extracted]
+1. Block out the scene concept: a large cylinder (128 segments) as the silo interior, with the camera looking upward; rough-block stairs and platforms.
+2. Model factory stairs: add a cylinder, use the Spin tool in Edit Mode to create the curved stair rail; fix normals with Apply Scale; bevel control loops.
+3. Apply Mirror modifier (X and Z axes) with clipping to complete the stair symmetry; use Alt+S to uniformly scale thickness.
+4. Create stair railings: extrude vertical shafts, use Shift+D to duplicate and position them; keep modeling simple and memorable.
+5. Separate geometry pieces (P > Selection) and set origin to geometry; rotate and reuse pieces as platform components.
+6. Build the full silo scene: place the 128-segment cylinder, duplicate stair arrays, position platforms at different levels.
+7. Apply concrete/grunge photo textures (referenced free image from Pexels) for the silo walls.
+8. Set up dramatic lighting with spotlights for industrial atmosphere.
+9. Add scene atmosphere and finalize materials.
+10. Render and composite the final underground scene.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Mirror modifier (X and Z axes, Clipping enabled)
+- Spin tool (Edit Mode, for curved rail geometry)
+- Bevel (Ctrl+B, 3–4 segments)
+- Alt+S (uniform thickness scaling in Edit Mode)
+- Separate by Selection (P key)
+- Set Origin to Geometry
+- Shade Auto Smooth
+- Dissolve (right-click > Dissolve Edges)
+- 128-segment cylinder
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#materials #rendering #lighting #compositing #intermediate

@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/IzSRBH8CDTo
 author: Ryan King Art
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "5.0"
+tags: [geometry-nodes, procedural, animation, motion-design, materials, shaders, eevee, abstract, blender-5x, beginner, intermediate]
 ---
 
 # Sci-Fi Grid Pattern Animation Loop - Blender Motion Graphics Tutorial
@@ -48,16 +48,35 @@ Kind: captions Language: en In this Blender tutorial, we'll be creating this sci
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Creating a sci-fi triangular grid pattern animation loop in Blender 5.0 by using the Extra Mesh Objects > Honeycomb add-on as a triangle grid base, then using the built-in "Instance on Elements" geometry nodes modifier to place an Icosphere on every vertex, combined with procedural emissive materials in Eevee.
 
 ### Key Steps
-[To be extracted]
+1. Enable add-ons: Node Wrangler (add-ons tab); Extra Mesh Objects (Get Extensions tab, search "extra").
+2. Add mesh: Add > Mesh > Extras > Honeycomb; set Rows and Columns to 50 each; increase Edge Width to 1.0 to collapse honeycomb edges into a triangle pattern.
+3. Tab into Edit Mode; A to select all; M > Merge by Distance to remove overlapping vertices from the collapsed edges.
+4. Add a separate Icosphere (subdivisions: 3) as the instance object; Shade Smooth; scale down (S, type 0.7); Apply Scale; move to the side.
+5. Select the honeycomb grid; go to Modifier Properties > Add Modifier > search "Instance on Elements" (Blender 5.0 built-in GN modifier).
+6. In the Instance on Elements modifier: click the eyedropper and select the Icosphere as the instance object; turn off "Keep Surface" to hide original grid.
+7. Switch to Rendered viewport mode (Z > Rendered); set render engine to Eevee; Color Management > View Transform: Filmic.
+8. Create a procedural emissive sci-fi material (Emission + Noise Texture + Color Ramp for glowing grid look).
+9. Animate the material (wave or noise texture parameters over time) to create the looping animation.
+10. Try different camera angles and color variations for different looks.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Extra Mesh Objects add-on (Honeycomb: Rows: 50, Columns: 50, Edge Width: 1.0)
+- Merge by Distance (Edit Mode, M key)
+- Icosphere (Subdivisions: 3, scaled to 0.7)
+- Instance on Elements modifier (Blender 5.0 built-in, Object: Icosphere, Keep Surface: off)
+- Node Wrangler add-on
+- Eevee render engine
+- Color Management: Filmic view transform
+- Emission shader + Noise Texture + Color Ramp (procedural material)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner
+
+### Blender Version
+5.0
 
 ### Tags
-[To be added]
+#geometry-nodes #procedural #animation #motion-design #materials #shaders #eevee #abstract #blender-5x #beginner #intermediate

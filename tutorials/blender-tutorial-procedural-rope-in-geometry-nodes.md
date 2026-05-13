@@ -4,8 +4,8 @@ source: YouTube
 url: https://www.youtube.com/live/z-fKQtlQPw0
 author: CG Cookie – Learn Blender
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "5.0"
+tags: [geometry-nodes, procedural, organic, animation, blender-5x, intermediate, advanced]
 ---
 
 # Blender Tutorial - Procedural Rope in Geometry Nodes
@@ -44,16 +44,34 @@ Kind: captions Language: en Alrighty guys, let's just make sure this audio comes
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Building a fully procedural, customizable rope generator in Blender 5.0 Geometry Nodes using a hierarchy of instanced Curve Circles to create interlocking spiral strands along a Bezier curve path, with fine hairs on the surface.
 
 ### Key Steps
-[To be extracted]
+1. Add a Bezier curve as the rope path; increase resolution in curve settings for viewport quality; save often as "rope_v1".
+2. Open Geometry Nodes on the curve; name the tree "rope_v1".
+3. Add a Curve to Mesh node; use a Curve Circle as the profile input to create a basic tube.
+4. For spiral strands: add a second Curve Circle; use Instance on Points to place small curve circles at each point of the larger circle — creating a ring of strand paths.
+5. Adjust the radius of the outer circle and the count/radius of the inner circles to control how many strands spiral around the rope core.
+6. Apply Curve Tilt to set the twist/spiral angle along the path.
+7. Convert the instanced strand curves to mesh using another Curve to Mesh node.
+8. Add fine surface hairs by instancing thin curve segments on the rope surface faces.
+9. Realize instances for the final mesh output.
+10. Also explored in the stream: maze generation, organic leaf scattering, and particle effects as bonus experiments.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Bezier Curve (input path)
+- Curve Circle node (profile and strand circles)
+- Curve to Mesh node (tube generation)
+- Instance on Points node (strand placement on outer circle)
+- Curve Tilt node (spiral twist)
+- Realize Instances node
+- Resolution: increased in curve settings for viewport quality
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Advanced
+
+### Blender Version
+5.0
 
 ### Tags
-[To be added]
+#geometry-nodes #procedural #organic #animation #blender-5x #intermediate #advanced

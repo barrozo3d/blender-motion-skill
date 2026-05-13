@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/ZBZ26xQ9Pnk
 author: Photini By Design
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [geometry-nodes, procedural, animation, rigging, intermediate]
 ---
 
 # Track Objects Using Align Rotation To Vector In Geometry Nodes – Blender Tutorial
@@ -40,16 +40,38 @@ Kind: captions Language: en Hey folks, in this episode, I'm going to show you ho
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Making instanced objects track/point toward a target Empty in Geometry Nodes using the Align Rotation to Vector node — demonstrated by placing arrow instances on an Icosphere surface that all point toward a movable Empty target, plus a scale-by-proximity subsystem.
 
 ### Key Steps
-[To be extracted]
+1. Enable Node Wrangler add-on (Preferences > Add-ons > search "node").
+2. Model a simple arrow object: modify the default cube in Edit Mode (scale thin on X/Y, extrude/shape into an arrow pointing upward); rename to "arrow".
+3. Add an Icosphere (subdivisions: 3, Shade Smooth, scaled up ×2) as the distribution surface.
+4. Add an Empty (type: Sphere); move it away from the sphere; rename to "target".
+5. Select the Icosphere; add Geometry Nodes modifier; click New; rename to "follow_target".
+6. Add Distribute Points on Faces node (mode: Poisson Disk, Distance Min: 1m, Density Max: 200).
+7. Add Join Geometry node; connect original Group Input geometry and the distributed points to see both.
+8. Add Instance on Points node; drag the "arrow" object from the outliner into the node editor as an Object Info node; connect its Geometry output to Instance socket.
+9. Add Rotate Instances node after Instance on Points.
+10. Build the tracking vector: drag "target" Empty into node tree as Object Info; add Position node (current point position); add Vector Math (Subtract) node: Target Location − Point Position = direction vector; add Align Rotation to Vector node; connect the vector; connect rotation output to Rotate Instances > Rotation; now arrows track the target when it moves.
+11. Bonus: add Scale by Proximity subsystem using Geometry Proximity node.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Distribute Points on Faces node (Poisson Disk, Distance Min: 1m, Density Max: 200)
+- Instance on Points node
+- Object Info node (arrow object, target Empty)
+- Position node (current instance position)
+- Vector Math: Subtract (target pos − instance pos = direction)
+- Align Rotation to Vector node
+- Rotate Instances node
+- Geometry Proximity node (scale by proximity subsystem)
+- Join Geometry node (show original + instances)
+- Node Wrangler add-on
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#geometry-nodes #procedural #animation #rigging #intermediate

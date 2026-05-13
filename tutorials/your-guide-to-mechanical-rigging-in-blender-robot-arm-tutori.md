@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/SCz1tmOVmFw
 author: DemNikoArt
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: Not specified
+tags: [rigging, animation, intermediate, advanced]
 ---
 
 # Your Guide to Mechanical Rigging in Blender (Robot Arm Tutorial)
@@ -47,16 +47,36 @@ Kind: captions Language: en Hello and welcome to Can I Rig It? My tutorial serie
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Professional mechanical/robot arm rigging in Blender using Inverse Kinematics (IK) for full arm control with a single end-effector bone, rotation constraints per joint, dynamic piston rigging with Copy Location/Stretch To constraints, and a single-bone claw/gripper controller.
 
 ### Key Steps
-[To be extracted]
+1. Start in a fresh file; use Shift+S > Set Cursor to Selected to precisely place armature bones at pivot points of the mechanical arm parts.
+2. Add the main armature (Shift+A > Single Bone); enable "In Front" in armature properties for visibility through geometry.
+3. In Edit Mode, extrude bones along the arm chain from base to tip; align each bone to the corresponding mechanical part using Shift+S > Selection to Cursor for precision.
+4. Add the IK target bone at the end of the chain (the main controller); go to Pose Mode > select the last joint bone > Add Constraint > Inverse Kinematics; set the Chain Length to match the arm joint count.
+5. Limit joint rotations: in Pose Mode, select each bone > Bone Properties > Inverse Kinematics section > enable Limit X/Y/Z rotation axes; set appropriate angle limits per joint (e.g., only Y rotation for elbow joints).
+6. Set up the claw: add bones for the claw fingers; use a Copy Rotation constraint driven by a single controller bone to open/close all claw fingers simultaneously.
+7. Set up pistons: for each piston, use a Stretch To constraint on the inner piston bone targeting the outer part's head; the piston will automatically stretch/compress as the arm moves.
+8. Add a Copy Location constraint to keep piston ends attached to their mechanical mount points.
+9. Test: in Pose Mode, move only the IK controller bone — the entire arm follows, pistons stretch, claw opens/closes with one bone.
+10. Parent the mesh objects to their corresponding bones using Ctrl+P > Bone (for hard-surface mechanical parts without deformation).
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Armature + Bone chain (Shift+S > Cursor to Selected for precision)
+- IK (Inverse Kinematics) constraint (Chain Length setting)
+- Bone rotation limits (Bone Properties > IK > Limit X/Y/Z, angle ranges)
+- Stretch To constraint (pistons extending/compressing)
+- Copy Location constraint (piston mount points)
+- Copy Rotation constraint (claw finger synchronization)
+- Armature Properties: In Front (visibility through mesh)
+- Ctrl+Tab (quick switch to Pose Mode)
+- Ctrl+P > Bone (parent mesh to bone, no deformation)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate
+
+### Blender Version
+Not specified
 
 ### Tags
-[To be added]
+#rigging #animation #intermediate #advanced

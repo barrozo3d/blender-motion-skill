@@ -4,8 +4,8 @@ source: YouTube
 url: https://youtu.be/2MKKuHcni1U
 author: Ducky 3D
 ingested: 2026-05-13
-blender_version: unknown
-tags: []
+blender_version: "5.0"
+tags: [geometry-nodes, simulation, metal, materials, shaders, animation, abstract, organic, blender-5x, intermediate]
 ---
 
 # Organic Liquid Metal effect in blender 5.0 (tutorial)
@@ -46,16 +46,40 @@ Kind: captions Language: en All right. In this tutorial, we are going to be crea
 > - Tags"
 
 ### Core Technique
-[To be extracted]
+Creating an organic liquid metal effect in Blender 5.0 using the new SDF Grid Boolean node to merge multiple sphere instances into a single unified organic mesh with liquid-like connective tissue between them.
 
 ### Key Steps
-[To be extracted]
+1. Add a Plane as the host object; create a new Geometry Nodes setup.
+2. Add an Icosphere (radius ~10, 2 subdivisions) as the base shape; add Set Position + Noise Texture (4D mode, Normalize: off) to organically scatter the instances' positions.
+3. Add Instance on Points + a second Icosphere connected to the Instance input to create multiple sphere objects.
+4. Add Realize Instances node immediately after Instance on Points (required for the SDF workflow).
+5. Connect the realized geometry to a Mesh to SDF Grid node (converts mesh to a signed distance field volume).
+6. Connect another copy of the instance geometry (a second Mesh to SDF Grid branch) to an SDF Grid Boolean node set to Union — this merges both SDFs together.
+7. Connect the merged SDF to a Grid to Mesh node to recover usable geometry.
+8. Add Set Shade Smooth + Smooth Geometry node (increase iterations) for the organic rounded look.
+9. Adjust Voxel Size (use a shared Value node for both SDF grid nodes, e.g., 0.3) — lower = higher poly.
+10. Apply a metallic Principled BSDF material (Metallic: 1, Roughness low) or a subsurface material for a fleshy variation; animate by keyframing the 4D Noise Texture's W value.
 
 ### Blender Nodes / Settings
-[To be extracted]
+- Icosphere node (Radius: 10, Subdivisions: 2)
+- Set Position node
+- Noise Texture node (4D mode, Normalize: off)
+- Vector Math: Scale (Normalize off)
+- Instance on Points node
+- Realize Instances node (required before SDF)
+- Mesh to SDF Grid node (Voxel Size: 0.3)
+- SDF Grid Boolean node (Mode: Union)
+- Grid to Mesh node
+- Set Shade Smooth node
+- Smooth Geometry node (group node, increase iterations)
+- Value node (shared Voxel Size control)
+- Principled BSDF (Metallic: 1.0, subsurface variant)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate
+
+### Blender Version
+5.0
 
 ### Tags
-[To be added]
+#geometry-nodes #simulation #metal #materials #shaders #animation #abstract #organic #blender-5x #intermediate
