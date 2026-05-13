@@ -277,6 +277,18 @@ def main():
     update_index(title, url, filename, source_type, data["author"])
 
     print(f"\nDone. Tutorial saved to: tutorials/{filename}")
+
+    # Auto-commit and push to GitHub
+    try:
+        import subprocess as sp
+        repo_dir = SKILL_DIR
+        sp.run(["git", "add", str(output_path), str(INDEX_FILE)], cwd=repo_dir, check=True)
+        sp.run(["git", "commit", "-m", f"ingest: {title}"], cwd=repo_dir, check=True)
+        sp.run(["git", "push"], cwd=repo_dir, check=True)
+        print("Pushed to GitHub.")
+    except Exception as e:
+        print(f"Warning: auto-push failed ({e}). Run 'git push' manually in the skill directory.")
+
     print("To extract structured notes, ask Claude:")
     print(f'  "Analyze tutorials/{filename} and fill in the structured notes section"')
 
