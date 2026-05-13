@@ -1,0 +1,94 @@
+---
+title: Introduction to Geometry Nodes - اتعلم اقوي اداة علي بلندر
+source: YouTube
+url: https://youtu.be/RU3VO-qb91o
+author: Tabasheer
+ingested: 2026-05-13
+blender_version: unknown
+tags: []
+---
+
+# Introduction to Geometry Nodes - اتعلم اقوي اداة علي بلندر
+
+**Source:** [YouTube](https://youtu.be/RU3VO-qb91o)
+**Author:** Tabasheer
+**Ingested:** 2026-05-13
+
+---
+
+## Description
+
+جيوميتري نودز هي بدون شك اقوي اداه علي بلندر. اداه تقدر من خلالها تطبق افكارك المعقده علي بلندر. الفيديو دا شرح لأي حد حابب يبدأ يتعلم جيوميتري نودز من الاول. الهدف الاساسي هو ان احنا نحضر نفسنا قبل ما الكورس الاساسي ينزل. لو حابب تقدم في الearly bird discount قبل ما الكورس ينزل ممكن تملي الفورم التحت.
+
+https://forms.gle/xGYc2CfpXRQkK2hi7
+
+
+بردو لو حابب تبدأ تتعلم بلندر من الاول ممكن تشوف اللينك دا بمنهج اكتر من 100 ساعة تتعلم فيه بلندر و تبقي جزء من جروب اونلاين عشان لو حابب تسأل في اي وقت.
+
+ht
+
+---
+
+## Raw Content (for analysis)
+
+جيوميتري نودز هي بدون شك اقوي اداه علي بلندر. اداه تقدر من خلالها تطبق افكارك المعقده علي بلندر. الفيديو دا شرح لأي حد حابب يبدأ يتعلم جيوميتري نودز من الاول. الهدف الاساسي هو ان احنا نحضر نفسنا قبل ما الكورس الاساسي ينزل. لو حابب تقدم في الearly bird discount قبل ما الكورس ينزل ممكن تملي الفورم التحت.
+
+https://forms.gle/xGYc2CfpXRQkK2hi7
+
+
+بردو لو حابب تبدأ تتعلم بلندر من الاول ممكن تشوف اللينك دا بمنهج اكتر من 100 ساعة تتعلم فيه بلندر و تبقي جزء من جروب اونلاين عشان لو حابب تسأل في اي وقت.
+
+https://www.youtube.com/watch?v=IhjMb3QChzc&t=8s
+
+00:00 Intro
+03:46 Objects in Geo Nodes
+14:45 Joining Geometry
+21:23 Basic Shapes
+26:43 Object info
+33:18 Scaling
+39:20 Extruding
+1:00:21 Insetting
+1:08:08 Displacement
+1:41:54 Particles
+2:15:59 Displacement and Particles
+2:39:00 Group Input
+2:45:52 Booleans
+2:52:31 Convex Hull
+2:56:07 Decimating
+2:57:41 Boolean and array
+3:01:41 Curves
+3:30:42 Geometry Proximity
+3:41:37 Draw Curves
+3:46:34 Materials
+
+
+
+#3d #geometrynodes #animation #3dart #blender3d #creativeblender #motiongraphics #3danimation #blender #art #design #3ddesign
+
+---
+
+## Structured Notes
+
+*Fill in manually or ask Claude to analyze:*
+> "Analyze the content of tutorials/introduction-to-geometry-nodes-اتعلم-اقوي-اداة-علي-بلندر.md and extract:
+> - Core Blender technique taught
+> - Step-by-step workflow
+> - Key nodes or settings
+> - Blender version
+> - Difficulty level
+> - Tags"
+
+### Core Technique
+[To be extracted]
+
+### Key Steps
+[To be extracted]
+
+### Blender Nodes / Settings
+[To be extracted]
+
+### Difficulty
+[Beginner / Intermediate / Advanced]
+
+### Tags
+[To be added]
