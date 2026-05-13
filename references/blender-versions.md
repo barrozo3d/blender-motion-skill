@@ -8,7 +8,9 @@ When recommending workflows, always identify which version introduced each featu
 
 | Version | Status | Recommendation |
 |---|---|---|
-| **4.5 LTS** | Current LTS (Jul 2025) | **Default recommendation** — stable, 2yr support |
+| **5.1** | Current latest (Mar 2026) | **Use for new projects** — latest features, EEVEE planar reflections |
+| 5.0 | Stable (Nov 2025) | Good; first 5.x release, volume GeoNodes, null scattering |
+| **4.5 LTS** | LTS (Jul 2025) | **Use for stability** — 2yr support, safest for production |
 | 4.4 | Stable | Good if user already on it |
 | 4.2 LTS | Previous LTS | Many tutorials still reference this |
 | 3.6 LTS | Legacy | Older tutorials, some addons still target this |
@@ -31,6 +33,14 @@ When recommending workflows, always identify which version introduced each featu
 | Set Mesh Normal | 4.5 | Custom normals in GeoNodes; intersecting objects blend |
 | File Import Nodes | 4.5 | OBJ/CSV/VDB/STL import via nodes |
 | Grease Pencil in GeoNodes | 4.3+ | GP stroke creation and editing via nodes |
+| Volume Grid data type | 5.0 | OpenVDB grids in GeoNodes — native volumetric workflows |
+| SDF nodes (Laplacian/Median) | 5.0 | Signed distance field processing — curvature flow, noise reduction |
+| Closures & Bundles (stable) | 5.0 | No longer experimental; also available in Shader Nodes |
+| UV Tangent node | 5.0 | Access tangent vectors on mesh for advanced shading |
+| Essential Assets (built-in node groups) | 5.0 | Scatter on Surface, Instance on Elements, Randomize Instances, Flexible Array |
+| Bone Info node | 5.1 | GeoNodes access to armature bone transforms (Pose, Rest, etc.) |
+| Volume grid manipulation nodes | 5.1 | Dilate, erode, clip volume grids procedurally |
+| Mesh Island & Matrix sockets | 5.1 | Advanced procedural workflows, matrix math in nodes |
 
 ### Rendering
 
@@ -43,6 +53,15 @@ When recommending workflows, always identify which version introduced each featu
 | Adaptive subdivision motion blur | 4.5 | Fixes artifacts on animated subdivision surfaces |
 | Vulkan backend | 4.5 | Production-ready, better viewport performance |
 | GPU denoising (OIDN) compositor | 4.5 | Faster denoising in compositor |
+| Null scattering volumes (Cycles) | 5.0 | Reduces overlapping volume artifacts; simpler parameter tuning |
+| Thin-film iridescence | 5.0 | Metallic BSDF shader support for iridescent surfaces |
+| OptiX Denoiser improvements | 5.0 | Cleaner, more stable results on NVIDIA GPUs |
+| Render Time Pass | 5.0 | Per-pixel render time data as a render pass |
+| EEVEE planar reflections (glossy+refraction) | 5.1 | Accurate planar reflections with glossy and refraction support |
+| EEVEE shader pre-processing | 5.1 | GPU shaders compile 25–50% faster |
+| EEVEE texture pooling | 5.1 | Reduces VRAM use for large scenes |
+| Cycles GPU improvement | 5.1 | ~5–10% speed gain across most scenes |
+| HIP RT ray tracing (AMD) | 5.1 | Enabled by default on AMD GPUs |
 
 ### Animation
 
@@ -61,6 +80,8 @@ When recommending workflows, always identify which version introduced each featu
 | Light Temperature (Kelvin) | 4.5 | Set light color via Kelvin directly |
 | Light Normalize | 4.5 | Prevents intensity change during scaling |
 | Light Exposure parameter | 4.5 | Scene-wide simultaneous exposure adjust |
+| Metallic BSDF thin-film | 5.0 | Iridescence on metallic surfaces |
+| Raycast shader node | 5.1 | Shoot a ray, get surface info back — enables toon shading, X-ray effects |
 
 ### Import/Export
 
@@ -88,6 +109,15 @@ When recommending workflows, always identify which version introduced each featu
 - Fully compatible with 4.5
 - Can benefit from 4.5 additions (Set Mesh Normal, file nodes, etc.)
 
+### If a tutorial says "5.0"
+- Fully compatible with 5.1
+- Volume Grid nodes, null scattering, and Closures available
+- Essential Assets (built-in GeoNodes modifiers) available
+
+### If a tutorial says "4.5"
+- Fully compatible with 5.0 and 5.1
+- Can benefit from 5.x additions (volume GeoNodes, iridescence, EEVEE planar reflections)
+
 ### Common Breaking Changes
 - **3.x → 4.0**: Principled BSDF changed (Coat/Sheen params new), some deprecated nodes
 - **3.x → 4.0**: Simulation Zone introduced — older particle-only workflows may be richer now
@@ -96,17 +126,30 @@ When recommending workflows, always identify which version introduced each featu
 
 ---
 
-## Recommended Stack for Ad/Motion Design (2025–2026)
+## Recommended Stack for Ad/Motion Design (2026)
 
+**For new projects (cutting-edge):**
+```
+Blender 5.1
+├── Renderer: Cycles X (GPU +5–10% vs 5.0) or EEVEE Next (planar reflections, 25–50% faster shaders)
+├── Denoiser: OptiX (NVIDIA) — improved stability in 5.0+
+├── Color: AgX view transform
+├── GeoNodes: Simulation Zone + Repeat Zone + Volume Grids + Closures
+├── Physics: Mantaflow (fluid/smoke), Bullet (rigid body), built-in cloth
+├── Compositing: Blender compositor → export EXR → After Effects
+└── Hardware: RTX 5070 (CUDA for Cycles GPU)
+```
+
+**For production stability:**
 ```
 Blender 4.5 LTS
 ├── Renderer: Cycles X
-├── Denoiser: Open Image Denoise (OIDN) — GPU accelerated in compositor (4.5)
+├── Denoiser: Open Image Denoise (OIDN) — GPU accelerated in compositor
 ├── Color: AgX view transform
 ├── GeoNodes: Simulation Zone + Repeat Zone
 ├── Physics: Mantaflow (fluid/smoke), Bullet (rigid body), built-in cloth
 ├── Compositing: Blender compositor → export EXR → After Effects
-└── Hardware: RTX 4090 / RTX 5070 (CUDA for Cycles GPU)
+└── Hardware: RTX 5070 (CUDA for Cycles GPU)
 ```
 
 ---
