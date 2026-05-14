@@ -624,9 +624,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://youtu.be/bHWvVtuLJkM?si=TswxlqazF-v8tdBA
 - **Author:** CrossMind Studio
-- **Blender Version:** (check file)
-- **Tags:** (check file)
-- **Summary:** (analyze file to extract summary)
+- **Blender Version:** 3.1
+- **Tags:** #geometry-nodes #procedural #fractal #extrude #abstract #glass #blender-3x #beginner #intermediate
+- **Summary:** Chains 4–5 copies of a grouped [Extrude Mesh (Offset 0.01) + Scale Elements (Top)] node pair to create a self-similar fractal pattern on a cube. Key insight: offset must be ~0.01; Scale value drives fractal variation. Optional 5th selective layer uses Face Area + Compare (>0.4) for emergent large-face detail. Rendered in Cycles with Glass BSDF + colored point lights.
 - **File:** tutorials/fractals-in-blender-geometry-nodes-extrude-node.md
 
 ---

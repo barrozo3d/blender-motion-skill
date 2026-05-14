@@ -42,26 +42,35 @@ Kind: captions Language: en while our main geometry node series is still going o
 
 ## Structured Notes
 
-*Fill in manually or ask Claude to analyze:*
-> "Analyze the content of tutorials/fractals-in-blender-geometry-nodes-extrude-node.md and extract:
-> - Core Blender technique taught
-> - Step-by-step workflow
-> - Key nodes or settings
-> - Blender version
-> - Difficulty level
-> - Tags"
-
 ### Core Technique
-[To be extracted]
+Chain 4–5 copies of a grouped [Extrude Mesh (Offset 0.01) → Scale Elements (Top selection)] node pair to build a self-similar fractal pattern on a cube. An optional 5th selective layer uses Face Area + Compare to extrude only faces larger than a threshold.
 
 ### Key Steps
-[To be extracted]
+1. Start from default cube, open Geometry Node editor, click New
+2. Add **Extrude Mesh** node (Faces mode), connect Mesh → output Geometry
+3. Add **Scale Elements** node, connect `Extrude.Top → Scale.Selection`
+4. Set Extrude **Offset Scale = 0.01** (very subtle — the scale value drives the look, not the height)
+5. Group both nodes with **Ctrl+G**, name the group "extrude and insert"
+6. **Shift+D** the group 3–4 more times and chain them: group1 → group2 → group3 → group4
+7. Edit the shared group (all copies share one node tree) → tweak Scale value to reveal fractal patterns
+8. Optional 5th layer: add **Face Area → Compare (Greater Than, threshold 0.4) → Extrude (Offset 0.01) → Scale (Top)** — only faces with area > 0.4 get an extra extrusion, breaking the pattern with larger emergent shapes
+9. Add **Glass BSDF** material in Cycles (light blue tint, roughness ~0.0)
+10. Light with multiple colored **Point lights**, no HDRI
 
 ### Blender Nodes / Settings
-[To be extracted]
+- `GeometryNodeExtrudeMesh` — mode: FACES, Individual: True, Offset Scale: **0.01**
+- `GeometryNodeScaleElements` — domain: FACE, Selection: from Extrude.Top, Scale: ~0.65 (adjust for fractal look)
+- Node Group (Ctrl+G) for the Extrude+Scale pair — all chained copies share the same tree
+- `GeometryNodeInputMeshFaceArea` — outputs face area as float
+- `FunctionNodeCompare` — Greater Than, threshold B: 0.4 — used as Selection for 5th extrude layer
+- `ShaderNodeBsdfGlass` — IOR ~1.45, Roughness ~0.0, slight blue tint
+- Render: Cycles, multiple colored point lights, no HDRI
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Beginner / Intermediate
+
+### Blender Version
+3.1 (Extrude Mesh + Scale Elements introduced in 3.1)
 
 ### Tags
-[To be added]
+#geometry-nodes #procedural #fractal #extrude #abstract #glass #blender-3x #beginner #intermediate
