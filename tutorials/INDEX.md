@@ -618,6 +618,17 @@ Each entry format:
 - **Summary:** Comprehensive photorealism pipeline: reference gathering in PureRef → camera focal length/height decision early → high-res stacked textures with imperfections (Polyhaven, Ambient CG, Megascans) → photoscanned or AI-generated assets (Tripo3D: 1-4 photo input → 4K PBR output) → bevel all edges → scale verification with Rigify rig.
 - **File:** tutorials/photorealistic-renders-in-blender.md
 
+
+
+### Fractals in Blender - Geometry Nodes Extrude Node
+- **Source:** YouTube
+- **URL:** https://youtu.be/bHWvVtuLJkM?si=TswxlqazF-v8tdBA
+- **Author:** CrossMind Studio
+- **Blender Version:** (check file)
+- **Tags:** (check file)
+- **Summary:** (analyze file to extract summary)
+- **File:** tutorials/fractals-in-blender-geometry-nodes-extrude-node.md
+
 ---
 
 ## Tag Reference
