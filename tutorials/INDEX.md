@@ -620,6 +620,17 @@ Each entry format:
 
 
 
+### Frozen Motion Blur Bridge — Geo Nodes Breakdown (Albin Merle)
+- **Source:** Direct file analysis
+- **URL:** https://www.youtube.com/watch?v=675BOBWbTt4
+- **Author:** Albin Merle
+- **Blender Version:** 4.x / 5.x
+- **Tags:** #geometry-nodes #motion-blur #procedural #animation #scene-time #glass #displacement #intermediate #advanced #albin-merle
+- **Summary:** Full breakdown of the `Frozen_MotionBlur` node group from file `061_AM_Frozen_motion_Blur_Bridge`. Two Scene Time nodes oscillate X/Z displacement vectors at different speeds (÷24 and ÷45), masked by Z height via Map Range. Geometry source is a Collection (not the modifier input). Includes Python snippet to add a Strength input for animating the effect on/off.
+- **File:** tutorials/frozen-motion-blur-bridge-geo-nodes-breakdown.md
+
+
+
 ### Fractals in Blender - Geometry Nodes Extrude Node
 - **Source:** YouTube
 - **URL:** https://youtu.be/bHWvVtuLJkM?si=TswxlqazF-v8tdBA
