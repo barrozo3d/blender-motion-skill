@@ -640,6 +640,17 @@ Each entry format:
 - **Summary:** Chains 4–5 copies of a grouped [Extrude Mesh (Offset 0.01) + Scale Elements (Top)] node pair to create a self-similar fractal pattern on a cube. Key insight: offset must be ~0.01; Scale value drives fractal variation. Optional 5th selective layer uses Face Area + Compare (>0.4) for emergent large-face detail. Rendered in Cycles with Glass BSDF + colored point lights.
 - **File:** tutorials/fractals-in-blender-geometry-nodes-extrude-node.md
 
+
+
+### Photorealistic Eevee Renders In Blender 5.1
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=AoGPxjgqVYE&t=76s
+- **Author:** Extra 3d
+- **Blender Version:** (check file)
+- **Tags:** (check file)
+- **Summary:** (analyze file to extract summary)
+- **File:** tutorials/photorealistic-eevee-renders-in-blender-51.md
+
 ---
 
 ## Tag Reference
