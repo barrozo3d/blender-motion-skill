@@ -646,9 +646,10 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=AoGPxjgqVYE&t=76s
 - **Author:** Extra 3d
-- **Blender Version:** (check file)
-- **Tags:** (check file)
-- **Summary:** (analyze file to extract summary)
+- **Blender Version:** 5.1
+- **Tags:** #eevee #rendering #photorealism #ray-tracing #lighting #light-probes #materials #glass #hdri #vulkan #blender-5x #beginner #intermediate
+- **Summary:** Full workflow for photorealistic Eevee renders in Blender 5.1: switch backend to Vulkan, enable ray tracing, then combine irradiance volume + reflection cubemap light probes (baked) to fix Eevee's screen-space limitations. Covers 5 chapters: theory, basic scene, light probes, glass/translucent materials, and relighting complete scenes.
+- **File:** tutorials/photorealistic-eevee-renders-in-blender-51.md
 - **File:** tutorials/photorealistic-eevee-renders-in-blender-51.md
 
 ---

@@ -4,8 +4,8 @@ source: YouTube
 url: https://www.youtube.com/watch?v=AoGPxjgqVYE&t=76s
 author: Extra 3d
 ingested: 2026-05-14
-blender_version: unknown
-tags: []
+blender_version: "5.1"
+tags: [eevee, rendering, photorealism, ray-tracing, lighting, light-probes, materials, glass, hdri, vulkan, blender-5x, beginner, intermediate]
 ---
 
 # Photorealistic Eevee Renders In Blender 5.1
@@ -43,26 +43,40 @@ Kind: captions Language: en Let me ask you a simple question. Which one of these
 
 ## Structured Notes
 
-*Fill in manually or ask Claude to analyze:*
-> "Analyze the content of tutorials/photorealistic-eevee-renders-in-blender-51.md and extract:
-> - Core Blender technique taught
-> - Step-by-step workflow
-> - Key nodes or settings
-> - Blender version
-> - Difficulty level
-> - Tags"
-
 ### Core Technique
-[To be extracted]
+Achieving photorealistic results in Blender 5.1 Eevee by combining ray tracing (enabled via Vulkan backend) with light probes (irradiance volumes + reflection cubemaps) — solving Eevee's screen-space limitation through baked indirect lighting data.
 
 ### Key Steps
-[To be extracted]
+1. **Switch backend to Vulkan:** Edit → Preferences → System → Backend: Vulkan → Save & Restart (required for ray tracing performance)
+2. **Enable Ray Tracing:** Render Properties → Eevee → Ray Tracing → enable
+3. **Set up base scene:** HDRI for ambient light + Area light + optional Volumetrics for atmosphere
+4. **Add Irradiance Volume probe:** covers the scene and bakes diffuse indirect lighting data; adjust resolution to match scene scale
+5. **Add Reflection Cubemap probe:** placed near glossy/reflective surfaces to capture accurate specular reflections; bake probe data
+6. **Bake all light probes:** Scene tab → Bake Indirect Lighting (captures data that fills in what ray tracing misses off-screen)
+7. **Handle glass materials:** Principled BSDF with Transmission — requires specific Eevee settings (Screen Space Refraction or ray traced refraction); may need backface culling adjustments
+8. **Handle translucent materials:** use Translucent BSDF or Principled with subsurface; light probes help fill in transmitted light
+9. **Relight complete scenes:** adjust HDRI rotation + light intensity; re-bake probes after lighting changes
+10. **Iterate viewport vs render:** Eevee renders in real time so tweaks are instant — use this for rapid iteration
 
 ### Blender Nodes / Settings
-[To be extracted]
+- **Backend:** Vulkan (Edit → Preferences → System)
+- **Ray Tracing:** Render Properties → Eevee → Ray Tracing (checkbox)
+- **Irradiance Volume:** Add → Light Probe → Irradiance Volume
+- **Reflection Cubemap:** Add → Light Probe → Reflection Cubemap
+- **Bake Indirect Lighting:** Scene Properties → Indirect Lighting → Bake Indirect Lighting
+- **Screen Space Refraction:** Render Properties → Eevee → Screen Space Refraction (for glass)
+- **Volumetrics:** Render Properties → Eevee → Volumetrics (for atmosphere)
+- **HDRI:** World Properties → Surface → Background → Environment Texture
+- **Principled BSDF** with Transmission for glass
+- **Area Light** as key light
+- **Poly Haven** (free HDRIs and PBR textures)
+- **CGTrader** (3D asset source used in demo scenes)
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+Intermediate
+
+### Blender Version
+5.1
 
 ### Tags
-[To be added]
+#eevee #rendering #photorealism #ray-tracing #lighting #light-probes #materials #glass #hdri #vulkan #blender-5x #beginner #intermediate
