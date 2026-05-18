@@ -803,6 +803,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/how-to-make-cyberpunk-scenes-in-blender.md
 
+
+### How To Make This Style in Blender 5.0
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=rbPOL9ibooY
+- **Author:** Ducky 3D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-make-this-style-in-blender-50.md
+
 ---
 
 ## Tag Reference
