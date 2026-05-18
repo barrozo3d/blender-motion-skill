@@ -673,6 +673,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/realistic-product-lighting-in-blender.md
 
+
+### 3 Easy Lighting Setups | Blender Tutorial
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=FYJb10NIMH8
+- **Author:** Max Hay
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/3-easy-lighting-setups-blender-tutorial.md
+
 ---
 
 ## Tag Reference
