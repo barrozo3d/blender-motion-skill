@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=upUPrc35DYw
 author: Max Hay
 ingested: 2026-05-18
-blender_version: "Not specified"
-tags: ["animation", "motion-design", "camera", "compositing", "rendering", "materials", "shaders", "intermediate"]
-extraction_status: complete
+blender_version: "[PENDING]"
+tags: []
+extraction_status: pending
 frames_dir: tutorials/frames/how-i-built-this-gate-animation-in-blender-scene-breakdown/
 frame_count: 0
 ---
@@ -32,43 +32,27 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-Breaks down a complex sci-fi gate opening animation by showing that the visual complexity comes entirely from layered materials and particles on top of very simple location keyframes — the gate panels slide outward with Mirror modifier for symmetry, and staggered timing creates sequential choreography.
+[PENDING EXTRACTION]
 
 ### Summary
-Max Hay demonstrates that intimidating-looking animations are often built from simple building blocks. The gate animation uses basic location keyframes (G → X/Y → value → Enter) for each panel, with the Mirror modifier ensuring left/right symmetry from a single set of keyframes. Staggered frame offsets (every 5–10 frames later per panel) create the sequential reveal effect. The Graph Editor is used to ease in/out each movement for smooth motion. The visual richness comes from the shader layer: emissive wireframe texture, glowing edge emission, and a particle system emitting sparks at the gate seam — all of which run independently of the animation rig. Lighting uses Area Lights with emissive surface colors to match the neon palette.
+[PENDING EXTRACTION]
 
 ### Key Steps
-1. Block out gate geometry: simple rectangular panels in edit mode → apply **Mirror modifier** on the X axis for symmetrical left/right panels
-2. Set keyframes on each panel's X Location: frame 0 (closed position), frame 30 (open position) → I key → Location
-3. Open **Graph Editor** → select all F-curves → T → select **Ease In/Out** interpolation for smooth deceleration
-4. Stagger timing: select the second row's keyframes in the Graph Editor → G → X → shift them 8–10 frames right; repeat for each successive row for the sequential gate reveal
-5. For the look: assign an **Emission** shader to the edge geometry with high Strength (10–50) in the gate panel material for glowing edges
-6. Add a **Wireframe modifier** or use the Wireframe node in the shader for the emissive grid pattern on gate surfaces
-7. Add a **Particle System** at the gate seam center: Hair type, render as **Object** (small icosphere), low gravity, high initial velocity for spark burst on opening frame
-8. Add **Area Lights** colored to match the neon palette (cyan/blue) at low position behind the gate for dramatic backlight
+[PENDING EXTRACTION]
 
 ### Nodes / Settings
-- Mirror modifier — Axis: X; Bisect: on to clip center geometry
-- Location keyframes — frame 0: closed; frame 20–30: fully open; ease in/out interpolation
-- Graph Editor — G + X to shift keyframe timing for stagger; Ease In/Out (T menu)
-- Emission shader — Strength: 10–50 for bright neon glow; connected to gate edge geometry
-- Wireframe node (shader) — Pixel Size: on; used to generate edge highlight mask
-- Particle System — Number: 500–2000; Lifetime: 20–40; Velocity: Normal 2–5 for spark burst
-- Area Light — Size: 2–4 m; Energy: 200–1000 W; Color: cyan/blue for sci-fi palette
+[PENDING EXTRACTION]
 
 ### Difficulty
-Intermediate
+[PENDING EXTRACTION]
 
 ### Blender Version
-Not specified
+[PENDING EXTRACTION]
 
 ### Tags
-#animation #motion-design #camera #compositing #rendering #materials #shaders #intermediate
+[PENDING EXTRACTION]
 
 ---
 
 ## Related Tutorials
-- [Mastering Blender's Graph Editor](./mastering-blenders-graph-editor.md)
-- [Creating an Underground Scene in Blender (Step by Step)](./creating-an-underground-scene-in-blender-step-by-step.md)
-- [How to Make Cyberpunk Scenes in Blender](./how-to-make-cyberpunk-scenes-in-blender.md)
-- [3 Easy Lighting Setups | Blender Tutorial](./3-easy-lighting-setups-blender-tutorial.md)
+[PENDING EXTRACTION]
