@@ -733,6 +733,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/fundamentals-of-lighting-in-blender.md
 
+
+### Geode Nodes (i am so clever) // Blender Tutorial
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=1hKAkCP-tFQ
+- **Author:** CGMatter
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/geode-nodes-i-am-so-clever-blender-tutorial.md
+
 ---
 
 ## Tag Reference
