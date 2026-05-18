@@ -1033,6 +1033,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-tutorial---eternals-gold-wireframe-animation.md
 
+
+### Photorealistic Renders In Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=J_mweAPcO4M
+- **Author:** Extra 3d
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/photorealistic-renders-in-blender.md
+
 ---
 
 ## Tag Reference
