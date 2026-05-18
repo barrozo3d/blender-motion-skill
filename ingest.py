@@ -1,306 +1,601 @@
 """
-Blender Motion Skill — Tutorial Ingestion Script
+ingest.py — Enhanced tutorial ingestion for blender-motion skill
+
+Pipeline:
+  1. yt-dlp metadata + chapter parsing
+  2. Whisper transcription (falls back to yt-dlp captions)
+  3. Transcript segmented by chapters
+  4. Low-quality video download → ffmpeg frame extraction at chapter boundaries
+  5. Claude vision analysis per frame (reads node graphs, settings, viewport)
+  6. Multi-pass Claude extraction (Pass 1+2: steps/nodes; Pass 3: tags)
+  7. Auto cross-linking against existing library (2+ shared tags)
+  8. Write tutorial .md + update INDEX.md + backlink existing files
+  9. git commit + push
+
+Requirements:
+  pip install yt-dlp openai-whisper anthropic
+  ffmpeg must be on PATH  →  https://ffmpeg.org/download.html
+  ANTHROPIC_API_KEY must be set in environment
 
 Usage:
-  python ingest.py <URL>
-  python ingest.py <URL> --title "Custom Title"
-  python ingest.py <URL> --dry-run   (preview without saving)
-
-Supports:
-  - YouTube videos (extracts transcript via yt-dlp)
-  - Web articles / documentation (via requests + BeautifulSoup)
-
-Output:
-  - Creates tutorials/<slug>.md with structured content
-  - Updates tutorials/INDEX.md with new entry
-  - Flags file for Claude to extract structured notes after saving
-    (extraction is done by Claude Code skill context, not this script)
-
-NOTE ON AUTO-EXTRACTION:
-After this script saves the file, the blender-motion skill automatically
-runs the extraction pass (reads transcript, fills Structured Notes section).
-This is triggered by the skill workflow in SKILL.md — not by this script directly.
-To manually trigger extraction on a file:
-  "extract notes from tutorials/<filename>.md"
+  python ingest.py <youtube-url>
+  python ingest.py <youtube-url> --whisper-model small
+  python ingest.py <youtube-url> --skip-video   (transcript + API only, no frames)
+  python ingest.py <article-url>
 """
 
-import sys
-import os
-import re
-import json
-import subprocess
-import textwrap
-import argparse
+import sys, os, re, json, subprocess, tempfile, shutil, base64, argparse
 from datetime import datetime
 from pathlib import Path
-from urllib.parse import urlparse
 
-SKILL_DIR = Path(__file__).parent
+# ── Configuration ─────────────────────────────────────────────────────────────
+
+SKILL_DIR     = Path(__file__).parent
 TUTORIALS_DIR = SKILL_DIR / "tutorials"
-INDEX_FILE = TUTORIALS_DIR / "INDEX.md"
+INDEX_FILE    = TUTORIALS_DIR / "INDEX.md"
 
+VISION_MODEL     = "claude-opus-4-7"
+EXTRACTION_MODEL = "claude-opus-4-7"
+TAGGING_MODEL    = "claude-sonnet-4-6"
+DEFAULT_WHISPER  = "base"   # tiny / base / small / medium / large
 
-def slugify(title: str) -> str:
-    slug = title.lower()
-    slug = re.sub(r"[^\w\s-]", "", slug)
-    slug = re.sub(r"[\s_-]+", "-", slug)
-    return slug[:60].strip("-")
+TAGS_POOL = [
+    "geometry-nodes", "simulation", "particles", "fluid", "rigid-body", "cloth",
+    "smoke-fire", "materials", "shaders", "procedural", "displacement",
+    "animation", "rigging", "camera", "compositing", "rendering", "cycles",
+    "eevee", "lighting", "hdri", "volume", "product-viz", "motion-design",
+    "abstract", "logo-animation", "typography", "glass", "metal", "organic",
+    "brand-video", "beginner", "intermediate", "advanced", "expert",
+    "blender-3x", "blender-4x", "blender-5x",
+]
 
+VISION_PROMPT = """This is a frame from a Blender tutorial (chapter: "{chapter}").
 
-def is_youtube(url: str) -> bool:
-    return "youtube.com" in url or "youtu.be" in url
+Identify exactly what is visible:
+1. Which editor is shown? (Node Editor: Geometry Nodes / Shader Editor / Compositor / Animation Nodes; 3D Viewport; Properties panel; Graph Editor; Timeline; UV Editor; Outliner)
+2. List every visible node name exactly as labeled in any Node Editor
+3. Visible parameter values, slider positions, or settings panels — quote the numbers
+4. What geometry, material, or effect is displayed in the 3D Viewport
+5. Any on-screen text, annotations, or labels
 
+Be precise and technical. Exact node names and numeric values matter for the knowledge base."""
 
-def fetch_youtube(url: str) -> dict:
-    """Extract metadata and transcript from YouTube via yt-dlp."""
-    print(f"Fetching YouTube: {url}")
+# ── Utilities ─────────────────────────────────────────────────────────────────
 
-    # Get metadata
-    meta_cmd = [
-        sys.executable, "-m", "yt_dlp",
-        "--dump-json", "--no-playlist",
-        url
-    ]
-    result = subprocess.run(meta_cmd, capture_output=True, text=True, timeout=60)
-    if result.returncode != 0:
-        raise RuntimeError(f"yt-dlp metadata failed: {result.stderr}")
+def slugify(text):
+    s = text.lower()
+    s = re.sub(r"[^\w\s-]", "", s)
+    s = re.sub(r"[\s_]+", "-", s)
+    return s.strip("-")[:80]
 
-    meta = json.loads(result.stdout)
-    title = meta.get("title", "Unknown")
-    author = meta.get("uploader", "Unknown")
-    description = meta.get("description", "")
-    duration = meta.get("duration", 0)
-    upload_date = meta.get("upload_date", "")
+def b64_image(path):
+    return base64.standard_b64encode(Path(path).read_bytes()).decode()
 
-    # Get transcript
-    transcript = ""
-    transcript_cmd = [
-        sys.executable, "-m", "yt_dlp",
-        "--write-auto-subs", "--sub-lang", "en",
-        "--sub-format", "vtt",
-        "--skip-download",
-        "--output", str(TUTORIALS_DIR / "%(id)s"),
-        url
-    ]
-    subprocess.run(transcript_cmd, capture_output=True, timeout=120)
+def extract_json(text):
+    """Parse JSON from Claude response, handling markdown fences."""
+    try:
+        return json.loads(text)
+    except Exception:
+        pass
+    for pat in [r"```json\s*(\{.*?\})\s*```", r"```\s*(\{.*?\})\s*```", r"(\{[^{}]*\})"]:
+        m = re.search(pat, text, re.DOTALL)
+        if m:
+            try:
+                return json.loads(m.group(1))
+            except Exception:
+                continue
+    return {}
 
-    vid_id = meta.get("id", "")
-    vtt_file = TUTORIALS_DIR / f"{vid_id}.en.vtt"
-    if vtt_file.exists():
-        raw = vtt_file.read_text(encoding="utf-8", errors="ignore")
-        # Strip VTT markup
+def check_prerequisites():
+    missing = []
+    if not shutil.which("yt-dlp"):
+        missing.append("yt-dlp (pip install yt-dlp)")
+    try:
+        import anthropic
+    except ImportError:
+        missing.append("anthropic (pip install anthropic)")
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        missing.append("ANTHROPIC_API_KEY environment variable")
+    if missing:
+        print("Missing prerequisites:")
+        for m in missing:
+            print(f"  - {m}")
+        sys.exit(1)
+
+    has_ffmpeg  = bool(shutil.which("ffmpeg"))
+    has_whisper = False
+    try:
+        import whisper
+        has_whisper = True
+    except ImportError:
+        pass
+
+    return has_ffmpeg, has_whisper
+
+# ── Step 1: Metadata ───────────────────────────────────────────────────────────
+
+def get_info(url):
+    r = subprocess.run(
+        ["yt-dlp", "--dump-json", "--no-playlist", url],
+        capture_output=True, text=True, timeout=60, check=True
+    )
+    return json.loads(r.stdout)
+
+# ── Step 2: Transcript ─────────────────────────────────────────────────────────
+
+def whisper_transcribe(audio_path, model_name):
+    import whisper
+    model = whisper.load_model(model_name)
+    return model.transcribe(str(audio_path))
+
+def download_audio(url, tmp):
+    out = str(tmp / "audio.%(ext)s")
+    subprocess.run(
+        ["yt-dlp", "-x", "--audio-format", "mp3", "--audio-quality", "0",
+         "--no-playlist", "-o", out, url],
+        capture_output=True, timeout=300, check=True
+    )
+    for f in tmp.iterdir():
+        if f.suffix in (".mp3", ".m4a", ".ogg", ".webm"):
+            return f
+    raise FileNotFoundError("Audio file not found after download")
+
+def ytdlp_captions(url, tmp):
+    """Fallback: yt-dlp auto-captions → plain text."""
+    subprocess.run(
+        ["yt-dlp", "--write-auto-subs", "--sub-lang", "en",
+         "--sub-format", "vtt", "--skip-download", "--no-playlist",
+         "-o", str(tmp / "%(id)s"), url],
+        capture_output=True, timeout=120
+    )
+    for f in tmp.glob("*.vtt"):
+        raw = f.read_text(encoding="utf-8", errors="ignore")
         lines = []
-        for line in raw.split("\n"):
+        for line in raw.splitlines():
             if "-->" in line or line.startswith("WEBVTT") or line.strip().isdigit():
                 continue
             clean = re.sub(r"<[^>]+>", "", line).strip()
             if clean and (not lines or clean != lines[-1]):
                 lines.append(clean)
-        transcript = " ".join(lines)
-        vtt_file.unlink()  # clean up
+        f.unlink()
+        return " ".join(lines)
+    return ""
 
-    return {
-        "title": title,
-        "author": author,
-        "description": description,
-        "transcript": transcript,
-        "duration_seconds": duration,
-        "upload_date": upload_date,
-        "url": url,
-        "type": "youtube",
-    }
+def segment_by_chapters(transcript, chapters):
+    """Split whisper segment list by chapter boundaries."""
+    segs = transcript.get("segments", [])
+    if not chapters:
+        return [{"title": "Full Content", "start": 0,
+                 "text": transcript.get("text", "").strip()}]
+    result = []
+    for i, ch in enumerate(chapters):
+        t0 = ch.get("start_time", 0)
+        t1 = chapters[i+1].get("start_time", float("inf")) if i+1 < len(chapters) else float("inf")
+        text = " ".join(s["text"] for s in segs if t0 <= s.get("start", 0) < t1).strip()
+        result.append({"title": ch.get("title", f"Chapter {i+1}"), "start": t0, "text": text})
+    return result
 
+# ── Step 3: Frame extraction ───────────────────────────────────────────────────
 
-def fetch_article(url: str) -> dict:
-    """Fetch web article content."""
-    print(f"Fetching article: {url}")
-    try:
-        import urllib.request
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            html = resp.read().decode("utf-8", errors="ignore")
-    except Exception as e:
-        raise RuntimeError(f"Failed to fetch URL: {e}")
+def download_video_low(url, tmp):
+    out = str(tmp / "video.%(ext)s")
+    subprocess.run(
+        ["yt-dlp", "-f", "worst[ext=mp4]/worst", "--no-playlist", "-o", out, url],
+        capture_output=True, timeout=600, check=True
+    )
+    for f in tmp.iterdir():
+        if f.suffix in (".mp4", ".webm", ".mkv"):
+            return f
+    raise FileNotFoundError("Video not found after download")
 
-    # Basic HTML stripping
-    html = re.sub(r"<script[^>]*>.*?</script>", "", html, flags=re.DOTALL)
-    html = re.sub(r"<style[^>]*>.*?</style>", "", html, flags=re.DOTALL)
-    html = re.sub(r"<[^>]+>", " ", html)
-    html = re.sub(r"&nbsp;", " ", html)
-    html = re.sub(r"&[a-z]+;", "", html)
-    text = re.sub(r"\s+", " ", html).strip()
+def extract_frames(video_path, timestamps, tmp):
+    frames = []
+    for i, ts in enumerate(timestamps):
+        dst = tmp / f"frame_{i:03d}.jpg"
+        r = subprocess.run(
+            ["ffmpeg", "-ss", str(max(ts, 0)), "-i", str(video_path),
+             "-frames:v", "1", "-q:v", "2", str(dst), "-y"],
+            capture_output=True
+        )
+        if dst.exists():
+            frames.append(dst)
+    return frames
 
-    # Extract title
-    title_match = re.search(r"<title[^>]*>(.*?)</title>", html, re.IGNORECASE | re.DOTALL)
-    title = title_match.group(1).strip() if title_match else urlparse(url).netloc
+# ── Step 4: Vision analysis ────────────────────────────────────────────────────
 
-    return {
-        "title": title,
-        "author": urlparse(url).netloc,
-        "description": "",
-        "transcript": text[:8000],  # limit to ~8000 chars
-        "duration_seconds": 0,
-        "upload_date": "",
-        "url": url,
-        "type": "article",
-    }
+def analyze_frames(frames, chapters, client):
+    analyses = []
+    for i, frame in enumerate(frames):
+        chapter_title = chapters[i]["title"] if i < len(chapters) else f"Section {i+1}"
+        prompt = VISION_PROMPT.format(chapter=chapter_title)
+        resp = client.messages.create(
+            model=VISION_MODEL,
+            max_tokens=800,
+            messages=[{"role": "user", "content": [
+                {"type": "image", "source": {
+                    "type": "base64", "media_type": "image/jpeg",
+                    "data": b64_image(frame)
+                }},
+                {"type": "text", "text": prompt}
+            ]}]
+        )
+        analyses.append({"chapter": chapter_title, "visual": resp.content[0].text})
+        print(f"      Frame {i+1}/{len(frames)}: {chapter_title[:50]}")
+    return analyses
 
+# ── Step 5: Multi-pass extraction ──────────────────────────────────────────────
 
-def build_tutorial_markdown(data: dict, custom_title: str = None) -> str:
-    """Build structured tutorial markdown from raw data."""
-    title = custom_title or data["title"]
-    now = datetime.now().strftime("%Y-%m-%d")
-    source_type = "YouTube" if data["type"] == "youtube" else "Article"
+def build_context(info, ch_transcripts, frame_analyses):
+    ctx = f"Title: {info.get('title', '')}\n"
+    ctx += f"Author: {info.get('uploader', '')}\n"
+    ctx += f"Description: {info.get('description', '')[:400]}\n\n"
+    ctx += "=== Chapter-by-Chapter Content ===\n"
+    for i, ch in enumerate(ch_transcripts):
+        ctx += f"\n--- {ch['title']} [t={ch.get('start',0):.0f}s] ---\n"
+        if ch["text"]:
+            ctx += f"Transcript: {ch['text'][:900]}\n"
+        if i < len(frame_analyses):
+            ctx += f"Frame analysis: {frame_analyses[i]['visual']}\n"
+    return ctx
 
-    content_for_analysis = data.get("transcript") or data.get("description", "")
-    if not content_for_analysis:
-        content_for_analysis = data.get("description", "No content available")
+def pass_1_2(ctx, client):
+    """Extract core technique, key steps, nodes/settings, summary."""
+    prompt = f"""You are building a searchable Blender tutorial knowledge base.
 
-    # Build the markdown
-    md = f"""---
+{ctx}
+
+Extract the following. Return ONLY valid JSON with no markdown wrapping:
+{{
+  "core_technique": "one sentence: the main Blender technique this tutorial teaches",
+  "summary": "2-3 sentences describing what the viewer learns and the end result",
+  "difficulty": "Beginner|Intermediate|Advanced|Expert",
+  "version": "Blender version if explicitly mentioned, else Not specified",
+  "key_steps": [
+    "Step with exact Blender node name or menu path (5-10 steps)",
+    "..."
+  ],
+  "nodes_and_settings": [
+    "Node Name or setting → value",
+    "..."
+  ]
+}}
+
+key_steps must be specific enough for a viewer to reproduce — include exact node names, menu paths, and keyboard shortcuts visible in the transcript or frames."""
+
+    resp = client.messages.create(
+        model=EXTRACTION_MODEL,
+        max_tokens=3000,
+        messages=[{"role": "user", "content": prompt}]
+    )
+    return extract_json(resp.content[0].text)
+
+def pass_3_tags(extraction, client):
+    """Generate tags from the approved pool."""
+    pool_str = ", ".join(TAGS_POOL)
+    prompt = f"""Tag this Blender tutorial using ONLY tags from this list:
+{pool_str}
+
+Tutorial details:
+Core technique: {extraction.get('core_technique', '')}
+Summary: {extraction.get('summary', '')}
+Key steps sample: {json.dumps(extraction.get('key_steps', [])[:5])}
+Nodes sample: {json.dumps(extraction.get('nodes_and_settings', [])[:6])}
+
+Return ONLY valid JSON: {{"tags": ["tag1", "tag2", ...]}}
+Pick 5-10 tags. Always include one difficulty tag. Include version tags (blender-4x etc) only if version is known."""
+
+    resp = client.messages.create(
+        model=TAGGING_MODEL,
+        max_tokens=300,
+        messages=[{"role": "user", "content": prompt}]
+    )
+    return extract_json(resp.content[0].text).get("tags", [])
+
+# ── Step 6: Auto cross-linking ─────────────────────────────────────────────────
+
+def find_related(tags, new_title):
+    if not INDEX_FILE.exists():
+        return []
+    content = INDEX_FILE.read_text(encoding="utf-8")
+    related = []
+    for entry in re.split(r"\n(?=### )", content):
+        m = re.match(r"### (.+)", entry)
+        if not m:
+            continue
+        entry_title = m.group(1).strip()
+        if entry_title == new_title:
+            continue
+        entry_tags = re.findall(r"#([\w-]+)", entry)
+        overlap = list(set(tags) & set(entry_tags))
+        if len(overlap) >= 2:
+            fm = re.search(r"\*\*File:\*\* (tutorials/[\w.-]+\.md)", entry)
+            related.append({
+                "title": entry_title,
+                "overlap": sorted(overlap),
+                "file": fm.group(1) if fm else None
+            })
+    return sorted(related, key=lambda x: len(x["overlap"]), reverse=True)[:5]
+
+def backlink_existing(new_title, new_filename, related):
+    for rel in related:
+        if not rel.get("file"):
+            continue
+        fp = SKILL_DIR / rel["file"]
+        if not fp.exists():
+            continue
+        content = fp.read_text(encoding="utf-8")
+        if new_title in content:
+            continue
+        link = f"- [{new_title}](./{new_filename})"
+        if "## Related Tutorials" in content:
+            content = content.replace("## Related Tutorials\n",
+                                      f"## Related Tutorials\n{link}\n")
+        else:
+            content += f"\n\n## Related Tutorials\n{link}\n"
+        fp.write_text(content, encoding="utf-8")
+
+# ── Build output ───────────────────────────────────────────────────────────────
+
+def build_md(info, extraction, tags, ch_transcripts, frame_analyses, related):
+    title   = info.get("title", "Unknown")
+    url     = info.get("webpage_url", "")
+    author  = info.get("uploader", "Unknown")
+    today   = datetime.now().strftime("%Y-%m-%d")
+    version = extraction.get("version", "Not specified")
+    duration = info.get("duration", 0)
+    chapters_count = len(ch_transcripts)
+
+    tags_str  = " ".join(f"#{t}" for t in tags)
+    steps_str = "\n".join(f"{i+1}. {s}" for i, s in enumerate(extraction.get("key_steps", [])))
+    nodes_str = "\n".join(f"- {n}" for n in extraction.get("nodes_and_settings", []))
+
+    chapter_section = ""
+    for i, ch in enumerate(ch_transcripts):
+        t_fmt = f"{int(ch.get('start',0))//60}:{int(ch.get('start',0))%60:02d}"
+        chapter_section += f"\n### {ch['title']} [{t_fmt}]\n"
+        if ch["text"]:
+            excerpt = ch["text"][:600]
+            chapter_section += f"**Transcript:** {excerpt}{'...' if len(ch['text'])>600 else ''}\n\n"
+        if i < len(frame_analyses):
+            chapter_section += f"**Visual analysis:** {frame_analyses[i]['visual']}\n"
+
+    cross_links = ""
+    if related:
+        cross_links = "\n## Related Tutorials\n"
+        for r in related:
+            shared = ", ".join(f"#{t}" for t in r["overlap"][:4])
+            cross_links += f"- [{r['title']}](./{Path(r['file']).name}) — {shared}\n"
+
+    dur_str = f"{int(duration)//60}m{int(duration)%60}s" if duration else "unknown"
+
+    return f"""---
 title: {title}
-source: {source_type}
-url: {data['url']}
-author: {data['author']}
-ingested: {now}
-blender_version: unknown
-tags: []
+source: YouTube
+url: {url}
+author: {author}
+ingested: {today}
+blender_version: "{version}"
+tags: {json.dumps(tags)}
 ---
 
 # {title}
 
-**Source:** [{source_type}]({data['url']})
-**Author:** {data['author']}
-**Ingested:** {now}
-
----
-
-## Description
-
-{data.get('description', 'N/A')[:500]}
-
----
-
-## Raw Content (for analysis)
-
-{content_for_analysis[:6000]}
+**Source:** [YouTube]({url})
+**Author:** {author}
+**Ingested:** {today}
+**Duration:** {dur_str} | {chapters_count} section(s)
 
 ---
 
 ## Structured Notes
 
-*Fill in manually or ask Claude to analyze:*
-> "Analyze the content of tutorials/{slugify(title)}.md and extract:
-> - Core Blender technique taught
-> - Step-by-step workflow
-> - Key nodes or settings
-> - Blender version
-> - Difficulty level
-> - Tags"
-
 ### Core Technique
-[To be extracted]
+{extraction.get('core_technique', '')}
+
+### Summary
+{extraction.get('summary', '')}
 
 ### Key Steps
-[To be extracted]
+{steps_str}
 
-### Blender Nodes / Settings
-[To be extracted]
+### Nodes / Settings
+{nodes_str}
 
 ### Difficulty
-[Beginner / Intermediate / Advanced]
+{extraction.get('difficulty', 'Not specified')}
+
+### Blender Version
+{version}
 
 ### Tags
-[To be added]
-"""
-    return md
+{tags_str}
 
+---
 
-def update_index(title: str, url: str, filename: str, source_type: str, author: str) -> None:
-    """Add entry to tutorials/INDEX.md."""
-    slug = slugify(title)
+## Chapter Breakdown
+{chapter_section}
+{cross_links}"""
+
+def update_index(info, extraction, tags, filename):
+    title   = info.get("title", "Unknown")
+    url     = info.get("webpage_url", "")
+    author  = info.get("uploader", "Unknown")
+    version = extraction.get("version", "Not specified")
+    summary = extraction.get("summary", "")
+    tags_str = " ".join(f"#{t}" for t in tags)
+
     entry = f"""
+
 ### {title}
-- **Source:** {source_type}
+- **Source:** YouTube
 - **URL:** {url}
 - **Author:** {author}
-- **Blender Version:** (check file)
-- **Tags:** (check file)
-- **Summary:** (analyze file to extract summary)
+- **Blender Version:** {version}
+- **Tags:** {tags_str}
+- **Summary:** {summary}
 - **File:** tutorials/{filename}
 """
     content = INDEX_FILE.read_text(encoding="utf-8")
-    marker = "*(Empty — add your first tutorial by saying"
-    if marker in content:
-        content = content.replace(
-            "*(Empty — add your first tutorial by saying \"ingest this tutorial: [URL]\")*",
-            entry.strip()
-        )
+    placeholder = "*(Empty — add your first tutorial by saying"
+    if placeholder in content:
+        # Replace the entire placeholder line
+        content = re.sub(r"\*\(Empty[^)]+\)\*", entry.strip(), content)
+    elif "\n---\n\n## Tag Reference" in content:
+        content = content.replace("\n---\n\n## Tag Reference",
+                                  f"{entry}\n---\n\n## Tag Reference")
     else:
-        # Append before tag reference section
-        insert_before = "---\n\n## Tag Reference"
-        content = content.replace(insert_before, f"\n{entry}\n{insert_before}")
+        idx = content.rfind("\n---")
+        if idx != -1:
+            content = content[:idx] + entry + content[idx:]
+        else:
+            content += entry
 
     INDEX_FILE.write_text(content, encoding="utf-8")
-    print(f"Updated INDEX.md with: {title}")
 
+# ── Article ingestion (non-YouTube) ───────────────────────────────────────────
+
+def fetch_article(url):
+    import urllib.request
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        html = resp.read().decode("utf-8", errors="ignore")
+    html = re.sub(r"<script[^>]*>.*?</script>", "", html, flags=re.DOTALL)
+    html = re.sub(r"<style[^>]*>.*?</style>", "", html, flags=re.DOTALL)
+    html = re.sub(r"<[^>]+>", " ", html)
+    html = re.sub(r"&[a-z]+;", " ", html)
+    text = re.sub(r"\s+", " ", html).strip()
+    tm = re.search(r"<title[^>]*>(.*?)</title>", html, re.I | re.S)
+    title = tm.group(1).strip() if tm else url
+    from urllib.parse import urlparse
+    return {"title": title, "uploader": urlparse(url).netloc,
+            "description": text[:8000], "duration": 0,
+            "webpage_url": url, "chapters": [], "_is_article": True}
+
+# ── Main ───────────────────────────────────────────────────────────────────────
 
 def main():
-    parser = argparse.ArgumentParser(description="Ingest a tutorial into the Blender Motion skill")
-    parser.add_argument("url", help="YouTube URL or article URL to ingest")
-    parser.add_argument("--title", help="Custom title override")
-    parser.add_argument("--dry-run", action="store_true", help="Preview without saving")
+    parser = argparse.ArgumentParser(description="Enhanced Blender tutorial ingestion")
+    parser.add_argument("url")
+    parser.add_argument("--whisper-model", default=DEFAULT_WHISPER,
+                        choices=["tiny","base","small","medium","large"])
+    parser.add_argument("--skip-video", action="store_true",
+                        help="Skip video download and frame extraction")
     args = parser.parse_args()
 
-    url = args.url
+    has_ffmpeg, has_whisper = check_prerequisites()
 
-    # Fetch content
-    if is_youtube(url):
-        data = fetch_youtube(url)
-    else:
-        data = fetch_article(url)
+    import anthropic
+    client = anthropic.Anthropic()
+    tmp = Path(tempfile.mkdtemp())
 
-    title = args.title or data["title"]
-    slug = slugify(title)
-    filename = f"{slug}.md"
-    output_path = TUTORIALS_DIR / filename
+    is_yt = "youtube.com" in args.url or "youtu.be" in args.url
 
-    # Build markdown
-    md = build_tutorial_markdown(data, custom_title=title)
-
-    if args.dry_run:
-        print("\n--- DRY RUN OUTPUT ---")
-        print(md[:2000])
-        print(f"\nWould save to: {output_path}")
-        return
-
-    # Save
-    if output_path.exists():
-        print(f"Warning: {filename} already exists. Overwriting.")
-
-    output_path.write_text(md, encoding="utf-8")
-    print(f"Saved: {output_path}")
-
-    # Update index
-    source_type = "YouTube" if data["type"] == "youtube" else "Article"
-    update_index(title, url, filename, source_type, data["author"])
-
-    print(f"\nDone. Tutorial saved to: tutorials/{filename}")
-
-    # Auto-commit and push to GitHub
     try:
-        import subprocess as sp
-        repo_dir = SKILL_DIR
-        sp.run(["git", "add", str(output_path), str(INDEX_FILE)], cwd=repo_dir, check=True)
-        sp.run(["git", "commit", "-m", f"ingest: {title}"], cwd=repo_dir, check=True)
-        sp.run(["git", "push"], cwd=repo_dir, check=True)
-        print("Pushed to GitHub.")
-    except Exception as e:
-        print(f"Warning: auto-push failed ({e}). Run 'git push' manually in the skill directory.")
+        # 1. Metadata
+        print("[1/8] Fetching metadata...")
+        if is_yt:
+            info = get_info(args.url)
+        else:
+            info = fetch_article(args.url)
 
-    print("To extract structured notes, ask Claude:")
-    print(f'  "Analyze tutorials/{filename} and fill in the structured notes section"')
+        title    = info.get("title", "Unknown")
+        chapters = info.get("chapters") or []
+        duration = info.get("duration", 0)
+        print(f"      {title}")
+        print(f"      {len(chapters)} chapter(s), {int(duration//60)}m{int(duration%60)}s")
 
+        slug   = slugify(title)
+        out_md = TUTORIALS_DIR / f"{slug}.md"
+
+        # 2. Transcript
+        ch_transcripts = []
+        if is_yt:
+            if has_whisper:
+                print(f"[2/8] Downloading audio for Whisper ({args.whisper_model})...")
+                try:
+                    audio = download_audio(args.url, tmp)
+                    print("      Transcribing...")
+                    transcript = whisper_transcribe(audio, args.whisper_model)
+                    ch_transcripts = segment_by_chapters(transcript, chapters)
+                    print(f"      {len(transcript.get('segments',[]))} segments → {len(ch_transcripts)} sections")
+                except Exception as e:
+                    print(f"      ⚠ Whisper failed ({e}), falling back to yt-dlp captions")
+                    text = ytdlp_captions(args.url, tmp)
+                    ch_transcripts = [{"title": "Full Content", "start": 0, "text": text}]
+            else:
+                print("[2/8] Whisper not installed — using yt-dlp captions (install openai-whisper for better results)")
+                text = ytdlp_captions(args.url, tmp)
+                ch_transcripts = [{"title": "Full Content", "start": 0, "text": text}]
+        else:
+            print("[2/8] Article — using page text as transcript")
+            ch_transcripts = [{"title": "Full Content", "start": 0,
+                               "text": info.get("description", "")}]
+
+        # 3+4. Video download + frame extraction
+        frames = []
+        if is_yt and not args.skip_video and has_ffmpeg:
+            print("[3/8] Downloading video (lowest quality for frame extraction)...")
+            try:
+                video = download_video_low(args.url, tmp)
+                if chapters:
+                    timestamps = [ch.get("start_time", 0) + 5 for ch in chapters]
+                elif duration:
+                    timestamps = [duration * p for p in [0.1, 0.3, 0.55, 0.8]]
+                else:
+                    timestamps = [30, 120, 300]
+                print(f"[4/8] Extracting {len(timestamps)} frame(s)...")
+                frames = extract_frames(video, timestamps, tmp)
+                print(f"      {len(frames)} frame(s) extracted")
+            except Exception as e:
+                print(f"      ⚠ Frame extraction failed ({e}), continuing without frames")
+        else:
+            reason = "article" if not is_yt else ("--skip-video" if args.skip_video else "ffmpeg not found")
+            print(f"[3/8] Skipping video download ({reason})")
+            print("[4/8] Skipping frame extraction")
+
+        # 5. Vision analysis
+        if frames:
+            print(f"[5/8] Running Claude vision analysis ({len(frames)} frames)...")
+            frame_analyses = analyze_frames(frames, chapters or [{"title": "Overview"}], client)
+        else:
+            print("[5/8] Skipping vision analysis (no frames)")
+            frame_analyses = []
+
+        # 6. Multi-pass extraction
+        print("[6/8] Building context + running multi-pass extraction...")
+        ctx = build_context(info, ch_transcripts, frame_analyses)
+
+        extraction = pass_1_2(ctx, client)
+        print(f"      Core: {extraction.get('core_technique','')[:80]}")
+
+        tags = pass_3_tags(extraction, client)
+        print(f"      Tags: {' '.join('#'+t for t in tags)}")
+
+        # 7. Cross-linking
+        print("[7/8] Scanning library for related tutorials...")
+        related = find_related(tags, title)
+        print(f"      {len(related)} related tutorial(s) found")
+
+        # 8. Write files
+        print("[8/8] Writing tutorial and updating INDEX...")
+        md = build_md(info, extraction, tags, ch_transcripts, frame_analyses, related)
+        out_md.write_text(md, encoding="utf-8")
+        update_index(info, extraction, tags, out_md.name)
+        if related:
+            backlink_existing(title, out_md.name, related)
+
+        # 9. Git push
+        os.chdir(SKILL_DIR)
+        subprocess.run(["git", "add", "tutorials/"], check=True)
+        subprocess.run(["git", "commit", "-m", f"ingest+extract: {title}"], check=True)
+        subprocess.run(["git", "push"], check=True)
+
+        print(f"\n✓ Done → tutorials/{out_md.name}")
+        if related:
+            print(f"  Cross-linked: {[r['title'][:40] for r in related]}")
+
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
 
 if __name__ == "__main__":
     main()

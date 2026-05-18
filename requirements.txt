@@ -1,0 +1,10 @@
+# blender-motion skill — ingest.py dependencies
+yt-dlp
+openai-whisper    # pip install openai-whisper  (requires torch — already present if ComfyUI is installed)
+anthropic         # pip install anthropic
+
+# System dependency (not pip):
+# ffmpeg — https://ffmpeg.org/download.html
+# Windows: winget install ffmpeg   OR   scoop install ffmpeg   OR   choco install ffmpeg
+# Must be on PATH for frame extraction to work.
+# Without ffmpeg: ingest still works but skips frame extraction and vision analysis.
