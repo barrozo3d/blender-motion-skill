@@ -44,9 +44,19 @@ def slugify(text):
     return s.strip("-")[:80]
 
 def _ytdlp_cmd():
-    if shutil.which("yt-dlp"):
-        return ["yt-dlp"]
-    return [sys.executable, "-m", "yt_dlp"]
+    """Return yt-dlp invocation, using cookies.txt if present for YouTube bot bypass.
+
+    YouTube bot detection requires authentication. To fix 429/sign-in errors:
+    1. Install browser extension: 'Get cookies.txt LOCALLY' (Chrome/Edge/Firefox)
+    2. Go to youtube.com while logged in
+    3. Click the extension -> Export -> save as cookies.txt in this skill directory
+    4. Re-run ingest.py — it will pick up cookies.txt automatically
+    """
+    base = ["yt-dlp"] if shutil.which("yt-dlp") else [sys.executable, "-m", "yt_dlp"]
+    cookies_file = SKILL_DIR / "cookies.txt"
+    if cookies_file.exists():
+        return base + ["--cookies", str(cookies_file)]
+    return base
 
 def _get_api_key():
     """Not needed for collection — kept so check_prerequisites stays simple."""

@@ -154,6 +154,20 @@ python ingest.py "https://www.youtube.com/watch?v=WreZ_VKDn4M" --skip-video
 
 ---
 
+## YouTube Bot Detection (cookies.txt)
+
+Chrome 127+ broke yt-dlp's automatic cookie extraction (`--cookies-from-browser` fails with DPAPI error). If you see `Sign in to confirm you're not a bot` errors, fix it once:
+
+1. Install the **"Get cookies.txt LOCALLY"** extension in Chrome/Edge/Firefox
+2. Go to **youtube.com** while logged in to your Google account
+3. Click the extension icon → **Export** → save as **`cookies.txt`**
+4. Place `cookies.txt` in `~/.claude/skills/blender-motion/` (same folder as `ingest.py`)
+5. `ingest.py` detects it automatically — no other changes needed
+
+> `cookies.txt` is in `.gitignore` and will never be committed to GitHub.
+
+---
+
 ## Troubleshooting
 
 **`ffmpeg: command not found` after install**
