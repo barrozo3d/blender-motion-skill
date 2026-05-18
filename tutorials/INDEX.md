@@ -1163,6 +1163,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/glass-cell-division-effect-in-blender-50-tutorial.md
 
+
+### How Apple Makes 3D Wallpapers (Blender Tutorial)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=KhBaHDvIamw
+- **Author:** Ducky 3D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-apple-makes-3d-wallpapers-blender-tutorial.md
+
 ---
 
 ## Tag Reference

@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=KhBaHDvIamw
 author: Ducky 3D
 ingested: 2026-05-18
-blender_version: "Not specified"
-tags: ["materials", "glass", "animation", "rendering", "cycles", "motion-design", "abstract", "beginner", "intermediate"]
-extraction_status: complete
+blender_version: "[PENDING]"
+tags: []
+extraction_status: pending
 frames_dir: tutorials/frames/how-apple-makes-3d-wallpapers-blender-tutorial/
 frame_count: 0
 ---
@@ -32,41 +32,27 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-Recreates the Apple MacBook Air 3D wallpaper using a tall teardrop-shaped cylinder arranged in a circular Array modifier, a Cycles glass transmission material, and a strategically placed emissive highlight plane that creates the signature glowing band across all shapes.
+[PENDING EXTRACTION]
 
 ### Summary
-Ducky 3D reverse-engineers the Apple MacBook Air wallpaper with help from an Apple team member who confirmed the highlight technique. The base shape is a cylinder scaled tall on Z (ratio ~47:2) with a tapered top, arranged into a ring of 14 copies using an Array modifier with Object Offset (an Empty rotated 360°/14). Each cylinder receives a glass Principled BSDF material with low roughness in Cycles. The key insight from Apple: a single large emissive plane positioned behind/above the camera creates the glowing highlight band visible through all the glass cylinders. Camera positioning at a low angle looking up through the ring creates the signature spiral composition.
+[PENDING EXTRACTION]
 
 ### Key Steps
-1. Add a **Cylinder** → in Edit Mode, select the top loop, scale it down (S > 0.3) to taper the top into a teardrop shape
-2. Scale the cylinder: Z scale ≈ 10–12 (very tall), X/Y scale ≈ 0.2 (thin) to get the ~47:2 tall teardrop proportion
-3. Add an **Array modifier** → Count: 14 → enable **Object Offset** → create an **Empty** rotated Y: 360°/14 ≈ 25.7° → set as Array offset object
-4. Position the Empty at a radius offset (X: 2–3 m) so cylinders form a ring around the center
-5. Apply a **Principled BSDF** material → set Transmission: 1.0, IOR: 1.45, Roughness: 0.05 for glass
-6. Add a large **Plane** (emissive) → assign Emission shader, Strength: 5–20, white color → position it above and behind the camera to create the highlight band
-7. Set camera to a low angle looking up through the ring for the signature Apple spiral perspective; use a 50–85mm focal length
-8. Render in **Cycles** → enable Transparent Glass; use 256–512 samples with Denoiser
+[PENDING EXTRACTION]
 
 ### Nodes / Settings
-- Array modifier — Count: 14; Object Offset: Empty rotated ~25.7° around Y; Relative Offset: off
-- Principled BSDF (glass) — Transmission: 1.0; IOR: 1.45; Roughness: 0.03–0.08; Base Color: white or very slight blue
-- Emission plane — Strength: 5–20; large enough to span the entire ring from camera view
-- Cycles — Transparent Glass: on; Caustics: on; Samples: 256+; Denoiser: Intel Open Image Denoise
-- Camera — Focal Length: 50–85mm; low angle looking up through the cylinder ring
+[PENDING EXTRACTION]
 
 ### Difficulty
-Beginner
+[PENDING EXTRACTION]
 
 ### Blender Version
-Not specified
+[PENDING EXTRACTION]
 
 ### Tags
-#materials #glass #animation #rendering #cycles #motion-design #abstract #beginner #intermediate
+[PENDING EXTRACTION]
 
 ---
 
 ## Related Tutorials
-- [You Should Make Glass Animations in Blender 5.1](./you-should-make-glass-animations-in-blender-51.md)
-- [Glass Cell Division Effect in Blender 5.0 (tutorial)](./glass-cell-division-effect-in-blender-50-tutorial.md)
-- [Remake this in Blender in 20 mins](./remake-this-in-blender-in-20-mins.md)
-- [You Should Try this Blender Color Hack](./you-should-try-this-blender-color-hack.md)
+[PENDING EXTRACTION]
