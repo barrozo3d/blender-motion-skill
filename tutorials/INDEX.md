@@ -713,6 +713,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/a-new-way-to-loop-animations-in-blender.md
 
+
+### ALL 300+ Geometry Nodes in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=Y0zAZnbBcQU
+- **Author:** RADIUM
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/all-300-geometry-nodes-in-blender.md
+
 ---
 
 ## Tag Reference
