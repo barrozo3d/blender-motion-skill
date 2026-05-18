@@ -1043,6 +1043,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/photorealistic-renders-in-blender.md
 
+
+### Fractals in Blender - Geometry Nodes Extrude Node
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=bHWvVtuLJkM
+- **Author:** CrossMind Studio
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/fractals-in-blender---geometry-nodes-extrude-node.md
+
 ---
 
 ## Tag Reference
