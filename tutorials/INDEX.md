@@ -933,6 +933,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/the-complete-blender-3d-animation-course-5-hours-blender-b3d-animation.md
 
+
+### Track Objects Using Align Rotation To Vector In Geometry Nodes – Blender Tutorial
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=ZBZ26xQ9Pnk
+- **Author:** Photini By Design
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/track-objects-using-align-rotation-to-vector-in-geometry-nodes-blender-tutorial.md
+
 ---
 
 ## Tag Reference
