@@ -3,8 +3,18 @@ yt-dlp
 openai-whisper    # pip install openai-whisper  (requires torch — already present if ComfyUI is installed)
 anthropic         # pip install anthropic
 
-# System dependency (not pip):
+# System dependencies (not pip):
 # ffmpeg — https://ffmpeg.org/download.html
 # Windows: winget install ffmpeg   OR   scoop install ffmpeg   OR   choco install ffmpeg
 # Must be on PATH for frame extraction to work.
 # Without ffmpeg: ingest still works but skips frame extraction and vision analysis.
+
+# deno — https://docs.deno.com/runtime/manual/getting_started/installation
+# Windows: winget install deno
+# Required by yt-dlp to solve YouTube's n-challenge (format/download throttle bypass).
+# Without deno: yt-dlp may fail or return incomplete video format data.
+
+# cookies.txt — NOT a system install, exported manually from browser
+# Required when YouTube shows "Sign in to confirm you're not a bot" errors.
+# See SETUP.md → "YouTube Bot Detection" section for export instructions.
+# Place as cookies.txt in this skill directory — never commit to git.

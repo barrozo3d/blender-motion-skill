@@ -46,8 +46,24 @@ try {
     exit 1
 }
 
-# ── Step 2: ffmpeg ────────────────────────────────────────────────────────────
-Write-Host "`n[2/6] Checking ffmpeg..." -ForegroundColor Cyan
+# ── Step 2: Deno (JS runtime required by yt-dlp for YouTube) ─────────────────
+Write-Host "`n[2/7] Checking Deno..." -ForegroundColor Cyan
+$denoPath = Get-Command deno -ErrorAction SilentlyContinue
+if ($denoPath) {
+    $dver = (deno --version 2>&1 | Select-Object -First 1)
+    Write-OK "Deno already installed: $dver"
+} else {
+    Write-Host "  Installing Deno via winget..." -ForegroundColor Yellow
+    try {
+        winget install deno --accept-source-agreements --accept-package-agreements
+        Write-OK "Deno installed. NOTE: open a new terminal for PATH to update."
+    } catch {
+        Write-Warn "winget install failed. Install manually: https://docs.deno.com/runtime/manual/getting_started/installation"
+    }
+}
+
+# ── Step 3: ffmpeg ────────────────────────────────────────────────────────────
+Write-Host "`n[3/7] Checking ffmpeg..." -ForegroundColor Cyan
 $ffmpegPath = Get-Command ffmpeg -ErrorAction SilentlyContinue
 if ($ffmpegPath) {
     $ffver = (ffmpeg -version 2>&1 | Select-Object -First 1)
@@ -64,7 +80,7 @@ if ($ffmpegPath) {
 }
 
 # ── Step 3: pip packages ──────────────────────────────────────────────────────
-Write-Host "`n[3/6] Installing pip packages (yt-dlp, openai-whisper, anthropic)..." -ForegroundColor Cyan
+Write-Host "`n[4/7] Installing pip packages (yt-dlp, openai-whisper, anthropic)..." -ForegroundColor Cyan
 pip install yt-dlp openai-whisper anthropic --quiet
 if ($LASTEXITCODE -eq 0) {
     Write-OK "pip packages installed"
@@ -74,7 +90,7 @@ if ($LASTEXITCODE -eq 0) {
 }
 
 # ── Step 4: PyTorch (CUDA if NVIDIA, else CPU) ────────────────────────────────
-Write-Host "`n[4/6] Installing PyTorch..." -ForegroundColor Cyan
+Write-Host "`n[5/7] Installing PyTorch..." -ForegroundColor Cyan
 $hasNvidia = Get-Command nvidia-smi -ErrorAction SilentlyContinue
 if ($hasNvidia) {
     $cudaLine = (nvidia-smi 2>&1 | Select-String "CUDA Version")
@@ -94,7 +110,7 @@ if ($hasNvidia) {
 }
 
 # ── Step 5: ANTHROPIC_API_KEY ─────────────────────────────────────────────────
-Write-Host "`n[5/6] ANTHROPIC_API_KEY setup..." -ForegroundColor Cyan
+Write-Host "`n[6/7] ANTHROPIC_API_KEY setup..." -ForegroundColor Cyan
 $existingKey = [Environment]::GetEnvironmentVariable("ANTHROPIC_API_KEY", "User")
 if ($existingKey -and $existingKey.StartsWith("sk-ant-")) {
     Write-OK "ANTHROPIC_API_KEY already set (user environment)"
@@ -114,7 +130,7 @@ if ($existingKey -and $existingKey.StartsWith("sk-ant-")) {
 }
 
 # ── Step 6: Verify ────────────────────────────────────────────────────────────
-Write-Host "`n[6/6] Verifying installation..." -ForegroundColor Cyan
+Write-Host "`n[7/7] Verifying installation..." -ForegroundColor Cyan
 $allOK = $true
 
 # yt-dlp
@@ -146,6 +162,13 @@ if (Get-Command ffmpeg -ErrorAction SilentlyContinue) {
     Write-OK "ffmpeg on PATH"
 } else {
     Write-Warn "ffmpeg not on PATH yet — open a new terminal and re-run 'ffmpeg -version' to confirm"
+}
+
+# deno
+if (Get-Command deno -ErrorAction SilentlyContinue) {
+    Write-OK "deno on PATH"
+} else {
+    Write-Warn "deno not on PATH yet — open a new terminal and re-run 'deno --version' to confirm"
 }
 
 # API key
