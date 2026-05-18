@@ -943,6 +943,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/track-objects-using-align-rotation-to-vector-in-geometry-nodes-blender-tutorial.md
 
+
+### Using Geometry Nodes for VFX in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=PgRax5MeZgY
+- **Author:** Jacob Zirkle
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/using-geometry-nodes-for-vfx-in-blender.md
+
 ---
 
 ## Tag Reference
