@@ -913,6 +913,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial.md
 
+
+### Superhero Landing Tutorial 02 | Ground Destruction VFX in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=4ULxB4PzbAc
+- **Author:** Graphical Ninja
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/superhero-landing-tutorial-02-ground-destruction-vfx-in-blender.md
+
 ---
 
 ## Tag Reference
