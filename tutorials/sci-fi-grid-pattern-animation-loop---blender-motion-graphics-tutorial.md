@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=IzSRBH8CDTo
 author: Ryan King Art
 ingested: 2026-05-18
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.0"
+tags: ["geometry-nodes", "procedural", "animation", "motion-design", "materials", "shaders", "eevee", "abstract", "blender-5x", "beginner", "intermediate"]
+extraction_status: complete
 frames_dir: tutorials/frames/sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial/
 frame_count: 0
 ---
@@ -31,7 +31,7 @@ frame_count: 0
 
 
 ### Geometry Nodes [3:31]
-**Transcript:** can do is put the Icosphere on all of the points using a geometry node's modifier. So we don't  actually have to use the geometry nodes or the geometry node workspace because in Blender version  there are some modifiers which use geometry nodes. So if I just select the main object and go over  here to the modifier properties we'll click on Add Modifier and we're going to search for Instance  and we're going to add the Instance on Elements. So now what I can do is I can choose an object here.  So if I zoom over to the Icosphere we'll click on the Idropper and I'm just going to choose the  Icosphere. And so this way if I go into the wireframe view you can see that there is an Icosphere  so there is that object where every single vertex is. Now if I go back to Solid View what I want to do  is basically hide the original object that we had. So I can click on the Keep Surface to turn this  off. You can also open up the Transform here and then you can change the scale. So if I click and  then drag down and then drag back and forth you can change the scale if you want to but we already  scaled the original object. So I'll just keep that how it is. So now it's going to the rendered view
+**Transcript:** can do is put the Icosphere on all of the points using a geometry node's modifier. So we don't  actually have to use the geometry nodes or the geometry node workspace because in Blender version  there are some modifiers which use geometry nodes. So if I just select the main object and go over  here to the modifier properties we'll click on Add Modifier and we're going to search for Instance  and we're going to add the Instance on Elements. So now what I can do is I can choose an object here.  So if I zoom over to the Icosphere we'll click on the Idropper and I'm just going to choose the  Icosphere. And so this way if I go into the wireframe view you can see that there is an Icosphere  so there is that object where every single vertex is. Now if I go back to Solid View what I want to do  is basically hide the original object that we had. So I can click on the Keep Surface to turn this  off. You can also open up the Transform here and then you can change the scale. So if I click and  then drag back and forth you can change the scale if you want to but we already scaled the original  object. So I'll just keep that how it is. So now it's going to the rendered view
 
 
 ### Material [4:28]
@@ -51,7 +51,7 @@ frame_count: 0
 
 
 ### Displacement [15:47]
-**Transcript:** to make the glowing dots become a bit larger. So to do this I'm going to search for the displacement node  because we're going to actually displace the mesh so the displacement can go into the displacement  of the material output and then we can just take the mix result and we can put that into the height  value of the displacement and then here on the scale I want to turn this up to like a one so it's  stronger. Now you can't really see it doing anything that's because I need to click over here to go  to the material settings and I want to scroll down to the surface here under settings and on the  displacement I'll change this to displacement and bump. So now we'll just wait for this to load up  and you can see it's already working so if I just play this now you can see just the glowing ones  get a bit larger. Now I want a bit more control over this so I'm going to select this color ramp  and I'll duplicate it so it's shift D and we're going to drop it here between the mix and the  displacement and then I'll hit the back space with the color ramp selected to reset it. So now what I  can do is drag these tabs around and I can have more customizable control over the size of it  and ...
+**Transcript:** to make the glowing dots become a bit larger. So to do this I'm going to search for the displacement node  because we're going to actually displace the mesh so the displacement can go into the displacement  of the material output and then we can just take the mix result and we can put that into the height  value of the displacement and then here on the scale I want to turn this up to like a one so it's  stronger. Now you can't really see it doing anything that's because I need to click over here to go  to the material settings and I want to scroll down to the surface here under settings and on the  displacement I'll change this to displacement and bump. So change Material → Settings → Displacement to "Displacement and Bump". So now we'll just wait for this to load up  and you can see it's already working so if I just play this now you can see just the glowing ones  get a bit larger. Now I want a bit more control over this so I'm going to select this color ramp  and I'll duplicate it so it's shift D and we're going to drop it here between the mix and the  displacement and then I'll hit the back space with the color ramp selected to reset it. So now what I  can do is drag these tabs around and I can have more customizable control over the size of it  and ...
 
 
 ### Color Variations [17:34]
@@ -76,27 +76,49 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Creates a sci-fi triangular/honeycomb grid animation loop in Blender 5.0 using the Extra Mesh Objects add-on Honeycomb mesh (Edge Width: 1 collapses hex into triangles) and the built-in **Instance on Elements** GN modifier to place Icospheres on every vertex, with a procedural Noise Texture emission material animated via W value keyframes and Glare Bloom compositing.
 
 ### Summary
-[PENDING EXTRACTION]
+Ryan King Art builds a looping sci-fi dot grid animation using Blender 5.0. The Extra Mesh Objects extension provides a Honeycomb mesh with 50×50 rows/columns; setting Edge Width to 1 collapses hexagons into a triangular grid. The built-in **Instance on Elements** Geometry Nodes modifier (no manual GN setup needed) places an Icosphere on every vertex. The Icosphere gets a glow material: Noise Texture (with Texture Coordinate Object + Mapping via Ctrl+T/Node Wrangler) → Color Ramp (main glow color vs very dark grey) → Emission, Strength: 25. The Noise W value is keyframed to animate the glow pattern across the grid. A displacement node makes glowing dots larger on Z. In the Compositor, a Glare Bloom node adds the final glow. Color Management: Filmic, Very High Contrast. Output: rendered to PNG frames → assembled in Blender's Video Editor with Shift+D loop duplicate for seamless export.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Enable add-ons: **Node Wrangler** (built-in) + **Extra Mesh Objects** (Extensions tab) in Preferences
+2. **Shift+A → Mesh → Extras → Honeycomb** → in operator panel: Rows: 50, Columns: 50, **Edge Width: 1** (collapses hex to triangle grid)
+3. Add a separate **Icosphere** to the scene (Subdivisions: 2; scale small: 0.02)
+4. Select Honeycomb mesh → **Properties > Modifiers → Add Modifier → Instance on Elements** → set Object: Icosphere; Keep Surface: off
+5. Select Icosphere → **Shading workspace** → new material "glow" → add **Noise Texture** → hit **Ctrl+T** (Node Wrangler) to add Texture Coordinate + Mapping; connect Object socket → Mapping vector
+6. Route Noise Color output → **Color Ramp**: left stop = main glow color (red/blue/etc.), right stop = very dark gray; → **Emission** node, Strength: 25
+7. Add **Displacement** node → connect Color Ramp output to Height → Displacement to Material Output Displacement socket; set Material → Settings → Displacement: **Displacement and Bump**; duplicate Color Ramp, reset it for displacement strength control
+8. Add a second **Noise Texture** for secondary color accent → blend with **Mix Color** node
+9. Set **World** to black (delete world material)
+10. Animate: go to frame 1 → Noise Texture **W value: 40** → hover → I to keyframe; go to last frame → W value: 41 → I to keyframe (1 unit shift = seamless loop)
+11. In **Compositor** → Use Nodes → **Glare** (Bloom type, Quality: High) after Render Layers; set Compositor to Always in viewport
+12. Render frames to PNG → assemble in Blender **Video Editor** (Shift+A → Image Sequence) → Shift+D to duplicate for loop; export as MP4
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Honeycomb mesh — Rows: 50; Columns: 50; Edge Width: 1.0 (triangle grid)
+- Instance on Elements modifier — Object: Icosphere; Keep Surface: off
+- Noise Texture — Ctrl+T for auto Texture Coord + Mapping; plug Object → Mapping; W: animated 40→41
+- Color Ramp — main color (red/blue) at 0.3, dark gray at 0.0; drives Emission color and Displacement height
+- Emission shader — Strength: 25; too bright on purpose for Glare to pick up
+- Displacement node — Height: Color Ramp output; Scale: 1.0; Material Settings Displacement: Displacement and Bump
+- Compositor Glare — Bloom type; Quality: High; Scale: 8; Strength: 0.5; Threshold: 0.5
+- Eevee — Render engine; Filmic color management; Look: Very High Contrast
+- Camera — Ctrl+Alt+Numpad 0 to align to view; Passepartout: 1.0 for clean framing
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.0
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #procedural #animation #motion-design #materials #shaders #eevee #abstract #blender-5x #beginner #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [How To Make This Style in Blender 5.0](./how-to-make-this-style-in-blender-50.md)
+- [Blender Geometry Nodes – Sci-Fi Cube Creation (Step-by-Step Tutorial)](./blender-geometry-nodes-sci-fi-cube-creation-step-by-step-tut.md)
+- [Powerful Light Trails in Blender 4.5 (tutorial)](./powerful-light-trails-in-blender-45-tutorial.md)
+- [A New Way To Loop Animations in Blender](./a-new-way-to-loop-animations-in-blender.md)

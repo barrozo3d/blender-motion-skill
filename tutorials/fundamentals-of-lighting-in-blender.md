@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=ENnEYoUpFfU
 author: Blender Guru
 ingested: 2026-05-18
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified"
+tags: ["lighting", "rendering", "cycles", "hdri", "beginner"]
+extraction_status: complete
 frames_dir: tutorials/frames/fundamentals-of-lighting-in-blender/
 frame_count: 0
 ---
@@ -56,27 +56,41 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Four fundamentals of Blender lighting — positioning, fall-off, size, and color — demonstrated on a sci-fi crate, teaching how each property controls the mood, readability, and realism of a render.
 
 ### Summary
-[PENDING EXTRACTION]
+Blender Guru (Andrew Price) walks through the four core lighting fundamentals using a sci-fi crate as a practical subject. Positioning covers why lighting is view-dependent and why camera angle must be locked before lighting begins. Fall-off explains inverse-square distance behavior and its use as a storytelling tool to isolate subjects. Size demonstrates how light Radius controls shadow softness — larger radius equals softer, more diffuse shadows. Color covers natural Kelvin-based temperatures for realism versus saturated hues for stylized or sci-fi work. The tutorial also covers polish steps like adding themed textures to the ground plane and using the Polyhaven add-on.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Set World Shader strength to 0 to eliminate ambient fill and gain full lighting control
+2. Lock the camera view first (Numpad 0) before placing any lights — lighting is view-dependent
+3. Add a key light (Area Light or Spot) and observe the inverse-square fall-off across the subject surface
+4. Adjust light **Radius** (in Light Properties) to control shadow softness — 0.1 = hard shadows, 1.0+ = soft overcast shadows
+5. Add a fill light on the opposite side at 10–20% of key light intensity to lift shadow detail
+6. Choose light color by mood: natural Kelvin scale (2700K warm – 6500K cool) for realism; saturated colors (purple, teal, orange) for sci-fi or stylized renders
+7. Polish with a ground texture related to the subject using the Polyhaven add-on for free PBR materials
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- World Shader — Strength: 0 (disables ambient fill for full lighting control)
+- Area Light — Size: 0.5–3.0 m (shadow softness); Energy: 100–1000 W
+- Spotlight — Radius: 0.1–1.0; Energy: 200–800 W; Spot Blend: 0.15
+- Light Radius — small (hard shadows) vs. large (soft/overcast shadows)
+- Fill Light — Energy: 10–20% of key; positioned 180° from key
+- Light Color — Kelvin temperature or custom RGB; cooler hues for sci-fi mood
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified
 
 ### Tags
-[PENDING EXTRACTION]
+#lighting #rendering #cycles #hdri #beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [3 Easy Lighting Setups | Blender Tutorial](./3-easy-lighting-setups-blender-tutorial.md)
+- [Realistic Product Lighting In Blender](./realistic-product-lighting-in-blender.md)
+- [Tutorial: How to make a volumetric projector in Blender 4.5](./tutorial-how-to-make-a-volumetric-projector-in-blender-45.md)
+- [How to Make Cyberpunk Scenes in Blender](./how-to-make-cyberpunk-scenes-in-blender.md)

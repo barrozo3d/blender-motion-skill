@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=KnYGp58REUk
 author: Ahad Animates
 ingested: 2026-05-18
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified"
+tags: ["cloth", "simulation", "animation", "rendering", "beginner", "intermediate"]
+extraction_status: complete
 frames_dir: tutorials/frames/realistic-cloth-physics-in-blender-full-tutorial/
 frame_count: 0
 ---
@@ -32,27 +32,46 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Step-by-step cloth simulation setup in Blender covering the Cloth modifier settings (quality, mass, stiffness, damping), collision objects, pin vertex groups, self-collision, baking, and fabric material — applied to a product animation with cloth draping and camera animation.
 
 ### Summary
-[PENDING EXTRACTION]
+Ahad Animates presents a cloth simulation tutorial in the context of a product showcase animation, where a cloth drapes around a bottle/product. The tutorial starts with the product object animated rotating into place. A cloth plane is added above the product, given the Cloth modifier with appropriate fabric preset settings. A Pin vertex group locks the cloth's top edge in place while the rest falls. A Collision modifier on the product and ground plane makes the cloth interact realistically. Self-Collision is enabled for thicker fabrics. After tweaking settings for the desired drape look, the simulation is baked to disk for non-destructive playback. The fabric receives a PBR material (Principled BSDF with fabric normal map or procedural Noise-based roughness). Camera animation uses simple location/rotation keyframes with Bezier easing in the Graph Editor.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Add a **Plane** above the product → scale it to cover the product → add more geometry via **Subdivide** (8–12 cuts) for cloth resolution
+2. In **Physics Properties** → **Cloth** → enable Cloth modifier; choose a preset (Cotton, Silk, Denim) or set manually
+3. Set Cloth **Quality Steps**: 10–15 for better simulation quality; **Mass**: 0.3–1.0 kg; **Stiffness**: 15–80; **Damping**: 5–20
+4. Create a **Vertex Group** named "Pin" → in Edit Mode, select the top row of vertices → assign to Pin group with Weight: 1.0
+5. In Cloth settings → **Shape** → Pin Group: select "Pin" → **Stiffness**: 1.0 so the top stays fixed
+6. Select the product/bottle object → **Physics Properties** → **Collision** → enable Collision; repeat for ground plane
+7. Enable **Self Collision** in Cloth settings for realistic thick fabric behavior; Distance: 0.01–0.015
+8. Play simulation → adjust settings → when satisfied: **Scene Cache** → **Bake All Dynamics** for locked playback
+9. Assign **Principled BSDF** fabric material: Roughness: 0.7–0.9; use Noise Texture for subtle surface variation; Sheen Weight: 0.3 for fabric micro-fiber look
+10. Animate camera: keyframe Location and Rotation; open **Graph Editor** → set Bezier interpolation for smooth motion
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Cloth modifier — Quality Steps: 10–15; Mass: 0.3–1.0 kg; Stiffness: 15–80; Damping: 5–20
+- Pin Vertex Group — top edge vertices; Weight: 1.0; assigned in Cloth > Shape > Pin Group
+- Collision modifier — on product and ground; Distance: 0.001–0.005; Friction: 5–20
+- Self Collision — Distance: 0.01–0.015; enables realistic fold interactions
+- Bake All Dynamics — Scene Properties → Scene Cache; bakes to disk for consistent playback
+- Principled BSDF (fabric) — Roughness: 0.75; Sheen Weight: 0.3; Sheen Roughness: 0.5; Subsurface: 0 (opaque)
+- Noise Texture (fabric roughness) — Scale: 20–50; low contrast for subtle weave variation
+- Camera animation — Location + Rotation keyframes; Bezier interpolation in Graph Editor
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified
 
 ### Tags
-[PENDING EXTRACTION]
+#cloth #simulation #animation #rendering #beginner #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Superhero Landing Tutorial 02 | Ground Destruction VFX in Blender](./superhero-landing-tutorial-02-ground-destruction-vfx-in-blen.md)
+- [Blender Tutorial - Control Physics Sims with Geometry Nodes (Beginner Friendly)](./blender-tutorial-control-physics-sims-with-geometry-nodes-be.md)
+- [Mastering Blender's Graph Editor](./mastering-blenders-graph-editor.md)
+- [The COMPLETE BLENDER 3D Animation COURSE (5+ HOURS)](./the-complete-blender-3d-animation-course-5-hours-blender-b3d.md)

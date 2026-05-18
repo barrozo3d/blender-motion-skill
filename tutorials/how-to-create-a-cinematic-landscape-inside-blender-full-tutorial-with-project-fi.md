@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=QJhiYYf6qJI
 author: vfx world
 ingested: 2026-05-18
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified"
+tags: ["rendering", "lighting", "hdri", "camera", "animation", "organic", "beginner"]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi/
 frame_count: 0
 ---
@@ -43,7 +43,7 @@ frame_count: 0
 
 
 ### Final HDRI [20:00]
-**Transcript:** اب یہاں نگریف پاکٹ کی ہے  اب یہاں اس کو ریندر میں ہی سے دیکھ سکتے  اگر آپ edit mode پجاؤگے  shedding mode پجاؤگے  یہ واپس سے آپ کو normaal میں دیکھے گا  ابھی یہاں آپ یہاں پہ رکھتے  کر کر کے کروں  سو اسی نیس اولمس ریڈی  ابھی میں تو یہاں پہ گران کا  واقعی کا جیتنے بھی  گرسے سے وہ آنمی نہیں کیاں  ابھی کام کرتے ہیں  ہمہ رہے انوامنٹ پہ جو کی ہوگہ  ہمہ رہا بگرام  بہت بہت ایزیلی میں اس کو ابھی  ایک زیگیٹ کر گا پہ دیکھاں گا  میں یہاں پہ ایس کرنے والا ہوں  ایسی HDRi کو  جب بہت سئی ہے کہ یہاں  چاہاں پہاں ایک  ایک ایک ایک ایک  ایک ایک ایک  جس کا لائٹ کو ایس کروں گا  تو ایلمینٹ the rest of the part  and here we will click create world nodes  and once you click  اپتورا ان دیکھو پہر اشتیار  آپ کے ایک اعلق سے sky texture مل گیا ہے  سو اب یہاں پیک کرو کی  which one looks perfect for this shot  اب یہ پیو HDRi والا part  یہ ایک قمولید لیے آپ کہ  آپ کو کیس آپ کا شاہت چاہئے  so یہ بہت time لگتا ہے  اس کو پہر ایک زیگیٹ کرنے میں  گبی گا بھی تو یہ 2-3 گھنٹے چاہتے ہیں  so yeah  یہاں پہ رہے میں Gosh Draw i کا Ryu  کچھ پینال میں لتے ہے  which is this  OK  اس کو SIMPLYisexual XV  کے سکھЕТ मٹر Micro C  Ctrl V rageیی に Evet  اب اس کو  بھی tv  shaker bana  repetی  à  اب یہاں پہ جو یہ بہ گرا운� میں  اور geja dage...
+**Transcript:** اب یہاں نگریف پاکٹ کی ہے  اب یہاں اس کو ریندر میں ہی سے دیکھ سکتے  اگر آپ edit mode پجاؤگے  shedding mode پجاؤگے  یہ واپس سے آپ کو normaal میں دیکھے گا  ابھی یہاں آپ یہاں پہ رکھتے  کر کر کے کروں  سو اسی نیس اولمس ریڈی  ابھی میں تو یہاں پہ گران کا  واقعی کا جیتنے بھی  گرسے سے وہ آنمی نہیں کیاں  ابھی کام کرتے ہیں  ہمہ رہے انوامنٹ پہ جو کی ہوگہ  ہمہ رہا بگرام  بہت بہت ایزیلی میں اس کو ابھی  ایک زیگیٹ کر گا پہ دیکھاں گا  میں یہاں پہ ایس کرنے والا ہوں  ایسی HDRi کو  جب بہت سئی ہے کہ یہاں  چاہاں پہاں ایک  ایک ایک ایک ایک  ایک ایک ایک  جس کا لائٹ کو ایس کروں گا  تو ایلمینٹ the rest of the part  and here we will click create world nodes  and once you click  اپتورا ان دیکھو پہر اشتیار  آپ کے ایک اعلق سے sky texture مل گیا ہے  سو اب یہاں پیک کرو کی  which one looks perfect for this shot  اب یہ پیو HDRi والا part  یہ ایک قمولید لیے آپ کے  آپ کو کیس آپ کا شاہت چاہئے  so یہ بہت time لگتا ہے  اس کو پہر ایک زیگیٹ کرنے میں  گبی گا بھی تو یہ 2-3 گھنٹے چاہتے ہیں  so yeah  یہاں پہ رہے میں Gosh Draw i کا Ryu  کچھ پینال میں لتے ہے  which is this  OK  اس کو SIMPLYisexual XV  کے سکھЕТ مٹر Micro C  Ctrl V rageیی に Evet  اب اس کو  بھی tv  shaker bana  repetی  à  اب یہاں پہ جو یہ بہ گرا운드 میں  اور geja dage...
 
 
 
@@ -52,27 +52,43 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Full cinematic landscape tutorial using Blender's built-in A.N.T. Landscape add-on for terrain generation, the Biome Reader add-on for procedural foliage/tree scattering, path-based camera animation via Follow Path constraint, and a final HDRI sky for lighting.
 
 ### Summary
-[PENDING EXTRACTION]
+This Urdu/Hindi tutorial walks through a complete cinematic landscape in Blender from empty scene to final render. The A.N.T. Landscape add-on (built-in, enabled in Preferences) generates a sculpted terrain with a lake preset. The terrain receives a displacement-based grassy rock ground texture. The Biome Reader add-on scatters trees, grass, and foliage automatically on the terrain surface. Water is added as an animated procedural ocean material on a flat plane. Camera animation uses a Bezier Curve as a path → select camera → Object Constraints → Follow Path → Animate Path button for automatic movement. The final look is completed with an HDRI sky texture in the World shader for natural ambient lighting.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Delete default objects → Go to **Edit > Preferences > Add-ons** → search "A.N.T" → enable **A.N.T. Landscape** add-on
+2. **Shift+A → Mesh → Landscape** → in the operator panel, select a lake/terrain preset → scale up (S → 10, then S → 5 again)
+3. Apply scale → in Material Properties, add a displacement-based **ground texture** (grassy rock); right-click → Subdivide twice to add mesh density for displacement
+4. Enable **Biome Reader** add-on → select terrain → use the add-on panel to scatter trees, shrubs, and grass on the surface automatically
+5. Add a flat **Plane** for water → assign an animated procedural **Ocean** material (many asset packs include this ready-made)
+6. For camera path: add a **Bezier Curve** → shape it through the landscape → select camera → **Object Constraints** → **Follow Path** → click target curve → press **Animate Path** button
+7. Adjust camera orientation along the path using the camera's Track To constraint or Forward axis setting
+8. In **World Properties** → create World nodes → add **Sky Texture** or load an **HDRI** for ambient sky light; adjust strength and rotation
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- A.N.T. Landscape — Lake preset; Scale: 10–15 after adding
+- Ground material — Displacement + Bump; subdiv terrain mesh twice before applying; tiling: use Mapping node Scale 5–10 to reduce repeat
+- Biome Reader — Density: medium; automatically scatters trees and ground cover on selected mesh
+- Water material — Procedural Ocean shader with animated Wave/Noise Texture for surface movement
+- Follow Path constraint — Forward Axis: -Z or Y (depending on curve orientation); Up Axis: Z; Animate Path: auto-sets Start/End frames
+- HDRI / Sky Texture — World Shader; Strength: 1.0–2.0; rotation to match sun position
+- Render engine — Cycles GPU; recommended for landscape with volumes and displacement
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified
 
 ### Tags
-[PENDING EXTRACTION]
+#rendering #lighting #hdri #camera #animation #organic #beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [How I Made Realistic Storm Clouds in Blender!](./how-i-made-realistic-storm-clouds-in-blender.md)
+- [Blender Tutorial - Create a Beautiful River Landscape in Blender | Free Addon](./blender-tutorial-create-a-beautiful-river-landscape-in-blend.md)
+- [Fundamentals of Lighting in Blender](./fundamentals-of-lighting-in-blender.md)
+- [The Key to Realism in Blender (or 3D)](./the-key-to-realism-in-blender-or-3d.md)

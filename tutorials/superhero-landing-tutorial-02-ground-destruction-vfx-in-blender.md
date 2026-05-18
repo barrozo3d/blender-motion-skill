@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=4ULxB4PzbAc
 author: Graphical Ninja
 ingested: 2026-05-18
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified"
+tags: ["rigid-body", "simulation", "particles", "smoke-fire", "animation", "rendering", "compositing", "advanced"]
+extraction_status: complete
 frames_dir: tutorials/frames/superhero-landing-tutorial-02-ground-destruction-vfx-in-blender/
 frame_count: 0
 ---
@@ -31,7 +31,7 @@ frame_count: 0
 
 
 ### Rigid Body Sim [3:08]
-**Transcript:** Next let's do a rigid body simulation to make these chunks fly upward and outward as he lands.  We want to speed ramp it so it ends up being slow mo in the end.  So let's add a force field, force and move it a bit below the ground.  Now select one of these chunks, turn it into a rigid body, it'll be active, dynamic and then we'll select all of our ground brake objects.  Go to object, rigid body, copy from active and now they will all have the same settings.  Now let's go to the scene properties tab, rigid body world and set this up.  First we need more steps per frame for higher quality so we'll do 20 and 20.  Then we're going to go into cache and our simulation start should be 50 and the end should be 100.  Now we want to speed ramp the speed of the simulation.  So if we go to frame 53 hit I on speed and then go three frames forward and set speed to 0.25 hit I again.  Now for the rest of the sim it'll be quarter speed.  Now our chunks are all just falling through the ground right now.  So if we grab our original ground mesh, let's make that a rigid body passive object.  Now we need the force to be a little bit stronger.  Well, a lot stronger.  So let's find the frame on which he l...
+**Transcript:** Next let's do a rigid body simulation to make these chunks fly upward and outward as he lands.  We want to speed ramp it so it ends up being slow mo in the end.  So let's add a force field, force and move it a bit below the ground.  So let's add a force field, force and move it a bit below the ground.  Now select one of these chunks, turn it into a rigid body, it'll be active, dynamic and then we'll select all of our ground brake objects.  Go to object, rigid body, copy from active and now they will all have the same settings.  Now let's go to the scene properties tab, rigid body world and set this up.  First we need more steps per frame for higher quality so we'll do 20 and 20.  Then we're going to go into cache and our simulation start should be 50 and the end should be 100.  Now we want to speed ramp the speed of the simulation.  So if we go to frame 53 hit I on speed and then go three frames forward and set speed to 0.25 hit I again.  Now for the rest of the sim it'll be quarter speed.  Now our chunks are all just falling through the ground right now.  So if we grab our original ground mesh, let's make that a rigid body passive object.  Now we need the force to be a little bit stronger.  Well, a lot stronger.  So let's find the frame on which he l...
 
 
 ### Particle System (Dirt) [6:33]
@@ -56,27 +56,50 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Ground-destruction VFX combining manual ground fracture + Cell Fracture rigid body simulation (with a Force Field strength keyframed at the landing moment for slow-motion chunks at 0.25×), a 2000-particle dirt/rock Collection emitter, a smoke simulation for dust trails at Resolution 128–256, and final Blender compositor compositing with Disjoint Over merge and film grain.
 
 ### Summary
-[PENDING EXTRACTION]
+Graphical Ninja builds a superhero landing ground-destruction shot in three simulation layers. First, a road plane is manually cut (Ctrl+R, separate by selection), then fractured using the Cell Fracture add-on into angular chunks. A Force Field (below ground) and Rigid Body simulation blow the chunks upward/outward when the superhero lands; a Speed keyframe at frame 53 sets the sim to 0.25× (slow motion) for dramatic effect. Passive rigid body on the undamaged ground keeps chunks from falling through. A particle system (2000 dirt chunks from a rock Collection) emits from the chunks with low gravity (0.05) for hanging debris. A smoke (fluid) domain with Resolution 128–256, Time Scale 0.25, and Dissolve: 25 creates the dust cloud; each chunk is a Flow emitter with Surface Emission: 0.2. Rock chunks get a Voronoi Displacement modifier plus Subdivision Surface (Simple mode) for jagged edges. Final composite in Blender's compositor uses Disjoint Over to merge layers and a Grain node for film texture.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Add a ground Plane → in Edit Mode: **Ctrl+R** to cut the center section → **P → Separate by Selection** to isolate the breakable chunk
+2. Add the **Cell Fracture** add-on (built-in, enable in Preferences) → select the breakable chunk → **Object → Quick Effects → Cell Fracture** → Source: Volume, Source Limit: 50–100 shards
+3. Move all fracture pieces to a "ground brake" collection → select one chunk → **Physics → Rigid Body → Active, Dynamic** → Object → Rigid Body → **Copy from Active** to all chunks
+4. Add **Force Field** (Wind or Turbulence type) below ground → set Strength: 0 → go to frame 53 (landing frame) → **I on Strength** → go to frame 56 → **Strength: 5000–10000** → **I** → back to 0 at frame 60 for the burst
+5. **Rigid Body World** → Steps Per Second: 20; Solver Iterations: 20; Cache Start: 50; End: 100
+6. Speed ramp: frame 53 → **I on Scene Speed (1.0)** → frame 56 → Speed: 0.25 → **I** (quarter speed for rest of sim)
+7. Select original ground mesh → **Rigid Body → Passive** for collision boundary
+8. Add particle system to one chunk: Number: 2000; Frame Start: 52; End: 200; Lifetime: 50; Rotation: on; Brownian: 0.1; Damping: 0.05; Gravity: 0.05; Force: 0 → Render as: **Collection** (rocks collection)
+9. For dust: add **Cube** → **Physics → Fluid → Domain**; Type: Gas (Smoke); Resolution: 128 (256 final); Time Scale: 0.25; CFL: 10; Adaptive Time Steps Max: 3; Dissolve: 25, Modular cache
+10. Select each chunk → **Physics → Fluid → Flow** → Type: Inflow; Surface Emission: 0.2; Smoke Flow: on
+11. Add **Displacement modifier** to chunks: Texture: Voronoi, Strength: 0.25, X direction; add **Subdivision Surface** (Simple) above displacement for jagged cracked edges
+12. In Compositor: Render Layers → use **Disjoint Over** (not regular Over) to merge simulation layers with hero plate; add **Grain** node, reduce intensity in highlights
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Cell Fracture add-on — Source: Volume; Source Limit: 50–100; Noise: 0.1 for irregular shapes
+- Rigid Body (chunks) — Active, Dynamic; Steps Per Second: 20; Solver Iterations: 20
+- Force Field — type: Force; Strength keyframed: 0 (frame 50), peak value (frame 53–56), 0 (frame 60)
+- Speed keyframe — Scene Properties → Rigid Body World → Cache → Speed; 1.0 → 0.25 at frame 56
+- Particle system (dirt) — Number: 2000; Lifetime: 50; Brownian: 0.1; Damping: 0.05; Gravity: 0.05; Force: 0; Collection render
+- Smoke Domain — Resolution: 128 (viewport) / 256 (final); Time Scale: 0.25; CFL: 10; Dissolve: 25, Modular; Field Weights All: 0
+- Smoke Flow — Type: Inflow; Surface Emission: 0.2; Temperature Diff: 1.0
+- Displacement modifier — Texture: Voronoi; Strength: 0.25; Direction: X (then Y duplicate)
+- Subdivision Surface (Simple) — above Displacement; Levels: 2; Simple mode (no smoothing)
+- Compositor — Disjoint Over for layer merge; Grain node: Size 0.5 (RGB separate, Blue larger); Intensity: 0.02–0.05
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified
 
 ### Tags
-[PENDING EXTRACTION]
+#rigid-body #simulation #particles #smoke-fire #animation #rendering #compositing #advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender Tutorial - Control Physics Sims with Geometry Nodes (Beginner Friendly)](./blender-tutorial-control-physics-sims-with-geometry-nodes-be.md)
+- [I Recreated movie scene in Blender & Nuke | Complete Tutorial](./i-recreated-movie-scene-in-blender-nuke-complete-tutorial.md)
+- [Using Geometry Nodes for VFX in Blender](./using-geometry-nodes-for-vfx-in-blender.md)
+- [A FULL Blender Compositor Course!](./a-full-blender-compositor-course.md)

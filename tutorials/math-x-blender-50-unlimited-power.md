@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=EvWAcSA86fw
 author: MTR Animation
 ingested: 2026-05-18
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.0"
+tags: ["geometry-nodes", "procedural", "abstract", "animation", "blender-5x", "expert", "advanced"]
+extraction_status: complete
 frames_dir: tutorials/frames/math-x-blender-50-unlimited-power/
 frame_count: 0
 ---
@@ -59,7 +59,7 @@ frame_count: 0
 
 
 ### Render settings [30:49]
-**Transcript:** this in a cool way of course let's go into cycles so let's go into render view and let's go into render  properties and let's also press control S to save the file so that it's not going to crash and let's  then set it from ev2 cycles and let's set device on GPU compute and some quick render settings that I  most of the time use is to make the denoiser also use your GPU and under lights let's turn off  light tree and under color management let's turn our look to very high contrast because I think  that looks a lot cooler okay let's see let me position this in a cool way let's add in a plane and  let me also make the world properties black and let's also add in an area light like so let's see  that's pretty cool I think let's first give each iqosphere a material so let's click on it and
+**Transcript:** this in a cool way of course let's go into cycles so let's go into render view and let's go into render  properties and let's also press control S to save the file so that it's not going to crash and let's  then set it from ev2 cycles and let's set device on GPU compute and some quick render settings that I  most of the time use is to make the denoiser also use your GPU and under lights let's turn off  light tree and under color management let's turn our look to very high contrast because I think  that looks a lot cooler okay let's see let me position this in a cool way let's add in a plane  and let me also make the world properties black and let's also add in an area light like so let's see  that's pretty cool I think let's first give each iqosphere a material so let's click on it and
 
 
 ### Materials [31:36]
@@ -76,27 +76,48 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Builds an Apollonian Gasket fractal (infinite tangent circles) in Blender 5.0 Geometry Nodes by implementing Descartes' Circle Theorem with Math nodes, Repeat Zones, and pre-built curvature/position formula node groups — producing a fully procedural iterative fractal pattern with instanced geometry at each circle.
 
 ### Summary
-[PENDING EXTRACTION]
+MTR Animation implements the Apollonian Gasket — an infinite self-similar arrangement of tangent circles — in Blender 5.0 Geometry Nodes. The tutorial is built around pre-made formula node groups (provided in the download file) that implement Descartes' Circle Theorem: K4 = K1 + K2 + K3 + 2√(K1K2 + K2K3 + K1K3) where K = 1/radius (curvature). Three initial points define three seed circles; each iteration gap is filled with a new tangent circle whose curvature and position are calculated using complex number mathematics encoded in the node groups. A Repeat Zone iterates this 4–6 times to produce the fractal depth. Duplicate points are cleaned with Merge by Distance. Icospheres are instanced on each point (filtered by radius to exclude the outer ring), flattened on Z for a disc look, with random saturation color per instance. Final render uses Cycles with Very High Contrast color management.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Download the provided blend file with pre-built formula node groups: **Curvature**, **New Position** (complex number math), and **Is Tangent** validation groups
+2. In Geometry Nodes: create 3 **Points** nodes at specific positions/radii → **Store Named Attribute** "K" = 1/radius for each (curvature)
+3. Use the **Curvature node group** with K1, K2, K3 inputs to compute K4 (new circle curvature) → radius = 1/K4
+4. Use the **New Position node group** with the three parent circle positions as complex numbers to compute the new circle's XY position
+5. Use **Is Tangent node group** to validate each new circle is properly tangent → delete invalid points with **Delete Geometry** + **Compare** node (index == 3)
+6. Wrap steps 3–5 in a **Repeat Zone** → Iterations: 4–6 for increasing fractal depth
+7. After Repeat Zone: **Realize Instances** → **Merge by Distance** (two separate: one for outer ring, one for inner circles) to remove duplicates
+8. **Instance on Points**: place **Icosphere** (Subdivisions: 2–4) at each point; filter by **Radius < 1.9** to skip outer ring; flatten Z with **Vector Math (Multiply)** Z factor: 0.3
+9. **Store Named Attribute** "rand" = **Random Value** per instance → in shader: **Attribute "rand"** → **Hue/Saturation/Value** node for random saturation variation
+10. Render in Cycles GPU; Color Management: Look → Very High Contrast
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Points node — creates 3 seed circles; set Position and Radius per point
+- Store Named Attribute "K" — curvature = Math (Divide) 1 ÷ Radius; Domain: Point
+- Curvature node group — inputs: K1, K2, K3; output: K4 (Descartes theorem); pre-built in download file
+- New Position node group — inputs: Z1, Z2, Z3 (complex positions), K1, K2, K3, K4; output: new XY position
+- Is Tangent node group — checks if new circle is tangent to parent circles; returns boolean
+- Repeat Zone — Iterations: 4–6; each iteration adds one ring of new tangent circles
+- Merge by Distance — Distance: 0.001; Realize Instances first; separate passes for outer vs. inner rings
+- Instance on Points — Icosphere; Compare (Radius < 1.9) as Selection to exclude outer ring
+- Vector Math (Multiply) — Scale Z by 0.3 to flatten spheres into discs
+- Cycles — GPU Compute; Denoiser: GPU; Light Tree: off; Look: Very High Contrast
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.0
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #procedural #abstract #animation #blender-5x #expert #advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [I'll teach you Geometry Nodes](./ill-teach-you-geometry-nodes.md)
+- [ALL 300+ Geometry Nodes in Blender](./all-300-geometry-nodes-in-blender.md)
+- [Fractals in Blender - Geometry Nodes Extrude Node](./fractals-in-blender-geometry-nodes-extrude-node.md)
+- [Blender Tutorial: Connect The Dots with Geometry Nodes, The "Plexus" Effect](./blender-tutorial-connect-the-dots-with-geometry-nodes-the-pl.md)
