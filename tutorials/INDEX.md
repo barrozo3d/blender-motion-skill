@@ -658,9 +658,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=WreZ_VKDn4M
 - **Author:** Extra 3d
-- **Blender Version:** (check file)
-- **Tags:** (check file)
-- **Summary:** (analyze file to extract summary)
+- **Blender Version:** Not specified (4.x UI)
+- **Tags:** #lighting #product-viz #materials #rendering #glass #brand-video #beginner #intermediate
+- **Summary:** Three-point product lighting system covering non-glossy products (Area Lights with Image Texture nodes to fix reflections) and glass products (Emission planes with Gradient Texture + Color Ramp for smooth falloff). Includes the 3D Cursor pivot trick for rotating lights around a product, hiding emission planes from camera via Visibility settings, and using Light Linking to prevent lights from contaminating ground reflections.
 - **File:** tutorials/realistic-product-lighting-in-blender.md
 
 ---
