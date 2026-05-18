@@ -1,93 +1,82 @@
 ---
 title: Fundamentals of Lighting in Blender
 source: YouTube
-url: https://youtu.be/ENnEYoUpFfU
+url: https://www.youtube.com/watch?v=ENnEYoUpFfU
 author: Blender Guru
-ingested: 2026-05-13
-blender_version: Not specified
-tags: [lighting, rendering, cycles, hdri, beginner]
+ingested: 2026-05-18
+blender_version: "[PENDING]"
+tags: []
+extraction_status: pending
+frames_dir: tutorials/frames/fundamentals-of-lighting-in-blender/
+frame_count: 0
 ---
 
 # Fundamentals of Lighting in Blender
 
-**Source:** [YouTube](https://youtu.be/ENnEYoUpFfU)
+**Source:** [YouTube](https://www.youtube.com/watch?v=ENnEYoUpFfU)
 **Author:** Blender Guru
-**Ingested:** 2026-05-13
+**Duration:** 43m25s | 7 section(s)
 
 ---
 
-## Description
+## Raw Data (for Claude Code extraction)
 
-Discover the fundamentals of lighting in Blender.
 
-Join the Blender Guru Academy: https://academy.blenderguru.com/join
+### Intro [0:00]
+**Transcript:** Lighting is one of the highest leverage skills that artists can learn because it can multiply the impact of everything else you've already done.  Often, the same number of lights but in a different arrangement can completely transform an audience's reaction to the same image.  And when you look across history, you'll see that the artists that learn to use lighting effectively created some of the most iconic, memorable artworks.  And in the modern era, lighting is a future-proof skill in the age of AI because it's a skill that relies mostly on your judgment to best service the story.  But before you can light large-scale fun environments like this one, you need to understand what lights actually do.  So in this video, we are going to be lighting this simple sci-fi crate as you learn about the fundamentals of lighting, which is positioning, fall off, size, and color.  And if you're watching this on YouTube, this is actually a free lesson from my Blender Guru Beginners Academy, which you can learn more about by clicking up there or by clicking the link in the description.
 
-Download the Starting 3D Model: https://drive.google.com/file/d/10XimqZ8ZytpuIB1ZIaMSBs66nQ9NytO_/view?usp=sharing
 
-Poliigon Addon: https://www.poliigon.com/blender
+### Positioning [0:58]
+**Transcript:** So after downloading the dot blend in the attachment, you should open it up and see this. And then if you went to the rendered view mode at the top there, you should see your crate.  But why can you see your crate? Because we actually haven't got any lamps in our scene at the moment. So why can we see our crate? Because if this was in space, you couldn't see something if there was no sunlight.  So why is this? It is because this color here is gray and that's actually adding light into it's called like environment light.  So generally you don't want this because you want to be able to control the lighting and not just have it blasted from all directions, which is what we've got here.  So firstly, you go to your world tab over here and then you either change the color to black or what I do, I just set the strength to zero. And now lights out, we now have to rely entirely on the lights that we add to the scene.  So I'm actually going to split my view. So I'm going to go to the top right click and save vertical split. And then on the left hand side, this is going to be my rendered view mode. And then on the right hand side, it will be my 3d viewport so I can manipulate things.  So we n...
 
-=== Chapter Marks ✂️===
-0:00 Intro
-0:58 Positioning
-5:12 Staging
-11:11 Falloff
-18:12 Size
-24:57 Color
-27:06 Polish
 
-===Follow me🫰===
+### Staging [5:12]
+**Transcript:** Now so far I've been looking at the create from this angle this sort of three quarter view. That's what they call it.  But what if I wanted to like change the angle and look at it from a completely different angle.  Well, it completely changes right this now looks like flash photography that horrible flat lighting because lighting is view dependent.  It only works for a specific view, which is why you generally don't start lighting an object until you know for sure where the camera is going to be once the camera is locked in, that's when you start lighting.  Now I wanted to for the sake of engagement for a video. I wanted to jump straight into the lighting, but it makes sense to lock down the view so that you know exactly where the lighting needs to be before you continue.  So I'm going to create a new camera. So shift a I'm going to hit camera and I'll just move this up a little bit. If you want to view through the camera view, that is number pad zero, of course.  And a lot of people already have experienced this and you might already know the solution, but for those who don't, yeah, when you're in this view here, if you try to like orbit, right, you click the orbit thing like mid...
 
-Twitter: https://twitter.com/andrewpprice
-Instagram: http://instagram.com/andrew
 
----
+### Falloff [11:11]
+**Transcript:** Okay, now back to the challenge of lighting and I want you to ignore the position and I should just forget forget this light here and just look at this single light source and have a look at the intensity of the light and how look at like what you think might be not great about what we have going on here as it relates to intensity and some of the astute observers that are watching right now might notice that you know what this side of my crate here feels like.  A little brighter than this side of the crate here right and this is called fall off right as light increases from the distance of a light source right so from here to to across here it is losing intensity and it's something that like children understand the closer you stand to a light bulb the brighter it is going to appear.  But what a lot of artists don't understand is how severe this fall off actually is and why this is such a useful storytelling tool okay so I'll tell you what the answer is in a second here but I want you to have a guess at what you think is the the fall off okay so having a look here we've got the light sources here we have let's say this this single face right which is like this one over here hitting ...
 
-## Raw Content (for analysis)
 
-Kind: captions Language: en Lighting is one of the highest leverage skills that artists can learn because it can multiply the impact of everything else you've already done. Often the same number of lights but in a different arrangement can completely transform an audience's reaction to the same image. And when you look across history, you'll see that the artists that learned to use lighting effectively created some of the most iconic memorable artworks. And in the modern era, lighting is a futurep proof skill in the age of AI because it's a skill that relies mostly on your judgment to best service the story. But before you can light large scale fun environments like this one, you need to understand what lights actually do. So in this video, we are going to be lighting this simple sci-fi crate as you learn about the fundamentals of lighting, which is positioning, fall-off, size, and color. And if you're watching this on YouTube, this is actually a free lesson from my Blender Guru Beginners Academy, which you can learn more about by clicking up there or by clicking the link in the description. So, after downloading the blend in the attachment, you should open it up and see this. And then, if you went to the rendered view mode at the top there, you should see your crate. But why can you see your crate? Because we actually haven't got any lamps in our scene at the moment. So, why can we see our crate? Because if this was in space, you couldn't see something if there was no sunlight. So why is this? It is because this color here is gray and that's actually adding light into it's called like environment light. So generally you don't want this cuz you want to be able to control the lighting um and not just have it blasted from uh all directions, which is what we've got here. So firstly, you go to your world tab over here and then you either change the color to black or what I do, I just set the strength to zero. And now lights out. we now have to rely entirely on the the lights that we add to the scene. So, I'm actually going to split my view. So, I'm going to go to the top, right click, and say vertical split. And then on the left hand side, this is going to be my rendered view mode. And then on the right hand side, it will be my 3D viewport. So, I can uh manipulate things. So, we need to add in a lamp so that we can see things. So, shift A. And the lamp we're going to use is just your bog standard typical point lamp, which is uh if you don't know, omniirectional. So, it's casting light from all directions like a basically a hovering orb of light uh anywhere we put it or or a light bulb. I guess it's another uh maybe more familiar uh light source. Uh anyway, with this, let's just crank it up a little bit so that we can see it. And let's uh let's move it around. Now, a big mistake a lot of beginners get into is they go like, "Huh, look, I got like all this shadow and I can't even see the other side of this." So, I'm going to create another lamp. I'm going to put it over there. And then, well, I've still got shadow along the front there. So, I'm going to create like another lamp. I'm going to position it about there. And look, I got this big ugly shadow there. So, I might as well put another one there. And then it just ends up looking terrible. But the reason this looks terrible isn't because there's too many lamps. It's because there's no shadow. Shadow is actually vitally important for the human brain to understand the form of what it is you are looking at. To give you an example, um if I was to uh have just a sun lamp, right, just blasting sun from the top down, looking at the uh the um the the crate there, and I went into top view and I I had a look at this. It's really actually impossible to understand what the shape of this object that we're looking at is like I modeled this thing and I don't even know if this is a protrusion or an intrusion, right? The these little uh these little cutouts here, is it going up or is it going down? It's impossible because we have no shadow. Whereas, if you were to just rotate this sun lamp ever so slightly, you can see how much easier it is to understand what we're looking at, right? So, shadow is your friend. Embrace shadow. You do want shadow in your scene. Don't try to hide it. It is vitally important. So, uh yeah, don't don't remove it. However, having said that, there is a big difference between shadow and so much shadow that you can't see anything, which is what we've got on this side of my crate. I've got all this detail and decals and stickers and things that you can't see, and I want the viewer to be able to see that. So, to solve this, you need to have a separate light source, but just not so bright that it's confusing the eye as to uh what the shape of the object is. So, I'm going to take my little lamp here, and I'm going to hit shift D to duplicate it, and I'm going to just move it somewhere to the right hand side so that it's casting light, you know, onto our on this this side of the box there. Now, with the same strength as this one, right? They've both got a strength of 460 there. You can see that it's it's that problem. It's it's it's so much light that it's it's making it a little bit difficult for the eye to understand the form. So, all we need to do is just drop it. Right now, what's the amount? There's no exact amount. I remember growing up there was like these textbooks on like 3D and it was like, oh, it should be like half the value of the the the key light source. I think that's just like bogus. Doesn't need to be that. It's just go go go go go by your eye, right? You still want to see that there is obviously shadow on this hand side, but obviously not so dark that I can't see anything. So, I just make it a little bit brighter than that so that I can still see there's something there, but it's clearly in uh in shadow. Now, so far I've been looking at the crate from this angle, this sort of 3/4 view. That's what they call it. Um, but 
+### Size [18:12]
+**Transcript:** important traits we've talked about the position of the light we've talked about the fall off of the light I wanted to introduce you to  two more the first is the size of the light and then the color of the light so firstly the size of the light and you can  change the size of a light we're going to your lamp settings where they lamp selected and then changing this radius value here  and you'll notice that as you increase it right the the lamp gets this like a circle that appears around it and then it does something to the render right and the really a  stoop people that that that know what what's going on will notice that this is changing the the softness of the shadow right so as I increase it you can see it this  shadow is becoming feathered and and soft and as you increase it further and further it becomes kind of like an overcast day  and this is kind of where a lot of like beginners kind of stop because they're going to like I mean like it must a big deal like what what is this really changing and what am I supposed to do here right what what how am I supposed to use this  effectively as an artist it doesn't appear to be really doing much well believe it or not it's actually ...
+
+
+### Color [24:57]
+**Transcript:** right do I want to feel make it feel like it's grounded in the real world and that the light is  coming from nature or from incandescent or fire or something like that that's where I'm thinking of  these values here alternatively if I don't want it to feel like that and I want it to feel like  it's part of an urban scene like a street scene or a club scene or anything like that that is when  I would use the color value because then I have full control over the colors and I can introduce a color  that you would never see in nature you're never going to see purple light in nature someone's  going to prove me wrong I'm sure but you will never see this right like there's just certain colors  that you just don't see as light sources are in in nature but yeah that's where you can play with it  here so this is a sci-fi crate right so it would actually make sense in this case for me to use  a light source that I'm not going to find in in nature I'm not going to find on like the Kelvin  scale here so I'm going to use something that's like a little bit bluer maybe like that  and that's just going to help tell part of the story that this is like hey this is a sci-fi crate  in a you know made ...
+
+
+### Polish [27:06]
+**Transcript:** know we want this to look as best as we can we want to have a little bit of fun I'm going to show  you now some of the other changes that I would make to this box to the the setup of this box  to try to render this as best as we possibly can if we if we were just doing like a single  model render like this like for something to post on art staging and you portfolio to show off a  model what is the best way that I could possibly show this to maximize the likelihood that somebody's  going to click on it and you know actually appreciate it right so what are some changes that I  might make well one even though we're showing a model just by itself on a plane like this it doesn't  hurt and it's really low low effort to just throw a texture that relates to the object onto the  surrounding plane here so this plane here it's just black right but this is a sci-fi box right  do what we dragged in a real sci-fi box and carefully positioned it for like a studio lighting  why not just make this look like concrete right it's a really tiny simple thing but it just adds  to the story of the asset that we're doing so simple way to do this I'm just going to be using  the polygon add-on which you can ...
+
+
 
 ---
 
 ## Structured Notes
 
-*Fill in manually or ask Claude to analyze:*
-> "Analyze the content of tutorials/fundamentals-of-lighting-in-blender.md and extract:
-> - Core Blender technique taught
-> - Step-by-step workflow
-> - Key nodes or settings
-> - Blender version
-> - Difficulty level
-> - Tags"
-
 ### Core Technique
-Teaching the four core fundamentals of Blender lighting — positioning, fall-off, size, and color — using a sci-fi crate as a practical example, demonstrating how each property affects shadow, form readability, mood, and overall render quality.
+[PENDING EXTRACTION]
+
+### Summary
+[PENDING EXTRACTION]
 
 ### Key Steps
-1. Set the World Background strength to 0 (World Properties > Surface > Strength: 0) to remove ambient environment light and start with pure darkness.
-2. Split the viewport: left side Rendered view, right side 3D Viewport for simultaneous manipulation and preview.
-3. Add a Point lamp (Shift+A > Light > Point); increase strength to see the crate; position as the key light (primary directional source).
-4. Avoid adding multiple equal-strength lights from all sides — this kills shadows; instead, embrace shadows as essential for form reading.
-5. Add a fill light (Shift+D duplicate the key light; move to opposite side); reduce its strength significantly (much less than key) so the viewer can still see shadow detail but not be blinded.
-6. Understand fall-off (Inverse Square falloff by default): light diminishes with distance squared; closer lights illuminate more intensely; use this to control the drama.
-7. Understand light size: small radius = hard crisp shadows; large radius = soft shadows; adjust Light Radius in light properties.
-8. Consider light color: cool-colored fill vs. warm key light creates visual contrast and mood; use the Color picker in light properties.
-9. Always evaluate lighting from the final camera angle (Numpad 0) as perspective completely changes the light's perceived impact.
-10. "Polish" phase: fine-tune strength, position, and color to serve the story and direct the viewer's eye.
+[PENDING EXTRACTION]
 
-### Blender Nodes / Settings
-- World Properties > Surface > Strength: 0 (remove ambient)
-- Point Light (omnidirectional, Strength, Radius, Color)
-- Sun Light (directional, rotation controls shadow direction)
-- Area Light (large soft source)
-- Light Radius (shadow softness: 0 = crisp, high = soft)
-- Light Color (warm/cool contrast for mood)
-- Rendered view mode
+### Nodes / Settings
+[PENDING EXTRACTION]
 
 ### Difficulty
-Beginner
+[PENDING EXTRACTION]
 
 ### Blender Version
-Not specified
+[PENDING EXTRACTION]
 
 ### Tags
-#lighting #rendering #cycles #hdri #beginner
+[PENDING EXTRACTION]
+
+---
+
+## Related Tutorials
+[PENDING EXTRACTION]
