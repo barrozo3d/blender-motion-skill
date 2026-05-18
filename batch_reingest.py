@@ -130,9 +130,11 @@ def main():
                 if result.returncode == 0:
                     successes.append(url)
                     log(f"  OK ({i}/{total})", logf)
+                    time.sleep(45)  # pause between tutorials to avoid YouTube rate limiting
                 else:
                     failures.append((url, f"exit code {result.returncode}"))
                     log(f"  FAIL exit={result.returncode}", logf)
+                    time.sleep(15)  # shorter pause after failures
             except subprocess.TimeoutExpired:
                 failures.append((url, "timeout after 30 min"))
                 log(f"  FAIL timeout", logf)

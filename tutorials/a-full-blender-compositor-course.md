@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=_7N7emOvDko
 author: SharpWind
 ingested: 2026-05-18
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.5"
+tags: ["compositing", "rendering", "materials", "shaders", "beginner", "intermediate"]
+extraction_status: complete
 frames_dir: tutorials/frames/a-full-blender-compositor-course/
 frame_count: 0
 ---
@@ -52,25 +52,40 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Complete Blender Compositor workflow from scratch — Use Nodes setup, glare, render layers for scene separation, and multi-pass compositing with diffuse/glossy/transmission/emission render passes for full professional control.
 
 ### Summary
-[PENDING EXTRACTION]
+SharpWind covers the full Blender Compositor pipeline in 42 minutes. Starts with node basics and the Use Nodes toggle, progresses through practical compositing (glare, blur, color grading), then covers render layers for compositing separate objects independently, and finally multi-pass rendering (diffuse/glossy/transmission/volume/emission passes) for maximum post-production control. Blender 4.5 node interface shown.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Open **Compositor** tab → check **Use Nodes** → Render Result node + Composite node appear
+2. Add **Node Wrangler** addon → Ctrl+Shift+Click any node to preview it with a Viewer node
+3. Add **Glare node** after Render Result → Type: Fog Glow / Streaks / Ghosts; Quality: High; Threshold and Smoothness in Highlight section; Blender 4.5 has 3 outputs (full / glare only / highlights only)
+4. Add **Render Layers**: top-right corner of viewport → new layer icon → rename → assign Collections to Visible/Hidden per layer → composite layers back together with Mix/Add nodes
+5. Enable **Render Passes** in View Layer Properties → Data: Mist, Z; Light: Diffuse Direct/Indirect/Color, Glossy Direct/Indirect/Color, Transmission, Volume, Emission; Denoising
+6. In Compositor: **Render Layers node** exposes all enabled passes as outputs → wire passes into separate correction chains → recombine with Add nodes
+7. Professional setup: enable Denoiser pass → render at lower samples → denoise in compositor; separate Diffuse/Glossy for independent color correction
+8. Use **Color Balance**, **Hue Saturation Value**, **Curves** nodes for per-pass grading
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Render Result node — the base rendered image input
+- Composite node — final output; required for compositing to take effect
+- Viewer node — Ctrl+Shift+Click via Node Wrangler for live preview
+- Glare node — Type: Fog Glow / Streaks / Ghosts; Quality: High/Medium/Low; Threshold: 0.5–1.0; Blender 4.5: 3 separate outputs
+- Render Layers node — exposes all enabled passes; one per render layer
+- View Layer Properties — Light Passes: Diffuse Direct/Indirect/Color, Glossy D/I/C, Transmission D/I/C, Volume D/I, Emission; Denoising
+- Mix node (Add mode) — recombines light passes into final image
+- Color Balance node — per-pass color grading
+- Curves node — contrast and color control per channel
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner / Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.5
 
 ### Tags
-[PENDING EXTRACTION]
+#compositing #rendering #materials #shaders #beginner #intermediate
 
 ---
 
