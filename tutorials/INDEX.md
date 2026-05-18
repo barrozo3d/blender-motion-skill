@@ -743,6 +743,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/geode-nodes-i-am-so-clever-blender-tutorial.md
 
+
+### Glass Cell Division Effect in Blender 5.0 (tutorial)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=XOLuYDLYEgI
+- **Author:** Ducky 3D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/glass-cell-division-effect-in-blender-50-tutorial.md
+
 ---
 
 ## Tag Reference
