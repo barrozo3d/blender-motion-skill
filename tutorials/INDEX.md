@@ -1223,6 +1223,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/how-to-make-this-style-in-blender-50.md
 
+
+### I Recreated movie scene in Blender & Nuke | Complete  Tutorial
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=iW6WF8guDMY
+- **Author:** MISSING PIXEL VFX
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/i-recreated-movie-scene-in-blender-nuke-complete-tutorial.md
+
 ---
 
 ## Tag Reference
