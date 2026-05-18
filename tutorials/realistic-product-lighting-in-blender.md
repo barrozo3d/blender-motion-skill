@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=WreZ_VKDn4M
 author: Extra 3d
 ingested: 2026-05-18
-blender_version: "Not specified (4.x UI)"
-tags: ["lighting", "product-viz", "materials", "rendering", "glass", "brand-video", "beginner", "intermediate"]
-extraction_status: complete
+blender_version: "[PENDING]"
+tags: []
+extraction_status: pending
 frames_dir: tutorials/frames/realistic-product-lighting-in-blender/
 frame_count: 0
 ---
@@ -68,40 +68,25 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-Three-point product lighting system: strong back Area Light for highlights, sharp side Area Light (low Spread) for shadows, soft fill Area Light — plus Emission planes with Gradient Texture + Color Ramp for glass/glossy products, and Light Linking to protect ground reflections.
+[PENDING EXTRACTION]
 
 ### Summary
-Extra 3d demonstrates a complete product lighting workflow for both non-glossy products (Area Lights with optional Image Texture on the light shader to fix reflections) and glass/glossy products (Emission planes with Gradient Texture for smooth falloff). Covers the 3D Cursor pivot technique for precisely rotating lights around a product, hiding emission planes from camera, and using Light Linking to prevent certain lights from contaminating ground reflections.
+[PENDING EXTRACTION]
 
 ### Key Steps
-1. Add **Area Light** behind product → increase Intensity (back highlight)
-2. Move **3D Cursor** to product center: select product → Shift+S → Cursor to Active (or Shift+RMB); set Pivot Point to 3D Cursor
-3. Duplicate back light → R+R (trackball rotate around 3D Cursor) → place on side → decrease Intensity → reduce **Spread** for hard shadows
-4. Duplicate side light → R 180 → increase Spread for soft fill light
-5. For **glossy products**: open Area Light Shader Editor → Use Nodes → add **Image Texture** node → load reflection-fix image → removes blown-out rectangular reflections
-6. For **glass products**: add Plane behind product → Shader Editor → delete Principled BSDF → add **Emission** node → connect to Material Output → set Strength
-7. Hide emission plane from camera: Object Properties → Visibility tab → uncheck **Camera**
-8. Side glass light: add Emission + **Gradient Texture** + **Texture Mapping** + **Texture Coordinate** → **Color Ramp** (Spline, soft curve) → rotate so bright side faces product
-9. **Light Linking**: select light → Object Data Properties → Light Linking → New → drag only the product into the set; prevents light from destroying ground reflections
+[PENDING EXTRACTION]
 
 ### Nodes / Settings
-- Area Light — back: Energy high; side: low Energy, Spread: 10–30° (hard shadows); fill: high Spread (soft)
-- Use Nodes on Area Light — enables shader editor; add Image Texture for clean reflections
-- Emission shader — Strength: 5–20; used on planes instead of Area Lights for glass
-- Gradient Texture — drives smooth falloff on side emission planes
-- Texture Mapping + Texture Coordinate nodes — control gradient rotation and direction
-- Color Ramp (Spline) — soft S-curve falloff; bright end toward product
-- Object Properties → Visibility → Camera checkbox — hide plane from render
-- Light Linking — Object Data Properties on light; add only desired objects to set
+[PENDING EXTRACTION]
 
 ### Difficulty
-Beginner / Intermediate
+[PENDING EXTRACTION]
 
 ### Blender Version
-Not specified (4.x UI)
+[PENDING EXTRACTION]
 
 ### Tags
-#lighting #product-viz #materials #rendering #glass #brand-video #beginner #intermediate
+[PENDING EXTRACTION]
 
 ---
 
