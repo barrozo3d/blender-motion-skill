@@ -663,6 +663,16 @@ Each entry format:
 - **Summary:** Three-point product lighting system covering non-glossy products (Area Lights with Image Texture nodes to fix reflections) and glass products (Emission planes with Gradient Texture + Color Ramp for smooth falloff). Includes the 3D Cursor pivot trick for rotating lights around a product, hiding emission planes from camera via Visibility settings, and using Light Linking to prevent lights from contaminating ground reflections.
 - **File:** tutorials/realistic-product-lighting-in-blender.md
 
+
+### Realistic Product Lighting In Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=WreZ_VKDn4M
+- **Author:** Extra 3d
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/realistic-product-lighting-in-blender.md
+
 ---
 
 ## Tag Reference
