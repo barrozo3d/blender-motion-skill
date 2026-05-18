@@ -823,6 +823,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/i-recreated-movie-scene-in-blender-nuke-complete-tutorial.md
 
+
+### I'll teach you Geometry Nodes
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=JU70u6cJZqI
+- **Author:** Default Cube
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ill-teach-you-geometry-nodes.md
+
 ---
 
 ## Tag Reference
