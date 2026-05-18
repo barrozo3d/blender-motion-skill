@@ -193,57 +193,65 @@ Structure the response as:
 
 ## Mode 2: Ingest Tutorial
 
-When the user says "ingest this: [URL]" or "learn from this: [URL]":
+**Both steps happen automatically** when the user says "ingest this tutorial: [URL]".
+Do NOT wait to be asked for step 2 — run it immediately after step 1 completes.
 
-### Step 1 — Run ingest.py
+### Step 1 — Data collection (run ingest.py)
+
 ```bash
 python C:/Users/KABUM/.claude/skills/blender-motion/ingest.py "[URL]"
 ```
-This fetches metadata + transcript, saves the raw `.md` file, updates `INDEX.md`, and pushes to GitHub.
 
-### Step 2 — Extract Structured Notes (MANDATORY after every ingest)
+This runs without any API calls. It:
+- Downloads audio and transcribes with Whisper
+- Parses YouTube chapters
+- Downloads low-quality video and extracts one frame per chapter
+- Saves `tutorials/<slug>.md` with raw transcript + frame paths
+- Saves frames to `tutorials/frames/<slug>/` (local only, not in git)
+- Updates `INDEX.md` with a pending stub
+- Commits and pushes raw data to GitHub
 
-After `ingest.py` completes, **always** run the extraction pass on the new file:
+The script prints the tutorial file path and frames directory at the end.
 
-1. Read the saved tutorial file (path printed by ingest.py)
-2. Analyze the transcript and description
-3. Fill in the **Structured Notes** section:
+### Step 2 — Extraction (done by Claude Code immediately after)
 
-```markdown
-### Core Technique
-[One sentence: what is the main Blender technique taught?]
+After ingest.py completes, run the full extraction pass without being asked:
 
-### Key Steps
-1. [Specific step with node/menu names]
-2. [...]
-(5–10 steps, be specific)
-
-### Blender Nodes / Settings
-- [Node or setting name]
-- [...]
-
-### Difficulty
-[Beginner / Intermediate / Advanced / Expert]
-
-### Blender Version
-[Version if mentioned, otherwise "Not specified"]
-
-### Tags
-[space-separated hashtags from the tag list]
-```
-
-4. Update the frontmatter `blender_version:` and `tags:` fields
-5. Update the `INDEX.md` entry: fill `**Blender Version:**`, `**Tags:**`, and write a real `**Summary:**`
-6. Commit and push:
+1. **Read the tutorial file** printed by ingest.py (e.g. `tutorials/my-tutorial.md`)
+2. **Read each frame** listed in the Raw Data section using the Read tool — the Read tool supports images, so `Read("tutorials/frames/slug/frame_000.jpg")` shows the actual frame
+3. **Analyze each frame**: identify which Blender editor is shown, list exact node names, parameter values, viewport content
+4. **Fill in ALL Structured Notes** (replace every `[PENDING EXTRACTION]`):
+   - **Core Technique** — one sentence, the main Blender technique
+   - **Summary** — 2-3 sentences, what the viewer learns and the end result
+   - **Key Steps** — 5-10 steps with exact node names, menu paths, shortcuts
+   - **Nodes / Settings** — all nodes and parameter values seen in transcript + frames
+   - **Difficulty** — Beginner / Intermediate / Advanced / Expert
+   - **Blender Version** — from transcript or frames; "Not specified" if unclear
+   - **Tags** — from the approved tag pool in the Key Rules section
+5. **Update frontmatter**: set `blender_version:`, `tags:`, `extraction_status: complete`
+6. **Find related tutorials**: scan `INDEX.md` for entries sharing 2+ tags, add cross-links in `## Related Tutorials`
+7. **Update INDEX.md entry**: replace `[PENDING]` fields with real version, tags, and summary
+8. **Commit and push**:
 ```bash
 cd C:/Users/KABUM/.claude/skills/blender-motion
-git add tutorials/
+git add tutorials/<slug>.md tutorials/INDEX.md
 git commit -m "extract: [tutorial title]"
 git push
 ```
 
 ### For web articles/documentation:
-Use WebFetch to retrieve the page content, then follow Steps 1–6 above manually.
+Run ingest.py with the article URL — it fetches page text. Then follow Step 2 above (no frames for articles).
+
+### Approved tag pool
+```
+geometry-nodes, simulation, particles, fluid, rigid-body, cloth, smoke-fire,
+materials, shaders, procedural, displacement, animation, rigging, camera,
+compositing, rendering, cycles, eevee, lighting, hdri, volume,
+product-viz, motion-design, abstract, logo-animation, typography,
+glass, metal, organic, brand-video,
+beginner, intermediate, advanced, expert,
+blender-3x, blender-4x, blender-5x
+```
 
 ---
 

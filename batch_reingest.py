@@ -15,8 +15,11 @@ Usage:
   python batch_reingest.py --skip-video --start 10  # resume from tutorial #10
 
 Estimated time (RTX 5070, GPU Whisper, base model):
-  --skip-video:   ~4-5 minutes per tutorial  →  ~4-5 hours for 58 tutorials
-  full pipeline:  ~20-25 minutes per tutorial → ~20 hours for 58 tutorials
+  --skip-video:   ~4-5 minutes per tutorial  ->  ~4-5 hours for 58 tutorials
+  full pipeline:  ~20-25 minutes per tutorial -> ~20 hours for 58 tutorials
+
+After this script finishes, tell Claude Code: "extract all pending tutorials"
+and it will read each raw file + frames and do the full extraction pass.
 """
 
 import re
