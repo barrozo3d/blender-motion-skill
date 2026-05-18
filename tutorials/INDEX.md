@@ -1183,6 +1183,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/how-i-built-this-gate-animation-in-blender-scene-breakdown.md
 
+
+### How I Made Realistic Storm Clouds in Blender!
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=Kep7URnyXgU
+- **Author:** c g s l a v
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-i-made-realistic-storm-clouds-in-blender.md
+
 ---
 
 ## Tag Reference

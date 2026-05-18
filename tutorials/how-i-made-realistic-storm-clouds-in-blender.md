@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=Kep7URnyXgU
 author: c g s l a v
 ingested: 2026-05-18
-blender_version: "Not specified"
-tags: ["geometry-nodes", "volume", "rendering", "cycles", "lighting", "hdri", "organic", "intermediate", "advanced"]
-extraction_status: complete
+blender_version: "[PENDING]"
+tags: []
+extraction_status: pending
 frames_dir: tutorials/frames/how-i-made-realistic-storm-clouds-in-blender/
 frame_count: 0
 ---
@@ -64,45 +64,27 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-Creates realistic volumetric storm clouds using a multi-pass Geometry Nodes pipeline — Mesh to Volume → Distribute Points in Volume → Points to Volume → Volume to Mesh — cycling between representations to add organic fine detail, combined with Light Linking to separately control cloud illumination and god ray effects.
+[PENDING EXTRACTION]
 
 ### Summary
-The tutorial presents three sky methods (image plane, HDRI, and full volumetric clouds) and focuses on the advanced volumetric approach. Each cloud shape starts as a duplicated Sphere that goes through a Geometry Nodes pipeline: Mesh to Volume → Distribute Points in Volume (adds sub-detail noise) → Points to Volume → back to Mesh → assign white Volume Scatter material. Clouds are built by duplicating and reshaping the base sphere — the GN pipeline auto-applies. God rays use a Volume Scatter cube with a Spotlight inside. A key trick uses Light Linking to assign one Spotlight exclusively to the clouds (for rim/backlight) and a separate Spotlight for the ground god rays. A second large Volume Scatter cube with a Gradient Texture mask creates atmospheric horizon haze. Optimization: Max Steps: 500, Step Rate Render: 3 in render settings.
+[PENDING EXTRACTION]
 
 ### Key Steps
-1. Add a **Sphere** → Apply Scale → add **Geometry Nodes** modifier → click New
-2. In GN: **Mesh to Volume** node (Voxel Size: 0.1) → **Distribute Points in Volume** (Density: 5–10) → **Points to Volume** (Radius: 0.15) → **Volume to Mesh** → **Set Material** (white Volume shader)
-3. Duplicate the sphere and reshape in Edit Mode to build cumulus cloud clusters; the GN pipeline auto-applies
-4. Assign a **Volume Scatter** material: Color: white; Density: 0.05–0.2; Anisotropy: 0.5
-5. For god rays: add a large **Cube** → assign Volume Scatter material (Density: 0.01) → place a **Spotlight** inside it; adjust Spotlight angle for beam direction
-6. Use **Light Linking** (Object Properties → Visibility → Light Linking): create one Spotlight linked only to cloud collection for cloud rim light; keep second Spotlight for ground fill and god rays
-7. For horizon haze: duplicate Volume Scatter cube → scale to fill horizon → add **Gradient Texture** (rotated -90°) → **Color Ramp** (B-Spline) as Density mask to fade haze at top
-8. Optimize in Render Properties → Volume: Max Steps: 500; Step Rate (Render): 3
+[PENDING EXTRACTION]
 
 ### Nodes / Settings
-- Mesh to Volume — Voxel Size: 0.1–0.05 (smaller = more detail, slower)
-- Distribute Points in Volume — Density: 5–20 (controls fine cloud texture)
-- Points to Volume — Radius: 0.1–0.2; combined with the mesh conversion adds organic blob detail
-- Volume to Mesh — Threshold: 0.1 for clean mesh extraction
-- Volume Scatter material — Density: 0.05–0.2; Anisotropy: 0.4–0.7; Color: pure white
-- Spotlight (god rays) — inside Volume Scatter cube; Energy: 1000–5000 W; angle toward scene
-- Light Linking — separate Spotlights for clouds vs. ground; use Include/Exclude collections
-- Gradient Texture — Rotate mapping -90° for vertical gradient as horizon density mask
-- Render Volume settings — Max Steps: 500; Step Rate Render: 3 (performance optimization)
+[PENDING EXTRACTION]
 
 ### Difficulty
-Intermediate
+[PENDING EXTRACTION]
 
 ### Blender Version
-Not specified
+[PENDING EXTRACTION]
 
 ### Tags
-#geometry-nodes #volume #rendering #cycles #lighting #hdri #organic #intermediate #advanced
+[PENDING EXTRACTION]
 
 ---
 
 ## Related Tutorials
-- [3 Easy Lighting Setups | Blender Tutorial](./3-easy-lighting-setups-blender-tutorial.md)
-- [How to create a Cinematic Landscape inside Blender | Full tutorial with Project file](./how-to-create-a-cinematic-landscape-inside-blender-full-tuto.md)
-- [Tutorial: How to make a volumetric projector in Blender 4.5](./tutorial-how-to-make-a-volumetric-projector-in-blender-45.md)
-- [3D Smoke (Blender Geometry Nodes)](./3d-smoke-blender-geometry-nodes.md)
+[PENDING EXTRACTION]
