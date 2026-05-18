@@ -1,83 +1,78 @@
 ---
 title: A FULL Blender Compositor Course!
 source: YouTube
-url: https://youtu.be/_7N7emOvDko
+url: https://www.youtube.com/watch?v=_7N7emOvDko
 author: SharpWind
-ingested: 2026-05-13
-blender_version: Not specified
-tags: [compositing, rendering, materials, shaders, beginner, intermediate]
+ingested: 2026-05-18
+blender_version: "[PENDING]"
+tags: []
+extraction_status: pending
+frames_dir: tutorials/frames/a-full-blender-compositor-course/
+frame_count: 0
 ---
 
 # A FULL Blender Compositor Course!
 
-**Source:** [YouTube](https://youtu.be/_7N7emOvDko)
+**Source:** [YouTube](https://www.youtube.com/watch?v=_7N7emOvDko)
 **Author:** SharpWind
-**Ingested:** 2026-05-13
+**Duration:** 42m19s | 6 section(s)
 
 ---
 
-## Description
-
-I'll teach you how to use Blender's compositor system to it's full extend! If you're just starting out, or dabbing into the hardcore areas, this video covers the entire spectre!
-Never miss a video! ► https://bit.ly/2CGmgK1
-#blender #tutorial #compositing 
-
-► Discord Server: https://discord.gg/EJhEysM
-► Instagram: https://www.instagram.com/sharpwind_official/
-► Twitter (X): https://x.com/just_sharpwind
-
-How Blending modes work (timestamped): https://youtu.be/G3fWEcbuAqQ?si=p7-bory4LhFYP0Bp&t=408
+## Raw Data (for Claude Code extraction)
 
 
----
+### Intro [0:00]
+**Transcript:** What is the Blender Compositor?  In short, it's all of the post-processing you do after you've already rendered the image.  And it's all of these noodles that happen between this box and this box.  And today I'll show you how it all works.  How's it going? My name's Sharp and I'm making a library of all the content about everything Blender related so you can find it all in one place.  And today my Discord community has voted for the Blender Compositor.  If you like Blender, you're now legally obligated to subscribe.
 
-## Raw Content (for analysis)
 
-Kind: captions Language: en What is the Blender compositor? In short, it's all of the post-processing you do after you've already rendered the image. And it's all of these noodles that happen between this box and this box. And today, I'll show you how it all works. How's it going? My name is Sharp, and I'm making a library of all the content about everything Blender related, so you can find it all in one place. And today, my Discord community has voted for the Blender compositor. If you like Blender, you're now legally obligated to subscribe. So, Blender's compositor is based on nodes, unlike some popular software that are based on layers. And that's a good thing because you can reuse nodes and wire them in any way you want and organize them better. And layers are stupid. Sorry, we use layers at work. I reckon if you want to learn how to use the compositor, it's first best to learn how nodes work. And I know that a lot of you guys know this already, but without a good foundation, all of your buildings collapse. So, suck it up. Since compositing usually comes at the end of the production, I'm going to assume that you have an entire scene already set up. If you don't, I've got plenty of tutorials on how to do that. Shameless self-plug. Or you can make something really simple. Like this will be enough for the purpose of teaching you how to use the compositor. I'm going to use this. If you click on the compositor tab up here, you'll get this interface with the timeline down below and the compositor window up top. To start compositing, you will click this use nodes box, which will give you these nodes. We'll start with this node, which is our rendered image. So, anything we got from hitting the render button in our 3D scene, uh the result is in here in this box. And this noodle goes all the way here to this box which is our final output. So whatever goes in here will be the final result. This box is just the viewer. So you can see it. The output is here. Now between this noodle path I can do whatever I want and it's going to affect my image. And there's a bunch of pre-made boxes to perform certain operations. These boxes are called nodes. As a demonstration I can press shift A or use this drop-own add menu and locate the node that I want to use. Let's say for example brightness and contrast. With shift A. You can also use a search function and I like to use it all the time cuz it's easier. Just find the node however you want. This node, as the name suggests, performs an operation which can either add or remove brightness and or contrast to whatever comes into this input over here. So, by placing it here, I'm just going to insert it into my noodle. Basically, our rendered image looking like this is going into the input. Then, we can tweak the parameters in this node which is going to change it and then spit out the changed output. The brightness and contrast node, for example, can increase the overall image's brightness by adding overall value to the image or add contrast by taking the middle brightness point and pushing all the values away from it. I know the scale is tipped to one side as due to Blender's color transform, and that's way too much to get into this video. It shouldn't make a difference for you unless you're a colorist. Don't worry about it. But we can't really see these changes unless we've rendered our image first. That's why I like to make a certain setup whenever I work. If you have the node wrangler add-on enabled, which you always should, that's the law, you can control, shift, and click on any node just like in the shader editor, and it will create a viewer node, letting you see the result of the note that you clicked on. So, you can preview what every individual node does. But by default, it's going to show in the background here, and I don't like that. So, what I like to do is I like to click on this backdrop, which will make it disappear, and then split this window in half, change this one into the UV editor, and as a display, choose the viewer node. So whatever's coming into the viewer node will be shown in the UV editor here. Now we have our composite results separate from our node tree and we can see all the changes we make in real time. So when I slide the brightness and contrast values, you can instantly see what they do. But that's far from the end of node magic. You see the brightness and contrast values. They have inputs, meaning we can plug non-uniform values into them and they will affect different parts of our image in different ways. Now, the brightness and contrast node isn't really the best example for what I'm about to show you, but the node is pretty obvious in what it does. So, I'm going to stick with this example. Let's say that I take another output from our rendered result by click and dragging from this output, drop it in the middle of nowhere and search for color ramp. You could also just have added this manually and connected everything manually. I don't think that's something I have to explain. If I control shiftclick this note to preview it, you can see it turned everything into a grayscale. We can move these handles to clamp it or change their colors and whatnot. It's the same as in the shader editor. We now have a black and white version of our render. And in Blender's terms, black equals zero. So all of these parts on the image that are black are going to have the value of zero in these places. And white is equal to one. So all of the bright parts are going to be one. All these gray values are just a fraction from 0 to one. So you have all the values. It's like a grayscale. You get it? If I were to plug the output of our color ramp into the brightness input of our brightness and contrast node, it will give these parts of the image a value of zero, meaning nothing's going to change, and all of these parts a value of one. So, it's like only giving a brightness value of one to only these parts of the image. Now, it's hard to see because the bri
+### Theory & Setup [0:23]
+**Transcript:** So Blender's Compositor is based on nodes, unlike some popular software that are based on layers.  And that's a good thing, because you can reuse nodes and wire them in any way you want and organize them better and layers are scoops!  Sorry, we'll use layers at work.  I reckon that if you want to learn how to use the Compositor, it's first best to learn how nodes work.  And I know that a lot of you guys know this already, but without a good foundation, all of your buildings collapse, so suck it up!  Since Compositoring usually comes at the end of the production, I'm gonna assume that you have an entire scene already set up.  If you don't, I've got plenty of tutorials on how to do that, shameless self-plug, or you can make something really simple.  Like this will be enough for the purpose of teaching you how to use the Compositor.  I'm gonna use this.  If you click on the Compositor tab up here, you'll get this interface with the timeline down below and the Compositor window up top.  To start Compositing, you'll click this Use Nodes box, which will give you these nodes.  We'll start with this node, which is our rendered image, so anything we got from hitting the Render button in our...
+
+
+### Practical Compositing [5:49]
+**Transcript:** What I'll usually do when I'm compositing is have a little setup like this.  It feels like much, but trust me, it's rather simple.  Conveying simple instruction in the form of nodes can sometimes look more complicated than it actually is,  but I'm here to teach you how to logic works so this is less scary.  So once again, we start with our rendered image, that's usually the base.  In the first step I like to do is adding some glare.  A glare usually takes the brightest parts of our image, then blurs them and then adds them onto the image.  And for this we have a simple glare node.  I'll just plop the Sonntima noodle when you can see all the effects.  In version 4.5 you have three outputs on the node.  One is the full image, one is only the glare, and one is only the highlighted parts which generate that glare.  You can use all of these different outputs for different compositing needs.  Here you can change the type of the glare and the quality.  Higher quality usually looks more realistic, but it computes slower.  In the highlight section you get to pick the threshold and the smoothness, and to show you this I'll switch to my highlights output.  The threshold determines how bright ...
+
+
+### Render Layers [21:58]
+**Transcript:** Starting first with render layers.  You can actually separate different parts of your scene  into completely different layers,  having disconnected from each other,  and then composite them together.  This is a very powerful tool,  and I've talked about it in my life footage CGI video,  but I'll recap it here very quickly.  In the top right corner here,  you can create or view different render layers.  And once you're inside one of those layers,  you can choose which of your collections  will be visible in it or not.  Let's make this make sense  by opening this little test scene.  We've got a glowing cylinder, a plastic monkey,  a metal ball, and a checkered floor.  Each of these elements are in their respective collection,  but I've also put the lights  in a separate collection as well.  I'll begin by renaming the current render layer  I'm in into scene.  This will include everything,  and it's like my main one.  Then I'll use this icon here,  where I can either make a completely new render layer,  make one that has the same settings as this one,  or create a completely blank one.  Let's make a completely new one  and call it floor.  You can see and select your layers in this drop...
+
+
+### Render Passes [28:43]
+**Transcript:** In our scene,  if we open the View Layer Properties panel  because we're in cycles,  we have all of this amazing data over here.  E-D also gives you some,  but cycles is much, much more advanced.  The ones up here include data,  where the combined pass is the final image  you always see whenever you render anything.  Here we also got our Mist Pass and ZPass,  which we've reduced before.  We know what these are now,  but you can also extract position,  normal and vector data,  and even UV data,  letting you re-texture things in compositing.  Yes, that is possible.  You can change the textures of things after the fact.  Compositing is powerful.  As well as grease-pansel data, denoising data,  even stuff like object or material index  so we can mask individual objects or materials.  Up here,  you can also exclude this layer from being rendered  or only rendered this layer.  And down here is what we're interested in right now.  These are your render passes that include light information.  You've got direct, indirect and color information  for the diffuse pass,  glossy pass, transmission pass,  the volume doesn't have the color info,  and finally you've got a mission,  environment light...
+
+
+### Professional Setup [32:51]
+**Transcript:** I was actually pretty happy when compositing with Voter  for this video because I'm a huge nerd  and that's basically what compositing is.  And now I get to unleash all that nerdness onto you guys.  So I'll just stick with the scene  that includes all the different render passes  so I can use it to its full potential.  So for this scene,  I won't be needing any render layers  because there's not too many things in here.  Plus there's not a profound foreground and background  that you want to be separated.  So everything is gonna be on one layer.  I also won't be needing any of the databases up here,  except maybe the denoiser pass  because I can still render less samples  and get away with that.  Yeah, let's check this one on.  And for the light passes,  we're gonna need almost all of them.  So diffuse direct indirect in color  because we have rough surfaces  and half rough surfaces in here.  Then glossy direct indirect in color passes  because we have reflective  and half reflective surfaces in here.  Transmission direct in direct in color  because we have transmissive surfaces.  You know, this thing volume direct and indirect  because there's no color,  but we still have a volume...
+
+
 
 ---
 
 ## Structured Notes
 
-*Fill in manually or ask Claude to analyze:*
-> "Analyze the content of tutorials/a-full-blender-compositor-course.md and extract:
-> - Core Blender technique taught
-> - Step-by-step workflow
-> - Key nodes or settings
-> - Blender version
-> - Difficulty level
-> - Tags"
-
 ### Core Technique
-Comprehensive guide to Blender's node-based compositor system, covering post-processing workflows from basic brightness/contrast adjustments to using render passes and masks for advanced image compositing.
+[PENDING EXTRACTION]
+
+### Summary
+[PENDING EXTRACTION]
 
 ### Key Steps
-1. Open the Compositor tab; enable Use Nodes to get the Render Layers and Composite output nodes.
-2. Enable the Node Wrangler add-on; use Ctrl+Shift+Click on any node to preview its output via a Viewer node.
-3. Hide the backdrop (click Backdrop button) and split the window — change one panel to UV Editor and set it to display the Viewer node for a live preview of compositing changes.
-4. Add nodes via Shift+A or the Add menu and use the search function to find nodes quickly.
-5. Insert a Brightness/Contrast node between the Render Layers and Composite nodes to adjust overall image tone.
-6. Add a Color Ramp node connected to the render output to create grayscale masks where black = 0 (no effect) and white = 1 (full effect).
-7. Plug Color Ramp output into parameter inputs of other nodes (e.g., Brightness input) to apply non-uniform, spatially-varying adjustments.
-8. Use Render Passes (enable in Render Properties > View Layer) to separate the image into diffuse, specular, shadow, and other components for individual processing.
-9. Combine processed passes back using Add or Mix nodes to reconstruct the final composite.
-10. Use the Composite node as the final output and the Viewer node for monitoring intermediate results.
+[PENDING EXTRACTION]
 
-### Blender Nodes / Settings
-- Render Layers node
-- Composite node (final output)
-- Viewer node (Ctrl+Shift+Click via Node Wrangler)
-- Brightness/Contrast node
-- Color Ramp node (grayscale masking, 0=black, 1=white)
-- Mix node / Add node
-- Node Wrangler add-on (required)
-- UV Editor set to Viewer Node display
+### Nodes / Settings
+[PENDING EXTRACTION]
 
 ### Difficulty
-Beginner
+[PENDING EXTRACTION]
 
 ### Blender Version
-Not specified
+[PENDING EXTRACTION]
 
 ### Tags
-#compositing #rendering #materials #shaders #beginner #intermediate
+[PENDING EXTRACTION]
+
+---
+
+## Related Tutorials
+[PENDING EXTRACTION]

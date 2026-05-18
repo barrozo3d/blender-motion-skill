@@ -693,6 +693,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/3d-smoke-blender-geometry-nodes.md
 
+
+### A FULL Blender Compositor Course!
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=_7N7emOvDko
+- **Author:** SharpWind
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/a-full-blender-compositor-course.md
+
 ---
 
 ## Tag Reference
