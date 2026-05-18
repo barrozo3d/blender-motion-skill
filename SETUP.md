@@ -19,13 +19,14 @@ A structural change is anything that would affect how someone installs or runs t
 - Directory or file renamed/added → update `SETUP.md` (Skill Structure section)
 - Git repo URL changed → update `SETUP.md` (Step 2) + `setup.ps1` (clone URL comment)
 
-**Commit format for structural changes:**
+**Commit + push format for structural changes:**
 ```
 git add ingest.py requirements.txt setup.ps1 SETUP.md
 git commit -m "feat/fix: <what changed> + sync setup pack"
+git push
 ```
 
-Never leave setup files out of sync with the actual skill state.
+Never leave setup files out of sync with the actual skill state. The push is mandatory — the GitHub copy is what other machines clone, so a local-only commit is not enough.
 
 ---
 

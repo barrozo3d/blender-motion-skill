@@ -261,7 +261,7 @@ Use WebFetch to retrieve the page content, then follow Steps 1–6 above manuall
    - `requirements.txt` — add/remove/update the pip package
    - `setup.ps1` — reflect the new install step or config change
    - `SETUP.md` — update the relevant step, troubleshooting entry, or reference table
-   Never commit a structural change without syncing the setup pack. The rule: **if a user on a fresh machine would need to do something different to get the skill working, the setup files must reflect that.**
+   Never commit a structural change without syncing the setup pack. The rule: **if a user on a fresh machine would need to do something different to get the skill working, the setup files must reflect that.** Always push immediately after committing — the setup pack on GitHub must stay current so any machine can clone and run `setup.ps1` without extra steps.
 
 ---
 
