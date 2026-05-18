@@ -923,6 +923,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/superhero-landing-tutorial-02-ground-destruction-vfx-in-blender.md
 
+
+### The COMPLETE BLENDER 3D Animation COURSE (5+ HOURS) #blender #b3d #animation
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=IgpUXXg2Vbs
+- **Author:** JB 3D Studio
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/the-complete-blender-3d-animation-course-5-hours-blender-b3d-animation.md
+
 ---
 
 ## Tag Reference
