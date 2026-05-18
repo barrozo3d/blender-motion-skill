@@ -9,6 +9,9 @@ Analyze any visual reference (image, video frame, render) and either produce a s
 
 ## Modes
 
+### Mode Setup — New Machine Setup
+User says "set up this skill", "new machine", "check if installed", "is this configured", or "help me install this". Read `SETUP.md` and follow the "For Claude: New Machine Setup Protocol" checklist. Run each check, report what's missing, and fix it.
+
 ### Mode 0 — Validate Connection
 User says "check blender connection", "is blender connected", "validate blender", or "test mcp". Run the connection check and report status. Do not proceed with any build work.
 
