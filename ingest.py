@@ -55,7 +55,7 @@ def _ytdlp_cmd():
     base = ["yt-dlp"] if shutil.which("yt-dlp") else [sys.executable, "-m", "yt_dlp"]
     cookies_file = SKILL_DIR / "cookies.txt"
     if cookies_file.exists():
-        return base + ["--cookies", str(cookies_file)]
+        return base + ["--cookies", str(cookies_file), "--remote-components", "ejs:github"]
     return base
 
 def _get_api_key():
