@@ -86,15 +86,53 @@ def extract_json(text):
                 continue
     return {}
 
+def _get_api_key():
+    """Return ANTHROPIC_API_KEY from env, Windows registry, or Claude Code credentials."""
+    key = os.environ.get("ANTHROPIC_API_KEY")
+    if key:
+        return key
+    # Windows user environment (set via setx or PowerShell SetEnvironmentVariable)
+    try:
+        import winreg
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, "Environment") as k:
+            value, _ = winreg.QueryValueEx(k, "ANTHROPIC_API_KEY")
+            if value:
+                os.environ["ANTHROPIC_API_KEY"] = value
+                return value
+    except Exception:
+        pass
+    # Claude Code OAuth token (~/.claude/.credentials.json)
+    try:
+        creds = Path.home() / ".claude" / ".credentials.json"
+        if creds.exists():
+            import json as _json
+            data = _json.loads(creds.read_text(encoding="utf-8"))
+            token = data.get("claudeAiOauth", {}).get("accessToken", "")
+            if token:
+                os.environ["ANTHROPIC_API_KEY"] = token
+                return token
+    except Exception:
+        pass
+    return None
+
+def _ytdlp_cmd():
+    """Return the yt-dlp invocation that works regardless of PATH."""
+    if shutil.which("yt-dlp"):
+        return ["yt-dlp"]
+    return [sys.executable, "-m", "yt_dlp"]
+
 def check_prerequisites():
     missing = []
-    if not shutil.which("yt-dlp"):
+    # Check yt-dlp as module (more reliable than PATH check)
+    r = subprocess.run([sys.executable, "-m", "yt_dlp", "--version"],
+                       capture_output=True)
+    if r.returncode != 0:
         missing.append("yt-dlp (pip install yt-dlp)")
     try:
         import anthropic
     except ImportError:
         missing.append("anthropic (pip install anthropic)")
-    if not os.environ.get("ANTHROPIC_API_KEY"):
+    if not _get_api_key():
         missing.append("ANTHROPIC_API_KEY environment variable")
     if missing:
         print("Missing prerequisites:")
@@ -116,7 +154,7 @@ def check_prerequisites():
 
 def get_info(url):
     r = subprocess.run(
-        ["yt-dlp", "--dump-json", "--no-playlist", url],
+        _ytdlp_cmd() + ["--dump-json", "--no-playlist", url],
         capture_output=True, text=True, timeout=60, check=True
     )
     return json.loads(r.stdout)
@@ -131,7 +169,7 @@ def whisper_transcribe(audio_path, model_name):
 def download_audio(url, tmp):
     out = str(tmp / "audio.%(ext)s")
     subprocess.run(
-        ["yt-dlp", "-x", "--audio-format", "mp3", "--audio-quality", "0",
+        _ytdlp_cmd() + ["-x", "--audio-format", "mp3", "--audio-quality", "0",
          "--no-playlist", "-o", out, url],
         capture_output=True, timeout=300, check=True
     )
@@ -143,7 +181,7 @@ def download_audio(url, tmp):
 def ytdlp_captions(url, tmp):
     """Fallback: yt-dlp auto-captions → plain text."""
     subprocess.run(
-        ["yt-dlp", "--write-auto-subs", "--sub-lang", "en",
+        _ytdlp_cmd() + ["--write-auto-subs", "--sub-lang", "en",
          "--sub-format", "vtt", "--skip-download", "--no-playlist",
          "-o", str(tmp / "%(id)s"), url],
         capture_output=True, timeout=120
@@ -180,7 +218,7 @@ def segment_by_chapters(transcript, chapters):
 def download_video_low(url, tmp):
     out = str(tmp / "video.%(ext)s")
     subprocess.run(
-        ["yt-dlp", "-f", "worst[ext=mp4]/worst", "--no-playlist", "-o", out, url],
+        _ytdlp_cmd() + ["-f", "worst[ext=mp4]/worst", "--no-playlist", "-o", out, url],
         capture_output=True, timeout=600, check=True
     )
     for f in tmp.iterdir():
@@ -517,7 +555,7 @@ def main():
                     print("      Transcribing...")
                     transcript = whisper_transcribe(audio, args.whisper_model)
                     ch_transcripts = segment_by_chapters(transcript, chapters)
-                    print(f"      {len(transcript.get('segments',[]))} segments → {len(ch_transcripts)} sections")
+                    print(f"      {len(transcript.get('segments',[]))} segments -> {len(ch_transcripts)} sections")
                 except Exception as e:
                     print(f"      ⚠ Whisper failed ({e}), falling back to yt-dlp captions")
                     text = ytdlp_captions(args.url, tmp)
