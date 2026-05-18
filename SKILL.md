@@ -251,12 +251,17 @@ Use WebFetch to retrieve the page content, then follow Steps 1–6 above manuall
 
 1. **Always validate before building** — call `get_scene_info` before any Mode 2 work; report the result; stop if the connection is not live
 2. **Never invent node names** — only use nodes confirmed to exist in the target Blender version
-2. **Version-check everything** — simulation zones, certain GeoNodes, and rendering features are version-specific
-3. **Always check INDEX.md first** — the tutorial library grows with every ingest
-4. **Cite the reference files** — tell the user which technique library entry you're drawing from
-5. **Estimate honestly** — if a technique requires a paid addon, say so
-6. **Albin Merle shortcut** — if the aesthetic resembles his work, see `references/albin-merle-techniques.md` for exact setups
-7. **Extraction is mandatory after every ingest** — never leave a tutorial file with `[To be extracted]` placeholders. Always run the extraction pass immediately after saving. No exceptions.
+3. **Version-check everything** — simulation zones, certain GeoNodes, and rendering features are version-specific
+4. **Always check INDEX.md first** — the tutorial library grows with every ingest
+5. **Cite the reference files** — tell the user which technique library entry you're drawing from
+6. **Estimate honestly** — if a technique requires a paid addon, say so
+7. **Albin Merle shortcut** — if the aesthetic resembles his work, see `references/albin-merle-techniques.md` for exact setups
+8. **Extraction is mandatory after every ingest** — never leave a tutorial file with `[To be extracted]` placeholders. Always run the extraction pass immediately after saving. No exceptions.
+9. **Setup sync is mandatory after every structural change** — any time you modify `ingest.py`, add a dependency, change a model name, add a CLI flag, rename a file or directory, or change any configuration that affects how the skill is installed or run, you MUST update all three setup files in the same commit:
+   - `requirements.txt` — add/remove/update the pip package
+   - `setup.ps1` — reflect the new install step or config change
+   - `SETUP.md` — update the relevant step, troubleshooting entry, or reference table
+   Never commit a structural change without syncing the setup pack. The rule: **if a user on a fresh machine would need to do something different to get the skill working, the setup files must reflect that.**
 
 ---
 

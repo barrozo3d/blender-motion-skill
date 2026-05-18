@@ -6,6 +6,29 @@ This file serves two purposes:
 
 ---
 
+## For Claude: Setup Sync Rule
+
+**Every structural change to the skill must update these three files in the same commit.**
+
+A structural change is anything that would affect how someone installs or runs this skill on a fresh machine:
+- New pip dependency added to `ingest.py` or any script → update `requirements.txt` + `setup.ps1` (pip install step) + `SETUP.md` (Step 3 or Troubleshooting)
+- New system dependency (new tool required) → update `setup.ps1` + `SETUP.md`
+- New environment variable required → update `setup.ps1` (Step 5) + `SETUP.md` (Step 4 or Troubleshooting)
+- Claude API model changed → update `SETUP.md` (reference table if present)
+- New CLI flag added to `ingest.py` → update `SETUP.md` (Ingest Pipeline Reference section)
+- Directory or file renamed/added → update `SETUP.md` (Skill Structure section)
+- Git repo URL changed → update `SETUP.md` (Step 2) + `setup.ps1` (clone URL comment)
+
+**Commit format for structural changes:**
+```
+git add ingest.py requirements.txt setup.ps1 SETUP.md
+git commit -m "feat/fix: <what changed> + sync setup pack"
+```
+
+Never leave setup files out of sync with the actual skill state.
+
+---
+
 ## For Claude: New Machine Setup Protocol
 
 When the user says any of: "set this up", "new machine", "is this installed", "check dependencies", "help me configure this skill" — follow this checklist in order. Run each check as a shell command, report results, and fix what's missing.
