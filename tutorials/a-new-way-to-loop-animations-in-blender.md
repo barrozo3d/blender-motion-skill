@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=9Fvw8HlWHpo
 author: Ducky 3D
 ingested: 2026-05-18
-blender_version: "Not specified"
-tags: ["geometry-nodes", "animation", "motion-design", "abstract", "glass", "procedural", "intermediate"]
-extraction_status: complete
+blender_version: "[PENDING]"
+tags: []
+extraction_status: pending
 frames_dir: tutorials/frames/a-new-way-to-loop-animations-in-blender/
 frame_count: 0
 ---
@@ -32,36 +32,25 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-Mathematically guaranteed seamless loop in Geometry Nodes using Mesh Line: add the Z Offset value to the Start Location keyframe — this single rule makes any Mesh Line–based animation loop perfectly regardless of spacing or count.
+[PENDING EXTRACTION]
 
 ### Summary
-Ducky 3D reveals the mathematical insight behind perfect seamless loops in Blender Geometry Nodes animations built on the Mesh Line node. The rule: keyframe Start Location at 0 on frame 1 and at the Z Offset value on the last frame. Demonstrated by building a stacked glass cube array with spherical gradient scaling and noise-based size variation, then applying the loop formula to make it run forever without seams.
+[PENDING EXTRACTION]
 
 ### Key Steps
-1. Add **Mesh Line** node — set Count, Offset direction (Z), and Offset amount (e.g. 0.3)
-2. Instance geometry on each point — e.g. **Cube** with Scale driven by index and noise
-3. Apply spherical gradient: use **Position** → **Vector Length** → **Map Range** → scale instances (large in center, small at edges)
-4. Add **Noise Texture** on top for organic size variation per point
-5. To loop: keyframe **Start Location** at `{0, 0, 0}` on frame 1; keyframe same Start Location at `{0, 0, Z_Offset}` on the last frame — this is the key insight
-6. The animation loops seamlessly because the geometry simply scrolls by one full spacing interval per loop, which visually repeats identically
-7. Applies to any animation using Mesh Line — works regardless of Count, Offset value, or instance type
+[PENDING EXTRACTION]
 
 ### Nodes / Settings
-- Mesh Line — Count: 20–50; Offset Mode: Offset; Offset: 0.2–0.5 (Z axis)
-- Instance on Points — instanced geometry driven by index-based scale
-- Position node → Vector Math (Length) → Map Range — spherical falloff from center
-- Noise Texture — added to scale for organic variation; W value for 4D noise
-- Start Location — keyframed: frame 1 = (0,0,0); last frame = (0,0,Z_Offset value)
-- Scale Elements — per-point scale variation using index + noise
+[PENDING EXTRACTION]
 
 ### Difficulty
-Intermediate
+[PENDING EXTRACTION]
 
 ### Blender Version
-Not specified
+[PENDING EXTRACTION]
 
 ### Tags
-#geometry-nodes #animation #motion-design #abstract #glass #procedural #intermediate
+[PENDING EXTRACTION]
 
 ---
 
