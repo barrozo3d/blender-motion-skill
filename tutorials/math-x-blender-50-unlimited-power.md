@@ -1,81 +1,102 @@
 ---
 title: Math x Blender 5.0 = UNLIMITED POWER!
 source: YouTube
-url: https://youtu.be/EvWAcSA86fw
+url: https://www.youtube.com/watch?v=EvWAcSA86fw
 author: MTR Animation
-ingested: 2026-05-13
-blender_version: "5.0"
-tags: [geometry-nodes, procedural, abstract, animation, blender-5x, expert, advanced]
+ingested: 2026-05-18
+blender_version: "[PENDING]"
+tags: []
+extraction_status: pending
+frames_dir: tutorials/frames/math-x-blender-50-unlimited-power/
+frame_count: 0
 ---
 
 # Math x Blender 5.0 = UNLIMITED POWER!
 
-**Source:** [YouTube](https://youtu.be/EvWAcSA86fw)
+**Source:** [YouTube](https://www.youtube.com/watch?v=EvWAcSA86fw)
 **Author:** MTR Animation
-**Ingested:** 2026-05-13
+**Duration:** 34m18s | 12 section(s)
 
 ---
 
-## Description
+## Raw Data (for Claude Code extraction)
 
-📖 Use the code "MATH" to get 25% off The Big Nodebook!!!
-https://mtranimationgumroad.gumroad.com/l/thebignodebook/MATH
 
-Use this link if you want to become an affiliate:
-https://mtranimationgumroad.gumroad.com/affiliates
+### The Apollonian Gasket [0:00]
+**Transcript:** This is the Apollonian Gasket. It's a mathematical phenomenon that starts with just three circles  and repeatedly adds new circles in the gaps between them. And at first this might seem  like a simple process until you look at the complex mathematics behind this. And that complexity  is exactly what inspired me to recreate this structure using Blender's geometry notes.
 
-In this tutorial, we are creating an Apollonian Gasket by applying lots of complex mathematical equations in Blender 5.0! These equations will be implemented all procedurally using the Repeat Zone, For Each Element Zone, and tons of Math Nodes using the latest version of Geomet
 
----
+### Create first 3 circles [0:40]
+**Transcript:** So let me show you how that is done. And in this tutorial we are going to use a lot of complex  formulas. And if we would add those formulas in one by one, note by note, then this tutorial  is going to take like hours and to be honest I don't think that's really needed. So I did some  pre-work. So if you go into the link in description, they will find a blend of file which contains  note groups that already implement the formulas that we're going to use. So download that and open  it up and then we can get started. And as always what we're going to start off with is clicking  on the cube and create a new geometry notes for this. And we're going to remove the group input  because we do not need the default cube. And also let's actually remove this light and let's move  the camera a bit to the side. We don't really need it for now. And the thing that we want to create  first is we want to create the structure of one circle that goes like this one big circle.  And then we want to create two smaller circles just like this in between it. And this we are going  to create with three points. So if we do a points note and this is going to be the bigger point  and the smaller points we want ...
 
-## Raw Content (for analysis)
 
-Kind: captions Language: en [music] This is the appalonian gasket. It's a mathematical phenomenon that starts with just three circles and repeatedly adds new circles in the gaps between them. And at first this might seem like a simple process until you look at the complex mathematics behind this. And that complexity is exactly what inspired me to recreate this structure using Blender's geometry notes. So let me show you how that is done. And in this tutorial we are going to use a lot of complex formulas. And if we would add those formulas in one by one, note by note, then this tutorial is going to take like hours. And to be honest, I don't think that's really needed. So, I did some pre-work. So, if you go into the link in description, there you will find a Blender file which contains node groups that already implement the formulas that we're going to use. So, download that and open it up. And then we can get started. And as always, what we're going to start off with is clicking on the cube and create a new geometry nodes for this. And we're going to remove the group input because we do not need the default cube. And also, let's actually remove this light. And let's move the camera a bit to the side. We don't really need it for now. And the thing that we want to create first is we want to create the structure of one circle that goes like this. One big circle and then we want to create two smaller circles just like this in between it. And this we are going to create with three points. So if we do an points node and this is going to be the bigger point and these smaller points we want that to be two other point nodes. The reason why we don't just put the count to three over here is because I want to have specific control over the position and the radius of each point that we're adding in. So, let's join these points together with an join geometry nodes. Let's connect them all like so. And like so. And let's connect it like this. And the first thing that I want to do is change the radius of the bigger point. This radius should become two. And then for the other two points, what we want to do is make it that the radius of these points is also dependent on the radius of the bigger point. So let's do that. Let's make it procedural by adding in a value note which we set on two. And let's connect it like this. And we want that the radius of this point is half of the radius of the bigger point. So let's do a math node which we set on multiply. Let's multiply this by 0.5 and connect it like so. The next thing that I want to do is change the X position of this point so that it is always like this in the corner of the other point. So first of all I want to have control over the separate X Y and Z sockets. So let's do an combine XYZ node. And now this X value you see that that needs to become a value of one. And you remember okay this is a value of two and this is a value of one. So basically what we need to do is subtracting the radius of the smaller point from the radius of the bigger point with an M note set to subtract and then subtract from the bigger one. Subtract the smaller one. And that's going to be our X location. And then if you change the size of the smaller point, you see it's always in the corner of the bigger point, which is perfect. Let's make it like this. And now what I want is that the third point is going to fill this gap over here. And that we are going to do by first giving it the right radius. And the radius of this third point is basically the radius of this smaller point subtracted from the radius of the bigger point. So if we do another subtract node and we subtract from the bigger point we subtract the second point then you will see if we connect that it is correct because if we put it like so it fits perfectly in between. But now we also need to make this X position procedurally dependent on the other two. So if we do another combine XYZ node, then this X position, you see that that needs to become minus.6. And to get to that value, we are going to do the exact same thing as we did for the second point. So we're going to subtract the radius of this third point from the radius of this bigger point. So if we do another subtract note and we subtract from the bigger point, we subtract the radius of the earth point and that's going to be the x position. Then you see uh it's on the wrong side and that's logical of course. So let's flip it to the other side by doing an math node set to multiply. And let's multiply this by minus1 and then you will see it's always in the correct way which is perfect. Let's set this on 0.5 for now so that it is perfectly aligned in the middle. And just to make this tutorial look a little bit better, let's do an instance on points node and also an curve circle to instance circles on these points. And the scale of these instances should be dependent on the radius of the points. And then you see we have perfectly created that shape that I showed you earlier. The next thing that we're going to do is adding in a fourth circle in between the gaps of the other three circles. And that we are going to do in three steps. Step one is of course add that fourth circle in geometry notes. And the second step is to determine what should be the radius of this new point. And then the third step is to determine the position of that point. But let's start with the radius. And the radius we are going to determine that with these formulas. So you see the radius of this new circle is 1 / K. K is the curvature that this new circle should have. And to calculate the curvature of this new circle, we need this bigger formula over here. You see K4 is the curvature of the new circle. But then you see we also need K1, K2 and K3. And those are the curvatures of this [clears throat] circle and this circle and this circle. And to calculate the curvature of those three circles, we need this formula. So let's calculate the curvature of those circles first. And we're going to do that b
+### Radius of 4th point [5:08]
+**Transcript:** adding in a fourth circle in between the gaps of the other three circles. And that we are going to do  in three steps. Step one is of course add that fourth circle in geometry notes and the second step  is to determine what should be the radius of this new point and then the third step is to determine  the position of that point. But let's start with the radius and the radius we are going to determine  that with these formulas. So you see the radius of this new circle is one divided by K. K is the  curvature that this new circle should have. And to calculate the curvature of this new circle we  need this bigger formula over here. You see K4 is the curvature of the new circle but then you see we  also need K1, K2 and K3 and those are the curvatures of this circle and this circle and this circle.  And to calculate the curvature of those three circles we need this formula. So let's calculate the  curvature of those circles first and we're going to do that by doing a store named attribute note  which we set on K. And you see this K value should be one divided by the radius of that circle.  So let's do a radius note with also a math note set on divide and let's do one divided by that ra...
+
+
+### The Product Everyone Needs!!! [10:13]
+**Transcript:** However before we do that I want to talk to you about something else because I can completely  understand if you're looking at these notes that you're thinking oh my god what is all of this?  How am I ever going to learn all these notes? I wish there was just some place in which I can  just learn every single note in geometry notes in a very easy and chill way. But then I have good  news for you because I released the big notebook. It's a book that explains every single note in  geometry notes in a very easy and chill way. The book starts from the very basics of geometry notes  and over the course of almost 300 pages it goes to more advanced techniques. The book is  available on my gumroad and it has been fully upgraded to blend the five point out so every new  note has been added in. And if you use the code math you'll get 25% off of your purchase. So if you
+
+
+### Position of 4th point [10:59]
+**Transcript:** want to expand your knowledge in geometry notes I recommend getting this book today and with that  being said let's continue the tutorial. Next up is we're going to calculate the position of this  new point and that we're going to do with this formula and it's formula it looks like a lot but if  you look closely you see that it looks similar to the formula for the curvature. So we have this part  and also a square root part and the k1, k2 and k3 are also going back. However you also see z1,  2 and 3 and z values over here represent the position of the three circles in complex form.  And a complex number is basically a simple way to store a 2d vector as a single value. And in this we  have the real part which represents the x position of each point and we have an imaginary part which  represents the y position of each point. And operations like multiplying two complex numbers or  taking the square root of a complex number work a little bit different than doing those things with  normal numbers. But rest assured I will make that all clear in a moment. Let's first focus on  this formula and this formula I also already implemented as a node group in this blend of file.  So if you do ne...
+
+
+### More... and more... and more point... [15:12]
+**Transcript:** we have the fourth circle the next step is to add more and more and more and more circles in the  gaps between. So let's start by adding in a circle over here, over here and over there.  So let's focus first on this middle circle over here. So let's make a bit more space. And this  new circle what we want to do is we want to apply this set of formulas to this point and this point  and this point to calculate the radius and the position of this point. So we need to get rid of  the bigger circle for now. And to do that we are going to do the lead geometry nodes and we want to  delete the point if it has an index equal to zero. So if we do a compare node set to integer we  can say if it's equal to zero then delete it. And you see we only have those circles. For those  three circles let's do this entire thing again. So let's do shift the it over here and let's  make some space and let's connect this one over there and let's connect this one over there.  Then you will see we have perfectly created that circle which you will also see that if I set this  on one then it will take this circle this circle on the bigger circle and it doesn't really work  but don't worry about it yet we're goi...
+
+
+### Remove wrong points [20:45]
+**Transcript:** that's really cool however we still have to get rid of those wrong points so in order to remove  the wrong points we want to check something and do that let's actually put the iterations lower to  this so what we want is we want to remove these three points and the thing we want to check is let  me go to this circle this circle is dependent on this circle and this circle and also the bigger  circle and what we want to check is if this circle is touching the other circles in a perfect way  in other words we want to check whether this circle is tangent to each circle that it is dependent on  and for that we are going to use a formula and that formula looks like this and for this process I  also made a node group so if we do an is tangent node group and this tangent node group it asks for  the index of one of the three points and it also wants to have the index of the new point and the  index of the new point is always three since we added in below the other points in the join geometry  nodes if we have a look inside of this so what we're doing here first is we first determine the  distance between one point and the new point like so and then we also take the radius of this point  lik...
+
+
+### Remove duplicated points [23:34]
+**Transcript:** iterations on six you will see that it starts lagging a little bit and the reason for that is a  little bit hidden because let me do this let me make a little bit more space and let me add  and set position node and a random value node which we set on vector I want to have a random  z location is put it like this you see we have a lot of duplicated points and that takes a lot  of computer power so basically we want to merge points if they are really close to each other so  let's do a merge by distance node and of course that doesn't really work yet because what comes out  of this are instances so let's realize those instances and then you see we have a lot less points  and it's a lot more responsive however the outer circle is gone and I'm not really sure why the  outer circle gets removed completely by the merge by distance but I have found a way to fix this  and the way to fix this is to do two merge by distances and this first one is only going to do it  for the outer circle and then this one is going to do it for the other circles so if we do  a named attribute node which we set on outer we can connect this one over here and then this one  we want to do the reversed so let's do...
+
+
+### Instance objects on points [25:05]
+**Transcript:** more beautiful because at the moment we are only instanting circles on this thing but to be honest  we can instant anything we like on these points so for example if we do an icosphere and we connect  that like so and we set these subdivisions a little bit higher and then you see the icosphere is  also instant on the biggest circle but that's not what we want we want to have it only on the  smaller parts as you can see so let's remove the bigger one by doing an radius node and then we can  say with a compare node we can say if the radius is less than 1.9 for example then instant it  let's do a set shade smooth node like so okay cool that already looks quite satisfying I think  let's also flatten the icosphere by doing a vector math node over here set this on multiply  multiply everything by one and let's set the z axis on point three and then you see that looks  really cool however if I now put the iterations higher you will see that the smaller icosphere  get the same resolution as the bigger icosphere and that's not really needed and it's going to take  a lot of computer power from us so let's make it that the smaller icosfheres are getting a lower  resolution of subdivisions to ...
+
+
+### Render settings [30:49]
+**Transcript:** this in a cool way of course let's go into cycles so let's go into render view and let's go into render  properties and let's also press control S to save the file so that it's not going to crash and let's  then set it from ev2 cycles and let's set device on GPU compute and some quick render settings that I  most of the time use is to make the denoiser also use your GPU and under lights let's turn off  light tree and under color management let's turn our look to very high contrast because I think  that looks a lot cooler okay let's see let me position this in a cool way let's add in a plane and  let me also make the world properties black and let's also add in an area light like so let's see  that's pretty cool I think let's first give each iqosphere a material so let's click on it and
+
+
+### Materials [31:36]
+**Transcript:** go over here and let's do a set material node and let me also go into the shader editor over here  let's name this material blobs and let's also assign it in geometry notes like this okay I'm  thinking let's give each blob a random color and that we are going to do by assigning a random  value in geometry notes so let's do a store named attribute node which we set on rent and we want  to give each instance an random value so let's do an random value node connected like so and then  if we go into the shader editor and we do an attribute node which we set on rent let's connect it  like this then you see that doesn't really work and the reason for that is because we have to  realize these instances so let's do an realize instances node and now we're getting a random value  for each point and a cool thing that I found is if you do a new saturation value node and we set the  color on red for example and now if we set the iteration lower you see we're changing it like  this I found that if you give each blob a random saturation then you're getting quite a cool result  to be honest and another thing that's going to give this object a little bit more depth so  to say is adding an ambient o...
+
+
+### Thank you for watching :) [33:34]
+**Transcript:** to you like this video again and if you did please give this video a thumbs up comment down below  if you have any questions and if you don't want to miss out on any future videos I recommend  subscribing to the channel and also be sure to check out the big notebook by going into the link  in description to get 25% off of your purchase and lastly I want to give a big thank you to the coding  train because the things that we did in this tutorial are inspired by the things that he does in  this tutorial and with that being said thank you for watching and I see you in the next one  oh
+
+
 
 ---
 
 ## Structured Notes
 
-*Fill in manually or ask Claude to analyze:*
-> "Analyze the content of tutorials/math-x-blender-50-unlimited-power.md and extract:
-> - Core Blender technique taught
-> - Step-by-step workflow
-> - Key nodes or settings
-> - Blender version
-> - Difficulty level
-> - Tags"
-
 ### Core Technique
-Building an Apollonian Gasket (infinite fractal of tangent circles) in Blender 5.0 Geometry Nodes using complex mathematical formulas — Descartes' Circle Theorem curvature equations — implemented with Math nodes, Repeat Zones, For Each Element Zones, and pre-built node group formulas.
+[PENDING EXTRACTION]
+
+### Summary
+[PENDING EXTRACTION]
 
 ### Key Steps
-1. Download the provided Blender file with pre-built formula node groups (curvature calculation formulas).
-2. Start with three points: one large circle (radius 2) and two smaller ones (radius = half of large circle radius); position small circles at X = (large radius − small radius) using Subtract Math nodes.
-3. Add a third circle filling the gap between the two small circles: radius = large radius − small circle radius; position X = -(large radius − third radius) × -1 (flipped).
-4. Add Instance on Points + Curve Circle (radius driven by point radius) to visualize circles from the points.
-5. Use Descartes Circle Theorem: K4 = K1 + K2 + K3 + 2√(K1·K2 + K2·K3 + K1·K3), where K = 1/radius (curvature). Implement this formula with Math nodes: Add, Multiply, Sqrt.
-6. Calculate the position of the new tangent circle using the Apollonius formula from the pre-built node group.
-7. Use Repeat Zone to iteratively add new circles in each gap, repeating the curvature calculation and placement for each iteration.
-8. Use For Each Element Zone to process each existing circle and compute its new neighbor circles.
-9. Layer iterations to build up the full fractal gasket pattern.
-10. Render the final Apollonian Gasket as a 2D procedural pattern or animate it by varying the initial radius parameter.
+[PENDING EXTRACTION]
 
-### Blender Nodes / Settings
-- Points node (individual point placement with specific radius)
-- Join Geometry node
-- Combine XYZ node (X position control)
-- Math nodes: Subtract, Multiply, Add, Sqrt (Descartes' theorem implementation)
-- Instance on Points node
-- Curve Circle node (radius from point radius)
-- Repeat Zone (Blender 5.0 iteration)
-- For Each Element Zone (Blender 5.0 per-element processing)
-- Pre-built curvature formula node groups
+### Nodes / Settings
+[PENDING EXTRACTION]
 
 ### Difficulty
-Expert
+[PENDING EXTRACTION]
 
 ### Blender Version
-5.0
+[PENDING EXTRACTION]
 
 ### Tags
-#geometry-nodes #procedural #abstract #animation #blender-5x #expert #advanced
+[PENDING EXTRACTION]
+
+---
+
+## Related Tutorials
+[PENDING EXTRACTION]
