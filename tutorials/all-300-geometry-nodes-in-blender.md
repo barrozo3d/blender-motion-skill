@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=Y0zAZnbBcQU
 author: RADIUM
 ingested: 2026-05-18
-blender_version: "4.3"
-tags: ["geometry-nodes", "procedural", "blender-4x", "beginner", "intermediate", "advanced"]
-extraction_status: complete
+blender_version: "[PENDING]"
+tags: []
+extraction_status: pending
 frames_dir: tutorials/frames/all-300-geometry-nodes-in-blender/
 frame_count: 0
 ---
@@ -32,44 +32,25 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-Complete reference covering all ~275 Geometry Nodes in Blender 4.3 — every node's purpose, input/output socket types and colors, and use cases. Deep dives into Fields vs single values, field context (domain adaptation), and the Spreadsheet Editor for attribute inspection.
+[PENDING EXTRACTION]
 
 ### Summary
-RADIUM's 1-hour reference video is a comprehensive catalog of all Geometry Nodes available in Blender 4.3. Covers Input/Output, Geometry, Curve, Mesh, Point, Instance, Volume, Material, Texture, Utilities, and Vector node categories. The most valuable sections explain Fields vs single values (why some nodes work differently depending on context), how domain adaptation works, and using the Spreadsheet Editor to inspect attribute values live.
+[PENDING EXTRACTION]
 
 ### Key Steps
-1. **Constant input nodes**: Boolean, Color, Image, Integer, Material, String, Value, Vector — provide fixed values to the network
-2. **Field input nodes**: ID, Index, Named Attribute, Position, Radius — evaluate differently per-element (per point, per face, etc.)
-3. **Fields vs values**: a Field node evaluates lazily at each element; a Value node is a single constant. Mixing them requires understanding domain context
-4. **Domain adaptation**: when connecting a field from one domain to another (e.g. point→face) Blender automatically adapts — use Spreadsheet to verify
-5. **Spreadsheet Editor**: pin it to see attribute values live; switch domain (Point/Face/Edge/Vertex) to inspect what's stored where
-6. **Geometry nodes** (core): Join Geometry, Transform Geometry, Bounding Box, Convex Hull, Delete Geometry, Duplicate Elements, Merge by Distance, Separate Geometry
-7. **Mesh nodes**: Subdivide Mesh, Extrude Mesh, Flip Faces, Mesh Boolean, Mesh to Curve, Edge Paths to Curves, Dual Mesh
-8. **Instance nodes**: Instance on Points, Realize Instances, Rotate Instances, Scale Instances, Translate Instances
-9. **Utility nodes**: Math, Vector Math, Map Range, Float Curve, Color Ramp, Switch, Compare — the building blocks of all logic
+[PENDING EXTRACTION]
 
 ### Nodes / Settings
-- Boolean / Integer / Float / Vector / Color input nodes — constant single values
-- Index node — per-element integer 0,1,2… used to drive variation
-- Named Attribute — reads any custom attribute by string name
-- Position node — per-point position as a field
-- Spreadsheet Editor — Domain selector: Point/Edge/Face/Corner/Spline; live attribute inspection
-- Join Geometry — merges multiple geometry streams
-- Instance on Points — instancing with per-point Scale/Rotation
-- Realize Instances — converts instances to real geometry for further modification
-- Map Range — remaps value from one range to another; Clamp option
-- Color Ramp — maps 0–1 float to color gradient; Constant/Linear/Ease interpolation
-- Merge by Distance — removes duplicate vertices within threshold
-- Extrude Mesh — extrudes faces/edges/vertices; Offset and Scale parameters
+[PENDING EXTRACTION]
 
 ### Difficulty
-Beginner / Intermediate / Advanced
+[PENDING EXTRACTION]
 
 ### Blender Version
-4.3
+[PENDING EXTRACTION]
 
 ### Tags
-#geometry-nodes #procedural #blender-4x #beginner #intermediate #advanced
+[PENDING EXTRACTION]
 
 ---
 
