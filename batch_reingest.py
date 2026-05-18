@@ -37,10 +37,10 @@ LOG_FILE      = SKILL_DIR / "batch_reingest.log"
 def extract_urls_from_index():
     """Pull all URLs from INDEX.md, preserving order."""
     content = INDEX_FILE.read_text(encoding="utf-8")
-    # Match "**URL:** <url>" lines; skip direct-file-analysis entries
+    # Match "**URL:** <url>" anywhere in line (handles "- **URL:** ..." format)
     urls = []
     for line in content.splitlines():
-        m = re.match(r"\s*\*\*URL:\*\*\s*(https?://\S+)", line)
+        m = re.search(r"\*\*URL:\*\*\s*(https?://\S+)", line)
         if m:
             url = m.group(1).strip()
             urls.append(url)
