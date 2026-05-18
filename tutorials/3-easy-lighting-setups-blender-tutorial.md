@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=FYJb10NIMH8
 author: Max Hay
 ingested: 2026-05-18
-blender_version: "Not specified"
-tags: ["lighting", "volume", "rendering", "cycles", "eevee", "beginner"]
-extraction_status: complete
+blender_version: "[PENDING]"
+tags: []
+extraction_status: pending
 frames_dir: tutorials/frames/3-easy-lighting-setups-blender-tutorial/
 frame_count: 0
 ---
@@ -32,37 +32,25 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-Three practical Blender lighting setups: dramatic spotlight with volume scatter atmosphere, outdoor sunlight, and dark emissive/reflective environment — each built around a core light type and material combination.
+[PENDING EXTRACTION]
 
 ### Summary
-Max Hay covers three reusable lighting setups applicable to most Blender scenes. Setup 1: Spotlight with volume scatter cube for dramatic atmospheric lighting, shadow softness via light radius. Setup 2: Sun Light for outdoor/natural environments with HDRI. Setup 3: Dark futuristic scenes using emissive and reflective surfaces as light sources. Explains the Light Falloff node via Use Nodes on Area Lights.
+[PENDING EXTRACTION]
 
 ### Key Steps
-1. Add a large cube over the entire scene → assign **Volume Scatter** material → set Density low, Anisotropy high → set Display As Bounds in Object Properties for clean viewport
-2. Add **Spotlight** → increase Radius for softer shadows; add Fill Light (Area Light) on opposite side at low intensity
-3. Use **Light Falloff node**: select light → Shader Editor → Use Nodes → wire Light Falloff → controls how sharply intensity drops with distance
-4. For outdoor: add **Sun Light** → set Energy 3–6 → add HDRI in World Properties for ambient sky
-5. For dark futuristic: use **Emission** shader on planes/strips as primary light; combine with glossy/metallic materials that bounce light; no traditional lights needed
-6. Control shadow softness via Spotlight **Radius** (or Area Light size) — larger = softer shadows
-7. Use **Fill Light** at 10–20% intensity of key light to lift shadow detail without flattening
+[PENDING EXTRACTION]
 
 ### Nodes / Settings
-- Volume Scatter material — Density: 0.01–0.05; Anisotropy: 0.6–0.9; Display As Bounds
-- Spotlight — Radius: 0.1–1.0 (shadow softness); Energy: 50–500W
-- Sun Light — Energy: 3–6; Rotation: angle determines shadow direction
-- Light Falloff node — inside light shader via Use Nodes; Linear/Quadratic/Constant falloff
-- Area Light — Size: large = soft; used as fill; Energy: low
-- Emission shader — Strength: 5–50; used on planes as light strips
-- HDRI World — Strength: 0.5–1.0 for ambient contribution
+[PENDING EXTRACTION]
 
 ### Difficulty
-Beginner
+[PENDING EXTRACTION]
 
 ### Blender Version
-Not specified
+[PENDING EXTRACTION]
 
 ### Tags
-#lighting #volume #rendering #cycles #eevee #beginner
+[PENDING EXTRACTION]
 
 ---
 
