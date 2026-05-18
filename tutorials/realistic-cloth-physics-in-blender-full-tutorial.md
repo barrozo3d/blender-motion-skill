@@ -1,151 +1,58 @@
 ---
 title: Realistic Cloth Physics in Blender – Full Tutorial
 source: YouTube
-url: https://youtu.be/KnYGp58REUk
+url: https://www.youtube.com/watch?v=KnYGp58REUk
 author: Ahad Animates
-ingested: 2026-05-13
-blender_version: Not specified
-tags: [cloth, simulation, animation, rendering, beginner, intermediate]
+ingested: 2026-05-18
+blender_version: "[PENDING]"
+tags: []
+extraction_status: pending
+frames_dir: tutorials/frames/realistic-cloth-physics-in-blender-full-tutorial/
+frame_count: 0
 ---
 
 # Realistic Cloth Physics in Blender – Full Tutorial
 
-**Source:** [YouTube](https://youtu.be/KnYGp58REUk)
+**Source:** [YouTube](https://www.youtube.com/watch?v=KnYGp58REUk)
 **Author:** Ahad Animates
-**Ingested:** 2026-05-13
+**Duration:** 21m12s | 1 section(s)
 
 ---
 
-## Description
-
-Want to create realistic cloth physics in Blender? In this step-by-step tutorial, I’ll show you how to set up cloth simulation, adjust physics settings, add collisions, and achieve smooth, natural fabric movement. Perfect for beginners and intermediate Blender users looking to level up their animation skills!
+## Raw Data (for Claude Code extraction)
 
 
-
-------------------------------------------------------------------------------------
-
-Link for BlenderKit:
-Special Discount offer:
-Save up to 25% by clicking this link;
-https://www.blend
-
----
-
-## Raw Content (for analysis)
-
-Want to create realistic cloth physics in Blender? In this step-by-step tutorial, I’ll show you how to set up cloth simulation, adjust physics settings, add collisions, and achieve smooth, natural fabric movement. Perfect for beginners and intermediate Blender users looking to level up their animation skills!
+### Full Content [0:00]
+**Transcript:** Hello guys, welcome to Aadhani Me So, in today's video we are going to make some scenes like this So, this film includes the claw simulation, camera animation and lighting We will learn basic things Because, after you have the product, you will have a different lighting You will apply it to this Because the bottle is very complex And the material is changed, so if I give you lighting So, you may apply it on your product So, I will just keep it simple I will teach you camera animation, claw simulation and product animation And rest you can do it by yourself I will make a base for you to work on that So, yes, let's start the video First of all, we have a bottle As you can see, it is a client's bottle So, if you have any product This can be applied to any product So, you can use it from your blinds You can use it for your own So, let's get started This is our product So, first thing I will animate this First of all, I will rotate it to 90 degrees Make sure that it is facing the bottom If it falls, then it will come out And then it falls Let's animate this First of all, I add a plane Just for reference And I will scale it to this plane Like four times Okay, you did a lot of your claw N...
 
 
-
-------------------------------------------------------------------------------------
-
-Link for BlenderKit:
-Special Discount offer:
-Save up to 25% by clicking this link;
-https://www.blenderkit.com/r/ahadanimates
-
-I'm Ahad, the Youngest 3d Artist in Pakistan. I am here to help kids my age learn this amazing skill of 3d animation, be independent, and make our country proud.
-
-Download Blender Software: https://www.blender.org/
-
-Collab or Paid work:-
-Mail:- abdulahadjanjua2022@gmail.com
-Website:  https://ahadanimates.com/
-Instagram: https://www.instagram.com/ahad.animates/
-Facebook: https://www.facebook.com/ahad.animates
-Behance: https://www.behance.net/Ahadanimates
-
-.
-
-
-
-
-.
-
-
-
-
-
-
-.
-
-
-
-
-
-.
-
-
-
-
-.
-
-
-
-
-.
-
-
-
-
-.
-
-
-
-
-.
-
-
-
-
-Main Topics:
-3D Animations In Blender, Free Blender Tutorials, 3D Animations, blender tutorial, blender, blender tutorial, ahad animates, free blender course, blender tutorial for beginners, blender animation course, blender animation tutorial, FX Mandyal, blenderguru, cg geek, polyfjord, CROSSMIND STUDIOS, Modeling in Blender, blender tutorial, learn blender, blender tutorials, Pank Sharma, Ksenia Starkova, hd sheet, khatri3d, NAFAY 3D
-
-
-#blender3d #blendertutorial #clothsimulation #blenderphysics #3danimation #cgi  #BlenderBeginner #3dmodeling #vfx #animationtutorial #blendercommunity #digitalart #learnblender
 
 ---
 
 ## Structured Notes
 
-*Fill in manually or ask Claude to analyze:*
-> "Analyze the content of tutorials/realistic-cloth-physics-in-blender-full-tutorial.md and extract:
-> - Core Blender technique taught
-> - Step-by-step workflow
-> - Key nodes or settings
-> - Blender version
-> - Difficulty level
-> - Tags"
-
 ### Core Technique
-Insufficient transcript — video may not have captions. Based on description: step-by-step cloth simulation setup in Blender, covering cloth modifier settings, collision objects, and achieving smooth natural fabric movement.
+[PENDING EXTRACTION]
+
+### Summary
+[PENDING EXTRACTION]
 
 ### Key Steps
-1. Create a plane mesh as the cloth object; add geometry for enough resolution to simulate properly.
-2. Add Cloth modifier (Physics Properties > Cloth) to the plane.
-3. Adjust cloth settings: Quality Steps, Mass, Stiffness, Damping for realistic fabric behavior.
-4. Create a collision object (e.g., sphere or table); add Collision modifier to it.
-5. Run the simulation (Play) and observe cloth interaction with the collision object.
-6. Pin groups: select vertices to pin (vertex group) and assign them in the Cloth Shape section to hold part of the cloth in place.
-7. Bake the simulation for reliable playback (Physics > Cloth Cache > Bake).
-8. Apply a fabric material (Principled BSDF with appropriate roughness and normal map).
-9. Adjust Self Collision settings to prevent cloth from passing through itself.
-10. Render the final cloth animation.
+[PENDING EXTRACTION]
 
-### Blender Nodes / Settings
-- Cloth modifier (Physics Properties > Cloth)
-- Quality Steps, Mass, Stiffness, Damping settings
-- Collision modifier (on collision objects)
-- Cloth Shape: Pin Group (vertex group)
-- Self Collision settings
-- Cloth Cache: Bake
-- Principled BSDF (fabric material)
+### Nodes / Settings
+[PENDING EXTRACTION]
 
 ### Difficulty
-Beginner
+[PENDING EXTRACTION]
 
 ### Blender Version
-Not specified
+[PENDING EXTRACTION]
 
 ### Tags
-#cloth #simulation #animation #rendering #beginner #intermediate
+[PENDING EXTRACTION]
+
+---
+
+## Related Tutorials
+[PENDING EXTRACTION]
