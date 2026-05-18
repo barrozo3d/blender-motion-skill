@@ -1023,6 +1023,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2.md
 
+
+### Blender Tutorial - Eternals Gold Wireframe Animation
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=WmldjCv9P84
+- **Author:** Blender Made Easy
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-tutorial---eternals-gold-wireframe-animation.md
+
 ---
 
 ## Tag Reference
