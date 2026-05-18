@@ -242,23 +242,38 @@ def extract_frames(video_path, timestamps, tmp):
 # ── Step 4: Vision analysis ────────────────────────────────────────────────────
 
 def analyze_frames(frames, chapters, client):
+    import time
     analyses = []
     for i, frame in enumerate(frames):
         chapter_title = chapters[i]["title"] if i < len(chapters) else f"Section {i+1}"
         prompt = VISION_PROMPT.format(chapter=chapter_title)
-        resp = client.messages.create(
-            model=VISION_MODEL,
-            max_tokens=800,
-            messages=[{"role": "user", "content": [
-                {"type": "image", "source": {
-                    "type": "base64", "media_type": "image/jpeg",
-                    "data": b64_image(frame)
-                }},
-                {"type": "text", "text": prompt}
-            ]}]
-        )
-        analyses.append({"chapter": chapter_title, "visual": resp.content[0].text})
-        print(f"      Frame {i+1}/{len(frames)}: {chapter_title[:50]}")
+        for attempt in range(6):
+            try:
+                resp = client.messages.create(
+                    model=VISION_MODEL,
+                    max_tokens=800,
+                    messages=[{"role": "user", "content": [
+                        {"type": "image", "source": {
+                            "type": "base64", "media_type": "image/jpeg",
+                            "data": b64_image(frame)
+                        }},
+                        {"type": "text", "text": prompt}
+                    ]}]
+                )
+                analyses.append({"chapter": chapter_title, "visual": resp.content[0].text})
+                print(f"      Frame {i+1}/{len(frames)}: {chapter_title[:50]}")
+                time.sleep(3)  # brief pause between frames to stay under rate limit
+                break
+            except Exception as e:
+                if "429" in str(e) or "rate_limit" in str(e).lower():
+                    wait = 60 * (attempt + 1)
+                    print(f"      Rate limited on frame {i+1}, waiting {wait}s (attempt {attempt+1}/6)...")
+                    time.sleep(wait)
+                else:
+                    raise
+        else:
+            print(f"      Frame {i+1} skipped after 6 rate-limit retries")
+            analyses.append({"chapter": chapter_title, "visual": "Frame analysis skipped (rate limited)"})
     return analyses
 
 # ── Step 5: Multi-pass extraction ──────────────────────────────────────────────
@@ -275,6 +290,20 @@ def build_context(info, ch_transcripts, frame_analyses):
         if i < len(frame_analyses):
             ctx += f"Frame analysis: {frame_analyses[i]['visual']}\n"
     return ctx
+
+def _api_call_with_retry(fn, max_attempts=6):
+    import time
+    for attempt in range(max_attempts):
+        try:
+            return fn()
+        except Exception as e:
+            if "429" in str(e) or "rate_limit" in str(e).lower():
+                wait = 60 * (attempt + 1)
+                print(f"      Rate limited, waiting {wait}s (attempt {attempt+1}/{max_attempts})...")
+                time.sleep(wait)
+            else:
+                raise
+    raise RuntimeError("Exceeded max retries due to rate limiting")
 
 def pass_1_2(ctx, client):
     """Extract core technique, key steps, nodes/settings, summary."""
@@ -300,12 +329,13 @@ Extract the following. Return ONLY valid JSON with no markdown wrapping:
 
 key_steps must be specific enough for a viewer to reproduce — include exact node names, menu paths, and keyboard shortcuts visible in the transcript or frames."""
 
-    resp = client.messages.create(
-        model=EXTRACTION_MODEL,
-        max_tokens=3000,
-        messages=[{"role": "user", "content": prompt}]
-    )
-    return extract_json(resp.content[0].text)
+    return extract_json(_api_call_with_retry(
+        lambda: client.messages.create(
+            model=EXTRACTION_MODEL,
+            max_tokens=3000,
+            messages=[{"role": "user", "content": prompt}]
+        )
+    ).content[0].text)
 
 def pass_3_tags(extraction, client):
     """Generate tags from the approved pool."""
@@ -322,12 +352,13 @@ Nodes sample: {json.dumps(extraction.get('nodes_and_settings', [])[:6])}
 Return ONLY valid JSON: {{"tags": ["tag1", "tag2", ...]}}
 Pick 5-10 tags. Always include one difficulty tag. Include version tags (blender-4x etc) only if version is known."""
 
-    resp = client.messages.create(
-        model=TAGGING_MODEL,
-        max_tokens=300,
-        messages=[{"role": "user", "content": prompt}]
-    )
-    return extract_json(resp.content[0].text).get("tags", [])
+    return extract_json(_api_call_with_retry(
+        lambda: client.messages.create(
+            model=TAGGING_MODEL,
+            max_tokens=300,
+            messages=[{"role": "user", "content": prompt}]
+        )
+    ).content[0].text).get("tags", [])
 
 # ── Step 6: Auto cross-linking ─────────────────────────────────────────────────
 
