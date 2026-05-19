@@ -3,7 +3,7 @@ title: Add VFX into Cinematic RAW+LOG Footage (the right way) | ACES Part 1
 source: YouTube
 url: https://www.youtube.com/watch?v=aJF2sAjRsy0
 author: InLightVFX
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
