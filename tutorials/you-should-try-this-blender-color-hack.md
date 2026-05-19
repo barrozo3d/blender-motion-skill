@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=U5y1Krd-ykk
 author: Ducky 3D
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x"
+tags: [shaders, materials, glass, motion-design, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/you-should-try-this-blender-color-hack/
 frame_count: 0
 ---
@@ -32,27 +32,39 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Dual-texture color reveal hack: use a primary noise texture for luminance (darks/lights) and a second independent noise texture for color distribution — mix the two so the color only appears in the bright areas of the primary texture, breaking free from the center-to-edge gradient limitation of a single noise texture.
 
 ### Summary
-[PENDING EXTRACTION]
+16-minute focused shader tutorial by Ducky 3D demonstrating a specific color distribution trick for noise-based emission materials (glass bricks scene). Problem: a single noise texture only distributes color as a gradient from center to edge. Solution: a second texture drives color independently, then the first texture's luminance value masks/reveals the second texture's color — so you get complex, non-gradient color patterns aligned to your existing light/dark distribution.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Primary texture** — Noise Texture → Color Ramp (black-to-white contrast) → Emission Strength; this controls light/dark pattern
+2. **Second color texture** — separate Noise Texture with different scale/detail → Color Ramp (pick desired palette of colors); this provides the color distribution
+3. **Reveal with first texture** — use the primary texture's greyscale output as a Mix factor to blend between black and the color texture output; or use it as a mask in a MixRGB node
+4. **Result** — color only shows where primary texture is bright; in dark areas = black; breaks center-to-edge color constraint
+5. **Glass bricks** — glass cubes arranged in grid; emissive plane behind them with this dual-texture shader; glass refracts and softens the colors
+6. **Animation** — animate Noise W value on primary or both textures for flowing color change
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Primary: `Noise Texture` → `Color Ramp` (B&W) → Emission Strength
+- Secondary: `Noise Texture` (different Scale) → `Color Ramp` (colored palette)
+- Mix node: Factor = primary greyscale output; Color1 = black; Color2 = secondary color output
+- Result plugged into Emission Color
+- Glass: Principled BSDF Transmission=1.0 in front of emissive plane
+- Animate primary Noise W for temporal flow (keyframe or driver)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.x
 
 ### Tags
-[PENDING EXTRACTION]
+shaders, materials, glass, motion-design, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[you-should-make-glass-animations-in-blender-51]] — extends this technique to 6 glass animation styles
+- [[organic-liquid-metal-effect-in-blender-50-tutorial]] — another Ducky 3D material technique
+- [[photorealistic-renders-in-blender]] — render quality improvement pairing well with shader quality

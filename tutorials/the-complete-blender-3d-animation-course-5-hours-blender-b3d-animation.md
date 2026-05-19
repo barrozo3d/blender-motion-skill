@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=IgpUXXg2Vbs
 author: JB 3D Studio
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.4"
+tags: [animation, rigging, modeling, rendering, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/the-complete-blender-3d-animation-course-5-hours-blender-b3d-animation/
 frame_count: 0
 ---
@@ -76,27 +76,43 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Complete Blender 3D animation pipeline from scratch: Blender basics → 12 principles of animation (bouncing ball) → robot character modeling, rigging, animating, scene setup, camera animation, lighting, and final render in Blender 4.4.
 
 ### Summary
-[PENDING EXTRACTION]
+5+ hour structured course split into 11 modules. Project 1: bouncing basketball used to teach all 12 Disney animation principles practically. Project 2: robot character in sci-fi lab — full pipeline from poly modeling and texturing, through armature rigging, scene environment setup (imported Sketchfab assets), character animation, camera animation, lighting setup, and final rendering to video. Targets complete beginners.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **MODULE 1–2: Blender basics** — interface, Object/Edit mode, G/R/S transforms, timeline keyframing, Dope Sheet
+2. **MODULE 3: Advanced animation** — Graph Editor, F-curves, interpolation types (Bezier, Linear, Constant), Dope Sheet workflow
+3. **MODULE 4: 12 Principles** — Squash & Stretch, Anticipation, Staging, Straight-ahead/Pose-to-pose, Follow-through, Slow-in/Slow-out, Arcs, Secondary Action, Timing, Exaggeration, Solid Drawing, Appeal — all demonstrated with bouncing ball
+4. **MODULE 5: Robot modeling** — box modeling; extruding, scaling, loop cuts; UV unwrap; Principled BSDF materials and textures; separate objects for each robot part
+5. **MODULE 6: Rigging** — Add Armature; bone chain for robot joints; Parent mesh to armature (Ctrl+P → With Automatic Weights); Weight Paint for fine-tuning; IK constraints for arm/leg
+6. **MODULE 7: Storyboarding** — scene planning before animating; rough sketches define shot list; saves rework
+7. **MODULE 8: Scene setup** — import Sketchfab sci-fi lab asset; place objects; arrange collections; show/hide layers
+8. **MODULE 9: Animating** — pose robot per key pose; use Graph Editor for polish; lip sync / facial animation if needed; NLA editor for mixing animations
+9. **MODULE 10: Camera animation** — Ctrl+Alt+Numpad0 (align camera to view); Lock Camera to View for intuitive movement; keyframe camera for push-ins/orbits
+10. **MODULE 11: Lighting & Render** — HDRI world lighting; add Area/Point lights; Cycles render; Denoiser; Output to PNG sequence then Video Editor for MP4
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Blender version: **4.4** (stated in Module 1)
+- Rigging: Armature → Pose Mode; IK constraint target = Empty; Chain Length = bone count
+- Weight Paint: gradient falloff per bone; use smooth brush to blend overlapping regions
+- Render: Cycles, GPU Compute, Denoiser ON; Output: PNG frames → Video Sequence Editor → MP4
+- Graph Editor: `T` for interpolation, `V` for handle type; Auto Smooth = most keyframes
+- NLA Editor: push down action → combine idle + walk animations non-destructively
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.4
 
 ### Tags
-[PENDING EXTRACTION]
+animation, rigging, modeling, rendering, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[mastering-blenders-graph-editor]] — deep dive on Graph Editor used extensively in this course
+- [[your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial]] — robot-specific rigging techniques
+- [[a-new-way-to-loop-animations-in-blender]] — looping animation technique for background elements

@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=ZBZ26xQ9Pnk
 author: Photini By Design
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x"
+tags: [geometry-nodes, animation, instancing, intermediate, attributes]
+extraction_status: complete
 frames_dir: tutorials/frames/track-objects-using-align-rotation-to-vector-in-geometry-nodes-blender-tutorial/
 frame_count: 0
 ---
@@ -76,27 +76,43 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Object tracking in Geometry Nodes using `Align Rotation to Vector`: instances on a surface continuously face a target object by computing the direction vector from each instance to the target via `Object Info` + `Vector Math (Subtract)`, then feeding that into `Align Rotation to Vector` on the rotation socket of `Instance on Points`.
 
 ### Summary
-[PENDING EXTRACTION]
+22-minute tutorial building a reusable GeoNodes tracking system where icosphere-distributed instances (arrows, later procedural eyes) always face an animated target object. Extends to scale-by-distance (instances grow/shrink based on proximity), exposes Track Target and Scale Target as group inputs, and automates the target path with F-Curve Modifiers for a fully procedural orbiting pattern. The GeoNodes modifier is reusable on any object.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Setup** — Enable Node Wrangler; model a simple arrow mesh as the instanced object
+2. **Distribute points** — Add GeoNodes modifier to base object; `Distribute Points on Faces` (Poisson Disk) + `Join Geometry` to keep original; `Instance on Points` with arrow as object
+3. **Track target** — `Object Info` (target empty) → Position output; `Position` node (instance positions) → `Vector Math: Subtract` (target pos − instance pos) = direction vector; plug into `Align Rotation to Vector` → Rotation input of `Instance on Points`
+4. **Scale by distance** — duplicate the subtract nodes; change `Vector Math` to `Distance` → `Multiply Add` (multiply=negative, controls min size) → `Combine XYZ` (same value on X/Y/Z) → Scale socket of `Instance on Points`
+5. **Automate target orbit** — parent target Empty to a master Empty; in Graph Editor add F-Curve Modifier (Cycles) on X/Y/Z rotation of master → target orbits procedurally without keyframes
+6. **Expose controls** — connect Target Object socket to Group Input; expose as "track target" and "scale target" GeoNodes group inputs; now reusable on any object
+7. **Re-use** — apply same GeoNodes modifier to a plane, change instance object from arrow to procedural eye; all instances track the moving target
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Distribute Points on Faces` — mode: Poisson Disk for even spacing
+- `Object Info` — Location output gives world-space position of target
+- `Position` — per-instance world position
+- `Vector Math: Subtract` — target_pos − instance_pos = tracking direction
+- `Align Rotation to Vector` — Vector input = direction; Axis = Z (or match arrow's forward axis)
+- `Vector Math: Distance` → `Multiply Add` → `Combine XYZ` → Instance Scale (scale-by-distance)
+- F-Curve Modifier: `Cycles` on rotation channels (before: Repeat, after: Repeat Offset)
+- Group Inputs: expose "track target" (Object) and "scale target" (Object) for reusability
+- Node Wrangler: Ctrl+T for quick texture setup
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.x
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, animation, instancing, intermediate, attributes
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[all-300-geometry-nodes-in-blender]] — reference for Align Rotation to Vector and Instance on Points
+- [[using-geometry-nodes-for-vfx-in-blender]] — VFX applications of GeoNodes
+- [[a-new-way-to-loop-animations-in-blender]] — F-Curve modifier looping technique used here
