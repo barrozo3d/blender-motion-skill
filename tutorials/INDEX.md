@@ -1263,6 +1263,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/math-x-blender-50-unlimited-power.md
 
+
+### Organic Liquid Metal effect in blender 5.0 (tutorial)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=2MKKuHcni1U
+- **Author:** Ducky 3D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/organic-liquid-metal-effect-in-blender-50-tutorial.md
+
 ---
 
 ## Tag Reference
