@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=ENnEYoUpFfU
 author: Blender Guru
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x"
+tags: [lighting, beginner, cycles, rendering]
+extraction_status: complete
 frames_dir: tutorials/frames/fundamentals-of-lighting-in-blender/
 frame_count: 0
 ---
@@ -56,27 +56,41 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Four fundamentals of lighting — Positioning, Falloff (inverse square law), Size (shadow softness), and Color — taught through lighting a sci-fi crate in Cycles; emphasises locking camera before starting to light and using a contextual ground texture for storytelling.
 
 ### Summary
-[PENDING EXTRACTION]
+43-minute Blender Guru lighting fundamentals course (free excerpt from his Beginners Academy). Covers the four pillars of lighting through practical application: (1) Positioning — where to place lights relative to camera for drama; (2) Falloff — inverse square law means doubling the distance quarters the intensity, a powerful storytelling tool; (3) Size — larger light = softer shadows, recreates overcast vs. sunny; (4) Color — Kelvin scale for natural light vs. creative color for sci-fi/stylised. Emphasises staging (lock camera first) and polish (use contextual textures on ground).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **World to black** — World Properties → Strength = 0 (removes environment light); now you control 100% of the light
+2. **Lock camera first** — Shift+A → Camera; Numpad 0 (camera view); N-panel → View → Lock Camera to View; position camera; lock it; THEN start lighting
+3. **Positioning** — add Area/Point/Sun lights; position relative to subject AND camera; lighting is view-dependent — same setup looks different from different angles
+4. **Falloff** — inverse square law: light intensity ∝ 1/distance²; practical: move a light 2× further away = ¼ the intensity; use this to control how much of the scene is lit — close lights = dramatic falloff, distant (sun) = even falloff
+5. **Size** — Area Light Radius: small = sharp hard shadows (sunny day); large = soft shadows (overcast); Size parameter on Point Light for same effect; larger size = more realistic but slower render
+6. **Color** — two approaches: Kelvin scale (warm 2700K candle to cool 10000K sky) for natural light; free Color picker for stylised/sci-fi; color contrast between key and fill adds visual interest (warm key + cool fill)
+7. **Polish** — add a matching ground texture (concrete, metal, sci-fi floor) to tell the story of where the object is; low-effort but high-impact; use free Poliigon texture
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- World: Strength = 0 for full lighting control
+- Area Light: Size (shadow softness); Shape (Square/Rectangle/Disk)
+- Point Light: Radius (shadow softness); Falloff: default is Inverse Square (physically accurate)
+- Sun Light: Angle (shadow softness, 0.526° = real sun); no falloff (infinite distance)
+- Spot Light: Spot Size (cone angle); Blend (cone edge softness)
+- Color: Light Data → Color; or enter Kelvin value
+- Lock Camera to View: N-panel → View tab (in 3D viewport)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.x
 
 ### Tags
-[PENDING EXTRACTION]
+lighting, beginner, cycles, rendering
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[3-easy-lighting-setups-blender-tutorial]] — three practical lighting setups building on these fundamentals
+- [[realistic-product-lighting-in-blender]] — product lighting applying these principles
+- [[the-key-to-realism-in-blender-or-3d]] — broader realism including lighting strategy

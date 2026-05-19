@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=QJhiYYf6qJI
 author: vfx world
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x"
+tags: [landscape, environment, animation, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi/
 frame_count: 0
 ---
@@ -52,27 +52,40 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Cinematic landscape in Blender using the A.N.T. Landscape addon for procedural terrain, Biome Rider for one-click foliage scattering, animated camera on a Follow Path constraint, and Easy HDRI for sky/lighting — full scene from scratch to rendered animation.
 
 ### Summary
-[PENDING EXTRACTION]
+24-minute beginner landscape tutorial (narrated primarily in Hindi/Urdu). Uses the built-in A.N.T. Landscape addon to generate a terrain mesh with lakes, applies PBR ground textures via UV unwrap, scatters realistic grass and foliage using the Biome Rider addon, animates water surface with a pre-made animated material, sets up a camera following a Bezier path around the scene, and finishes with Easy HDRI for sky lighting.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **A.N.T. Landscape** — Preferences → Add-ons → search "ANT" → enable A.N.T. Landscape; Shift+A → Mesh → Landscape; dropdown options for lake type, mountain presets; Scale up ×10 then ×5; Apply Scale
+2. **Ground texture** — select terrain; UV Unwrap (U → Smart UV Project); assign PBR ground material: Base Color, Roughness, Normal maps; adjust UV scale for texture tiling
+3. **Water surface** — add plane at lake level; apply pre-made animated water material (wave displacement + animated noise); no manual setup needed
+4. **Biome Rider foliage** — select ground mesh; open Biome Rider panel; pick biome preset (old grasses, meadow, forest); click scatter → auto-distributes grass/plants procedurally; multiple biome layers for variety
+5. **Camera path** — add Bezier Curve; draw orbit path around scene; Camera → Object Properties → Constraints → Follow Path → select curve; click Animate Path → camera moves along curve over timeline
+6. **Camera look-at** — add Empty at scene center; Camera → Constraints → Track To → target = Empty; camera always faces scene center as it orbits
+7. **Easy HDRI** — install Easy HDRI addon; use panel to browse and apply HDRI for sky + lighting; adjust sun intensity and color for mood
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- A.N.T. Landscape addon (built into Blender, disabled by default)
+- Biome Rider addon (3rd party, free or paid)
+- Easy HDRI addon for HDRI management
+- Follow Path constraint: Forward Axis = -Z or Y depending on curve orientation; Animate Path button bakes camera motion
+- Track To constraint: To = -Z, Up = Y (standard camera look-at)
+- Water: pre-animated material (available in tutorial project file)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.x
 
 ### Tags
-[PENDING EXTRACTION]
+landscape, environment, animation, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[how-i-made-realistic-storm-clouds-in-blender]] — volumetric clouds to add to this landscape
+- [[fundamentals-of-lighting-in-blender]] — HDRI lighting fundamentals
+- [[the-key-to-realism-in-blender-or-3d]] — realism techniques applicable to landscape renders

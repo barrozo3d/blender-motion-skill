@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=Kep7URnyXgU
 author: c g s l a v
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x"
+tags: [clouds, volumes, geometry-nodes, lighting, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-i-made-realistic-storm-clouds-in-blender/
 frame_count: 0
 ---
@@ -64,27 +64,45 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Three-tier cloud system in Blender using Geometry Nodes volumes: (1) quick plane/HDRI sky methods, (2) proper volumetric GeoNodes clouds built from spheres → Mesh to Volume → Distribute Points in Volume → Points to Volume → final volume mesh, (3) Light Linking to separate cloud lighting from scene lighting, plus a gradient-masked horizon volume for storm atmosphere.
 
 ### Summary
-[PENDING EXTRACTION]
+21-minute tutorial covering a progression from simple to advanced sky creation. Starts with two quick methods (sky image on plane, HDRI), then builds proper volumetric clouds in GeoNodes: sphere base → mesh to volume → scatter points inside → points back to volume → convert to mesh for detail. Light Linking separates one spotlight for god rays and another for backlighting clouds. A second volume scatter cube with gradient mask creates the stormy horizon haze. Render optimization tips for volume-heavy scenes included.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Quick method 1** — Add Plane behind scene; Shader Editor: Image Texture (sky photo) → Base Color; Emission Strength for brightness; position plane to fill frame
+2. **Quick method 2** — World Shader → Environment Texture → HDRI; free HDRIs from BlenderKit or PolyHaven
+3. **God rays (volume scatter)** — Cube scaled to encompass scene; Volume Scatter material, Density 0.01–0.05, Anisotropy 0.3; display as Bounds; Spot Light inside cube → illuminates visible cone = god rays
+4. **GeoNodes cloud** — Icosphere (large, subdivided 3–4); add GeoNodes modifier; `Mesh to Volume` → converts sphere to VDB volume; `Distribute Points in Volume` → scatter points inside; `Points to Volume` → converts points back to volume with density variation; final `Volume to Mesh` for renderable cloud mesh
+5. **Cloud detail** — the Distribute Points → Points to Volume round-trip adds organic surface detail (puffy, irregular edges) vs. the smooth sphere input
+6. **Duplicate clouds** — since GeoNodes modifier is procedural, Edit Mode on base sphere → Shift+D duplicate sub-spheres to reshape cloud; enable modifier → all duplicates auto-process
+7. **Volume material** — Principled Volume shader: Density (volume attribute), Color white; set via Set Material node in GeoNodes
+8. **Light Linking (cloud vs scene)** — Spotlight 1: light rays only (link to everything EXCEPT clouds); Spotlight 2: behind clouds facing down → illuminates clouds like backlit sun; Light Linking prevents cross-contamination
+9. **Horizon storm haze** — duplicate Volume scatter cube, scale to cover full frame behind clouds; add Gradient Texture (90° rotated, moves up) → Color Ramp as density mask; only lower portion of frame gets haze
+10. **Render optimization** — Render Properties → Volume: Step Rate Render = 3 (faster, minimal quality loss); Max Steps = 500; viewport Step Rate higher to avoid GPU overload
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Mesh to Volume` — Voxel Size controls resolution; smaller = more detail, slower
+- `Distribute Points in Volume` — Density controls cloud puffiness interior points
+- `Points to Volume` — Radius and Density; creates varied-density cloud volume
+- `Volume to Mesh` — Threshold controls cloud surface extraction level
+- Principled Volume: Density 1–5, Scatter Color white; assign via Set Material in GeoNodes
+- Light Linking: Object Data → Light Linking → New link → drag cloud collection; checkbox excludes or includes
+- Horizon volume: Volume Scatter with Gradient Texture mask; Spline type Color Ramp for smooth falloff
+- Render → Volume: Step Rate Render 1 (quality) → 3 (performance); Max Steps 500
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.x
 
 ### Tags
-[PENDING EXTRACTION]
+clouds, volumes, geometry-nodes, lighting, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[3d-smoke-blender-geometry-nodes]] — deeper GeoNodes volume simulation
+- [[3-easy-lighting-setups-blender-tutorial]] — god rays / volume scatter spotlight technique
+- [[how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi]] — landscape scene these clouds would complement

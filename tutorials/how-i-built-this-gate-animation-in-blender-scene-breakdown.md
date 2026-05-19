@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=upUPrc35DYw
 author: Max Hay
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x"
+tags: [animation, mechanical, modeling, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-i-built-this-gate-animation-in-blender-scene-breakdown/
 frame_count: 0
 ---
@@ -32,27 +32,39 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Complex-looking gate animation achieved through simple keyframed transforms repeated with timing offsets — each gate element has the same basic open/close motion keyframed individually with slight delays, creating the illusion of a sophisticated mechanical system.
 
 ### Summary
-[PENDING EXTRACTION]
+22-minute scene breakdown by Max Hay revealing that an impressive gate/portal animation is simpler than it looks: the core mechanic is just keyframed rotation/translation on each gate element, with the animation staggered across elements by a frame offset. Max walks through his blockout workflow (simple cubes first, then add details), covers how to handle the complex door-opening mechanics, and returns to the final scene for texture and lighting breakdown.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Blockout first** — use simple cubes to establish the gate proportions, pivot points, and motion before adding any geometric detail; verify the animation reads correctly at blockout stage
+2. **Core animation** — each gate element (bar, panel, pillar segment) has the same basic keyframe animation: position or rotation from closed → open position; set over ~30 frames
+3. **Stagger timing** — offset the start frame of each element's animation by a few frames (e.g. every 3 frames); this creates the domino/cascade effect of the gate opening — complex look, trivial setup
+4. **Pivot points** — set each element's origin to its hinge/pivot point before keyframing; Object → Set Origin → Origin to 3D Cursor (with cursor placed at hinge)
+5. **NLA Editor for reuse** — push down animations; duplicate strips; offset time for multi-gate or repeating use
+6. **Texturing** — PBR textures (metal, rust, concrete) using Poliigon or free sources; Principled BSDF; UV unwrap each element individually
+7. **Lighting** — dramatic spotlights with volume scatter cube for atmosphere; matches the 3-lighting-setups approach (Setup 1 style)
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Object → Set Origin → Origin to 3D Cursor (for hinge pivot placement)
+- Keyframe: R/G/S + axis + value; I key to insert; on rotation channel
+- NLA Editor: Action → Push Down; strip Start Frame to stagger timing
+- PBR workflow: Poliigon textures; Principled BSDF; Normal Map node; Roughness map
+- Volume scatter cube (same as 3-easy-lighting-setups-blender-tutorial): Density 0.02, Anisotropy 0.5
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.x
 
 ### Tags
-[PENDING EXTRACTION]
+animation, mechanical, modeling, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial]] — rigged mechanical animation (alternative to keyframing)
+- [[3-easy-lighting-setups-blender-tutorial]] — lighting approach used in this gate scene
+- [[the-complete-blender-3d-animation-course-5-hours-blender-b3d-animation]] — keyframing fundamentals underlying this technique

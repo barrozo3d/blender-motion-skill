@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=iW6WF8guDMY
 author: MISSING PIXEL VFX
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x"
+tags: [vfx, compositing, rendering, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/i-recreated-movie-scene-in-blender-nuke-complete-tutorial/
 frame_count: 0
 ---
@@ -32,27 +32,40 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Professional VFX pipeline recreating a movie scene: free Sketchfab assets (Kong, helicopter) imported into Blender for 3D CG elements, rendered with multi-pass EXR output, then composited in Nuke with environment plates and colour grading for a production-quality result.
 
 ### Summary
-[PENDING EXTRACTION]
+44-minute complete VFX pipeline tutorial by MISSING PIXEL VFX. Downloads free Sketchfab assets (King Kong character, helicopter model), imports into Blender, sets up camera, lighting and materials for the CG elements, renders multi-pass EXR, then takes everything into Nuke for compositing with a background plate. Full render + composite workflow covering the gap between Blender and professional comp software. Project files and renders provided free.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Asset sourcing** — Sketchfab.com: search Kong → download as FBX (light file); search helicopter → download as GLTF; free assets only
+2. **Import into Blender** — File → Import → FBX/GLTF; check textures loaded correctly; fix any material issues; scale assets to match scene
+3. **Scene assembly** — position Kong and helicopter relative to each other; add camera matching the reference movie shot angle; use reference image in viewport (N-panel → View → Background Images)
+4. **Lighting** — HDRI matching reference shot environment; add Sun/Area lights to reinforce key light direction; render preview frequently to match reference
+5. **Materials** — Principled BSDF; if imported textures are wrong type (roughness/normal), fix node connections; add displacement for ground/surface detail
+6. **Render passes** — View Layer Properties → enable: Combined, Diffuse (Direct/Indirect/Color), Glossy, Shadow, Z-depth; Output: OpenEXR MultiLayer; renders all passes in one file
+7. **Nuke compositing** — import EXR MultiLayer (Read node → auto-detects all passes); import background plate; grade background to match CG lighting; Alpha Over to combine CG over plate; use ZDefocus or ZBlur node with Z-depth pass for depth of field; colour grade full composite
+8. **Nuke colour grade** — Grade node for lift/gamma/gain per channel; ColorCorrect for hue/saturation; match CG colour temperature to background plate; add grain
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Blender: HDRI world + Sun Light for primary illumination; Shadow Catcher on ground plane
+- EXR MultiLayer output: enables per-pass isolation in Nuke
+- Nuke: Read node (auto-loads EXR multi-pass), Shuffle node to extract individual passes, Grade/ColorCorrect, ZDefocus, Alpha Over, Merge (Over)
+- FBX import: Blender File → Import → FBX; GLTF: File → Import → GLTF
+- Asset check: always verify textures and materials after import; look for broken Normal/Roughness channel connections
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.x
 
 ### Tags
-[PENDING EXTRACTION]
+vfx, compositing, rendering, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2]] — similar multi-pass Blender→compositor workflow using ACES
+- [[a-full-blender-compositor-course]] — Blender compositor alternative if Nuke not available
+- [[superhero-landing-tutorial-02-ground-destruction-vfx-in-blender]] — VFX scene composition in Blender only

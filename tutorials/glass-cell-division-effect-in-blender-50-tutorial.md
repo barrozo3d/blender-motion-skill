@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=XOLuYDLYEgI
 author: Ducky 3D
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.0"
+tags: [geometry-nodes, sdf, animation, glass, materials, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/glass-cell-division-effect-in-blender-50-tutorial/
 frame_count: 0
 ---
@@ -32,27 +32,39 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Animated glass cell division effect in Blender 5.0 using Metaball-like SDF volume blending (Grid SDF Boolean node from the SDF pipeline) — animated sphere positions drive organic blob merging/splitting behaviour, rendered through a glass dispersion shader for an elegant transparent cell biology aesthetic.
 
 ### Summary
-[PENDING EXTRACTION]
+15-minute tutorial recreating the organic blob merging/splitting behaviour of Metaballs but using Blender 5.0's Volume SDF pipeline for higher quality and render control. Spheres are animated along paths; the SDF Grid Boolean blends them organically where they overlap. A glass material with dispersion creates the prismatic color splitting effect. Ends with a procedural animated background and Cycles render tips.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Animated sphere positions** — create several sphere objects; keyframe their positions to simulate cell division movement (spheres moving apart/together)
+2. **SDF pipeline (Blender 5.0)** — on a plane GeoNodes modifier: `Mesh to SDF` on each sphere → `Grid SDF Boolean` to blend them all together → `SDF to Mesh` to extract final mesh; adjust iso-value for membrane thickness
+3. **Fix geometry issues** — SDF-to-mesh can create non-manifold geometry; use `Merge by Distance` and check normals; flip normals if needed for correct glass refraction
+4. **Glass material** — Principled BSDF: Transmission=1.0, IOR~1.5, Roughness near 0; add slight dispersion for chromatic rainbow splitting through glass; Abbe Number (dispersion) in Cycles material settings
+5. **Background** — gradient/noise-based emissive plane or HDRI; ensure dark background to showcase glass transparency
+6. **Render** — Cycles; Transmission bounces 8+; Caustics ON for light patterns through glass
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Mesh to SDF` — per sphere (Blender 5.0 required)
+- `Grid SDF Boolean` — blends multiple SDF fields; key for organic cell merger
+- `SDF to Mesh` — iso-value controls surface position and membrane thinness
+- `Merge by Distance` — fix topology issues from SDF extraction
+- Principled BSDF: Transmission=1.0, IOR=1.5, Roughness=0.01; Dispersion (Abbe Number) for prismatic effect
+- Cycles: Transmission bounces 8; Caustics Reflective+Refractive; Denoiser essential
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.0
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, sdf, animation, glass, materials, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[organic-liquid-metal-effect-in-blender-50-tutorial]] — same SDF volume pipeline for liquid metal spheres
+- [[you-should-make-glass-animations-in-blender-51]] — 6 glass animation styles overview
+- [[you-should-try-this-blender-color-hack]] — glass + emission color techniques

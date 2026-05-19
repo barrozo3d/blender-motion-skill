@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=KhBaHDvIamw
 author: Ducky 3D
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x"
+tags: [materials, glass, shaders, motion-design, animation, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-apple-makes-3d-wallpapers-blender-tutorial/
 frame_count: 0
 ---
@@ -32,27 +32,40 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Recreating the MacBook Air 3D glass wallpaper in Blender: flat glass pane meshes with a glass + anisotropic highlight shader that produces the distinctive long horizontal highlight streaks characteristic of Apple's wallpaper aesthetic, with animated camera-relative gradient for the colour wash.
 
 ### Summary
-[PENDING EXTRACTION]
+15-minute recreation of the original MacBook Air wallpaper by Ducky 3D, with input from an Apple team member on the exact highlight technique. Key insight: the long horizontal highlights are achieved with an Anisotropic BSDF (or Principled BSDF Anisotropy parameter) combined with rotated tangent — not simple glass. The glass planes are thin flat meshes; the gradient color comes from a camera-parented texture (same technique as the light trails tutorial). Ends with both still image and animated versions.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Glass mesh** — flat thin planes (or slightly bevelled); oriented horizontally; can be a simple grid of planes or a single looping ribbon shape
+2. **Glass + Anisotropic highlight shader** — the key Apple secret: combine Principled BSDF (Transmission=1, low roughness) with Anisotropic BSDF for the long streak highlights; Mix Shader; Anisotropy Rotation drives the highlight angle
+3. **Tangent control** — Tangent node (UV-based or object-space) feeds into Anisotropy Rotation → rotates the streak to be perfectly horizontal
+4. **Gradient color** — Object (camera-parented empty) → Texture Coordinates → Gradient Texture or noise → Color Ramp (Apple palette: white, light blue, soft pink, subtle tones) → Base Color of glass
+5. **Camera-parented gradient** — same technique as light trails: empty parented to camera; gradient sweeps through glass planes as camera moves = animated colour wash
+6. **Animation** — animate camera slightly; gradient washes through glass; OR animate glass rotation for prismatic effect
+7. **Render** — Cycles; Transmission bounces 8+; HDRI for ambient; Bloom in compositor
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Principled BSDF: Transmission=1.0, IOR=1.5, Roughness=0.01
+- Anisotropic BSDF: Roughness 0.1, Anisotropy 0.8–1.0; Rotation from Tangent node
+- Mix Shader: Glass + Anisotropic; ratio controls highlight strength
+- Tangent node: Axis (horizontal = Z or Y depending on orientation)
+- Texture Coordinate (Object, referenced to camera-parented empty) → Gradient Texture → Color Ramp (Apple palette)
+- Render: Cycles, Transmission 8 bounces, Caustics ON; Compositor: Bloom + slight Glare
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.x
 
 ### Tags
-[PENDING EXTRACTION]
+materials, glass, shaders, motion-design, animation, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[powerful-light-trails-in-blender-45-tutorial]] — same camera-parented gradient technique
+- [[you-should-make-glass-animations-in-blender-51]] — broader glass animation overview
+- [[you-should-try-this-blender-color-hack]] — color distribution tricks for glass shaders
