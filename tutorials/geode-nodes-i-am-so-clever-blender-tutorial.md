@@ -3,7 +3,7 @@ title: Geode Nodes (i am so clever) // Blender Tutorial
 source: YouTube
 url: https://www.youtube.com/watch?v=1hKAkCP-tFQ
 author: CGMatter
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
