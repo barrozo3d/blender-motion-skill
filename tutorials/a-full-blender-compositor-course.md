@@ -3,7 +3,7 @@ title: A FULL Blender Compositor Course!
 source: YouTube
 url: https://www.youtube.com/watch?v=_7N7emOvDko
 author: SharpWind
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
