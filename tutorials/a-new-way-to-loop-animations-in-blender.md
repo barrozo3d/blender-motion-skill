@@ -3,7 +3,7 @@ title: A New Way To Loop Animations in Blender
 source: YouTube
 url: https://www.youtube.com/watch?v=9Fvw8HlWHpo
 author: Ducky 3D
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending

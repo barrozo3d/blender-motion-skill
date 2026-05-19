@@ -1523,6 +1523,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/a-full-blender-compositor-course.md
 
+
+### A New Way To Loop Animations in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=9Fvw8HlWHpo
+- **Author:** Ducky 3D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/a-new-way-to-loop-animations-in-blender.md
+
 ---
 
 ## Tag Reference
