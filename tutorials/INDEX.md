@@ -1273,6 +1273,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/organic-liquid-metal-effect-in-blender-50-tutorial.md
 
+
+### Powerful Light Trails in Blender 4.5 (tutorial)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=965bgIUHoxA
+- **Author:** Ducky 3D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/powerful-light-trails-in-blender-45-tutorial.md
+
 ---
 
 ## Tag Reference
