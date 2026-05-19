@@ -3,7 +3,7 @@ title: Fractals in Blender - Geometry Nodes Extrude Node
 source: YouTube
 url: https://www.youtube.com/watch?v=bHWvVtuLJkM
 author: CrossMind Studio
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
