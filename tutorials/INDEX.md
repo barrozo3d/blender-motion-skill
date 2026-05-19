@@ -1253,6 +1253,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/mastering-blenders-graph-editor.md
 
+
+### Math x Blender 5.0 = UNLIMITED POWER!
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=EvWAcSA86fw
+- **Author:** MTR Animation
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/math-x-blender-50-unlimited-power.md
+
 ---
 
 ## Tag Reference
