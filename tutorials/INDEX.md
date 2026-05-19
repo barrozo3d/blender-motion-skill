@@ -1583,6 +1583,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/how-apple-makes-3d-wallpapers-blender-tutorial.md
 
+
+### How I Built This Gate Animation in Blender | Scene Breakdown
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=upUPrc35DYw
+- **Author:** Max Hay
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-i-built-this-gate-animation-in-blender-scene-breakdown.md
+
 ---
 
 ## Tag Reference

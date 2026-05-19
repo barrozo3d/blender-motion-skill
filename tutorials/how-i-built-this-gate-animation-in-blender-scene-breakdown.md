@@ -3,7 +3,7 @@ title: How I Built This Gate Animation in Blender | Scene Breakdown
 source: YouTube
 url: https://www.youtube.com/watch?v=upUPrc35DYw
 author: Max Hay
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
