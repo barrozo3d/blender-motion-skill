@@ -3,7 +3,7 @@ title: Glass Cell Division Effect in Blender 5.0 (tutorial)
 source: YouTube
 url: https://www.youtube.com/watch?v=XOLuYDLYEgI
 author: Ducky 3D
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
