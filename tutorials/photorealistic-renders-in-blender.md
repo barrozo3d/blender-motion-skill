@@ -3,7 +3,7 @@ title: Photorealistic Renders In Blender
 source: YouTube
 url: https://www.youtube.com/watch?v=J_mweAPcO4M
 author: Extra 3d
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
