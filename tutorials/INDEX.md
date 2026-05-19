@@ -1313,6 +1313,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/remake-this-in-blender-in-20-mins.md
 
+
+### Sci-Fi Grid Pattern Animation Loop - Blender Motion Graphics Tutorial
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=IzSRBH8CDTo
+- **Author:** Ryan King Art
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial.md
+
 ---
 
 ## Tag Reference
