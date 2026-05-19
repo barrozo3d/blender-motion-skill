@@ -3,7 +3,7 @@ title: Photorealistic Eevee Renders In Blender 5.1
 source: YouTube
 url: https://www.youtube.com/watch?v=AoGPxjgqVYE
 author: Extra 3d
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending

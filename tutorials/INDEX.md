@@ -1463,6 +1463,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/fractals-in-blender---geometry-nodes-extrude-node.md
 
+
+### Photorealistic Eevee Renders In Blender 5.1
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=AoGPxjgqVYE
+- **Author:** Extra 3d
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/photorealistic-eevee-renders-in-blender-51.md
+
 ---
 
 ## Tag Reference
