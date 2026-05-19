@@ -3,7 +3,7 @@ title: How to Make Cyberpunk Scenes in Blender
 source: YouTube
 url: https://www.youtube.com/watch?v=SybPYdsd_DI
 author: Max Hay
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending

@@ -1613,6 +1613,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi.md
 
+
+### How to Make Cyberpunk Scenes in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=SybPYdsd_DI
+- **Author:** Max Hay
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-make-cyberpunk-scenes-in-blender.md
+
 ---
 
 ## Tag Reference
