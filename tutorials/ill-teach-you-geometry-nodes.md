@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=JU70u6cJZqI
 author: Default Cube
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.5"
+tags: [geometry-nodes, procedural, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/ill-teach-you-geometry-nodes/
 frame_count: 0
 ---
@@ -32,27 +32,37 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Comprehensive beginner introduction to Geometry Nodes in Blender 4.5, building procedural skills from absolute zero through practical examples by Default Cube (Tom, formerly CG Matter).
 
 ### Summary
-[PENDING EXTRACTION]
+The free first hour of a 5.5-hour paid Geometry Nodes course. Assumes no prior GeoNodes knowledge, only basic Blender familiarity. Instructor has professional studio experience (Nayer Studios) using GeoNodes for effects, snow, and particles, as well as freelance work. Positions Geometry Nodes as the most powerful and essential tool in Blender, covering the node editor interface, first procedural setups, and core concepts like the modifier stack and data flow.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Open Geometry Nodes editor — add modifier to object, click New
+2. Understand the node tree: Group Input → operations → Group Output
+3. Everything is procedural: changes to any node update the result live
+4. Core node categories: mesh primitives, operations (transform, boolean, etc.), attributes, instances
+5. Use Tab menu in node editor to search and add nodes
+6. Geometry Nodes runs as a modifier — non-destructive, stackable
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Node editor accessed via modifier stack (Geometry Nodes modifier)
+- Blender version: **4.5** (shown in corner during tutorial)
+- Course is the free intro hour of a full paid curriculum
+- Author background: Nayer Studios (effects/snow/particles), heavy freelance GeoNodes use
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.5
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[all-300-geometry-nodes-in-blender]] — comprehensive node reference
+- [[geode-nodes-i-am-so-clever-blender-tutorial]] — advanced GeoNodes techniques
+- [[using-geometry-nodes-for-vfx-in-blender]] — VFX-specific GeoNodes applications

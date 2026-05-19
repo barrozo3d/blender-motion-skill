@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=MS1z9diLUOI
 author: elijah sheffield
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x"
+tags: [animation, graph-editor, beginner, curves]
+extraction_status: complete
 frames_dir: tutorials/frames/mastering-blenders-graph-editor/
 frame_count: 0
 ---
@@ -48,27 +48,43 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Demystifying the Graph Editor for Blender animation: reading F-curves, editing easing and timing, applying non-destructive Animation Modifiers (loop, noise, cycles), and frame-by-frame animation using pose mode on a fish rig.
 
 ### Summary
-[PENDING EXTRACTION]
+32-minute course structured into four chapters: (1) basics of keyframes and F-curves using an animated pan object, (2) comprehensive Graph Editor tour — interpolation handles, N-panel, curve manipulation, (3) Animation Modifiers for non-destructive automation (looping, noise, interpolation changes), and (4) frame-by-frame character animation using a rigged fish in Pose Mode. Aimed at artists intimidated by the Graph Editor's mathematical appearance.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Open Graph Editor** — split viewport, set one area to Graph Editor; select animated object to see its F-curves
+2. **Reading curves** — X axis = time (frames), Y axis = value; peaks/troughs = high/low parameter values
+3. **Handle types** — Auto (smooth), Vector (sharp), Free (full manual control), Aligned; set with V key
+4. **Timing & easing** — drag handles to adjust ease-in/ease-out; flatten handles = linear/constant motion
+5. **N-panel** (press N) — precise numeric control of selected keyframe value and position
+6. **Animation Modifiers** — select a keyframe, open N-panel, Modifiers tab, Add Modifier:
+   - **Cycles** — loops the curve infinitely (before/after options: repeat, repeat with offset, mirror)
+   - **Noise** — adds procedural jitter to the curve; controls: Scale, Strength, Phase, Depth
+   - **Envelope** — min/max channel bounds (non-destructive clamping)
+7. **Frame-by-frame** — in Pose Mode, set interpolation to **Constant** (keeps pose until next keyframe); pose and key each frame manually for stop-motion look
+8. Tip: use **Stepped Interpolation** modifier for stepped motion without rekeying everything
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Graph Editor accessed via Editor Type dropdown or workspace layout
+- Key shortcuts: `G` move keyframe, `G Y` constrain to value axis, `G X` constrain to time axis
+- `V` — set handle type; `T` — set interpolation type (Bezier, Linear, Constant)
+- `N` — N-panel for precise numeric input and Animation Modifiers
+- Pose Mode (`Ctrl+Tab` or header dropdown) required for bone/rig animation
+- Interpolation mode **Constant** = snap between values (frame-by-frame / stop-motion look)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.x (unspecified; consistent with 4.x UI)
 
 ### Tags
-[PENDING EXTRACTION]
+animation, graph-editor, beginner, curves
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[the-complete-blender-3d-animation-course-5-hours-blender-b3d-animation]] — full animation course covering graph editor in broader context
+- [[a-new-way-to-loop-animations-in-blender]] — loop animation technique

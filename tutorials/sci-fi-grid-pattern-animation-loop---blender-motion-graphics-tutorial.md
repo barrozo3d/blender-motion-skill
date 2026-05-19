@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=IzSRBH8CDTo
 author: Ryan King Art
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.0"
+tags: [geometry-nodes, animation, motion-design, eevee, shaders, compositing, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial/
 frame_count: 0
 ---
@@ -76,27 +76,46 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Sci-fi grid animation loop using a Honeycomb mesh (Extra Mesh Objects extension), the GeoNodes "Instance on Elements" modifier to scatter icospheres on every vertex, animated noise texture driving emission color + mesh displacement for glowing pulsing dots, and compositor Bloom glare — all rendered in EEVEE.
 
 ### Summary
-[PENDING EXTRACTION]
+23-minute beginner-friendly motion graphics tutorial in Blender 5. Creates a 50×50 honeycomb grid, uses the built-in "Instance on Elements" GeoNodes modifier to place icospheres at every vertex, drives the emission material with an animated Noise Texture (W value keyframed for seamless loop), adds Displacement modifier so glowing dots physically grow, applies a Color Ramp for colour control, and adds Bloom in the Compositor. Tutorial includes colour variation demonstrations and a full render-to-video-file workflow using the Video Sequence Editor.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Enable add-ons** — Preferences → Add-ons: enable **Node Wrangler**; Extensions → search "Extra" → install **Extra Mesh Objects**
+2. **Honeycomb grid** — Add Menu → Mesh → Extras → Honeycomb; set Rows=50, Columns=50; in edit mode convert to triangles or keep as hexagons
+3. **Instance on Elements modifier** — select honeycomb mesh → Modifier Properties → Add Modifier → search "Instance" → **Instance on Elements**; set Object to an Icosphere; disable Keep Surface
+4. **Icosphere material** — Shading workspace: add **Noise Texture** → **Ctrl+T** (Node Wrangler) adds Texture Coordinate + Mapping; plug Object into vector; Noise → **Color Ramp** → **Emission** → Material Output; Emission Strength ~25
+5. **Animate noise** — Timeline: frame 1, set Noise W=40, `I` to keyframe; last frame set W=(40 + loop_amount), keyframe; graph editor → set interpolation to Linear for seamless loop
+6. **Compositor bloom** — Compositor workspace → Use Nodes → Add → **Glare (Bloom)**; Quality: High; adjust Scale and Strength; set Viewport Compositor to "Always"
+7. **Displacement for size** — add **Displacement** modifier to honeycomb; new Voronoi/Noise texture; Strength ~0.5; Direction = Z; add Color Ramp between mix and Displacement Height for control; Material Settings → Displacement = **Displacement and Bump**
+8. **Render & export** — Output Properties → set folder/format (JPEG); Render Animation (`Ctrl+F12`); Video Editor (`File → New → Video Editing`) → Add → Image Sequence → select frames → render to MP4
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Extra Mesh Objects** extension (built into Blender, disabled by default) — provides Honeycomb
+- **Instance on Elements** modifier (GeoNodes-based modifier, Blender 5)
+- **Node Wrangler** `Ctrl+T` — auto-adds Texture Coordinate + Mapping to selected texture node
+- Noise Texture: W animated (frame1=40, lastframe=40+N for seamless loop); Scale, Detail, Roughness
+- Color Ramp: black/white + one colored stop; adjust contrast for glow intensity
+- Emission Strength: ~25 (needs to be high for Bloom to catch it)
+- Displacement modifier: Strength ~0.25, Direction X+Y for edge breakup or Z for height
+- Material Settings → Surface → Displacement: **Displacement and Bump** (required for mesh displacement)
+- Compositor: Glare → Bloom, Quality High, Scale 1.0, Strength 1.0
+- EEVEE render; Color Management: Filmic, Very High Contrast
+- World: delete (pure black background)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.0
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, animation, motion-design, eevee, shaders, compositing, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[powerful-logo-particle-flow-effect-in-blender]] — noise-animated particle loop
+- [[powerful-light-trails-in-blender-45-tutorial]] — animated noise-driven loop
+- [[3-easy-lighting-setups-blender-tutorial]] — EEVEE lighting to complement this workflow

@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=2MKKuHcni1U
 author: Ducky 3D
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.0"
+tags: [geometry-nodes, sdf, materials, shaders, motion-design, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/organic-liquid-metal-effect-in-blender-50-tutorial/
 frame_count: 0
 ---
@@ -32,27 +32,40 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Using Blender 5.0's new Volume SDF nodes — specifically the Grid SDF Boolean node — to blend multiple sphere instances into organically connected liquid-metal blobs with thin connecting membranes.
 
 ### Summary
-[PENDING EXTRACTION]
+10-minute focused tutorial on the new SDF volume pipeline in Blender 5.0. Creates scattered spheres as a plane with Geometry Nodes, converts them to SDF volumes, booleans them together with Grid SDF Boolean to produce metaball-like organic connections, then applies a polished metallic shader. Requires Blender 5.0 or later.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Geometry setup** — Shift+A → Plane; open Geometry Nodes editor, click New
+2. **Scatter spheres** — distribute sphere instances on the plane using Instance on Points with Scatter Points or manual point placement; vary radius with random values
+3. **Convert to SDF** — use `Mesh to SDF` node (Blender 5.0+) on each sphere instance; each becomes a signed distance field volume
+4. **Grid SDF Boolean** — feeds multiple SDF volumes in; blends them together creating organic liquid metal connections between spheres wherever they are close enough
+5. **SDF to mesh** — convert resulting SDF volume back to mesh with `SDF to Mesh` node; adjust threshold/iso-value to control membrane thickness
+6. **Metallic material** — Principled BSDF: Metallic=1, Roughness ~0.05–0.1, add subtle noise bump for surface imperfection
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Mesh to SDF` — converts mesh geometry to SDF volume (Blender 5.0+)
+- `Grid SDF Boolean` — blends/booleans multiple SDF volumes organically; key node for liquid connections
+- `SDF to Mesh` — extracts mesh from SDF at a given iso-value
+- `Instance on Points` — scatter sphere instances as source geometry
+- `Random Value` — vary sphere radii
+- Principled BSDF: Metallic=1.0, low Roughness for chrome look
+- Requires **Blender 5.0 or later** (SDF volume nodes introduced in 5.0)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.0
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, sdf, materials, shaders, motion-design, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[glass-cell-division-effect-in-blender-50-tutorial]] — another organic Blender 5.0 effect
+- [[you-should-make-glass-animations-in-blender-51]] — glass material effects
+- [[3d-smoke-blender-geometry-nodes]] — GeoNodes volume effects

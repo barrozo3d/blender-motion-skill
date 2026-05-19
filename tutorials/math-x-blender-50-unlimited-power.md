@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=EvWAcSA86fw
 author: MTR Animation
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.0"
+tags: [geometry-nodes, mathematics, procedural, advanced, instancing]
+extraction_status: complete
 frames_dir: tutorials/frames/math-x-blender-50-unlimited-power/
 frame_count: 0
 ---
@@ -76,27 +76,53 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Recreating the Apollonian Gasket (fractal circle packing) in Blender 5.0 Geometry Nodes using Descartes' theorem for circle curvature and complex number math for position, with iterative GeoNodes to recursively fill gaps with tangent circles.
 
 ### Summary
-[PENDING EXTRACTION]
+34-minute advanced tutorial implementing real mathematical fractal geometry in GeoNodes. Uses pre-built custom node groups (provided in project file) implementing Descartes' Circle Theorem and complex number operations. Builds the fractal iteratively: first 3 circles → 4th tangent circle → recursive filling → duplicate removal → instance icospheres on points with subdivision scaling by radius. Ends with Cycles render using random per-instance color via saturation randomisation.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Base setup** — delete default cube and light; create 3 points with `Points` node representing initial 3 circles
+2. **Store curvature `K`** — `Store Named Attribute` (K) = `Math Divide: 1 / radius`; curvature is inverse of radius
+3. **Add 4th circle** — use custom node group (Descartes' theorem): K4 = K1+K2+K3+2√(K1·K2+K2·K3+K1·K3)
+4. **Position via complex numbers** — custom node group encodes XY as complex number (real=X, imaginary=Y); multiply/sqrt operations per Descartes
+5. **Iterate with For-Each** (`Repeat Zone`) — loop to recurse into every new gap, `Join Geometry` to accumulate
+6. **Delete wrong points** — `Is Tangent` custom node group checks tangency; `Delete Geometry` removes non-tangent results
+7. **Merge duplicates** — `Realize Instances` → `Merge by Distance`; handle outer circle separately (two merge passes using `outer` named attribute)
+8. **Instance icospheres** — `Instance on Points`; filter by radius (`Compare < 1.9`) to skip outer circle
+9. **Scale subdivisions by radius** — `Math Multiply` radius → `Ico Sphere` subdivision input; smaller circles = lower poly
+10. **Render** — Cycles, GPU, light tree off, Very High Contrast look; `Store Named Attribute` (rand) → `Realize Instances` → `Attribute` node in shader → `Hue Saturation Value` for random color per blob
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Custom node groups from project file (required): Descartes curvature formula, complex number multiply, complex sqrt, Is Tangent checker
+- `Points` — create point cloud
+- `Store Named Attribute` — K (curvature), outer (boolean flag), rand (random float)
+- `Math` — Divide, Add, Multiply, Sqrt
+- `Compare` (Integer and Float) — conditional filtering
+- `Delete Geometry` — remove non-tangent/wrong points
+- `Join Geometry` — accumulate iteration results
+- `Repeat Zone` (Blender 4.1+) / For-Each — recursive iteration
+- `Realize Instances` — needed before Merge by Distance
+- `Merge by Distance` — deduplicate overlapping points
+- `Instance on Points` — place icospheres at circle positions
+- `Ico Sphere` — instanced geometry; subdivisions driven by radius
+- `Set Shade Smooth`
+- `Random Value` (Vector) — random Z position for debug visualization
+- Shader: `Attribute` node → `Hue Saturation Value` for per-instance random color
+- Render: Cycles, GPU compute, denoiser GPU, light tree OFF, Very High Contrast
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.0
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, mathematics, procedural, advanced, instancing
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[all-300-geometry-nodes-in-blender]] — reference for all GeoNodes used
+- [[fractals-in-blender---geometry-nodes-extrude-node]] — another fractal approach in GeoNodes
+- [[geode-nodes-i-am-so-clever-blender-tutorial]] — advanced procedural GeoNodes patterns

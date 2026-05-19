@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=4ULxB4PzbAc
 author: Graphical Ninja
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "3.x-4.x"
+tags: [simulation, rigid-body, particles, vfx, compositing, smoke, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/superhero-landing-tutorial-02-ground-destruction-vfx-in-blender/
 frame_count: 0
 ---
@@ -56,27 +56,46 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Superhero impact ground destruction VFX: manual geometry fracture → rigid body simulation with speed ramp for slow-mo → particle system for flying rock debris → smoke/fluid simulation for dust trails → Voronoi displacement on chunks → Blender compositor comp with grain.
 
 ### Summary
-[PENDING EXTRACTION]
+Part 2 of a superhero landing VFX series. Covers the complete ground-break VFX pipeline: fracturing road geometry manually in edit mode, RBD simulation with a force field for upward explosion + speed ramped to 0.25x for slow-motion, particle system (Hair/Emitter) instancing rock assets from a library, FLIP fluid smoke domain for dust, Voronoi displacement on chunks for rocky detail, and a Blender compositor comp replacing the ground plate with a disjoint-over blend mode and film grain.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Ground geometry** — add plane (road surface); separate center chunk (`P → Separate by Selection`); in edit mode cut chunk into sub-pieces with `Ctrl+R`; grab random faces and offset slightly for irregular fracture; extrude downward to give depth
+2. **Fracture addon** — search for Cell Fracture (built-in addon, enable in Preferences) to further shatter the pieces procedurally
+3. **Rigid body setup** — select all chunks → Object → Rigid Body → Add Active; set Steps per Frame=20, Sub Steps=20 in Scene Properties → Rigid Body World; cache Start=50, End=100
+4. **Force field** — Add → Force Field → Force; position below ground; increase strength to blow chunks upward and outward
+5. **Speed ramp** — frame 53: keyframe Speed=1.0; frame 56: keyframe Speed=0.25 — sim runs at quarter speed for slow-mo impact
+6. **Ground as passive** — select original ground mesh → Rigid Body → Passive; provides collision floor for chunks
+7. **Particle rocks** — select one chunk → Particle Settings → New; Name="dirt"; Count=2000, Start=50, End=200, Lifetime=50; Rotation ON, Angular Velocity=Random (5), Phase=1, Randomize Phase; Physics: Brownian=0.1, Damping=0.05, Force Fields=0, Gravity=0.05; Render → Collection (rocks asset collection); scale down
+8. **Smoke sim** — Add Cube → Physics → Fluid → Domain; Resolution=128, Time Scale=0.25 (slow-mo), CFL=10, Adaptive Time Steps=3, max 3; Adaptive Domain ON; Dissolve ON (25, Modular); Cache Start=50, End=100; Field Weights: All=0
+9. **Smoke emitters** — select each chunk → Physics → Fluid → Flow; Type=Inflow; Sampling Subsets=1; Flow Source: Surface Emission=0.2; Smoke Color=grey; Initial Velocity from object enabled
+10. **Chunk displacement** — select chunk → Modifiers → Displacement; New Voronoi Texture; Strength=0.25; Direction=X; copy and set Direction=Y; Add Subdivision Surface (Simple mode) above displacement for more detail
+11. **Compositor** — render ground break on separate render layer; in Compositor: swap with background plate using `Ctrl+Shift+drag`; `Shift+X` to switch layer order; Disjoint Over blend mode for clean edges; Add Grain node (RGB, reduce blue size, lower intensity in highlights via Luminance mask)
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Cell Fracture addon (Blender built-in, enable in Preferences)
+- Rigid Body World: Steps per Frame=20, Sub Steps=20
+- Speed keyframes: frame 53 → 1.0, frame 56 → 0.25 (Graph Editor: Linear interpolation)
+- Force Field: Strength needs tuning to match scale (~500–1000 range)
+- Particle: Hair type → switch to Emitter; Rotation ON essential for rock tumbling
+- Fluid Domain: Resolution 128 (preview), 256 (final); Time Scale 0.25; CFL=10
+- Displacement modifier: Voronoi texture, Strength 0.25, two instances (X and Y direction)
+- Compositor: Disjoint Over for VFX plate blend; Film Grain with highlight suppression via luminance Multiply node
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+3.x–4.x (workflow consistent across versions; Cell Fracture available since 2.x)
 
 ### Tags
-[PENDING EXTRACTION]
+simulation, rigid-body, particles, vfx, compositing, smoke, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[how-i-built-this-gate-animation-in-blender-scene-breakdown]] — destruction/dynamics breakdown
+- [[using-geometry-nodes-for-vfx-in-blender]] — VFX techniques in Blender
+- [[add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1]] — compositing VFX into live footage

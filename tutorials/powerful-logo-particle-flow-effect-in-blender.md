@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=TTGcr-45jCE
 author: Ducky 3D
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x"
+tags: [geometry-nodes, motion-design, text, shaders, particles, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/powerful-logo-particle-flow-effect-in-blender/
 frame_count: 0
 ---
@@ -32,27 +32,40 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Logo/text particle flow effect: convert text to points in Geometry Nodes, displace points with animated noise textures showing only some particles to preserve legibility, shade with matching noise for a flowing particle aesthetic.
 
 ### Summary
-[PENDING EXTRACTION]
+16-minute motion design tutorial from Ducky 3D's "Blender as Photoshop/After Effects" series. Converts a text object to scattered points using Geometry Nodes, applies two noise textures — one for XY displacement and one to mask which particles are visible — so the text remains partially readable while particles flow around it. Noise texture also drives the particle shading color.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Text setup** — Add Text object (`Shift+A → Text`); choose font; set text content in Edit Mode
+2. **Geometry Nodes** — Add GeoNodes modifier to text object; use `Distribute Points on Faces` (or `Distribute Points in Volume`) to scatter points across the text surface
+3. **Displace points** — `Set Position` node with `Noise Texture` plugged into Offset; tune Scale and Strength to get flowing displacement
+4. **Visibility mask** — second `Noise Texture` → `Color Ramp` → use result to drive `Delete Geometry` or `Set Point Radius` to 0; parts below threshold disappear, keeping some text readable
+5. **Instance geometry** — small `Ico Sphere` or cube instanced on the visible points for the particle look
+6. **Shader** — noise texture in shader (same or similar to GeoNodes noise) driving emission color; creates consistent color-flow matching the displacement
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Distribute Points on Faces` — scatter source, density controls particle count
+- `Set Position` + `Noise Texture` — displacement; Scale for texture size, Strength for displacement amount
+- Second `Noise Texture` → `Color Ramp` → masking/visibility control
+- `Delete Geometry` — removes points below noise threshold
+- `Instance on Points` with small mesh (icosphere/cube)
+- Shader: `Noise Texture` → `Color Ramp` → `Emission` for glowing particle color
+- Animate noise `W` value (4D noise offset) for flowing motion without moving particles
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.x
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, motion-design, text, shaders, particles, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[powerful-light-trails-in-blender-45-tutorial]] — same author (Ducky 3D), topographic loop series
+- [[sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial]] — noise-driven motion loop
+- [[blender-tutorial---eternals-gold-wireframe-animation]] — logo/text animation technique

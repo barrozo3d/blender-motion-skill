@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=KnYGp58REUk
 author: Ahad Animates
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x"
+tags: [simulation, cloth, animation, product-viz, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/realistic-cloth-physics-in-blender-full-tutorial/
 frame_count: 0
 ---
@@ -32,27 +32,38 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Product visualization scene combining cloth simulation, camera animation, and product animation — demonstrated using a bottle as the hero object, with cloth draped over or around it.
 
 ### Summary
-[PENDING EXTRACTION]
+21-minute tutorial (narrated in Hindi/Urdu with English Blender terminology) for product ad-style renders: animating a product object, setting up a cloth simulation as a secondary element, and camera animation to create a cinematic product shot. Instructor emphasizes the setup is transferable to any product; lighting and materials are left as an exercise for the viewer to adapt to their specific product.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Product setup** — import or create product mesh; rotate to 90° initially for cloth fall direction; set facing downward so cloth falls naturally
+2. **Reference plane** — add a plane, scale ~4x, use as ground/table surface for cloth to land on
+3. **Cloth simulation** — select cloth mesh → Physics Properties → Cloth; key settings: Quality Steps, Mass, Stiffness; add Collision modifier to product and ground objects
+4. **Cloth collision** — both the product and ground plane need `Collision` physics enabled for cloth to interact with them
+5. **Product animation** — keyframe product position/rotation for reveal motion (e.g. tilt, rise)
+6. **Camera animation** — keyframe camera position and focal length for cinematic push-in or orbit
+7. **Bake cloth** — Physics Properties → Cache → Bake All Dynamics before final render
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Physics Properties → Cloth: Quality Steps 10–15, Stiffness (structural/bending), Mass
+- Physics Properties → Collision: Distance 0.005, Friction
+- Modifier stack order matters: Subdivision Surface before Cloth for smooth cloth
+- Keyframe camera: location + rotation; use Graph Editor for smooth ease-in/out
+- Material: provided as pre-made from client project; simple Principled BSDF for cloth
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.x (unspecified)
 
 ### Tags
-[PENDING EXTRACTION]
+simulation, cloth, animation, product-viz, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[realistic-product-lighting-in-blender]] — product lighting to pair with this simulation
+- [[the-key-to-realism-in-blender-or-3d]] — realism principles applicable to product viz
