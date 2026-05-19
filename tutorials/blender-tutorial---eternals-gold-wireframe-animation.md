@@ -3,7 +3,7 @@ title: Blender Tutorial - Eternals Gold Wireframe Animation
 source: YouTube
 url: https://www.youtube.com/watch?v=WmldjCv9P84
 author: Blender Made Easy
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
