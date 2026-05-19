@@ -3,7 +3,7 @@ title: How To Make This Style in Blender 5.0
 source: YouTube
 url: https://www.youtube.com/watch?v=rbPOL9ibooY
 author: Ducky 3D
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
