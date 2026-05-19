@@ -3,7 +3,7 @@ title: Track Objects Using Align Rotation To Vector In Geometry Nodes – Blende
 source: YouTube
 url: https://www.youtube.com/watch?v=ZBZ26xQ9Pnk
 author: Photini By Design
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
