@@ -1363,6 +1363,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/using-geometry-nodes-for-vfx-in-blender.md
 
+
+### You Should Make Glass Animations in Blender 5.1
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=vemW4ceygRg
+- **Author:** Ducky 3D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/you-should-make-glass-animations-in-blender-51.md
+
 ---
 
 ## Tag Reference
