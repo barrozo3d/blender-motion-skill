@@ -3,7 +3,7 @@ title: The Key to Realism in Blender (or 3D)
 source: YouTube
 url: https://www.youtube.com/watch?v=0OVEJVbklV0
 author: Kaizen
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
