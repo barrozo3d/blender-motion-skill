@@ -3,7 +3,7 @@ title: The COMPLETE BLENDER 3D Animation COURSE (5+ HOURS) #blender #b3d #animat
 source: YouTube
 url: https://www.youtube.com/watch?v=IgpUXXg2Vbs
 author: JB 3D Studio
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
