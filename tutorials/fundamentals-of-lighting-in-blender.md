@@ -3,7 +3,7 @@ title: Fundamentals of Lighting in Blender
 source: YouTube
 url: https://www.youtube.com/watch?v=ENnEYoUpFfU
 author: Blender Guru
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending

@@ -1543,6 +1543,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/all-300-geometry-nodes-in-blender.md
 
+
+### Fundamentals of Lighting in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=ENnEYoUpFfU
+- **Author:** Blender Guru
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/fundamentals-of-lighting-in-blender.md
+
 ---
 
 ## Tag Reference
