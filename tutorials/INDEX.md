@@ -1503,6 +1503,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/3-easy-lighting-setups-blender-tutorial.md
 
+
+### 3D Smoke (Blender Geometry Nodes)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=Vqe4jBf3wx4
+- **Author:** Seanterelle
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/3d-smoke-blender-geometry-nodes.md
+
 ---
 
 ## Tag Reference

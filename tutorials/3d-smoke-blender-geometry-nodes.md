@@ -3,7 +3,7 @@ title: 3D Smoke (Blender Geometry Nodes)
 source: YouTube
 url: https://www.youtube.com/watch?v=Vqe4jBf3wx4
 author: Seanterelle
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
