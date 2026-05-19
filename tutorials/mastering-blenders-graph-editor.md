@@ -3,10 +3,10 @@ title: Mastering Blender's Graph Editor
 source: YouTube
 url: https://www.youtube.com/watch?v=MS1z9diLUOI
 author: elijah sheffield
-ingested: 2026-05-18
-blender_version: "Not specified"
-tags: ["animation", "rigging", "camera", "beginner", "intermediate"]
-extraction_status: complete
+ingested: 2026-05-19
+blender_version: "[PENDING]"
+tags: []
+extraction_status: pending
 frames_dir: tutorials/frames/mastering-blenders-graph-editor/
 frame_count: 0
 ---
@@ -48,46 +48,27 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-Demystifies Blender's Graph Editor for animation by teaching F-curves, interpolation modes (Linear vs Bezier), Bezier handle types, Animation Modifiers (Cycles, Noise, Envelope), and frame-by-frame animation workflow — demonstrated by animating a pan flip and a segmented fish character with secondary motion.
+[PENDING EXTRACTION]
 
 ### Summary
-Elijah Sheffield takes the fear out of the Graph Editor with a structured three-chapter approach. Chapter 1 covers the absolute basics: what F-curves are, how to read the X (time) and Y (value) axes, and how keyframes create curves between them. Chapter 2 explores interpolation modes (T to change type: Linear for mechanical motion, Bezier for organic ease in/out) and handle types (Auto, Free, Aligned, Vector). A practical pan flip animation shows how three keyframes plus Graph Editor refinement can express anticipation, weight, and easing better than timeline-only editing. Chapter 3 introduces Animation Modifiers (non-destructive filters on F-curves): Cycles for perfect loops, Noise for jitter/shake, and Envelope for amplitude control. Final chapter demonstrates frame-by-frame animation on a rigged fish in Pose Mode.
+[PENDING EXTRACTION]
 
 ### Key Steps
-1. Open the **Graph Editor** (switch any viewport → Graph Editor, or use the Animation workspace)
-2. Select an animated object → its F-curves appear as colored lines (X=red, Y=green, Z=blue)
-3. Zoom to fit with **Home** key or **Numpad .** to center selected curves
-4. Select keyframe handles → press **T** to open the Interpolation menu → choose **Bezier** (smooth) or **Linear** (sharp/mechanical)
-5. With Bezier handles selected: **V** to open Handle Type menu → Auto (default), Free (independent), Aligned (tangent-linked), Vector (sharp corner)
-6. For a pan flip animation: set 3 keyframes (start, anticipate, finish) then in Graph Editor ease the curves for organic weight
-7. Add **Animation Modifier**: select a keyframe → press **N** (side panel) → **Modifiers tab** → Add Modifier → choose:
-   - **Cycles**: loops the animation beyond keyframe range (Before/After: Repeat)
-   - **Noise**: adds procedural jitter to the curve (Scale, Strength, Offset)
-   - **Envelope**: scales the curve's amplitude with a control band
-8. For frame-by-frame: switch to **Pose Mode** → set timeline to Step (Constant interpolation, T → Constant) → keyframe each bone position per frame manually
+[PENDING EXTRACTION]
 
 ### Nodes / Settings
-- F-curve interpolation — T menu: Bezier (default organic), Linear (mechanical), Constant (step/frame-by-frame)
-- Handle Types — V menu: Auto (smooth tangents), Free (independent handles), Vector (sharp corners)
-- Animation Modifier: Cycles — Before/After: Repeat or Repeat with Offset for seamless loops
-- Animation Modifier: Noise — Scale (frequency): 3–10; Strength (amplitude): 0.1–2.0; Phase (seed offset)
-- Animation Modifier: Envelope — sets min/max amplitude band around existing curve
-- Auto Keying — toggle in timeline header; records keyframes automatically when moving objects in viewport
-- Pose Mode — for rigged character animation; Ctrl+L to select all bones, I to insert keyframe
+[PENDING EXTRACTION]
 
 ### Difficulty
-Beginner
+[PENDING EXTRACTION]
 
 ### Blender Version
-Not specified
+[PENDING EXTRACTION]
 
 ### Tags
-#animation #rigging #camera #beginner #intermediate
+[PENDING EXTRACTION]
 
 ---
 
 ## Related Tutorials
-- [How I Built This Gate Animation in Blender | Scene Breakdown](./how-i-built-this-gate-animation-in-blender-scene-breakdown.md)
-- [The COMPLETE BLENDER 3D Animation COURSE (5+ HOURS)](./the-complete-blender-3d-animation-course-5-hours-blender-b3d.md)
-- [Your Guide to Mechanical Rigging in Blender (Robot Arm Tutorial)](./your-guide-to-mechanical-rigging-in-blender-robot-arm-tutori.md)
-- [Blender 5.1's NEW Rigging Tool is INSANE!](./blender-51s-new-rigging-tool-is-insane.md)
+[PENDING EXTRACTION]

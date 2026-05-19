@@ -1243,6 +1243,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/ill-teach-you-geometry-nodes.md
 
+
+### Mastering Blender's Graph Editor
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=MS1z9diLUOI
+- **Author:** elijah sheffield
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/mastering-blenders-graph-editor.md
+
 ---
 
 ## Tag Reference
