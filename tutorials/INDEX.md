@@ -1293,6 +1293,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/powerful-logo-particle-flow-effect-in-blender.md
 
+
+### Realistic Cloth Physics in Blender – Full Tutorial
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=KnYGp58REUk
+- **Author:** Ahad Animates
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/realistic-cloth-physics-in-blender-full-tutorial.md
+
 ---
 
 ## Tag Reference
