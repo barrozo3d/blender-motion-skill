@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=bHWvVtuLJkM
 author: CrossMind Studio
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "3.1"
+tags: [geometry-nodes, procedural, fractal, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/fractals-in-blender---geometry-nodes-extrude-node/
 frame_count: 0
 ---
@@ -32,27 +32,40 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Fractal-like recursive geometry using Blender 3.1's new `Extrude Mesh` and `Scale Elements` GeoNodes: extrude faces, scale them down, repeat iteratively to create branching fractal structures directly in Geometry Nodes without any scripting.
 
 ### Summary
-[PENDING EXTRACTION]
+8-minute quick tutorial from CrossMind Studio introducing the new Extrude Mesh and Scale Elements nodes added in Blender 3.1. Creates a fractal-like branching structure by repeatedly extruding and scaling faces in a Repeat Zone (or manual chain before Repeat Zones existed). Simple to understand, but produces visually complex results — great entry point for procedural fractals in GeoNodes.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Setup** — default cube; add Geometry Nodes modifier, click New network
+2. **Extrude Mesh** — Add → Mesh → `Extrude Mesh`; connect Group Input → Extrude Mesh → Group Output; Mode: Faces; all faces extrude in their normal direction
+3. **Scale Elements** — Add → Mesh → `Scale Elements`; connect after Extrude Mesh; Mode: Faces; Scale value < 1 (e.g. 0.8) shrinks extruded faces for fractal taper
+4. **Chain for iteration** — duplicate the Extrude+Scale pair, connect outputs to inputs of next pair; each iteration adds another fractal level
+5. **Vary offset** — reduce Extrude Offset (use Math node: Multiply by 0.5 per iteration) so branches get shorter each generation
+6. **Randomize** — add Random Value to Extrude Offset input for organic irregular branching
+7. **Repeat Zone (Blender 4.0+)** — use Repeat Input/Output nodes to replace manual chains; set iterations = fractal depth
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Extrude Mesh` — Mode: Faces; Offset Factor controls extrude distance
+- `Scale Elements` — Mode: Faces; Scale < 1 for tapering (0.5–0.8 typical)
+- Chain: Extrude → Scale → Extrude → Scale … (manual in 3.1; Repeat Zone in 4.0+)
+- `Math: Multiply` — reduce offset per iteration for realistic fractal proportion
+- `Random Value` — add variation to offset/scale for organic look
+- Introduced in Blender **3.1** — these are the first appearance of Extrude Mesh in GeoNodes
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+3.1 (nodes introduced in this version; Repeat Zone available from 4.0+)
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural, fractal, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[math-x-blender-50-unlimited-power]] — another fractal approach (Apollonian Gasket) with complex math
+- [[all-300-geometry-nodes-in-blender]] — reference for Extrude Mesh and Scale Elements nodes
+- [[geode-nodes-i-am-so-clever-blender-tutorial]] — advanced GeoNodes procedural structures

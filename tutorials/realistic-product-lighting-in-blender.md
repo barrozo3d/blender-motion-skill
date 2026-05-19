@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=WreZ_VKDn4M
 author: Extra 3d
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x"
+tags: [lighting, product-viz, rendering, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/realistic-product-lighting-in-blender/
 frame_count: 0
 ---
@@ -68,27 +68,43 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Three-point product lighting using Area Lights: a strong backlight for sharp specular highlights, a sharp small-spread sidelight for shadow definition, and a large soft sidelight for fill — with emissive gradient planes replacing Area Lights for glass/transparent products; Light Linking to prevent lights from washing out ground reflections.
 
 ### Summary
-[PENDING EXTRACTION]
+8-minute concise product lighting guide by Extra 3d. Demonstrates the setup on a keyboard (opaque product) and a perfume bottle (glass product). For opaque objects: standard three Area Lights with spread control. For glass: Area Lights create harsh ugly reflections, so emissive planes with gradient textures are used instead (hidden from camera). Light Linking controls which objects each light affects. Mentions custom reflection image textures for more interesting area light reflections.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Camera + product setup** — position camera and rotate product slightly for dynamic angle before touching lights
+2. **Backlight (highlights)** — Add Area Light, move to back of product; increase Intensity (not too much); this creates the strong specular edge highlights
+3. **3D cursor to product center** — Shift+S → Cursor to Active (or Shift+RMB); change Transform Pivot to 3D Cursor; enables rotating lights around product easily
+4. **Sharp sidelight (shadow)** — duplicate backlight, R twice to rotate around product (uses 3D Cursor pivot); place at side; decrease Spread value for sharper, more defined shadow
+5. **Soft sidelight (fill)** — duplicate again, place on opposite side; increase Spread for soft even illumination
+6. **Custom Area Light reflections** — open Shader Editor on Area Light; Use Nodes; add Image Texture with a custom reflection card image (subtle gradient/bokeh); helps reflections look more cinematic
+7. **Glass lighting (emissive planes)** — instead of Area Lights: Add Plane behind product; Shader Editor: delete Principled, add Emission node; set Strength; hide from camera (Object Properties → Visibility → Camera OFF)
+8. **Glass gradient** — Emission plane with Gradient Texture + Mapping; creates soft gradient reflection that reads beautifully in glass
+9. **Light Linking** — select light → Light Properties → Light Linking → New → drag only the product objects; prevents lights from ruining ground reflections (available in Blender 4.0+)
+10. **Compositor** — add cinematic compositor setup (vignette, color grading) for final look
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Area Light: Spread value controls softness/sharpness; lower Spread = sharper shadows
+- Emissive plane (glass): Emission Strength 5–30; Gradient Texture + Texture Coordinate + Mapping
+- Object Visibility → Camera: OFF to hide emission plane from render while keeping its light contribution
+- Light Linking (Blender 4.0+): Object Data → Light Linking; drag target objects
+- Custom reflection image: Image Texture on Area Light material (soft bokeh card or gradient image)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.x (Light Linking requires 4.0+)
 
 ### Tags
-[PENDING EXTRACTION]
+lighting, product-viz, rendering, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[the-key-to-realism-in-blender-or-3d]] — realism principles underpinning this lighting approach
+- [[photorealistic-renders-in-blender]] — photorealistic rendering pairing with this lighting
+- [[fundamentals-of-lighting-in-blender]] — foundational lighting theory
+- [[3-easy-lighting-setups-blender-tutorial]] — alternative quick lighting setups

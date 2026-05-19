@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=J_mweAPcO4M
 author: Extra 3d
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x"
+tags: [rendering, realism, lighting, materials, cycles, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/photorealistic-renders-in-blender/
 frame_count: 0
 ---
@@ -32,27 +32,44 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Comprehensive photorealism workflow: reference collection → geometry (3D scan or Poliigon assets) → physically accurate PBR materials → contextual natural lighting → camera settings matched to real-world reference → Cycles render with denoiser.
 
 ### Summary
-[PENDING EXTRACTION]
+12-minute practical guide to photorealistic Blender rendering from Extra 3d. Compiles techniques from extensive research and artist interviews. Covers every layer of realism: starting with reference, then geometry quality (shortcut: 3D scanned assets), material accuracy (PBR textures with micro-detail), lighting that feels like a real environment (context-driven HDRI), and camera settings that mimic a real lens (focal length, DoF, grain). Applies everything to a demo scene with free assets provided at the end.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Reference collection** — Google your subject in parts (overall composition, materials, lighting); pin references; understand how real light behaves on the subject's surface type
+2. **Geometry** — either model with fine surface detail or shortcut with 3D scanned assets (Poliigon, CGTrader scans, Kiri Engine); micro-imperfections are critical for realism
+3. **PBR materials** — use Principled BSDF with real-world textures: Base Color (albedo), Roughness map, Normal map (surface micro-detail), Subsurface for organic materials; avoid pure flat colors
+4. **Displacement** — add Displacement modifier or material displacement for macro surface variation; stones, wood, concrete all need this
+5. **Lighting context** — determine: what is this object in real life? Where is it? → choose matching HDRI; complement with one fill light if needed; avoid multiple artificial-looking colored lights
+6. **Environment** — add matching ground/surface; even a blurred out-of-focus background adds realism; shadow catcher or actual geometry
+7. **Camera** — Focal Length: 50mm (neutral), 85mm (portrait compression), 24mm (wide); Depth of Field: enable, set F-stop 2.8–8.0 based on shot type; focus on subject
+8. **Grain** — Compositor: add Noise → Film Grain feel; or Render Properties → Film → Grain (small amount 0.1–0.3)
+9. **Chromatic aberration** — Compositor → Lens Distortion node → Dispersion for RGB fringing
+10. **Render** — Cycles, GPU; Samples 512–1024; Denoiser (Intel OpenImageDenoise or NVidia OptiX); Color Management: Filmic, Medium-High Contrast
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Principled BSDF: Base Color (albedo map), Metallic (map or value), Roughness (map), Normal (Normal Map node), Subsurface/Transmission for organics/glass
+- Displacement: Adaptive Subdivision (Cycles only) + Displacement modifier for large-scale; Material → Displacement and Bump
+- HDRI: Environment Texture on World Shader; Strength 0.5–2.0
+- Camera DoF: Object Data → Depth of Field → F-stop; focus distance on subject
+- Compositor: Lens Distortion (Dispersion), Vignette (Ellipse Mask + Blur + Alpha Over), Film Grain
+- Cycles: GPU Compute; Samples 512+; Denoiser; Filter Size 1.5; Color Management: Filmic, Medium-High Contrast
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.x
 
 ### Tags
-[PENDING EXTRACTION]
+rendering, realism, lighting, materials, cycles, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[the-key-to-realism-in-blender-or-3d]] — similar topic, focuses on triforce of realism (subject/lighting/camera)
+- [[realistic-product-lighting-in-blender]] — product-specific lighting for photorealism
+- [[fundamentals-of-lighting-in-blender]] — lighting fundamentals referenced throughout
+- [[photorealistic-eevee-renders-in-blender-51]] — achieving same results in EEVEE

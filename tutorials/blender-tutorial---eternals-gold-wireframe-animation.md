@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=WmldjCv9P84
 author: Blender Made Easy
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "3.x-4.x"
+tags: [animation, curves, materials, shaders, motion-design, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/
 frame_count: 0
 ---
@@ -60,27 +60,44 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Curve-based wireframe build animation: import SVG logo as curve, set bevel depth for wire thickness, animate the Curve End value from 0→1 for the draw-on effect, use a Taper Object (Bezier curve with shape keys) for the leading taper, and a gold metallic + noise-based emission material for the glowing energy trail.
 
 ### Summary
-[PENDING EXTRACTION]
+14-minute tutorial recreating the Eternals weapon materialization effect using Blender's curve system. Imports the Blender SVG logo, converts it to a single curve with bevel depth, animates the End mapping value for the draw-on effect, adds a custom Bezier taper curve that disappears at the end using shape keys, and finishes with a gold PBR material blended with a noise-driven emission shader for the glowing energy trail. Works with any curve/SVG.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Import SVG** — File → Import → SVG; box select all and scale up; delete unwanted parts; select both curve objects → Ctrl+J (join)
+2. **Fix scale** — Curve Properties → Geometry → Depth to add thickness; Apply Scale (Ctrl+A) first or Mean Radius will multiply incorrectly; in Edit Mode select all, N-panel → set Mean Radius = 1
+3. **Curve bevel depth** — Geometry tab → Bevel → Depth ~0.01 (after scale fix)
+4. **Animate End value** — Curve Properties → Shape → End: keyframe at 0 on frame 1, keyframe at 1 on frame 200; this reveals the curve progressively
+5. **Fix direction** — Edit Mode, select inner/outer loops → right-click → Switch Direction; so both animate inward/outward correctly
+6. **Taper object** — Shift+A → Curve → Bezier; go into Edit Mode, flatten all vertices to the baseline; assign as Taper Object in original curve's Geometry settings; adjust taper vertex height for desired shape; enable Map Taper
+7. **Animate taper removal** — on taper curve: Object Data → Shape Keys → Add Basis, Add Key; at frame 150: Shape Key Value=0 (taper visible); at frame 200: Shape Key Value=1 and all vertices straightened (taper disappears)
+8. **Gold material** — Principled BSDF: Metallic=1, Roughness=0.1, gold Base Color; Mix Shader with Emission; Noise Texture (Node Wrangler Ctrl+T) mapped to UV; use noise to reveal where emission appears (the "energy point")
+9. **Animate emission** — animate the Noise Texture Location to slide the bright spot along the curve as it animates
+10. **Render** — Cycles; enable Bloom (Render Properties); dark plane background; sample count 256+; Filter Size ~1.8
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Curve → Shape → Start/End: animation from 0 to 1
+- Curve → Geometry → Bevel Depth; Taper Object field
+- Curve → Shape Keys: Basis + Key 1 (straightened)
+- Principled BSDF: Metallic=1.0, Roughness=0.1, Base Color gold (~H30°, S80%, V90%)
+- Mix Shader: BSDF + Emission; Emission Color = bright gold/white; Emission Strength animated
+- Noise Texture → UV mapping; Color Ramp for sharp emission spot
+- Render Properties → Bloom ON; Filter Size 1.8; Samples 256
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+3.x–4.x (SVG import and curve features consistent across these versions)
 
 ### Tags
-[PENDING EXTRACTION]
+animation, curves, materials, shaders, motion-design, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[powerful-logo-particle-flow-effect-in-blender]] — another logo/text effect in Blender
+- [[a-new-way-to-loop-animations-in-blender]] — curve animation looping technique
+- [[powerful-light-trails-in-blender-45-tutorial]] — curve-based light trail animation
