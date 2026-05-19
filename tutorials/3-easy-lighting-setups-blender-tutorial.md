@@ -3,7 +3,7 @@ title: 3 Easy Lighting Setups | Blender Tutorial
 source: YouTube
 url: https://www.youtube.com/watch?v=FYJb10NIMH8
 author: Max Hay
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
