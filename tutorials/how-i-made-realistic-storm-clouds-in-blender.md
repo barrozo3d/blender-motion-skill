@@ -3,7 +3,7 @@ title: How I Made Realistic Storm Clouds in Blender!
 source: YouTube
 url: https://www.youtube.com/watch?v=Kep7URnyXgU
 author: c g s l a v
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
