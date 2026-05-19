@@ -1473,6 +1473,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/photorealistic-eevee-renders-in-blender-51.md
 
+
+### Realistic Product Lighting In Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=WreZ_VKDn4M
+- **Author:** Extra 3d
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/realistic-product-lighting-in-blender.md
+
 ---
 
 ## Tag Reference
