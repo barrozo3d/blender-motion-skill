@@ -3,7 +3,7 @@ title: Tutorial: How to make a volumetric projector in Blender 4.5
 source: YouTube
 url: https://www.youtube.com/watch?v=F8pqNeVam54
 author: Polyfjord
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
