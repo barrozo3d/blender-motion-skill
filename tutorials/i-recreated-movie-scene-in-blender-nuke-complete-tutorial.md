@@ -3,7 +3,7 @@ title: I Recreated movie scene in Blender & Nuke | Complete  Tutorial
 source: YouTube
 url: https://www.youtube.com/watch?v=iW6WF8guDMY
 author: MISSING PIXEL VFX
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
