@@ -1373,6 +1373,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/you-should-make-glass-animations-in-blender-51.md
 
+
+### You Should Try this Blender Color Hack
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=U5y1Krd-ykk
+- **Author:** Ducky 3D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/you-should-try-this-blender-color-hack.md
+
 ---
 
 ## Tag Reference

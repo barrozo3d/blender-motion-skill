@@ -3,7 +3,7 @@ title: You Should Try this Blender Color Hack
 source: YouTube
 url: https://www.youtube.com/watch?v=U5y1Krd-ykk
 author: Ducky 3D
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
