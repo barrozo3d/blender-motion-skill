@@ -668,9 +668,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=WreZ_VKDn4M
 - **Author:** Extra 3d
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/realistic-product-lighting-in-blender.md
 
 
@@ -678,9 +678,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=FYJb10NIMH8
 - **Author:** Max Hay
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/3-easy-lighting-setups-blender-tutorial.md
 
 
@@ -688,9 +688,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=Vqe4jBf3wx4
 - **Author:** Seanterelle
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/3d-smoke-blender-geometry-nodes.md
 
 
@@ -698,9 +698,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=_7N7emOvDko
 - **Author:** SharpWind
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/a-full-blender-compositor-course.md
 
 
@@ -708,9 +708,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=9Fvw8HlWHpo
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/a-new-way-to-loop-animations-in-blender.md
 
 
@@ -718,9 +718,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=Y0zAZnbBcQU
 - **Author:** RADIUM
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/all-300-geometry-nodes-in-blender.md
 
 
@@ -728,9 +728,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=ENnEYoUpFfU
 - **Author:** Blender Guru
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/fundamentals-of-lighting-in-blender.md
 
 
@@ -738,9 +738,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=1hKAkCP-tFQ
 - **Author:** CGMatter
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/geode-nodes-i-am-so-clever-blender-tutorial.md
 
 
@@ -748,9 +748,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=XOLuYDLYEgI
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/glass-cell-division-effect-in-blender-50-tutorial.md
 
 
@@ -758,9 +758,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=KhBaHDvIamw
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/how-apple-makes-3d-wallpapers-blender-tutorial.md
 
 
@@ -768,9 +768,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=upUPrc35DYw
 - **Author:** Max Hay
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/how-i-built-this-gate-animation-in-blender-scene-breakdown.md
 
 
@@ -778,9 +778,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=Kep7URnyXgU
 - **Author:** c g s l a v
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/how-i-made-realistic-storm-clouds-in-blender.md
 
 
@@ -788,9 +788,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=QJhiYYf6qJI
 - **Author:** vfx world
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi.md
 
 
@@ -798,9 +798,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=SybPYdsd_DI
 - **Author:** Max Hay
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/how-to-make-cyberpunk-scenes-in-blender.md
 
 
@@ -808,9 +808,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=rbPOL9ibooY
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/how-to-make-this-style-in-blender-50.md
 
 
@@ -818,9 +818,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=iW6WF8guDMY
 - **Author:** MISSING PIXEL VFX
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/i-recreated-movie-scene-in-blender-nuke-complete-tutorial.md
 
 
@@ -828,9 +828,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=JU70u6cJZqI
 - **Author:** Default Cube
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/ill-teach-you-geometry-nodes.md
 
 
@@ -838,9 +838,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=MS1z9diLUOI
 - **Author:** elijah sheffield
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/mastering-blenders-graph-editor.md
 
 
@@ -848,9 +848,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=EvWAcSA86fw
 - **Author:** MTR Animation
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/math-x-blender-50-unlimited-power.md
 
 
@@ -858,9 +858,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=2MKKuHcni1U
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/organic-liquid-metal-effect-in-blender-50-tutorial.md
 
 
@@ -868,9 +868,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=965bgIUHoxA
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/powerful-light-trails-in-blender-45-tutorial.md
 
 
@@ -878,9 +878,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=TTGcr-45jCE
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/powerful-logo-particle-flow-effect-in-blender.md
 
 
@@ -888,9 +888,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=KnYGp58REUk
 - **Author:** Ahad Animates
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/realistic-cloth-physics-in-blender-full-tutorial.md
 
 
@@ -898,9 +898,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=erICwexR7Iw
 - **Author:** Bad Normals
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/remake-this-in-blender-in-20-mins.md
 
 
@@ -908,9 +908,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=IzSRBH8CDTo
 - **Author:** Ryan King Art
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial.md
 
 
@@ -918,9 +918,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=4ULxB4PzbAc
 - **Author:** Graphical Ninja
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/superhero-landing-tutorial-02-ground-destruction-vfx-in-blender.md
 
 
@@ -928,9 +928,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=IgpUXXg2Vbs
 - **Author:** JB 3D Studio
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/the-complete-blender-3d-animation-course-5-hours-blender-b3d-animation.md
 
 
@@ -938,9 +938,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=ZBZ26xQ9Pnk
 - **Author:** Photini By Design
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/track-objects-using-align-rotation-to-vector-in-geometry-nodes-blender-tutorial.md
 
 
@@ -948,9 +948,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=PgRax5MeZgY
 - **Author:** Jacob Zirkle
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/using-geometry-nodes-for-vfx-in-blender.md
 
 
@@ -958,9 +958,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=vemW4ceygRg
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/you-should-make-glass-animations-in-blender-51.md
 
 
@@ -968,9 +968,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=U5y1Krd-ykk
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/you-should-try-this-blender-color-hack.md
 
 
@@ -978,9 +978,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=SCz1tmOVmFw
 - **Author:** DemNikoArt
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial.md
 
 
@@ -988,9 +988,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=0OVEJVbklV0
 - **Author:** Kaizen
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/the-key-to-realism-in-blender-or-3d.md
 
 
@@ -998,9 +998,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=F8pqNeVam54
 - **Author:** Polyfjord
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/tutorial-how-to-make-a-volumetric-projector-in-blender-45.md
 
 
@@ -1008,9 +1008,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=aJF2sAjRsy0
 - **Author:** InLightVFX
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1.md
 
 
@@ -1018,9 +1018,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=LssHxDCM7H4
 - **Author:** InLightVFX
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2.md
 
 
@@ -1028,9 +1028,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=WmldjCv9P84
 - **Author:** Blender Made Easy
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/blender-tutorial---eternals-gold-wireframe-animation.md
 
 
@@ -1038,9 +1038,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=J_mweAPcO4M
 - **Author:** Extra 3d
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/photorealistic-renders-in-blender.md
 
 
@@ -1048,9 +1048,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=bHWvVtuLJkM
 - **Author:** CrossMind Studio
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/fractals-in-blender---geometry-nodes-extrude-node.md
 
 
@@ -1058,9 +1058,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=AoGPxjgqVYE
 - **Author:** Extra 3d
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/photorealistic-eevee-renders-in-blender-51.md
 
 
@@ -1068,9 +1068,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=WreZ_VKDn4M
 - **Author:** Extra 3d
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/realistic-product-lighting-in-blender.md
 
 
@@ -1078,9 +1078,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=WreZ_VKDn4M
 - **Author:** Extra 3d
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/realistic-product-lighting-in-blender.md
 
 
@@ -1088,9 +1088,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=FYJb10NIMH8
 - **Author:** Max Hay
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/3-easy-lighting-setups-blender-tutorial.md
 
 
@@ -1098,9 +1098,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=Vqe4jBf3wx4
 - **Author:** Seanterelle
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/3d-smoke-blender-geometry-nodes.md
 
 
@@ -1108,9 +1108,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=_7N7emOvDko
 - **Author:** SharpWind
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/a-full-blender-compositor-course.md
 
 
@@ -1118,9 +1118,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=9Fvw8HlWHpo
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/a-new-way-to-loop-animations-in-blender.md
 
 
@@ -1128,9 +1128,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=Y0zAZnbBcQU
 - **Author:** RADIUM
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/all-300-geometry-nodes-in-blender.md
 
 
@@ -1138,9 +1138,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=ENnEYoUpFfU
 - **Author:** Blender Guru
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/fundamentals-of-lighting-in-blender.md
 
 
@@ -1148,9 +1148,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=1hKAkCP-tFQ
 - **Author:** CGMatter
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/geode-nodes-i-am-so-clever-blender-tutorial.md
 
 
@@ -1158,9 +1158,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=XOLuYDLYEgI
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/glass-cell-division-effect-in-blender-50-tutorial.md
 
 
@@ -1168,9 +1168,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=KhBaHDvIamw
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/how-apple-makes-3d-wallpapers-blender-tutorial.md
 
 
@@ -1178,9 +1178,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=upUPrc35DYw
 - **Author:** Max Hay
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/how-i-built-this-gate-animation-in-blender-scene-breakdown.md
 
 
@@ -1188,9 +1188,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=Kep7URnyXgU
 - **Author:** c g s l a v
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/how-i-made-realistic-storm-clouds-in-blender.md
 
 
@@ -1198,9 +1198,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=QJhiYYf6qJI
 - **Author:** vfx world
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi.md
 
 
@@ -1208,9 +1208,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=SybPYdsd_DI
 - **Author:** Max Hay
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/how-to-make-cyberpunk-scenes-in-blender.md
 
 
@@ -1218,9 +1218,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=rbPOL9ibooY
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/how-to-make-this-style-in-blender-50.md
 
 
@@ -1228,9 +1228,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=iW6WF8guDMY
 - **Author:** MISSING PIXEL VFX
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/i-recreated-movie-scene-in-blender-nuke-complete-tutorial.md
 
 
@@ -1238,9 +1238,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=JU70u6cJZqI
 - **Author:** Default Cube
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/ill-teach-you-geometry-nodes.md
 
 
@@ -1248,9 +1248,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=MS1z9diLUOI
 - **Author:** elijah sheffield
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/mastering-blenders-graph-editor.md
 
 
@@ -1258,9 +1258,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=EvWAcSA86fw
 - **Author:** MTR Animation
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/math-x-blender-50-unlimited-power.md
 
 
@@ -1268,9 +1268,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=2MKKuHcni1U
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/organic-liquid-metal-effect-in-blender-50-tutorial.md
 
 
@@ -1278,9 +1278,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=965bgIUHoxA
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/powerful-light-trails-in-blender-45-tutorial.md
 
 
@@ -1288,9 +1288,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=TTGcr-45jCE
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/powerful-logo-particle-flow-effect-in-blender.md
 
 
@@ -1298,9 +1298,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=KnYGp58REUk
 - **Author:** Ahad Animates
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/realistic-cloth-physics-in-blender-full-tutorial.md
 
 
@@ -1308,9 +1308,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=erICwexR7Iw
 - **Author:** Bad Normals
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/remake-this-in-blender-in-20-mins.md
 
 
@@ -1318,9 +1318,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=IzSRBH8CDTo
 - **Author:** Ryan King Art
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial.md
 
 
@@ -1328,9 +1328,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=4ULxB4PzbAc
 - **Author:** Graphical Ninja
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/superhero-landing-tutorial-02-ground-destruction-vfx-in-blender.md
 
 
@@ -1338,9 +1338,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=IgpUXXg2Vbs
 - **Author:** JB 3D Studio
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/the-complete-blender-3d-animation-course-5-hours-blender-b3d-animation.md
 
 
@@ -1348,9 +1348,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=ZBZ26xQ9Pnk
 - **Author:** Photini By Design
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/track-objects-using-align-rotation-to-vector-in-geometry-nodes-blender-tutorial.md
 
 
@@ -1358,9 +1358,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=PgRax5MeZgY
 - **Author:** Jacob Zirkle
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/using-geometry-nodes-for-vfx-in-blender.md
 
 
@@ -1368,9 +1368,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=vemW4ceygRg
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/you-should-make-glass-animations-in-blender-51.md
 
 
@@ -1378,9 +1378,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=U5y1Krd-ykk
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/you-should-try-this-blender-color-hack.md
 
 
@@ -1388,9 +1388,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=SCz1tmOVmFw
 - **Author:** DemNikoArt
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial.md
 
 
@@ -1398,9 +1398,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=0OVEJVbklV0
 - **Author:** Kaizen
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/the-key-to-realism-in-blender-or-3d.md
 
 
@@ -1408,9 +1408,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=F8pqNeVam54
 - **Author:** Polyfjord
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/tutorial-how-to-make-a-volumetric-projector-in-blender-45.md
 
 
@@ -1418,9 +1418,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=aJF2sAjRsy0
 - **Author:** InLightVFX
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1.md
 
 
@@ -1428,9 +1428,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=LssHxDCM7H4
 - **Author:** InLightVFX
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2.md
 
 
@@ -1438,9 +1438,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=WmldjCv9P84
 - **Author:** Blender Made Easy
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/blender-tutorial---eternals-gold-wireframe-animation.md
 
 
@@ -1448,9 +1448,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=J_mweAPcO4M
 - **Author:** Extra 3d
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/photorealistic-renders-in-blender.md
 
 
@@ -1458,9 +1458,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=bHWvVtuLJkM
 - **Author:** CrossMind Studio
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/fractals-in-blender---geometry-nodes-extrude-node.md
 
 
@@ -1468,9 +1468,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=AoGPxjgqVYE
 - **Author:** Extra 3d
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/photorealistic-eevee-renders-in-blender-51.md
 
 
@@ -1478,9 +1478,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=WreZ_VKDn4M
 - **Author:** Extra 3d
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/realistic-product-lighting-in-blender.md
 
 
@@ -1488,9 +1488,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=WreZ_VKDn4M
 - **Author:** Extra 3d
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/realistic-product-lighting-in-blender.md
 
 
@@ -1498,9 +1498,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=FYJb10NIMH8
 - **Author:** Max Hay
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, rendering, cycles
+- **Summary:** 24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render...
 - **File:** tutorials/3-easy-lighting-setups-blender-tutorial.md
 
 
@@ -1508,9 +1508,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=Vqe4jBf3wx4
 - **Author:** Seanterelle
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.0
+- **Tags:** geometry-nodes, simulation, volumes, advanced
+- **Summary:** 34-minute advanced tutorial implementing a real Eulerian fluid simulation from scratch inside GeoNodes. Uses Blender 5.0's Volume Grid nodes with a Simulation Zone to build a smoke simulator: domain initialization, density emitter (Suzanne head), velocity field setup, pressure projection for incompressible flow, and density advection...
 - **File:** tutorials/3d-smoke-blender-geometry-nodes.md
 
 
@@ -1518,9 +1518,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=_7N7emOvDko
 - **Author:** SharpWind
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.5
+- **Tags:** compositing, rendering, intermediate
+- **Summary:** 42-minute full compositor course by SharpWind. Starts with compositor fundamentals (Use Nodes, Render Layers node, Composite/Viewer outputs), covers practical effects (Glare — Bloom, Streaks, Fog Glow), color correction nodes, Mist/Z-depth passes, Render Layers for separating scene elements, and culminates in a professional multi-pass composite usi...
 - **File:** tutorials/a-full-blender-compositor-course.md
 
 
@@ -1528,9 +1528,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=9Fvw8HlWHpo
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** animation, motion-design, beginner
+- **Summary:** 11-minute focused tip from Ducky 3D solving the guessing-game problem of making Mesh Line–based looping animations perfectly seamless. The insight: if a Mesh Line drives animation via offset/position values, you only need the top value + bottom value to equal the total range — no trial and error...
 - **File:** tutorials/a-new-way-to-loop-animations-in-blender.md
 
 
@@ -1538,9 +1538,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=Y0zAZnbBcQU
 - **Author:** RADIUM
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.3
+- **Tags:** geometry-nodes, reference, beginner
+- **Summary:** 84-minute comprehensive reference by RADIUM covering every single Geometry Nodes node available in Blender 4.3. Organized by category: Input/Output (constants, scene data, geometry data), Geometry (operations), Curve, Instances, Mesh, Point, Volume, UV, Utilities (math, string, color, etc.), Group, and Layout...
 - **File:** tutorials/all-300-geometry-nodes-in-blender.md
 
 
@@ -1548,9 +1548,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=ENnEYoUpFfU
 - **Author:** Blender Guru
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, beginner, cycles, rendering
+- **Summary:** 43-minute Blender Guru lighting fundamentals course (free excerpt from his Beginners Academy). Covers the four pillars of lighting through practical application: (1) Positioning — where to place lights relative to camera for drama; (2) Falloff — inverse square law means doubling the distance quarters the intensity, a powerful storytelling tool; (3)...
 - **File:** tutorials/fundamentals-of-lighting-in-blender.md
 
 
@@ -1558,9 +1558,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=1hKAkCP-tFQ
 - **Author:** CGMatter
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** geometry-nodes, procedural, materials, shaders, intermediate
+- **Summary:** 24-minute improvised GeoNodes tutorial by CGMatter (Default Cube), inspired by an Amethyst souvenir. Builds a geode from scratch: organic rock exterior via icosphere + noise deformation, a boolean cut to create the opening, crystal growth on interior faces using iterative extrude+scale nodes, and a glassy/translucent procedural material...
 - **File:** tutorials/geode-nodes-i-am-so-clever-blender-tutorial.md
 
 
@@ -1568,9 +1568,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=XOLuYDLYEgI
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.0
+- **Tags:** geometry-nodes, sdf, animation, glass, materials, intermediate
+- **Summary:** 15-minute tutorial recreating the organic blob merging/splitting behaviour of Metaballs but using Blender 5.0's Volume SDF pipeline for higher quality and render control. Spheres are animated along paths; the SDF Grid Boolean blends them organically where they overlap...
 - **File:** tutorials/glass-cell-division-effect-in-blender-50-tutorial.md
 
 
@@ -1578,9 +1578,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=KhBaHDvIamw
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** materials, glass, shaders, motion-design, animation, intermediate
+- **Summary:** 15-minute recreation of the original MacBook Air wallpaper by Ducky 3D, with input from an Apple team member on the exact highlight technique. Key insight: the long horizontal highlights are achieved with an Anisotropic BSDF (or Principled BSDF Anisotropy parameter) combined with rotated tangent — not simple glass...
 - **File:** tutorials/how-apple-makes-3d-wallpapers-blender-tutorial.md
 
 
@@ -1588,9 +1588,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=upUPrc35DYw
 - **Author:** Max Hay
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** animation, mechanical, modeling, intermediate
+- **Summary:** 22-minute scene breakdown by Max Hay revealing that an impressive gate/portal animation is simpler than it looks: the core mechanic is just keyframed rotation/translation on each gate element, with the animation staggered across elements by a frame offset. Max walks through his blockout workflow (simple cubes first, then add details), covers how to...
 - **File:** tutorials/how-i-built-this-gate-animation-in-blender-scene-breakdown.md
 
 
@@ -1598,9 +1598,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=Kep7URnyXgU
 - **Author:** c g s l a v
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** clouds, volumes, geometry-nodes, lighting, intermediate
+- **Summary:** 21-minute tutorial covering a progression from simple to advanced sky creation. Starts with two quick methods (sky image on plane, HDRI), then builds proper volumetric clouds in GeoNodes: sphere base → mesh to volume → scatter points inside → points back to volume → convert to mesh for detail...
 - **File:** tutorials/how-i-made-realistic-storm-clouds-in-blender.md
 
 
@@ -1608,9 +1608,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=QJhiYYf6qJI
 - **Author:** vfx world
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** landscape, environment, animation, beginner
+- **Summary:** 24-minute beginner landscape tutorial (narrated primarily in Hindi/Urdu). Uses the built-in A.N.T...
 - **File:** tutorials/how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi.md
 
 
@@ -1618,9 +1618,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=SybPYdsd_DI
 - **Author:** Max Hay
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** lighting, materials, modeling, environment, intermediate
+- **Summary:** 59-minute intermediate guide by Max Hay building a full cyberpunk street scene from scratch. Covers every element: wet concrete floor using Polyhaven textures with procedural puddle reflection nodes, modular building construction with architectural details, glowing neon signs using emission + bloom, atmospheric fog via volume scatter, and the full ...
 - **File:** tutorials/how-to-make-cyberpunk-scenes-in-blender.md
 
 
@@ -1628,9 +1628,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=rbPOL9ibooY
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.0
+- **Tags:** animation, curves, motion-design, shaders, compositing, intermediate
+- **Summary:** 18-minute motion graphics tutorial by Ducky 3D creating an animated stacked ribbon/curve effect. The key technique is using a Wave Texture (not for noise but for smooth periodic movement) on the curves' Y/Z position, with each curve having a randomised offset so the wave travels differently through each one — producing an organic flowing animation...
 - **File:** tutorials/how-to-make-this-style-in-blender-50.md
 
 
@@ -1638,9 +1638,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=iW6WF8guDMY
 - **Author:** MISSING PIXEL VFX
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** vfx, compositing, rendering, intermediate
+- **Summary:** 44-minute complete VFX pipeline tutorial by MISSING PIXEL VFX. Downloads free Sketchfab assets (King Kong character, helicopter model), imports into Blender, sets up camera, lighting and materials for the CG elements, renders multi-pass EXR, then takes everything into Nuke for compositing with a background plate...
 - **File:** tutorials/i-recreated-movie-scene-in-blender-nuke-complete-tutorial.md
 
 ---
