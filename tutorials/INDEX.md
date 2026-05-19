@@ -1303,6 +1303,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/realistic-cloth-physics-in-blender-full-tutorial.md
 
+
+### Remake this in Blender in 20 mins
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=erICwexR7Iw
+- **Author:** Bad Normals
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/remake-this-in-blender-in-20-mins.md
+
 ---
 
 ## Tag Reference
