@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=F8pqNeVam54
 author: Polyfjord
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.5"
+tags: [lighting, shader, volumetric, animation, cycles, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/tutorial-how-to-make-a-volumetric-projector-in-blender-45/
 frame_count: 0
 ---
@@ -76,27 +76,45 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Volumetric projector effect in Blender 4.5: set the entire world shader to Volume Scatter, add a Spotlight with an animated video texture (Image Texture node on the light's material via Use Nodes), and the video plays through the volumetric fog as coloured god rays. Works with any video file.
 
 ### Summary
-[PENDING EXTRACTION]
+11-minute focused technique tutorial by Polyfjord. Uses Cycles' Volume Scatter on the world shader to create global fog, then drives a Spotlight with an animated video texture so the projected video colours travel through the volumetric fog. Covers aspect ratio correction via the Mapping node, color space correction (sRGB → ACEScg base sRGB), auto-refresh for video animation, and extending the technique to light a full scene (marble bust with SSS). Also previews a custom web app for generating custom video textures.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Render engine** — Cycles; GPU compute (Edit → Preferences → System → Cycles Render Devices)
+2. **World Volume Scatter** — Shader Editor → change dropdown to World; delete Background node; Shift+A → Volume Scatter; connect to Volume socket of World Output; set Density ~0.1 (start low)
+3. **Add Spotlight** — Shift+A → Light → Spot; move up on Z; increase Power (right-click → Adjust Last Operation); cone visible only in volumetric fog
+4. **Enable light shader** — select Spotlight → Shader Editor → click "Use Nodes"; now has an Emission shader for color control
+5. **Add video texture** — enable Node Wrangler (Preferences → Add-ons); select Emission node → Ctrl+T (auto-adds Texture Coordinate + Mapping + Image Texture); Image Texture → Open → select video file (.mp4/.mov)
+6. **Animate video** — select Image Texture node → N-panel → Node tab → click Refresh icon (updates frame count); enable Auto Refresh → video plays with timeline
+7. **Color space fix** — Image Texture node: change Color Space from sRGB to **ACES Base sRGB** → colors become vibrant and accurate
+8. **Aspect ratio** — Mapping node → Scale X = 2 (makes texture wider); Image Texture → Extension: Clip (removes repetition); Mapping → Location X = -0.5 (centers texture in spotlight cone)
+9. **Aspect ratio from spotlight shape** — Spotlight shape is circular by default; use Mapping node Scale Y to match video aspect ratio (16:9 → Scale Y = 0.5625 relative to X)
+10. **Denoise** — set Render Properties → Denoise → Threshold lower for cleaner volumetric render
+11. **Scene lighting** — the video texture LIGHTS the scene through the fog — objects in path are lit by video colors; add SSS material to organic objects for soft light absorption
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- World Shader: `Volume Scatter` → Volume output; Density start at 0.1, adjust for fog thickness
+- Spotlight: Use Nodes = ON; Emission node color driven by Image Texture
+- Image Texture: video file; Color Space = **ACES Base sRGB** (not sRGB); Extension = Clip
+- Mapping node: Scale (aspect ratio), Location X = -0.5 (center), Scale for zoom
+- Texture Coordinate: Object (on the light object itself)
+- N-panel → Node: Refresh + Auto Refresh = ON for video animation
+- Cycles: GPU compute; Render Samples 256+; Denoiser (NLM or OIDN); Noise Threshold 0.01
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.5
 
 ### Tags
-[PENDING EXTRACTION]
+lighting, shader, volumetric, animation, cycles, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[fundamentals-of-lighting-in-blender]] — lighting fundamentals that complement this technique
+- [[3-easy-lighting-setups-blender-tutorial]] — simpler lighting setups to pair with volumetric
+- [[realistic-product-lighting-in-blender]] — product lighting that could use this volumetric projector effect

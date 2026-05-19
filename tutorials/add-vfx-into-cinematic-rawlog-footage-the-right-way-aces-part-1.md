@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=aJF2sAjRsy0
 author: InLightVFX
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x"
+tags: [vfx, compositing, color-grading, aces, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/
 frame_count: 0
 ---
@@ -52,27 +52,37 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+ACES color management theory (Part 1 of 2): understanding color gamut, linear vs. non-linear gamma, display-referred vs. scene-referred footage, and why ACES solves the problem of mixing 3D renders with RAW/LOG camera footage.
 
 ### Summary
-[PENDING EXTRACTION]
+10-minute conceptual deep-dive — no Blender hands-on, pure theory with a downloadable reference poster. Explains why RAW/LOG footage looks flat (designed for color grading, not direct display), why linear gamma is essential for VFX compositing math to work, and how ACES unifies all color spaces into one linear working space so 3D renders and footage blend seamlessly. Part 2 covers the actual DaVinci Resolve + Blender workflow.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Color Gamut** — the triangle on the CIE 1931 diagram; different color spaces (sRGB, P3, Rec.2020, ACES 2065-1) have different triangles; larger triangle = more colors captured
+2. **Display-referred footage** (phone, basic DSLR) — camera applies non-linear transfer function to fit image into display gamut; smaller file, but bakes in the color grade
+3. **Scene-referred footage** (RAW, LOG) — preserves more light information; RAW stores exact linear scene data; LOG compresses it with a log curve but retains recoverable HDR information
+4. **Linear gamma** — y=x relationship: 0.25+0.25=0.5; 3D renders use linear light because it mirrors real physics; critical for additive compositing (multi-pass renders, light mixing)
+5. **Human eye non-linearity** — eyes are more sensitive to dark changes than bright; display gamma compensates to look "normal"; this is why RAW/LOG looks flat on a monitor
+6. **ACES 2065-1** — linear color space large enough to contain all other color spaces; both RAW and LOG can be converted into ACES via Input Device Transforms (IDTs); once in ACES, everything composites correctly; Output Device Transform (ODT) converts for final display
+7. **Why it matters for VFX** — 3D renders are already linear; footage in ACES is also linear; adding them together in compositor = physically correct light addition; no color cast or gamma mismatch
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- No Blender nodes in Part 1 — pure theory
+- Key concepts: Color Gamut, Gamma Transfer Function, Linear Light, Display-referred, Scene-referred, RAW, LOG, ACES 2065-1, IDT (Input Device Transform), ODT (Output Device Transform)
+- See Part 2 for DaVinci Resolve → Blender → Compositor workflow
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.x (concept applies to all versions)
 
 ### Tags
-[PENDING EXTRACTION]
+vfx, compositing, color-grading, aces, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2]] — Part 2: hands-on DaVinci Resolve + Blender ACES workflow
+- [[i-recreated-movie-scene-in-blender-nuke-complete-tutorial]] — professional VFX pipeline including color management
+- [[superhero-landing-tutorial-02-ground-destruction-vfx-in-blender]] — VFX compositing that benefits from ACES

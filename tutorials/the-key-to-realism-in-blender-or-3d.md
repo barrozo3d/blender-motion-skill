@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=0OVEJVbklV0
 author: Kaizen
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x"
+tags: [rendering, lighting, camera, realism, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/the-key-to-realism-in-blender-or-3d/
 frame_count: 0
 ---
@@ -48,27 +48,40 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+The "Triforce of 3D Realism": Subject (geometry/texture quality, 3D scanning shortcut), Lighting (natural context-driven light with reference), and Camera (matched focal length, depth of field, grain/lens distortion from real camera reference) — all three must combine for a result that fools viewers.
 
 ### Summary
-[PENDING EXTRACTION]
+14-minute conceptual tutorial breaking down the three pillars of photorealistic 3D rendering. Uses Rion Zomoradi's animation (removed from r/blender as "fake footage") as the gold standard example. Main shortcut revealed: 3D scanning (via Kiri app) for subject realism instead of manual modeling. Argues lighting and camera settings must be driven by the specific real-world scenario being recreated, not by Blender defaults. Concise, theory-heavy with practical takeaways.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Subject** — hardest element without shortcut; use 3D scanning (Kiri app or similar) to capture real-world surface detail, geometry, and textures in minutes; avoids years of practice needed for convincing manual modeling
+2. **Reference photo workflow** — photograph the real object, scan it, recreate lighting from the photo, compare side-by-side in Blender; use reference as constant guide
+3. **Lighting context** — before placing lights, answer: what is the scene setting? What is off-camera creating this light? Sunny day / overcast / night room? → This drives every lighting decision
+4. **Natural light** — use HDRI that matches the context; complement with one or two bounce lights (not many direct sources); study reference photos for shadow direction and quality
+5. **Camera matching** — determine: phone snap? DSLR studio shot? Old film? → look up that camera's focal length, sensor noise characteristics, lens distortion
+6. **Camera settings** — Focal Length (35mm for standard, 85mm for portrait); Depth of Field (F-stop, focus distance); Film Grain (Compositor → Film Grain node or Blender's Film → Grain); Lens Distortion (Compositor)
+7. **Compositing additions** — lens vignette, chromatic aberration, bloom — all from real camera behavior; add in compositor to break CGI perfection
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- HDRI: world shader → Environment Texture → matched to scene context
+- Camera: Focal Length 35–85mm; DoF: F-stop 1.4–5.6, Focus Distance on subject
+- Compositor additions: Film Grain (Noise node or dedicated grain), Lens Distortion node, Vignette (Ellipse Mask → Blur → Alpha Over)
+- Kiri app (iOS/Android): photogrammetry 3D scanning from phone
+- Subsurface Scattering: key for skin/organic materials to feel real
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.x (concept applies universally)
 
 ### Tags
-[PENDING EXTRACTION]
+rendering, lighting, camera, realism, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[fundamentals-of-lighting-in-blender]] — deep dive into lighting for realism
+- [[realistic-product-lighting-in-blender]] — practical application of these realism principles
+- [[photorealistic-renders-in-blender]] — complete photorealistic pipeline
+- [[photorealistic-eevee-renders-in-blender-51]] — achieving realism in EEVEE

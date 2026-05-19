@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=SCz1tmOVmFw
 author: DemNikoArt
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x"
+tags: [rigging, animation, mechanical, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial/
 frame_count: 0
 ---
@@ -76,27 +76,42 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Mechanical IK rigging for a robot arm: one controller bone drives the entire chain via Inverse Kinematics constraint with per-bone axis locking and stiffness tuning; pistons use Stretch-to constraints to always point at each other; a single Open/Close bone drives claw rotation via the Transformation constraint.
 
 ### Summary
-[PENDING EXTRACTION]
+34-minute mechanical rigging tutorial by DemNikoArt (part of "Can I Rig It?" series). Builds a fully functional robot arm rig controlled by a single IK handle, with locked axes on each bone so rotation is physically plausible, stiffness to distribute rotation naturally across the chain, piston bones using Stretch-to, a rolling head gizmo, and a claw that opens/closes from one controller using the Transformation constraint. Warns about the 180° flip limitation of IK and offers the pole bone as a workaround.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Armature placement** — Shift+S → Cursor to Selected on geometry pivot; Shift+A → Single Bone; check Armature → In Front to see through geometry
+2. **Build IK chain** — in Edit Mode extrude bones (E) along the arm joints; name each bone (F2)
+3. **Add IK target** — in Pose Mode: select IK target bone first, Shift-select final chain bone, Shift+I → "To Selected Bone" → IK constraint added; set Chain Length
+4. **Lock axes per bone** — Bone Properties → Inverse Kinematics tab → lock X and Z (keep Y for rotation); visualize with axis display
+5. **Set stiffness** — Bone Properties → IK → Stiffness per locked axis (0.5 = medium friction); distributes rotation more evenly across chain
+6. **Pole bone** — add a pole target bone lateral to the chain; set in IK constraint Pole Target field with Pole Angle offset; fixes 180° flip issue
+7. **Pistons** — add two bones per piston pair; parent each to its respective arm section; add Stretch-to constraint: target = the opposing piston bone → pistons always slide into each other regardless of arm pose
+8. **Bone Widget gizmos** — install free Bone Widget addon; select bone → choose gizmo shape (circle for IK handle, roll for rotating parts) → Create
+9. **Clamp controller** — add one Open/Close bone at claw center; add Transformation constraint to each finger bone: target = armature, bone = Open/Close; map rotation range on Open/Close bone to rotation range on finger bone
+10. **Cables (Patreon extended)** — dynamic cables use Spline IK or hook-based approach (not covered in free version)
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- IK Constraint: Chain Length = number of bones in arm; Pole Target + Pole Angle for flip prevention
+- Bone Properties → Inverse Kinematics: Lock X, Lock Z (leave Y open); Stiffness 0.3–0.7
+- Stretch-to Constraint: Volume = None (for rigid mechanical look); Rest Length = current distance
+- Transformation Constraint: Space = Local; map Source rotation min/max → Dest rotation min/max for clamp open/close
+- Bone Widget (free addon): gizmo shapes for visual rigging clarity
+- Armature Display: In Front = ON during rigging; off for final render
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.x
 
 ### Tags
-[PENDING EXTRACTION]
+rigging, animation, mechanical, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[the-complete-blender-3d-animation-course-5-hours-blender-b3d-animation]] — robot rigging covered in Module 6
+- [[a-new-way-to-loop-animations-in-blender]] — looping the arm animation once rigged
