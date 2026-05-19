@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=_7N7emOvDko
 author: SharpWind
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.5"
+tags: [compositing, rendering, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/a-full-blender-compositor-course/
 frame_count: 0
 ---
@@ -52,27 +52,42 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Comprehensive Blender Compositor course: node fundamentals, Glare, color correction, Render Layers for scene separation, Render Passes for multi-pass compositing (diffuse/glossy/transmission/volume/emission separate), and a full professional multi-pass composite setup.
 
 ### Summary
-[PENDING EXTRACTION]
+42-minute full compositor course by SharpWind. Starts with compositor fundamentals (Use Nodes, Render Layers node, Composite/Viewer outputs), covers practical effects (Glare — Bloom, Streaks, Fog Glow), color correction nodes, Mist/Z-depth passes, Render Layers for separating scene elements, and culminates in a professional multi-pass composite using light passes (diffuse direct/indirect/color, glossy, transmission, volume, emission) for full control over every light contribution. Blender 4.5 Glare node has 3 outputs.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Setup** — open Compositor tab; tick Use Nodes; Render Layers node (source) + Composite node (destination) + Viewer node (preview)
+2. **Basic Glare** — Shift+A → Glare node between Render Layers and Composite; Type: Bloom (Fog Glow / Streaks also available); Threshold = brightness cutoff; Smoothness; 3 outputs in B4.5: full image, glare only, highlights only
+3. **Color Correction** — Hue Saturation Value, Bright/Contrast, Color Balance (lift/gamma/gain or slope/offset/power), Curves node
+4. **Z-depth / Mist** — enable Mist pass in View Layer Properties; use in Compositor with Map Range + Mix nodes for depth of field or fog gradient
+5. **Render Layers** — create multiple View Layers (top-right icon in 3D viewport); assign collections to be Visible or Indirect Only per layer; render all layers in one render; in Compositor: multiple Render Layers nodes, one per layer; composite together with Alpha Over
+6. **Render Passes** — View Layer Properties → Passes: enable Diffuse Direct, Diffuse Indirect, Diffuse Color, Glossy Direct, Glossy Indirect, Glossy Color, Transmission Direct, Transmission Indirect, Volume Direct, Volume Indirect, Emission; each becomes a socket on the Render Layers node
+7. **Multi-pass composite** — in Compositor: take Diffuse Direct + Diffuse Indirect → Add → Multiply by Diffuse Color → diffuse beauty; repeat for Glossy, Transmission; Add all beauty passes + Emission + Volume → final image; now adjust each light type independently
+8. **Denoiser pass** — enable in View Layer → Denoising Data; plug into Denoise node in compositor; allows fewer render samples with denoising applied per pass
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Glare: Type Bloom (also Streaks, Fog Glow, Ghost); Quality High; Threshold 1.0; B4.5: 3 outputs
+- Mist Pass: enable in View Layer → Passes → Data; pair with Map Range for fog effect
+- Render Layers node: Image output = combined; additional sockets per enabled pass
+- Multi-pass formula: `(DiffDirect + DiffIndirect) × DiffColor = diffuse beauty`
+- Alpha Over: blends render layers with correct alpha; Z-Combine for depth-sorted layers
+- Denoise node: Image input + Denoising Albedo + Denoising Normal → denoised output
+- Blender 4.5: Glare node updated with new output sockets
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.5
 
 ### Tags
-[PENDING EXTRACTION]
+compositing, rendering, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2]] — multi-pass compositing in ACES workflow
+- [[photorealistic-renders-in-blender]] — photorealism pipeline that ends in compositor finishing
+- [[i-recreated-movie-scene-in-blender-nuke-complete-tutorial]] — professional VFX compositing pipeline

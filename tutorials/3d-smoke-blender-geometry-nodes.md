@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=Vqe4jBf3wx4
 author: Seanterelle
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.0"
+tags: [geometry-nodes, simulation, volumes, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/3d-smoke-blender-geometry-nodes/
 frame_count: 0
 ---
@@ -32,27 +32,43 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+3D fluid smoke simulation entirely in Geometry Nodes using Blender 5.0's Volume Grid nodes and Simulation Zone: a voxel-grid domain (subdivided cube) stores velocity, divergence, pressure, and density fields; each simulation step advects the smoke density by the velocity field and enforces incompressibility; the density field is rendered as a volume.
 
 ### Summary
-[PENDING EXTRACTION]
+34-minute advanced tutorial implementing a real Eulerian fluid simulation from scratch inside GeoNodes. Uses Blender 5.0's Volume Grid nodes with a Simulation Zone to build a smoke simulator: domain initialization, density emitter (Suzanne head), velocity field setup, pressure projection for incompressible flow, and density advection. The simulation is entirely procedural — no Blender physics engine involved. Advanced content requiring understanding of fluid dynamics concepts.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Domain setup** — create a cube, subdivide it (many voxels); add GeoNodes modifier; this becomes the simulation domain grid of voxel cells
+2. **Volume Grid nodes (Blender 5.0+)** — store fields: velocity (vector), divergence (scalar), pressure (scalar), density/smoke (scalar); each is a `Store Named Attribute` on the voxel grid
+3. **Simulation Zone** — use `Simulation Input` / `Simulation Output` nodes; each frame processes the previous frame's state
+4. **Emitter** — Suzanne head with its own GeoNodes; use `Volume to Mesh` or point-based injection to write density values into the domain grid where the emitter overlaps
+5. **Velocity initialization** — add upward bias to velocity field near emitter; add buoyancy (temperature × up_vector) to make smoke rise
+6. **Advection** — sample each voxel's velocity, offset position backward by that velocity × dt, sample the density at that upstream position → new density value (semi-Lagrangian advection)
+7. **Pressure projection (incompressibility)** — compute divergence of velocity field; solve pressure (iterative Jacobi iterations inside GeoNodes repeat zone); subtract pressure gradient from velocity → divergence-free velocity
+8. **Density dissipation** — multiply density by 0.99 each frame for natural fade-out
+9. **Rendering** — use Volume Render material on domain cube; Principled Volume shader with Density input from the smoke attribute; Cycles volume rendering
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Volume Grid` nodes (Blender 5.0) — store/load per-voxel data as named attributes
+- `Simulation Input` / `Simulation Output` — wraps the per-frame simulation logic
+- `Sample Volume` / `Store Named Attribute` — read/write voxel fields
+- `Vector Math` — velocity field operations (add, subtract, multiply, normalize)
+- `Repeat Zone` — multiple Jacobi pressure solve iterations
+- Principled Volume shader: Density (linked to smoke grid attribute), Scatter Color, Emission
+- Blender 5.0 required for Volume Grid nodes
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.0
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, simulation, volumes, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[all-300-geometry-nodes-in-blender]] — reference for Volume Grid and Simulation Zone nodes
+- [[organic-liquid-metal-effect-in-blender-50-tutorial]] — another Blender 5.0 volume/SDF technique
+- [[using-geometry-nodes-for-vfx-in-blender]] — VFX applications of GeoNodes

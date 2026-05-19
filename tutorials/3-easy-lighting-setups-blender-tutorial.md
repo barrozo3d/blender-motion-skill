@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=FYJb10NIMH8
 author: Max Hay
 ingested: 2026-05-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x"
+tags: [lighting, beginner, rendering, cycles]
+extraction_status: complete
 frames_dir: tutorials/frames/3-easy-lighting-setups-blender-tutorial/
 frame_count: 0
 ---
@@ -32,27 +32,49 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Three reusable professional lighting setups: (1) dramatic spotlight scene with atmospheric volume scatter cube, (2) outdoor natural sunlight with HDRI, (3) dark futuristic scene using emissive surfaces as both subject and light source.
 
 ### Summary
-[PENDING EXTRACTION]
+24-minute walkthrough of three distinct lighting setups the instructor uses in real production work. Setup 1 (spotlight/dramatic): a volume scatter cube provides atmospheric fog that makes spotlights visible as god rays; spotlights at different angles create high-contrast dramatic render. Setup 2 (outdoor): single Sun Light matched to HDRI rotation for consistent natural shadows. Setup 3 (futuristic/emissive): dark scenes rely on glowing geometry as light sources; HDRI at very low strength; area lights add subtle fill. All setups work in Cycles.
 
 ### Key Steps
-[PENDING EXTRACTION]
+**Setup 1 — Dramatic Spotlight:**
+1. Add a cube scaled to encompass entire scene → add Volume Scatter material → Density 0.005–0.02, Anisotropy 0.3–0.5 → Object Properties → Viewport Display: Bounds (hides cube in viewport)
+2. Add Spot Lights; position at angles relative to subject; Spot Size controls cone width; Blend controls soft edge
+3. Layer multiple spotlights for depth; one strong key, one fill, one rim/back
+4. High contrast scene: dark world shader, low ambient light
+
+**Setup 2 — Outdoor Sunlight:**
+1. Render Properties → World → HDRI (Environment Texture)
+2. Add Sun Light; rotate to match HDRI sun direction (critical: shadows must align with HDRI shadow)
+3. Adjust Sun Strength to balance with HDRI; Angle parameter for soft/hard shadows
+4. HDRI handles sky + bounce light; Sun handles sharp directional shadows
+
+**Setup 3 — Futuristic/Emissive:**
+1. HDRI at very low strength (0.05–0.2) for dark ambient
+2. Emissive geometry as light sources: add Emission material to architectural elements, neon strips, glowing panels
+3. Area Lights as supplemental fill; keep low strength to preserve emissive look
+4. Bloom (Compositor) essential for making emission look believable
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Volume Scatter: Density 0.005–0.02, Anisotropy 0.3–0.5; display as Bounds for viewport performance
+- Spot Light: Energy 500–5000W; Spot Size 30–60°; Blend 0.1–0.3; Shadow Soft Size 0.1
+- Sun Light: Strength 3–8; Angle 0.526° (realistic) or higher for softer shadows
+- World HDRI: Strength 0.5–2.0; use same HDRI for outdoor setup
+- Emission material: Strength 5–50 depending on desired intensity and Bloom threshold
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.x
 
 ### Tags
-[PENDING EXTRACTION]
+lighting, beginner, rendering, cycles
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[fundamentals-of-lighting-in-blender]] — deeper lighting theory
+- [[realistic-product-lighting-in-blender]] — product-specific lighting
+- [[tutorial-how-to-make-a-volumetric-projector-in-blender-45]] — spotlight + volume scatter extended to projector effect
