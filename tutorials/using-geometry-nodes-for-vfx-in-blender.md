@@ -3,7 +3,7 @@ title: Using Geometry Nodes for VFX in Blender
 source: YouTube
 url: https://www.youtube.com/watch?v=PgRax5MeZgY
 author: Jacob Zirkle
-ingested: 2026-05-18
+ingested: 2026-05-19
 blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
