@@ -1283,6 +1283,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/powerful-light-trails-in-blender-45-tutorial.md
 
+
+### Powerful Logo Particle Flow Effect in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=TTGcr-45jCE
+- **Author:** Ducky 3D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/powerful-logo-particle-flow-effect-in-blender.md
+
 ---
 
 ## Tag Reference
