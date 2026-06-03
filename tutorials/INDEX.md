@@ -1643,6 +1643,16 @@ Each entry format:
 - **Summary:** 44-minute complete VFX pipeline tutorial by MISSING PIXEL VFX. Downloads free Sketchfab assets (King Kong character, helicopter model), imports into Blender, sets up camera, lighting and materials for the CG elements, renders multi-pass EXR, then takes everything into Nuke for compositing with a background plate...
 - **File:** tutorials/i-recreated-movie-scene-in-blender-nuke-complete-tutorial.md
 
+
+### Replacing Adobe After Effects with Blender (tutorial)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=ZK92Uuhiesg
+- **Author:** Ducky 3D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/replacing-adobe-after-effects-with-blender-tutorial.md
+
 ---
 
 ## Tag Reference
