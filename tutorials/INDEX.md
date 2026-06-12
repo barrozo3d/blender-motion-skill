@@ -693,6 +693,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/real-time-caustics-in-blender-51.md
 
+
+### Replacing Adobe After Effects with Blender (tutorial)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=ZK92Uuhiesg
+- **Author:** Ducky 3D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/replacing-adobe-after-effects-with-blender-tutorial.md
+
 ---
 
 ## Tag Reference
