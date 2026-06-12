@@ -703,6 +703,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/replacing-adobe-after-effects-with-blender-tutorial.md
 
+
+### Remove Noise from Volumetrics in Blender 5.0+
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=wWv0E94XE4M
+- **Author:** Extra 3d
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/remove-noise-from-volumetrics-in-blender-50.md
+
 ---
 
 ## Tag Reference
