@@ -673,6 +673,16 @@ Each entry format:
 - **Summary:** Creates a looping animated texture on a flat canvas plane using Shader Editor nodes: Voronoi Texture twisted into circular patterns by a Wave Texture (Rings), plus three stacked radial masks (outer edge, inner core, lighting variation). All motion driven by keyframed node values — no geometry animation. Part of Ducky 3D's "Blender as After Effects" series.
 - **File:** tutorials/replacing-adobe-after-effects-with-blender-tutorial.md
 
+
+### A Powerful Lighting Node in Blender 5.0
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=BoCCxy9ec0g
+- **Author:** Ducky 3D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/a-powerful-lighting-node-in-blender-50.md
+
 ---
 
 ## Tag Reference
