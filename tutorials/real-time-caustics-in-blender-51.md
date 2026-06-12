@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=wOyk5V7PyfA
 author: Extra 3d
 ingested: 2026-06-12
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.1"
+tags: [shaders, caustics, glass, cycles, voronoi, transparent-shader, light-path, procedural-textures, extra-3d, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/real-time-caustics-in-blender-51/
 frame_count: 0
 ---
@@ -52,27 +52,90 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+**Fake real-time caustics via shadow manipulation** — instead of expensive light simulation, control the shadow cast by a glass object using a Transparent shader + Light Path node, then shape that shadow with Voronoi textures to look like caustic light patterns. Cycles only. Two variants: animated water caustics (Voronoi 4D + Smooth F1) and complex geometric caustics with Gradient/Noise distortion.
 
 ### Summary
-[PENDING EXTRACTION]
+11-minute tutorial by Extra 3d on creating fast, good-looking caustics in Blender 5.1 (Cycles). Key insight: real caustics are expensive because they require actual light path bending; this method fakes it by replacing the shadow ray with a procedurally-textured transparent shader. The shadow becomes controllable — animate a value node to make it flow. The Voronoi 4D Smooth F1 trick (subtract two Voronoi textures with different smoothness values) is the core of the water caustic look.
 
 ### Key Steps
-[PENDING EXTRACTION]
+
+**Requirements:**
+- Cycles render engine (not EEVEE — shadow ray trick is Cycles-only)
+- GPU Compute enabled in Preferences → System
+
+**Base Shader Setup (Glass + Shadow Override):**
+1. Create glass object → Material → Shader Editor
+2. Add **Principled BSDF** → set **Transmission** to 1.0 (or use Glass BSDF)
+3. Add **Mix Shader** after the glass shader
+4. Add **Transparent Shader**
+5. Add **Light Path** node → connect **Is Shadow Ray** into Mix Shader **Factor**
+6. Transparent Shader into **second slot** of Mix Shader
+7. Result: shadow ray passes through Transparent shader (not the glass) — controllable shadow color
+
+**Water Caustics (Chapter 3):**
+1. Add **Voronoi Texture**:
+   - Dimensions: **4D**
+   - Feature: **Smooth F1**
+   - Smoothness: **0.4**
+   - Randomness: **0.9**
+2. Duplicate it → set second Voronoi Smoothness to **0.2**
+3. Add **Mix Color** node → Mode: **Difference**, Factor: **1**
+4. Connect both Voronoi textures → Difference node (subtracting similar = edges/veins appear)
+5. Add **Texture Coordinate** → set to **Object**
+6. Add **Value** node for unified scale control on both
+7. Add **Multiply Math** node → connect Value → Voronoi **W** input (animates caustics)
+8. Add two **Color Ramps** to soften and brighten
+9. Connect result into **Transparent Shader color** → shadow becomes caustic pattern
+
+**Animation:** Keyframe the Value node connected to W (controls time position in 4D texture)
+
+**Final Complex Caustics (Chapter 4) — built on top of base shader:**
+1. Add **Mapping** node
+2. Add **Normalize** node (duplicate it → set duplicate to Add, values 0.5)
+3. Mapping node Z scale: **-1**, XY scale: **0.8**, Z: **1.4**
+4. Add **Mix Color** → Mode: **Screen**, Factor: **0.7**
+5. Add **Gradient** + **Noise texture** (same Object coordinates, low scale, detail+roughness=Max, distortion≈200)
+6. Duplicate the vector node → connect before Mix Color
+7. Add **Color Ramp** → Mode: **Constant**, add fringes with narrow white bands (3 fringes)
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+
+**Water Caustics — Core Node Chain:**
+```
+Voronoi (4D, Smooth F1, smooth=0.4, rand=0.9)
+Voronoi (4D, Smooth F1, smooth=0.2, rand=0.9)  ← duplicate
+  → Mix Color (Difference, factor=1)
+  → Color Ramp (soften)
+  → Color Ramp (brighten)
+  → Transparent Shader (Color input)
+
+Light Path (Is Shadow Ray) → Mix Shader (Factor)
+Glass/Principled → Mix Shader (slot 1)
+Transparent Shader → Mix Shader (slot 2)
+Mix Shader → Material Output
+
+// Animation:
+Value Node → Multiply → Voronoi W
+// Keyframe Value node to animate caustics movement
+```
+
+**Requirements:**
+```
+Render Engine: Cycles
+GPU Compute: Preferences → System → CUDA/OptiX/HIP (select GPU type)
+```
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — requires shader node knowledge; Cycles-only limitation important to note
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.1 (technique works in earlier versions too — Cycles shadow trick is long-standing)
 
 ### Tags
-[PENDING EXTRACTION]
+shaders, caustics, glass, cycles, voronoi, transparent-shader, light-path, procedural-textures, extra-3d, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `tutorials/remove-noise-from-volumetrics-in-blender-50.md` — Other Extra 3d Blender 5.x tips
+- `tutorials/replacing-adobe-after-effects-with-blender-tutorial.md` — Voronoi texture motion graphics

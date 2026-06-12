@@ -678,9 +678,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=BoCCxy9ec0g
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.0
+- **Tags:** #compositing #glare #sun-beams #glow #lighting #motion-graphics #ducky-3d #intermediate
+- **Summary:** Blender 5.0 Glare node (Sun Beams mode) for motion graphics — two design approaches: subtle accent vs. hero element. Key parameters: Threshold (which pixels generate beams), Streaks, Angle Offset, Fade. Designing animation concept around beams vs. using beams to accent existing scene.
 - **File:** tutorials/a-powerful-lighting-node-in-blender-50.md
 
 
@@ -688,29 +688,19 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=wOyk5V7PyfA
 - **Author:** Extra 3d
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.1
+- **Tags:** #shaders #caustics #glass #cycles #voronoi #transparent-shader #light-path #procedural #extra-3d #intermediate
+- **Summary:** Fake real-time caustics via shadow manipulation — Cycles only. Mix Shader + Transparent Shader + Light Path (Is Shadow Ray) makes the shadow controllable. Voronoi 4D Smooth F1 (two with different smoothness subtracted via Difference node) creates caustic pattern fed into shadow. Water variant animates via W value. Final complex variant adds Gradient + Noise distortion + Color Ramp fringes.
 - **File:** tutorials/real-time-caustics-in-blender-51.md
-
-
-### Replacing Adobe After Effects with Blender (tutorial)
-- **Source:** YouTube
-- **URL:** https://www.youtube.com/watch?v=ZK92Uuhiesg
-- **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
-- **File:** tutorials/replacing-adobe-after-effects-with-blender-tutorial.md
 
 
 ### Remove Noise from Volumetrics in Blender 5.0+
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=wWv0E94XE4M
 - **Author:** Extra 3d
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.0
+- **Tags:** #volumetrics #noise #rendering #cycles #bug-fix #ray-marching #extra-3d #beginner
+- **Summary:** Blender 5.0 volumetrics noise fix — new default rendering algorithm causes noise that increasing samples cannot fix. Fix: Render Properties → Volume → enable Legacy Ray Marching. The legacy method is faster AND noise-free for typical fog/smoke use cases.
 - **File:** tutorials/remove-noise-from-volumetrics-in-blender-50.md
 
 
@@ -718,9 +708,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=89ZPdMI_nE8
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x+
+- **Tags:** #wave-texture #curves #seam-fix #animation #motion-graphics #procedural #shader-animation #ducky-3d #intermediate
+- **Summary:** Fixing wave texture seam on closed curves — standard Texture Coordinate (Generated/Object) creates a visible break at the seam on looping curves. Fix: UV unwrap the curve as a strip (convert to mesh) or use Geometry Nodes Spline Parameter Factor (0→1 seamless around loop). Animating Phase drives smooth flow. Enables clean looping wave animations on circle/ring shapes.
 - **File:** tutorials/my-circle-problem-in-blender-tutorial.md
 
 ---
