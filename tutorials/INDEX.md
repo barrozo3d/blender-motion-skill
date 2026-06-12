@@ -713,6 +713,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/remove-noise-from-volumetrics-in-blender-50.md
 
+
+### My Circle Problem in Blender (tutorial)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=89ZPdMI_nE8
+- **Author:** Ducky 3D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/my-circle-problem-in-blender-tutorial.md
+
 ---
 
 ## Tag Reference
