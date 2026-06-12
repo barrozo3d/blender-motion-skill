@@ -683,6 +683,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/a-powerful-lighting-node-in-blender-50.md
 
+
+### Real time Caustics In Blender 5.1
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=wOyk5V7PyfA
+- **Author:** Extra 3d
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/real-time-caustics-in-blender-51.md
+
 ---
 
 ## Tag Reference
