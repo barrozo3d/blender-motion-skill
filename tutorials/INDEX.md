@@ -713,6 +713,16 @@ Each entry format:
 - **Summary:** Fixing wave texture seam on closed curves — standard Texture Coordinate (Generated/Object) creates a visible break at the seam on looping curves. Fix: UV unwrap the curve as a strip (convert to mesh) or use Geometry Nodes Spline Parameter Factor (0→1 seamless around loop). Animating Phase drives smooth flow. Enables clean looping wave animations on circle/ring shapes.
 - **File:** tutorials/my-circle-problem-in-blender-tutorial.md
 
+
+### How To Render Faster In Blender Cycles
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=gmGMsKJ6xd8
+- **Author:** Extra 3d
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-render-faster-in-blender-cycles.md
+
 ---
 
 ## Tag Reference
