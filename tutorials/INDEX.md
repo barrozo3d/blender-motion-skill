@@ -718,9 +718,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=gmGMsKJ6xd8
 - **Author:** Extra 3d
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x
+- **Tags:** #rendering #cycles #compositing #camera #intermediate
+- **Summary:** Three-chapter Cycles optimization guide: GPU selection (OptiX/HIP/Metal/oneAPI + Vulkan backend), adaptive noise-threshold sampling, memory reduction (disable off-camera collections, mute unused textures, Alt+D instancing, Purge Unused Data), and render stitching in the VSE for still-camera animations — claimed up to 4000% speedup without hardware upgrades.
 - **File:** tutorials/how-to-render-faster-in-blender-cycles.md
 
 ---

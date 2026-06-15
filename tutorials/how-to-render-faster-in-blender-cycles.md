@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=gmGMsKJ6xd8
 author: Extra 3d
 ingested: 2026-06-15
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x"
+tags: [rendering, cycles, compositing, camera, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-render-faster-in-blender-cycles/
 frame_count: 4
 ---
@@ -48,27 +48,53 @@ frame_count: 4
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Three-layer Cycles optimization workflow: GPU/sampling settings tuning, scene memory reduction, and render stitching for animation — combining to claim up to 4000% render speed improvement without hardware upgrades.
 
 ### Summary
-[PENDING EXTRACTION]
+Comprehensive Cycles render optimization guide in three chapters: settings (GPU selection, OptiX/HIP/Metal, Vulkan backend, noise threshold sampling), memory (disabling off-camera collections, muting unused textures, Alt+D instancing, Purge Unused Data), and tricks (render stitching — splitting a still-camera animation into a static background frame plus a small animated crop). Aimed at Cycles users who want maximum speed without new hardware. Frame 1 shows the Render Properties / Sampling panel; Frame 2 shows a cluttered scene being optimized; Frame 3 shows the Video Sequence Editor stitching workflow.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Select GPU for rendering** — Preferences → System → Cycles Compute Devices: Nvidia → OptiX; AMD → HIP (enable RT for hardware ray tracing); Intel → oneAPI; Mac → Metal. Can also add CPU as co-processor if it won't overheat.
+2. **Set display backend to Vulkan** — Preferences → System → Display Device → Vulkan; save preferences.
+3. **Enable noise-threshold sampling** — Render Properties → Sampling → enable Noise Threshold (adaptive sampling); set Max Samples high but let Threshold stop rays early per pixel. Reduces wasted samples on already-converged areas.
+4. **Reduce Light Path bounces** — Render Properties → Light Paths: reduce Total, Diffuse, Glossy bounces to scene-appropriate minimums (e.g. 4 total for product shots).
+5. **Disable off-camera collections** — Outliner: uncheck the eye/render icon on collections not visible to camera. Excluded collections are not calculated in memory at all.
+6. **Mute unused textures** — select unused Image Texture nodes → M to mute. Frees VRAM.
+7. **Optimize glass shaders** — replace full Glass BSDF with a Principled BSDF at Transmission 1.0 for faster Cycles convergence on transparent objects.
+8. **Purge unused data** — File → Clean Up → Purge All (removes orphaned meshes, materials, textures from .blend memory).
+9. **Convert duplicates to instances** — instead of Shift+D (full copy), use Alt+D (linked instance). For existing duplicates, use Riley B3D's script to batch-convert identical objects to instances.
+10. **Render stitching for animation** — for still-camera shots with localized movement: (a) render one full-resolution beauty frame as background; (b) draw render region with Ctrl+B around only the moving area; (c) in VSE, layer background image on track 1, animation on track 2 — they auto-sync; (d) add compositor adjustment clip for final grade on top. Output: RGBA PNG to preserve alpha.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+| Setting | Location | Value / Notes |
+|---|---|---|
+| Compute Device | Preferences → System | OptiX (Nvidia) / HIP+RT (AMD) / oneAPI (Intel) / Metal (Mac) |
+| Display Backend | Preferences → System | Vulkan |
+| Noise Threshold | Render → Sampling | ~0.01 (adaptive sampling stops rays per pixel when converged) |
+| Max Samples | Render → Sampling | Set high (512–1024); adaptive sampling limits actual usage |
+| Light Paths → Total | Render → Light Paths | 4–8 (reduce from default 12 for speed) |
+| Collection visibility | Outliner | Uncheck render icon to fully exclude from memory |
+| Mute texture | Node Editor | Select node → M |
+| Instancing shortcut | 3D Viewport | Alt+D (linked duplicate) |
+| Purge unused data | File menu | File → Clean Up → Purge All |
+| Render Region | 3D Viewport | Ctrl+B to draw crop, Ctrl+Alt+B to clear |
+| Output format | Render → Output | PNG with RGBA (alpha channel for compositing) |
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.x (UI matches 4.x Render Properties layout; Vulkan backend and OptiX options confirm modern build; not version-locked to a specific 4.x release)
 
 ### Tags
-[PENDING EXTRACTION]
+rendering, cycles, compositing, camera, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+
+- [[photorealistic-renders-in-blender]] — Same author (Extra 3d), overlapping workflow: reference gathering, camera setup, material quality. Complements the render speed tips here.
+- [[photorealistic-eevee-renders-in-blender-51]] — Extra 3d's Eevee counterpart; Vulkan backend tip in this tutorial is the same prerequisite step covered there.
+- [[remove-noise-from-volumetrics-in-blender-50]] — Extra 3d's deep-dive on one specific noise source (volumetrics); pairs with the sampling/noise threshold section here.
+- [[fundamentals-of-lighting-in-blender]] — Blender Guru; scene light bounce count directly affects Cycles render time discussed here.
+- [[blender-5-beginner-tutorial-part-2-materials-and-rendering]] — Covers Cycles vs Eevee choice; contextualizes when the optimizations in this tutorial matter most.
