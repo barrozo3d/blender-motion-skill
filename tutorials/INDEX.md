@@ -728,9 +728,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=1-Cj4mtdCMc
 - **Author:** Curtis Holt
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (4.x/5.x era)
+- **Tags:** `#lighting` `#animation` `#materials` `#shaders` `#cycles` `#abstract` `#laser` `#vfx` `#intermediate` `#curtis-holt`
+- **Summary:** Physical intersecting-mesh laser lighting in Cycles — a UV Sphere (or flat plane) passes through a subject and carries a noise-textured material mixing Emission (glowing bleed lines), Transparent BSDF (invisible zones), and black Principled/Holdout (shadow-blocking zones). The three-zone mask creates organic, inconsistent scanner lines. Optional Volume Scatter atmosphere makes beams visible as volumetric light. Developed for Curtis Holt's animated short "Project Fold."
 - **File:** tutorials/my-new-favorite-lighting-trick-in-blender.md
 
 ---
