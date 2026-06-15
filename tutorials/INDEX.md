@@ -723,6 +723,16 @@ Each entry format:
 - **Summary:** Three-chapter Cycles optimization guide: GPU selection (OptiX/HIP/Metal/oneAPI + Vulkan backend), adaptive noise-threshold sampling, memory reduction (disable off-camera collections, mute unused textures, Alt+D instancing, Purge Unused Data), and render stitching in the VSE for still-camera animations — claimed up to 4000% speedup without hardware upgrades.
 - **File:** tutorials/how-to-render-faster-in-blender-cycles.md
 
+
+### My New Favorite Lighting Trick in Blender!
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=1-Cj4mtdCMc
+- **Author:** Curtis Holt
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/my-new-favorite-lighting-trick-in-blender.md
+
 ---
 
 ## Tag Reference
