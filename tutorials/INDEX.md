@@ -733,6 +733,16 @@ Each entry format:
 - **Summary:** Physical intersecting-mesh laser lighting in Cycles — a UV Sphere (or flat plane) passes through a subject and carries a noise-textured material mixing Emission (glowing bleed lines), Transparent BSDF (invisible zones), and black Principled/Holdout (shadow-blocking zones). The three-zone mask creates organic, inconsistent scanner lines. Optional Volume Scatter atmosphere makes beams visible as volumetric light. Developed for Curtis Holt's animated short "Project Fold."
 - **File:** tutorials/my-new-favorite-lighting-trick-in-blender.md
 
+
+### THIN WALL, the incredible new Principled BSDF feature in Blender 5.2
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=eQLCfPwEcrI
+- **Author:** Christopher 3D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/thin-wall-the-incredible-new-principled-bsdf-feature-in-blender-52.md
+
 ---
 
 ## Tag Reference
