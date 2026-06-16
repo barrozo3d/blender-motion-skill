@@ -764,6 +764,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-new-cloth-simulator-changes-everything.md
 
+
+### Procedural Desert Buildings in Blender | Geo Nodes Blender Tutorial
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=HMxZTPjFoc0
+- **Author:** Cinematic Cookie
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/procedural-desert-buildings-in-blender-geo-nodes-blender-tutorial.md
+
 ---
 
 ## Tag Reference
