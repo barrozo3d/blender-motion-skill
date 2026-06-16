@@ -743,6 +743,16 @@ Each entry format:
 - **Summary:** The new Thin Wall checkbox in Blender 5.2's Principled BSDF simulates correct light transport through zero-thickness geometry (leaves, curtains, lampshades, glass panes, soap bubbles) without needing a Solidify modifier. Two sub-parameters — Weight (0.5 typical) and Anisotropy (−0.25 for fabric, 0.0 for foliage) — fine-tune the effect. Part of the OpenPBR specification integration.
 - **File:** tutorials/thin-wall-the-incredible-new-principled-bsdf-feature-in-blender-52.md
 
+
+### Blender NEW Cloth Simulator changes EVERYTHING!
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=ih100VB7BUI
+- **Author:** SouthernShotty
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-new-cloth-simulator-changes-everything.md
+
 ---
 
 ## Tag Reference
