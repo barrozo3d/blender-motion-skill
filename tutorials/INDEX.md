@@ -734,6 +734,17 @@ Each entry format:
 - **File:** tutorials/my-new-favorite-lighting-trick-in-blender.md
 
 
+### Blender NEW Cloth Simulator changes EVERYTHING!
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=ih100VB7BUI
+- **Author:** SouthernShotty
+- **Blender Version:** 5.2 (experimental)
+- **Tags:** #cloth #simulation #geometry-nodes #animation #organic #blender-5x #intermediate #advanced
+- **Summary:** Full breakdown of Blender 5.2's Cloth Dynamics Experimental GN node — covers all parameters (Pin Group, Stretchiness, Bendiness, Sub Steps, Tearing, Geometry Collider, Custom Force, Bake node) then builds a "peeling skin" effect where an offset outer shell tears away from a skull mesh. The GN modifier is portable to any object. Requires Blender 5.2 experimental build.
+- **File:** tutorials/blender-new-cloth-simulator-changes-everything.md
+
+
+
 ### THIN WALL, the incredible new Principled BSDF feature in Blender 5.2
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=eQLCfPwEcrI
