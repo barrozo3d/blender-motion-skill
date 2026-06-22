@@ -764,6 +764,16 @@ Each entry format:
 - **Summary:** Builds procedural desert/Middle-Eastern-style buildings in GN using Normal Z component + Compare node for automatic top-face selection, fed into a free custom Inset node for architectural recessing. Covers procedural scattering of multiple building instances and ends with a complete sandy building complex with carved windows and rooftop detail.
 - **File:** tutorials/procedural-desert-buildings-in-blender-geo-nodes-blender-tutorial.md
 
+
+### NeXus for Blender Official Training - Follow Curve
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=na6NGPw4XWM
+- **Author:** INSYDIUM LTD
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/nexus-for-blender-official-training---follow-curve.md
+
 ---
 
 ## Tag Reference
