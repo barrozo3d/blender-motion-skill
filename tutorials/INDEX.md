@@ -769,9 +769,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=na6NGPw4XWM
 - **Author:** INSYDIUM LTD
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** unspecified (NeXus plugin)
+- **Tags:** #particles #simulation #fluid #meshing #motion-blur #addon #intermediate
+- **Summary:** Using the NeXus particle plugin (Insydium) to emit a liquid particle stream from a sphere emitter, make it follow a scene curve's path, mesh the stream into a continuous surface, and apply render-time motion blur for a dynamic fluid-trail effect.
 - **File:** tutorials/nexus-for-blender-official-training---follow-curve.md
 
 ---
