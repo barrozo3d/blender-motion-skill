@@ -789,9 +789,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=U2I8YDrO5Jc
 - **Author:** SouthernShotty
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.2
+- **Tags:** #materials #shaders #rendering #lighting #blender-5x #intermediate
+- **Summary:** Introduces Blender 5.2's new Thin Walls option on the Principled BSDF for realistic, faster-rendering thin transparent materials (paper, bubbles/thin film, backlit foliage) and fixing the classic dark-glass light-loss problem. Note: only the intro framing was captured by ingestion (Whisper failed, captions truncated) — full settings/examples walkthrough needs re-ingestion.
 - **File:** tutorials/blenders-new-transparency-material-is-crazy.md
 
 ---

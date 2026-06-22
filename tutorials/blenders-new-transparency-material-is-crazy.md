@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=U2I8YDrO5Jc
 author: SouthernShotty
 ingested: 2026-06-22
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.2"
+tags: [materials, shaders, rendering, lighting, blender-5x, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/blenders-new-transparency-material-is-crazy/
 frame_count: 0
 ---
@@ -32,27 +32,31 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Using Blender 5.2's new "Thin Walls" option on the Principled BSDF to render thin transparent/translucent materials (paper, bubbles/thin film, foliage backlight) more realistically and faster, while fixing the classic "dark glass" light-loss problem.
 
 ### Summary
-[PENDING EXTRACTION]
+SouthernShotty introduces Thin Walls, a new Principled BSDF feature in Blender 5.2 aimed at thin transparent materials. It improves paper transparency, thin-film materials like bubbles, and light passing through foliage for more realistic environment renders. It also fixes the well-known "dark glass" problem, where lighting through glass (e.g. a window) loses a large amount of light energy and the glass appears unnaturally dark. Beyond the visual improvement, Thin Walls also renders faster than the workarounds it replaces. The video covers the underlying settings first, then practical examples, building toward a specific effect demonstrated at the end. (Transcript truncated by ingestion at ~1200 characters — Whisper failed on this run so the captions fallback was used, which doesn't preserve chapter segmentation; the actual settings walkthrough, practical examples, and final effect build were not captured here and would need a follow-up pass with working Whisper transcription for full node-level detail.)
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. [Context] Understand Thin Walls as a new Principled BSDF option in Blender 5.2 for thin transparent/translucent surfaces
+2. [Use cases] Recognize target materials: paper, bubble/thin-film surfaces, backlit foliage, and glass (fixing the dark-glass light-loss issue)
+3. [Settings] Review the Thin Walls toggle/parameters on the Principled BSDF (exact UI location and parameters not captured in available transcript)
+4. [Practical examples] Apply Thin Walls across the example materials shown later in the video
+5. [Final effect] Build the showcased effect using Thin Walls (not captured — see truncation note above)
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Principled BSDF` > Thin Walls (new in Blender 5.2) — improves thin transparent material rendering (paper, bubbles/thin film, foliage backlight) and fixes the dark-glass light-loss artifact, while rendering faster than prior workarounds
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.2
 
 ### Tags
-[PENDING EXTRACTION]
+materials, shaders, rendering, lighting, blender-5x, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender 5 Beginner Tutorial - Part 2 - Materials and rendering](blender-5-beginner-tutorial-part-2-materials-and-rendering.md) — foundational Principled BSDF / material basics this new feature builds on
