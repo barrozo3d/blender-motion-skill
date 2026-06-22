@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=U2I8YDrO5Jc
 author: SouthernShotty
 ingested: 2026-06-22
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.2"
+tags: [materials, shaders, rendering, lighting, glass, optimization, blender-5x, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/blenders-new-transparency-material-is-crazy/
 frame_count: 0
 ---
@@ -60,27 +60,37 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Using the new "Thin Walls" option on Blender 5.2's Principled BSDF to correctly render one-sided transmissive/subsurface surfaces (replacing the Solidify-modifier workaround), fixing the dark-glass light-loss problem, improving foliage backlighting, and enabling thin-film looks like bubbles and frosted-glass effects — all while rendering faster.
 
 ### Summary
-[PENDING EXTRACTION]
+SouthernShotty demonstrates that Blender currently can't render one-sided planes with transmissive/subsurface values correctly (e.g. a plane with Transmission set to 1 renders invisible). The traditional fix was adding a Solidify modifier to give the surface real thickness, but this doubles geometry count, is cumbersome to apply everywhere, and can cause Z-fighting on complex objects. Thin Walls solves this without adding geometry: a single setting on the Principled BSDF tells the shader which direction the "thin wall" projects from, relative to the light source — a value of 0 splits the difference, -1/+1 bias the calculation toward one side, and getting this direction right is critical to actually seeing the lit result (works for both subsurface scattering and transmission). Once enabled, Thin Walls is demonstrated across four practical cases: (1) a glass sphere becomes a convincing thin bubble instead of looking like solid glass, optionally enhanced with a thin-film color pass; (2) double-sided foliage renders with much more natural light transmission and rendered ~2 seconds faster (26.3s → ~24s) in a test scene, with even bigger savings on non-doubled-side leaves or forests of trees; (3) the Cornell-box-style classroom demo scene's giant single-sided glass pane no longer triggers Blender's "dark glass" bug (where one-sided glass miscalculates light and eats far more energy than it should) — turning on Thin Walls immediately restores scene lighting while keeping visible glass reflections; (4) a creative horror-style effect of a character pressed against frosted glass, built from a plane with two extruded/blackened sections, grunge textures, and a Transmission-based (not Subsurface-based) material to achieve a true glass look, lit by a soft area light for a blurred, spooky version when the sunlight is disabled.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. [Diagnose the problem] Set a plane's Transmission weight to 1 — observe it renders invisible because Blender struggles with one-sided transmissive/subsurface surfaces
+2. [Old workaround] Add a Solidify modifier to give the surface thickness — works but doubles geometry, is cumbersome at scale, and risks Z-fighting on complex objects
+3. [Enable Thin Walls] On the Principled BSDF, turn on Thin Walls instead of Solidify — no extra geometry needed
+4. [Set wall direction] Tune the Thin Walls directional value (0 = split the difference; -1/+1 = bias toward one side) so it matches the actual light direction relative to the surface — applies to both subsurface scattering and transmission
+5. [Thin film / bubbles] Apply Thin Walls to a glass sphere for a convincing bubble look (vs. solid glass); optionally add a thin-film layer with color for extra realism
+6. [Foliage] Enable Thin Walls on leaf materials for more natural backlit transmission and faster renders (works even better on non-double-sided leaves)
+7. [Fix dark glass] Enable Thin Walls on one-sided glass panes (e.g. windows) to eliminate Blender's dark-glass light-eating bug while keeping reflections visible
+8. [Creative use] Build a frosted-glass effect using a Transmission-based material (not Subsurface) with grunge textures and Thin Walls for a stylized horror-film look
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Principled BSDF` > Thin Walls (new in Blender 5.2) — renders one-sided surfaces with correct transmission/subsurface behavior without adding real thickness; replaces the Solidify-modifier workaround
+- Thin Walls direction value (range roughly -1 to 1, default 0) — determines which side of the surface the "thin wall" projection treats as the light-facing side; must be tuned to match actual scene lighting direction
+- `Solidify` modifier — the prior workaround Thin Walls replaces; doubles geometry and can cause Z-fighting
+- `Transmission` vs `Subsurface Scattering` — Thin Walls affects both channels; Transmission was chosen for the glass-look creative example specifically
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.2
 
 ### Tags
-[PENDING EXTRACTION]
+materials, shaders, rendering, lighting, glass, optimization, blender-5x, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender 5 Beginner Tutorial - Part 2 - Materials and rendering](blender-5-beginner-tutorial-part-2-materials-and-rendering.md) — foundational Principled BSDF / material basics this new feature builds on
