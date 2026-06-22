@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=U2I8YDrO5Jc
 author: SouthernShotty
 ingested: 2026-06-22
-blender_version: "5.2"
-tags: [materials, shaders, rendering, lighting, blender-5x, intermediate]
-extraction_status: complete
+blender_version: "[PENDING]"
+tags: []
+extraction_status: pending
 frames_dir: tutorials/frames/blenders-new-transparency-material-is-crazy/
 frame_count: 0
 ---
@@ -15,15 +15,43 @@ frame_count: 0
 
 **Source:** [YouTube](https://www.youtube.com/watch?v=U2I8YDrO5Jc)
 **Author:** SouthernShotty
-**Duration:** 10m28s | 1 section(s)
+**Duration:** 10m28s | 8 section(s)
 
 ---
 
 ## Raw Data (for Claude Code extraction)
 
 
-### Full Content [0:00]
-**Transcript:** Kind: captions Language: en Blender 5.2 adds an awesome new feature to the Principled BSDF node called Thin Walls, which makes certain types of transparent materials much easier to pull off. It improves things like paper transparency, creating thin film-like materials like bubbles, and makes it much easier for light passing through foliage to create more realistic environmental renders, and it even fixes the infamous dark [music] glass effect problem people have in Blender. Where when you try and light through something like a glass window, you will lose a ton of light energy and the glass itself will almost appear &gt;&gt; [music] &gt;&gt; dark. But the greatest part of all of this new feature is that not only does it improve everything visually and make the process simpler, it also renders quicker. So before we get started, I want to say thank you to the sponsor of this video, which is Storyblocks, and let's dive in and get started. Now at the end of this video, I'm going to show you how to use it to make this cool effect right here, but first we're going to go through some of the boring settings, and then I'm going to show it in some practical examples. If you're feeling impatie...
+### A Small Feature With Big Impact [0:00]
+**Transcript:** Blender 5.2 adds an awesome new feature to the principal BSDF node called Thinwalls,  which makes certain types of transparent materials much easier to pull off.  It improves things like paper transparency, creating thin film-like materials like bubbles,  it makes it much easier for light passing through foliage to create more realistic environmental  renders, and it even fixes the infamous dark glass effect problem people have in Blender.  Where when you try and light through something like a glass window,  you will lose a ton of light energy in the glass itself will almost appear dark.  But the greatest part of all of this new feature is that not only does it approve everything  visually and make the process simpler, it also renders quicker.  So before we get started, I want to say thank you to the sponsor of this video, which is Storyblocks,  and let's dive in and get started. Now at the end of the video, I'm going to show you how to use  it to make this cool effect right here. But first we're going to go through some of the boring  settings and then I'm going to show it in some practical examples. If you're feeling impatient,  feel free to skip ahead to the end of the video. No...
+
+
+### Getting Started [1:02]
+**Transcript:** give you an idea of how the settings work with it. So here we have a simple scene. We have a plane  here with a sphere behind it and a sunlight pointing right at it. So if I turn this on in the  render mode, you can see that you can't see the light at all unless if I rotate around. So it's  snapping back here into front view. If I wanted to make this object transparent, let's say for example,  add some subdivision surface, I would turn the weight all the way up to one. However, you can see  we're not seeing our object at all. And that's because Blender currently struggles with doing one  sided planes for any type of transmissive values. So the solution in the past was to come over here  at a solidify modifier. And suddenly it would start behaving normally. However, the problem with this  is this gets a bit cumbersome to add solidify to everything. It also doubles your geometry  crown for any object you have the supply to. And in some instances, when you have very complex  objects, it might also become problematic and break the look of your object overall by having  things fight together in Z fight. But this is why the thin wall is so great. So I can kick off the  solidify modifier ...
+
+
+### Understanding the Settings [2:46]
+**Transcript:** setting here, which by default is set to zero. But if I set this all the way to negative one,  you'll notice that it disappears. And that's because it's determining what direction the thin wall  is projecting from. So since we have a light coming from this side over here, it's trying to  project from in here and not getting anything. So if I turn this all the way to one, it would instead  instead of splitting the difference, shift everything so that it detected all the light coming from  this side. Now this is subsurface scattering, but this also works on transmissions as well,  making it perfect for glass. So now that we understand how the settings work, let's go ahead and  take a look at some various materials we could apply it to. Let's take a minute to talk about our  sponsor story blocks, which has been a really great resource to the channel. And what makes story  blocks different is that it's 100% human-made stock media library built specifically for creators  by creators. It's all there to help you save time. For example, using these templates on this video  for CTA for my personal favorite, dragging in textures into blender to use for grunge maps or for  background images i...
+
+
+### Thin Film Effects [4:53]
+**Transcript:** create really thin films, for example, such as a bubble. So here you can see I have a glass sphere.  You're just sitting in front of a Suzanne. You can see how that is coming across as very thick  glass. It's viewing the entire object as one solid piece of glass. But if I check on thin wall here,  it's only going to take a look at the faces and render it that way instead. And now you can see how  we're getting a cool bubble effect. You could even make this a little bit better by adding a small  thin film on top of it and feeding some color into there. You can also pair this with other of  glass effects. For example, this iridescent glass shader that I have a tutorial for for some  pretty cool results. So next up here, I want to show how we can use this thin wall to get better  foliage renders. I downloaded this blender demo file from the website. The artist is listed
+
+
+### Better Foliage Renders [5:40]
+**Transcript:** over here. Now, the artist had a pretty complex leaf setup. I've simplified it down to here.  And I also want to point out that they've already double-sided the leaves. So if you zoom in on the  leaves, they have two sides to get kind of a better render with the default system. But let's take  look at the render that is output from this. So if I come over here, you can see that with the  normal render, we get much darker shaded leaves. And we're rendered at 26.3 seconds. If we come up  here, the only thing I did is check on thin wall. You see how much more light is naturally passing  through the leaves. And we saved over two seconds on render time. Now, if these leaves weren't  double-sided, we can end up saving even more render time. Now, two seconds may not seem like a lot,  but we are getting better results for less render time. And if you didn't double-side the leaves,  you could save even more render time. And then now imagine that you have a whole force to  trees in your scene. And that time can really stack up to be saving you minutes per frame. Let's
+
+
+### The Glass Problem [6:35]
+**Transcript:** take a look here at this famous classroom demo scene and how thin walls can be used to make better  windows and glass renders. So over here, we have a giant window. But the thing is there's actually  no glass there. Instead, there's just a giant emission plane. I can't be certain why the original  creator made it this way, but my assumption is that glass would just end up causing issues.  So let's turn on a big glass plane there. And you can see immediately how it starts to cut down  the lighting in the scene there. And this is Blender's infamous dark glass problem. So when you have  that one-sided glass and Blender, what it does is it ends up not calculating the light properly,  and it ends up eating way more light energy than it should. And as you can see here, it is  dramatically cutting down the lighting in the scene. However, with our new thin wall, we can come  over here, turn on thin wall, and you can see how we immediately gain that lighting back.  But still get some reflections in our windows that are now visible here. If I zoom in,  you can see that we're getting actual glass and reflections. Thin wall also works great for paper  rendering. And I was going to set up a pap...
+
+
+### Creative Example [7:47]
+**Transcript:** on paper renders. I'm going to show you how I kind of created that horror film look where it's  pressed up against a frosted glass. You can see here, I even have some simple animation on it as  well as the character comes in. First, I'm going to show you the geometry setup. It's just a simple  plane here with two pieces extruded. And then I applied a black material to those pieces just to  create a little bit of contrast. Back here, I just have a simple human model. And I just did this  really crappy shape key animation to make them look like they're coming in closer. But the lighting  setup, I have a few lights up front just to highlight the bump pattern on the plane. And then I have  a sunlight pointing at the back of our character and a area light too. The interesting thing is that  if you turn off the sunlight, you can actually get a really spooky looking kind of blurred out version  with just the area light. Since it's a big soft light, it ends up projecting soft strados.  So let's take a look at the material setup here. So I opted to use the transmission instead of  the subsurface because I was going for a glass look. And then all I did is import some grunge  textures, which ...
+
+
+### Final Thoughts [10:19]
+**Transcript:** interest. I'm really excited to see what the community creates with this thin wall material.  Let me know what you think about the tutorial in the comments below. I will be putting this project  file on my Patreon if you'd like to check it out.
 
 
 
@@ -32,31 +60,27 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-Using Blender 5.2's new "Thin Walls" option on the Principled BSDF to render thin transparent/translucent materials (paper, bubbles/thin film, foliage backlight) more realistically and faster, while fixing the classic "dark glass" light-loss problem.
+[PENDING EXTRACTION]
 
 ### Summary
-SouthernShotty introduces Thin Walls, a new Principled BSDF feature in Blender 5.2 aimed at thin transparent materials. It improves paper transparency, thin-film materials like bubbles, and light passing through foliage for more realistic environment renders. It also fixes the well-known "dark glass" problem, where lighting through glass (e.g. a window) loses a large amount of light energy and the glass appears unnaturally dark. Beyond the visual improvement, Thin Walls also renders faster than the workarounds it replaces. The video covers the underlying settings first, then practical examples, building toward a specific effect demonstrated at the end. (Transcript truncated by ingestion at ~1200 characters — Whisper failed on this run so the captions fallback was used, which doesn't preserve chapter segmentation; the actual settings walkthrough, practical examples, and final effect build were not captured here and would need a follow-up pass with working Whisper transcription for full node-level detail.)
+[PENDING EXTRACTION]
 
 ### Key Steps
-1. [Context] Understand Thin Walls as a new Principled BSDF option in Blender 5.2 for thin transparent/translucent surfaces
-2. [Use cases] Recognize target materials: paper, bubble/thin-film surfaces, backlit foliage, and glass (fixing the dark-glass light-loss issue)
-3. [Settings] Review the Thin Walls toggle/parameters on the Principled BSDF (exact UI location and parameters not captured in available transcript)
-4. [Practical examples] Apply Thin Walls across the example materials shown later in the video
-5. [Final effect] Build the showcased effect using Thin Walls (not captured — see truncation note above)
+[PENDING EXTRACTION]
 
 ### Nodes / Settings
-- `Principled BSDF` > Thin Walls (new in Blender 5.2) — improves thin transparent material rendering (paper, bubbles/thin film, foliage backlight) and fixes the dark-glass light-loss artifact, while rendering faster than prior workarounds
+[PENDING EXTRACTION]
 
 ### Difficulty
-Intermediate
+[PENDING EXTRACTION]
 
 ### Blender Version
-5.2
+[PENDING EXTRACTION]
 
 ### Tags
-materials, shaders, rendering, lighting, blender-5x, intermediate
+[PENDING EXTRACTION]
 
 ---
 
 ## Related Tutorials
-- [Blender 5 Beginner Tutorial - Part 2 - Materials and rendering](blender-5-beginner-tutorial-part-2-materials-and-rendering.md) — foundational Principled BSDF / material basics this new feature builds on
+[PENDING EXTRACTION]
