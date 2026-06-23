@@ -3,12 +3,12 @@ title: A Powerful Lighting Node in Blender 5.0
 source: YouTube
 url: https://www.youtube.com/watch?v=BoCCxy9ec0g
 author: Ducky 3D
-ingested: 2026-06-12
-blender_version: "Blender 5.0"
-tags: [compositing, glare, sun-beams, glow, lighting, motion-graphics, eevee, cycles, ducky-3d, intermediate]
-extraction_status: complete
+ingested: 2026-06-23
+blender_version: "[PENDING]"
+tags: []
+extraction_status: pending
 frames_dir: tutorials/frames/a-powerful-lighting-node-in-blender-50/
-frame_count: 0
+frame_count: 4
 ---
 
 # A Powerful Lighting Node in Blender 5.0
@@ -23,8 +23,9 @@ frame_count: 0
 
 
 ### Full Content [0:00]
-**Transcript:** How's it going guys? So today we're going to talk about glow and glare and specifically sun beams. And in my opinion, the best way to use it in your motion graphics, how to make it shine. Now, I'm showing two animations here, roughly the same concept of lights moving up and down with the camera. Both of them are using the sun beams, but in completely different ways. One of them we're going towards subtlety, where you can kind of barely see that we're even using the beams. And then another one where the sun beams are basically the full star of the show. It's really going to come down to concept. The concept with the glass bricks, really it's the glass bricks that are shining and we're merely using the sun beams as a way to have more fun with the light and add a subtle detail. With this animation, the animation is almost designed around the sun beams to really make the sun beams shine and make them look really cool. So that's something that I'm always thinking about when it comes to using this glare. So today we're going to make this animation right here and we're going to lean toward really designing an animation around using it. So I'm going to show you guys how I get my glare to l...
+**Transcript:** How's it going guys? So today we're going to talk about glow and glare and specifically sun beams. And in my opinion, the best way to use it in your motion graphics, how to make it shine. Now, I'm showing two animations here, roughly the same concept of lights moving up and down with the camera. Both of them are using the sun beams, but in completely different ways. One of them we're going towards subtlety, where you can kind of barely see that we're even using the beams. And then another one where the sun beams are basically the full star of the show. It's really going to come down to concept. The concept with the glass bricks, really it's the glass bricks that are shining and we're merely using the sun beams as a way to have more fun with the light and add a subtle detail. With this animation, the animation is almost designed around the sun beams to really make the sun beams shine and make them look really cool. So that's something that I'm always thinking about when it comes to using this glare. So today we're going to make this animation right here and we're going to lean toward really designing an animation around using it. So I'm going to show you guys how I get my glare to look really punchy and how I'm mixing the glare nodes to really make very bright looking glow. If you want to grab the project file for this tutorial that is available right now at Patreon, along with a bunch of other exclusive tutorials on Patreon, every month I'm dropping new tutorials, new collections and a ton of project files. So if you want to check that out that is going to be linked in the description, you can get a discount if you subscribe annually. With that being said, let's get into this tutorial. All right, first let's start off. Let's hit Shift-A. We're going to get a plane. I'm going to hit S5, Control-A, apply that scale and this is going to be the canvas for our grid. So let's hit straight into shading and I'm just going to look at it from a top view and then we're going to click New and then I'm going to delete the principle and we're going to get a mixed shader. So we're going to deal with some transparency. So let's plug this into here and before we do anything more, let's head to the render properties, switch from cycles to EV and then here in the material section right here on render method. We need to switch that to blended so our transparency looks good and not grainy. Those are the only little fancy settings we need to do. So first, let's go ahead and let's hit Shift-A. Let's get an emission node and plug that on the bottom. He will represent a value of one and then let's get a transparent node. Plug that on the top shader and the transparent will represent a value of zero so that anything we plug into here, black will represent transparency, white will represent the emission and it's really easy to understand from that point. So let's go ahead and create a grid of dots. So the best way to do that is to hit Shift-A, get a color ramp, plug that into the factor and let's get a Voronoi texture. And if you have the node wrangler add on enabled, comes up blender by default, hit control T or get a mapping and a texture coordinate node and you use the object coordinate. So let's plug distance into the factor of the color ramp and what I'm going to do is bring my randomness to zero and right now the dots are black. All we have to do is hit the drop down, click flip the color ramp and then if you bring this in, you now have dots. Let's go to the world settings and bring that down to black and then we're just going to click on the render button and now we have a grid. And if you want to test out the transparency, hit shift D and you can see that same grid beneath it. So now let's go ahead and mask out some of these dots to create some style and make it look a little bit more grid-like and a little bit more random. So the way we're going to do that, I'm actually going to hit highlight these and hit G and then just move this little section of nodes a little bit more over here. Let's get a mix color node and then plug this into B and then A will represent zero or black and then let's plug in another color ramp and another Vornoi. So plug color ramp right into here, let's get a Vornoi texture and then I'm going to plug this mapping node into here. Now this Vornoi, I want to make sure things line up and I'm just going to go off of the settings for my original animation. So for the dots, I'm going to give them a scale of six and then here I'm going to use the color socket and then I'm going to hit control shift, click you don't have to follow along in this part. I just want to view this texture. I'm going to give it a scale of two so it lines up with the Vornoi texture. I'm going to bring the randomness down to zero so we get squares and then normally with the color socket you don't get any gradients, you don't get a gradient, you just get hard edges. If you switch to smooth F1, you get that and then you can just bring your smoothness right around here. It's a style, it's more of a style decision but yes, scale up to make sure smooth F1, bring your randomness to zero and then you can play with smoothness if you like. So now we're back here, you can kind of see it already happening. You can see some changes in value. If you bring the color ramp in, you'll start to get more. So I'm going to bring him to write about here and then I don't want too much change in brightness because we're actually going to do that next. So I'm just going to bring this in and now we have this nice grid and if you want to change the grid at any point, switch it to 4D and now you have a kind of a seed value. So now we have this, maybe you cancel out a few more, there we go. Now what I want to do before we add glare is to, I don't want all of these to all look bright, but I want to be able to animate that in a more organic way and so we can do another mask. So let's take these guys, move them up. I'm going to another mix color and put this mix into the B. Let's get a color ramp and a noise texture. So get your color ramp, noise texture and then again, we're going to use this mapping node. I mean, this mapping setup, factor into the color ramp and then color into the factor. So right now, if I were to crunch this in, it would kind of look like that. So let's go ahead and bring my detailed a zero and my scale up until it's sort of bigger masks like that. There we go. And then what you can do is just on the black, bring it up to, come on now, bring it up to a gray and it brings some of these in while keeping other ones bright. So let's go ahead now and add some compositing. So first, I'm going to bring my strength to like 30, maybe. And then now we can go back and bring this back to zero and just kind of bring up a few like this. And then just bring that in. So now we have some bright parts and then some dark points. We want really bright points because that's what's going to activate the glow and the glare that we're going to perfect. So let's go ahead. I'm going to hit the drop down and click on always so that we can see any composite changes. And I'm going to switch this window to the compositor. I'm going to click new and let's get a glare node. Just like that, we go from streaks to bloom. So now we have some nice, uh, bloomy spots and then we get one more node, which is another glare node. Put it after this one and we're going to switch that from streaks to sun beams. Now we'll have our sun beam. So let's go ahead and just get our camera. So I'm going to hit shift A, click on the camera and hit zero, G and middle click and just fit this camera into the lens. Okay. So now we have this. Let's bring that strength down a little bit. It's really bright. And let's hit mute on him and let's let me show you how I get my glow to look really, really punchy and then I'll give you a before and after. So I like to have one glare node where the glare is really centered right now. This is really big a very atmospheric glow. So what I normally do is like to bring the size really far down and give maybe a strength of two, maybe even three and we get, that might be too much. We get some glow and make sure you kind of zoom out because the more you zoom in, it's going to change that in the viewport. So if you zoom out to write about here, it will be really close to if I hit the render button, what will be the render, the look on the render. So this is a little bit too much. So maybe bring our ring or strength down, but specifically what we're looking at is a glow that is really tight to the object. Then let's get another glare, put it here and go here to bloom. And now we have one that's a little bigger. So you can get your size to be a little bigger, even bring up your strength if you want. But the whole point is to get a more atmospheric glow. So you have this glow, this glow, and this glow alone, they don't look that great. But combined together, you get a really punchy glow and it looks great. And then we'll add the glare. So just to give you kind of a before and after, I'm going to bring up the strength. I'm going to hit M on these. If we just added the sunbeams, which is one of the bigger things that this video is about is how to use the sunbeams, how to make them look really good. A lot of times you might just throw sunbeams on that. You have some glowing parts, now they have sunbeams. But they're missing some context. They're missing, you know, it telling you how bright they are. Right now, yes, visually from like a value standpoint, these do look brighter, but it's not really super obvious. If you go ahead now and add some punchy glowing, you get a much better looking view. So again, I'm going to mute this. That's the glare just by itself. Add that. It's way more punchy. It's what much brighter and it looks better. Like I mentioned in the beginning, you can either use it in a really subtle way or you can use it in a really obvious way. But if you want to use it obviously, you want to kind of reinforce it with some other glows to give some more context about how bright it is. So that's kind of the bigger point that this video is driving. Okay, now let's go ahead back to shading. So I'm going to hit this drop down and go back to the shader editor and finish this animation out. So one, let me give it a nice color. I'm going to pick the color in my animation. You can pick any color that you want. Oh, I also forgot one compositing thing. We're going to go back here to the compositor. Right down here, if you're in 5.0, you have a sensor noise node. We're going to add some sensor noise to the very end. I'm going to zoom in so I can see it. Bring chroma noise down. Bring sensor noise up and click animated. And now it's going to give you some natural noise into this. I prefer it. You don't have to do it if you don't want to. Again, let's go back to the shader editor. So now we have this. We can go here with the noise texture. Go from 3D to 4D. And we can animate these lights going in and out. And it looks pretty cool. So let's go ahead. I'm going to animate this into a loop. So bring this up here. Go over and switch over to the timeline. And I'm going to keep it at 250 frames. Just keep it at default. I'm going to go back to frame zero and make sure your default interpolation in your animation is linear. So we're going to loop the W of the noise texture. So we're going to need to get a mix color node. Bring it here. And then we're going to hit control shift D. Do it get the noise and just keep it connected to its mapping and plug factor as well. So keep using the factor of both. Or if you're using color, use the color of both. These need to be identical. So remember, go to frame zero. I'm going to hit bring the factor over. I'm going to hit i on the W. I on the factor. Go to the very end and type in 10. Hit i. Bring the factor over. Hit i. And then on this one at the very end of the timeline, hit i on the W. Go back to frame zero and do negative 10. There we go. So now you have some movement in the glare. Sweet. Last thing I want to do is now take this. I want to take this this plane, this grid that we're working with. And I just want to go ahead and hit shift D right click. And then here in the Z and the axis, just bring it up on the location. I want to brand new much higher grid. So that when the camera is moving, we have some parallax. So here in the outliner, I'm going to hide the original. Look at this one right up here. You can see it says three. I'm going to click that number. So this is now a fresh duplicate. And all I'm going to do is make these circles a lot smaller. And then here in the mask, we're going to get fewer of them. Just like this. And then the last thing I want to do is I want to change the location of this noise texture. The one that's animating. So it's not copying the grid behind it and all I'll do is here in the mapping, just change the location. Just like that. So now it's different. And you can move your timeline around and there'll be a couple of these. I'm just going to go ahead and make it brighter. Just like that. So that there is a difference. Just like that. So now if I bring my old back and I move my camera around, there is some parallax with the dots that are in front of it, which looks pretty cool in my opinion. So then I'm going to go play with that location a little bit more until we have some really cool stuff going on. Now let's create the actual loop and finish this off and call it a day. So let's highlight these two grids, hit in, new collection. I'm just going to call it loop. And then on the green line, because the camera is going to be moving that direction, I'm going to hit shift day collection instance loop. Make sure you hold down control and snap this to the very edge. I'm going to hit alt D and snap this one to the very edge as well on the bottom. So now we can animate our camera. So I'm going to hit the tilde key and go to the top. This camera is going to animate from one end of the grid to the other and we scaled it by five. Remember we hit S five. That's very important to do that. So on the camera, on the Y settings, bring it to the negative five. Go back to frame zero. Add a key frame on the Y. Go to the end of the timeline and type in five. That is going to get him to the exact edge. So now if I go to my camera view and I get my compositing, you get an animation. Now let's look at one thing really specifically. See on the edge, you can see the material is cut off. That's an easy fix. So let's go back to the shading. Zoom in to that cutoff spot. I'm going to click on the first plane in this in my outliner. On the X on the Y location, just bring it down till it doesn't cut off. So just like that, we're just moving the texture. And then I think the top one doesn't have, yeah, it doesn't have that problem because we already moved it around on the Y. But if you can see the top one cutting off, do that as well. And guess what? We're finished with this animation. I would say the second plane needs to come up some so that there's more a more dramatic change. But we are completely finished. It's going to be a seamless loop. And you can export it out and do anything you want with it. It's really cool. But the biggest thing to learn is using the light rays node, how to make it look really punchy by using other glare settings and really reinforcing that to make something really cool looking. But with that being said, the chaos are watching. Hope you enjoyed it. Again, feel free to check out the other content that I have a Patreon linked in the description. And I'll see you guys in the next one.
 
+**Frame:** tutorials\frames\a-powerful-lighting-node-in-blender-50\frame_000.jpg
 
 
 ---
@@ -32,71 +33,27 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-Using Blender's Compositing **Glare node** (Sun Beams mode) as a key design element in motion graphics — covering two distinct approaches: subtle accent (barely visible beams that enhance existing light) vs. feature element (animation designed specifically around the sun beams as the hero).
+[PENDING EXTRACTION]
 
 ### Summary
-16-minute motion graphics tutorial by Ducky 3D on designing animations around the Glare node's Sun Beams mode in Blender 5.0. Core insight: the success of sun beams depends on concept-first thinking — are the beams an accent or the star? Demonstrates both approaches with two complete animations: glass brick scene (beams as subtle detail) and a second scene where the camera and light movement is choreographed to make beams the focal point. Covers how to get glare to look good (threshold, streak length, angle offset) and how to animate lights for best beam effect.
+[PENDING EXTRACTION]
 
 ### Key Steps
-
-**Design Philosophy First:**
-- Decide upfront: are beams an accent OR the hero?
-- If accent: keep beams subtle, design the object/environment first
-- If hero: design camera movement, light animation, and scene specifically to showcase beams
-
-**Setting Up the Glare Node (Compositing):**
-1. Render → Compositor (check Use Nodes)
-2. Render Layers node → Glare node → Composite
-3. Glare node → Type: **Sun Beams**
-4. Key parameters:
-   - **Threshold**: controls which bright pixels generate beams (lower = more beams from dimmer areas)
-   - **Streaks**: number of beam rays
-   - **Angle Offset**: rotation of beams
-   - **Fade**: how quickly beams fade toward tips
-   - **Iterations**: quality/length of beams
-
-**Getting Good Sun Beams:**
-- Light source needs to be visible/bright in the frame — beams emit from bright pixels
-- Moving the light left/right changes beam angle dramatically
-- Camera movement toward/away from light changes beam intensity
-- Animate **Threshold** or **Fade** to pulse the beams
-
-**Two-Animation Workflow:**
-- Subtle approach: low threshold, short streaks, let scene geometry be the focus
-- Hero approach: high contrast light source, long streaks, animate camera circling the light
+[PENDING EXTRACTION]
 
 ### Nodes / Settings
-
-**Compositor Glare Node — Sun Beams:**
-```
-Node: Glare
-  Type: Sun Beams
-  Threshold: 0.5–1.0    (lower = more pixels generate beams)
-  Streaks: 4–8          (number of beam rays)
-  Angle Offset: 0°–45°  (rotation)
-  Fade: 0.8–0.95        (tip fade-off speed)
-  Iterations: 3–5       (quality)
-  Mix: -1 to 1          (blend between original and glare)
-```
-
-**Tip — Blending Glare:**
-```
-// Use Mix node to blend Glare output back over original render:
-Render Layers → Glare → Mix node (Add or Screen) → Composite
-// Gives finer control than Glare Mix parameter alone
-```
+[PENDING EXTRACTION]
 
 ### Difficulty
-Intermediate — compositing setup is straightforward; getting it to look good requires design sense and iteration
+[PENDING EXTRACTION]
 
 ### Blender Version
-Blender 5.0
+[PENDING EXTRACTION]
 
 ### Tags
-compositing, glare, sun-beams, glow, lighting, motion-graphics, eevee, cycles, ducky-3d, intermediate
+[PENDING EXTRACTION]
 
 ---
 
 ## Related Tutorials
-- `tutorials/remove-noise-from-volumetrics-in-blender-50.md` — Other Blender 5.0 rendering tips
-- `tutorials/my-circle-problem-in-blender-tutorial.md` — Ducky 3D animation workflow
+[PENDING EXTRACTION]
