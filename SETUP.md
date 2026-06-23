@@ -230,7 +230,10 @@ python ingest.py <url>                         full pipeline
 python ingest.py <url> --skip-video            no frames (faster, no ffmpeg needed)
 python ingest.py <url> --whisper-model small   better accuracy, slower
 python ingest.py <url> --whisper-model medium  best accuracy, much slower
+python ingest.py <url> --force                 re-collect even if extraction_status: complete (overwrites Structured Notes)
 ```
+
+`ingest.py` refuses to overwrite a tutorial `.md` whose frontmatter already has `extraction_status: complete`, to protect hand-written Structured Notes from being wiped by an accidental re-ingest. Pass `--force` only when you intend to discard the existing extraction (e.g. recovering from a truncated/corrupt transcript) and will re-run the extraction pass afterward.
 
 Pipeline stages:
 1. yt-dlp metadata + chapter list
