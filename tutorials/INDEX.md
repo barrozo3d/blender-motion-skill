@@ -803,6 +803,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/how-to-create-abstract-crystal-renders-in-blender.md
 
+
+### How to Create Abstract Crystal Renders in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=RKz3DdbybVk
+- **Author:** Extra 3d
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-create-abstract-crystal-renders-in-blender.md
+
 ---
 
 ## Tag Reference
