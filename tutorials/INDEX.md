@@ -793,6 +793,16 @@ Each entry format:
 - **Summary:** Blender 5.2's Thin Walls option on the Principled BSDF correctly renders one-sided transmissive/subsurface surfaces without a Solidify modifier — demonstrated on bubble/thin-film glass, faster and more natural foliage backlighting, fixing the classic dark-glass light-loss bug, and a frosted-glass creative effect.
 - **File:** tutorials/blenders-new-transparency-material-is-crazy.md
 
+
+### How to Create Abstract Crystal Renders in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=RKz3DdbybVk
+- **Author:** Extra 3d
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-create-abstract-crystal-renders-in-blender.md
+
 ---
 
 ## Tag Reference
