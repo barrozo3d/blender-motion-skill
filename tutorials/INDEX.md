@@ -31,8 +31,8 @@ Each entry format:
 - **URL:** https://youtu.be/FYJb10NIMH8
 - **Author:** Max Hay
 - **Blender Version:** Not specified
-- **Tags:** #lighting #volume #rendering #cycles #eevee
-- **Summary:** Covers three practical lighting setups for Blender environments: dramatic spotlight with volume scatter atmosphere, outdoor sunlight, and dark futuristic emissive/reflective scenes. Explains spotlight radius for shadow softness, fill lights, and using the Light Falloff node via Use Nodes on lights.
+- **Tags:** #lighting #volume #rendering #cycles #eevee #hdri #materials #shaders
+- **Summary:** Three reusable lighting recipes: a dramatic spotlight rig (main spot + dim area fill + Light Falloff/Color Ramp/Map Range rim-highlight trick) in volume scatter fog; a natural outdoor HDRI setup decoupled from a separate emissive sky-image background plane (with an optional lens-flare-on-alpha trick for visible suns); and a dark futuristic/neon setup using reflective surfaces, thick volume scatter, an emissive sign mesh, and a Compositor Glare/Bloom node.
 - **File:** tutorials/3-easy-lighting-setups-blender-tutorial.md
 
 
