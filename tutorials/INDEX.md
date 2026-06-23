@@ -803,6 +803,16 @@ Each entry format:
 - **Summary:** Scatters a free crystal GLB model across a UV sphere using Geometry Nodes (Distribute Points on Faces → Instance on Points → Join Geometry), then builds a transmissive purple crystal shader and a bump/displacement rock material. Finished with high-focal-length DoF camera, point lights, cube volumetrics, and Cinematic Compositor+ grading.
 - **File:** tutorials/how-to-create-abstract-crystal-renders-in-blender.md
 
+
+### Add VFX into Cinematic RAW+LOG Footage (the right way) | ACES Part 1
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=aJF2sAjRsy0
+- **Author:** InLightVFX
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1.md
+
 ---
 
 ## Tag Reference
