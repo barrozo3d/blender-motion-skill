@@ -268,6 +268,9 @@ def update_index_pending(info, slug, filename):
 - **File:** tutorials/{filename}
 """
     content = INDEX_FILE.read_text(encoding="utf-8")
+    if f"tutorials/{filename}" in content or (url and url in content):
+        print(f"      INDEX.md already has an entry for {filename} — skipping (re-ingest will refresh the .md file but not duplicate the index)")
+        return
     placeholder = "*(Empty — add your first tutorial by saying"
     if placeholder in content:
         content = re.sub(r"\*\(Empty[^)]+\)\*", entry.strip(), content)
