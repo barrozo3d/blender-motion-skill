@@ -843,6 +843,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/fractals-in-blender---geometry-nodes-extrude-node.md
 
+
+### How to create a Cinematic Landscape inside Blender | Full tutorial with Project file
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=QJhiYYf6qJI
+- **Author:** vfx world
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi.md
+
 ---
 
 ## Tag Reference
