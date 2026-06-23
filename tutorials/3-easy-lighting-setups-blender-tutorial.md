@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=FYJb10NIMH8
 author: Max Hay
 ingested: 2026-06-23
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified"
+tags: [lighting, volume, rendering, cycles, eevee, hdri, materials, shaders, intermediate, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/3-easy-lighting-setups-blender-tutorial/
 frame_count: 4
 ---
@@ -33,27 +33,60 @@ frame_count: 4
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Three reusable studio lighting recipes built from combinations of spotlights, area "fill" lights, HDRIs, volume scatter, and emissive surfaces — chosen and layered based on the mood (dramatic, natural outdoor, or dark futuristic/neon).
 
 ### Summary
-[PENDING EXTRACTION]
+Walks through three lighting setups the author reuses constantly: (1) a dramatic spotlight rig with a soft main spot, a dim area fill light, secondary accent spots, and a Light Falloff node trick for rim highlights, all inside volume scatter fog; (2) a natural outdoor HDRI setup combined with a separate sky-image background plane and a fake lens-flare trick for visible-sun shots; (3) a dark futuristic/neon setup driven by reflective floors/walls, thick volume scatter, an emissive "sign" surface, and compositor Glare (Bloom) for glow.
 
 ### Key Steps
-[PENDING EXTRACTION]
+**Setup 1 — Dramatic spotlight:**
+1. Add a volume scatter cube spanning the whole scene (low density, high anisotropy, Display As: Bounds) for atmosphere.
+2. Add one main Spot light driving ~80% of the scene — raise **Light Radius** (not spot size) to soften shadow hardness; narrow the **Spot Size** for a tight dramatic beam.
+3. Add a dim Area light above the scene as a fill light to lift the darkest shadows without washing out the spotlight — keep it minimal.
+4. Optionally duplicate the main spot and aim it elsewhere for a secondary "beam of light" accent.
+5. For a rim-light accent: add a low light, disable **Object Properties → Visibility → Ray Visibility → Volume Scatter** so it doesn't create a visible light cone, then add a **Light Falloff** node in the light's Shader Editor (enable Use Nodes on the light), feed it through a **Color Ramp** (flip direction) and a **Map Range** node to precisely control highlight falloff distance/intensity without affecting overall brightness. Match its color to the main light.
+
+**Setup 2 — Natural outdoor HDRI:**
+1. Drop in a free HDRI (author uses Poly Haven's add-on) and rotate it until the lighting direction reveals object form and separates subjects from background via shadow/highlight contrast.
+2. Avoid placing the sun directly behind the camera — it washes out all shadows.
+3. Decouple lighting from background look: once the HDRI's light direction is right, add a separate image plane behind the scene with a preferred sky photo, set its material to pure **Emission** using the photo as color.
+4. On that sky plane, go to **Object Properties → Ray Visibility → Shadow** and disable it, so the plane doesn't block the HDRI sun.
+5. Optional sun-flare trick (only if the sun disc is visible in frame): duplicate a small white emissive plane, rotate one copy 45°, and drive its **Alpha** with a free lens-flare texture/PNG aligned to the HDRI sun position.
+6. Alternative to HDRI: Shader Editor → World → **Sky Texture** node, a fully proceduralized/rotatable substitute.
+
+**Setup 3 — Dark futuristic / neon / emissive:**
+1. Build reflective floor/wall surfaces (Noise Texture → Roughness, dark Base Color, Color Ramp for surface grime) so light bounces and reads as reflections.
+2. Add a volume scatter cube over the whole scene, density noticeably higher than Setup 1 (since this scene is smaller), Anisotropy cranked up.
+3. Add one dim, slightly cool-toned Area light above everything as ambient fill so the scene isn't pure black outside the glow.
+4. Build the main light source as an **emissive mesh** (e.g. a neon sign or backlit panel) — for added surface detail, drive the emission shader's Alpha with an arbitrary image (photo, texture, anything with contrast) through a Color Ramp.
+5. Add silhouette geometry (pillars, props, character meshes) between camera and the emissive source to create dramatic dark shapes and depth.
+6. Use Poly Haven props to dress the scene quickly.
+7. In the Compositor (enable via the header toggle, Camera or Always), add a **Glare** node with the **Bloom** preset to add glow around bright/emissive areas — lower Strength so it doesn't overpower the shot. This is a compositing effect, not a volume interaction.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Volume: Cube mesh, Volume Scatter material, low-to-medium Density (0.005–0.05 depending on scene scale), high Anisotropy, Display As: Bounds
+- Spot Light: Light Radius (shadow softness, distinct from Spot Size/cone angle), Spot Size (beam narrowness)
+- Area Light: used purely as a low-intensity fill/ambient light
+- Light Shader Editor (Use Nodes on a light): Light Falloff → Color Ramp (reversed) → Map Range → light Strength/Color, for precise highlight control independent of overall exposure
+- Object Properties → Ray Visibility: Volume Scatter (toggle off to hide visible light cones), Shadow (toggle off on background image planes)
+- World Shader Editor: HDRI Environment Texture or Sky Texture node
+- Emission shader with an image plugged into Alpha (via Color Ramp) for textured/patterned glow surfaces
+- Compositor: Glare node, Bloom preset, reduced Strength
+- Material linking: Ctrl+L (Link Materials) to reuse one shiny floor/wall material across objects
+- Noise Texture set to Object coordinates (Ctrl+T) to avoid generated-coordinate stretching after scale changes
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner to Intermediate — the recipes themselves are simple (a handful of lights + one volume cube), but getting natural-looking results depends on iterative angle/intensity tweaking, and the Light Falloff node trick and emissive-alpha texturing push into intermediate shader-editor territory.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified in transcript or frames (UI matches a recent 4.x-style interface).
 
 ### Tags
-[PENDING EXTRACTION]
+#lighting #volume #rendering #cycles #eevee #hdri #materials #shaders #intermediate #beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `fundamentals-of-lighting-in-blender.md` — shares lighting/volume/intermediate fundamentals
+- `my-new-favorite-lighting-trick-in-blender.md` — shares lighting + Light node trick territory
+- `realistic-product-lighting-in-blender.md` — shares lighting/hdri/rendering focus
