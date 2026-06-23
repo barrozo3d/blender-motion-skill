@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=9Fvw8HlWHpo
 author: Ducky 3D
 ingested: 2026-06-23
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified"
+tags: [geometry-nodes, animation, motion-design, abstract, glass, procedural, lighting, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/a-new-way-to-loop-animations-in-blender/
 frame_count: 4
 ---
@@ -33,27 +33,36 @@ frame_count: 4
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A guaranteed-seamless animation loop trick for Mesh Line-based Geometry Nodes setups: add the Mesh Line's "Start Location Z" value to its "Offset Z" value and keyframe that sum at the end of the loop — mathematically forces the loop point to match the start exactly, regardless of spacing/count.
 
 ### Summary
-[PENDING EXTRACTION]
+Builds a stacked glass-cube tower animation using Geometry Nodes' Mesh Line node, then reveals the author's perfected seamless-loop method: keyframe Start Location Z at frame 0, then at the final frame set it to (original Start Location Z + Offset Z) — since that sum mathematically lands back on the same visual state, the loop is perfect with zero guesswork (works for any object/spacing/direction). The rest of the tutorial dresses the animation: gradient-texture-driven scale tapering at the tower's ends (with a Float Curve to fix a "pyramid" artifact), a position-driven spiral rotation, and a stylized two-tone studio lighting rig (emission plane + Noise Texture → Color Ramp, hidden from camera rays) finished with compositor Glare/Bloom.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Model a beveled glass cube instance (Ctrl+A to apply scale before adding the Bevel modifier), Cycles transmissive material, low roughness.
+2. Geometry Nodes on a Plane: Mesh Line node → Instance on Points (cube as instance, hide it from render via the outliner eye/camera toggles) → offset instances along Z to set spacing, set Count (e.g. 30–40).
+3. Set Default Interpolation to Linear (Preferences → Animation) — required for the loop math to read as seamless.
+4. **The loop trick:** keyframe Start Location Z at frame 0. At the last frame, set Start Location Z to (its original value) + (Offset Z value) and keyframe again — the object's visual position is identical to frame 0, so the loop is seamless with no trial-and-error.
+5. Taper the ends: Gradient Texture (Spherical) → Factor into Scale, but isolate X/Y scaling from Z via Combine XYZ (Z=1); use Position + Vector Math (Multiply) to control the texture's stretch, and a Float Curve node to fix the "pyramid" look caused by the raw gradient and round the taper shape.
+6. Spiral rotation: Position node → Z component → Combine XYZ into the instance Rotation Z, scaled by a Math-Multiply node to strengthen the per-height twist.
+7. Lighting: a large Plane behind the subject (rotated 90° on X), Emission shader, World brightness set to black, Object Properties → Visibility → Ray Visibility → Camera disabled (light contributes to the scene but the plane itself is invisible). Drive the Emission color via Noise Texture → Color Ramp (Normalize, B-Spline interpolation) for a soft two-tone (e.g. blue/pink) glow.
+8. Compositor: add a Glare node set to Bloom, with the 3D viewport shading dropdown set to Always so glow is visible live; tune Strength to taste.
+9. Render: PNG sequence at the project resolution; only ~40 frames needed since it's a short seamless loop.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+Geometry Nodes: Mesh Line, Instance on Points, Gradient Texture (Spherical), Combine XYZ, Position, Vector Math (Multiply), Float Curve, Math (Multiply). Shading: Cycles Transmissive glass material (low roughness), Emission shader for the light plane. World: brightness set to black so only the emission plane lights the scene. Object Properties → Visibility → Ray Visibility → Camera (disable on the light plane). Compositor: Glare node (Bloom). Preferences → Animation → Default Interpolation: Linear.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — the Geometry Nodes scattering and lighting rig are approachable, but the loop-math insight and float-curve taper correction require some prior Geometry Nodes fluency.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified in transcript or frames.
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #animation #motion-design #abstract #glass #procedural #lighting #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `another-blender-string-tutorialbut-even-better-this-time.md` — shares geometry-nodes/animation/procedural/intermediate territory and simulation-zone looping concepts
+- `3-easy-lighting-setups-blender-tutorial.md` — shares the emission-plane-hidden-from-camera lighting trick
