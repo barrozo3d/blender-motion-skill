@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=Vqe4jBf3wx4
 author: Seanterelle
 ingested: 2026-06-23
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.0"
+tags: [geometry-nodes, simulation, smoke-fire, volume, blender-5x, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/3d-smoke-blender-geometry-nodes/
 frame_count: 4
 ---
@@ -33,27 +33,48 @@ frame_count: 4
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A from-scratch Eulerian fluid solver for smoke, built entirely in Geometry Nodes using Blender 5.0's volume grid nodes (velocity/divergence/pressure/density grids), inside a Simulation Zone — no Mantaflow/native smoke domain used at all.
 
 ### Summary
-[PENDING EXTRACTION]
+Hand-builds a physically-inspired 3D smoke simulation using only Geometry Nodes volume grid primitives. A cube domain is voxelized into velocity (vector), divergence, pressure, and smoke/density (float) grids. Each simulation frame: smoke is injected near an animated Suzanne emitter, velocity is injected and then self-advected, divergence is computed from 6-neighbor velocity sampling, pressure is solved iteratively (16 Jacobi-style iterations) from that divergence, the pressure gradient is subtracted from velocity to enforce incompressibility (the "projection" step), and finally the smoke grid itself is advected by the corrected velocity field and dissipated by a 0.96 multiplier each frame. Finishes with grid pruning/cleanup for memory-efficient baking and a Principled Volume material pass for color grading.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Build a `Parameters` node group holding shared values (domain bounds e.g. -2..2, Solver Resolution, Smoke Resolution) referenced everywhere instead of repeating values.
+2. **Domain init:** Volume Cube node at Solver Resolution → take its default density grid, rename to "smoke", **Voxelize Grid** (disables OpenVDB's sparse-block memory optimization so every voxel is individually addressable for the math that follows).
+3. Use **Field to Grid** with that voxelized topology to initialize empty Velocity (vector), Divergence (float), and Pressure (float) grids at the same topology.
+4. Create a separate smoke/density grid at a *higher* "Smoke Resolution" than the solver (e.g. solve at 64 for interactive speed, render smoke at 256) — multiply its initial density by 0 so it starts empty (it's a flow grid).
+5. **Emitter setup (Suzanne):** subdivide the emitter mesh; drive its transform every frame with two Noise Textures (one for position offset, one for rotation) sampled from Scene Frame, inside a Simulation Zone that stores "last position" and "new position" attributes each frame — transforming the ORIGINAL stored position each time (not iteratively) prevents drift/runaway.
+6. **Add smoke:** for each voxel, sample nearest point on emitter geometry; if distance < threshold (~0.025 scaled), add smoke value to the existing "smoke" named grid via Store Named Grid.
+7. **Add velocity:** similarly sample distance to Suzanne's surface; compute (new position − last position) as a direction vector, scale (~0.5) and add a small +Z bias so smoke initially rises, scale all of it by proximity to the emitter, then add into the velocity grid.
+8. **Advect velocity (self-advection):** for each voxel, sample current velocity, subtract that velocity vector from the voxel's position to get a backtraced sample point, sample velocity again at that offset point, and store that as the new velocity — moving the field "through itself" over time. (The built-in Volume Advect node existed but gave worse results in testing.)
+9. **Divergence:** for each of the 6 axis-aligned neighbors (±X, ±Y, ±Z) via **Get Value At Offset (Vector)**, subtract negative-offset velocity from positive-offset velocity per axis, sum the three axis differences, divide by 2 to normalize for voxel span, store as the divergence grid. (A built-in Grid Divergence node exists but lost detail in testing — manual method preferred.)
+10. **Pressure (projection step, Repeat Zone × 16 iterations):** at each iteration, sample neighboring pressure values at the same 6 offsets (this time as floats), sum them, subtract the divergence, and average by neighbor count — this diffuses pressure globally so it counteracts local divergence (positive divergence → pressure pushed negative/pulls in; negative divergence → pressure pushed positive/pushes out).
+11. **Subtract pressure gradient from velocity:** compute the pressure gradient per axis the same offset-difference way, combine into a vector, convert to a grid, and subtract from velocity — this is the actual incompressibility enforcement.
+12. **Advect smoke:** sample velocity at each voxel, offset the sample position by it, sample the smoke grid at that backtraced point, multiply the result by 0.96 (dissipation/fade), store back into the smoke grid.
+13. **Cleanup before baking:** remove the velocity/pressure/divergence grids (keep only "smoke") so the Viewer node and the bake don't carry unnecessary grid data — Prune Grid at threshold 0.01 to re-enable OpenVDB's sparse-block memory optimization (must be done OUTSIDE the simulation loop, since advection inside the loop would sample from pruned/missing regions incorrectly).
+14. Bake at the higher Smoke Resolution for final render; preview/tune at the lower Solver Resolution for interactive feedback. Shade the smoke with a **Principled Volume** shader; the emitter (Suzanne) gets its own simple metallic material.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Geometry Nodes: Simulation Zone (main loop) + nested Repeat Zone (16 iterations, pressure solve)
+- Volume grid nodes: Volume Cube, Voxelize Grid, Field to Grid, Store Named Grid / Named Grid (get), Get Value At Offset (Vector and Float variants), Prune Grid, Grid Divergence / Volume Advect / Grid Gradient (built-ins available but author prefers the manual offset-sampling method for all three — better detail retention)
+- Domain bounds: -2 to 2 (4-unit span); Solver Resolution ~64 (interactive), Smoke Resolution up to 256 (final render)
+- Smoke dissipation multiplier: 0.96/frame; Prune threshold: 0.01
+- Emitter driver: two Noise Textures (position + rotation) sampled by Scene Frame, inside their own Simulation Zone storing last/new position attributes
+- Shading: Principled Volume (smoke color/density), simple metallic Principled BSDF (Suzanne emitter)
+- Ctrl+H: hide/show all outputs of a node group at once (used to toggle Solver Resolution vs Smoke Resolution display)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced — requires understanding of Eulerian fluid concepts (velocity fields, divergence, pressure projection, advection) translated directly into Geometry Nodes primitives; not a "drag a modifier on" simulation.
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.0 (volume grid nodes referenced as relatively new at time of recording).
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #simulation #smoke-fire #volume #blender-5x #advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `3-easy-lighting-setups-blender-tutorial.md` — shares volume/rendering territory (though different focus)
+- `blender-50s-new-audio-visualisation-is-insane.md` — shares geometry-nodes/simulation/smoke-fire/volume/blender-5x tags and similar volume-grid Geometry Nodes approach
+- `art-stream-27-nodes-nodes-nodes-blender-geometry-nodes.md` — shares volume/procedural Geometry Nodes territory
