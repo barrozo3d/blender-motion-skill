@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=RKz3DdbybVk
 author: Extra 3d
 ingested: 2026-06-23
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified"
+tags: [geometry-nodes, materials, shaders, procedural, glass, lighting, volume, compositing, abstract, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-create-abstract-crystal-renders-in-blender/
 frame_count: 4
 ---
@@ -33,27 +33,48 @@ frame_count: 4
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Scattering an imported crystal mesh across a UV sphere with Geometry Nodes (Distribute Points on Faces → Instance on Points → Join Geometry), then dressing it with a transmissive purple glass shader, a bump/displacement rock material, volumetrics, and cinematic lighting/compositing.
 
 ### Summary
-[PENDING EXTRACTION]
+Builds an abstract "crystal planet" render from scratch: a subdivided UV sphere acts as the base, a free GLB crystal model is scattered over its surface via Geometry Nodes, and the original sphere geometry is re-joined underneath so it reads as rock. A free shader (author's "course shader") drives the crystal material, combined with a Mix Shader + Shadow Ray node for the transmissive purple look. The scene is finished with a high focal-length camera with depth of field, multiple point lights, a volumetric cube, and the Cinematic Compositor+ for final color grading.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. `Shift+A` → add a UV Sphere, scale it up by 2.
+2. Add a Subdivision Surface modifier, level 1–2; apply scale; Shade Smooth.
+3. Import a free crystal GLB model (link in original video description) into a new file; unparent it, delete extra empties, scale by 10, apply scale; copy into the main scene file.
+4. Open the Geometry Nodes editor on the sphere, create a new node tree.
+5. Add **Distribute Points on Faces** → **Instance on Points**, connect in series; drag the crystal object in as the instance source and connect to the Instances socket.
+6. Tune Distribute Points density, plus per-instance Scale and Rotation, to control crystal coverage.
+7. Add a **Join Geometry** node and feed the original sphere mesh back in alongside the instanced crystals, so the underlying rock sphere is visible between crystals.
+8. Rock material: Ctrl+Shift-click an Ambience CG texture onto the Principled BSDF (loads base color + the rest of the PBR set via Node Wrangler), scale ~9, switch displacement mode to Bump **and** Displacement, strength ~0.2, with a darker base color for contrast against the crystals.
+9. Crystal material: raise Transmission, remove the color texture, pick a manual purple base color, and route that color into a Mix Shader whose factor is driven by a Shadow Ray node; append the author's free "course shader" node group into the second Mix Shader slot.
+10. Camera: high focal length lens with Depth of Field enabled.
+11. Lighting: several point lights at high intensity (manual/experimental placement); disable the **Volume** option on the point light positioned above the volumetric cube to stop it blowing out the volumetrics.
+12. Volumetrics: a simple cube with the crystal/course shader applied, used purely for its volume scatter contribution.
+13. Compositing: Cinematic Compositor+ (paid add-on) for the final grade.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Geometry Nodes: `Distribute Points on Faces` → `Instance on Points` → `Join Geometry` (rejoining base sphere mesh)
+- Modifiers: Subdivision Surface (level 1–2)
+- Shading: Shade Smooth on sphere
+- Shader editor: Principled BSDF (rock material, Bump+Displacement, scale ~9, strength ~0.2); crystal material uses Transmission + manual Base Color → Mix Shader (factor driven by Shadow Ray node) → custom appended "course shader" node group
+- Camera: high focal length + Depth of Field
+- Lights: multiple Point Lights, high intensity; Volume option toggled off on the light above the volumetric cube
+- Volumetrics: cube mesh with the crystal/course shader for volume scatter
+- Compositing: Cinematic Compositor+ (paid add-on, not a native Blender node)
+- External assets: free crystal GLB model + Ambience CG PBR texture (both linked in original video description, not captured here)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — Geometry Nodes scattering is simple (3-node setup), but the lighting/shader/volumetrics dressing requires prior Blender material and compositing experience, and the final look depends on two external paid/free resources (course shader, Cinematic Compositor+).
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified in transcript or frames (UI style in frames is consistent with Blender 4.x).
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #materials #shaders #procedural #glass #lighting #volume #compositing #abstract #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `another-blender-string-tutorialbut-even-better-this-time.md` — shares glass/procedural/intermediate tags and similar abstract crystalline aesthetic
+- `art-stream-27-nodes-nodes-nodes-blender-geometry-nodes.md` — shares Distribute Points on Faces scattering technique for abstract/procedural geometry

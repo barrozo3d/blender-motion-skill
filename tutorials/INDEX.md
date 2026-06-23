@@ -798,19 +798,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=RKz3DdbybVk
 - **Author:** Extra 3d
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
-- **File:** tutorials/how-to-create-abstract-crystal-renders-in-blender.md
-
-
-### How to Create Abstract Crystal Renders in Blender
-- **Source:** YouTube
-- **URL:** https://www.youtube.com/watch?v=RKz3DdbybVk
-- **Author:** Extra 3d
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified
+- **Tags:** #geometry-nodes #materials #shaders #procedural #glass #lighting #volume #compositing #abstract #intermediate
+- **Summary:** Scatters a free crystal GLB model across a UV sphere using Geometry Nodes (Distribute Points on Faces → Instance on Points → Join Geometry), then builds a transmissive purple crystal shader and a bump/displacement rock material. Finished with high-focal-length DoF camera, point lights, cube volumetrics, and Cinematic Compositor+ grading.
 - **File:** tutorials/how-to-create-abstract-crystal-renders-in-blender.md
 
 ---
