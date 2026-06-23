@@ -3,12 +3,12 @@ title: Replacing Adobe After Effects with Blender (tutorial)
 source: YouTube
 url: https://www.youtube.com/watch?v=ZK92Uuhiesg
 author: Ducky 3D
-ingested: 2026-06-12
-blender_version: "Blender 4.x+"
-tags: [motion-graphics, 2d-animation, voronoi, wave-texture, shader-animation, masking, after-effects-alternative, procedural, ducky-3d, intermediate]
-extraction_status: complete
+ingested: 2026-06-23
+blender_version: "[PENDING]"
+tags: []
+extraction_status: pending
 frames_dir: tutorials/frames/replacing-adobe-after-effects-with-blender-tutorial/
-frame_count: 0
+frame_count: 4
 ---
 
 # Replacing Adobe After Effects with Blender (tutorial)
@@ -23,8 +23,9 @@ frame_count: 0
 
 
 ### Full Content [0:00]
-**Transcript:** How's it going guys? Today we are going to make this animation. It's really cool and it's completely made from basic textures. This tutorial is part of a series of tutorials where we're using Blender in a similar way that we would use Photoshop or After Effects. The theme of today's is creating beautiful animations just from 2D textures and giving it kind of a 3D feel and animating it in a really cool, interesting way. So if you want to check out more from this series, there's a YouTube playlist linked in the description. So here's the steps that we're going to go through to make this animation. First we're going to get just a basic Voronoid texture. Then we'll get a wave texture combined those so that it twists the Voronoid texture in a circular way. Then we're going to get three masks. We're going to create an outer mask. We're going to create an inner mask. And then we're going to create a third mask to have variations in lighting and be able to animate that as well. After that all we'll need to do is spin the canvas, animate all of the nodes so that they move, and we will be done. If you like the subject, there's actually bonus content from this using Blender like After Effects...
+**Transcript:** How's it going guys? Today we are going to make this animation. It's really cool and it's completely made from basic textures. This tutorial is part of a series of tutorials where we're using Blender in a similar way that we would use Photoshop or After Effects. The theme of today's is creating beautiful animations just from 2D textures and giving it kind of a 3D feel and animating it in a really cool, interesting way. So if you want to check out more from this series, there's a YouTube playlist linked in the description. So here's the steps that we're going to go through to make this animation. First we're going to get just a basic Voronoid texture. Then we'll get a wave texture combined those so that it twists the Voronoid texture in a circular way. Then we're going to get three masks. We're going to create an outer mask. We're going to create an inner mask. And then we're going to create a third mask to have variations in lighting and be able to animate that as well. After that all we'll need to do is spin the canvas, animate all of the nodes so that they move, and we will be done. If you like the subject, there's actually bonus content from this using Blender like After Effects series on my Patreon. For some really cool stuff, there's a collection dedicated to that on there. So if you want to check that out, along with a ton of other bonus project files and tutorials that is all available right now on Patreon, you can check it out linked in the description. So with that being said, let's create this animation. All right, so it's going to feel like there's a lot to this animation, especially with the nodes. So I'm going to try to, so I'm going to try to organize it in a really understandable way if you are new to shading. So first we're going to need to get a plane. So I'm going to get a plane and I'm simply just going to scale it up, but just for an exactness. So I'm going to hit S5, control A and apply that scale. And let's head straight to shading. Now first hit the camera icon over here and we're going to switch over to EV. Now that we have this, we're going to go here to the render view and let's make our world brightness right here. All the way to black and now we can create this. So right here, let's get a new material. I'm going to delete the principle, we're going to shift A, search. Emission and we're going to plug the emission into the surface. And let's search up a Voronoid texture and a color ramp. Right there, color ramp. And that is not a color ramp. So we'll get our color ramp and make sure you plug distance here. And color into color. You're going to get something like this. Now if you have the node Wrangler add on enabled, hit control T or get a mapping node and a texture coordinate and plug in the object coordinate. And now you're going to get all of this. Let's bring my scale to two. Actually probably a lot lower than that. And let's bring our color ramp in. This is it very good. The gradient that's crunching it in is really harsh. So that's actually from linear to B spline. And it's going to be a more graceful crunch in. And you get to appreciate these really beautiful points in the Voronoid. And that's what we're looking for here. Now let's go ahead and twist the Voronoid. And it's going to be a really cool trick. Let's give some space right here so you can just highlight and then hit G to move it over. We're going to get a wave texture. Plug it there. You're going to see the waves. We're going to go from bands to rings, X to spherical. And then bring that scale up. Now currently it has completely ruined our texture. It has applied a wave distortion to all of our Voronoid. We've lost all of our detail. So go ahead and get a mix color node. Bring your wave texture up and bring the vector into B. What we're creating is a bit of a bypass. So if you bring the factor over, it's as if we never introduced the wave. And then what we can do is just bring this in. Currently, that's too many waves. We're going to bring this to something like here. And then let's just test it out. And then you can play with the offset and actually animate this. And you can see, okay, do I like how much distortion is being created? That looks pretty good. You can give, bring the scale up and make the waves larger. And it creates really that kind of wormhole effect. Next, let's go ahead and create our masks. And mask this in. At this point, I'm probably just going to hit tab, go to edit mode, and I'm going to hit S and scale it up. I want to give myself a little bit more space for the mask. Because I like how it looked here. So we'll mask this outer part out. So let's go first, I want to help organize this for you. So let's go ahead and take this section right here. I'm going to hit Ctrl, hit Shift P, and just box it in so that we can kind of make sense of these and also move them at the same time. So we can move this over. Maybe I can bring this down and kind of make it smaller. So this is that section. Let's go ahead and get our masks. So let's get a mixed color node and switch this into B and A make it black. And then let's plug a gradient texture in it. So let's get a color ramp. And let's get a gradient. And let's plug the mapping into the gradient and go from linear to spherical and plug that right here. And we will have pretty much lost all of it. Now first, I made a mistake. I'm going to hold down Ctrl and slice this. I'm going to give him a brand new mapping setup. So I'm going to hit Ctrl T and use the object. Because we're going to need to edit this. So I'm going to right here on the scale. Give it a smaller scale and expand that mask out to fill the edges. Something like this. There we go. And then you can further edit the mask if you want. I think I'll bring it up to here. But now we have a nice circle. If you want to make it a little bit more gracefully, you can go from linear to B spline. And then bring it over like this. And then this. And now you have a far smoother looking gradient. If you prefer it, I think it looks nice. And we can exploit that a little bit later if you'd like to. Now let's create our inner mask. So we're going to need to get another mixed color node. So I'll just duplicate him. Bring this to B. Let's get a new color ramp. And plug the gradient texture into him. And plug that there. And then what we'll do if I bring this in, we're just creating more of a mask. What we need to do is flip the color ramp so that the mask is inverted. And we're actually creating a mask on the middle. The reason why we're doing this, just not really into the belly button. I want there to be kind of a hole in the middle. Create some kind of visual mystery. And I, yeah, I just don't like how the texture goes into this center point. I'd rather just not be able to see that. So now that we have this, we have some moving parts. So what I'll do is I'll take this and I'll hit shift P and box that in. Now we have our gradient masks, which are not going to animate our move. We have this that will animate and move. And if you want, if you switch the VORNOY to 4D, we can also make this animate and move as well. So now we have these features blocked in. Let's go ahead and create the last mask that will really just create some style and some variations in brightness. And we can animate that around. And it'll be a really cool effect. So again, another mix color node. Get a mix color, bring this down to B, make a black. Let's get a color ramp and a noise texture. Color ramp, noise texture. Plug this here. Plug the color ramp into here. Now here's one thing that we'll do. Let's go ahead and crunch this in, crunch this in. And that's just the texture is not great. I'm going to bring the detailed to zero, bring the scale up and then you can go ahead and bring that in like that. I'm going to switch this to, I'm going to switch from linear to B-spline. Crunch this in and in this case, because I want more black, I'm going to hit the plus icon in this middle node, make that one black and then bring him farther out. So now you can edit it a little bit more gracefully, have a more graceful texture and maybe bring that scale up. But the thing is, if I switch this noise texture to 4D and I animate it, sure, that looks great. That looks pretty good. But one thing I want to do is make this noise texture feel a little bit more circular. And easy, we can just go ahead and take this mix right here. We can take this mix color, this whole wave texture setup and plug it into the noise texture. What that's going to do is now it's going to make the noise texture more of a spiral. We're now distorting the noise texture into a spiral the same way we did the Voronoi. And then all we need to do now is just scale this noise texture up. So it creates more sweeping changes in our animation. So bring that scale to be pretty significantly high. So that again, like when we crunch it in, it creates these beautiful changes in the texture. Now right now, the texture is pretty dark. I want to go ahead, I'm going to hit Shift-A, get a camera, I'm going to hit 0, G and middle click and bring that up. Let's go ahead and bring some brightness. So maybe a strength of like 40. So bring that strength up to something like this. Now we can start really editing the look of this. But first, let's go ahead and add some glowing to it before we add some color. So I'm going to go ahead, render image. I'm going to go here to the compositor. Click new, now have that image in the background. I'm going to hit Shift-A and get a glare node. And go from streaks to bloom. And let's give it a strength of five, maybe even six, so that we don't need to push the glare quite as much as we would need to if we had lower values. So let's head back into the shading, hit this drop down and click always. So now as we play with this, we're going to get like right there some glowing things. Let's go back to the compositor. Right down here, if you're in Blender 5.0, you'll have a sensor noise node. We'll add that to the end. Click on animated, remove chroma noise and bring that up. And we're going to add some grain, some grittiness. And that's really going to help with style. So let's go back to shading now. Now we have some style, we have some glow. All that we need now is some color. So we'll get the mixed color, plug that here and actually plug it in the factor and make A black. So we get everything back. And what we need to do, I'm going to highlight these guys and give them some more space. We're going to get a color ramp for the color and a noise for the color distribution. So plug the color ramp here. We'll get a noise texture. And then in this case, we will use just a regular texture coordinate and plug that into the noise. Plug this here. And you're going to get something. If I crunch this and you'll start to see it, what I want to do is first pick some colors. In my case, I'm just going to pick the colors that are in my original animation. You can do like a blue green, you know, a red blue, a red orange. There's a lot of options here. And then I'm going to crunch this in and then just bring the detail to zero and the scale up. And you should get some really satisfying looking colors for this animation, something like that. There we go. So now it's colored. Okay, we can go back up to this noise texture and see how it looks being distributed. Let's bring the brightness up on our emission. So we start to see some glowing. And then we can go and start to edit the style. The styling of this and really start to crunch in that mask until we get something really cool. Maybe even bring this out a little bit more. So this is the part where I kind of fight it. And you can tweak it more to make it look better. But now we have some really nice glowing and we can even bring that glared down some. Okay, we are now ready to animate this guy. So the first thing I'm going to animate is the wave texture because really that's just the easiest thing to get this to start looking good. So bringing in that wave texture. Let's go ahead, bring up a timeline. And let's go here to 500 seconds. Really, that's for the rotation so that the rotation isn't so fast. It's just going to be a really fast rotation. And that's really, there's no real kind of way around that. So let's go back to frame zero. Make sure you are at frame zero and go to your preferences in the animation. And your default interpolation is linear. So let's go ahead and animate the wave. So I'm going to go, I'm hit I and the way you loop the wave is doing an even number asterisk by. Now I forget exactly what numbers I want. I know it needs to go over a lot of frames. So I'm going to do 10 times, I mean 10 asterisk pi. Hit enter and that's really slow. So I'm going to do like 30. So 30 asterisk pi. All right, cool. So I'm going to go with their 30 for my speed. Another thing I want to animate is the Vorono. I want that to move around as well. So we need to loop the W. So we've done that quite a few times on the channel. And we're going to do it again now. So let's give myself some space. I'm going to hit Ctrl, Shift, D, or just duplicate the Vorono and make sure everything is still connected. And then bring your W to zero on both of them. So let's get a mix shader. Sorry, a mix color node. And plug distance into both of them. And again, we're going to do a really quick loop of the W. So I'm going to hit bring the factor over. Hit I here, hit I here. And I'm bringing this over hit I. And then I'm going to do 15. And then at the end of timeline, at frame 500, hit I in the W in the bottom one. Go to the end and type in negative 15. And that should give us already a lot of really cool changes in movement and animation. All right, the next thing we need to animate is our noise texture mask right here. So let's go ahead and do that. Now we're going to do something that's kind of against the rules with looping animation. And we're going to do a boomerang animation because it's not going to be very noticeable. And it's just going to save us a little bit of work. So I'm going to go here to edit preferences. Go to your animation. We'll go from linear to bezier. And then let's go back to frame zero. And I'm just bringing my W to zero. Just not even really that important. I'm going to hit I on the W. Go to the end of the timeline, hit I. And then right here in the middle, let's just go ahead and add some animation. Maybe to 17. Let's try that. So let's see how that looks. Oh yeah. Okay, so that's moving around pretty quickly. That looks really alive. So we're going to stick with that. And then let's go ahead and just rotate the canvas and we'll be done. So let's go here to layout just to make it bigger. Go here, hit the drop down to click on always. And then let's animate the canvas. So let's go back to frame zero. Click on the plane, go to the properties. And then again, go make sure your preferences and your animation is linear. And then right here, we're going to animate the Z. So get a keyframe, go to frame 500. And let's type in 360. Hit I. And there we go. We've now created this animation. All ourselves. And it looks really cool. It's done. We're done. It's an absolutely love this animation. And again, the point is using it in a similar way we do after effects, which is creating, getting textures, distorting them and making something interesting with it. So that's the whole point. There you go. So there you go. I hope you enjoyed this. Hope you learned some really cool stuff. Sometimes you don't need to use geometry nodes in a bunch of modifiers and objects to create really interesting animations and blenders sometimes. So you can just use textures and make something really cool. And hopefully this gave you some ideas. So with that being said, hope you enjoyed it. Again, feel free to check out the bonus content on Patreon. A bunch of really cool stuff there. And I'll see you in the next one.
 
+**Frame:** tutorials\frames\replacing-adobe-after-effects-with-blender-tutorial\frame_000.jpg
 
 
 ---
@@ -32,83 +33,27 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-**2D shader animation as After Effects replacement** — use a Voronoi texture distorted by a Wave texture (in circular/twist mode) to create a dynamic swirling pattern on a flat plane. Layer three procedural masks (outer boundary, inner cutout, lighting variation) on top and animate all texture nodes to make the whole thing spin and flow. No rigging, no AE, just shader nodes.
+[PENDING EXTRACTION]
 
 ### Summary
-16-minute tutorial (part of Ducky 3D's "Using Blender like After Effects" series) for making a beautiful looping 2D animation entirely from procedural shader nodes. The core trick is using a Wave texture as a warp/distort input for a Voronoi texture, creating a circular swirling look without any mesh deformation. Three procedural masks control the shape and lighting variety. The canvas spins and all nodes animate for a finished loop. Part of a broader series using Blender as a motion graphics tool.
+[PENDING EXTRACTION]
 
 ### Key Steps
-
-**Overview Flow:**
-```
-Voronoi Texture (base pattern)
-  ↕ distorted by
-Wave Texture (circular warp)
-  ↕ masked by
-Outer Mask + Inner Mask + Lighting Variation Mask
-  ↕ animated by
-Spinning canvas + node value animation
-```
-
-**Step 1 — Base Voronoi Pattern:**
-1. Plane mesh → Material → Shader Editor
-2. Add **Voronoi Texture**
-3. Add **Texture Coordinate** → Object → into Voronoi Vector input
-4. Adjust Scale for desired cell density
-
-**Step 2 — Wave Texture Warp (circular twist):**
-1. Add **Wave Texture**
-2. Set Wave texture **Type: Rings** (creates circular/radial pattern)
-3. Connect the Wave output into a **Vector Math** or **Mapping** node that feeds into the Voronoi Vector
-4. This causes Voronoi cells to twist/distort in circular rings
-
-**Step 3 — Three Masks:**
-- **Outer Mask**: ring or gradient that vignettes the edges (keeps animation inside a circle)
-- **Inner Mask**: smaller circle cutout in the center (creates ring/donut shape)
-- **Lighting Variation Mask**: animated gradient that fakes highlight/shadow variation as canvas spins
-
-**Step 4 — Combine & Animate:**
-1. Use **Mix Color** or **Multiply** nodes to apply masks to the Voronoi pattern
-2. Add **Mapping** node on overall coordinates → keyframe Z Rotation to spin the canvas
-3. Keyframe individual texture **Scale** or **Phase** values over time for flow animation
-4. Loop by making last frame match first frame values
+[PENDING EXTRACTION]
 
 ### Nodes / Settings
-
-**Core Shader Structure:**
-```
-Texture Coordinate (Object) →
-  Wave Texture (Rings, animated phase) →
-    [used as distortion vector] →
-      Voronoi Texture (distorted by wave) →
-        [pattern]
-
-Gradient (circular outer mask) → [mask]
-Gradient (inner circular cutout) → [mask]  
-Wave/Noise (lighting variation) → [mask]
-
-Pattern × Outer Mask × Inner Mask → Mix Color →
-  Lighting Variation applied as multiply →
-    Emission Shader → Material Output
-
-// Animation:
-Mapping Z Rotation: spin canvas (0° → 360° over N frames)
-Wave Phase: animate for flow
-Voronoi Scale or W: animate for variation
-```
+[PENDING EXTRACTION]
 
 ### Difficulty
-Intermediate — requires familiarity with shader nodes and animation keyframing
+[PENDING EXTRACTION]
 
 ### Blender Version
-Blender 4.x+ (part of a series; Ducky 3D content is typically current-version compatible)
+[PENDING EXTRACTION]
 
 ### Tags
-motion-graphics, 2d-animation, voronoi, wave-texture, shader-animation, masking, after-effects-alternative, procedural, ducky-3d, intermediate
+[PENDING EXTRACTION]
 
 ---
 
 ## Related Tutorials
-- `tutorials/real-time-caustics-in-blender-51.md` — Another Voronoi texture technique
-- `tutorials/my-circle-problem-in-blender-tutorial.md` — Ducky 3D wave texture on curves (related technique)
-- `tutorials/a-powerful-lighting-node-in-blender-50.md` — Ducky 3D compositing glare
+[PENDING EXTRACTION]
