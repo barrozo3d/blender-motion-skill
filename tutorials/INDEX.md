@@ -893,6 +893,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/track-objects-using-align-rotation-to-vector-in-geometry-nodes-blender-tutorial.md
 
+
+### Your Guide to Mechanical Rigging in Blender (Robot Arm Tutorial)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=SCz1tmOVmFw
+- **Author:** DemNikoArt
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial.md
+
 ---
 
 ## Tag Reference
