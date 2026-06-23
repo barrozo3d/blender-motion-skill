@@ -52,9 +52,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://youtu.be/_7N7emOvDko
 - **Author:** SharpWind
-- **Blender Version:** Not specified
-- **Tags:** #compositing #rendering #materials #shaders #beginner #intermediate
-- **Summary:** Comprehensive guide to Blender's node-based compositor from scratch: enabling Use Nodes, using Node Wrangler for live preview, and building post-processing chains from Brightness/Contrast to Color Ramp masks and non-uniform adjustments. Covers render passes and compositing workflow best practices.
+- **Blender Version:** 4.5
+- **Tags:** #compositing #rendering #materials #shaders #lighting #beginner #intermediate #advanced
+- **Summary:** Full Compositor walkthrough: practical FX (Glare/Bloom, Mist-Pass fake fog, color grading, Ellipse Mask grading/vignettes, fake Defocus-based DOF via the Z-Pass, Cycles compositor-side denoising), then Render Layers with manual secondary-bounce visibility, and full Render Pass reconstruction (diffuse/glossy/transmission/volume × direct/indirect/color) with Cryptomatte for post-render per-object recoloring.
 - **File:** tutorials/a-full-blender-compositor-course.md
 
 

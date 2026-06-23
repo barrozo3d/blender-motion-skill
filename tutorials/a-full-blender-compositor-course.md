@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=_7N7emOvDko
 author: SharpWind
 ingested: 2026-06-23
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.5"
+tags: [compositing, rendering, materials, shaders, lighting, beginner, intermediate, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/a-full-blender-compositor-course/
 frame_count: 6
 ---
@@ -58,27 +58,35 @@ frame_count: 6
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+End-to-end node-based compositing: practical post-FX (glare, fake fog, color grading, fake DOF, denoising), then render layers/passes to fully reconstruct a render from its individual light components, enabling color/material changes after rendering without re-rendering.
 
 ### Summary
-[PENDING EXTRACTION]
+A full walkthrough of Blender's Compositor, starting from the Use Nodes / Render Result / Composite / Viewer basics and the Node Wrangler Ctrl+Shift-click preview workflow. Covers practical effects (Glare/Bloom, fake compositor fog via the Mist Pass, color grading nodes, masks via Ellipse Mask + Blur, lens distortion/vignette, Cycles compositor-side denoising, fake Defocus-based depth of field using the Z-Pass). Then explains Render Layers (splitting a scene into isolated, recombinable layers with manual "secondary bounce" visibility per collection) and Render Passes (diffuse/glossy/transmission/volume × direct/indirect/color, reconstructed via Add+Multiply per the standard compositing chart), finishing with Cryptomatte masks to selectively recolor/relight individual objects after render without needing separate render layers.
 
 ### Key Steps
-[PENDING EXTRACTION]
+**Fundamentals:** Compositor tab → Use Nodes → Render Layers node feeds Composite (final output) and Viewer (preview) nodes. Ctrl+Shift-click any node (Node Wrangler) to pipe it into the Viewer; split a UV Editor pane set to Display: Viewer Node for a live non-backdrop preview. Any node input that accepts a non-uniform value (e.g. a Color Ramp or mask) lets you apply an effect only to part of the image (black=0/no effect, white=1/full effect).
+
+**Practical compositing:** Glare node (Bloom-type) for highlight blooming, with quality/threshold/smoothness/strength controls. Fake atmospheric fog: enable the Mist Pass (View Layer Properties), set camera-side Mist start/end (Camera Properties → Viewport Display → Mist) and World start/end, then Mix Color (factor = Mist Pass) to blend toward a fog color, scaled down via a Math-Multiply on the mist factor. Color grading: Brightness/Contrast, Color Balance (Lift/Gamma/Gain), Color Correction (per shadow/midtone/highlight range, default split at 0.2/0.7), Hue Correct (per-hue-channel curve), Hue/Saturation/Value, RGB Curves, Tone Map (HDR→SDR). Masking: Ellipse Mask Tool (movable via gizmo in 4.5+) → Blur → plug into any factor input for localized grading, fake spotlights/light bleed (Mix-Add with a blurred mask), or vignettes (Mix Color with inverted mask sockets + a Math-Add to control strength). Lens realism: Lens Distortion node (+ Fit to remove black edges, + Dispersion for chromatic aberration), used subtly. Cycles-only compositor denoising: enable Denoising Data pass (View Layer Properties), disable render-time denoising (Render Properties), add a Denoise node wired Image→Image, Denoising Normal→Normal, Denoising Albedo→Albedo; mute (M) while iterating, unmute for final export. Fake DOF: enable the Z-Pass (View Layer Properties), Map Range to compress scene-unit distances to 0–1, feed into Defocus node's Z input via a Color Ramp to control which depths blur and by how much (Z Scale multiplies blur amount); a Math-Add before the Color Ramp offsets focus distance for animated cameras.
+
+**Render Layers:** Create per-object/collection render layers (View Layer dropdown, top-right) with Film: Transparent (Render Properties) so layers can stack via Alpha Over nodes. Each isolated layer loses cross-object light bounces by default — fix per-layer via the collection "Indirect Only"/reflected-arrow icon in the outliner filter, which makes a collection visible only as a secondary light bounce (requires Cycles; EEVEE has no bounce passes). Toggle this per layer so each object still receives shadows/reflections/emission from the others while staying compositable independently — enables post-render per-layer grading (e.g. brighten just one object) without re-rendering the whole scene.
+
+**Render Passes (single-layer, full control):** Enable needed passes per material type in View Layer Properties: Diffuse/Glossy/Transmission/Volume × Direct/Indirect/Color, plus Emission, Environment, Ambient Occlusion, Shadow Catcher, Cryptomatte (Object/Material/Asset). Reconstruct the final image per the passes chart: (Direct + Indirect) × Color for each of Diffuse/Glossy/Transmission (Mix-Add then Mix-Multiply by the matching Color pass), Volume passes just Added (no color pass), then Add all four groups together, plus Emission, plus a Set Alpha node fed by the Alpha pass for transparent backgrounds, finished with a Denoise node (Normal/Albedo wired as before). Export as OpenEXR Multi-Layer (Color Depth: Half is fine outside professional delivery; codec DWAA) to preserve every pass for later re-import. Light Groups (View Layer Properties → Light Groups, then per-light Object Properties → Light Group) are the "correct" way to isolate/recolor individual lights post-render — combine via Mix-Add factor 1.
+**Cryptomatte for selective edits:** Add a Cryptomatte node fed by the combined image, color-pick an object to add it to the selection, use its Matte output as a factor into any grading node (Hue/Sat, Mix-Multiply on a specific pass) to edit only that object — equivalent to changing its material and re-rendering, without the render cost. Limitation: Cryptomatte can't isolate an object's effect on OTHER objects (secondary bounces/reflections it casts) — that requires manually masking the indirect passes (static mask for stills, animated mask for animation), or doing per-object relighting in Nuke/After Effects via the exported EXR.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+Render Layers, Composite, Viewer, Glare (Bloom type), Mix Color (Mix/Add/Multiply), Color Ramp, Math (Multiply/Add), Mist Pass + Camera/World Mist start-end, Brightness/Contrast, Color Balance (Lift/Gamma/Gain or Offset/Power/Slope), Color Correction, Hue Correct, Hue Saturation Value, RGB Curves, Tone Map, Ellipse Mask Tool, Blur, Lens Distortion (Fit, Dispersion), Denoise (Cycles only, needs Denoising Data pass), Defocus, Map Range, Z-Pass, Alpha Over, Set Alpha, Cryptomatte (Object/Material/Asset), Light Groups (View Layer + Object Properties), OpenEXR Multi-Layer export (Half depth, DWAA codec). Node Wrangler add-on required for Ctrl+Shift-click previews.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate to Advanced — node fundamentals are approachable, but render layers/passes reconstruction and light-bounce-aware layer separation require solid understanding of how Cycles renders direct vs. indirect light.
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.5 (explicitly referenced for the 3-output Glare node and movable Ellipse Mask gizmos).
 
 ### Tags
-[PENDING EXTRACTION]
+#compositing #rendering #materials #shaders #lighting #beginner #intermediate #advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `how-to-render-faster-in-blender-cycles.md` — shares rendering/Cycles denoising territory
+- `mastering-blenders-graph-editor.md` — different editor but same "Blender workflow deep-dive" format
