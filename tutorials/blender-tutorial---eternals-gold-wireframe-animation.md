@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=WmldjCv9P84
 author: Blender Made Easy
 ingested: 2026-06-23
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified"
+tags: [materials, shaders, animation, motion-design, logo-animation, procedural, metal, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/
 frame_count: 8
 ---
@@ -68,27 +68,43 @@ frame_count: 8
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A logo/shape "wireframe build-on" animation (inspired by Marvel's Eternals weapon-forming VFX) using Curve geometry's Bevel Depth + Start/End mapping (set to Spline mode for constant speed), a hole cut into the loop to control where the build starts, a Taper curve object for thickness tapering at the build tip, and a Fresnel-masked animated Noise Texture for a traveling "hot edge" emission glow.
 
 ### Summary
-[PENDING EXTRACTION]
+Imports an SVG logo (Blender logo used as the example) as a Curve, joins multi-part curves with Ctrl+J, sets Fill Mode to None, gives it thickness via Geometry → Bevel Depth, and fixes a critical scaling gotcha: the Curve's "Mean Radius" (in Edit Mode → N-panel) defaults to a huge value when the curve was scaled up after import, multiplying the bevel depth absurdly — must be reset to 1, with the object scale applied (Ctrl+A) beforehand. Removes duplicate-vertex shading artifacts, then creates a "hole" in the closed curve loop by selecting two vertices and deleting the SEGMENT (not the vertex) between them — wherever this hole is placed is where the build animation starts/converges. Animates the Start/End mapping's End value via keyframes (0 → 1 over the animation range) to reveal the curve progressively; sets Mapping mode to Spline (not the default Resolution, which builds unevenly fast/slow based on geometry density, nor Segment) for constant build speed across the whole curve. Fixes mismatched build directions between nested curve loops (e.g. outer vs. inner logo shapes) via Edit Mode → right-click → Switch Direction. Adds a tapering tip effect: a separate flat Bezier curve assigned as the Taper object (Geometry → Taper), with Map Taper enabled to fix inverted taper direction, and a Shape Key animated on the taper curve to flatten/remove the taper by the animation's end frame. Finishes with a gold metallic material: Metallic 1, Roughness 0.1, gold Base Color, mixed with an Emission shader via a Mix Shader whose factor is driven by (Fresnel × an animated, UV-mapped Noise Texture) — the Noise Texture's UV-based X-location is driven by a driver (`#frame/250`) so the noise mask travels along the curve in sync with the build, creating a traveling "molten edge" glow. Render notes: enable Bloom, raise Filter Size (~1.8) and render samples (256) to avoid grainy/splotchy glow artifacts along the curve.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Import an SVG (File → Import → SVG); scale up the resulting curve and apply scale (Ctrl+A) — doing this AFTER scaling, not before, avoids the Mean Radius bug below.
+2. Join multi-part curves with Ctrl+J; set Fill Mode to None (Geometry/Shape panel); add thickness via Geometry → Bevel Depth.
+3. **Critical fix:** Edit Mode → select all (A) → N-panel → set Mean Radius to 1 (it defaults to the curve's pre-scale-apply value, e.g. 284, multiplying Bevel Depth absurdly).
+4. Clean overlapping/duplicate vertices causing shading artifacts (Edit Mode, select and delete the duplicate, repeat around the curve).
+5. Create the build "seed point": select 2 adjacent vertices on the loop, press X → **Delete Segment** (not Delete Vertices) to open a gap; fill the gap if needed by extruding (E) one cut edge onto the other. Repeat for any nested/inner curve loops, choosing the hole position to match where each part of the build should start.
+6. Animate the build: Geometry → Bevel → Start & End mapping, keyframe End from 0 (frame 0) to 1 (e.g. frame 200).
+7. Set the Start/End **Mapping** mode to **Spline** (constant length-based speed) instead of the default Resolution (speed varies with local vertex density) or Segment (speed varies with per-segment subdivision count).
+8. Fix mismatched/reversed build directions between curve parts: select the curve, Edit Mode, right-click → Switch Direction.
+9. Taper: Shift+A → Curve → Bezier; flatten it in Edit Mode; assign it as Geometry → Taper Object on the main curve; enable Map Taper to fix inversion; shape the taper curve's control points to set the tip thickness profile (keep points offset in +Y, not −Y, to avoid thickening the wrong side).
+10. Animate the taper away by the build's end: add a Shape Key (Basis + a new key) on the taper curve; in the new key, flatten all points into a straight line; keyframe the Shape Key's Value from 0 (taper present) at one frame to 1 (taper flattened/removed) by the final build frame.
+11. Gold material: Principled BSDF Metallic = 1, Roughness = 0.1, gold Base Color; Shift+A → Emission Shader → Mix Shader combining Principled + Emission.
+12. Emission mask: Noise Texture fed by Mapping + Texture Coordinate (UV output, via Node Wrangler Ctrl+T) → Color Ramp (narrow the black/white handles); tune Noise Texture Scale ~15, Detail 0, Roughness ~0.2, and Scale Y lower (~0.05) to break up streaky noise into blotches.
+13. Animate the mask traveling along the curve: driver on the Mapping node's X Location, expression `#frame / 250` (or matching your animation length).
+14. Edge-only glow: add a Fresnel node above the Noise Texture chain; Math node set to Multiply combining the Color Ramp output and the Fresnel factor; feed that into the Mix Shader's Factor — Fresnel's own threshold value (~0.9) controls how thin the glowing edge line is.
+15. Emission Strength ~50, Emission Color matched to the Base Color.
+16. Render: enable Bloom; raise Filter Size (~1.8) and sample count (16 viewport → 256 render) to avoid grainy/splotchy artifacts along the glowing edge.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+Curve Geometry: Fill Mode (None), Bevel Depth, Mean Radius (must = 1 after scale-apply), Start/End Mapping (mode: Spline for constant speed), Taper Object + Map Taper. Edit Mode: Delete Segment (not Delete Vertices) to create build-start holes, Switch Direction (right-click) to fix build-direction mismatches. Shape Keys on the taper curve, animated Value to remove taper over time. Shader Editor: Principled BSDF (Metallic 1, Roughness 0.1), Emission Shader, Mix Shader, Noise Texture (UV-mapped via Mapping + Texture Coordinate, Node Wrangler Ctrl+T), Color Ramp, Fresnel node, Math (Multiply), driver on Mapping X Location (`#frame / N`). Render: Bloom, Filter Size (~1.8), Render Samples (256) to fix glow artifacts.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — curve mapping/taper mechanics and the Mean Radius gotcha are non-obvious but well explained; the Fresnel-masked animated emission shader requires some Shader Editor fluency.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified in transcript or frames (Node Wrangler add-on referenced, standard across recent versions).
 
 ### Tags
-[PENDING EXTRACTION]
+#materials #shaders #animation #motion-design #logo-animation #procedural #metal #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `a-new-way-to-loop-animations-in-blender.md` — shares animated-build/motion-design and emission-shader-with-driver territory
+- `a-powerful-lighting-node-in-blender-50.md` — shares Fresnel/Glare-driven glow effects and animated emission masking
