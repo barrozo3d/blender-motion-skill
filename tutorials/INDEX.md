@@ -789,8 +789,8 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=U2I8YDrO5Jc
 - **Author:** SouthernShotty
 - **Blender Version:** 5.2
-- **Tags:** #materials #shaders #rendering #lighting #glass #optimization #blender-5x #intermediate
-- **Summary:** Blender 5.2's Thin Walls option on the Principled BSDF correctly renders one-sided transmissive/subsurface surfaces without a Solidify modifier — demonstrated on bubble/thin-film glass, faster and more natural foliage backlighting, fixing the classic dark-glass light-loss bug, and a frosted-glass creative effect.
+- **Tags:** #materials #shaders #rendering #lighting #glass #organic #intermediate #blender-5x
+- **Summary:** Blender 5.2's Thin Wall option on the Principled BSDF correctly renders one-sided transmissive/subsurface surfaces without a Solidify modifier — demonstrated on bubble/thin-film glass, faster and more natural foliage backlighting, fixing the classic dark-glass light-loss bug, and a frosted-glass creative effect.
 - **File:** tutorials/blenders-new-transparency-material-is-crazy.md
 
 
