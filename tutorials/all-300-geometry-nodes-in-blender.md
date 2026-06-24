@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=Y0zAZnbBcQU
 author: RADIUM
 ingested: 2026-06-23
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.3"
+tags: [geometry-nodes, procedural, blender-4x, beginner, intermediate, advanced, expert]
+extraction_status: complete
 frames_dir: tutorials/frames/all-300-geometry-nodes-in-blender/
 frame_count: 0
 ---
@@ -32,27 +32,28 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Not a single-technique tutorial — a near-complete reference dictionary walking through every Geometry Nodes node category in Blender 4.3/4.5 (~275+ nodes), explaining each node's purpose, sockets, and key parameters.
 
 ### Summary
-[PENDING EXTRACTION]
+An ~84-minute reference covering, in order: foundational concepts (Constant/Input nodes, Fields vs. single values, field context/domain adaptation, attributes vs. the Spreadsheet editor, ID vs. Index vs. Group ID, Instances and nested-instance hierarchies), then category by category: Scene Data, Attribute nodes (capture/store/remove named attribute, blur, statistics), Curve primitives and topology nodes, Output nodes (Group In/Out, Warning, Viewer), Material nodes, UV nodes, Texture nodes (ported from Shader Editor), Mesh primitives, Point nodes (distribute on faces/in volume, points-to-curve/vertices/volume), geometry Read nodes (ID, Index, Normal, Radius, Position), Sample nodes (Geometry Proximity, Sample Index/Nearest, Index of Nearest, Raycast), Write/operation nodes (Set Position, Bake, Bounding Box, Convex Hull, Delete Geometry, Duplicate Elements, Merge by Distance, Split to Instance, Sort Elements, Transform Geometry, Separate Component/Geometry), Misc (Join Geometry, Geometry to Instance), Utility nodes (Color Ramp, Combine/Separate Color, RGB Curves, text nodes, Vector utility nodes and the three rotation representations — Euler/Axis-Angle/Quaternion — with their tradeoffs), Rotation nodes, deprecated nodes to avoid, Import nodes (CSV/OBJ/STL/PLY/Text/VDB), Matrix nodes, Topology nodes (corner/edge/face/vertex relationship queries), Utility math nodes (Boolean Math, Clamp, Compare, Float Curve, Map Range, Math), zone/flow nodes (For Each Geometry Element, Repeat Zone, Simulation Zone, Menu/Index/standard Switch, Random Value), Curve read/operation/topology nodes (Curve to Mesh/Points, Fillet, Resample, Trim, Interpolate Curves), Tool-editor-exclusive nodes (3D Cursor, Mouse Position, Self Object, View Transform, Selection/Active Element, Face Set, Gizmo nodes: Dial/Linear/Transform), Mesh operation nodes (Dual Mesh, Shortest Edge Path, Extrude Mesh, Mesh Boolean with its 3 solvers — Float/Exact/Manifold, Subdivide vs. Subdivision Surface, Mesh to Curves/Volume/Points, Triangulate), Volume nodes (Volume to Mesh, Volume Cube), full Hair node system (generation, deformation, guide/braid/clump/curl, attachment, profile), and finally newer 4.5 additions (Field Min/Max/Variance/Average, Accumulate Field, Evaluate at Index/on Domain, String Length/Find/Match/Format, Camera Info, Bit Math, Mix node, Set Shade Smooth, Set Mesh Normal, Smooth by Angle, Named Attribute, Simulation Zone).
 
 ### Key Steps
-[PENDING EXTRACTION]
+N/A — this is a reference/dictionary video, not a step-by-step build. Use it as a node lookup: jump to the relevant category above when you need to know what a specific Geometry Nodes node does or which inputs/outputs it exposes.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+Effectively covers the entire Geometry Nodes node list as of Blender 4.3, plus Blender 4.5 additions. Key conceptual notes worth remembering: a field's value belongs to a geometry element (point/edge/face/etc.), not a global scalar — node sockets show circle (single value), diamond (field), or diamond-with-circle (field capable, currently single value); "field context" means input nodes like Position adapt their output domain based on what they're plugged into; ID attributes are stable identifiers (unlike Index, which can be invalidated by re-indexing operations); Mesh Boolean has three solvers (Float=fast/imprecise, Exact=slow/most accurate, Manifold=fast+accurate but watertight-meshes-only); rotations can be represented as Euler (intuitive, gimbal lock), Axis-Angle (rarely used, also gimbal lock), or Quaternion (no gimbal lock, unintuitive numbers); the Tool Editor (vs. the regular Modifier-based Geometry Nodes editor) runs once destructively and exposes special Tool Context nodes (3D Cursor, Mouse Position, Gizmos) unavailable in the modifier editor.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner to Advanced — structured as a flat reference so beginners can look up basic nodes (Math, Transform Geometry) while advanced users can look up Matrix/Topology/Hair system nodes; no single difficulty level applies.
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.3 (stated explicitly as ~275 nodes in 4.3), with several nodes flagged as "new in 4.5" (Field Min/Max/Variance/Average, Accumulate Field, string utility nodes, Camera Info, Bit Math, Mix, Set Shade Smooth, Set Mesh Normal, Smooth by Angle node group).
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #procedural #blender-4x #beginner #intermediate #advanced #expert
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `ill-teach-you-geometry-nodes.md` — shares geometry-nodes fundamentals territory, good pairing as a hands-on counterpart to this reference
+- `3d-smoke-blender-geometry-nodes.md` and `blender-new-cloth-simulator-changes-everything.md` — both make heavy use of Simulation Zones and node categories cataloged here
