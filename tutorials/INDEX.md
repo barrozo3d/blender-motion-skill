@@ -251,8 +251,8 @@ Each entry format:
 - **URL:** https://youtu.be/ENnEYoUpFfU
 - **Author:** Blender Guru
 - **Blender Version:** Not specified
-- **Tags:** #lighting #rendering #cycles #hdri #beginner
-- **Summary:** Teaches the four core fundamentals of Blender lighting â€” positioning, fall-off, size, and color â€” using a sci-fi crate as a practical example. Covers key/fill light setup, shadow importance for form reading, light radius for shadow softness, and color contrast for mood.
+- **Tags:** #lighting #rendering #cycles #eevee #materials #beginner
+- **Summary:** Teaches the four lighting fundamentals — Position, Falloff (inverse-square law, used to direct attention), Size (Radius/Area lamp controls shadow softness and detail-vs-form emphasis), and Color (Kelvin temperature for natural light vs. Color for stylized) — on a sci-fi crate. Also covers camera-lock-to-view staging, ground-plane bounce light, an RGB-Curves silhouette-readability trick, and final polish via Spot lamp vignetting and isolated single-light judging.
 - **File:** tutorials/fundamentals-of-lighting-in-blender.md
 
 

@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=ENnEYoUpFfU
 author: Blender Guru
 ingested: 2026-06-23
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified"
+tags: [lighting, rendering, cycles, eevee, materials, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/fundamentals-of-lighting-in-blender/
 frame_count: 7
 ---
@@ -63,27 +63,40 @@ frame_count: 7
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+The four fundamental traits of any light source — Position, Falloff, Size, and Color — taught by lighting a single sci-fi crate prop, building toward art-directed product-shot polish (camera focal length, spot lamps, rim lighting, texture/material tweaks).
 
 ### Summary
-[PENDING EXTRACTION]
+Starts by zeroing World strength (removing ambient/environment light) so all lighting is deliberate. Demonstrates the beginner mistake of adding many lamps to "fill in shadow" — shadow is essential for the brain to read form (shown via a flat top-down sun lamp vs. a slightly rotated one), so the fix is a single secondary fill light dropped well below the key light's strength, not equal strength duplicates. **Staging:** lighting is view-dependent — lock the camera angle first (N-panel → View → Lock Camera to View, for orbit-style camera control) before lighting, since lighting at one angle can look like "flat flash photography" from another. Adding a ground plane changes the lighting noticeably because EEVEE's ray-traced GI approximation bounces light off it — a light-colored plane washes out shadow-side detail, while a near-black plane (not pure black, for headroom) keeps the object's silhouette readable; raising the plane material's Roughness reduces distracting reflections. **Falloff:** light intensity follows the inverse-square law — doubling distance from a light drops intensity to 1/4 (not the ~50–80% most people guess), meaning small position changes near a subject create dramatic contrast, useful for directing viewer attention (move a light close to a face/detail to make it stand out). For even, non-directional lighting (e.g. an evenly-lit hero object), either use a Sun lamp (effectively infinite distance = no falloff, but tends to look flat) or simply raise a Point lamp's height while keeping it the same relative distance across the subject, increasing Power to compensate. **Size:** a light's physical size (Radius on Point/other lamps, or using an Area lamp) controls shadow softness — small/zero radius = hard, sharply defined shadows that emphasize surface detail (scratches, rivets, bump/normal-mapped texture); large radius = soft, "overcast" shadows that de-emphasize fine detail and emphasize overall form — this is why character/skin lighting favors large soft sources (hides blemishes) while dramatic/aggressive looks use hard sources; large soft sources also visually cue "overcast day," small hard sources cue "direct sun/streetlamp." (Best demonstrated in Cycles — EEVEE's radius increase mostly just adds shadow noise rather than clean softening.) **Color:** the lamp's Color/Temperature controls — Temperature (Kelvin/blackbody scale) for natural-feeling light sources (firelight ~1500K, incandescent ~2500K, up through daylight and bluer skylight), or the Color picker for unnatural colors (e.g. purple) appropriate for stylized/sci-fi/urban scenes; a slight color tint on a secondary light also helps visually separate two light sources/sides of an object that would otherwise blend into one flat tone. **Polish pass:** add a contextual ground texture (author uses the Poliigon add-on) rather than leaving a flat color plane; correct a too-light/blurry texture via UV scale (S, 2) and an RGB Curves node (inverted curve) between the base color texture and Base Color input to crush luminance back down for silhouette readability; drop the Metallic map and control Roughness manually via a slider instead of a map for predictable results. Camera focal length affects perceived shape distortion — the author moves from the 50mm default to ~80mm (pulling the camera back to compensate) for a flatter, more "readable" look on a boxy hard-surface object, avoiding wide-angle distortion. Final lighting polish techniques: nudge lights slightly to make specific edges/shapes read better; isolate one lamp at a time when adjusting (hide others) since judging a light's effect is unreliable with multiple visible at once; convert a Point lamp to a Spot lamp once the rough position is set, to vignette/exclude irrelevant parts of the frame from receiving light; use an Area lamp (flat, directional, unlike a Point lamp's "physical sphere") for a light placed just inside translucent geometry (e.g. through a perspex window) so it doesn't bleed light upward past the opening; tint an interior light warm/incandescent or cool/sci-fi to support the story; render to multiple "slots" (Render Result slot switching) to A/B compare lighting iterations, including occasionally trying a wildly different setup to escape micro-incremental tweaking; get outside opinions since visual fatigue sets in from staring too long.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. World Properties → set Strength to 0 (or color to black) to remove default ambient/environment light.
+2. Add a single Point lamp (Shift+A); position it, then add ONE secondary fill light (duplicate with Shift+D) at noticeably lower strength than the key — don't add many equal-strength lights to "fix" shadow.
+3. Add a Camera (Shift+A); enter Camera view (Numpad 0); N-panel → View → Lock Camera to View to orbit/zoom using the camera itself; uncheck it once positioned so accidental moves don't shift the locked shot.
+4. Add a ground Plane, scale past the camera frame; set its material's Base Color to near-black (not pure black) and raise Roughness to reduce distracting reflections/bounce-light washout.
+5. For falloff-driven attention direction: move a light closer to the specific area/detail you want emphasized — closer = exponentially brighter per the inverse-square law.
+6. For even/non-directional lighting: prefer a Point lamp raised high (kept at consistent relative distance across the subject) over a Sun lamp, then raise Power to compensate for the increased distance.
+7. For shadow softness: adjust the lamp's Radius (Point/Spot) or switch to an Area lamp; small radius = sharp detail-revealing shadows, large radius = soft form-revealing, detail-hiding shadows (test in Cycles for a clear view of the effect; EEVEE mostly just adds noise at high radius).
+8. For light color: use Temperature (Kelvin slider) for natural/grounded light, or the Color swatch directly for stylized/unnatural colors; use a secondary light's color/tint to help visually separate two light sources or sides of an object.
+9. Ground-plane texture: apply a real-world material (e.g. via the Poliigon add-on, browsing categories like Concrete), scale its UVs to match real-world dimensions (UV Editing tab, S then a scale factor), and insert an RGB Curves node between the texture and Base Color to crush/recover luminance for silhouette readability; remove the Metallic map and control Roughness via a manual slider instead.
+10. Camera: raise Focal Length from the 50mm default (e.g. to ~80mm) and pull the camera back (G, middle-mouse-drag) to reduce wide-angle distortion on hard-surface/boxy subjects.
+11. Final per-light polish: nudge each light slightly while the others are hidden (isolate to judge effect clearly); convert a Point lamp to Spot once positioned, narrowing/repositioning the cone to vignette out irrelevant background/floor areas; for light leaking through a translucent panel, use an Area lamp instead of Point (flat, directional, doesn't bleed upward like a "physical sphere" Point lamp does); tint interior/accent lights to support the story (warm/incandescent vs. cool/sci-fi).
+12. A/B the result by rendering into different Render Result "slots" and flipping between them; periodically try a drastically different lighting setup rather than only incremental tweaks; get a second opinion from someone with fresh eyes.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+World Properties (Strength = 0). Lamp types: Point, Sun, Area, Spot (Beam Shape/blend for vignetting). Lamp properties: Power/Strength, Radius (shadow softness), Color, Temperature (Kelvin/blackbody). Camera: Lock Camera to View (N-panel → View), Focal Length. Object Properties / Material: Base Color, Roughness (ground plane). Shader Editor: RGB Curves node (luminance crush for silhouette readability), removing a Metallic map input in favor of a manual value. UV Editing: scale UVs (S + factor) to fix texture tiling scale. EEVEE ray-traced GI approximation (bounce light from the ground plane) vs. Cycles (used to clearly demonstrate light-size/softness effects). Render Result slot switching for A/B comparison.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner — explicitly a free lesson from a Beginners Academy course; no prior Blender lighting knowledge assumed.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified (EEVEE ray-traced GI approximation referenced as a relatively new EEVEE feature; UI consistent with a recent 4.x/5.x-era Blender).
 
 ### Tags
-[PENDING EXTRACTION]
+#lighting #rendering #cycles #eevee #materials #beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `3-easy-lighting-setups-blender-tutorial.md` — shares foundational lighting setup territory (spotlights, fill lights, HDRI) at a more example-driven level
+- `realistic-product-lighting-in-blender.md` — shares product/hero-object lighting and camera framing focus
+- `my-new-favorite-lighting-trick-in-blender.md` — shares lighting-as-storytelling-tool philosophy
