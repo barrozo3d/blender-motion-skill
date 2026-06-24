@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=ih100VB7BUI
 author: SouthernShotty
 ingested: 2026-06-23
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.2"
+tags: [geometry-nodes, simulation, cloth, procedural, advanced, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-new-cloth-simulator-changes-everything/
 frame_count: 9
 ---
@@ -73,27 +73,41 @@ frame_count: 9
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Blender 5.2's experimental in-Geometry-Nodes cloth solver (Houdini-style: Cloth Dynamics, Custom Force, Geometry Collider nodes) used to build a self-contained "skin peeling/tearing off" effect: a slightly-offset duplicate shell of the object is cloth-simulated, collides against a shrinking copy of itself, and tears away under wind force — all inside one Geometry Nodes modifier portable to any mesh.
 
 ### Summary
-[PENDING EXTRACTION]
+Introduces Blender 5.2's experimental node-based cloth simulator (Edit → Preferences → Experimental, enable Dynamics/Geometry Nodes) and walks through every core setting: Pin Group (+ Invert), Stretchiness vs. Bendiness, Solver Sub Steps/Constraint Steps, Simulation World inputs, Linear Dampening, Gravity, the new Tearing feature (Threshold, Voronoi-noise tear zones, custom noise/curve input sockets), and the Effector system (Custom Force node + Geometry Collider node, with colliders accepting whole Collections, not just single objects, plus friction/softness/deforming/edge-contacts options). Then builds the "peeling off" effect end to end: shrink a duplicate shell along its normals, run a brief Simulation Zone to shrink it further over the first ~12 frames (gated by an animated Boolean into the zone's Skip input), feed that shrunk shell into a Cloth Dynamics node, collide it against a Geometry Collider driven by the original (deforming) object, add a custom Vector-Math/Noise-Texture/Map-Range/Vector-Rotate wind-force rig, enable Voronoi tearing, and Join Geometry the resulting torn outer shell with the visible inner object. Finishes with the new Bake node for pre-baking the Geometry Nodes simulation.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Enable experimental build features: Edit → Preferences → Experimental tab → enable (this is a Blender 5.2 pre-release/experimental feature).
+2. Add a Geometry Nodes modifier to any object, search for "Cloth Dynamics Experimental" and plug it into the Group Output.
+3. **Core cloth settings:** Pin Group (expose on the modifier, assign a Vertex Group to anchor parts of the mesh) + Invert Pin Group; Stretchiness (0=rigid edges, 1=free-hanging, ~0.25 reads more realistic); Bendiness (low values let folds collapse onto themselves without changing edge length).
+4. **Solver quality:** Sub Steps and Constraint Steps increase accuracy at the cost of render time (20/5 was a good baseline in testing); Simulation World accepts fields/objects to define world-space context; Auto Rest Shape should stay on; Mass/Friction/Collision Radius are self-explanatory; Linear Dampening bleeds simulation energy faster (useful for gooey soft-body-style results); Gravity defaults to real-world but is fully overridable per axis.
+5. **Tearing (new in 5.2):** enable Tear, tune Threshold (very small/finicky range — too low tears everything instantly, too high never tears); optional Voronoi noise pattern for organic tear lines instead of clean edge separation, with sockets to plug in custom noise patterns or hand-drawn curves to control where it tears.
+6. **Effectors:** Custom Force node and Geometry Collider node both plug into the Cloth Dynamics' Effector input; Geometry Collider accepts a Selection input to restrict effect to part of a mesh, and — uniquely in Geometry Nodes — can take an entire Collection of objects as a collider (not just one object at a time like the legacy modifier system) or even a transformed/scaled copy of the object's own geometry as a self-collider.
+7. **Building the peel effect — outer shell:** Set Position node, offset = Normal vector scaled by a small factor (~0.027) to puff the duplicate shell slightly outside the original surface; Set Material for the outer/torn material.
+8. **Shrink Simulation Zone:** a short Simulation Zone containing just a Transform Geometry (scale ~0.9995/frame) that runs only the first ~12 frames — gated via a Boolean into the zone's Skip socket, animated (keyframe Skip=off at frame 0, Skip=on around frame 12) so it doesn't shrink indefinitely.
+9. **Inner collider:** Group Output → Geometry Collider, with Friction and the Deforming checkbox both critical (Deforming is required since the collider itself is animated/scaling); Object Space set to the visible "inner" object.
+10. **Cloth Dynamics on the outer shell:** feed the shrink-simulation result in as Geometry; low Stretchiness/Bendiness (~0.05–0.15 range tested); Sub Steps/Constraint Steps can stay lower (10/1) than the inner collider's needs; Mass ~0.25 for a lighter cloth feel; raised Friction (~1.5) and slightly larger Collision Radius prevent inner geometry poking through; Gravity can be biased to one axis (e.g. Z=0, X=1) for a sideways "blow-off" motion instead of straight drop.
+11. **Wind force rig (community-sourced node group):** Scene Time (seconds) × speed multiplier → Noise Texture vector input → Map Range to constrain magnitude → Vector Rotate to spin the noise direction in space; animate the multiplier (e.g. 5 → 1.5) so the wind eases off rather than blowing the effect off-screen instantly; combine with the Geometry Collider via a Combine/Join into the Cloth Dynamics' Effector socket.
+12. **Tearing on the hero effect:** enable Tear, Voronoi mode, Threshold ~1.05 (default 1.2 didn't tear in testing), Scale ~50 for a larger source object.
+13. **Compose:** Set Material (inner) on the visible inner object, Join Geometry combining the torn outer shell and the inner object so both render together.
+14. **Bake node:** add a Bake node at the very end of the Geometry Nodes tree, click Bake to pre-cache the simulation (so playback/render doesn't re-simulate each time) — described as an under-known but very useful node for Geometry Nodes simulations.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+Cloth Dynamics (Experimental), Custom Force, Geometry Collider, Simulation Zone (Skip socket gating), Transform Geometry, Set Position (Normal-offset scaling), Set Material, Boolean (animated Skip toggle), Bake node, Vector Math, Noise Texture, Map Range, Vector Rotate, Scene Time, Join Geometry. Preferences → Experimental tab (enable Dynamics + Hairs in Geometry Nodes). Object-level: 50,000-face base mesh recommended (denser lags); Subdivision Surface modifier added after Geometry Nodes, disabled while working.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced — requires comfort with Simulation Zones, multi-stage Geometry Nodes pipelines, and an experimental/pre-release feature set whose exact node names/behavior may change before stable release.
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.2 (explicitly an experimental/pre-release feature at time of recording — requires enabling Experimental preferences and possibly a development build).
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #simulation #cloth #procedural #advanced #blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `realistic-cloth-physics-in-blender-full-tutorial.md` — shares cloth simulation territory (likely the legacy modifier-based approach, useful contrast to this Geometry Nodes version)
+- `3d-smoke-blender-geometry-nodes.md` — shares Geometry Nodes Simulation Zone usage at an advanced level
