@@ -804,13 +804,13 @@ Each entry format:
 - **File:** tutorials/how-to-create-abstract-crystal-renders-in-blender.md
 
 
-### Add VFX into Cinematic RAW+LOG Footage (the right way) | ACES Part 1
+### Add VFX into Cinematic RAW+LOG Footage (the right way) | ACES Part 1 (full re-extraction)
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=aJF2sAjRsy0
 - **Author:** InLightVFX
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified
+- **Tags:** #compositing #rendering #intermediate
+- **Summary:** Color theory primer (not hands-on Blender): color gamut via the CIE diagram (ACES2065-1's gamut covers the full visible spectrum), gamma/transfer functions (linear vs. non-linear luminance math, why human vision is non-linear), and display-referred vs. scene-referred camera storage (RAW/Log) — explains why RAW/Log footage looks flat and how ACES's linear working space lets VFX artists ignore source footage gamma. Note: a near-duplicate entry for this video exists at the 80-char-truncated slug `tutorials/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-par.md` — left as-is per the known slugify duplicate-entry issue, not merged.
 - **File:** tutorials/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1.md
 
 

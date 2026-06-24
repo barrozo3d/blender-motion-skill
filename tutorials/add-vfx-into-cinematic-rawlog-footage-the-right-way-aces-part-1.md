@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=aJF2sAjRsy0
 author: InLightVFX
 ingested: 2026-06-23
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified"
+tags: [compositing, rendering, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/
 frame_count: 6
 ---
@@ -58,27 +58,33 @@ frame_count: 6
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Not a hands-on Blender tutorial — a color theory primer (color gamut and gamma/transfer functions) that explains WHY the ACES color management pipeline exists and how it lets VFX artists composite into RAW/Log camera footage without manually fighting color science. Part 2 (separate video) covers the actual DaVinci Resolve + Blender ACES workflow.
 
 ### Summary
-[PENDING EXTRACTION]
+**Color gamut:** uses the classic 1931 CIE chromaticity diagram to explain that "gamut" means the boundary/range of colors a color space can represent; cameras capture and displays show only a triangular subset of the full visible-light gamut. ACES's core working space, **ACES2065-1**, has a gamut so large it encompasses the entire visible spectrum, so footage shot in any smaller camera gamut can be transformed into ACES space — letting artists do all their VFX work in one consistent space regardless of source camera.
+
+**Gamma/transfer functions:** gamma is a brightness (not color) concept — an exponent applied to luminance input values. A gamma of 1 is "linear" (output = input, math behaves additively: 0.25+0.25=0.5); gamma values like 0.5 or 1.5 produce non-linear curves where simple addition no longer predicts the output, which is exactly how human vision perceives brightness (more sensitive to changes in dark tones than bright ones — the candle-in-a-dark-room vs. candle-in-daylight example). Real-world light itself is linear (doubling a light source's output doubles the result), which is why Blender/3D renderers compute in linear light by default and why multi-pass/additive compositing math works correctly (demonstrated by rendering two lights separately and adding the renders together, matching a render with both lights on).
+
+**Camera storage methods — display-referred vs. scene-referred:** phone/basic DSLR cameras use **display-referred** storage — they discard scene light information, apply a non-linear transfer function to brighten dark shades for direct display, and produce smaller files. Higher-end cameras shooting **RAW** are **scene-referred** — they store the actual linear light values from the scene with no transfer function applied, at the cost of much larger files. **Log footage** is also scene-referred: it applies a log transfer function to the linear scene values (not the same as display gamma), retaining enough information that ACES can mathematically reverse-engineer the original linear values, at a smaller file size than RAW. Scene-referred (RAW/Log) footage produces more accurate VFX compositing because more of the original light information survives.
+
+**Why RAW/Log footage looks "flat":** every display device (monitor, projector) applies its own non-linear gamma curve when showing an image; display-referred footage is designed so the camera's transfer function + the display's gamma combine to look "normal." RAW/Log footage's transfer function doesn't pair with a standard display gamma, hence the flat/washed-out look straight off the camera. ACES2065-1 itself is a **linear** color space, matching how 3D renderers already compute — so ACES can ingest either display-referred or scene-referred footage and convert it into one consistent linear space, letting VFX artists stop worrying about the source footage's original gamma.
 
 ### Key Steps
-[PENDING EXTRACTION]
+N/A — conceptual/theory video, no software steps. The companion poster (linked in the original video description, not captured here) visualizes color gamut and gamma; Part 2 (a separate video) covers the hands-on ACES setup in DaVinci Resolve and Blender.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+None demonstrated in this video — purely color science concepts (color gamut/CIE diagram, gamma transfer functions, linear vs. non-linear luminance math, display-referred vs. scene-referred camera storage, ACES2065-1 as a linear, ultra-wide-gamut working space). The actual Blender View Transform / Color Management settings are covered in Part 2.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner (conceptual) — no software skills required, but a prerequisite for understanding WHY Part 2's ACES setup steps matter.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified (theory-only video; concepts apply across versions).
 
 ### Tags
-[PENDING EXTRACTION]
+#compositing #rendering #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2.md` — direct continuation, the hands-on DaVinci Resolve + Blender ACES workflow this video sets up theoretically
