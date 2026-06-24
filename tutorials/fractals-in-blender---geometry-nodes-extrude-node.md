@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=bHWvVtuLJkM
 author: CrossMind Studio
 ingested: 2026-06-23
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "3.1"
+tags: [geometry-nodes, procedural, materials, shaders, glass, abstract, beginner, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/fractals-in-blender---geometry-nodes-extrude-node/
 frame_count: 4
 ---
@@ -33,27 +33,36 @@ frame_count: 4
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Manually chaining an "Extrude Mesh → Scale Element (top faces only)" node group multiple times (Blender 3.1's then-new Extrude Mesh and Scale Elements nodes) to build a recursive, fractal-like crystalline pattern across a cube's faces — with an optional Face Area + Compare threshold to selectively break the pattern only on faces above a certain size.
 
 ### Summary
-[PENDING EXTRACTION]
+Introduces two nodes new in Blender 3.1: **Extrude Mesh** (extrudes selected faces/edges/vertices along their own direction, exposing Top and Side output selections) and **Scale Elements** (scales mesh elements — uniformly as one shape unless edges are first split, in which case each face scales independently around its own center). Plugging Extrude Mesh's Top output into Scale Elements' Selection makes only the newly extruded top faces scale inward, creating a stepped "inset" look; grouping these two nodes (Ctrl+G, named e.g. "Extrude and Inset") creates a reusable unit. Since Geometry Nodes (at the time) had no native loop node, the group is manually duplicated and chained in series (Shift+D, 4–5 copies found to be a practical limit before performance degrades) — because all duplicated group instances share the same underlying node group data, editing the Scale factor or Extrude Offset inside ONE instance updates all copies simultaneously, letting you tune the whole recursive pattern from a single edit. A small Extrude Offset (~0.01) combined with the scale produces a repeating fractal-like pattern across every face; changing the Scale value live-updates new emergent shapes across all chained iterations. For selective/non-uniform fractal detail, add a **Face Area** node → **Compare** node (e.g. threshold 0.4) into a NEW extra Extrude+Scale group's Selection, so only faces larger than the threshold receive an additional recursive extrusion layer — as the pattern grows and a face's area crosses that threshold, new geometry spontaneously emerges from it, creating organic big-shape/small-shape size variation rather than uniform repetition everywhere. Finished with a simple crystal-style render setup: Cycles, a Glass BSDF, multiple colored point lights placed inside hollow cube shapes (no HDRI background) so colored light shines through the transparent glass and highlights the fractal surface detail.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Default Cube → new Geometry Nodes network.
+2. Add → Mesh → Extrude Mesh; select Faces mode; plug Mesh in.
+3. Add → Mesh (or relevant category) → Scale Elements; plug Extrude Mesh's **Top** output into Scale Elements' Selection so only the newly extruded top faces scale (rather than the whole shape, which only works correctly if edges are split — otherwise it scales as one connected piece).
+4. Set a small initial Scale value (e.g. 0.1) — exact value doesn't matter yet, tune later.
+5. Select both nodes, Ctrl+G to group them; name the group (e.g. "Extrude and Inset"); Tab to exit the group.
+6. Duplicate the group node in series with Shift+D, chaining each copy's output into the next copy's input — 4–5 iterations is a practical performance ceiling; all duplicated instances share the same underlying node group, so editing one instance's internal Scale/Offset values updates every chained copy at once.
+7. Lower the Extrude Mesh's Offset inside the group (e.g. to 0.01) for a cleaner, more pattern-like repeating result; adjust Scale Elements' factor to reveal new emergent shapes.
+8. For selective/area-based variation: outside the simple chain, add another Extrude+Scale step fed by a **Face Area** node → **Compare** node (threshold e.g. 0.4) into its Selection, so only faces exceeding that area get the extra extrusion layer — creates organically varied (not uniform) fractal detail as the recursive pattern's face sizes change.
+9. Shading/render: Shader Editor, swap to a Glass BSDF, set render engine to Cycles (EEVEE usable too); place several point lights of different colors inside hollow cube shapes, no HDRI background, so colored light refracts/shines through the glass surfaces and highlights the fractal pattern; animate parameters and frame close-up shots with a camera for final renders.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+Geometry Nodes: Extrude Mesh (mode: Faces, Offset, Top/Side selection outputs), Scale Elements (Selection input, Scale factor; requires split edges for independent per-face scaling), Face Area, Compare (threshold), node Group (Ctrl+G) with shared-instance editing via Shift+D duplication. Shading: Glass BSDF, Cycles render engine, colored Point lights, no HDRI/world lighting.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner to Intermediate — explicitly aimed at Geometry Nodes beginners; the manual loop-via-duplicated-groups workaround and Face Area/Compare threshold trick are the more advanced ideas.
 
 ### Blender Version
-[PENDING EXTRACTION]
+3.1 (Extrude Mesh and Scale Elements are explicitly introduced as new in this release).
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #procedural #materials #shaders #glass #abstract #beginner #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `all-300-geometry-nodes-in-blender.md` — covers Extrude Mesh and Scale Elements (under different terminology, e.g. Scale Element) as part of its full node reference
+- `geode-nodes-i-am-so-clever-blender-tutorial.md` — likely shares crystal/geode procedural geometry territory

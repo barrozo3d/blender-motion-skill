@@ -834,13 +834,13 @@ Each entry format:
 - **File:** tutorials/blender-tutorial---eternals-gold-wireframe-animation.md
 
 
-### Fractals in Blender - Geometry Nodes Extrude Node
+### Fractals in Blender - Geometry Nodes Extrude Node (full re-extraction)
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=bHWvVtuLJkM
 - **Author:** CrossMind Studio
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 3.1
+- **Tags:** #geometry-nodes #procedural #materials #shaders #glass #abstract #beginner #intermediate
+- **Summary:** Chains 4-5 duplicated copies of a grouped [Extrude Mesh (Offset ~0.01) + Scale Elements (Top selection)] node pair — all sharing the same group data, so editing one updates all — to build a self-similar fractal pattern on a cube. An optional extra layer uses Face Area + Compare (>0.4) so only larger faces get additional recursive detail, for organic size variation. Rendered in Cycles with Glass BSDF + colored point lights inside hollow cubes. Note: a near-duplicate entry for this video exists at the single-dash slug `tutorials/fractals-in-blender-geometry-nodes-extrude-node.md` — left as-is per the known slugify duplicate-entry issue, not merged.
 - **File:** tutorials/fractals-in-blender---geometry-nodes-extrude-node.md
 
 
