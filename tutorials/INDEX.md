@@ -814,13 +814,13 @@ Each entry format:
 - **File:** tutorials/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1.md
 
 
-### Add VFX to Cinematic RAW and LOG Footage (the right way) | ACES Part 2
+### Add VFX to Cinematic RAW and LOG Footage (the right way) | ACES Part 2 (full re-extraction)
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=LssHxDCM7H4
 - **Author:** InLightVFX
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified
+- **Tags:** #compositing #rendering #lighting #hdri #intermediate #advanced
+- **Summary:** Full hands-on ACES pipeline: DaVinci Resolve (Color Workspace ACES CC, IDT per clip, ODT sRGB for preview, disable ODT before EXR/RGB-Half export) → Blender (Display Device ACES, View Transform sRGB, render in ACES CG, per-image IDT via node Color Space, Shadow Catcher + split Main-Objects/Shadows render layers) → Compositor (Alpha Over chain, EEVEE 1-sample render-trigger workaround) → re-import final EXR to Resolve (IDT: ACES CG) for color grading and final ODT-based delivery export. EXR throughout preserves full dynamic range (demonstrated recovering blown highlights via the Gain slider). Note: a near-duplicate entry for this video exists at `tutorials/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces.md` — left as-is per the known slugify duplicate-entry issue, not merged.
 - **File:** tutorials/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2.md
 
 
