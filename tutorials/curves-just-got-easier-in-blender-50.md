@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=NzZTrDln6Ko
 author: Ducky 3D
 ingested: 2026-06-23
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.0"
+tags: [geometry-nodes, materials, shaders, motion-design, animation, procedural, abstract, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/curves-just-got-easier-in-blender-50/
 frame_count: 4
 ---
@@ -33,27 +33,42 @@ frame_count: 4
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Using the auto-generated UV Map attribute that comes free with the Curve to Mesh / Curve to Tube node to map a Wave Texture along each curve strand independently — turning an array of curves into an animated, individually-colored 2D motion graphic background.
 
 ### Summary
-[PENDING EXTRACTION]
+Builds an evenly-spaced radial array of curves whose instance spacing stays constant as more instances are added (the trick: drive a Curve Circle's Radius by `iterations × a constant`, inside a Repeat Zone that joins each new circle ring before instancing outward — keeps ring spacing uniform instead of curves drifting apart as the count grows). Converts curves to flat ribbon geometry via Curve to Tube using a flat Path object as the Custom Profile (instead of the default circular profile, which produces tubes). The key trick: Curve to Tube auto-generates a UV Map attribute per spline; copy its name, add a Store Named Attribute (domain: Spline) holding a per-curve Random Value (named e.g. "R", range including negatives) for later per-strand variation, then in the Shader Editor use an Attribute node referencing that same UV Map name fed into a Wave Texture's Vector input — this maps the wave pattern along each individual curve strand rather than across the whole merged mesh. Notes the Wave Texture phase-offset seamlessness trick from a referenced prior video: keep Scale at multiples of 1 (i.e. multiples of pi) to avoid visible seams when animating Phase Offset; switching the wave Direction from Sine to Saw creates a different, more "lined up" modern look. Uses the earlier per-spline Random ("R") attribute, multiplied into the Wave Texture's Phase Offset, to desynchronize each strand's animation so they don't all line up identically. Adds per-strand color variation: Mix Color node with the random attribute (optionally re-seeded through a Noise Texture if you don't like a given random distribution) driving a Color Ramp to assign each curve a different hue. Finishes with EEVEE rendering, world brightness set to black, Compositor Sensor Noise (animated) + Glare (Bloom, small size) for an "After Effects motion graphics" look, and a simple linear-interpolated keyframe animation rotating the array by `-2π` over ~50–80 frames for a seamless spin loop.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Plane → Geometry Nodes → new tree, delete the default Group Input; add a **Repeat Zone**.
+2. Build constant-spacing radial array: Math node (Multiply) fed by the Repeat Zone's Iteration value → a **Curve Circle**'s Radius input, so each successive ring is placed at `iteration × constant` distance — keeps spacing uniform as instance count grows. Join Geometry to accumulate rings inside the zone, then instance the result outward.
+3. Tune: Curve Circle Resolution ~84 (smoothness), 10 iterations/instances, multiply constant ~0.05.
+4. **Curve to Tube node**, with a flat Curve (Path) object plugged into its **Custom Profile** input instead of the default circular profile — this keeps the output flat ribbon geometry instead of round tubes; scale/shape the profile path in Edit Mode to control ribbon width/cleanliness.
+5. Note the auto-generated **UV Map** attribute name on the Curve to Tube node's output (copy it, e.g. via Ctrl+C on the field) — this is the trick that makes per-strand texture mapping possible.
+6. Add a **Store Named Attribute** (Spline domain) holding a **Random Value** node's output (min can be negative for full-range randomness) under a custom name (e.g. "R") for later per-curve variation.
+7. Set Material → New → switch to Emission shader.
+8. In the Shader Editor: Color Ramp → Wave Texture's Color output → Color Ramp's Color input; add an **Attribute** node, paste in the Curve-to-Tube UV Map's name, plug its Vector output into the Wave Texture's Vector input — this is what makes the wave pattern follow each curve strand individually instead of treating the whole joined mesh as one surface.
+9. Wave Texture seamlessness: keep Scale at integer multiples of 1 (≈ multiples of pi) when animating Phase Offset, or visible seams/breaks appear; switch Direction from Sine to Saw for a different "lined up" look.
+10. Desync each strand's animation: add a second Attribute node referencing the "R" random attribute, plug its Factor into a Math (Multiply-Add) node feeding the Wave Texture's Phase Offset — randomizes per-strand timing so they don't all pulse in unison.
+11. Color Ramp interpolation set to B-Spline for smoother contrast; switch render engine to EEVEE, set World brightness to black.
+12. Per-strand coloring: Mix Color node, Color Ramp output → Factor, the "R" random attribute → a second Color Ramp (set to Constant interpolation to avoid blending) → drives Socket B colors — assigns each curve a distinct hue; optionally re-roll the apparent randomness by feeding a Noise Texture (tune Scale/Detail/Roughness) into the random attribute's source instead of relying on the raw Random Value seed.
+13. Compositor: Sensor Noise node (Chroma Noise down, Animated on) for filmic grain; Glare node set to Bloom (small Size) to blend adjacent strand colors softly; raise Emission Strength (e.g. to 2) so Bloom has something to catch.
+14. Animation: Preferences → Animation → Default Interpolation: Linear; keyframe the array's rotation Z from 0 to `-2 × π` (a full reverse turn) over a short timeline (50–80 frames) for a seamless spin loop.
+15. Render at 1080p, EEVEE (fast since it's 2D-style flat geometry + emission).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+Geometry Nodes: Repeat Zone, Math (Multiply for ring spacing, Multiply-Add for phase desync), Curve Circle (Radius driven by iteration count), Join Geometry, Curve to Tube (Custom Profile = flat Path object, auto UV Map attribute), Store Named Attribute (Spline domain, custom Random Value attribute "R"), Random Value node. Shader Editor: Emission shader, Attribute node (referencing the Curve-to-Tube UV Map and the custom "R" attribute by name), Wave Texture (Scale at integer/pi multiples for seamless Phase Offset animation, Sine vs. Saw direction), Color Ramp (B-Spline vs. Constant interpolation), Mix Color, Noise Texture (optional reseed). Compositor: Sensor Noise (animated), Glare (Bloom). Preferences → Animation → Default Interpolation: Linear.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — the constant-spacing array and UV-Map-per-spline texture mapping tricks are clever but well-explained; requires comfort with Geometry Nodes Repeat Zones and Shader Editor attribute referencing.
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.0 (Curve to Tube node referenced as a recent 5.0-era addition; "Curve to 2" node mentioned at the start, likely a transcription artifact for "Curve to Mesh"/"Curve to Tube").
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #materials #shaders #motion-design #animation #procedural #abstract #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `a-powerful-lighting-node-in-blender-50.md` — shares the same author (Ducky 3D), Sensor Noise/Glare compositing combo, and animated-noise-driven motion graphics style
+- `a-new-way-to-loop-animations-in-blender.md` — shares the same author and seamless-loop animation focus
