@@ -678,8 +678,8 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=BoCCxy9ec0g
 - **Author:** Ducky 3D
 - **Blender Version:** 5.0
-- **Tags:** #compositing #glare #sun-beams #glow #lighting #motion-graphics #ducky-3d #intermediate
-- **Summary:** Blender 5.0 Glare node (Sun Beams mode) for motion graphics — two design approaches: subtle accent vs. hero element. Key parameters: Threshold (which pixels generate beams), Streaks, Angle Offset, Fade. Designing animation concept around beams vs. using beams to accent existing scene.
+- **Tags:** #materials #shaders #compositing #motion-design #animation #procedural #lighting #intermediate
+- **Summary:** The key lesson: a Sun Beams Glare node alone looks weak — stack it on top of two Bloom Glare nodes (one tight/strong, one large/atmospheric) to give the brightness visual context. Demonstrated on a procedural animated dot-grid (Voronoi/Noise-masked Emission shader) with a seamless loop via mirrored keyframes on a 4D Noise Texture's W value, parallax via a duplicated/instanced grid layer, and Blender 5.0's Sensor Noise compositor node for grain.
 - **File:** tutorials/a-powerful-lighting-node-in-blender-50.md
 
 
