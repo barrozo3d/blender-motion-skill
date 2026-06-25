@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=XOLuYDLYEgI
 author: Ducky 3D
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.0"
+tags: [geometry-nodes, simulation, metaballs, glass, materials, animation, looping, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/glass-cell-division-effect-in-blender-50-tutorial/
 frame_count: 0
 ---
@@ -32,27 +32,51 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Blender 5.0's Points to SDF Grid + Grid to Mesh replace the old icosphere-instance-to-volume workflow for metaball-like effects — far more efficient. Animate 4D Noise (W channel) to move points organically. Fix circular topology artifacts with Set Mesh Normal + Blur Attribute (vector, custom normal, ~30 iterations). RGB glass dispersion: 3× Glass BSDF (R, G, B) with slightly offset IOR values → Add Shaders.
 
 ### Summary
-[PENDING EXTRACTION]
+Ducky 3D recreates metaball cell-division behavior in Geometry Nodes using Blender 5.0's new SDF (Signed Distance Field) nodes. The workflow: Icosphere → Mesh to Volume → Distribute Points in Volume → animate via 4D Noise W channel → Points to SDF Grid (5.0 new) → Grid to Mesh. This replaces the old volume-of-instanced-icospheres approach and is dramatically faster. Two critical fixes: (1) low voxel size (0.02–0.03) + Smooth Geometry node (wraps Position + Blur Attribute → Set Position, available as group node in 5.0); (2) circular normal artifacts fixed with Set Mesh Normal + Blur Attribute (vector type, Custom Normal output, ~30 iterations). Glass material: 3× Glass BSDF with R, G, B tints and slightly different IOR (e.g. 0.45, 1.5, 0.55) → Add Shaders creates RGB chromatic aberration. Background: 2 gradient emission planes (one as visible backdrop, one offset for glass reflections). Animation: 4D Noise W animated from −1.1→+1.1 over 500 frames with a second noise offset by −W for seamless cross-fade loop using a Mix Color node.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **GeoNodes setup:** Any geometry → New → delete Group Input → add Icosphere (the SDF volume shape boundary).
+2. **Point generation:** Mesh to Volume → Distribute Points in Volume → reduce point count to 6–10 for metaball look.
+3. **Animate points:** Set Position + 4D Noise Texture (W input = animated) → Vector Math Scale + Normalize → Offset. Switch Noise to 4D mode. Scale ~2, detail low.
+4. **Metaball merge (5.0):** Points to SDF Grid → Grid to Mesh. Voxel Size ~0.03 initially (0.02 for final render).
+5. **Fix smoothness:** Add Smooth Geometry node (5.0 group node; iterations ~3–5) after Grid to Mesh.
+6. **Fix circular normal artifacts:** Set Mesh Normal → Blur Attribute (Float → Vector; Custom Normal output → Value; iterations ~30) → plug back into Custom Normal. Normals are now averaged outward.
+7. **Tune:** Increase noise scale → more dramatic movement. Increase Points to SDF Grid radius → larger merged blobs.
+8. **Material:** Set Material node → Glass BSDF (Transmission=1, Roughness~0). Switch to Cycles.
+9. **Camera:** 100mm focal length to flatten/compress the glass balls.
+10. **Background (gradient):** Add Plane → RX 90° → move back → scale to fill frame → Ctrl+A apply scale → Shader: delete Principled, add Emission → Color Ramp (faint light blue) + Gradient Texture (Object coords, Y scale ~5) → Emission Color; World = black.
+11. **Second emission plane:** Shift+D → move further back; sever from same material (new material slot) → serves as glass reflection environment; helps glass look better with highlights.
+12. **RGB glass dispersion:** Delete default Glass BSDF; add 3× Glass BSDF (red tint IOR~0.45, default white IOR~1.5, blue tint IOR~0.55) → chain with Add Shader × 2. Value node → all Roughness inputs for unified control.
+13. **Animation loop (seamless):** Frame 0: W = 0 → keyframe I; Noise texture duplicate (lower slot) sets W = opposite sign. Mix Color node between the two noises, Factor animated 0→1 over 500 frames. Preferences → Animation → Linear interpolation. End frame = 500; final voxel size = 0.02.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Points to SDF Grid` (Blender 5.0 new) — converts point cloud to volumetric SDF; Voxel Size ~0.02 for final
+- `Grid to Mesh` (Blender 5.0 new) — converts SDF grid back to polygonal mesh
+- `Smooth Geometry` (Blender 5.0 group node) — wraps Position + Blur Attribute → Set Position; iterations ~3–5
+- `Set Mesh Normal` + `Blur Attribute` (vector, Custom Normal, ~30 iter) — fixes circular normal artifacts on SDF mesh
+- `4D Noise Texture` — W channel animated (0 → ±1.1) for organic point movement
+- `Mesh to Volume` → `Distribute Points in Volume` — places points inside icosphere shape
+- 3× `Glass BSDF` (R IOR~0.45, G IOR~1.5, B IOR~0.55) → `Add Shader` × 2 — RGB chromatic aberration glass
+- Background: 2× Emission planes (Gradient Texture + Color Ramp + Object coords); World Strength = 0
+- Seamless loop: 2 noise textures with opposite W animation → `Mix Color` factor animated 0→1
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — builds on GeoNodes volume workflow; requires understanding of SDF nodes and normal fixing.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.0 (Points to SDF Grid, Grid to Mesh, Smooth Geometry group node are new; old volume-of-instances method required pre-5.0)
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #simulation #metaballs #glass #materials #animation #looping #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `3d-smoke-blender-geometry-nodes.md` — companion advanced GeoNodes volume/SDF technique
+- `organic-liquid-metal-effect-in-blender-50-tutorial.md` — similar Blender 5.0 organic geometry effect
+- `you-should-make-glass-animations-in-blender-51.md` — glass material techniques in Blender 5.x
+- `a-new-way-to-loop-animations-in-blender.md` — Ducky 3D seamless loop technique companion
+- `a-powerful-lighting-node-in-blender-50.md` — Ducky 3D companion: compositor glare/bloom

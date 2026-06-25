@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=1hKAkCP-tFQ
 author: CGMatter
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.5"
+tags: [geometry-nodes, procedural, modeling, crystals, rocks, materials, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/geode-nodes-i-am-so-clever-blender-tutorial/
 frame_count: 0
 ---
@@ -32,27 +32,52 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Fully procedural geode (amethyst-like rock with crystals) in GeoNodes: (1) Icosphere + noise displacement → Mesh Boolean (Manifold, 4.5) to cut open the cross-section; (2) per-boundary-edge distortion via Geometry Proximity blur; (3) Voronoi-like crystal shards via Distribute Points → Sample Nearest Surface → group by index → Split Edges at boundaries → per-island extrusion with area-based length and averaged normals; (4) optional pinching via Scale Elements to zero on top faces. Three-material setup: glass crystals (IOR 1.5, purple tint), PBR rock (box projection), semi-transparent crust particles.
 
 ### Summary
-[PENDING EXTRACTION]
+CGMatter builds a fully procedural geode from scratch using Geometry Nodes (~24m improvised). Pipeline: Icosphere with Noise displacement → Mesh Boolean Manifold mode (new in 4.5, requires watertight meshes) to cut it in half. Cross-section distorted only near the boundary edge using Geometry Proximity → blur → Scale by proximity. Remesh via Mesh to Volume → Volume to Mesh (density=1) for clean topology. Voronoi shards: random Distribute Points on Faces (dense, not Poisson disc) → Sample Nearest Surface to assign index → White Noise Texture by index for unique-per-shard coloring → Face Groups to Boundaries to split islands → Scale Elements per island with per-island Random Value (using Mesh Island to seed). Crystal extrusion: per-island normal averaging (Blur Attribute on normal, by island, ~30 iter) prevents face-normal divergence issues; extrude amount driven by Accumulate Field (face area per island) × Random. Scale Elements (top faces → 0) creates pointed tips; boolean random per island skips pinching for variety. Crust particles: 100k distributed points, delete far from cutter, redistribute by Float Curve for natural density. Ambient Occlusion masks blend between rock PBR and crust material at crystal bases.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Base rock:** Icosphere (subdivided) → Set Position offset by Noise Texture (normalized -1 to 1 via subtract/divide) → gives organic bumpy rock shape.
+2. **Boolean cut:** Add Cube → scale/shift to desired cross-section; Mesh Boolean (Manifold mode in 4.5) → cuts rock open. Join geometry to preview.
+3. **Boundary distortion:** Geometry Proximity to cutter → blur selection (Blur Attribute, ~few iterations) → Scale by proximity value → apply noise only near intersection edge. Limit distortion to X axis only (multiply Z component to zero).
+4. **Remesh for clean topology:** Mesh to Volume (detail level) → Volume to Mesh (density=1, smooths result) → optionally add Bake Node to freeze for speed.
+5. **Crystal shard generation:** Distribute Points on Faces (random mode, NOT Poisson disc — too uniform; use density ~50–400) → Sample Nearest Surface → get index → White Noise Texture indexed by that → split shards.
+6. **Shard subdivision + split:** Subdivide faces (add geometry per shard) → Face Groups to Boundaries (from index field) → Split Edges at boundaries → now each island is separate.
+7. **Per-island extrusion:** Island Index → Mesh Island → seed random values per island. Blur Attribute on normals per island (vector, island index, ~30 iterations) → Extrude Mesh using averaged normal as offset (not face normals). Extrude amount = Accumulate Field (face area) × Random (0.5–1.0).
+8. **Pointed tips:** Scale Elements → selection = Extrude top faces → Scale 0 (point) or random 0–0.3 per island to vary. Second extrude pass on already-pinched tops for sub-tip detail.
+9. **Random skip pinch:** Random Value (boolean, island index, probability~0.5) → Separate Geometry → join non-pinched back in for variety.
+10. **Solidify crystals:** Flip Faces → Join Geometry (outer + inner shells) → Merge by Distance → makes watertight crystals for glass IOR to work correctly.
+11. **Crust particles:** Distribute Points on Faces (~100k, on crystal geometry) → Geometry Proximity to cutter → Delete Geometry where distance > threshold → redistribute with Float Curve for organic tapering. Scale radius by random per point.
+12. **Materials:** Crystal = Glass BSDF (IOR~1.5, purple tint Base Color). Rock = PBR rock texture (box projection, Blend~0.5) + Noise bump; Hue Saturation shift. Crust/particles = high Transmission, slight roughness. Ambient Occlusion → mix rock + crust material near crystal bases.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Mesh Boolean` (Manifold mode, new in 4.5) — requires both meshes watertight; very fast
+- `Geometry Proximity` → `Blur Attribute` — propagate boundary selection outward; multiply noise by proximity mask
+- `Mesh to Volume` → `Volume to Mesh` (density=1) — remesh for clean topology; optionally add `Bake Node`
+- `Distribute Points on Faces` — random mode (NOT Poisson disc) for organic crystal clustering; density 50–400
+- `Sample Nearest Surface` → nearest point index → `White Noise Texture` → per-shard color
+- `Face Groups to Boundaries` → `Split Edges` — splits mesh into per-Voronoi-shard islands
+- `Accumulate Field` (face area, per island index) — drives crystal height relative to shard size
+- `Blur Attribute` (vector, per island index, ~30 iterations) on Normal — prevents face-curvature artefacts in extrusion direction
+- `Extrude Mesh` using averaged normals as Offset — uniform crystal growth direction per shard
+- `Scale Elements` (top=0) — creates pointed crystal tips; random per island for variety
+- Rock material: PBR texture, box projection, Blend 0.5; `Noise Texture` → bump; `Hue Saturation` for color correction
+- Crystal material: Glass BSDF, IOR~1.5, purple tint; Transmission=1, Roughness~0.05
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced — multi-stage procedural pipeline with geometry proximity, per-island attribute handling, accumulate field math, remeshing, and three distinct materials.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.5 (Mesh Boolean Manifold mode is new in 4.5; other nodes available in 4.x+)
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #procedural #modeling #crystals #rocks #materials #advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `fractals-in-blender---geometry-nodes-extrude-node.md` — Extrude Mesh + Scale Element companion technique
+- `ill-teach-you-geometry-nodes.md` — GeoNodes fundamentals including island index and distribute points
+- `using-geometry-nodes-for-vfx-in-blender.md` — advanced GeoNodes for real-world effects
+- `math-x-blender-50-unlimited-power.md` — math-driven procedural techniques in GeoNodes
