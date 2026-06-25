@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=1-Cj4mtdCMc
 author: Curtis Holt
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x"
+tags: [lighting, cycles, vfx, technique, emission, ray-visibility, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/my-new-favorite-lighting-trick-in-blender/
 frame_count: 0
 ---
@@ -32,27 +32,45 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Physical "laser slice" lighting using extremely thin cubes: each laser object is a flattened cube with an inner emissive shell (faces pointing inward) and an outer blocking shell; where the object intersects scene geometry it projects rim light with the pattern of the emissive material — subtractive effect created by solid outer shells blocking bleed from other lasers.
 
 ### Summary
-[PENDING EXTRACTION]
+Curtis Holt (Project Fold) demonstrates a physical laser-style lighting method that avoids area lights or shader raycasting. Each laser object is two nested geometry pieces: (1) an inner cube with faces pointing inward, carrying an emissive material that can include any noise/procedural texture; (2) an outer cube with all faces intact to trap the light inside. Where the thin object physically intersects scene geometry in Cycles path tracing, the emissive material creates a rim-light effect along the intersection line. The intersection "slices" a cross-section of the noise texture, so as the laser moves through an object it samples different 2D slices of the 3D noise → produces animated light information. Removing one side face from the outer cube allows light to bleed downward. Ray visibility: all disabled except Diffuse (invisible to camera but still casts light). A second laser with fully intact outer shell can BLOCK the bleed from the first laser, creating subtractive areas. Volume cube adds diffusion/atmosphere. Production file available on Patreon (file 8 laser shapes.blend, June 2026).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Create thin cube:** Add cube → scale to very thin slab (matches desired laser line thickness). This is the laser object.
+2. **Add inner hull:** Duplicate cube slightly smaller, flip normals so faces point inward. Assign Emission material with emissive pattern (noise texture, procedural, or solid color).
+3. **Outer hull material:** Assign solid material to outer cube. Leave all faces intact to block light escape. Only normals-outward (standard).
+4. **Light bleed option:** In Edit Mode, delete one side face from outer cube → light bleeds out that open side.
+5. **Ray visibility:** Object Properties → Visibility → Ray Visibility → uncheck Camera, Shadow, everything EXCEPT Diffuse. Object is invisible to camera but emits light physically.
+6. **Subtractive effect:** A second laser object with intact outer shell (no open face) blocks light bleed from another laser → creates dark bands in the bleed area.
+7. **Emissive material with noise:** In inner cube shader — Noise Texture (any scale) → mix into Emission Color or Emission Strength. As laser intersects the mesh, Cycles path tracing projects the 2D cross-section of that 3D noise onto the surface.
+8. **Volume atmosphere:** Add a volume cube (Volume Scatter shader, very low density) in scene for diffusion and atmosphere.
+9. **Compositing:** Add Bloom/Glare for ethereal look.
+10. **Animate:** Move/rotate the laser objects across the scene. The intersection line tracks the surface automatically.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Inner cube: normals flipped (Alt+N → Flip), Emission material, emissive texture = Noise/Procedural
+- Outer cube: standard normals, opaque material (acts as light blocker)
+- Remove side face: Edit Mode → select face → X → Face delete = creates bleed opening
+- Ray Visibility: Camera OFF, Shadow OFF, Diffuse ON (only). Optional: Glossy ON or Volume Scatter ON for creative bleed
+- Volume cube: Volume Scatter (density ~0.01) for scene atmosphere
+- Cycles path tracing required (physical light intersection)
+- Bloom: compositor Glare node
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — conceptually unique; setup is relatively simple but the physics interaction requires Cycles and understanding of ray visibility
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x (standard Cycles + ray visibility setup)
 
 ### Tags
-[PENDING EXTRACTION]
+#lighting #cycles #vfx #technique #emission #ray-visibility #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `fundamentals-of-lighting-in-blender.md` — core Cycles lighting theory
+- `how-i-made-realistic-storm-clouds-in-blender.md` — Light Linking for isolating lights
+- `how-to-make-cyberpunk-scenes-in-blender.md` — neon/emissive lighting setups
+- `tutorial-how-to-make-a-volumetric-projector-in-blender-45.md` — volumetric light projection companion
