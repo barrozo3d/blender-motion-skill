@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=TTGcr-45jCE
 author: Ducky 3D
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x"
+tags: [particles, geometry-nodes, text, shaders, motion-graphics, emission, cycles, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/powerful-logo-particle-flow-effect-in-blender/
 frame_count: 0
 ---
@@ -32,27 +32,52 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+"Blender as Photoshop" particle fire/dissolve effect on text or any geometry: Distribute Points on Faces (high density, tiny radius) displaced by Noise Texture, with selective partial displacement controlled by a second 4D Noise; per-particle noise value stored as named attribute and used for color (blue→red fire gradient) and selective Emission Strength via Map Range.
 
 ### Summary
-[PENDING EXTRACTION]
+Ducky 3D creates a dusty fire/particle flow effect on text for use as a title card, album cover, or web asset. Text object → GeoNodes → Distribute Points on Faces (density 10k–50k, the higher the better) → Set Point Radius (0.0009–0.005, smaller = more dusty). Set Position with Noise Texture (uncheck Normalize, use Color not Factor for multi-axis displacement, roughness up). Second Noise (4D) + RGB Curves + normalize → Combine XYZ → Mix Vector for selective partial displacement (controls which text regions show displacement). Main noise Color → Store Named Attribute "inf_noise" → Attribute node in shader → drives Color Ramp (blue, orange, red = fire look) and Map Range → Emission Strength (only displaced portions glow). Glare Bloom compositor. Four animation methods: (1) keyframe noise W value for burning-in-place; (2) Position node + Vector Math → animate position of displacement across text; (3) Scale out/in displacement with Math node; (4) animate Voronoid/Noise parameters directly.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Text object:** Shift+A → Text. Edit: type text in CAPS. Font panel: pick serif/sans-serif. Line spacing, Center + Middle alignment. Scale up → Ctrl+A Apply Scale (affects point distribution).
+2. **GeoNodes:** Click New. Distribute Points on Faces (density 10,000 to start). Set Point Radius (start 0.0009, test 0.005 for render preview).
+3. **Noise displacement:** Set Position → noise Texture → plug into Offset. IMPORTANT: uncheck Normalize; use Color output (not Factor) for multi-axis displacement. Roughness up for dusty look. Vector Math Scale after noise for strength control.
+4. **Selective displacement:** Second Noise Texture (4D) → normalize checked. RGB Curves: flip curve (dark = no displacement, light = displaced). Plug into Mix Vector factor. Now only portions of text get displaced.
+5. **Store noise for shading:** Main Noise Texture Color → Store Named Attribute "inf_noise" (Float or Color type).
+6. **Material:** Set Material → new → switch to Emission. Cycles. World brightness black.
+7. **Color from noise:** Attribute node (type: Geometry, name: "inf_noise") → factor → Color Ramp: blue left, orange mid, red right = fire gradient. → Emission Color.
+8. **Selective glow:** Attribute "inf_noise" factor → Math (Add/Multiply, adjust value) → Map Range → Emission Strength. Only high displacement values glow.
+9. **Compositor:** Glare → Bloom. Shading → material → "Always" for viewport Bloom preview.
+10. **Render quality:** Increase density to 50,000 + decrease radius to 0.001 for final look. Lower to 10,000 for animation/viewport.
+11. **Animation option 1 (burn in place):** Keyframe second Noise W from 0 → value. Or main Noise 4D W for displacement position change.
+12. **Animation option 2 (fire spreading):** Position node → Vector Math → plug into second Noise vector input. Animate Position Y/X to move the displacement region across text.
+13. **Animation option 3 (grow/shrink):** Keyframe Vector Math Scale (displacement strength) 0 → 1 for appear, 1 → 0 for dissolve transition.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Distribute Points on Faces: density 10k–50k (higher = better quality)
+- Set Point Radius: 0.0009–0.005 (smaller = dustier, more photogenic)
+- Noise Texture (displacement): Normalize OFF; Color output (NOT Factor); roughness 0.7+
+- Vector Math Scale: controls displacement strength
+- Second Noise (4D type): Normalize ON; RGB Curves for mask control
+- Mix Vector: mixes displaced and non-displaced positions (factor = second noise curve output)
+- Store Named Attribute "inf_noise": Float, stores main noise Color value per point
+- Attribute node: name "inf_noise" → factor → Color Ramp (blue→orange→red)
+- Map Range: noise factor → Emission Strength (from-min 0, to-max 3)
+- Glare Bloom: compositor + material Always mode for viewport
+- Animation: keyframe Noise W, or Position + Vector Math for spatial progression
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — "Blender as Photoshop" series; works best as still image but animatable; density/radius tuning is key to quality
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x (standard GeoNodes; Distribute Points on Faces + Store Named Attribute)
 
 ### Tags
-[PENDING EXTRACTION]
+#particles #geometry-nodes #text #shaders #motion-graphics #emission #cycles #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `using-geometry-nodes-for-vfx-in-blender.md` — GeoNodes particle VFX companion
+- `sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial.md` — motion graphics emission loop
+- `powerful-light-trails-in-blender-45-tutorial.md` — same author, emission + noise displacement approach
+- `how-apple-makes-3d-wallpapers-blender-tutorial.md` — Emission texture + glow effect

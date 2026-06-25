@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=965bgIUHoxA
 author: Ducky 3D
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.5"
+tags: [animation, curves, geometry-nodes, shaders, looping, motion-graphics, topographic, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/powerful-light-trails-in-blender-45-tutorial/
 frame_count: 0
 ---
@@ -32,27 +32,55 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Looping topographic light-trail animation: Quadratic Bezier curves arrayed via Simulation Zone, noise-displaced with flat portions via RGB Curves, mirrored for seamless loop, revealed by gradient texture parented to camera motion; Voronoid metallic floor material with floating cube emission effect.
 
 ### Summary
-[PENDING EXTRACTION]
+Ducky 3D builds a seamlessly looping topographic map animation. Quadratic Bezier (res 300, Y scale 10) duplicated 77 times via Simulation Zone (Set Position offset +0.13 Y per iteration, Join Geometry). Baked. Noise Texture (Color output, not Factor; scale 0.5) drives Z displacement. RGB Curves modifies noise: add point at bottom-center pull up → creates realistic flat ground portions between ridges. Seamless loop: Transform Geometry (Y: −10, Scale Y: −1) flips and mirrors the pattern + Join, then shift pattern by −20 for full tiling. Camera (100mm) travels exactly 2 planes of length (10m each = 20m = 400 frames). Alt+D instances share materials. Gradient Texture in Object space from an Empty parented to camera drives emission transparency (curves "appear" as camera moves). Color Ramp Constant with bright middle strip + Wave Texture Y-axis selection for focal brightness on center curves. Voronoid floor material with roughness variation (Color Ramp), Bump, and Emission on the Voronoid pattern for glowing cell borders.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **GeoNodes setup:** Plane → New GeoNodes. Delete group input. Add Grid → Quadratic Bezier (res 300, Y scale 10) → plug to group output.
+2. **Array via Simulation Zone:** Simulation Zone In → Set Position (+0.13 Y) → Join Geometry (plug Quadratic Bezier into join's second socket) → Simulation Zone Out. Play to 77 frames → Bake node.
+3. **Center geometry:** Set Position (X: −5, Y: −5) after bake to center scene.
+4. **Displacement:** Set Position → Combine XYZ (Z only) → Noise Texture (Color output, not Factor; scale 0.5) → Vector Math Scale (strength control).
+5. **Flat portions (RGB Curves):** RGB Curves between Noise Color and the Combine XYZ Z socket. Add point at bottom-center of curve → pull up. Creates flat ground areas with slight waviness.
+6. **Seamless loop mirror:** Transform Geometry (Y: −10, Scale Y: −1) + Join Geometry on original = mirrored duplicate. Then second Transform Geometry (Y: −20) + Join = 3 planes tileable.
+7. **Curve to Mesh:** Curve to Mesh → Curve Circle (res 4, radius 0.005) → Set Material.
+8. **Camera:** 100mm focal length. Alt+D instances of geometry plane (snap with Ctrl). Camera path: Y = −5 (frame 0) to Y = +15 (frame 400) = 20m = exactly 2 planes. Linear interpolation.
+9. **Parented gradient:** Add Empty (Plain Axes) → click curves → Shader → Gradient Texture with Texture Coordinate (Object, target = Empty). Rotate mapping 90°. Parent empty to camera (Shift+click camera → Ctrl+P → Object). Now gradient follows camera.
+10. **Gradient material:** Emission strength 3. Color Ramp → Color AND Alpha. Black = transparent. Constant mode. White center strip = bright. Gradient "writes" curves as camera advances.
+11. **Focal point (Wave Texture):** Wave Texture (Y direction, adjust phase for center position) → Color Ramp (bring whites together for tight selection) → Hue Saturation Value (Value → 0) → Mix Color B. Hue Sat Value brightness controls selected-curve brightness.
+12. **Master color:** Final Mix Color node (black → white) controls overall color tint.
+13. **Compositor:** Glare → Fog Glow. Shading → Material → Always for viewport preview.
+14. **Floor material:** Separate plane object → Metallic material. Voronoid Texture (Object coords, scale 60, Random 0 for Crackle look) → Color Ramp → Roughness. Bump: Voronoid Color → height → Normal. Emission: Voronoid Color → Color Ramp (tight black strip) → Emission Strength 3 for glowing cell borders.
+15. **DoF:** Camera → Depth of Field → focus on center curve plane. Adjust f-stop.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Quadratic Bezier: res 300, Y scale 10 (10m long)
+- Simulation Zone: Set Position Y += 0.13 per frame; 77 iterations → Bake
+- Displacement: Noise Texture Color (not Factor), normalize OFF, scale 0.5 → Vector Math Scale → Combine XYZ Z only
+- RGB Curves: flatten bottom of S-curve to create ground flat areas
+- Loop mirror: Transform Geometry (Y: −10, Scale Y: −1) + Join; then Y: −20 + Join
+- Curve to Mesh: Curve Circle res 4, radius 0.005
+- Camera: 100mm, Y travel = 2× plane length (20m over 400 frames), linear interpolation
+- Empty (Object space) parented to camera → Gradient Texture controls emission reveal
+- Color Ramp Constant: white center strip for bright focus
+- Wave Texture Y-axis: phase adjusted → select middle curves → Hue Sat Value brightness
+- Voronoid floor: Object coords, scale 60, Random 0; Roughness + Bump + Emission (Color Ramp tight strip)
+- Compositor: Glare Fog Glow
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — multiple GeoNodes + shader + compositing systems working together; seamless loop construction explained clearly
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.5 (Simulation Zone used for array; Bake node)
 
 ### Tags
-[PENDING EXTRACTION]
+#animation #curves #geometry-nodes #shaders #looping #motion-graphics #topographic #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `curves-just-got-easier-in-blender-50.md` — curve UV mapping and wave animation
+- `my-circle-problem-in-blender-tutorial.md` — Wave Texture on curves + looping
+- `how-apple-makes-3d-wallpapers-blender-tutorial.md` — emission gradient animation loop
+- `sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial.md` — motion graphics loop pattern
