@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=AoGPxjgqVYE
 author: Extra 3d
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.1"
+tags: [rendering, eevee, ray-tracing, lighting, light-probes, workflow, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/photorealistic-eevee-renders-in-blender-51/
 frame_count: 0
 ---
@@ -56,27 +56,58 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Complete EEVEE photorealism workflow for Blender 5.1: Ray Tracing + Vulkan backend + specific ray tracing settings + Volume/Reflection probes + AO in compositor + materials fixes for glass/translucency; indoor world bleeding fix; fisheye workaround via compositor Lens Distortion.
 
 ### Summary
-[PENDING EXTRACTION]
+Extra 3d walks through making EEVEE match Cycles quality in Blender 5.1. Ray tracing alone isn't enough — specific settings must be configured. Backend: Vulkan (Preferences → System). Core RT settings: Resolution 1×1, Precision 1, Thickness 1; disable second Denoising option; disable Fast GI; raise samples to 120; shadow rays 4; Jittered Shadows per light (Alt+click to apply to all at once); Overscan ON in Film. World: raise HDRI threshold (default→10) for softer HDRI light. Volume Probe: grid resolution 16–20, resolution 80–120, World contribution ON; disable animated objects and volumetrics before baking. Indoor world bleeding fix: disable BG world → add area lights at windows → bake → re-enable world + disable fake lights. AO: enable AO pass → compositor Multiply with main render (strength 0.2–1). Background transparency fix: enable Environment pass + Alpha Over + Transparent ON. DoF jitter checkbox. Glass: enable Ray Trace Transmission in material. Translucent: use SSS instead. Fisheye in EEVEE: lower focal length + compositor Lens Distortion (Fit ON).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Vulkan backend:** Preferences → System → Backend Mode → Vulkan. Save + Restart.
+2. **Enable ray tracing:** Render Properties → Ray Tracing → ON.
+3. **Ray tracing quality:** Resolution 1×1; Precision 1; Thickness 1.
+4. **Denoising:** Disable second option (ruins materials).
+5. **Fast GI:** Disable Fast GI Approximation.
+6. **Samples:** Increase to 120 for final render.
+7. **Shadows:** Shadows tab → Shadow Rays = 4. Per light: Jittered Shadows ON; all three values to minimum. Enable Jittered Shadows in viewport. Alt+click to apply to all lights simultaneously.
+8. **Film Overscan:** Film tab → Overscan → ON.
+9. **World threshold:** World Properties → HDRI threshold: 10 (softer light).
+10. **Volume probe:** Add → Light Probe → Volume. Scale to fit scene. Data tab: grid resolution 16–20, resolution 80–120, World contribution checked. Disable volumetrics and animated objects. Click Bake. Re-enable disabled objects.
+11. **Indoor world bleeding fix:** Before baking: disable Background World shader. Add area lights at windows (same HDRI color/warmth) in separate collection. Bake. Re-enable world + disable fake lights.
+12. **Reflection probe:** Add → Light Probe → Reflection Cube. Scale to fit glossy object.
+13. **AO in compositor:** Render Properties → Passes → Ambient Occlusion ON. Compositor: AO pass → Mix Color (multiply) with Render Image (value 0.2–1). Enable Viewport Compositing. 
+14. **Background/DoF fixes:** Enable Environment pass → Alpha Over node in compositor. Enable Transparent in Render Properties. DoF: enable Jitter checkbox.
+15. **Glass material:** Material Properties → enable Ray Trace Transmission.
+16. **Translucent material:** Use Subsurface Scattering instead of Translucent shader.
+17. **Fisheye in EEVEE:** Decrease focal length. Compositor → Lens Distortion node → increase distortion → check Fit.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Backend: Vulkan (Preferences → System)
+- Ray Tracing: ON; Resolution 1×1; Precision 1; Thickness 1
+- Denoising: second option disabled
+- Fast GI: disabled
+- Samples: 120
+- Shadow Rays: 4; Jittered Shadows ON; all three min values; Alt+click = apply to all lights
+- Film: Overscan ON
+- World: threshold 10 (softer HDRI)
+- Volume Probe: grid res 16–20, resolution 80–120, World contribution ON
+- AO pass → Multiply Mix Color (0.2–1.0) + Environment pass → Alpha Over + Transparent ON
+- DoF: Jitter checkbox ON
+- Material → Ray Trace Transmission (glass); SSS for translucent
+- Lens Distortion (compositor): Fit ON for fisheye
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — no modeling; pure settings configuration; covers all key EEVEE photorealism pain points
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.1 (ray tracing settings interface; some settings layout may differ from 4.x)
 
 ### Tags
-[PENDING EXTRACTION]
+#rendering #eevee #ray-tracing #lighting #light-probes #workflow #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `photorealistic-renders-in-blender.md` — companion Cycles photorealism workflow guide
+- `how-to-render-faster-in-blender-cycles.md` — Cycles optimization counterpart
+- `fundamentals-of-lighting-in-blender.md` — lighting theory foundation
+- `real-time-caustics-in-blender-51.md` — EEVEE caustics companion (5.1)

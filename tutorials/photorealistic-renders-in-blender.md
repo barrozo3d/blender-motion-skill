@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=J_mweAPcO4M
 author: Extra 3d
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x"
+tags: [rendering, photorealism, workflow, cycles, lighting, texturing, camera, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/photorealistic-renders-in-blender/
 frame_count: 0
 ---
@@ -32,27 +32,55 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Full Cycles photorealism workflow covering references → block out → textures → assets (Megascans/TRIPO 3D) → details/imperfections → simple honest lighting → lens simulation → OpenEXR render → AGX color grade with overexposure → compositor touches.
 
 ### Summary
-[PENDING EXTRACTION]
+Extra 3d synthesizes a complete photoreal Cycles workflow from tips gathered from top artists. References first (PureRef, Google by category: general/assets/lighting). Block out with camera placed early (focal length, height, human rig for scale). Textures: high-res, stacked, imperfect; use PolyHaven/AmbientCG/Megascans or extract from photo (same image → Color Ramp for roughness/bump). Models: bevel everything (no sharp edges in nature); photoscans from Megascans; TRIPO 3D for AI single-image → 3D model generation. Scale check: Item panel dimensions (not scale). Rigid body simulation for randomized dropped objects. Imperfections: dust, rubble, scratches from references. Lighting philosophy: boring and simple = more realistic; HDRI + area light; temperature over white; gobo shadows in area light; disable area light in reflections (Object Data → Transmission OFF). Interior high exposure trick: disable environment shader for lighting to reduce noise. Camera: Lens Simmer Dawn add-on for real lens simulation; phone-controller camera animation add-on. Render: OpenEXR. Color management in Video Editing workspace: AGX, Base Contrast; animate/overexpose exposure value. Compositor: Diamond Sharp (0.3), Lens Distortion, cinematic preset. Post: DaVinci for overlays; dual-resolution zoom trick.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **References:** PureRef. Search by category: (a) general scene photos, (b) individual assets, (c) lighting/environment. Collect real brand names, imperfections, lighting ratios.
+2. **Block out + camera:** Place camera early → set focal length and height → add human skeleton rig (free add-on) for scale reference. Camera near face = natural eye level.
+3. **Textures:** PolyHaven, AmbientCG, Megascans. Stack multiple textures. Add imperfections. Photo extraction: use same image for base color, Color Ramp for roughness, same image Bump node — inherits natural imperfections.
+4. **Models:** Bevel everything (no sharp edges). Scale check: Item panel (N panel → Item tab → Dimensions in meters). Don't confuse with Scale value. Apply scale after rigid body.
+5. **Photo scanning / AI assets:** Megascans library OR TRIPO 3D (1–4 images → AI 3D model; choose Ultra, 4K textures, PBR, smooth low poly option for BG objects).
+6. **Asset placement:** Match references. Rigid body for random drop: active (objects) + passive (ground) → Play simulation → apply.
+7. **Imperfections:** Add dust, rubble, scratches matching reference. Wooden chips texture etc.
+8. **Lighting:** Use HDRI (PolyHaven high-res) + single area light. Use temperature (Kelvin) not pure white. Add gobo to area light (shadow-casting object). Disable area light in reflections: Object Data → Transmission → OFF. Interior: disable environment shader for lighting (custom node setup) to decouple HDRI light from HDRI visibility → reduces noise at high exposure.
+9. **Camera setup:** Lens Simmer Dawn add-on → select focal length → pick matching real lens. Camera animation add-on (phone controller). Auto-DoF add-on.
+10. **Render:** OpenEXR output.
+11. **Color grade:** Open new file → Video Editing → Add → Image Sequence → Render Properties → Color Management → AGX → Base Contrast. Keyframe exposure: overexpose for washout photographic look (increase exposure to 1–2+). For interior camera that looks outside: animate exposure back to 0.
+12. **Compositor:** Diamond Sharp (strength 0.3). Lens Distortion. Cinematic compositor preset.
+13. **Post-editing:** DaVinci Resolve for sound effects + video overlays. Dual-resolution trick: export low-res + high-res; when camera zooms in, transition from low-res to high-res layer.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- PureRef for reference boards
+- Human skeleton rig add-on (bundled/free) for scale
+- Item panel → Dimensions (not Scale) for size check
+- PolyHaven / AmbientCG / Megascans for textures
+- TRIPO 3D: Ultra mode, 4K textures, PBR enabled, smooth + low poly for BG
+- Rigid body: active objects + passive ground; apply scale before
+- Area light: gobo shadow-casting object; disable Transmission in Object Data
+- Environment light control: custom disable-environment-for-lighting shader (screenshot in video)
+- OpenEXR render format
+- Video Editing workspace: AGX + Base Contrast; animate Exposure value
+- Compositor: Diamond Sharp (0.3), Lens Distortion, cinematic preset
+- Lens Simmer Dawn add-on (real lens simulation)
+- Camera animation add-on (phone as controller)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — broad overview of full photoreal pipeline; some steps reference paid add-ons and sponsors
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x (Cycles; no version-specific features beyond standard Cycles workflow)
 
 ### Tags
-[PENDING EXTRACTION]
+#rendering #photorealism #workflow #cycles #lighting #texturing #camera #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `photorealistic-eevee-renders-in-blender-51.md` — EEVEE photorealism companion
+- `how-to-render-faster-in-blender-cycles.md` — Cycles optimization guide
+- `fundamentals-of-lighting-in-blender.md` — lighting principles foundation
+- `the-key-to-realism-in-blender-or-3d.md` — realism theory companion
+- `realistic-product-lighting-in-blender.md` — product-specific lighting approach
