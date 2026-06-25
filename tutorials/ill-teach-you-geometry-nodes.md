@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=JU70u6cJZqI
 author: Default Cube
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.5"
+tags: [geometry-nodes, fundamentals, procedural, beginner, fractals, node-groups, course]
+extraction_status: complete
 frames_dir: tutorials/frames/ill-teach-you-geometry-nodes/
 frame_count: 0
 ---
@@ -32,27 +32,43 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+GeoNodes fundamentals course (free chapter 1): build a procedural Menger Sponge fractal using only three nodes — Cube primitive, Transform Geometry, and Join Geometry — establishing the core concepts of proceduralism, node groups, and group instances.
 
 ### Summary
-[PENDING EXTRACTION]
+Tom (CG Matter / Default Cube) teaches the first chapter of his 5.5-hour GeoNodes course free. Covers: the GeoNodes workspace layout (3D Viewport + Node Editor + Spreadsheet Editor); GeoNodes as custom modifiers stackable like any modifier; the left-to-right node workflow; why Node Wrangler is mandatory; proceduralism vs destructive modeling. Main project: Menger Sponge fractal — position 8 cubes using Transform Geometry nodes (X offset = 1, 2, Y offset = 1, 2 units) skipping the center, join all with Join Geometry, group the logic with Ctrl+G, then stack 6 instances of that node group to create recursive detail. Key insight: because the input is a single Cube node, swapping it to a UV Sphere instantly creates a sphere-composed fractal — any recipe edit propagates through all copies. Chapter 2 teaser: Scene Time node + Math node for animation.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Setup:** GeoNodes workspace (top bar) → enable Node Wrangler add-on (Preferences → Add-ons). Set noodle curving = 0 for straight links. Use Spreadsheet Editor to watch live vertex/edge/face counts.
+2. **First nodes:** Add → Cube node (size 1m) → Transform Geometry (move X+1) → Join Geometry connects both = two cubes side by side.
+3. **Build the 3×3 grid (center missing):** Create 8 Transform Geometry nodes — offsets (1,0), (2,0), (0,1), (1,1), (2,1), (0,2), (2,2) — deliberately skip (1,1) center. Join all into one Join Geometry.
+4. **Group the logic:** Select all nodes except the Cube input → Ctrl+G = node group "copier". The group compresses the entire recipe into a single reusable node.
+5. **Recursive fractal:** Stack 6 copies of the copier node group; each iteration multiplies geometry by 8. Includes a scale-by-1/3 + translate-by-−1/3 Transform inside the group to normalize size each iteration.
+6. **Swap input:** Replace Cube with UV Sphere (radius 0.5) → entire fractal rebuilds with spheres. Demonstrates full proceduralism.
+7. **Node instances:** Multiple copies of a node group share logic (shown by "6" badge on node). Click badge → unlink → make independent edit without affecting siblings.
+8. **Chapter 2 setup (teaser):** Scene Time node → frame/seconds for animation; Math node → convert any value.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Cube** (Mesh Primitives): size 1m, swappable with any mesh
+- **Transform Geometry**: translate X/Y by integer units; scale 1/3 (type `1/3` inline); translate −1/3 to recenter after scale
+- **Join Geometry**: multi-input socket; Ctrl+Shift+RClick drag auto-creates and connects
+- **Group Input / Group Output**: default pair; sever to ignore original mesh
+- **Node Wrangler hotkeys**: Alt+RClick drag = lazy connect; Ctrl+RClick drag = sever link; Alt+Shift+Click = send to output; Ctrl+Shift+RClick drag = auto Join Geometry; H = hide node; Ctrl+H = compress; M = mute
+- **Ctrl+G** = group selected nodes into node group; Tab = enter/exit group
+- Spreadsheet Editor: live read of vertices/edges/faces; updates with every node change
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner — no prior GeoNodes knowledge assumed; course chapter 1
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.5 (author specifies; course expected to remain valid for future versions as GeoNodes rarely removes features)
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #fundamentals #procedural #beginner #fractals #node-groups #course
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `fractals-in-blender---geometry-nodes-extrude-node.md` — GeoNodes fractal with Extrude Mesh (Blender 3.1 approach)
+- `math-x-blender-50-unlimited-power.md` — Math node deep-dive continuation
+- `track-objects-using-align-rotation-to-vector-in-geometry-nodes-blender-tutorial.md` — GeoNodes applied technique
+- `geode-nodes-i-am-so-clever-blender-tutorial.md` — advanced GeoNodes pipeline reference

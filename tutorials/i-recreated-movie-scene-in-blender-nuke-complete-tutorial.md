@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=iW6WF8guDMY
 author: MISSING PIXEL VFX
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.0"
+tags: [vfx, compositing, nuke, lighting, rendering, animation, workflow, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/i-recreated-movie-scene-in-blender-nuke-complete-tutorial/
 frame_count: 0
 ---
@@ -32,27 +32,55 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Full Blender + Nuke VFX pipeline to recreate a King Kong vs. helicopters movie shot using free Sketchfab assets, Mixamo animation, multi-layer rendering with render passes, and Nuke compositing including color grading, light wrap, heat haze distortion, and camera shake — matched against a film reference frame.
 
 ### Summary
-[PENDING EXTRACTION]
+MISSING PIXEL VFX walks through a complete VFX shot recreation from scratch. Assets: Kong model (6MB FBX, Sketchfab) + helicopter (GLTF). Workflow: Sketchfab import → fix textures (fur alpha/normal, body texture) → Mixamo "stand up" animation at slow speed with arm space raised → scale Kong to ~80m → 220mm long lens camera at 700m distance, 2K×900 cinematic crop. Helicopter blades rotated via `#frame` driver expression on Z/Y rotation. Three helicopters (animated with offset keyframes). Sky texture lighting from behind; warm point light (ring light) on Kong with Light Linking to isolate it from helicopters; light blocker cube (deleted front face, holdout visibility) to reduce top light on helicopters. Render passes: Position, Normal, Direct Diffuse, AO, RGBA — output as OpenEXR to separate Kong/helicopter layer folders. Blender 5.0 native ACES CG color space (2.0 sequence + 2.0 display). In Nuke: 4K Pexels sky BG; sun created with Constant (high yellow value) + Roto circle mask + Merge(mask); bloom via Blur (200px) reduced mix + Blur (700×400) over at 0.04 strength; Grade node matched to film reference; black lift via blurred BG merged at "average" low opacity; light wrap default node; GT Focus DoF keyframed (11 at peak, less at start); heat haze via 3-node survival kit setup with per-region roto; camera shake (20 up/down, 0.21 freq); action graphics elements (smoke plumes) added to both sides.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Assets:** Sketchfab → Kong (FBX 6MB); helicopter (GLTF). Import into Blender; fix textures (fur: reconnect alpha path + darken; body: reconnect base color). Delete armor. Separate by loose parts (P → Loose Parts), keep body.
+2. **Animation:** Import to Mixamo → "stand up" → override to slow speed, raise arm space → export FBX 30fps → bring into Blender. Scale Kong to 80m height. Offset first keyframe out of frame, second keyframe in frame so he rises into shot.
+3. **Helicopter setup:** Separate blade controls. Apply rotation (Ctrl+A) on back blade before adding driver. Z/Y rotation = `#frame` expression (auto-rotating blades). Duplicate helicopter × 3; offset keyframes so second arrives slightly behind first (~10 frame delay).
+4. **Camera:** 220mm focal length, 700m from Kong, 0° rotation → 90° on Z to face character. Resolution 2048×900, 24fps, 300 frames.
+5. **Lighting:** Sky texture (rotate to backlight). Add Point light (warm color, high strength) near Kong for sunset ring light. Light Linking: select light → Properties → Shading → Light Linking → New → select Kong folder only.
+6. **Light blocker:** Add cube mesh, delete front face (edit mode), set Visibility → Holdout ON so it blocks light but is invisible.
+7. **Ground:** Import rough ground asset for bounce light block (not visible, not renderable — BG collection hidden).
+8. **Render passes:** Enable Position, Normal, Direct Diffuse, AO. Use File Output node in compositor → connect each pass → set path → render Kong layer. Then hide Kong, show helicopters → update path → render helicopter layer.
+9. **Color space:** ACES CG — View Transform 2.0, Sequencer 2.0, Display ACES CG. Exposure ~1.2–1.5.
+10. **Nuke BG:** Read sky JPG (Pexels 4K) → change color space to RGB default → add alpha → Reformat (no change to scale) → static frame hold.
+11. **Nuke sun:** Constant (RGB, values ~10, yellow/warm) → Roto (Shift+drag for perfect circle) → Merge(mask) onto BG. Edge blur ~200. Blur (700×400 at 0.04 strength) for atmospheric bleed.
+12. **Nuke grade:** Grade node → tweak lifts/gains to match film reference. Compare with Viewer wipe mode.
+13. **Nuke black lift:** OCIO settings → blurred version of character → Merge(average) at low values → Clamp → mask to character edges (erode + blur) → average at ~0.04.
+14. **Heat haze:** 3× heat haze nodes from Nuke survival kit; per-region roto masking; slow wind values; blended.
+15. **Camera shake:** Default Camera Shake node; adjust up/down = 20, frequency = 0.21.
+16. **DoF:** GT Focus node; keyframe in-focus at frame 50, out-of-focus at frame 200 (value ~11).
+17. **Final touches:** Action graphics smoke plumes on left/right for frame dressing; helicopter grade (hazy/dark to match depth); Reformat at end.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Mixamo: Stand Up animation, arm space raised, slow override speed
+- Camera: 220mm, 700m distance, 2K×900, 24fps
+- Blade rotation driver: `#frame` on Z or Y Euler rotation channel
+- Light Linking: Properties → Shading → Light Linking → New → assign folder
+- Holdout visibility: Object Properties → Visibility → Holdout ON
+- Render passes: Position, Normal, Direct Diffuse, AO; OpenEXR output
+- Blender 5.0 ACES CG: View Transform 2.0 + Sequencer 2.0
+- Nuke: Grade, Roto (Shift+drag = perfect circle), Merge(mask/average/over), Blur (Gaussian), Constant, Reformat, Camera Shake, GT Focus, Light Wrap, OCIO settings node
+- Heat haze: 3rd party plugin (Nuke survival kit / Nuke video)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — covers Blender setup, animation, lighting, rendering AND Nuke compositing in one project
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.0 (ACES CG color space native support cited as 5.0 feature)
 
 ### Tags
-[PENDING EXTRACTION]
+#vfx #compositing #nuke #lighting #rendering #animation #workflow #intermediate #aces #sketchfab #mixamo
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `how-to-make-cyberpunk-scenes-in-blender.md` — cinematic scene-building and atmospheric lighting
+- `fundamentals-of-lighting-in-blender.md` — light linking and lighting theory
+- `how-i-made-realistic-storm-clouds-in-blender.md` — Light Linking usage for isolating lights per object
+- `photorealistic-renders-in-blender.md` — render quality companion
+- `replacing-adobe-after-effects-with-blender-tutorial.md` — compositing workflow alternative
