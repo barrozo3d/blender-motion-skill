@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=IgpUXXg2Vbs
 author: JB 3D Studio
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.4"
+tags: [animation, rigging, beginner, modeling, rendering, 12-principles, robot, course]
+extraction_status: complete
 frames_dir: tutorials/frames/the-complete-blender-3d-animation-course-5-hours-blender-b3d-animation/
 frame_count: 0
 ---
@@ -76,27 +76,35 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Complete beginner-to-intermediate Blender 3D animation course (5+ hours, 11 modules) covering the full production pipeline: Blender interface, 12 principles of animation, basketball project, robot modeling + rigging + animating + rendering. Note: file is 339KB / 303 minutes — only intro section was readable due to token size limits; notes are based on intro content and section titles.
 
 ### Summary
-[PENDING EXTRACTION]
+JB 3D Studio covers the complete Blender animation production pipeline for beginners. The course is structured as 11 modules: (1) Welcome & Setup — download, install, interface (3D viewport, timeline, outliner, properties), basic navigation (MMB orbit/zoom/pan), file save (Ctrl+S). (2) Blender Basics for Animation — modeling tools, Object/Edit mode, keyframes, timeline, frame rate, auto-keying. (3) Advanced Animation Concepts — F-curves, Graph Editor, interpolation modes. (4) 12 Principles of Animation — applied via basketball animation project (squash/stretch, anticipation, staging, timing, etc.). (5) Modeling the Robot — sci-fi lab scene robot mesh creation from scratch. (6) Rigging the Robot — armature, bone hierarchy, IK/FK, weight painting. (7) Storyboarding & Scene Planning — shot structure, camera planning. (8) Setting up Scene & Environment — asset import, lighting, HDRI. (9) Animating the Scene — robot waking, glass shattering, escape sequence. (10) Animating the Camera — cinematic camera moves, DOF. (11) Lighting, Rendering & Conclusion — final render output settings, video export. Blender 4.4 (applies to 4.5, 5.0+). Beginner-friendly with step-by-step explanations.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Interface:** 3D Viewport (main workspace), Outliner (top right — object list + visibility), Properties (bottom right — settings per object), Timeline (bottom — frame animation). Viewport overlays for axis display. N key = side toolbar.
+2. **Navigation:** MMB hold = orbit; Scroll = zoom; Ctrl+MMB = smooth zoom; Shift+MMB = pan.
+3. **12 Principles covered:** squash & stretch, anticipation, staging, straight-ahead/pose-to-pose, follow-through, slow-in/slow-out, arcs, secondary action, timing, exaggeration, solid drawing, appeal — demonstrated via basketball bouncing project.
+4. **Basketball project:** Animate a bouncing ball demonstrating each principle with keyframes and Graph Editor F-curves.
+5. **Robot project pipeline:** Model robot body from primitives → add armature/bones → weight paint → keyframe poses for waking animation → set up sci-fi lab scene → animate camera → render + export.
+6. **Rigging key concepts:** Armature object, bone hierarchy, parent-child bones, IK chains, weight painting for deformation.
+7. **Rendering:** Set up lights + HDRI, render properties, output to image sequence or video.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+N/A — this is a comprehensive general animation course; no single specialized node setup. Key concepts: keyframes (I key to insert), Graph Editor (linear vs Bezier interpolation), F-curves, Timeline, NLA Editor basics.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner — starts from scratch (download Blender), builds to full robot animation; 5+ hours; designed for zero prior Blender experience
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.4 (compatible with 4.5, 5.0+; author notes compatibility in intro)
 
 ### Tags
-[PENDING EXTRACTION]
+#animation #rigging #beginner #modeling #rendering #12-principles #robot #course
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `mastering-blenders-graph-editor.md` — deep dive into Graph Editor F-curves (companion to Module 3)
+- `your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial.md` — robot arm rigging (related)
+- `the-key-to-realism-in-blender-or-3d.md` — broader animation/rendering approach

@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=4ULxB4PzbAc
 author: Graphical Ninja
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 3.x/4.x"
+tags: [vfx, rigid-body, particles, fluid-sim, destruction, compositing, nuke, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/superhero-landing-tutorial-02-ground-destruction-vfx-in-blender/
 frame_count: 0
 ---
@@ -56,27 +56,48 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Full superhero ground-break VFX pipeline: Cell Fracture add-on to shatter road surface → Rigid Body simulation with Force Field (speed ramp to slow-mo) → particle system dirt/rock chunks (collection render, Brownian motion, inherited velocity) → Mantaflow smoke sim for dust trails → Voronoid displacement on chunk materials → Nuke comp with Holdout render pass and grain.
 
 ### Summary
-[PENDING EXTRACTION]
+Graphical Ninja builds a ground destruction VFX effect for a superhero landing. Road plane is cut via Loop Cuts → separated center face → Cell Fracture (ownverts point source, recursive 2) to shatter into chunks. Rigid Body sim: force field (strength 100,000 for 2 frames at landing, falloff power 1 for edge distance) with speed ramp (frame 53 = speed 1, frame 56 = speed 0.25 = slow-mo). Passive rigid body edges prevent floating chunks. Particle system (2,000 particles per chunk, lifetime 50, Brownian 0.1, inherited velocity 0.5, rock collection from Bridge asset library, decimate 0.1) baked and copied to all chunks. Mantaflow smoke domain (128→256 resolution, time scale 0.25, CFL 10, adaptive domain, dissolve 25 modular) emitting from all chunk surfaces (flow type Inflow, surface emission 0.2, initial velocity 0.25). Chunk material: dry cracked texture + Voronoid displacement modifier (strength 0.25, X and Y) + Subdivision Surface (Simple) before displacement + adaptive subdivision at render time. Road: BlenderKit material with clearcoat OFF + roughness plugged correctly. Nuke comp: Holdout render pass for character cutout; swap plate with Ctrl+Shift drag; Disjoint Over for edge cleanup; grain node with Chemix mask (dark areas grain only).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Ground setup:** Add plane, scale up, raise 5-6 units. Loop cuts to isolate center section. Select center face → P → Separate by Selection → move to "ground brake" collection.
+2. **Cell Fracture:** Tab into ground piece, more loop cuts to subdivide. Select outer faces, move for variety. Extrude piece downward. Select all → Cell Fracture (search): Point Source = OwnVerts; Recursive 2; Cursor Close. Apply. Delete original unshattered object.
+3. **Rigid Body sim:** Select one chunk → Object Properties → Rigid Body (Active, Dynamic). Select all → Object → Rigid Body → Copy from Active. Scene Properties → Rigid Body World: Steps/Frame = 20; Split Impulse = 20. Cache Start = 50, End = 100.
+4. **Speed ramp:** Frame 53 → RB World Speed = 1 → I. Frame 56 → Speed = 0.25 → I.
+5. **Force field:** Shift+A → Force Field → Force. Move below ground. Frame 50 → Strength = 10,000 → I. Frame 52 → Strength = 0 → I. Fall Off Power = 1 (distance-based dropoff).
+6. **Ground plane passive RB:** Select original road plane → Rigid Body → Passive. Prevents chunks falling through.
+7. **Particle system (rocks):** Select one chunk → Particle Properties → New ("dirt chunks"). Number 2000; Start 50, End 200; Lifetime 50. Rotation ON; Angular Velocity = Random, Amount 5; Phase 1 all; randomize phase+amount. Physics: Brownian 0.1; Damping 0.05; Force Fields → All = 0; Gravity = 0.05. Render: Collection → rocks collection; Pick Random; Scale 0.2 (or 0.1); Scale Randomness 0.8. Velocity: Normal = 0; Object = 0.5; Randomize 0.25.
+8. **Copy particles:** Select all ground brake objects → modifier tab → particle system modifier drop-down → Copy to Selected. Bake All Dynamics.
+9. **Smoke domain:** Add cube → Physics → Fluid → Domain. Edit mode: scale up to cover scene, move up, lower top. Settings: Resolution 128 (→256 final); Time Scale 0.25; CFL 10; Adaptive Time Steps max 3; Adaptive Domain ON; Dissolve ON (25, Modular); Field Weights all = 0. Cache: Start 50, End 100. Bake Data.
+10. **Smoke flow (chunks):** Select one chunk → Fluid → Flow. Type = Inflow. Sampling Subsets = 1. Flow Source: Surface Emission = 0.2; Initial Velocity ON, Value 0.25. Copy Fluid modifier to all ground brake objects.
+11. **Smoke material:** Select domain → Shading → New material. Replace Principled BSDF with Principled Volume → plug into Volume input. Density ~2. Color: brownish. Brightness ~50%.
+12. **Chunk materials:** Link dry cracked material to all chunks. Add Displacement modifier: new Voronoid texture (default), Strength 0.25, Direction X. Add Subdivision Surface (Simple, before Displacement). Duplicate Displacement → set Direction Y. Copy all modifiers to all chunks.
+13. **Render/Comp:** Set up render passes with Holdout for character plate. In Nuke: Ctrl+Shift drag to swap plates; Disjoint Over to fix edges; Grain node + Chemix (dark areas = grain, bright areas = no grain).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Cell Fracture: OwnVerts; Recursive 2; Cursor Close
+- RB World: Steps 20; Impulse 20; Speed ramp 1→0.25
+- Force: Strength 10,000 (2 frames); Fall Off Power 1
+- Particle: 2,000 count; Brownian 0.1; Object velocity 0.5; Normal 0; Scale 0.2; Randomness 0.8
+- Smoke Domain: Resolution 128/256; Time Scale 0.25; CFL 10; Dissolve 25 Modular
+- Flow: Surface Emission 0.2; Initial Velocity 0.25
+- Displacement: Voronoid default; Strength 0.25; X then Y separate modifiers
+- Subdivision Surface: Simple; Render 1
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — multi-system VFX pipeline; requires Cell Fracture add-on + Mantaflow; good real-world production workflow
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 3.x/4.x (Mantaflow, Cell Fracture, particle system - all standard)
 
 ### Tags
-[PENDING EXTRACTION]
+#vfx #rigid-body #particles #fluid-sim #destruction #compositing #nuke #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `using-geometry-nodes-for-vfx-in-blender.md` — GeoNodes VFX approach comparison
+- `realistic-cloth-physics-in-blender-full-tutorial.md` — physics simulation workflow (cloth)
+- `mastering-blenders-graph-editor.md` — speed ramp / F-curve techniques
