@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=U5y1Krd-ykk
 author: Ducky 3D
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x/5.x"
+tags: [shaders, color, noise-texture, emission, glass, cycles, looping, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/you-should-try-this-blender-color-hack/
 frame_count: 0
 ---
@@ -32,27 +32,45 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Color distribution hack: use a second, independent Noise texture to control WHERE colors appear within the bright areas of a primary Noise texture — breaking the normal constraint that forces gradient-based color distribution. Node pattern: Primary Noise → Color Ramp B-spline (3 stops, 2 black = dark/light mask) → Mix Color factor. Second Noise → Color Ramp (chosen colors) → Mix Color B slot. Result: colors appear in the organic shape of the second noise, only within the bright areas defined by the first noise.
 
 ### Summary
-[PENDING EXTRACTION]
+Ducky 3D tutorial demonstrating a color distribution trick for procedural Blender shaders. The core problem: when using a Noise texture as an emissive light, colors added via Color Ramp are always constrained to gradient distribution (center→edge). The hack: add a second Noise texture to distribute colors freely within the organic shape of the first Noise. Node chain: primary Noise → Color Ramp B-spline (2 black + 1 white) → Mix Color factor + A=black; second Noise → Color Ramp (two chosen colors) → Mix Color B. For more palettes: add another Mix Color + another Noise, chain B slots. Demo scene: Glass brick wall built with GeoNodes (Grid 16×9 → Mesh to Points face domain → Instance on Points brick object) + wireframe mortar (duplicate GeoNodes → Wireframe modifier → Bevel 2 segments → Set Shade Smooth). Emission plane behind (Cycles). Loop: dual-Voronoid crossfade W ±6 over timeline (W 0→6 / W −6→0, Mix 0→1). Glare Bloom compositor. Render: Cycles, Diffuse 0, Glossy 2, Transmission 3, Total 3, Transparent 0, Volume 0; 150 samples PNG sequence; ~3–4s/frame at 1080p.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Build brick mesh:** Cube → Tab → inset top face (I) → extrude inward → Bevel modifier (4 segments) → shade Auto Smooth. Material: Glass BSDF, roughness ~0.1.
+2. **GeoNodes brick wall:** Plane → GeoNodes → Grid (16×9) → Mesh to Points (faces domain) → Instance on Points (brick object from outliner drag) → scale to fit with gap for mortar.
+3. **GeoNodes mortar:** Duplicate modifier stack → reset geometry to plane → Wireframe modifier → Bevel (2 segments) → Set Shade Smooth node → Set Material (metal/gray).
+4. **Emission background:** Add plane below bricks → Emission shader → color from Node chain.
+5. **Cycles render settings:** Diffuse 0, Glossy 2, Transmission 3, Total 3, Transparent 0, Volume 0.
+6. **Primary Noise setup:** Noise Texture (4D for organic animation) → Color Ramp B-spline (3 stops: black, black, white) → controls dark/light structure. Plug into factor of Mix Color node. Set A = black.
+7. **Color distribution:** Second Noise (independent scale/detail) → Color Ramp (2 chosen colors) → plug into B slot of Mix Color. Colors now appear in organic noise shape within primary bright areas only.
+8. **Multi-color (optional):** Add another Mix Color node; plug original Mix Color → A; new Noise + Color Ramp → B. Chain Mix Colors for unlimited palettes.
+9. **Animate loop:** Duplicate primary Noise. Mix Color node between them (factor = blend). Primary W: 0→6 keyframed at frame 0→end. Duplicate W: −6→0 at same frames. Linear interpolation → seamless loop.
+10. **Compositor:** Glare → Bloom.
+11. **Export:** PNG sequence, 150 samples, ~3–4s/frame at 1080p.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Primary Noise: 4D (W animation), detail up slightly, scale adjusted for desired pattern
+- Color Ramp primary: B-spline, 3 stops → black (0%), black (~40–60%), white (100%) — controls dark/light threshold
+- Mix Color: factor ← primary Color Ramp; A = black; B ← secondary color chain
+- Secondary Noise: independent scale/detail; Color Ramp with 2 palette colors
+- Loop: W = 6 / −6 (or larger for faster movement); linear F-curve; Mix Color factor 0→1 same frame range
+- Render: Diffuse 0, Glossy 2, Transmission 3, Total 3, Transparent 0, Volume 0
+- Samples: 150; PNG sequence; ~3–4s at 1080p Cycles
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner–Intermediate — node logic is clever but simple once understood; modeling with GeoNodes is an extra step; looping technique is reusable
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x/5.x (standard features throughout; no version-specific nodes mentioned)
 
 ### Tags
-[PENDING EXTRACTION]
+#shaders #color #noise-texture #emission #glass #cycles #looping #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `you-should-make-glass-animations-in-blender-51.md` — same Ducky 3D glass + emission style; uses same render settings
+- `replacing-adobe-after-effects-with-blender-tutorial.md` — same Ducky 3D looping noise animation workflow
+- `sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial.md` — same dual-noise crossfade loop technique (W crossfade = seamless loop)

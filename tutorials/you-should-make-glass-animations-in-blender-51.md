@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=vemW4ceygRg
 author: Ducky 3D
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.1"
+tags: [glass, animation, cycles, emission, wave-texture, noise-texture, chromatic-aberration, geometry-nodes, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/you-should-make-glass-animations-in-blender-51/
 frame_count: 0
 ---
@@ -32,27 +32,48 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Six glass animation styles using a unified principle: glass objects over smooth emissive textures — textures ARE the lights. The glass bends, magnifies, and transforms the texture beneath. Key variables: object shape, texture choice (wave vs. noise), texture distance from glass (Z offset), and distortion amount. Chromatic aberration via 3× Glass BSDF with IOR split (1.45/1.5/1.58). Blob shapes via GeoNodes → SDF Grid workflow.
 
 ### Summary
-[PENDING EXTRACTION]
+Ducky 3D overview of 6 glass animation styles in Blender 5.1. Core concept: pair glass objects with emissive textures (no lights) — the glass warps, magnifies, and bends the texture into something beautiful. Style 1: sphere grid (2× Array) over Wave texture gradient (scale 0.7 + distortion for variation). Style 2: ribbed glass (thick beveled cube + Array) with Noise + B-spline Color Ramp (3 stops, 2 black for dark control); texture Z-distance below glass controls bend quality. Style 3: baseball bat cylinder + circular Array + circular Wave (Rings+Spherical, low scale) with B-spline Color Ramp; animate offset. Style 4: sphere grid + simple gradient = magnifying glass effect that flips gradient; large plane behind for layer weight fill. Style 5: chromatic aberration — 3× Glass BSDF chained through 2× Add Shader; Red IOR 1.45, Green IOR 1.5, Blue IOR 1.58. Style 6: blob spheres via GeoNodes (Object → Convert to Volume → Distribute Points → Noise Set Position → Points to SDF Grid → SDF Grid to Mesh → Subdivide + smooth normals). Style 7 (bonus): Glass wires — Array of curves + Set Position displacement + Tube node (built-in UV) + Wave Texture; thicker outer glass curve over thinner emissive inner curve. Render: 150 samples; Diffuse 0, Glossy 3, Transmission 3, Volume 0, Transparent 0; caustics OFF; Denoise ON; ~2s/frame at 1080p.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Object setup:** Choose shape that complements texture (circular array → circular wave; ribbed → noise with squished mapping; spheres → gradient contrast).
+2. **Emissive material (background plane):** Emission node + texture of choice → color and light simultaneously. No area lights needed.
+3. **Glass material:** Glass BSDF, light roughness (0 to 0.2). No other material nodes needed.
+4. **Texture distance:** Move emissive plane on Z axis — closer = flatter bend, farther = stronger bend but muddier. Find sweet spot.
+5. **Wave texture:** Use for animatable gradient hack (Wave = gradient, then animate Phase Offset or tile W). Rings + Spherical mode for circular shapes.
+6. **Noise texture smoothing:** 3 Color Ramp stops with 2 set to black = smooth control over dark/light ratio. B-spline for smoother curve.
+7. **Chromatic aberration:** Shift+A Add Shader × 2 → 3 Glass BSDF nodes in chain → set colors (Red/Green/Blue) → offset IOR per channel (1.45 / 1.5 / 1.58).
+8. **SDF blobs:** GeoNodes: Object → Convert to Volume → Distribute Points in Volume → Noise Texture + Set Position (displace points) → Points to SDF Grid → SDF Grid to Mesh → Subdivide + Auto Smooth Normals.
+9. **Glass wires:** Array of curves → GeoNodes Set Position (displacement) → Tube node (has built-in UV) → Wave Texture for UV-mapped animation. Duplicate curve + thicker radius = outer glass shell.
+10. **Render optimize:** Light Paths: Diffuse 0, Glossy 3, Transmission 3, Volume 0, Transparent 0. Disable caustics. 150 samples. Denoise. ~2s/frame smooth textures.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Wave Texture scale: 0.7 (optimal for sphere grid magnifying glass)
+- Wave Texture mode: Rings + Spherical for circular arrays
+- Color Ramp (ribbed glass): B-spline, 3 stops (black, black, white) for dark/light control
+- Noise mapping: squish to match rib direction (Scale Y >> Scale X or vice versa)
+- Chromatic aberration IOR: Red = 1.45, Green = ~1.50, Blue = 1.58
+- Add Shader chain: Glass(R) → Add → [Glass(G)] → Add → [Class(B)] → Material Output
+- SDF Grid: Points to SDF Grid → SDF Grid to Mesh → Subdivide → Auto Smooth Normals
+- Render Light Paths: Diffuse 0, Glossy 3, Transmission 3, Volume 0, Transparent 0
+- Samples: 150 (smooth textures need very few samples)
+- Caustics: OFF
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — styles 1–4 are approachable; SDF blobs (style 6) require GeoNodes comfort; chromatic aberration is a 1-minute add-on. Render times very fast for smooth glass textures.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.1 (stated in title; SDF Grid node requires 5.0+; all other techniques work in 4.x)
 
 ### Tags
-[PENDING EXTRACTION]
+#glass #animation #cycles #emission #wave-texture #noise-texture #chromatic-aberration #geometry-nodes #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `you-should-try-this-blender-color-hack.md` — same Ducky 3D style, color distribution within noise textures
+- `replacing-adobe-after-effects-with-blender-tutorial.md` — same Ducky 3D emission + noise texture workflow
+- `sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial.md` — two-noise seamless loop technique (same looping approach)
+- `real-time-caustics-in-blender-51.md` — glass/caustics shader techniques in 5.1
