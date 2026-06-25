@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=KnYGp58REUk
 author: Ahad Animates
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x"
+tags: [cloth-physics, simulation, product-visualization, camera-animation, lighting, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/realistic-cloth-physics-in-blender-full-tutorial/
 frame_count: 0
 ---
@@ -32,27 +32,53 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Product visualization with cloth simulation: bottle fall animation (Graph Editor for speed curve), cloth plane subdivided heavily with gravity disabled and negative wind force field to drape cloth over product; simplified collision object (circle/cylinder shape) parented to product replaces complex mesh; camera Track To constraint + location keyframes; baked cache.
 
 ### Summary
-[PENDING EXTRACTION]
+Ahad Animates (Hinglish tutorial) shows a cloth physics product visualization where a cloth falls and wraps around a falling bottle. Key techniques: bottle animated with Z location keyframes (frame 0→50/60), Graph Editor to shape speed curve (fast then slow). Cloth plane: Edit Mode subdivide 40–50 cuts → Physics → Cloth preset → disable gravity (Field Weights → Gravity = 0). Simplified collision object (modeled circle/cylinder, ~12×32 verts) parented to bottle with correct face normals → Physics → Collision (collision distance 0.01–0.03, object collision 0.02). Negative Wind force field (~−15 strength) pushes cloth toward product instead of gravity. Quality steps 5–8. Subdivision Surface modifier added to cloth mesh after cloth modifier. Camera: Track To constraint targeting bottle origin (Set Origin → To Geometry first); location keyframes at frames 0, 75, 130, 150 with linear interpolation; adjust curve in Graph Editor. Bake cloth cache at end frame 130–150. Material: Blenderkit fabric (scale 100–150); brownish/dark tones. Lighting: two area disc lights (spread 40–50) + HDRI. DoF on camera (target + f-stop). Color management: Medium High Contrast. Note: transcript quality is low (Hinglish, fragmented) — some steps approximate.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Product animation:** Bottle → keyframe Z location at frame 0 and frame 50–60 (move down). Graph Editor: select keyframes → reshape curve for fast-then-slow speed (pull handles or use Smooth). S1.5× scale in time to slow down.
+2. **Cloth plane:** Add Plane → Edit Mode → Subdivide (40–50 cuts). Object Mode → Physics Properties → Cloth. Select preset "Cloth". Field Weights tab → Gravity = 0.
+3. **Collision proxy:** Model simplified shape (circle cylinder, 12×32 verts) matching product silhouette. Parent to product (Ctrl+P → Object). Fix normals. Go to Physics → Collision. Collision Distance 0.02–0.03; Object Collision 0.02.
+4. **Force field:** Shift+A → Force Field → Wind. Strength: negative (−15 to −50) to push cloth toward product. Adjust until cloth drapes well.
+5. **Cloth quality settings:** Cloth Properties → Quality Steps 5–8. Self Collision: Distance 0.01. Vertex Max 0.01–0.015.
+6. **Subdivision Surface:** Add Subdivision Surface modifier AFTER Cloth modifier in modifier stack for smoother result.
+7. **Camera setup:** Add camera, position for product. Camera → Object Properties → Add Constraint → Track To → target = bottle origin. If tracking wrong point: Right click bottle → Set Origin → Origin to Geometry.
+8. **Camera animation:** Frame 0: keyframe camera location. Frame 75: move camera, keyframe. Frame 130/150: move camera, keyframe. Graph Editor: set linear interpolation (T → Linear).
+9. **Bake cloth:** Physics Properties → Cache → End frame = 150. Bake. Verify in playback.
+10. **Hide collision object:** Object Properties → Visibility → uncheck all visibility options.
+11. **Material:** Apply Blenderkit fabric material to cloth. Shading: set texture scale to 100–150. Adjust color (brownish, darker tones).
+12. **Lighting:** World brightness black. Add Area light (disc, spread 50, high power) from front-above. Duplicate → second fill light (spread 40, lower power). HDRI: Dancing Hall or similar studio HDRI.
+13. **Camera DoF:** Camera Properties → Depth of Field → target = bottle. Set F-Stop.
+14. **Color management:** Render Properties → Color Management → Look: Medium High Contrast.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Cloth subdivide: 40–50 cuts (in Edit Mode Subdivide popup)
+- Cloth Physics: preset "Cloth"; Field Weights → Gravity = 0; Quality Steps 5–8
+- Collision proxy: simplified cylinder shape; Physics → Collision; Distance 0.02; Object Collision 0.02–0.03
+- Force Field: Wind, negative strength (−15 to push toward product)
+- Self Collision: Distance 0.01; Vertex Max 0.01–0.015
+- Subdivision Surface: AFTER Cloth in stack
+- Camera: Track To constraint; location keyframes; linear interpolation
+- Cloth cache: Bake at end frame 130–150
+- Material: fabric texture scale 100–150; brownish tones
+- Lighting: area disc lights (spread 40–50); HDRI
+- Color Management: Medium High Contrast
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner — introductory tutorial; note transcript is Hinglish and fragmented; steps require interpretation
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x (standard cloth physics; no version-specific nodes)
 
 ### Tags
-[PENDING EXTRACTION]
+#cloth-physics #simulation #product-visualization #camera-animation #lighting #beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `blender-new-cloth-simulator-changes-everything.md` — Blender 5.2 GeoNodes cloth (more advanced)
+- `realistic-product-lighting-in-blender.md` — product lighting companion
+- `mastering-blenders-graph-editor.md` — Graph Editor for animation speed curves
+- `how-i-built-this-gate-animation-in-blender-scene-breakdown.md` — camera animation and keyframing

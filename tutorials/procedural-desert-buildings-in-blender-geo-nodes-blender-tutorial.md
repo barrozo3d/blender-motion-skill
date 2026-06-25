@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=HMxZTPjFoc0
 author: Cinematic Cookie
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x"
+tags: [geometry-nodes, architecture, procedural, instancing, boolean, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/procedural-desert-buildings-in-blender-geo-nodes-blender-tutorial/
 frame_count: 0
 ---
@@ -32,27 +32,52 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+GeoNodes procedural building generator: face-normal selection (top/bottom/sides) drives door instancing (bottom edges→points), window distribution (side faces, Poisson Disk), Mesh Boolean for wall holes, and roof asset scattering — all with Geometry Proximity edge-avoidance. Requires custom free Inset node from author.
 
 ### Summary
-[PENDING EXTRACTION]
+Cinematic Cookie demonstrates a procedural desert building generator built on a hand-modeled cube base. The system uses normal direction to separate faces (Z > 0.5 = top; Z < -0.5 = bottom; sides = neither) for all downstream operations. Top: custom Inset node → Extrude inward for roof detail. Bottom face edges: Mesh to Point → Instance on Points (door collection, random child, Split Edges first for correct normal) → Align Rotation to Vector Y. Windows: Distribute Points on Faces Poisson Disk (min 1m) on side faces → Instance on Points (window collection); fixed rotation (−90 X, +180 Y). Edge avoidance: Edge Angle > 0.5 rad → Geometry Proximity Edges → delete points within 0.5m of corners. Door clipping fix: Realize Instances of doors → Geometry Proximity Faces → delete windows too close. Holes: Scale Instances (Y) on bounding boxes → Mesh Boolean → capture face attribute → force point→face → delete inner faces (equal to 0). Roof assets: top faces → Distribute Points (0.1 density) with Edge Neighbors < 2 boundary avoidance. Wall tents: bottom edges → Mesh to Curve → Curve to Points (length 1.5m) → trim curve + random boolean selection. Concrete material: box-projected with two textures mixed + Color Ramp (yellowish), Bump, separate roof material. Full generator available on Blender Market.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Hand model base:** Model custom-shaped building cube (L-shape, rectangular, etc.). Open GeoNodes.
+2. **Normal selection:** Split Normal by XYZ → Z component → face domain. Compare > 0.5 = top; compare < −0.5 = bottom; boolean NOT of both = sides.
+3. **Top inset:** Custom Inset node (free download) with top selection, Individual OFF → Extrude Mesh inward (low value) for roof lip detail.
+4. **Door instancing:** Store bottom face values on edges → Delete Geometry (faces, bottom selection) → leaves only bottom edge loop. Mesh to Points (edges). Instance on Points (door collection, Pick Instance, Separate+Children+Relative). Split Edges before Align Rotation to Vector (normal → Y rotation axis).
+5. **Move doors up:** Translate Instances (Z up small amount) so doors aren't at ground level.
+6. **Window distribution:** Distribute Points on Faces (Poisson Disk, min 1m) on sides selection → Instance on Points (window collection). Rotate Instances (local, X: −90°, Y: +180°).
+7. **Edge avoidance (windows):** Group Input → Edge Angle mode, > 0.5 rad → Separate Geometry (edges) → Geometry Proximity (Edges) → measure distance → delete points where distance < 0.5 (near corners).
+8. **Door clipping fix:** Realize Instances of doors → Geometry Proximity (Faces) → boolean less-than → combine with corner check via Boolean Math OR → delete flagged window points.
+9. **Boolean holes:** Scale Instances (Y: 1.1) on door+window instances to thicken bounding box → Bounding Box → Mesh Boolean (Exact) on original building. Capture Attribute (faces) before boolean → Realize Instances → force to Points then Faces → Compare = 0 → delete inner faces.
+10. **Inset window/door depth:** Scale Instances Y on windows and doors (small negative) to push slightly into wall.
+11. **Roof assets:** Top faces → Distribute Points on Faces (0.1 density) → Instance on Points (roof assets). Random Z rotation, random scale (0.8–1.2). Edge Neighbors < 2 → Geometry Proximity Edges → delete near-edge points.
+12. **Wall tents:** Bottom edges → Mesh to Curve → Curve to Points (length 1.5m) → Instance on Points (tent collection). Trim curve start/end. Random Value Boolean → selection for sparse distribution.
+13. **Material:** Two concrete textures, box projected Object coords, Color Ramp (yellowish for desert tint), mixed together. Bump from concrete height. Roof: Set Material node with top face selection → different material (darker).
+14. **Performance tip:** Disable Mesh Boolean modifier while editing; re-enable before render.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Custom Inset node** (not default; free from Cinematic Cookie): top-face selection, Individual OFF
+- Face selection: Split Normal → Z component → face domain; Compare > 0.5 (top), < −0.5 (bottom)
+- **Split Edges** (before Align Rotation to Vector): isolates correct normals per edge face
+- Distribute Points: Poisson Disk, min distance 1m (windows); 0.1 density (roof)
+- **Edge Neighbors < 2** → Geometry Proximity Edges → boundary avoidance for roof
+- **Geometry Proximity**: set to Edges for corner avoidance, Faces for door clipping check
+- Realized Instances: required before Geometry Proximity Faces
+- Mesh Boolean: Exact or Float; inner face deletion via captured attribute → force point→face → Compare = 0
+- Box-project concrete texture: Object coords, two layers mixed, Color Ramp yellowish
+- Bump: concrete texture height → Normal
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced — complex multi-branch GeoNodes with custom node dependency; not beginner-friendly
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x (requires custom Inset node; standard GeoNodes nodes otherwise)
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #architecture #procedural #instancing #boolean #advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `ill-teach-you-geometry-nodes.md` — GeoNodes fundamentals (node groups, Menger Sponge)
+- `geode-nodes-i-am-so-clever-blender-tutorial.md` — advanced GeoNodes boolean workflow
+- `using-geometry-nodes-for-vfx-in-blender.md` — GeoNodes for scene generation
+- `track-objects-using-align-rotation-to-vector-in-geometry-nodes-blender-tutorial.md` — Align Rotation to Vector technique
