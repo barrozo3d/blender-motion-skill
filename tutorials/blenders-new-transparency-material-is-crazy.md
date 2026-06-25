@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=U2I8YDrO5Jc
 author: SouthernShotty
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [materials, shaders, glass, transparency, thin-wall, rendering, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/blenders-new-transparency-material-is-crazy/
 frame_count: 0
 ---
@@ -60,27 +60,45 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Blender 5.2's new Thin Wall checkbox on Principled BSDF: enables correct light transmission through single-sided geometry without a Solidify modifier, fixing the dark glass problem and enabling realistic paper, bubble, foliage, and frosted glass materials — all faster to render.
 
 ### Summary
-[PENDING EXTRACTION]
+SouthernShotty covers the Thin Wall parameter added to Principled BSDF in Blender 5.2. Previously, one-sided planes with Transmission would show no light until a Solidify modifier was added (doubles geo, can cause Z-fighting). Thin Wall eliminates this — Blender treats the surface as having negligible thickness rather than as a solid volume, so SSS radius/scale are cleared and light passes through correctly. The `Backscatter` sub-setting (−1 to +1) controls which side of the plane emits projected light. Use cases shown: basic transparency, thin-film bubbles (glass sphere now reads as soap bubble surface rather than solid glass), foliage (more natural light transmission, faster render, no need to double-side leaves), glass windows (fixes dark-glass-eats-light problem in complex scenes), paper, and a frosted horror-glass creative effect (noise textures × grunge maps → roughness + bump, Transmission material, front and back lighting).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Enable Thin Wall:** Select object with Principled BSDF shader → in shader properties check **Thin Wall** checkbox. Solidify modifier no longer required for one-sided planes.
+2. **Basic transparency:** Transmission = 1, Roughness ≈ 0; check Thin Wall. SSS Radius/Scale are automatically cleared (were used for skin simulation — irrelevant for thin surfaces).
+3. **Backscatter:** `Backscatter` value (−1 to +1) controls which side receives projected light; set to 0 to split evenly or 1 to favor front-lit surfaces.
+4. **Bubble / thin film:** On a glass sphere, enabling Thin Wall switches from solid-glass look to soap-bubble surface rendering; optionally add Thin Film node or iridescent shader for color variation.
+5. **Foliage optimization:** Check Thin Wall on leaf material → light passes through more naturally; eliminates need to double-side leaves → better render quality AND faster render times (saves seconds per frame; scales to minutes in forest scenes).
+6. **Fix dark glass:** Add glass plane to window opening → check Thin Wall → scene lighting is restored while still getting real glass reflections. The original dark-glass problem: one-sided glass without Thin Wall absorbs too much light energy.
+7. **Frosted horror glass (creative example):**
+   - Geometry: flat plane with two extruded border pieces (black material for contrast).
+   - Material: Principled BSDF with Transmission (not SSS); Thin Wall ON.
+   - Roughness/bump: Noise Texture (stretched) → Color Ramp; second larger Noise → both multiplied; add grunge maps × grunge scratches → Color Ramp (B&W) → multiply onto base; result feeds both Roughness and Bump Normal.
+   - Base Color: warm color → Base Color input.
+   - Lighting: Area light + Sunlight behind character; 2–3 colored fill lights in front (pale tones) to highlight bump.
+   - Animation: simple shape key on character to simulate approach.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Principled BSDF → **Thin Wall** checkbox (new in Blender 5.2) — replaces Solidify modifier for transmission on single-sided geometry
+- **Backscatter** (Thin Wall sub-setting) — range −1 to +1; controls light projection direction
+- **Transmission** — use for glass/frosted glass; **not** SSS (SSS is for skin/wax)
+- Frosted glass roughness chain: `Noise Texture` (stretched scale) → `Color Ramp` → `Multiply` with second `Noise Texture` → `Multiply` with grunge maps → feeds Roughness + Bump Normal
+- Solidify modifier — **no longer needed** for one-sided plane transparency; can be removed
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner — single checkbox enables the feature; the creative frosted glass example is intermediate.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2 (Thin Wall is a new Principled BSDF parameter; not available in earlier versions)
 
 ### Tags
-[PENDING EXTRACTION]
+#materials #shaders #glass #transparency #thin-wall #rendering #beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `blender-new-cloth-simulator-changes-everything.md` — companion Blender 5.2 feature tutorial (Cloth Dynamics GeoNodes) by the same author
+- `thin-wall-the-incredible-new-principled-bsdf-feature-in-blender-52.md` — likely another thin-wall focused tutorial to cross-reference
+- `photorealistic-renders-in-blender.md` — material and lighting context where thin-wall glass would be applied

@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=ih100VB7BUI
 author: SouthernShotty
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2 (experimental)"
+tags: [simulation, cloth, geometry-nodes, physics, vfx, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-new-cloth-simulator-changes-everything/
 frame_count: 0
 ---
@@ -64,27 +64,48 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Blender 5.2's experimental Cloth Dynamics node in Geometry Nodes: a peeling-off effect where a slightly enlarged outer shell (offset along normals) is shrunk inward for ~12 frames, then hit with a noisy wind Custom Force and Geometry Collider (using the object itself as collision target), triggering cloth tearing (Voronoi noise pattern, threshold ~1.05) — all as a single modifier applicable to any mesh.
 
 ### Summary
-[PENDING EXTRACTION]
+SouthernShotty covers the new experimental Cloth Dynamics GeoNodes system in Blender 5.2, first explaining all settings (Pin Group, Stretchiness/Bendiness, Sub-steps, Collision, Tearing, Effectors), then building a complete peeling-off effect. The effect uses two overlapping versions of the same object: (1) outer shell offset outward ~0.027 units along normals via Set Position, shrunk via Simulation Zone for 12 frames (scale ~0.9995/frame), then run through Cloth Sim with tearing; (2) inner shell (original geometry with inner material) used as Geometry Collider. A wind force (Scene Time → Noise Texture → Map Range → Vector Rotate → Custom Force) creates turbulence. Both shells are joined via Join Geometry at the end. Bake node bakes the sim. Requires enabling experimental features in Preferences.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Enable experimental:** Edit → Preferences → Experimental tab → enable Experimental Features; also check Dynamics (hairs + GeoNodes).
+2. **Object setup:** Use a dense mesh (~50K faces for decent quality); add Geometry Nodes modifier + Subdivision Surface modifier after (disable subdivision while working).
+3. **Normal offset outer shell:** `Set Position` node; Group Input geometry → geometry; `Normal` → `Vector Scale` (value ~0.027) → Offset. This pushes the cloth shell slightly outward so it can peel off without Z-fighting.
+4. **Set outer material:** `Set Material` after Set Position.
+5. **Shrink simulation:** `Simulation Zone` with `Transform Geometry` inside (scale ~0.9995 per frame → shrinks inward); animate the `Skip` boolean: keyframe OFF at frame 0, ON at frame ~12 to stop shrinking.
+6. **Cloth Dynamics node:** Plug shrink sim output into Cloth Sim geometry. Settings: Stretchiness 0.15–0.5, Bendiness 0.15–0.5, Sub-steps 10–20, Constraint Steps 1–5; Mass 0.25, Friction 1.5, Collision Radius slightly raised; Gravity Z=0, X=1 (sideways float effect).
+7. **Tearing:** Check Tearing ON; Noise Pattern = Voronoi; Threshold ~1.05 (finicky — experiment per object); Scale ~50.
+8. **Geometry Collider (self-collision):** Drag Group Input geometry into `Geometry Collider` node; Friction: adjust until peeling works; Deforming ON (object is animated/scaled); Object Space → select the object this modifier is on.
+9. **Wind force (Effectors):** `Custom Force` (Field mode, World Space); connect: `Scene Time` (seconds) → `Math Multiply` (speed ×5) → Noise Texture Vector input → Map Range → `Vector Rotate` → Force XYZ; animate Force strength from high (~5) to lower (~1.5) over animation. `Join` (combine bundle) collider + wind force → Cloth Sim Effector input.
+10. **Inner shell:** Group Input geometry → `Set Material` (inner material) → drag into Join Geometry with cloth output.
+11. **Bake:** `Bake` node at the very end of the chain; click Bake to pre-compute animation.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Cloth Dynamics` (experimental) — main node; Stretchiness 0.15–0.5 (edge link length), Bendiness 0.15–0.5 (face rotation); Sub-steps 20, Constraint Steps 5 (quality vs speed)
+- Pin Group — vertex group to pin; Invert Pin Group to pin only selection
+- Tearing: Voronoi noise pattern, Threshold ~1.05 (very sensitive), Scale ~50
+- `Custom Force` — Field mode; takes Force X/Y/Z inputs; can chain noise for wind
+- `Geometry Collider` — Friction (key to peeling behavior), Deforming ON, Object Space
+- `Simulation Zone` + `Transform Geometry` (scale ~0.9995) — per-frame shrink; `Skip` boolean keyframed to stop at frame 12
+- `Set Position` — Offset = Normal × 0.027 (outer shell thickness)
+- Wind force chain: `Scene Time` → `Multiply` → Noise Texture → `Map Range` → `Vector Rotate` → Custom Force
+- `Join Geometry` — combines outer cloth + inner mesh at end
+- `Bake` node — pre-computes and caches simulation frames
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced — requires experimental Blender 5.2 build, understanding of simulation parameters, and careful threshold tuning per object.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2 experimental (Edit → Preferences → Experimental → enable Cloth Dynamics)
 
 ### Tags
-[PENDING EXTRACTION]
+#simulation #cloth #geometry-nodes #physics #vfx #advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `realistic-cloth-physics-in-blender-full-tutorial.md` — traditional cloth sim approach to compare with this new GeoNodes method
+- `using-geometry-nodes-for-vfx-in-blender.md` — other GeoNodes VFX setups using similar simulation-driven approaches
+- `ill-teach-you-geometry-nodes.md` — GeoNodes foundation including Simulation Zone basics
