@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=ZK92Uuhiesg
 author: Ducky 3D
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x/5.0"
+tags: [motion-graphics, eevee, texture-animation, voronoid, wave-texture, compositing, looping, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/replacing-adobe-after-effects-with-blender-tutorial/
 frame_count: 0
 ---
@@ -32,27 +32,49 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+"Blender as After Effects" — 2D texture animation on a plane using EEVEE: Voronoid texture twisted by Wave texture (Mix Color bypass technique), two nested circular Gradient masks (outer circle + inner hole), a noise brightness mask applied as a spiral (via Wave distortion), all animated with looping W crossfades and canvas rotation. No geometry needed.
 
 ### Summary
-[PENDING EXTRACTION]
+Ducky 3D creates a swirling, glowing Voronoid loop entirely from textures on a flat plane in EEVEE. Voronoid (Object coords, B-spline Color Ramp) is twisted by a Wave texture (Rings/Spherical) using a Mix Color where Wave is input B and the factor controls distortion. Two Gradient masks (Spherical mode, Object coords, separate Mapping) create: (1) outer black ring to hide edges; (2) inverted inner hole to hide center. Third noise mask (detail 0, high scale, B-spline) adds brightness variation and is distorted via the Wave setup into a spiral. Sensor Noise (5.0) + Glare Bloom compositor add grain and glow. Separate Color Ramp + second Noise provide color. Animated: Wave W (0→30π over 500 frames); dual-Voronoid crossfade loop (top: 0→−15, bottom: 15→0, Mix factor: 0→1); noise mask Bezier boomerang (0→17→0); plane Z rotation (0→360). All Wave/Voronoid animations use linear interpolation.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Setup:** Delete default cube. Add plane → S5 → Ctrl+A Apply Scale. Shading workspace. EEVEE. World brightness = black. Emission shader + Voronoid texture (Ctrl+T → Object coords) + Color Ramp (B-spline, crunch in). Emission Strength 40.
+2. **Wave twist:** Add Wave Texture → Rings + Spherical → high scale. Add Mix Color: Voronoid mapped output into slot A; Wave into slot B; factor = distortion amount. Low factor = subtle twist; higher = more warping.
+3. **Outer mask:** Mix Color (A=black, B=distorted result). Add Gradient Texture → Spherical → Ctrl+T separate Mapping (scale down to fill edges). Color Ramp B-spline → plug into Mix Color factor = circle vignette mask.
+4. **Inner hole mask:** Duplicate Mix Color. Second Gradient Texture → Spherical → same Mapping. Color Ramp → flip (invert) → plug into second Mix Color factor = black hole in center.
+5. **Noise brightness mask:** Mix Color (A=black). Noise Texture: detail 0, scale high, B-spline Color Ramp → plug into Mix factor. ALSO: plug Wave setup vector into Noise vector = spiral noise distortion.
+6. **Compositor:** Glare Bloom (strength 5–6). Sensor Noise (5.0): Animated ON; remove chroma ON; turn up for grain.
+7. **Color:** Add Mix Color (factor input) + Color Ramp (pick your palette: blue-green, red-orange, etc.) + second Noise Texture (regular coords, detail 0, high scale) → plug into Emission Color.
+8. **Animate Wave W (looping):** Prefs → Animation → Default Interpolation = Linear. Frame 0: Wave W = 0 → hit I. Frame 500: type "30*pi" → hit I. (Loop: even multiple of pi).
+9. **Animate Voronoid (crossfade loop):** Duplicate Voronoid; both W start 0. Mix Color between their distance outputs. Frame 0: top W=0→I; bottom W=15→I; factor=0→I. Frame 500: top W=−15→I; bottom W=0→I; factor=1→I. (At end, bottom W=0 = same as top at start → seamless).
+10. **Animate noise mask (boomerang):** Prefs → Animation → Default Interpolation = Bezier (ease in/out). Frame 0: W=0→I. Frame mid (~250): W=17→I. Frame 500: W=0→I. (Boomerang = not truly looping but short enough to hide seam).
+11. **Rotate canvas:** Back to Linear interpolation. Frame 0: plane Z=0→I. Frame 500: Z=360→I. Done.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Voronoid: Object coords; Color Ramp B-spline; scale 2 or less
+- Wave: Rings mode; Spherical mode; high scale; Mix Color bypass for distortion control
+- Gradient (outer mask): Spherical; Mapping scale small to expand circle
+- Gradient (inner hole): Spherical; Color Ramp inverted
+- Noise (brightness mask): detail 0; scale high; B-spline; Wave vector as Noise input (spiral)
+- Sensor Noise (5.0 only): Animated; remove chroma; strength medium
+- Wave W loop: 0 → 30*pi (500 frames, linear)
+- Voronoid crossfade: top W 0→−15; bottom W 15→0; factor 0→1
+- Noise boomerang: W 0→17→0 (Bezier interpolation)
+- Canvas rotation: Z 0→360 (linear, 500 frames)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner/Intermediate — no geo, just shaders; node organization matters; the looping W crossfade trick is the key insight
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x/5.0 (Sensor Noise node = 5.0 only; rest works in 4.x; EEVEE)
 
 ### Tags
-[PENDING EXTRACTION]
+#motion-graphics #eevee #texture-animation #voronoid #wave-texture #compositing #looping #beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial.md` — similar loop animation approach (EEVEE, noise-based)
+- `powerful-logo-particle-flow-effect-in-blender.md` — same "Blender as Photoshop/AE" series
+- `my-circle-problem-in-blender-tutorial.md` — Wave Texture seam + looping W technique
+- `powerful-light-trails-in-blender-45-tutorial.md` — same author, looping animation techniques

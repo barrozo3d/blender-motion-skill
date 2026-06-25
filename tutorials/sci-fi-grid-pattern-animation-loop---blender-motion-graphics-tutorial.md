@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=IzSRBH8CDTo
 author: Ryan King Art
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.x"
+tags: [motion-graphics, eevee, geometry-nodes, looping, honeycomb, displacement, compositing, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial/
 frame_count: 0
 ---
@@ -76,27 +76,50 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Sci-fi glowing dot grid using Extra Mesh Objects Honeycomb add-on (Edge Width=1 → triangle grid) + Instance on Elements modifier placing Icospheres at every vertex (Realize Instances) → two-noise 4D crossfade loop for seamless animation → Glare Bloom + Displacement (glow dots physically larger) in EEVEE. Blender 5.x modifier-based GeoNodes workflow.
 
 ### Summary
-[PENDING EXTRACTION]
+Ryan King Art builds a seamless looping sci-fi grid animation in Blender 5.x / EEVEE. Triangle grid mesh from Extra Mesh Objects Honeycomb (50×50, Edge Width 1, Merge by Distance). Icosphere (s=0.07, subdivisions 3) placed on every vertex via Instance on Elements modifier → Realize Instances. Noise 4D material (Object coords, scale 0.2) drives Color Ramp → Emission Shader (strength 25). Two-noise seamless loop: noise 1 W 40→80, noise 2 W 0→40, Mix Color factor 0→1, all over 251 frames (1 past end for loop), linear keyframes. Displacement node (Mix result → height, mid-level 0, second Color Ramp for size control) makes glowing dots larger. Glare Bloom compositor (high quality). DoF variation (empty target, f/0.05). Exported frame-by-frame JPG → Video Editor → H.264 MP4.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Add-ons:** Enable Node Wrangler. Get Extensions → install Extra Mesh Objects.
+2. **Honeycomb grid:** Shift+A → Mesh → Extras → Honeycomb. Rows+Columns = 50. Edge Width = 1 (squish to triangles). Close settings. Tab → Edit Mode → A → M → Merge by Distance. Back to Object Mode.
+3. **Icosphere:** Shift+A → Icosphere → Subdivisions 3 → Shade Smooth → S → 0.07 → Apply Scale. Move out of way.
+4. **Instance on Elements modifier:** Select honeycomb → Modifiers → Add → Instance on Elements. Eyedropper → select Icosphere. Turn off Keep Surface. Open Realize Instances button and click it (so noise appears unique per instance).
+5. **Material (EEVEE):** Select honeycomb → Shading workspace. New material "glow". Delete Principled → add Emission Shader → plug into Surface. Add Noise Texture → Ctrl+T → plug Object into Vector. Noise → Color Ramp → Emission Color. Emission Strength 25.
+6. **Noise settings:** Scale 0.2; change type to 4D. World black. Color Ramp: drag tabs for contrast. Color: red (glow); very dark gray (non-glow). Filmic + Very High Contrast color management.
+7. **Two-noise seamless loop:** Duplicate noise (Ctrl+Shift+D). Add Value node "Scale" → plug into both noises' Scale. Add Mix Color between them. Frame 1: noise1 W=40→I; noise2 W=0→I; Mix factor=0→I. Frame 251: noise1 W=80→I; noise2 W=40→I; Mix factor=1→I. Select all three F-curves in Graph Editor → T → Linear interpolation.
+8. **Glare Bloom compositor:** New compositing nodes. Add → Glare → Bloom. Quality: High.
+9. **Displacement (pop-out dots):** Add Displacement node (shader editor). Plug Mix Color result → Displacement Height. Scale 1. Material Settings → Displacement = Displacement and Bump. Mid-level 0. Add separate Color Ramp (Shift+D) between Mix and Displacement: adjust for dot size control (darker = smaller, lighter = larger).
+10. **DoF variation:** Camera → DoF ON; Focus Object = empty. F-stop 0.05.
+11. **Export:** Output Properties → JPG (quality 1.0) → render animation (Ctrl+F12) → Video Editor: File → New → Video Editor → Shift+A → Image/Sequence → select all frames → render H.264 MP4.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Honeycomb: 50 rows×cols; Edge Width 1.0 → Merge by Distance
+- Icosphere: subdivisions 3; scale 0.07; Apply Scale; Shade Smooth
+- Instance on Elements: Realize Instances = ON
+- Noise 4D: scale 0.2; Object coordinates
+- Color Ramp: high contrast; color = red; non-glow = very dark gray
+- Emission Strength: 25
+- Loop keyframes: noise1 W 40→80; noise2 W 0→40; factor 0→1; 1–251 frames; linear
+- Displacement: mid-level 0; scale 1; Material Displacement+Bump
+- Glare Bloom: High quality
+- Color Management: Filmic; Very High Contrast
+- DoF f-stop: 0.05; Focus Object = empty
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner — clear step-by-step; the two-noise loop technique is the most complex part but well-explained
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.x (explicitly stated; Instance on Elements modifier as a standard modifier)
 
 ### Tags
-[PENDING EXTRACTION]
+#motion-graphics #eevee #geometry-nodes #looping #honeycomb #displacement #compositing #beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `replacing-adobe-after-effects-with-blender-tutorial.md` — same EEVEE looping approach, noise W crossfade technique
+- `powerful-logo-particle-flow-effect-in-blender.md` — instance-on-mesh particle approach
+- `my-circle-problem-in-blender-tutorial.md` — looping wave W animation technique
+- `using-geometry-nodes-for-vfx-in-blender.md` — GeoNodes particle VFX companion
