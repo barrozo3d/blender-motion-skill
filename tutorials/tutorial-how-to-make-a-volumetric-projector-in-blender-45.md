@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=F8pqNeVam54
 author: Polyfjord
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.5"
+tags: [lighting, volumetrics, cycles, spotlight, video-texture, animated-texture, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/tutorial-how-to-make-a-volumetric-projector-in-blender-45/
 frame_count: 0
 ---
@@ -76,27 +76,46 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Volumetric projector effect in Cycles 4.5: Spotlight with Use Nodes → Image/Video Texture projected through a world-wide Volume Scatter shader (density 0.1). The entire world becomes fog and the spotlight's video texture illuminates it, creating god-ray columns from video content.
 
 ### Summary
-[PENDING EXTRACTION]
+Polyfjord creates a cinematic volumetric projector where video content travels as god rays through fog. Setup: Cycles + GPU. Spotlight → Use Nodes → Emission shader → Ctrl+T (Node Wrangler) → Image Texture → open video file. World shader → delete Background → add Volume Scatter (density 0.1) → plug into Volume output = world fog. Video texture: Image Texture node → N panel (Node tab) → refresh frame count → Auto Refresh ON → video animates. Color space: sRGB → AGX Base sRGB for correct colors under AGX render. Aspect ratio: Mapping Scale X = 2; Extension = Clip; Location X = −0.5 to center. Better method: Object Properties Scale X = 1920÷1080 (type as math expression). Denoiser: disable Noise Threshold for clean viewport preview. Movie screen: Add Plane perpendicular to beam. For final scene: marble bust with SSS + ground plane catches the projected light from all directions (volumetric fog distributes light throughout environment). Custom video textures can be created procedurally or with a web app.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Setup:** Cycles render engine + GPU Compute (Preferences → System → Cycles Render Devices). Viewport → Rendered mode.
+2. **Spotlight:** Shift+A → Light → Spot. G+Z to elevate. Right click → Adjust Light Power → increase.
+3. **World fog:** Shader Editor → World tab. Delete Background. Shift+A → Volume Scatter → connect to Volume socket. Density: 0.1 (lower = more transparent fog).
+4. **Spotlight video texture:** Select spotlight → Shader Editor (object mode) → click Use Nodes. Add Emission shader. Ctrl+T → Image Texture + Mapping + Texture Coordinate added automatically. Image Texture → click Open → select video file (.mp4, .mov, etc.).
+5. **Animate video:** Select Image Texture node → N panel → Node tab → Frames: click refresh icon (gets total frame count) → enable Auto Refresh checkbox. Scrub timeline → video plays.
+6. **Fix color space:** Image Texture node → Color Space dropdown: change from sRGB to AGX Base sRGB. Colors become vibrant.
+7. **Fix aspect ratio (simple method):** Select Spotlight object → Object Properties (not Object Data) → Scale → X field: type "1920/1080" and press Enter (or your video's aspect ratio). Width/height as math expression.
+8. **Fix repeating (full method):** Mapping node → Scale X = 2. Image Texture → Extension = Clip. Mapping → Location X = −0.5 (center the clip).
+9. **Movie screen:** Add Plane → rotate perpendicular to beam → position in spotlight cone.
+10. **Denoiser:** Render Properties → Denoiser → uncheck Noise Threshold (viewport) and render. Smoother preview at cost of render speed.
+11. **Add scene object:** Import free 3D model (marble bust) → add SSS material for light scattering. Add ground plane with texture. Position in beam. Volumetric fog distributes light around entire object.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Volume Scatter density: 0.1 (lower = lighter fog; higher = denser, shorter rays)
+- Image Texture Color Space: AGX Base sRGB (under AGX color management)
+- Image Texture Extension: Clip (no repeat)
+- Mapping Location X: −0.5 (center single clip)
+- Spotlight Scale X: 1920/1080 = 1.777… (16:9 aspect ratio)
+- Spotlight Power: 5–15 (needs to be high for visible volumetric effect)
+- Denoiser Noise Threshold: disabled for clean preview
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — Cycles only; requires understanding spotlight node setup + world volume + color space; very visual payoff; render time is high
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.5 (explicitly stated; standard Cycles, Volume Scatter, Node Wrangler Ctrl+T)
 
 ### Tags
-[PENDING EXTRACTION]
+#lighting #volumetrics #cycles #spotlight #video-texture #animated-texture #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `my-new-favorite-lighting-trick-in-blender.md` — light manipulation with geometry
+- `tutorial-how-to-make-a-volumetric-projector-in-blender-45.md` — this file
+- `photorealistic-renders-in-blender.md` — god rays / atmospheric lighting approach
+- `the-key-to-realism-in-blender-or-3d.md` — volumetric cube for atmosphere (Volume Scatter concept)

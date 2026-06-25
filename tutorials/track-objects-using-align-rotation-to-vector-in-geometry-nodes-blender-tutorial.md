@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=ZBZ26xQ9Pnk
 author: Photini By Design
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x"
+tags: [geometry-nodes, tracking, align-rotation, instances, procedural, animation, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/track-objects-using-align-rotation-to-vector-in-geometry-nodes-blender-tutorial/
 frame_count: 0
 ---
@@ -76,27 +76,45 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+GeoNodes tracking system using Align Rotation to Vector node: computes direction vector (target position − point position via Vector Math Subtract) → Align Rotation to Vector → Rotate Instances. Bonus: scale-by-distance using Vector Math Distance → Multiply Add → Combine XYZ → Scale socket. F-Curve Noise modifier on a master empty drives automatic randomized movement without keyframe animation.
 
 ### Summary
-[PENDING EXTRACTION]
+Photini By Design builds a reusable GeoNodes modifier that makes instances (arrows, procedural eyes) on any surface always point toward a moving target empty. Core: Distribute Points on Faces (Poisson Disk) → Instance on Points → Rotate Instances. Direction vector = Object Info (target) Location − Position → Align Rotation to Vector → Rotation. Distance-based scaling: Vector Math Distance → Multiply Add (Multiply = minimum scale negative; Add = maximum scale) → Combine XYZ → Scale. Empty Master drives target with F-Curve Noise modifiers on XYZ rotations (different offsets: 0, 500, 1000; Restrict Frame Range with blend in/out). Group Input sockets exposed for Track Target + Scale Target (separate targets per modifier) + Minimum/Maximum Scale values. Works on any mesh surface (Icosphere demo + plane demo). Bonus: light parented to target empty → light follows tracked target → instances appear to glow toward light source.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Setup arrow mesh:** Default cube → edit mode → scale flat (S, Shift+Z, 0.1) → extrude + scale tip. Rename "arrow". Icosphere (subdivisions 3) → Shade Smooth → scale 2.
+2. **Target empty:** Shift+A → Empty → Sphere. Rename "Target". Position at distance.
+3. **GeoNodes "Follow Target":** Select Icosphere → GeoNodes → New → Rename "Follow Target". Distribute Points on Faces (Poisson Disk; Min Distance 1m; Density Max 200) → Join Geometry (pass original + points) → Instance on Points (object = arrow from Outliner drag) → output.
+4. **Track direction:** Add Rotate Instances node after Instance on Points. Drag target empty into GeoNodes window (Object Info). Add Position node. Add Vector Math (Subtract): target Location → top socket; Position → bottom socket = direction vector. Add Align Rotation to Vector → Vector socket from Subtract → plug Rotation into Rotate Instances Rotation.
+5. **Verify:** Move empty → arrows follow.
+6. **Scale by distance:** Duplicate the Object Info + Position + Vector Math chain. Change second Vector Math to Distance. Add Multiply Add node: Value from Distance → Value socket; set Multiply = −1 (minimum scale, negative); set Add = 1 (maximum scale). Add Combine XYZ → plug Multiply Add Value into X, Y, Z. Plug Combine XYZ Vector → Instance on Points Scale.
+7. **Automate movement (F-Curve Noise):** Add Empty Master → parent Target to Empty Master. Add keyframe on X/Y/Z rotation of Empty Master at frame 1 (no actual value change needed). Go to Graph Editor → Empty Master action → Object Transform. Select X rotation → Add Modifier → Noise. Settings: Scale 20, Strength 4, Restrict Frame Range (1–240, Blend In/Out 30). Copy modifier → paste on Y rotation (offset 500), Z rotation (offset 1000).
+8. **Expose group inputs:** Connect Track Target object socket → Group Input. Rename socket "track target". Same for Scale Target. Connect Multiply Add Multiply → Group Input "minimum scale". Connect Add → Group Input "maximum scale". Now modifier parameters are in Properties panel.
+9. **Apply to plane:** Select Plane → add GeoNodes modifier → select "Follow Target" → assign different targets (target 2) in modifier properties for independent tracking.
+10. **Light trick:** Parent point light to target empty → light follows target → instances appear to glow toward light source.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Distribute Points on Faces: Poisson Disk; Min Distance 1m; Density Max 200
+- Vector Math (direction): Subtract; Location (target) − Position (point)
+- Align Rotation to Vector: defaults (Z axis up)
+- Vector Math (distance): Distance mode
+- Multiply Add: Multiply = −0.1 (min scale); Add = 0.7 (max scale); adjust per scene
+- Combine XYZ: same value into X/Y/Z for uniform scale
+- F-Curve Noise: Scale 20; Strength 4; offsets 0/500/1000 for X/Y/Z
+- Restrict Frame Range: Start 1, End 240; Blend In/Out 30
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — requires understanding Vector Math direction/distance concepts; F-Curve modifiers are a powerful but less common tool
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x (standard GeoNodes; no version-specific nodes used)
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #tracking #align-rotation #instances #procedural #animation #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `procedural-desert-buildings-in-blender-geo-nodes-blender-tutorial.md` — Align Rotation to Vector for door placement
+- `ill-teach-you-geometry-nodes.md` — GeoNodes fundamentals
+- `mastering-blenders-graph-editor.md` — F-Curve modifiers deep dive
