@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=aJF2sAjRsy0
 author: InLightVFX
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Any (theory only)"
+tags: [color-management, aces, vfx, compositing, theory, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/
 frame_count: 0
 ---
@@ -52,27 +52,42 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Theory-only Part 1: understanding color gamut (why ACES 2065-1 can contain all camera color spaces) and gamma (linear vs non-linear transfer functions, display-referred vs scene-referred footage) as the conceptual foundation for the ACES VFX pipeline covered in Part 2.
 
 ### Summary
-[PENDING EXTRACTION]
+InLightVFX explains the two core concepts behind ACES before touching any software. **Color gamut:** the CIE 1931 diagram maps all visible colors; cameras capture a triangular subset of that gamut; ACES 2065-1 has a gamut so large it encompasses all other camera color spaces, which is why any footage can be converted into it. **Gamma:** a transfer function exponent applied to luminance values; a gamma of 1 = linear (math works as expected — doubling luminance doubles output); non-linear curves (camera profiles, display gamma) cause unexpected arithmetic. Blender/3D software uses linear calculations so adding two render passes equals rendering them together. Human vision is non-linear (more sensitive to changes in shadow). **Camera types:** display-referred (phones, basic DSLRs) apply a non-linear transfer to compress dynamic range; scene-referred RAW stores linear light values directly (large files); scene-referred LOG applies a log function to represent original light values in smaller files. ACES can reverse-engineer all three into its linear color space via IDTs. Part 2 shows the actual workflow in DaVinci Resolve and Blender.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Color gamut** — understand that camera sensors capture a triangular subset of all visible colors; ACES 2065-1's gamut encompasses all visible light, making it the universal container for any footage.
+2. **Gamma = transfer function** — gamma value is an exponent applied to luminance; gamma 1 = linear (y=x); any other value = non-linear curve.
+3. **Linear light math** — with linear gamma, adding two images in compositing equals rendering with both lights; this is why multi-pass compositing works.
+4. **Human vision** — non-linear sensitivity (candle in dark room vs. bright room); cameras and displays account for this with non-linear gamma.
+5. **Display-referred cameras** — apply non-linear transfer to reduce file size; loss of dynamic range; poor base for VFX compositing.
+6. **Scene-referred RAW** — stores linear light values; large files; best source for VFX.
+7. **Scene-referred LOG** — log transfer function applied to linear values; smaller than RAW, recoverable via ACES IDT; good VFX source.
+8. **ACES role** — its IDT converts any footage's color gamut + gamma into ACES 2065-1 linear; artists then work purely in ACES without worrying about source formats.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+No Blender nodes — this is a theory/concepts tutorial. Key terms:
+- ACES 2065-1 — the main ACES linear color space; gamut encompasses all visible light
+- IDT (Input Device Transform) — converts source footage color space + gamma into ACES
+- ODT (Output Device Transform) — converts from ACES to display device color space (e.g. sRGB)
+- Linear gamma — gamma = 1; luminance math is predictable; used in 3D rendering
+- Display-referred — camera applies non-linear encoding; optimized for display, not VFX
+- Scene-referred (RAW / LOG) — stores original scene light values; better for VFX
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner — no software required; pure theory; helpful prerequisite for Part 2.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Any (theory only; no Blender steps)
 
 ### Tags
-[PENDING EXTRACTION]
+#color-management #aces #vfx #compositing #theory #beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2.md` — practical implementation of these concepts in DaVinci Resolve + Blender
+- `i-recreated-movie-scene-in-blender-nuke-complete-tutorial.md` — professional compositing workflow with similar multi-pass techniques
+- `replacing-adobe-after-effects-with-blender-tutorial.md` — Blender compositing context for VFX integration

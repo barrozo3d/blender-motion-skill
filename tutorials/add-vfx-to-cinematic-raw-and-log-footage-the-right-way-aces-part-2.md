@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=LssHxDCM7H4
 author: InLightVFX
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Any (with ACES config installed)"
+tags: [color-management, aces, vfx, compositing, rendering, davinci-resolve, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/
 frame_count: 0
 ---
@@ -42,27 +42,51 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Full ACES VFX compositing pipeline: export LOG/RAW footage from DaVinci Resolve as EXR (ACES 2065-1 linear, ODT disabled) → import into Blender with ACES config → render CG objects over real footage with a shadow catcher → composite in Blender → export EXR → back to Resolve for final grade + H.264 output.
 
 ### Summary
-[PENDING EXTRACTION]
+Part 2 of InLightVFX's ACES series. Practical walkthrough of the complete workflow: in DaVinci Resolve, set Color Workspace to ACES CC, apply an IDT per-clip (for log footage), set ODT to sRGB for preview, then disable ODT and export as EXR (RGB half) for Blender. In Blender (with ACES config), set display device to ACES, view transform sRGB, sequencer ACES CG; import EXR footage with color space ACES 2065-1; import HDRI with IDT "utility-linear-sRGB"; match camera via F-Spy; build minimal scene geometry; use a shadow-catcher floor plane with render layers (main objects + shadows) to separate CG from shadow; composite in a second Blender scene using Alpha Over nodes; export composite as EXR. Back in Resolve, import composite EXR (IDT: ACES CG) and enable ODT (sRGB) to preview; color grade safely with gain/offset/temperature; export final H.264 with SRGB or P3 DCI ODT.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **DaVinci Resolve — Project setup:** New project → Color Management → Color Workspace = `ACES CC` → save.
+2. **Apply IDT to LOG footage:** Right-click clip → select appropriate IDT (e.g. `Adobe RGB` for the example LOG clip); for RAW footage Resolve auto-applies the conversion.
+3. **Preview:** Color Management → Output Device Transform = `sRGB` → footage now looks correct.
+4. **Color correction (safe only):** Adjust color temperature, exposure, offset, and gain wheels only; avoid all other operations (they destroy linear data).
+5. **Export EXR:** Disable ODT (set to None) before exporting; Export → Format: `OpenEXR`, Codec: `RGB Half`; render. (Optionally export an H.264 with ODT enabled for camera tracking reference.)
+6. **Camera match:** Use F-Spy (free) to align camera perspective from a still frame; import camera into Blender.
+7. **Blender — ACES config:** Render Properties → Color Management → Display Device: `ACES`, View Transform: `sRGB`, Sequencer: `ACES CG`.
+8. **Import footage:** In Camera tab, add background footage (EXR sequence) → Color Space: `ACES 2065-1`.
+9. **HDRI:** World Shader Editor → Environment Texture node; select HDRI file; Color Space dropdown → `utility-linear-sRGB` IDT. Use `Ctrl+T` to add Mapping nodes; rotate via Z value.
+10. **Scene geometry:** Floor plane as shadow catcher (Object Properties → Visibility → Shadow Catcher); add CG objects (monkey, balls, etc.) with rough material matching scene.
+11. **Render layers:** Collection for floor (Indirect Only on main layer), collection for objects (Indirect Only on shadow layer); transparent background; output = `OpenEXR Multi-Layer`.
+12. **Compositing scene:** New Blender scene → Compositing tab; import background EXR (color space: ACES 2065-1); import CG multi-layer EXR (color space: ACES CG); Alpha Over: background + shadows → Alpha Over + main objects → Composite node. Add temp camera + EEVEE 1 sample to enable Render Animation.
+13. **Back in Resolve:** Import composite EXR → IDT: `ACES CG` → enable SRGB ODT → compare to original footage (colors should match). Color grade for final look.
+14. **Final export:** ODT = `sRGB` (or `P3 DCI` for cinema) → Render H.264.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- DaVinci: Color Workspace = `ACES CC`; IDT per clip (log-specific, e.g. `Adobe RGB`); ODT = `sRGB` for preview, `None` for export; Format: OpenEXR RGB Half
+- Blender: Display Device = ACES; View Transform = sRGB; Sequencer = ACES CG
+- Background EXR color space node: `ACES 2065-1`
+- HDRI environment texture color space: `utility-linear-sRGB`
+- Ctrl+T (Node Wrangler) on image/env node → auto-creates Mapping + Texture Coordinate nodes
+- Shadow Catcher: Object Properties → Visibility → Shadow Catcher checkbox
+- Render Layers: Main Objects (floor = Indirect Only) + Shadows (objects = Indirect Only)
+- Composite: two Alpha Over nodes stacked (background → shadows → objects)
+- EXR output (ACES CG) → Resolve IDT: `ACES CG`
+- Final ODT: `sRGB` for monitors, `P3 DCI` for cinema projectors
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — requires DaVinci Resolve + Blender ACES config; multi-step pipeline spanning two applications; Part 1 concepts are prerequisite.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Any (with ACES color config installed — see Mario Cossadez tutorial linked in original video description)
 
 ### Tags
-[PENDING EXTRACTION]
+#color-management #aces #vfx #compositing #rendering #davinci-resolve #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1.md` — prerequisite theory: color gamut, gamma, display-referred vs scene-referred
+- `i-recreated-movie-scene-in-blender-nuke-complete-tutorial.md` — another full VFX compositing pipeline with live footage
+- `replacing-adobe-after-effects-with-blender-tutorial.md` — Blender's native compositing tools as an alternative pipeline
