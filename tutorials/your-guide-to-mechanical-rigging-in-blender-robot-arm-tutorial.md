@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=SCz1tmOVmFw
 author: DemNikoArt
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x"
+tags: [rigging, ik, mechanical, armature, constraints, robot, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial/
 frame_count: 0
 ---
@@ -76,27 +76,47 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Mechanical robot arm IK rigging: single-bone chain → IK constraint (Shift+I) with per-bone axis locks (Bone Properties → Inverse Kinematics → lock X/Z = only Y rotates) + stiffness bias. Pistons via Damp Track constraint to empties parented to geometry. Clamp via Transformation constraint (Location range → Rotation range, local space). Bone Widget add-on for custom gizmo shapes. Parent to Nearest Bone add-on for quick geometry assignment.
 
 ### Summary
-[PENDING EXTRACTION]
+DemNikoArt rigs a ceiling-mounted robotic arm with a single IK controller bone. Bone chain created from model pivot points via Shift+S Cursor to Selection; extruded with E. IK constraint applied with Shift+I (select IK target, then deformation bone). Each bone gets IK axis locks: only the biologically correct rotation axis left unlocked (e.g. Y for elbow). Stiffness (0–1) makes some bones resist rotation, biasing work to others. Pistons: one bone per piston end, parented to respective geometry pieces; empties at hinge points parented to geometry; Damp Track constraint points each bone toward opposing empty → pistons telescope. Clamp: Transformation constraint on finger bones, mapping controller bone Y location (0 to −10) to finger Z rotation (0 to 70); copy constraint between symmetric bones with sign inversion (±70). Limit Location constraint locks controller to valid range. IK rotation checkbox copies target orientation to end effector for always-down clamp head. Bone Widget add-on: circle for IK target, roll gizmo for head rotation. Bone Collections for hiding deformation bones from animator.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Align bones to model:** Shift+S → Cursor to Selection on each pivot point. Armature → Edit Mode → E to extrude bone chain (all joints). "In Front" option in Armature Properties so bones visible through geometry.
+2. **Disconnect IK target bone:** Select IK target bone → Alt+P → Clear Parent. Must be fully disconnected (no dotted line) for IK to work.
+3. **Create IK chain:** In Pose Mode: select IK target first, then deformation bone → Shift+I → "Add IK Target, Selected Bone". Yellow dotted chain appears; adjust Chain Length in Bone Constraint properties.
+4. **Lock rotation axes:** Bone Properties → Inverse Kinematics tab → enable axis display → lock all axes except the one allowed (e.g. Lock X + Lock Z = only Y rotates).
+5. **Adjust stiffness:** Same IK tab → Stiffness per axis (0 = free, 1 = fully rigid). Set to 0.5 for a ball-joint end that shouldn't do all the work.
+6. **Parent geometry to bones:** Select geometry → Shift+select Armature → Right-click → Parent → Parent to Nearest Bone (from add-on). Or manually: Ctrl+P → Bone in Pose Mode with bone selected.
+7. **Piston setup:** Add bone at each piston hinge; parent each bone to its respective geometry piece (Ctrl+P Keep Offset). Add empties at opposing hinge point (parent empties to geometry, NOT bones). Pose Mode: select piston bone → Object Constraint → Damp Track → target = opposing hinge empty. Repeat for all pistons.
+8. **Clamp controller bone:** Place at center of clamp (Shift+S mid-point). Parent to main arm bone (Alt+P Keep Offset). F2 to rename "open_close".
+9. **Transformation constraint (clamp):** Select finger bone → Add Constraint → Transformation. Target = armature/open_close bone. Space: Local → Local. Map From: Location, Y axis, Min −10, Max 0. Map To: Rotation, Z axis, Min 0°, Max 70°. Copy to symmetric bone → change to −70° for opposite direction.
+10. **Limit Location constraint:** On open_close bone → Limit Location → Local Space → Min/Max X=0, Y from −10 to 0, Z=0.
+11. **IK rotation copy:** Bone Properties → IK tab → enable Rotation checkbox → end effector copies IK target orientation.
+12. **Bone Widget add-on:** Select bone → Bone Widget panel → choose shape (circle, roll) → Create → assign gizmo mesh.
+13. **Bone Collections:** Pose Mode → M → New Collection "main" → assign controller bones. Armature Properties → hide Bones Collection (deformation bones). Animators only see controller bones.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- IK chain length: 0 = full chain; set to N for partial influence
+- Axis locks (IK tab): Lock X, Lock Z = only Y rotates (adjust per-joint)
+- Stiffness: 0.5 recommended for ball joints; 0.8 for joints that should barely rotate
+- Damp Track: target = empty at opposing piston end; Track Axis = -Y or +Y (test both)
+- Transformation constraint: Map From Location Y −10 to 0; Map To Rotation Z 0° to ±70°
+- Limit Location: Min Y = −10, Max Y = 0; all others = 0; Local Space
+- IK Rotation: enables bone to copy IK target orientation
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — IK setup and axis locks are approachable; Transformation constraint for clamp requires careful axis mapping; Damp Track pistons are straightforward
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x (standard rigging features; Bone Widget and Parent to Nearest Bone are free add-ons)
 
 ### Tags
-[PENDING EXTRACTION]
+#rigging #ik #mechanical #armature #constraints #robot #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `the-complete-blender-3d-animation-course-5-hours-blender-b3d-animation.md` — robot rigging course (beginner coverage)
+- `mastering-blenders-graph-editor.md` — animating the rig after setup
+- `using-geometry-nodes-for-vfx-in-blender.md` — GeoNodes VFX on a scanned object (complementary skill)

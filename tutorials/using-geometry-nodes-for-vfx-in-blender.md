@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=PgRax5MeZgY
 author: Jacob Zirkle
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.5"
+tags: [vfx, geometry-nodes, camera-tracking, compositing, nuke, aces, disintegration, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/using-geometry-nodes-for-vfx-in-blender/
 frame_count: 0
 ---
@@ -32,27 +32,47 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+VFX materialization/disintegration shot: GeoNodes (Split Edges → Normal offset → Geometry Proximity from animated cube → Map Range → Scale Elements) creates a distance-driven "building up from nothing" effect on a scanned 3D asset. ACES workflow in Blender 4.5 (manual HDRI color correction), multi-pass render (RGBA + Emission + Shadow Catcher), Nuke comp with bloom, lens dirt, and color correction.
 
 ### Summary
-[PENDING EXTRACTION]
+Jacob Zirkle composites a geometry node disintegration/materialization effect of a scanned glove onto tracked live footage in ACES. Camera tracking + shadow catcher plane pre-done. HDRI matched to footage via Mix Color Multiply (manual per-channel values: R=5.28, G=5.27, B=4.98 for this specific shot) in world shader. GeoNodes: Split Edges → Set Position (Normal × Vector Math Scale = face explosion) → Geometry Proximity (proximity cube) → distance output → Map Range (from-max 0.2, inverted: subtract from 1) → Scale Elements (controls face separation by distance). Cube animated linearly from below glove to above = controls build-up direction. Apply Scale (Ctrl+A) on asset is critical. Set Material node (Map Range selection + Color Ramp Constant for edge zone) separates emissive "frontier" glow material (Emission red/pink, strength 15; Noise + Color Ramp for texture). Render passes: RGBA + Emission + Shadow Catcher → OpenEXR multilayer DWAA half float ACES CG. Nuke: shuffle shadow → Multiply; emission shuffle → blur 500 + Plus op (subtle bloom); K Lens Engine (photographic bloom, disable flare/chroma); lens dirt with emission mask (erode −200 + blur 200 + Keyer + Multiply); color correction (Unpremult → grade → Premult → tone node black lift). DOF: animated empty focus target, f/1.4.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Prerequisites:** Camera tracked footage, shadow catcher plane, asset appended from .blend (File → Append).
+2. **HDRI matching:** World → Environment Texture → linear sRGB HDRI → Ctrl+T (mapping/coord) → rotate to match scene. Mix Color (Multiply, factor 1) before Background → multiply R/G/B channels by scene-matched values (e.g. 5.28/5.27/4.98) to correct exposure to footage lighting.
+3. **GeoNodes disintegration:** Select asset → GeoNodes → New. Add Split Edges (separates all faces). Set Position → offset = Normal (normal node) × Vector Math Scale (controls explosion strength). Object Info (proximity cube) → Location → Geometry Proximity node (source geometry = cube bounds) → Distance output. Map Range (From Max = 0.2; To Min = 0.2; To Max = 0) → Subtract from 1 to invert → Scale Elements (uniform scale per face). Set Material (Map Range selection + Color Ramp Constant for edge zone → glow material).
+4. **Proximity cube animation:** Add cube → scale down to bounds → Object Properties → Viewport Display → Bounds (invisible). Frame 1: cube at ground (below glove); Frame 75: cube above glove → I keyframe → interpolation Linear. Control cube animates build-up.
+5. **CRITICAL: Apply Scale:** Select asset → Ctrl+A → Apply Scale before GeoNodes processes correctly.
+6. **Glow material:** New material "glow" → Emission, Color red/pink, Strength 15. Optionally add Noise Texture + Color Ramp for surface texture variation.
+7. **Hide proximity cube from render:** Object Properties → Visibility → Ray Visibility → disable all.
+8. **DOF:** Camera → Depth of Field ON → f/1.4. Add Empty (Plane Axes) at focus plane on ground. Keyframe location at key frames to follow moving focus. Camera → Focus Object = empty.
+9. **Render passes:** View Layer Properties → enable Emission + Shadow Catcher passes. Compositor → File Output → OpenEXR Multilayer → Float Half → DWAA → ACES CG color space. Sockets: RGBA (image), shadow (shadow catcher), emission (emission).
+10. **Nuke comp:** RGBA beauty over plate. Shuffle shadow → Multiply over beauty. Shuffle emission → blur 500 → Plus merge (glow layer). K Lens Engine: photographic bloom (disable flare/chroma/center bloom). Lens dirt: emission shuffle → Keyer → erode −200 → blur 200 = mask; Lens dirt image → Keyer; Multiply mask × dirt → screen over comp. Color correction: Unpremult → Grade → Premult → Tone node (black lift). Write node → MOV → H.264 → output sRGB.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- HDRI multiply RGB: Match to footage (scene-specific; R~5.28, G~5.27, B~4.98 in example)
+- Map Range: From Max 0.2; To Min 0.2; To Max 0 (then subtract from 1)
+- Geometry Proximity: proximity to cube geometry bounds; Distance output
+- Scale Elements: uniform scale per face based on distance
+- Color Ramp Constant: isolates frontier glow zone (3-stop setup)
+- Emission Strength: 15; noise texture for surface texture
+- DOF f-stop: 1.4 (match real camera); animated focus empty
+- Render: OpenEXR multilayer; DWAA; Float Half; ACES CG
+- Nuke bloom blur: 500; Mix Plus operation for additive light
+- Lens dirt erode: −200; blur: 200
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate/Advanced — full VFX pipeline from camera tracking to Nuke composite; ACES color management adds complexity
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.5 (explicitly stated; ACES workflow manual in 4.5; native in 5.0)
 
 ### Tags
-[PENDING EXTRACTION]
+#vfx #geometry-nodes #camera-tracking #compositing #nuke #aces #disintegration #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `superhero-landing-tutorial-02-ground-destruction-vfx-in-blender.md` — VFX destruction pipeline (similar comp approach)
+- `i-recreated-movie-scene-in-blender-nuke-complete-tutorial.md` — full Nuke compositing workflow
+- `photorealistic-renders-in-blender.md` — HDRI and scene matching approach
