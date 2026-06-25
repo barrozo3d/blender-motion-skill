@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=wOyk5V7PyfA
 author: Extra 3d
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.1"
+tags: [shaders, caustics, cycles, glass, materials, procedural, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/real-time-caustics-in-blender-51/
 frame_count: 0
 ---
@@ -52,27 +52,50 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Fake caustics in Cycles by manipulating the shadow of a transparent glass object: Mix Shader + Transparent Shader controlled by the Shadow Ray (Light Path) makes the shadow invisible, then procedural textures color the Transparent Shader output to simulate a caustic light pattern. No actual caustic rendering — runs in real time. Original method by Polyfueled.
 
 ### Summary
-[PENDING EXTRACTION]
+Extra 3d shows how to create fast-rendering caustics in Cycles 5.1 without raytraced caustics. The core trick: Glass/Principled shader → Mix Shader; Transparent Shader goes into slot 2; Light Path → Shadow Ray → Mix Shader factor — the object's shadow now passes through as pure transparent. From there, the Transparent Shader's color becomes the "caustic pattern." Base pattern: Geometry → Incoming + Normal → Dot Product → Color Ramp. Water caustics upgrade: two Voronoid 4D textures (Smooth F1, smoothness 0.4 vs 0.2, randomness 0.9) → Mix Color Difference; animate W value via keyframe + Multiply. Advanced caustics layer: Mapping + Normalize → Duplicate Add (0.5) → Z axis −1, XY scale 0.8 Z 1.4 → Mix Color Screen (0.7); Gradient + Noise (distortion 200) → Color Ramp Constant (3 fringes) + Color Ramp Ease → Mix + Multiply ×2. Free project file includes chromatic dispersion variant.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Engine:** Set render to Cycles + GPU Compute.
+2. **Base glass shader:** Add Glass shader (or Principled BSDF Transmission = 1) → Material Output Surface.
+3. **Shadow pass-through:** Add Mix Shader after glass. Add Transparent Shader into Shader slot 2. Add Light Path → Shadow Ray → Mix Shader Factor. Shadow becomes transparent and controllable.
+4. **Test color:** Change Transparent Shader Color → shadow reacts. This is the caustic canvas.
+5. **Base caustic pattern:** Geometry node → Incoming + Normal → Dot Product node → Color Ramp (adjust contrast). → Mix Color (Multiply) → Transparent Shader Color.
+6. **Label exclusion (bottles):** Add Mix Color before Transparent Color input; plug label mask → Factor; second Color = black. (Use Invert if needed.)
+7. **Water caustics:** Add Voronoid Texture (4D, Smooth F1, Smoothness 0.4, Randomness 0.9). Duplicate it → set second Smoothness to 0.2. Mix Color (Difference, Factor=1) of both = subtle pattern. Texture Coordinate Object + shared Scale Value node.
+8. **Animate caustics:** Add Value node → keyframe from 0 to large number → plug into both Voronoid W. Add Multiply Math (speed control).
+9. **Soften/brighten:** Two Color Ramps; adjust to taste → connect to Transparent Shader Color.
+10. **Color tint:** Mix Color (Multiply) → Factor 1; Color Value = 10 for bright, saturated caustic color.
+11. **Advanced caustics (complex):** Add Mapping + Normalize nodes in chain. Duplicate Normalize → Add node (values 0.5). On Mapping: Z axis = −1; Scale X=0.8, Y=0.8, Z=1.4. Mix Color Screen (factor 0.7) of two streams.
+12. **Noise fringe layer:** Gradient Texture + Noise Texture (Texture Coord Object; scale low; detail max; roughness max; distortion 200). Color Ramp Constant (3 fringes, decrease white value). Color Ramp Ease (move black handle right). Mix Color of both Color Ramps. Multiply ×2.
+13. **Final color:** Mix Color (Multiply, Factor 1) → control caustic color from this value.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Voronoid Texture: 4D; Feature: Smooth F1; Smoothness: 0.4 (first) / 0.2 (second); Randomness: 0.9
+- Mix Color (water): Difference mode, Factor 1.0
+- Noise Texture (advanced): Scale low; Detail max; Roughness max; Distortion 200
+- Color Ramp 1: Constant mode; 3 fringes; white value reduced
+- Color Ramp 2: Ease mode; black handle moved toward white
+- Mapping (advanced): Z = −1; Scale X 0.8, Y 0.8, Z 1.4
+- Mix Color Screen: Factor 0.7
+- Speed Multiply: controls W animation speed
+- Color value: 10 (for bright, vivid caustic color)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — multi-layered shader logic; base version is approachable, advanced version requires careful node routing
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.1 (Cycles only; method works in 4.x as well; tutorial uses 5.1 label)
 
 ### Tags
-[PENDING EXTRACTION]
+#shaders #caustics #cycles #glass #materials #procedural #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `real-time-caustics-in-blender-51.md` — this tutorial
+- `you-should-make-glass-animations-in-blender-51.md` — glass shader companion
+- `photorealistic-renders-in-blender.md` — Cycles full pipeline including material approach
+- `my-new-favorite-lighting-trick-in-blender.md` — light manipulation via shader tricks (related concept)

@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=WreZ_VKDn4M
 author: Extra 3d
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x"
+tags: [lighting, product-visualization, area-lights, emission, glass, light-linking, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/realistic-product-lighting-in-blender/
 frame_count: 0
 ---
@@ -68,27 +68,43 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Three-light product setup (back highlight + sharp side shadow + soft fill) with a glass variant that replaces area lights with emission planes carrying a gradient material to eliminate bad reflections. Light Linking isolates light influence to product only.
 
 ### Summary
-[PENDING EXTRACTION]
+Extra 3d demonstrates a reliable product lighting formula: strong area light from behind for specular highlights; low-spread area light from the side for hard shadows; duplicate of that light rotated 180° with high spread for soft fill. For glass/perfume, area lights are replaced with emission planes (hidden from camera via Object → Visibility → Camera OFF) that carry a Gradient Texture + Color Ramp (Spline) for a soft fade — preventing the harsh rectangular reflection area lights create. 3D Cursor is placed at product center (Shift+S → Cursor to Active Mesh) and pivot set to 3D Cursor so lights can be duplicated and rotated around the product. Light Linking prevents ground reflections from being blown out by product lights.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Setup:** Place and orient camera + product first. No HDRI — controlled lights only.
+2. **Backlight:** Add area light → move behind product → render preview window → increase intensity (not too high).
+3. **Move 3D Cursor to product center:** Select product → Shift+S → Cursor to Active Mesh. Set pivot point to 3D Cursor.
+4. **Side light (sharp):** Duplicate backlight → R twice to orbit around product → place at side opposite product facing direction. Decrease intensity. Decrease Spread to make it sharp (narrow cone = hard shadows).
+5. **Fill light:** Duplicate side light → R twice → rotate 180°. Increase Spread for soft fill.
+6. **Glass/glossy variant:** Delete area lights. Add a plane behind product → Shader Editor → delete Principled → add Emission node → increase strength → Object tab → Visibility → Camera: OFF.
+7. **Gradient emission side plane:** Duplicate back plane → position at side → new material → Emission + Gradient Texture + Texture Coordinate (Object) + Mapping → Color Ramp (Spline, soft fade) → connect to Emission Color. Rotate/adjust Mapping so bright end faces back of product.
+8. **Light Linking:** Select each light → Object Data Properties → Light Linking → Create New → drag product objects into list. Prevents lights from affecting ground plane reflections.
+9. **Custom reflections (non-glass):** Shader Editor → add Image Texture node on area light material (replace plain emission) for interesting reflection shapes.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Area light Spread: low (5–15°) for sharp shadow; high (120–160°) for soft fill
+- Emission plane: strength 2–8 (not too high); Camera visibility OFF
+- Gradient Texture mode: Linear; Texture Coordinate: Object; Mapping for rotation
+- Color Ramp: Spline interpolation for soft fade; white on bright side, black on dark side
+- Pivot point: 3D Cursor (for orbiting lights around product)
+- Light Linking: Object Data Properties → Light Linking panel
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner — clear setup formula, no complex nodes; glass variant adds one extra step
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x (Light Linking available since 4.0)
 
 ### Tags
-[PENDING EXTRACTION]
+#lighting #product-visualization #area-lights #emission #glass #light-linking #beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `photorealistic-renders-in-blender.md` — same author, full photoreal pipeline (Cycles) including lighting approach
+- `photorealistic-eevee-renders-in-blender-51.md` — same author, EEVEE 5.1 lighting pipeline
+- `my-new-favorite-lighting-trick-in-blender.md` — light blocker technique for selective lighting
+- `i-recreated-movie-scene-in-blender-nuke-complete-tutorial.md` — Light Linking for isolating character ring light
