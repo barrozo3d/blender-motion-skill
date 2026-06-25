@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=MS1z9diLUOI
 author: elijah sheffield
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x"
+tags: [animation, graph-editor, f-curves, interpolation, workflow, beginner, rigging]
+extraction_status: complete
 frames_dir: tutorials/frames/mastering-blenders-graph-editor/
 frame_count: 0
 ---
@@ -48,27 +48,51 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Complete Graph Editor tutorial through three chapters: (1) understanding F-curves and interpolation with a pan flip animation; (2) animation modifiers (Cycles/loop, Noise/jitter, Stepped Interpolation/stop-motion); (3) frame-by-frame character animation with motion paths and Cycles modifier for looping.
 
 ### Summary
-[PENDING EXTRACTION]
+Elijah Sheffield demystifies the Blender Graph Editor for beginners and intermediate animators using a pan-and-fish animation project. Chapter 1 covers the editor layout: X-axis = time, Y-axis = transform value; linear interpolation = equal spacing (robotic); Bezier = ease in/out (organic). Navigation mirrors the 3D Viewport (MMB pan, scroll zoom, A to select all, tilde+Frame All). Channels = different animated properties; Normalize view lets multiple channels with different value ranges coexist on a -1 to +1 scale. Bezier handles can be manipulated with G/R/S exactly like viewport transforms; pivot point is changeable. Chapter 2: animation modifiers are non-destructive filters — Cycles loops the animation (with Repeat Motion/Repeat with Offset modes and count limit), Noise adds organic jitter (Scale = time frequency, Strength = value amplitude), Stepped Interpolation converts to stop-motion feel (step size 2 = effective 12fps at 24fps). Modifier order matters. Chapter 3: frame-by-frame workflow — set default interpolation to Constant (Preferences → Animation → F Curves) before animating; use motion paths (Pose → Motion Paths → Calculate) to see arc in 3D space; add Cycles modifier on all bone channels and set a matching keyframe at the loop boundary point.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Graph Editor setup:** Bottom of viewport → drag out area → change to Graph Editor. Close N-panel for space.
+2. **First keyframe:** Frame 12 → N panel → Item tab → right-click X Rotation → Insert Single Keyframe. Enable Auto Key (record icon in timeline).
+3. **Add animation:** Frame 20 → X Rotation −30°; Frame 28 → X Rotation 0°. Play = linear/robotic.
+4. **Change interpolation:** Select all keys (A) → T → Bezier. Now has ease in/out.
+5. **Reshape Bezier handles:** Add anticipation keyframe (frame 15, rotate up slightly); add overshoot keyframe (frame 25, over-rotate); pull handles to spend less time at peak, more time on upswing.
+6. **Normalize view:** Channels panel (left sidebar) → enable Normalize for multi-channel comparison on −1/+1 scale.
+7. **Channel management:** Left sidebar → toggle channel on/off; Tab = lock/unlock selected channel (Tab in Graph Editor, not Viewport!).
+8. **Cycles modifier (loop):** Select one keyframe → N panel → Modifiers tab → Add Modifier → Cycles. Set repeat count. Add duplicate keyframe at loop-out point (copy value + paste at frame 40).
+9. **Noise modifier:** Add Modifier → Noise. Set Scale = 10 (time freq), Strength = 0.05 (mild jitter) for organic secondary motion.
+10. **Stepped Interpolation:** Add Modifier → Stepped Interpolation. Step size 2 = stop-motion feel at 24fps. Put AFTER Cycles in modifier stack.
+11. **Frame-by-frame (character):** Preferences → Animation → Default Interpolation → Constant. Then Pose Mode → K → Location and Rotation per key frame. Fix existing keys: A → T → Constant.
+12. **Motion paths:** Pose Mode → select bone → Pose menu → Motion Paths → Calculate. Shows arc in 3D space.
+13. **Bone Cycles modifier:** In Graph Editor, select keyframe of any channel → N panel → Modifiers → Cycles (Repeat Motion, count 3). Duplicate modifier copy to other channels via Copy/Paste buttons.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Interpolation modes: Linear, Bezier (auto handles), Constant (stop-motion)
+- Handle type: V in Graph Editor → Auto, Vector, Aligned, Free
+- Navigation hotkeys: A = select all; tilde+Frame All; MMB = pan; scroll = zoom; Cmd+MMB = squash/stretch
+- Transformation: G/R/S work on selected keyframes; pivot point changes (2D cursor = playhead, individual centers, bounding box)
+- Normalize: top bar → Normalize toggle; shows channels on −1/+1 scale
+- Lock: Tab (toggles lock on selected F-curve)
+- Solo: Shift+H
+- Modifiers: Cycles (Before/After mode, Repeat Motion/Offset, count), Noise (Scale=time, Strength=value), Stepped Interpolation (step size)
+- Modifier stack order matters: Cycles first, then Stepped Interpolation
+- Motion Paths: Pose mode → Pose menu → Motion Paths → Calculate All
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner — covers fundamentals from scratch with a practical animation project
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x (standard Graph Editor features, no version-specific nodes)
 
 ### Tags
-[PENDING EXTRACTION]
+#animation #graph-editor #f-curves #interpolation #workflow #beginner #rigging
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `how-i-built-this-gate-animation-in-blender-scene-breakdown.md` — Graph Editor for mechanical animation, keyframe timing
+- `the-complete-blender-3d-animation-course-5-hours-blender-b3d-animation.md` — full animation course companion
+- `your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial.md` — rigging + animation workflow
+- `realistic-cloth-physics-in-blender-full-tutorial.md` — physics animation companion

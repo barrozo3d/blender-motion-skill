@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=EvWAcSA86fw
 author: MTR Animation
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.0"
+tags: [geometry-nodes, mathematics, procedural, advanced, fractals, for-each-zone, repeat-zone]
+extraction_status: complete
 frames_dir: tutorials/frames/math-x-blender-50-unlimited-power/
 frame_count: 0
 ---
@@ -76,27 +76,53 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Build an Apollonian Gasket (recursive circle-packing fractal) in Blender 5.0 GeoNodes using Descartes' Circle Theorem implemented as pre-built node groups; uses For Each Element Zone + Repeat Zone for recursive iteration, named attributes to tag special points, and LOD-based icosphere instancing.
 
 ### Summary
-[PENDING EXTRACTION]
+MTR Animation recreates the Apollonian Gasket — a fractal where circles are repeatedly packed into the gaps between three touching circles — using pure GeoNodes math. The workflow uses pre-built node groups (downloadable blend file) that implement: (1) Descartes' Circle Theorem for curvature (K = 1/R; K4 = K1+K2+K3 + 2√(K1K2+K2K3+K1K3)); (2) complex-number position formula (z stored as 2D vector, complex multiplication as a node group). Key structural patterns: Store Named Attribute "outer" (boolean) on the enclosing circle to flip its curvature sign; "Is Tangent" node group checks circle tangency to filter wrong points; Geometry to Instance + For Each Element Zone processes all triplets simultaneously; Repeat Zone drives recursion. Deduplication via two Merge by Distance passes (one selection-masked to outer circle to prevent deletion). Icospheres instanced with LOD resolution based on radius (Compare + Mix → Pick Instance index). Render: Cycles GPU, Light Tree OFF, Very High Contrast, AO for contact shadows, Store Named Attribute "rent" (random) → Attribute node in shader → HSV saturation randomization per blob.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Initial 3 circles:** Three Points nodes (big radius=2, two smalls=0.5×R_big, R_big−R_small); combine XYZ for positions; use Subtract math to keep positions procedurally linked to radii; join with Join Geometry.
+2. **4th circle radius:** Store Named Attribute "K" = 1/radius (Divide). Apply pre-built "New Point Curvature" node group (takes 3 circle geometry, outputs K of new circle). Convert back: 1/K_new = radius.
+3. **Outer circle curvature fix:** Store Named Attribute "outer" (Boolean, True) on enclosing circle. Math Multiply + named attribute "outer" + Mix node: flip sign to −1 for outer, +1 for others.
+4. **4th circle position:** Pre-built "New Point Position" node group (needs 3 circles + K1,K2,K3,K4). Outputs positive and negative positions. Use positive position → Set Position.
+5. **Recursive triplets:** Duplicate triplet extraction 3 times (Delete Geometry on index 0/1/2 to get each pair). Geometry to Instance × 3 → join → For Each Element Zone → Realize Instances → run curvature+position formulas. Nested: outer For Each creates new triplets → inner node group encapsulating the curvature/position logic.
+6. **Repeat Zone:** Wrap For Each + node group in Repeat Zone. Set iterations (5–7 gives detail; 6+ causes lag without bake).
+7. **Remove wrong circles:** "Is Tangent" node group checks distance vs. sum of radii for each triplet member (index 0, 1, 2 vs. index 3 = new point). Boolean OR → Delete Geometry if any fails.
+8. **Dedup:** Two Merge by Distance nodes — first masked to Named Attribute "outer" (inverse selection for outer), second for remaining points. Prevents outer circle deletion.
+9. **LOD instancing:** Three Icosphere nodes (subdivisions 2, 3, 4) → Geometry to Instance → Join. Bake node before instancing. Pick Instance: Compare (radius < 0.1) + Mix node → instance index; add second threshold (radius < 0.01) for even lower LOD.
+10. **Outer ring:** Second Instance on Points with Curve Circle (selection = reversed outer attribute). Curve to Mesh with small profile circle (radius 0.1, res 7). Set Curve Tilt 180° on outer circle selection to flip ring outward.
+11. **Render:** Render Properties → Cycles, GPU Compute. Light Paths → Light Tree OFF. Color Management → Look: Very High Contrast. Plane + Area light + black world.
+12. **Materials:** Set Material node. Store Named Attribute "rent" (Float, Random Value per instance). In Shader: Attribute node "rent" → Hue Saturation Value (vary Saturation) + Ambient Occlusion → Color Ramp → multiply for contact shadow depth.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **New Point Curvature** (custom node group): implements K4 = K1+K2+K3 + 2√(K1K2+K2K3+K1K3)
+- **New Point Position** (custom node group): complex number multiply + complex square root formulas
+- **Is Tangent** (custom node group): distance between circles vs. radius sum threshold
+- **For Each Element Zone**: iterate over instances; Realize Instances before processing
+- **Repeat Zone**: recursion driver; set iterations (5–7 recommended)
+- **Geometry to Instance + Realize Instances**: convert geometry to instance and back for per-instance processing
+- Store Named Attribute: "K" (Float), "outer" (Boolean), "rent" (Float/Random)
+- Named Attribute node in shader: "rent" for random per-blob color
+- **Bake node**: caches heavy calculations (pre-instancing) to avoid recalculating on every edit
+- Compare + Mix → Pick Instance index for LOD resolution switching
+- Set Curve Tilt 180° for outer ring flip (select "outer" attribute as mask)
+- Merge by Distance (two passes, one masked to outer attribute)
+- Cycles: GPU, Light Tree OFF, Very High Contrast look
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced — requires downloading pre-built node groups; complex math concepts (Descartes theorem, complex numbers); For Each + Repeat Zone patterns
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.0 (For Each Element Zone, Bake node, pre-built node groups updated to 5.0)
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #mathematics #procedural #advanced #fractals #for-each-zone #repeat-zone #instancing
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `ill-teach-you-geometry-nodes.md` — GeoNodes fundamentals (Menger Sponge fractal, same fractal-via-nodes concept)
+- `fractals-in-blender---geometry-nodes-extrude-node.md` — simpler GeoNodes fractal reference
+- `geode-nodes-i-am-so-clever-blender-tutorial.md` — advanced GeoNodes pipeline with point attributes
+- `glass-cell-division-effect-in-blender-50-tutorial.md` — Blender 5.0 GeoNodes technique
