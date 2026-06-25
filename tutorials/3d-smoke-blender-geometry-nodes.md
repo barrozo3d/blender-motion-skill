@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=Vqe4jBf3wx4
 author: Seanterelle
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.0"
+tags: [geometry-nodes, simulation, volume, vdb, physics, fluid, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/3d-smoke-blender-geometry-nodes/
 frame_count: 0
 ---
@@ -32,27 +32,49 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A full custom fluid simulation in Geometry Nodes using Volume Grid nodes: a domain cube voxelized into velocity/divergence/pressure/smoke fields, with a simulation loop that adds smoke near a moving emitter, advects all fields, enforces incompressibility via Jacobi pressure solve (16 iterations), and bakes the final high-res OpenVDB output.
 
 ### Summary
-[PENDING EXTRACTION]
+Implements a physically-grounded 3D smoke sim entirely inside Geometry Nodes using Blender 5.0's Volume Grid nodes. The domain is a voxelized cube; the emitter is Suzanne animated by two noise textures (position + rotation). Each frame the sim loop: emits smoke density near Suzanne's surface → pushes velocity from Suzanne's motion differential → advects velocity → calculates divergence via six-neighbor finite differences → runs 16 Jacobi pressure iterations → subtracts pressure gradient to enforce incompressibility → advects smoke density. Two independent resolutions are used: a fast `solver_resolution` (64) for interactive feedback and a high `smoke_resolution` (64–256) for the final bake. Post-processing prunes sparse voxels (threshold 0.01) and removes intermediate grids before baking to minimize cache size. Rendered with a Principled Volume material.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Parameters node group** — define global values (bounds ±2, solver_resolution, smoke_resolution) reused across multiple node groups via Ctrl+H to expose/hide inputs.
+2. **Domain init** — `Volume Cube` node at solver_resolution → remove default density grid → rename to `velocity` (vector), `divergence` (float), `pressure` (float); voxelize first to force full OpenVDB topology.
+3. **Smoke grid init** — separate `Volume Cube` at smoke_resolution → remove default density → rename to `smoke` → multiply by 0 to clear.
+4. **Emitter setup** — animate Suzanne with noise textures (position + rotation) driven by scene frame inside a simulation zone; store `last_position` before transform and `new_position` after; subdivide surface for denser sampling.
+5. **Sim loop — add smoke** — for each voxel, sample nearest point on Suzanne; if distance < threshold, add constant smoke density via `Store Named Grid`.
+6. **Sim loop — add velocity** — compute `new_position − last_position` vector, scale by 0.5 + small Z-up offset; apply to velocity grid within proximity of emitter surface.
+7. **Sim loop — advect velocity** — sample velocity at current voxel index; offset position by that velocity; re-sample velocity at offset; convert field → grid via `Field to Grid` with same topology (note: built-in `Volume Advect` node skipped — gave poor results).
+8. **Sim loop — divergence** — manually sample six neighbors (±X, ±Y, ±Z) via `Get Value at Offset (Vector)` node groups; compute `(pos_x − neg_x) + (pos_y − neg_y) + (pos_z − neg_z)` divided by 2; store in divergence grid. (`Grid Divergence` node tested but produced lower-detail results.)
+9. **Sim loop — pressure solve** — `Repeat Zone` (16 iterations): average six-neighbor pressure values, subtract divergence, divide by neighbor count; gradually converges toward zero-divergence field.
+10. **Sim loop — subtract pressure gradient** — sample pressure at ±offset in each axis; combine difference into vector (gradient); convert to grid; subtract from velocity field (enforces incompressibility).
+11. **Sim loop — advect smoke** — sample velocity at smoke voxel position; offset smoke voxel by negative velocity; sample smoke at offset; multiply by 0.96 for dissipation; store back to smoke grid.
+12. **Post-processing** — outside the sim loop: remove velocity/divergence/pressure grids; `Prune Grid` smoke at threshold 0.01; pipe directly into `Bake` node at high smoke_resolution (256).
+13. **Material** — Principled Volume shader on the domain cube; adjust scatter color and density to taste.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Volume Cube` — creates OpenVDB domain; use solver_resolution for velocity/pressure/divergence, smoke_resolution for smoke
+- `Voxelize Grid` — forces full OpenVDB topology (no compression) needed for divergence/pressure calculation
+- `Field to Grid` — required whenever a grid is sampled and the result used back in grid space (implicit field→grid conversion doesn't happen automatically)
+- `Store Named Grid` — sets or updates a named grid attribute each frame
+- `Get Value at Offset (Vector / Float)` — custom node group: sample grid at `index + offset` for finite-difference stencils
+- `Repeat Zone` — 16 pressure-solve iterations
+- `Prune Grid` (threshold 0.01) — restores OpenVDB sparsity after simulation for memory efficiency
+- solver_resolution: 64 (interactive); smoke_resolution: 64–256 (final bake at 256)
+- Volume scatter density: ~0.005; anisotropy: high for atmospheric look
+- Suzanne noise: one noise texture for position, one for rotation, both driven by scene frame
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced — requires understanding of finite-difference fluid simulation concepts (divergence, pressure projection, advection) and Geometry Nodes field vs. grid semantics.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.0 (Volume Grid nodes; `Field to Grid`, `Store Named Grid`, `Volume Cube` all required)
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #simulation #volume #vdb #physics #fluid #advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `ill-teach-you-geometry-nodes.md` — Geometry Nodes fundamentals that underpin the node network structure used here
+- `using-geometry-nodes-for-vfx-in-blender.md` — shares GeoNodes-for-VFX context and simulation-oriented workflow

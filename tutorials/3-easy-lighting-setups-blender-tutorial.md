@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=FYJb10NIMH8
 author: Max Hay
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x+"
+tags: [lighting, atmosphere, volume, compositing, hdri, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/3-easy-lighting-setups-blender-tutorial/
 frame_count: 0
 ---
@@ -32,27 +32,57 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Three reusable lighting rigs for Blender environment art: (1) dramatic spotlight with area fill and a light-falloff node trick to sculpt highlights, (2) natural outdoor HDRI + emissive sky-plane + lens flare overlay, (3) dark futuristic scene driven by emissive surfaces, reflective materials, and a volumetric atmosphere cube with compositor bloom.
 
 ### Summary
-[PENDING EXTRACTION]
+Covers three lighting paradigms Max Hay uses in professional environment work. **Setup 1 (Dramatic Spotlight):** one main narrow spot (light radius controls shadow softness, not cone size) + overhead area fill light (minimal, just lifts darkest shadows) + optional secondary spots as accent beams + a special rim spotlight with `Ray Visibility → Volume Scatter` disabled so it highlights surfaces without creating a visible cone in the volumetric cube; that rim light uses a `Light Falloff` node with a Color Ramp + Map Range to precisely shape the falloff. **Setup 2 (Outdoor Sunlight):** HDRI from Polyhaven for lighting direction and fill; separate image plane (emissive, no shadows via `Ray Visibility → Shadow` off) as a clean sky backdrop independent of HDRI rotation; lens flare overlay aligned to HDRI sun position. `Sky Texture` node offered as a no-HDRI alternative. **Setup 3 (Emissive / Futuristic):** dark scene lit by a glowing emission surface (neon sign, logo, etc.); reflective floors/walls; volumetric atmosphere cube (Volume Scatter, low density, high anisotropy); cool-tinted overhead area fill; compositor Glare node (Bloom preset) for glow; emphasis on interesting silhouettes, reflective props, and image-driven alpha on the emission surface for detail.
 
 ### Key Steps
-[PENDING EXTRACTION]
+**Setup 1 — Dramatic Spotlight**
+1. Add a scene-wide atmosphere cube: Volume Scatter material, low density, high anisotropy; display as Bounds.
+2. Add main Spot light → increase **Light Radius** to soften shadows (not Spot Size); narrow Spot Size for beam focus.
+3. Add Area fill light overhead — low power, cool tint; lifts darkest areas without washing the scene.
+4. (Optional) Duplicate main spot, redirect to accent a secondary area of interest.
+5. Add rim/highlight spot with `Object Properties → Visibility → Ray Visibility → Volume Scatter` **disabled** — still lights surfaces, no visible atmospheric cone.
+6. In Shader Editor select rim light → Enable Use Nodes → add `Light Falloff` node → Color Ramp → flip gradient direction → Map Range (increase max) → custom falloff shape without changing overall power.
+
+**Setup 2 — Outdoor Sunlight**
+1. Add HDRI via Polyhaven add-on or World Shader Editor → rotate until shadows reveal form well; avoid sun behind camera.
+2. Add image plane in background → Emission material, color = sky photo from Pexels or similar; `Ray Visibility → Shadow` OFF to prevent blocking HDRI sun.
+3. (Optional) Align a white emissive plane to HDRI sun position + duplicate and rotate 45° → drive alpha with a free lens-flare PNG for a simple in-scene sun flare; only use if sun is visible in frame.
+4. Alternative: World Shader Editor → `Sky Texture` node as a customisable HDRI replacement.
+
+**Setup 3 — Emissive / Futuristic Dark Scene**
+1. Set world to near-black; add overhead area fill light (slightly cool, low power).
+2. Create scene emitter: any geometry with bright Emission material (neon sign, logo, text); use image as Alpha input via Color Ramp for silhouette detail.
+3. Build reflective environment: wet floor (Noise Texture → Roughness, near-black base color), reflective walls/pillars; `Ctrl+L` to link materials; `Ctrl+T` + Object Coordinates for uniform UV.
+4. Add atmosphere cube: cube covering scene, Volume Scatter material (density ~0.005–0.01, anisotropy high); world strength 0.
+5. Compositor: enable `Render Properties → Compositing → Camera`; add `Glare` node → Bloom preset → reduce Threshold/Strength to taste.
+6. Add silhouette props (people, boxes) from CG Trader / Polyhaven; variety makes emissive scenes feel richer.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Light Falloff** node (in lamp shader editor) → Color Ramp → flip direction → Map Range (max value ~2–5) — controls highlight falloff precisely
+- Volume Scatter material: density ~0.005–0.05, anisotropy 0.7+ for atmospheric rays
+- `Ray Visibility → Volume Scatter` OFF on rim lights to prevent visible cones
+- `Ray Visibility → Shadow` OFF on sky image plane to prevent HDRI shadow occlusion
+- Glare node (Compositor, Bloom preset) — Threshold low, Strength ~0.3–0.6 for emissive glow
+- Noise Texture → Roughness for wet/reflective floor (scale 5–10, Color Ramp to crunch contrast)
+- `Ctrl+L → Link Material Data` — apply same material across multiple objects
+- `Ctrl+T` (Node Wrangler) → Object Texture Coordinates to fix UV stretching on scaled meshes
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — multi-rig overview with some shader node tricks; assumes basic Blender lighting knowledge.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x+ (Light Falloff node in lamp shader editor requires a recent version; otherwise compatible with earlier versions)
 
 ### Tags
-[PENDING EXTRACTION]
+#lighting #atmosphere #volume #compositing #hdri #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `photorealistic-renders-in-blender.md` — overlapping lighting/material approach for environment renders
+- `my-new-favorite-lighting-trick-in-blender.md` — another single-technique lighting deep dive
+- `a-powerful-lighting-node-in-blender-50.md` — companion node-based lighting technique tutorial
+- `fundamentals-of-lighting-in-blender.md` — foundational lighting concepts that underpin all three setups here
