@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=na6NGPw4XWM
 author: INSYDIUM LTD
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x"
+tags: [particles, simulation, fluids, plugins, nexus, meshing, motion-blur, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/nexus-for-blender-official-training---follow-curve/
 frame_count: 0
 ---
@@ -32,27 +32,51 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Nexus plugin (INSYDIUM) workflow: PBD fluid particles following a Bezier circle spline path via the Follow Geo modifier, with Turbulence for organic splashing, speed clamping, ZuPrism meshing with velocity export for Cycles motion blur.
 
 ### Summary
-[PENDING EXTRACTION]
+INSYDIUM (makers of X-Particles) tutorial for their Nexus plugin for Blender. Uses the Nexus Follow Geo modifier to make PBD fluid particles orbit a Bezier Circle. PBD solver chosen for turbulence resilience (not most physically accurate but handles strong forces well). Key workflow: emitter (sphere, radius 0.2, −Z direction, 50k/s birth rate, 0.01 particle radius) → Nexus Follow Geo (target: Bezier circle, Release: Loop) → Nexus Fluids PBD (Density check ON to kill over-dense birth particles and stop bulging) → Nexus Turbulence (Voronoi, scale 100–130, strength 25–45) → Nexus Speed (last in stack, min 0.5, max 4, incremental disabled) → art-direct via Follow Geo overall strength (50%) and attract strength (push/pull for tightness). Surface tension simulation: external pressure + repulsion + smoothing radius 125 → tendrils. Mesher: polygon size 0.015, radius 0.015, ZuPrism surface type (self-smoothing). Export velocity for motion blur: max speed = 4 per axis. Cache → Cache object. Render: Cycles GPU, Fast GI approximation, motion blur (shutter 1.0 frame). Water material: Transmission 1.0, roughness 0, IOR 1.33.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Emitter:** Add Nexus Emitter → Sphere, radius 0.2, direction −Z, birth rate 50k/s, radius 0.01, frames 0–120.
+2. **Curve setup:** Add Bezier Circle → rotate X 90° so it faces camera. Move emitter to curve edge.
+3. **Follow Geo:** Tools → Nexus Follow Geo → drop Bezier Circle in object slot (auto-detects spline). Release tab → change to Loop.
+4. **Disable offset:** Follow Geo → Extended Data tab → turn off Offset layer (interferes with fluid solver).
+5. **PBD Fluid:** Add Nexus Fluids → default PBD solver. Enable Density check to prevent birth explosion.
+6. **Turbulence:** Add Nexus Turbulence → Voronoi, scale 100, strength 25–35. After tuning: scale 130, strength 45.
+7. **Speed control (last):** Add Nexus Speed → move to bottom of stack. Set incremental to 0. Min speed 0.5, Max speed 4.
+8. **Art-direction:** Follow Geo overall strength 50%; increase attract strength to tighten to curve (smooth); decrease to let particles stray (splashy). Active range 2.5 for slight breakup.
+9. **Surface tension (optional):** Nexus Fluids → increase External Pressure (compression); add Repulsion; increase Smoothing Radius to ~125 for tendrils.
+10. **Mesher:** Add Nexus Mesher → add Emitter layer → polygon size 0.015, radius 0.015, surface type ZuPrism. Hide particles in display.
+11. **Velocity export:** Mesher → Export Tags → Transfer Velocity ON; max speed 4 per axis (matches speed clamp).
+12. **Cache:** Reduce timeline to 300. Add Cache object → Build Cache → Proceed.
+13. **Render setup:** Cycles GPU; Light Paths → Fast GI approximation; Motion Blur ON, shutter 1.0 frame.
+14. **Lights:** Add overhead Area light; second Area light with Track To constraint targeting emitter/origin. Light settings: Normalize OFF (size = power). Strengths: 50, 40, 30. Add slight color tints.
+15. **Water material:** Mesh → add material → Principled BSDF → Transmission 1.0, Roughness 0, IOR 1.33.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Nexus Follow Geo**: object field → Bezier Circle; Release → Loop; overall strength 50%; attract strength (art-directed); active range 2.5
+- **Nexus Fluids PBD**: Density check ON (kills over-dense birth particles); External Pressure, Repulsion, Smoothing Radius 125 (surface tension)
+- **Nexus Turbulence**: Voronoi, scale 100–130, strength 25–45
+- **Nexus Speed** (must be LAST): incremental 0; min speed 0.5, max speed 4
+- **Nexus Mesher**: polygon size 0.015, radius 0.015, ZuPrism surface type; Smoothing: mean curvature 100% + 5 iterations optional
+- Velocity export: Transfer Velocity ON; max = 4 per axis
+- Cycles: Fast GI approximation; Motion Blur shutter 1.0; no denoiser (to keep detail)
+- Water: Transmission 1.0, Roughness 0, IOR 1.33
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — requires INSYDIUM Nexus plugin (paid); plugin-specific workflow, not native Blender
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x (Nexus plugin compatible; no specific version constraint noted)
 
 ### Tags
-[PENDING EXTRACTION]
+#particles #simulation #fluids #plugins #nexus #meshing #motion-blur #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `how-i-made-realistic-storm-clouds-in-blender.md` — native Blender particle volume workflow
+- `realistic-cloth-physics-in-blender-full-tutorial.md` — Blender native simulation
+- `tutorial-how-to-make-a-volumetric-projector-in-blender-45.md` — volume rendering companion
+- `photorealistic-renders-in-blender.md` — Cycles render setup companion

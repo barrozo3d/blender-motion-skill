@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=2MKKuHcni1U
 author: Ducky 3D
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.0"
+tags: [geometry-nodes, sdf, volume, procedural, materials, blender-5, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/organic-liquid-metal-effect-in-blender-50-tutorial/
 frame_count: 0
 ---
@@ -32,27 +32,53 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Organic liquid metal / blob effect using Blender 5.0 SDF Grid nodes: Icosphere instances + connecting tube curves both converted to SDF grids, merged with SDF Grid Boolean (Union), then converted back to mesh — the Union operation makes all geometry merge smoothly into each other like liquid metal.
 
 ### Summary
-[PENDING EXTRACTION]
+Ducky 3D demonstrates the Blender 5.0 SDF Grid workflow (Mesh to SDF Grid → SDF Grid Boolean → Grid to Mesh) to create an organic blob/liquid metal effect where spheres and the connecting tubes between them all smoothly merge. Icosphere (radius 10, 2 subdivisions) noise-distorted with Set Position + 4D Noise Texture (not normalized, offset) → Instance on Points with second Icosphere. Two SDF grid streams are combined: (1) the realized sphere instances; (2) the original icosphere mesh → Mesh to Curve (creates edge connections) → Curve to Tube → realized. Both go through Mesh to SDF Grid (shared voxel size ~0.3) → SDF Grid Boolean (Union) → Grid to Mesh → Set Shade Smooth → Smooth Geometry. Voxel size controls poly density (0.15 = high poly). Animation: keyframe 4D Noise W value (0 → large number over 60–120 frames). Materials: metallic PBR (Roughness ~0.1) or Subsurface (fleshy look). Roughness variation with stacked Noise Textures → Color Ramp on roughness channel.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Base icosphere:** New GeoNodes on plane. Delete Group Input. Icosphere (radius 10, subdivisions 2) → Set Position → Noise Texture (4D, uncheck Normalize, plug into Offset → combine XYZ scale). Adjust scale/roughness of noise.
+2. **Instance spheres:** Instance on Points (instance = second Icosphere) → Realize Instances.
+3. **Create connecting tubes:** From Set Position output → Mesh to Curve → Curve to Tube. This creates tube geometry along the icosphere's edges connecting all the sphere instances.
+4. **SDF pipeline — spheres:** Realized sphere instances → Mesh to SDF Grid (voxel size 0.3, share via Value node).
+5. **SDF pipeline — tubes:** Curve to Tube → Realize Instances → Mesh to SDF Grid (same voxel size).
+6. **Boolean union:** SDF Grid Boolean (mode: Union) → plug sphere SDF into input, tube SDF into second input → Grid to Mesh.
+7. **Smooth:** Grid to Mesh → Set Shade Smooth → Smooth Geometry (increase factor until organic).
+8. **Voxel control:** Value node → connect to both Mesh to SDF Grid voxel size inputs. Lower value = higher resolution (try 0.15–0.3).
+9. **Material (metallic):** Set Material → Principled BSDF → Metallic 1.0, Roughness ~0.1, color dark gray.
+10. **Roughness variation:** Shader Editor → Noise Texture (scale high, detail high) → Color Ramp → Roughness. Stack second Noise Texture (different scale) for micro-variation.
+11. **Lighting:** Area disc light (power 500, spread reduced), world black. Add Principled Volume for atmosphere (small density).
+12. **Animation:** In GeoNodes Noise Texture node → keyframe W value (4D mode) from 0 to large number over desired frame range.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Icosphere: radius 10 (large = better SDF density), subdivisions 2
+- Noise Texture: 4D type; Normalize OFF; output Vector → Set Position offset
+- Instance on Points → second Icosphere as instance
+- Realize Instances (required before Mesh to SDF Grid)
+- Mesh to Curve (on icosphere geometry → creates connecting edge paths)
+- Curve to Tube → Realize Instances
+- **Mesh to SDF Grid**: voxel size ~0.3 (lower = higher detail, heavier)
+- **SDF Grid Boolean**: mode = Union (merges all geometry smoothly)
+- **Grid to Mesh** → Set Shade Smooth → Smooth Geometry
+- Shared Value node for voxel size on both SDF Grid nodes
+- Animation: Noise Texture W value keyframed (4D) for morphing animation
+- Mat cap preview: dropdown → Mat Cap for quick metal preview before full material
+- Area light: disc shape, spread reduced, power 500
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — short tutorial (10 min); requires Blender 5.0 for SDF nodes; low node count but high-impact result
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.0 (Mesh to SDF Grid, SDF Grid Boolean, Grid to Mesh are new in 5.0)
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #sdf #volume #procedural #materials #blender-5 #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `glass-cell-division-effect-in-blender-50-tutorial.md` — also uses SDF Grid / Points to SDF approach (5.0)
+- `geode-nodes-i-am-so-clever-blender-tutorial.md` — Mesh to Volume → Volume to Mesh for organic form
+- `how-to-make-this-style-in-blender-50.md` — Blender 5.0 GeoNodes motion graphics companion
+- `math-x-blender-50-unlimited-power.md` — complex GeoNodes procedural math companion
