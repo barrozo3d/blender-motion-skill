@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=Kep7URnyXgU
 author: c g s l a v
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x"
+tags: [volume, clouds, geometry-nodes, rendering, lighting, atmosphere, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-i-made-realistic-storm-clouds-in-blender/
 frame_count: 0
 ---
@@ -64,27 +64,51 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Procedural storm clouds via a GeoNodes volume pipeline: Icosphere → Mesh to Volume → Distribute Points in Volume → Set Position (Noise + Voronoi for organic scatter and center-density compression) → Points to Volume → Volume to Mesh → final Set Position (Noise for wispy edges) → Mesh to Volume. Volume material = Volume Scatter (white). Light Linking (Blender 4.x) separates cloud lighting from scene lighting. Horizon haze: duplicate volume cube + Gradient Texture density mask.
 
 ### Summary
-[PENDING EXTRACTION]
+c g s l a v demonstrates three sky methods (2D image plane, HDRI, procedural volumetric) and focuses on the advanced procedural cloud pipeline. The GeoNodes cloud setup: start with Icosphere → Mesh to Volume (initial blob shape) → Distribute Points in Volume (create point cloud in the blob) → Set Position with Noise Texture offset (scatter points organically) + Voronoi compression trick (negative multiply pulls points to center for dense core, positive multiply loosens edges for translucent rim) → Points to Volume → Volume to Mesh → another Set Position (Noise Texture for fine surface wispy detail) → final Mesh to Volume. Volume material: Volume Scatter (white, optional absorption). Build larger clouds by duplicating spheres in Edit Mode before enabling GeoNodes. Light Linking: assign cloud objects to a dedicated light (Render Settings → Light Linking) so one spotlight illuminates only clouds (from behind, like sun-through-clouds) and another spotlight creates god rays in a separate volume cube. Horizon haze: second large volume cube + Gradient Texture (rotated 90°) as density mask → Volume Scatter focuses only at horizon level.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Quick methods (simple):** (a) Plane with sky image → Emission material; (b) HDRI in World shader. Both lack light interaction.
+2. **God rays / light rays:** Cube with Volume Scatter material (density ~low) → place Spotlight inside cube → rotate to illuminate desired area in scene.
+3. **GeoNodes cloud base:** Icosphere → Geometry Nodes → New. Mesh to Volume node → Distribute Points in Volume.
+4. **Organic point scatter:** Set Position after Distribute Points: Offset = Noise Texture (normalized) × Vector Math Scale. Adjustable spread.
+5. **Density gradient (center dense, edges wispy):** Voronoi / Position-based compression: Vector Math (multiply by -1) pushes points toward center → dense core. Second Set Position (multiply by +1) → loosens edges → translucent rim. Key for realistic cloud look.
+6. **Back to volume:** Points to Volume → Volume to Mesh (for viewport preview/detail control).
+7. **Wispy surface detail:** Set Position (before final Mesh to Volume) with another Noise Texture + Scale Vector Math → breaks up surface for organic edge detail.
+8. **Final volume:** Mesh to Volume (final node) → Set Material node with Volume Scatter shader (white color).
+9. **Scale properly:** Use "Amount to Size" in each Mesh to Volume node to prevent proportional distortion when scaling the object.
+10. **Build large cloud:** Edit Mode → Shift+D to duplicate spheres → reshape → enable GeoNodes → automatic cloud formation.
+11. **Bring into scene:** Copy cloud object to main scene; duplicate multiple times; position clouds at horizon.
+12. **Light Linking:** Render Settings → Light Linking → drag cloud collection → uncheck box → assigned light only illuminates clouds. Create second Spotlight behind clouds (sun-through-clouds effect).
+13. **Horizon haze:** Duplicate volume cube, scale large, extend to horizon → Volume Scatter material + Gradient Texture (rotated −90°) → Color Ramp (B-Spline) as Density → focuses haze only at horizon.
+14. **Optimization:** Render Settings → Volume → Max Steps = 500; Step Rate Render = 3 (saves time without visual loss); Viewport step rate increase to avoid GPU overload.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Mesh to Volume` — converts mesh to volumetric field; "Amount to Size" prevents scale distortion
+- `Distribute Points in Volume` — creates point cloud inside volume; density controls cloud resolution
+- `Set Position` + `Noise Texture` → center-push: Vector × −1 (compress), × +1 (expand edges)
+- `Points to Volume` → `Volume to Mesh` — intermediate mesh for viewport preview and detail editing
+- `Set Position` + `Noise Texture` (before final Mesh to Volume) — fine wispy surface variation
+- Volume material: `Volume Scatter` (white, density ~0.3–1.0); adjust Anisotropy
+- Light Linking (Render Settings): separates cloud light from scene light
+- Horizon haze: `Gradient Texture` (rotated −90°) + `Color Ramp` (B-Spline) → Volume Scatter Density
+- Render optimization: Max Steps = 500; Step Rate = 3; small voxel size for final render only
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — requires GeoNodes volume pipeline understanding and Light Linking setup.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x (Light Linking feature; GeoNodes volume nodes available in 3.x+)
 
 ### Tags
-[PENDING EXTRACTION]
+#volume #clouds #geometry-nodes #rendering #lighting #atmosphere #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `3d-smoke-blender-geometry-nodes.md` — advanced GeoNodes volume/fluid sim companion
+- `how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi.md` — cinematic landscape with sky atmosphere
+- `tutorial-how-to-make-a-volumetric-projector-in-blender-45.md` — volumetric light effects companion
+- `fundamentals-of-lighting-in-blender.md` — lighting theory for the light linking and placement decisions

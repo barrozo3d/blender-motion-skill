@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=SybPYdsd_DI
 author: Max Hay
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x"
+tags: [scene-building, materials, lighting, rendering, environment, cyberpunk, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-make-cyberpunk-scenes-in-blender/
 frame_count: 0
 ---
@@ -32,27 +32,49 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Full cyberpunk street scene: wet concrete (Noise Texture → roughness + normal strength), building storefronts from stock reference images (Correct Face Attributes + cube projection), neon signs from stock photos (Emission + Alpha from image darkness), building window lights (night photo → Emission + Alpha plane on facade), atmospheric Volume Scatter cube, blue-tinted area lights. PureRef for reference mood board.
 
 ### Summary
-[PENDING EXTRACTION]
+Max Hay's 59m guide builds a cyberpunk alley from scratch. Wet concrete: PolyHaven asphalt → remove displacement; Noise Texture drives roughness (Color Ramp for shiny puddle zones) AND drives Normal Map Strength (wet areas = less bump = smoother reflection). Buildings: Ian Hubert's tracing technique — download stock facade image → apply as base color → Enable Correct Face Attributes in Edit mode → cube project and use loop cuts to roughly align with real storefront geometry → windows become transmissive material (Image Color → Color Ramp → Transmission Weight). Neon signs: stock Pexels photos → Emission material + Image plugged to Alpha (dark pixels → transparent). Building window lights: stock night photo → Emission Color + Alpha from image. Reuse same image in multiple UV spots for fast scene fill. Atmosphere: large cube with Volume Scatter (density 0.01). Blue spotlights for depth. Cables: Bezier curve → bevel → subdivide → manually deform → join → black material.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Floor (wet concrete):** Add Plane → PolyHaven asphalt texture → delete displacement. Scale UV ×4 in UV Editor. Unplug roughness map → Noise Texture (high scale/detail/roughness) → Color Ramp (crunch to shiny) → Roughness. Same Noise → another Color Ramp (tuned differently) → Normal Map Strength → controls where bumps are suppressed (wet = smooth).
+2. **Camera:** 24mm focal length for wide angle; camera view setup with two viewports (working + render preview).
+3. **Building block-out:** Add Cube shapes → place as alley walls/buildings.
+4. **Storefront (Ian Hubert technique):** Download stock facade image (Pexels: "Japan storefront"). Add material → Image Texture → Base Color. Edit Mode → Options → Enable Correct Face Attributes. A-select all → U → Cube Project; UV Editor → adjust to fit image. Loop cuts aligned to windows/doors. Inset + Extrude for window recesses.
+5. **Window glass:** Select window faces (Shift+G → Co-Planar). New material slot → Principled BSDF Transmission=1 Roughness=0. Optional: image color → Color Ramp → Transmission Weight (posters = opaque).
+6. **Neon signs (from stock images):** Plane → apply scale → cube project. New material → Emission → Image Texture → Color. Map Range or strength ~5–20. Image also → Alpha (controls which pixels are visible). UV-shift to pick different sign areas from one image.
+7. **Building window lights:** Large cube with glass material on front. Image of building-windows-at-night → Emission Color + Alpha. Rougher style: Map Range the Alpha for crisper cutout.
+8. **Atmosphere:** Shift+A → Cube → scale to fill entire scene; New material → Volume Scatter → Surface output; Volume density ~0.01. Display As = Bounds. Camera clip end = 150m.
+9. **Lights:** Area light above alley (blue tint, saturation ~0.2). Spotlight behind camera for metal reflections. Small area lights in props for fill.
+10. **Cables/wires:** Bezier Curve → Geometry → Bevel Depth (small); subdivide in Edit mode; deform control points to natural arc. Duplicate many times. Convert to Mesh → Join all cables → black material.
+11. **Props:** PolyHaven add-on or asset library for garbage cans, barriers, boxes, industrial items. Cluster near corners not evenly distributed. People models (3D Farm on CGTrader).
+12. **PureRef:** Free reference app; drag-drop images from web into floating window beside Blender.
+13. **Render:** Cycles, AgX, 4000×5000, 250 samples, noise threshold.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Wet concrete: `Noise Texture` → `Color Ramp` (shiny puddle zones) → Roughness; same Noise → second `Color Ramp` → Normal Map Strength
+- `Correct Face Attributes` (Edit Mode Options) — prevents texture stretch when adding loop cuts
+- Transmissive windows: Image color → `Color Ramp` → Transmission Weight (light = transmissive, dark = opaque)
+- Neon signs: Image Texture → Emission Color + Alpha (dark = invisible); Map Range for strength control
+- Volume atmosphere: Volume Scatter, density ~0.01; large cube covering scene
+- Blue lights: Area lights; Color saturation ~0.2 (subtle, not garish blue)
+- Volume render optimization: Camera clip end ~150m; check for black volume artifacts at edges
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — long workflow covering modeling, materials, lighting, environment-building; individual techniques are beginner-level but combining them requires experience.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x (standard tools; Correct Face Attributes, Light Linking if desired)
 
 ### Tags
-[PENDING EXTRACTION]
+#scene-building #materials #lighting #rendering #environment #cyberpunk #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `how-i-built-this-gate-animation-in-blender-scene-breakdown.md` — Max Hay companion scene tutorial with similar material/lighting workflow
+- `realistic-product-lighting-in-blender.md` — material and lighting techniques
+- `photorealistic-renders-in-blender.md` — Cycles/AgX rendering setup
+- `how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi.md` — full scene tutorial at similar scale
+- `tutorial-how-to-make-a-volumetric-projector-in-blender-45.md` — atmospheric volume light companion
