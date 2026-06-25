@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=_7N7emOvDko
 author: SharpWind
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.5"
+tags: [compositing, rendering, render-passes, color-grading, denoise, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/a-full-blender-compositor-course/
 frame_count: 0
 ---
@@ -52,27 +52,68 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A complete Blender compositor course covering node fundamentals, practical color-correction and atmospheric effects, Render Layers for per-object control, Render Passes (diffuse/glossy/transmission/volume/emission) rebuilt from scratch for maximum post-render control, Cryptomatte per-object masking, Light Groups, and OpenEXR multi-layer export/import workflow.
 
 ### Summary
-[PENDING EXTRACTION]
+SharpWind's 42-minute compositor survey starts from node basics (viewer setup in UV editor, non-uniform inputs feeding masks into any factor socket), walks through the most-used practical nodes (Glare, Mist Pass fog, Color Balance Lift/Gamma/Gain, Color Correction, Hue Correct, Ellipse Mask vignette/light bleed, Lens Distortion, Denoise in Cycles, fake Defocus via Z-pass + Map Range), then dives into Render Layers (separating scene objects into isolated layers with secondary-bounce contributions for correct lighting/reflections/shadows), Render Passes (rebuilding the full image from its constituent light passes = direct+indirect multiplied by color per shading type), Cryptomatte (perfect per-object masks generated at render time for isolated hue/glossy/etc. changes), and Light Groups (isolating individual lights for post-grade intensity/color control). Closes with a professional multi-pass compositing setup using all of the above.
 
 ### Key Steps
-[PENDING EXTRACTION]
+**Compositor Setup**
+1. Enable Compositor → Use Nodes; set Backdrop off; split window → UV Editor with Viewer Node display for real-time preview.
+2. Ctrl+Shift+click any node → instant Viewer connection for that node's output.
+3. Any node with a `Factor` or `Mask` input accepts a grayscale image: black = no effect, white = full effect — this is the core compositing logic.
+
+**Practical Effects**
+4. **Glare** — add Glare node; Blender 4.5 gives separate outputs for full, glare-only, and highlight-only; adjust Threshold/Smoothness/Strength/Saturation; type controls glare shape.
+5. **Atmospheric fog** — View Layer → enable Mist Pass; set camera Mist start/end in World Properties; Mix Color node (Mix mode) with Mist Pass as Factor and fog color as Socket B; Math Multiply before Mist Pass to control strength.
+6. **Color Balance** — Lift (shadows), Gamma (midtones), Gain (highlights) per channel tint and brightness.
+7. **Color Correction** — single node with per-section (shadows/midtones/highlights) saturation, contrast, and LGG; range thresholds (default 0.2/0.7 for shadow/highlight boundary).
+8. **Hue Correct** — per-color-channel hue/saturation/brightness adjustments; **Hue Saturation Value** — same but for whole image.
+9. **Ellipse Mask + Blur** — localized effect (light bleed, vignette): Ellipse Mask → Blur → plug into Factor; flip sockets for vignette (black in Socket A, image in Socket B); add Math Multiply to control strength.
+10. **Lens Distortion** — enable `Fits` checkbox to remove black edges; add Dispersion for chromatic aberration (keep subtle).
+11. **Denoise (Cycles)** — View Layer → Denoising Data pass on; turn off Render Properties default denoise; Denoise node: Image→Image, Denoising Normal→Normal, Denoising Albedo→Albedo; mute while working (M key) for speed.
+12. **Fake Defocus** — View Layer → Z pass; Map Range to squash Z-distance to 0–1; Color Ramp to control focus falloff; multiply colors for blur amount; plug into Defocus node; use Z Scale as blur multiplier.
+
+**Render Layers**
+13. Create layers in top-right dropdown; per-layer, toggle collections visible/invisible.
+14. Funnel icon in outliner → enable Reflected Arrow on collections that should appear only as secondary bounces (reflections/shadows/GI) — enables physically correct inter-object interactions per-layer.
+15. Composite layers using Alpha Over nodes stacked bottom-to-top.
+16. Apply localized per-layer color corrections (Gamma, blur, etc.) between render layers and Alpha Over nodes.
+
+**Render Passes (Professional Setup)**
+17. View Layer → enable Diffuse/Glossy/Transmission/Volume Direct+Indirect+Color, Emission, Ambient Occlusion, Cryptomatte Object, Denoising Data.
+18. Rebuild image: for each shading type: `Add(direct, indirect)` → `Multiply(result, color)` → add all shading types together → `Set Alpha(combined_rgb, alpha_pass)` → Denoise.
+19. **Cryptomatte** — add Cryptomatte node; image→image; Pick output lets you click-select objects; Mat output = perfect per-object mask → use as Factor for Hue Saturation, Glossy Color tint via Multiply, etc.
+20. **Light Groups** — View Layer → Light Groups → assign lights to groups via Object Properties → Shading → Light Group; combine with Add nodes (factor 1) to isolate and recolor individual lights.
+21. Export workflow: set output to OpenEXR Multi-Layer, render; import back in fresh scene with Render Layers node → all passes preserved.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Glare` — Bloom/Streaks/Ghosts; Threshold, Smoothness, Strength, Saturation; 3 outputs in 4.5
+- `Mix Color` (Mix mode) — Factor 0 = Socket A, 1 = Socket B; plug mask into Factor for non-uniform effect
+- `Math (Multiply)` — reduce mist/vignette/effect strength below 1.0
+- `Color Balance` (Lift/Gamma/Gain) — shadows/midtones/highlights tint + brightness
+- `Color Correction` — per-section LGG with range control (default 0.2/0.7 shadow/highlight)
+- `Hue Correct`, `Hue Saturation Value`, `RGB Curves`, `Exposure`, `Tone Map`
+- `Ellipse Mask` — Blender 4.5 gizmo moveable; → `Blur` → Factor input for localized effects
+- `Lens Distortion` (enable Fits) + Dispersion for chromatic aberration
+- `Denoise` — needs Denoising Data pass; connect Normal + Albedo for better quality
+- `Defocus` — requires Z-pass → Map Range (0→scene_max to 0→1) → Color Ramp → Z input; Z Scale as strength
+- `Cryptomatte` — Pick output for click-select; Mat output = per-object mask
+- `Set Alpha` — reattach alpha channel lost during pass recombination
+- OpenEXR Multi-Layer — only format that preserves all render passes for import
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — assumes basic Blender rendering knowledge; Render Passes section (professional setup) is advanced.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.5 (Glare node has 3 outputs; Ellipse Mask gizmo moveable with node selected; otherwise compatible with 4.x)
 
 ### Tags
-[PENDING EXTRACTION]
+#compositing #rendering #render-passes #color-grading #denoise #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `i-recreated-movie-scene-in-blender-nuke-complete-tutorial.md` — multi-pass compositing for VFX integration
+- `add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2.md` — compositing workflow combining Blender and DaVinci Resolve
+- `photorealistic-renders-in-blender.md` — render setup that feeds into compositor post-processing

@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=Y0zAZnbBcQU
 author: RADIUM
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.5"
+tags: [geometry-nodes, reference, nodes, fields, attributes, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/all-300-geometry-nodes-in-blender/
 frame_count: 0
 ---
@@ -32,27 +32,57 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+An 84-minute encyclopedic reference covering all ~300 Geometry Nodes in Blender 4.3/4.5, organized by category: constants/inputs, attributes, curves, mesh, instances, hair, volumes, topology, utility/math, rotation, matrices, grease pencil, tool-context, gizmos, and the simulation/repeat/for-each zones.
 
 ### Summary
-[PENDING EXTRACTION]
+RADIUM walks through every node in the Blender 4.5 Geometry Nodes editor, explaining what each one does with enough depth to understand its inputs/outputs and typical use case. Opens with essential concepts (fields vs. values, field context, attributes, domains, instances, IDs). Categories covered: Input constants, Scene Data, Attributes (capture, store, remove, statistics), Curve primitives + curve ops, Mesh primitives + mesh ops (boolean, extrude, subdivide, triangulate, weld), Points (distribute, scatter, volume), Sample nodes (geometry proximity, raycast, sample nearest/index), UV nodes, Texture nodes, Volume nodes (cube, to mesh), Topology nodes (corners/edges/faces), Instance nodes (on points, realize, transform), Utility math/vector/rotation/matrix nodes, Hair nodes (generation, deformation, guide, read), Grease Pencil nodes, Tool-context nodes (only in tool editor), Gizmos (dial, linear, transform), and special zones (Repeat, For Each Element, Simulation, Bake). Also covers new Blender 4.5 additions: field statistical nodes, format string, camera info, bit math, set mesh normal, smooth by angle, simulation zone, etc.
 
 ### Key Steps
-[PENDING EXTRACTION]
+This is a reference video, not a step-by-step tutorial. Key conceptual foundations covered:
+
+1. **Fields vs. values** — circle socket = single value; diamond = field (set of values per geometry element); diamond+circle = field collapsing to single value.
+2. **Field context** — input nodes (Position, Index, etc.) adapt to the domain expected by the downstream node they connect to.
+3. **Attributes** — data stored per geometry element (vertices, edges, faces, splines, etc.); view in Spreadsheet Editor; anonymous (Capture Attribute) vs. named (Store Named Attribute).
+4. **Instances** — efficient duplication that reuses data; can be nested; top-level vs. nested distinction matters for Instance Transform/Scale/Rotate nodes.
+5. **IDs vs. Indices** — index can be reassigned by operations; ID stays stable; use ID for reliable element identification.
+6. **Tool Editor vs. Modifier** — modifier GN run repeatedly per frame; tool editor GN run once destructively; tool-only nodes: 3D Cursor, Mouse Position, Self Object, View Transform, Selection, Set Selection, Face Set, Set Face Set, Active Element, plus all Gizmo nodes.
+7. **Euler / Quaternion / Axis-Angle rotation forms** — Euler intuitive but gimbal-lock prone; Quaternion (x,y,z,w) gimbal-lock free but unintuitive; conversion nodes available for all forms.
+8. **Matrix nodes** — 4×4 transformation matrix for combined translation/rotation/scale/skew; Combine/Separate/Invert/Multiply/Determinant/Transpose/Transform Point/Direction.
+9. **Hair node shared inputs** — Factor (0=no effect), Shape (falloff profile along hair), Preserve Length, Geometry (only affects hair curves not mesh).
+10. **Pass rebuild formula** — `(Direct + Indirect) * Color` per shading type (same formula as in compositor tutorial).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+**Key nodes by category (selected highlights):**
+- **Distribute Points on Faces** — random (density+seed) or Poisson Disk (min distance); outputs points, normals, rotation
+- **Instance on Points** — instances object/collection onto point cloud; Pick Instance for multi-object collections
+- **Geometry Proximity** — closest location on target mesh; outputs position, distance, is_valid
+- **Raycast** — casts rays from geometry to target; Interpolated vs. Nearest mode; outputs hit position/normal/distance/is_hit
+- **Sample Nearest** — returns index of nearest element (not position); use with Sample Index to retrieve attributes
+- **Capture Attribute** — anonymous attribute, accessible only via socket; doesn't show in spreadsheet
+- **Store Named Attribute** — named attribute; persists; use with Named Attribute node to retrieve
+- **Bake** — still frame or animation range; various input types; improves performance for heavy simulations
+- **Simulation Zone** — iterate geometry changes over time frame by frame
+- **Repeat Zone** — loop N iterations; use for pressure-solve, iterative smoothing, etc.
+- **For Each Element Zone** — per-element loop; Element output gives geometry for current iteration; Generated geometry is output
+- **Realize Instances** — converts instances to real geometry; Depth input for nested; Realize All checkbox
+- **Volume Cube** — creates OpenVDB volume; resolution, min/max bounds, background value
+- **Volume to Mesh** — converts volume to mesh; Grid/Voxel Amount/Voxel Size modes; Threshold; Adaptivity
+- **Shortest Edge Path** — finds shortest path to end vertices by edge cost; pair with Edge Paths to Curves/Selection
+- **Cryptomatte / Topology nodes** — Corners of Edge/Face/Vertex, Edges of Corner/Vertex, Face of Corner — for index-level mesh topology traversal
+- **Gizmo nodes** — Dial (angle), Linear (axis), Transform (pos/rot/scale); bidirectional value input/output to 3D viewport
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced — reference video; assumes Blender GeoNodes experience; covers the full node library including obscure topology, matrix, and tool-context nodes.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.5 (covers all nodes including new 4.5 additions: Field Min/Max/Variance/Average, Format String, Camera Info, Bit Math, Set Mesh Normal, Smooth by Angle, Simulation Zone, etc.)
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #reference #nodes #fields #attributes #advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `ill-teach-you-geometry-nodes.md` — practical GeoNodes tutorial for hands-on learning to complement this reference
+- `3d-smoke-blender-geometry-nodes.md` — uses Volume Cube, Field to Grid, Repeat Zone, Bake — all covered in this reference
+- `using-geometry-nodes-for-vfx-in-blender.md` — VFX applications of GeoNodes nodes catalogued here
