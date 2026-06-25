@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=BoCCxy9ec0g
 author: Ducky 3D
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.0"
+tags: [compositing, lighting, glare, motion-graphics, eevee, animation, looping, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/a-powerful-lighting-node-in-blender-50/
 frame_count: 0
 ---
@@ -32,27 +32,47 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Layered compositor glare for "punchy" sun beams: tight Bloom (small size, high strength) + atmospheric Bloom (bigger size) as context → Sun Beams on top. Without the supporting blooms the sun beams look weak; the blooms communicate brightness so the beams read as powerful. Built on an EEVEE transparent Voronoi dot grid with masked brightness variation and animated 4D noise for looping parallax movement.
 
 ### Summary
-[PENDING EXTRACTION]
+Ducky 3D demonstrates how to make the Compositor Sun Beams glare node look compelling by layering it with two Bloom nodes: one tight (small size, strength 2–3) and one atmospheric (larger size). Sun beams alone look flat without light context; the blooms make the dots read as genuinely bright sources so the beams feel earned. The base scene is an EEVEE transparent plane with Voronoi dot grid (Emission/Transparent mix shader), masked by a second Voronoi for random brightness variation, then by a Noise Texture for an organic brightness falloff. Colors animated via 4D Noise W → looping keyframe. Two grid planes at different scales create depth parallax as camera moves. Camera animates Y across one grid tile; Collection Instance mirrors the tile to create seamless loop. Blender 5.0's Sensor Noise node adds film grain to the composite.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Material base (EEVEE):** Plane → Shading → New → delete Principled; Mix Shader (Emission bottom = value 1 / Transparent top = value 0); Render Properties → EEVEE → Material Render Method = **Blended**.
+2. **Voronoi dot grid:** Voronoi Texture (Ctrl+T → Mapping/Texture Coordinate, Object coords) → Distance → Color Ramp → factor of Mix Shader; Randomness = 0 for grid; flip Color Ramp so dots are white; scale Color Ramp to adjust dot size.
+3. **Random brightness mask:** Second Voronoi (scale ~2, Smooth F1, Randomness 0, Smoothness tuned) → Color Ramp → second Mix Color node (A=black, B=dot grid) → masks some dots dimmer.
+4. **Organic brightness variation:** Noise Texture (scale ~1–2, detail low) → Color Ramp (black bottom raised to gray) → third Mix Color → factor controls overall brightness distribution.
+5. **Compositor glare setup:** Compositor → New → Glare (Bloom, small Size ~4, Strength 2–3) → Glare (Bloom, bigger Size ~6–8, moderate Strength) → Glare (Sun Beams, Strength tuned); toggle camera `Always` in viewport dropdown to preview live.
+6. **Sensor Noise (Blender 5.0):** Add Sensor Noise node at end of compositor chain; lower Chroma noise, raise Sensor noise; enable Animated.
+7. **Animated 4D noise loop:** duplicate the Noise Texture node (Ctrl+Shift+D); use 4D mode; at frame 0 keyframe W=0, at frame 250 keyframe W=10; add Mix Color node combining both noise outputs to factor so both move.
+8. **Parallax second grid:** Shift+D plane → move Z up → click instance number in outliner to make unique; reduce dot size (scale up Voronoi); change Mapping Location Y to offset pattern; make dots dimmer for depth.
+9. **Camera loop:** select both grids → M → new Collection "loop"; Shift+A → Collection Instance → snap to grid edge; Alt+D → snap to opposite edge. Animate camera Y: frame 0 → Y=-5 (if S5 applied), frame 250 → Y=+5; seamless loop.
+10. **Fix texture cutoff:** if grid texture cuts off at camera edge → in Shading select original plane → adjust Mapping Location X or Y to shift texture until cutoff hides.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Mix Shader: Emission (bottom) + Transparent (top); factor = grayscale mask; black = transparent, white = emission
+- Render Method = **Blended** (EEVEE, required for correct transparency)
+- Voronoi (dots): Randomness = 0, Distance → Color Ramp (flipped); scale 6 for main grid; scale 2 for mask
+- Voronoi (mask): Smooth F1, Randomness = 0, scale ~2, Smoothness ~0.3–0.5
+- Noise Texture (brightness variation): scale ~1–2, detail ~0, Color Ramp (gray floor)
+- Compositor Glare 1 (tight bloom): Type = Bloom, Size ~4, Strength 2–3
+- Compositor Glare 2 (atmospheric bloom): Type = Bloom, Size ~6–8, Strength 0.5–1
+- Compositor Glare 3 (sun beams): Type = Sun Beams
+- Sensor Noise: Chroma ↓, Sensor ↑, Animated = on
+- 4D Noise W loop: W=0 at frame 0, W=10 at frame 250; Interpolation = Linear
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — EEVEE transparency + compositor glare stacking + camera loop via collection instancing; follows naturally from basic GeoNodes knowledge.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.0 (Sensor Noise node in compositor; otherwise compatible with 4.x without that node)
 
 ### Tags
-[PENDING EXTRACTION]
+#compositing #lighting #glare #motion-graphics #eevee #animation #looping #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `a-new-way-to-loop-animations-in-blender.md` — Ducky 3D companion using the same loop-keyframe technique with GeoNodes
+- `sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial.md` — similar grid-based looping motion graphics
+- `my-new-favorite-lighting-trick-in-blender.md` — another Ducky 3D lighting technique tutorial

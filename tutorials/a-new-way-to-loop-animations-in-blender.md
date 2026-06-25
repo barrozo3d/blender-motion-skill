@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=9Fvw8HlWHpo
 author: Ducky 3D
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x+"
+tags: [animation, geometry-nodes, motion-graphics, looping, glass, lighting, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/a-new-way-to-loop-animations-in-blender/
 frame_count: 0
 ---
@@ -32,27 +32,45 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Seamless Geometry Nodes loop trick: keyframe start location Z at frame 0, then add the total Mesh Line offset (count × spacing) to get the end keyframe value — guaranteeing a perfect loop regardless of parameters. Combined with a Gradient Texture sphere scale, position-based spiral rotation, and an emissive noise-lit plane background.
 
 ### Summary
-[PENDING EXTRACTION]
+Ducky 3D reveals a universal loop formula for any Geometry Nodes Mesh Line animation: the start location value at frame 0 + (count × offset per instance) = the end keyframe value for start location. This makes the animation reset invisibly at the loop boundary. Built on a beveled glass cube instanced along a vertical Mesh Line; scale shaped by a Spherical Gradient Texture (Combine XYZ to limit to X/Y only, Float Curve to shape the falloff); spiraling rotation driven by position.z × Math Multiply into Z of Combine XYZ rotation. Lighting: an off-screen emissive plane with Noise Texture → Color Ramp shader, camera ray visibility off so it never appears in render but casts colored atmospheric light. Compositor Bloom Glare adds final glow. No camera animation in this tutorial — animation is pure material/GeoNodes driven.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Object:** Cube → scale down (plate shape) → Edit mode Edge Select → Bevel edges; add Bevel modifier → Ctrl+A apply scale → set low bevel.
+2. **Material (Cycles):** Principled BSDF → Transmission = 1, Roughness ~0; enable Denoise.
+3. **GeoNodes setup:** Add plane → Geometry Nodes → New → add `Mesh Line` node; Set count (~30–40), offset Z to desired spacing.
+4. **Instance on Points:** Object Info from the glass cube → Instance on Points; hide cube from viewport + render (eyeball + camera icon in outliner).
+5. **Loop keyframe trick:** Note the `count × offset_Z` value from Mesh Line. At frame 0: set Start Location Z → I to keyframe. At last frame: type `start_Z + (count × offset_Z)` → I. Animation loops perfectly because the next cycle starts exactly where this one began.
+6. **Scale shape:** Position node → Vector Math Multiply (all 1, to stretch texture) → Gradient Texture (Spherical) → Float Curve (round off pyramid shape) → Combine XYZ into Scale of Instance on Points (X and Y only, Z = 1).
+7. **Spiral rotation:** Position node → Z value → Math Multiply (strength multiplier) → Combine XYZ Z → Instance on Points Rotation.
+8. **Emissive background plane:** Shift+A Plane → RX90 → scale large → Emission shader; World = black; Noise Texture → Color Ramp (B-Spline, multi-stop colors) → Emission Color; high Strength. Object Properties → Visibility → Ray Visibility → Camera OFF (light but not visible in render).
+9. **Compositor Bloom:** Compositor → New → Glare node (Bloom) → reduce Threshold/Strength to taste.
+10. **Render:** Set frames to 40 (or your loop length); PNG sequence output.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Mesh Line` — count: 30–40; offset Z: controls spacing; the loop formula is `start_Z_frame_end = start_Z_frame_0 + (count × offset_Z)`
+- `Instance on Points` — instance: glass cube object (hidden from viewport + render)
+- `Gradient Texture` (Spherical) → `Float Curve` (round shape) → `Combine XYZ` (X, Y scale only) → Scale input
+- `Position` → `Vector Math Multiply` → `Gradient Texture` Vector (stretches texture along Z)
+- `Position` Z → `Math Multiply` → `Combine XYZ` Z → Instance on Points Rotation (creates Z-spiral)
+- Emissive plane: `Noise Texture` (scale ~3–5, detail low) → `Color Ramp` (B-Spline, 2–3 color stops) → `Emission` Color; Strength ~20–50; Ray Visibility Camera OFF
+- Blender Preferences → Animation → Default Interpolation = **Linear** (required for seamless loop)
+- Compositor: `Glare` (Bloom) — lower Threshold and Strength to taste
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner — straightforward node setup; the loop formula is the main insight; glass material requires Cycles.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x+ (Geometry Nodes; Mesh Line; Cycles glass material)
 
 ### Tags
-[PENDING EXTRACTION]
+#animation #geometry-nodes #motion-graphics #looping #glass #lighting #beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial.md` — similar looping motion graphics concept
+- `a-powerful-lighting-node-in-blender-50.md` — Ducky 3D's companion glare/glow tutorial building on this animation type
+- `ill-teach-you-geometry-nodes.md` — GeoNodes fundamentals underlying Instance on Points setup
