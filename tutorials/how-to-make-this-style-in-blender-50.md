@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=rbPOL9ibooY
 author: Ducky 3D
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.0"
+tags: [geometry-nodes, curves, shaders, animation, motion-graphics, looping, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-make-this-style-in-blender-50/
 frame_count: 0
 ---
@@ -32,27 +32,56 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+120 stacked curve circles (GeoNodes Mesh Line → Instance on Points → Curve Circle → Curve to Mesh) with two wave textures: one mapped via Spline Parameter UV attribute for perfectly-curved rings, one randomized per instance via a stored Random attribute (×10 multiplier). Phase offset animated 0→2π over 300 frames = seamless loop. Noise Texture with Object coord (eyedropper to parent object) avoids instance-duplication artifact. Brightness randomized per curve via Map Range on Random attribute. Ultra-wide 8mm camera positioned at outer ring.
 
 ### Summary
-[PENDING EXTRACTION]
+Ducky 3D builds a looping animated rings animation (cyberpunk/abstract style). GeoNodes setup: Mesh Line (120 count, Z spacing 0.07) → Instance on Points → Curve Circle (radius 7, res 80). Store Named Attribute: Spline Parameter Factor → "S" (for UV wave mapping). Curve to Mesh (profile = Curve Circle, radius 0.005, res 3) → Store Named Attribute: Random Value (per instance) → "R". In shading: Wave Texture mapped by Attribute "S" into Vector → seamlessly wraps around each ring. Attribute "R" × Math Multiply (×10) → second Wave Texture phase offset → each ring's wave is positioned differently. Math Multiply Add → animated add input (0→2π, 300 frames, linear) drives the animation loop. Brightness: Attribute "R" → Map Range → Emission Strength (0–80, only some rings fully bright). Color: Noise Texture (Object coordinates, eyedropper to select instance parent to fix line artifact) → 3-stop RGB Color Ramp → Mix Color node factor. Compositor: Glare (Bloom) + Sensor Noise (Blender 5.0, animated chroma). Camera: 8mm focal length, placed just past outermost ring for dramatic surround effect.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **GeoNodes:** Plane → Geometry Nodes → New → delete Group Input. Mesh Line (count=120, offset Z=0.07) → Instance on Points → Curve Circle (radius=7, resolution=80) → plug Curve into Instance.
+2. **Spline attribute:** Store Named Attribute → Spline Parameter node → Factor → value. Domain = Point. Name = "S".
+3. **Curve to Mesh:** Curve to Mesh node → profile = Curve Circle (radius=0.005, res=3). Plugs into Geometry output.
+4. **Random attribute:** Store Named Attribute → Random Value → value. Domain = Instance. Name = "R".
+5. **Material:** Set Material → New → switch to Emission shader.
+6. **Camera:** 8mm focal length; position camera just past outermost ring for surround look.
+7. **Wave texture mapping:** In Shader Editor: Attribute node → name "S" → Factor → Wave Texture Vector. Now wave maps correctly around each ring.
+8. **Random wave offset:** Attribute "R" → Math Multiply (×10) → second Wave Texture phase offset → randomizes ring position. Multiply Add node for animation channel.
+9. **Loop animation:** Animate Math Multiply Add "Add" input: frame 0 = 0 (I key), frame 300 = `2*pi`. Linear interpolation (Preferences → Animation → Default Interpolation = Linear).
+10. **Brightness randomization:** Attribute "R" → Map Range (from_min tuned to crunch) → Emission Strength. Max value ~80 so some rings are very bright, some nearly invisible.
+11. **Color (Noise Texture fix):** Noise Texture → Object coordinates → BUT: use eyedropper to select the GeoNodes plane (parent object) instead of "Object" default. This fixes the line artifact caused by instance duplication. Scale ~0.2, detail 0.
+12. **RGB Color Ramp:** 3 color stops: R (far left), G (middle), B (far right) → Color Ramp → Mix Color node Factor. Adjustable by sliding stops.
+13. **Compositor:** Glare (Bloom) node. Sensor Noise node (Blender 5.0): chroma noise animated, luma slightly raised.
+14. **Render:** EEVEE; World = black; PNG; 1920×1080 or 4K; 29.97 fps; render animation.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Mesh Line`: count=120, offset Z=0.07
+- `Curve Circle` (GeoNodes): radius=7, resolution=80
+- `Store Named Attribute`: Spline Parameter Factor → "S" (point domain)
+- `Curve to Mesh`: profile=Curve Circle (radius=0.005, res=3)
+- `Store Named Attribute`: Random Value → "R" (instance domain)
+- Wave Texture 1: Vector = Attribute "S"; Scale=2; mapped to ring circumference
+- Wave Texture 2: Phase Offset = Attribute "R" × Math Multiply (×10); creates per-ring position randomness
+- `Math Multiply Add`: Add input animated 0→`2*pi` over 300 frames (linear) = seamless loop
+- Noise Texture (color): Object coordinates via eyedropper on GeoNodes object (not "Object" default); fixes line artifact
+- Color Ramp: 3 stops RGB; B-Spline for smooth transitions
+- `Map Range`: Attribute "R" → Emission Strength (0 to ~80); makes some curves very bright
+- `Sensor Noise` (5.0): chroma noise animated; luma ~0.2
+- `Glare` (Bloom): highlights the bright curves
+- Camera: focal length = 8mm; placed at ring outer edge
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — requires understanding Spline Parameter attributes, instance domain attributes, and the wave-texture-as-UV trick.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.0 (Sensor Noise compositor node is 5.0 specific; Curve to Mesh setup standard)
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #curves #shaders #animation #motion-graphics #looping #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `curves-just-got-easier-in-blender-50.md` — Ducky 3D companion: UV attribute from Curve to Tube for wave texture mapping
+- `a-new-way-to-loop-animations-in-blender.md` — Ducky 3D loop formula companion
+- `a-powerful-lighting-node-in-blender-50.md` — Ducky 3D Sensor Noise + Glare compositor companion
+- `glass-cell-division-effect-in-blender-50-tutorial.md` — Ducky 3D Blender 5.0 GeoNodes companion
