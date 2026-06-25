@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=upUPrc35DYw
 author: Max Hay
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x"
+tags: [animation, graph-editor, mechanical, materials, lighting, scene-breakdown, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-i-built-this-gate-animation-in-blender-scene-breakdown/
 frame_count: 0
 ---
@@ -32,27 +32,55 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Mechanical gate/door opening animation via location keyframes in the Graph Editor + Mirror Modifier (Z axis) for one-sided animation that auto-mirrors. "Mechanical click" detail: duplicate start keyframe, offset +3–5 frames, creates a sudden pop-then-settle jolt. Parent child pieces (Ctrl+P > Object > Keep Transform) to main blocks — no extra keyframes needed for sub-pieces. Material: 3-layer PBR mix (PolyHaven + Textures.com) with Color Ramp on Roughness for grungy specular interest.
 
 ### Summary
-[PENDING EXTRACTION]
+Max Hay breaks down his sci-fi gate animation. The animation itself is deceptively simple: block shapes with location keyframes, edited in the Graph Editor for timing precision. Key techniques: (1) Mirror Modifier on Z axis — animate one side, the other mirrors live, halving keyframe work; (2) Staggered timing — different pieces start moving at slightly offset frames for a complex cascading feel; (3) Mechanical "click" detail — duplicate a start keyframe, offset 3–5 frames right, creates a sudden jolt before settling into the main animation path; (4) Parenting — child detail pieces (Ctrl+P > Object > Keep Transform) follow parent blocks without any extra keyframes. Material: PolyHaven damaged concrete base + Textures.com copper sheet + cracked tile concrete, all mixed using their maps as blend factors; Color Ramp on roughness map compresses the value range for interesting shiny/matte contrast. Lighting: area lights tinted blue (sat ~0.2) + a camera-following light for metal surface reflections.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Graph Editor:** Switch Timeline to Graph Editor (menu top-left). Use K → Location to insert keyframes; see x/y/z transform curves for precise editing.
+2. **Mirror Modifier:** Add Mirror Modifier (Z axis) to each gate section. Animate only one side — the mirror auto-updates the other side.
+3. **Basic animation flow:** Insert keyframe (K → Location) at rest position → move to next frame → move object → K → Location again. Repeat for each motion segment.
+4. **Bezier interpolation:** Right-click keyframe → Interpolation Mode → Bezier for smooth ease-in/out (do this early to avoid linear stiffness).
+5. **Staggered timing:** Start each sequential gate element a few frames after the previous one begins its motion, not simultaneously. Adjust by selecting all keyframes on a curve → GX to slide left/right.
+6. **Mechanical click/jolt:** Select start keyframe → Shift+D → move copy 3–5 frames right → exaggerate position (pop out farther, then snaps back). Creates a mechanical "click" before the main travel.
+7. **Parenting child pieces:** Model small detail pieces that sit on/attach to main blocks → select detail piece → Shift+select main block → Ctrl+P → Object, Keep Transform. Detail pieces inherit all animation automatically.
+8. **Material setup (grungy metal):** Three-way PBR mix:
+   - Texture Coordinate → UV/Generated
+   - Base A: PolyHaven damaged concrete (base color)
+   - Base B: Textures.com copper sheet metal
+   - Mask A→B: concrete roughness map
+   - Mix AB output + Textures.com cracked tile concrete (as mask B) → second Mix Color
+   - All into Principled BSDF Base Color
+   - Metallic = 1.0
+   - Roughness: combine maps → Color Ramp (compress range for high-contrast shiny/matte variation)
+   - Normal: standard normal map from main texture
+9. **Lighting:** Area light above doorway (blue-tinted, saturation ~0.2, fairly bright) + secondary area light in foreground + camera-following light for metal reflections (justification: "drone flashlight" aesthetic).
+10. **Sci-fi detail layers:** Wire frame overlay (just a wireframe modifier with red emissive texture) duplicated across scene; emissive cube props with glass + image texture shaders; all just the same grungy metal material reused for cohesion.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Mirror Modifier: Z axis for symmetric gate animation
+- Interpolation mode: Bezier (right-click keyframe in Graph Editor)
+- Graph Editor: G+X to slide keyframe groups left/right for timing
+- Mechanical click: duplicate start keyframe (Shift+D) + offset right 3–5 frames
+- Ctrl+P → Object, Keep Transform: parent detail pieces to animated blocks
+- Material: Mix Color (straight) between 3 PBR maps, each using roughness/color map as factor
+- Color Ramp on roughness: bottom handle raised → compresses low roughness values → more visible specular highlights in grungy areas
+- Area lights: blue tint (sat ~0.2); one overhead, one foreground, one camera-tracking
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — animation is simple conceptually (just location keyframes) but requires precise Graph Editor timing, understanding of parenting, and multi-layer PBR material composition.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x (standard tools; no version-specific features)
 
 ### Tags
-[PENDING EXTRACTION]
+#animation #graph-editor #mechanical #materials #lighting #scene-breakdown #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `mastering-blenders-graph-editor.md` — deep dive into Graph Editor techniques used here
+- `realistic-product-lighting-in-blender.md` — PBR material and lighting workflow
+- `how-to-make-cyberpunk-scenes-in-blender.md` — sci-fi scene atmosphere companion
+- `superhero-landing-tutorial-02-ground-destruction-vfx-in-blender.md` — complex scene animation companion

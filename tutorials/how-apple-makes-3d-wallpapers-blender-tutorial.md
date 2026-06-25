@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=KhBaHDvIamw
 author: Ducky 3D
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x"
+tags: [glass, materials, animation, looping, motion-graphics, shaders, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-apple-makes-3d-wallpapers-blender-tutorial/
 frame_count: 0
 ---
@@ -32,27 +32,48 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Recreate Apple MacBook Air wallpaper: tall narrow teardrop cylinders (84 verts) in circular Array modifier → glass material (Transmission=1, Roughness~0, Cycles). Key insight from Apple team member: large bold text "AIR" (or words) behind the glass with emission material + Camera ray visibility OFF drives all the beautiful highlight shapes. Animated Wave Texture (spherical rings, phase offset 0→2π over 80 frames) on an emissive center plane for looping glow. Fake edge reflections via Layer Weight Facing → Color Ramp → Emission.
 
 ### Summary
-[PENDING EXTRACTION]
+Ducky 3D reverse-engineers the MacBook Air wallpaper. The core setup: a tall narrow teardrop-shaped cylinder (bottom face scaled small, top face slightly enlarged) duplicated in a circular Array modifier (~109 instances, small Y gap) to form a spiral of glass tubes. An emissive plane with a Wave Texture (rings → spherical, 3 rings visible, animated phase offset 0→2π = seamless 80-frame loop) provides the animated glow; Mix Color + second Noise Texture adds random-per-area color variation. The Apple team secret: place large bold "AIR" text beneath/behind the glass spiral, give it an emission material matching the color palette, then turn off Camera Ray Visibility so it's invisible but still refracts through the glass — this is what creates the distinctive organic highlight curves. Optional: add edge highlight by mixing Emission (Layer Weight Facing → Color Ramp → compressed) into the glass via Mix Shader.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Cylinder:** Add Cylinder (84 verts) → Edit mode → move anchor to bottom (Move Tool + Ctrl drag) → Scale Z to ~47, XY to ~2 (tall toothpick) → Ctrl+A apply scale.
+2. **Teardrop shape:** Face Select, bottom face → S scale very small. Top face → S scale slightly large. Ctrl+A apply scale again.
+3. **Array modifier (circle):** Add Array → Fit Type = Fixed Count (~109); check Relative Offset off; enable Object Offset with an empty rotated on Z axis (360°/count); tune Y offset for slight gap between tubes.
+4. **Shade Auto Smooth:** Right-click on cylinder → Shade Auto Smooth.
+5. **Camera angle:** Position camera from above-side angle for good spiral view; count 14 tubes visible in frame as reference.
+6. **Circle ground plane:** Add Circle → place at center beneath tubes → scale to fill frame → Ctrl+A apply.
+7. **World:** World Strength = 0 (black).
+8. **Glass material (Cycles):** Select cylinders → New material → Principled BSDF: Transmission=1, Roughness=0. (Requires Cycles.)
+9. **Emissive center plane (animated glow):** Select circle → New material → Emission node only. Add Wave Texture + Mapping + Texture Coordinate (Object coords) → plug into Emission Color; Color Ramp (B-Spline, compressed). Wave: Bands → Rings; Spherical; Scale~3 (controls ring count). Animate Phase Offset: frame 0 = 0 → I; frame 80 = `2*pi` → I. Linear interpolation = seamless loop. Mix Color + second Noise Texture for color variation.
+10. **Text "AIR" behind glass:** Shift+A → Text → type "AIR" (caps); font = boldest available (e.g. Helvetica Black); give emission material (matching palette colors). Object Properties → Visibility → Ray Visibility → Camera OFF (invisible but still visible to glass refraction). Scale/position to fill frame behind glass.
+11. **Edge highlight fake reflection (optional):** In glass material, add Mix Shader: A = original Principled glass; B = Emission (same color as text). Layer Weight (Facing) → Color Ramp (B-Spline, pushed to one side for thin edge strip) → Mix Shader Factor. Keep strength subtle.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Cylinder: 84 verts, Dimensions Z~47 × XY~2; bottom face scaled small, top face slightly larger
+- Array Modifier: circle distribution; ~109 count for good spiral; Y gap ~small
+- Glass material: Principled BSDF Transmission=1, Roughness~0; requires Cycles
+- Center plane Emission: Wave Texture (Rings, Spherical, Scale~3) → Color Ramp (B-Spline) → Emission Color
+- Phase Offset animation: 0 at frame 0 → `2*pi` at frame 80; linear interpolation
+- Text "AIR": bold font, Emission material (gold/blue palette); Camera Ray Visibility OFF
+- Edge highlight: Layer Weight (Facing) → Color Ramp → Mix Shader between glass + Emission (subtle)
+- Mix Color: second Noise Texture (scale high, detail 0) → Color Ramp → B input for random color zones in glow
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — requires Array modifier circular setup, glass material in Cycles, and the non-obvious text-behind-glass technique.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x (standard features; no version-specific requirements)
 
 ### Tags
-[PENDING EXTRACTION]
+#glass #materials #animation #looping #motion-graphics #shaders #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `you-should-make-glass-animations-in-blender-51.md` — glass animation deep dive in Blender 5.1
+- `glass-cell-division-effect-in-blender-50-tutorial.md` — Ducky 3D glass with GeoNodes companion
+- `a-new-way-to-loop-animations-in-blender.md` — Ducky 3D 2π loop keyframe technique
+- `curves-just-got-easier-in-blender-50.md` — Ducky 3D wave texture UV animation companion
+- `a-powerful-lighting-node-in-blender-50.md` — Ducky 3D emission glow effects
