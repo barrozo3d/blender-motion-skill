@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=0OVEJVbklV0
 author: Kaizen
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "any"
+tags: [realism, lighting, compositing, camera, scanning, beginner, theory]
+extraction_status: complete
 frames_dir: tutorials/frames/the-key-to-realism-in-blender-or-3d/
 frame_count: 0
 ---
@@ -48,27 +48,42 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+"Triforce of 3D Realism": Subject quality (3D scanning for micro-detail) + Lighting (think from real-world context, HDRI + area + bounce + optional volume scatter) + Camera (match real lens + DOF + grain/vignette/lens distortion in compositor). Conceptual framework applicable to any 3D software.
 
 ### Summary
-[PENDING EXTRACTION]
+Kaizen breaks down photorealism into three interdependent forces. Subject: 3D scanning (Kiri app) captures imperfections and micro-detail far faster than manual modeling — key inputs are feature-rich objects, soft even lighting (overcast outdoors ideal), steady overlapping photos, auto object masking. Lighting: approach from "what is happening outside camera bounds?" perspective — HDRI provides colored fill; area light as main source; optional gobo for natural shadow patterns; bounce light planes + objects for realistic reflections in shadows; volumetric cube (Volume Scatter, low density, high anisotropy) for atmospheric depth. Aim for best looking result, not most physically correct. Camera: identify what real camera would take this image (phone, DSLR, film) — then match focal length, DOF, and apply in compositor: vignette (ellipse mask + Blur + Alpha Over), grain (Texture node + Mix Color, Linear Light mode = dark-area grain), lens distortion (very low values). All three forces must work together.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Subject (3D scanning):** Use Kiri app (free tier). Object needs good feature points (visible surface variation). Lighting: overcast outdoor (natural softbox) or shadow indoors. Camera: 50–100 overlapping steady photos. Enable auto object masking. Pro: Featureless Object Scan (video-based, AI reconstruction). Edit scan in app; export as GLTF.
+2. **Lighting — think contextually:** Ask "what is outside camera bounds?" (indoor night vs. sunny outdoor). Decide setting first, then build lighting to match.
+3. **Lighting — build up:** HDRI (low strength, for colored fill) → Area light (main source, with/without Gobo for leaf/blind shadows) → Optional fill area light (soften shadows) → Bounce planes/objects for reflections in shadow areas.
+4. **Volumetric atmosphere:** Add cube → Material → Principled Volume (or Volume Scatter) → Volume socket → low Density; high Anisotropy (0.8+). Subtle atmospheric depth.
+5. **Camera — identify type:** Phone shot? DSLR? Film camera? Match focal length in camera settings.
+6. **Camera — DOF:** Enable depth of field, match aperture to reference.
+7. **Compositor — vignette:** Box/Ellipse mask → Blur → Alpha Over (composite with render) → subtle darkening of corners.
+8. **Compositor — grain:** Texture node → Texture node scale to match camera noise pattern. Mix Color: Linear Light mode = dark-area grain (common in digital cameras); Overlay mode = highlight grain (film cameras).
+9. **Compositor — lens distortion:** Lens Distortion node → very low values (0.02–0.05). Too high = obviously fake.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Volume Scatter (atmosphere): Density 0.01–0.05; Anisotropy 0.7–0.9
+- Grain Mix Color mode: Linear Light (shadows) or Overlay (highlights) depending on camera type
+- Lens Distortion: very low values (±0.02–0.05 max)
+- HDRI: low strength (0.2–0.5) as colored fill only
+- Gobo: plane with cutout placed in light path for shadow pattern
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner/Intermediate — conceptual framework rather than technical tutorial; scanning requires Kiri app (free)
 
 ### Blender Version
-[PENDING EXTRACTION]
+any (software-agnostic principles; Blender examples shown)
 
 ### Tags
-[PENDING EXTRACTION]
+#realism #lighting #compositing #camera #scanning #beginner #theory
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `photorealistic-renders-in-blender.md` — practical Cycles photoreal pipeline applying same principles
+- `photorealistic-eevee-renders-in-blender-51.md` — EEVEE equivalent
+- `my-new-favorite-lighting-trick-in-blender.md` — advanced lighting technique (light blocker)
+- `realistic-product-lighting-in-blender.md` — product-specific lighting approach

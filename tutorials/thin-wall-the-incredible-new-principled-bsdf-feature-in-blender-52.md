@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=eQLCfPwEcrI
 author: Christopher 3D
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [shaders, materials, principled-bsdf, thin-wall, cycles, foliage, glass, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/thin-wall-the-incredible-new-principled-bsdf-feature-in-blender-52/
 frame_count: 0
 ---
@@ -32,27 +32,41 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Thin Wall checkbox in Principled BSDF (Blender 5.2): enables light transport through zero-thickness geometry. Replaces Solidify modifier (expensive) and Mix Shader + Translucent BSDF hack (breaks energy conservation). Two main effects: subsurface backscattering (controlled by Weight + Anisotropy) and transmission bypass (no refraction through single-poly mesh → architectural glass 2× faster).
 
 ### Summary
-[PENDING EXTRACTION]
+Christopher 3D introduces the Thin Wall feature in Principled BSDF (Blender 5.2), the first result of OpenPBR spec integration. Previously, thin geometry (leaves, curtains, paper, lampshades) required: (a) Solidify modifier + standard SSS (heavy calculations), or (b) Mix Shader + Translucent BSDF (breaks energy conservation, halves specular reflections). Thin Wall fixes both: integrates into BSDF's energy-conserving core. Two components affected: (1) Subsurface scattering → radius/scale grayed out; controlled by Weight (0→1 = strength) + Anisotropy (−1=opaque, 0=even front/back split, +1=maximum backscatter through material). Random Walk algorithm updated for OpenPBR. (2) Transmission → refraction completely bypassed; single-poly mesh works as hollow shell (soap bubble, ornament, architectural glass). Render time savings for architectural glass: single-poly + Thin Wall = 2× faster vs. thick glass with solidify (50 sec vs 25 sec; 14.5h vs 12.8h for 150 frames).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Enable Thin Wall:** Select object with thin geometry (leaves, curtains, paper, lampshade, glass pane). Material Properties → Principled BSDF → Thin Wall checkbox ON.
+2. **Subsurface scattering for foliage/fabric:** Enable Subsurface Scattering → Weight 0.5–1.0. Anisotropy: default 0 (even split). For more backscatter (bright foliage): +0.5 to +1. For more opacity (thick curtains): −0.5 to −1. Note: radius + scale are auto-disabled.
+3. **Transmission (glass panes):** Leave transmission at 1.0 (or set for glass). No Solidify modifier needed. Refraction is bypassed — light passes straight through. Optional: disable shadow casting for architectural glass for further speed gains.
+4. **Architectural glass workflow:** Remove Solidify modifier → enable Thin Wall → no refraction overhead. Set render samples to taste. Can disable shadows on glass object for more speed.
+5. **Curtains:** Thin Wall ON; Subsurface Weight driven by map or set manually; Anisotropy −0.5 to 0 for filtered light-blocking curtains.
+6. **Foliage:** Thin Wall ON; Subsurface Weight 0.5–1.0; Anisotropy 0 to +0.5 for natural leaf translucency.
+7. **Recipe (no-thickness paper/receipt):** Single flat polygon → Thin Wall ON → Subsurface Weight 1.0 → light shows through correctly. Without Thin Wall, standard SSS on no-thickness mesh produces broken artifacts.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Thin Wall: checkbox in Principled BSDF (5.2+)
+- Subsurface Weight: 0.5–1.0 (strength of backscatter)
+- Subsurface Anisotropy: −1 (blocked) to 0 (default, even) to +1 (max through)
+- Transmission: 1.0 for glass; bypasses refraction when Thin Wall ON
+- Radius + Scale: grayed out / disabled when Thin Wall ON
+- No Solidify modifier needed for any of these use cases
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — conceptual understanding of energy conservation + practical application per use case; single checkbox but requires tuning Weight + Anisotropy
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2 (Thin Wall added in 5.2 as part of OpenPBR integration)
 
 ### Tags
-[PENDING EXTRACTION]
+#shaders #materials #principled-bsdf #thin-wall #cycles #foliage #glass #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `you-should-make-glass-animations-in-blender-51.md` — glass shader workflow (5.1 predecessor)
+- `real-time-caustics-in-blender-51.md` — another transparent shader technique
+- `remake-this-in-blender-in-20-mins.md` — glass flower Principled BSDF deep dive
+- `my-new-favorite-lighting-trick-in-blender.md` — thin surface light manipulation
