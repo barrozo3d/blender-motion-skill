@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=WmldjCv9P84
 author: Blender Made Easy
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x"
+tags: [animation, curves, shaders, materials, motion-graphics, vfx, wireframe, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/
 frame_count: 0
 ---
@@ -60,27 +60,49 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Animate a curve's Geometry > End value (0→1) over time to create a "drawing on" build effect; add a Bezier taper curve that's dissolved via shape keys at the end; a Noise Texture masked by Fresnel and animated along curve UV via a driver creates a moving golden light streak on a metallic Emission material.
 
 ### Summary
-[PENDING EXTRACTION]
+Blender Made Easy recreates the Eternals weapon-building effect using a curve SVG import. The core trick: set Mapping mode to Spline and animate the Geometry End value from 0 to 1 so the curve draws at constant speed. A Bezier curve assigned as Taper Object adds a pointed tip that disappears at the end of the animation via Shape Key animation (taper curve from angled → flat). The gold material uses Principled BSDF (metallic=1, roughness=0.1) mixed with an Emission shader — a Noise Texture animated along the curve UV via a driver (`#frame/250` on X Mapping location) and masked by a Fresnel node creates a moving golden highlight streak.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Import SVG:** File → Import → SVG; box-select all → scale up; delete extra logo parts; keep only main curve.
+2. **Curve setup:** Select all parts → Ctrl+J join; Fill Mode = None; Geometry > Depth for thickness; Ctrl+A apply scale.
+3. **Fix Mean Radius:** Edit mode → A select all → N panel → set Mean Radius to 1 (was 284 from scaling, which multiplies depth incorrectly).
+4. **Fix double vertices:** In edit mode, find vertices causing shading glitches (two on top of each other) → delete one at each location.
+5. **Create curve hole:** In edit mode, select two adjacent vertices → X → Delete Segments (not vertices) → Extrude to bridge the gap. This exposes a Start/End point so the build animation works.
+6. **Animate build:** Geometry panel → Mapping section → End: keyframe 0 at frame 0, keyframe 1 at frame 200. Set Mapping mode to **Spline** (not Resolution or Segment) for even-speed animation.
+7. **Taper effect:** Shift+A → Curve → Bezier; Edit mode → flatten bottom vertex; assign as Taper Object in Geometry panel; enable Map Taper. Adjust vertex Y positions to control taper shape (positive Y = thin at end, negative Y = thin at middle).
+8. **Animate taper out:** Select taper curve → Shape Keys: add Basis (value=0, keep current taper shape); add Key 1 → drag value to 1, go to edit mode → drag vertices to completely flat horizontal line (taper disappears). Keyframe Shape Key value: 0 at frame 150, 1 at frame 200.
+9. **Gold material:** Principled BSDF: Metallic=1, Roughness=0.1, Base Color=gold. Add Emission shader (same gold color, Strength~50). Mix Shader between the two.
+10. **Animated light streak:** Noise Texture (Scale=15, Detail=0, Roughness=0.2; Y scale in Mapping=0.05 to remove horizontal streaks) → Color Ramp (compress) → mask the emission strip. Fresnel node (IOR~0.9) → Color Ramp → compressed strip. Math Multiply (Fresnel × Noise result) → Mix Shader Factor.
+11. **Driver for animation:** Texture Coordinate (UV) → Mapping → animate X Location with driver `#frame/250` so the streak moves along the curve during the animation.
+12. **Render:** Cycles; enable Bloom in render settings; Cycles Filter Size ~1.8 (reduces graininess); Samples 256; add dark background plane.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Curve Geometry panel: **Fill = None**; **Depth** (thickness); **Taper Object** (Bezier curve); **Map Taper** checkbox
+- Geometry > Mapping: **End** 0→1 (animated); Mapping mode = **Spline** (constant speed along full length)
+- Mean Radius: must be set to **1** in Edit mode N-panel after applying scale
+- Taper curve: Shape Keys — Basis (tapered) at frame 150 = 0, Key 1 (flat) at frame 200 = 1
+- Material: Principled BSDF (Metallic=1, Roughness=0.1) + Emission (Strength~50) via Mix Shader
+- Noise Texture: Scale=15, Detail=0, Roughness=0.2; Mapping Y scale=0.05 (square splotches)
+- Texture Coordinate: **UV** → Mapping node → X Location driven by `#frame/250` (animates streak along curve)
+- Fresnel (IOR~0.9) → Color Ramp (compress to thin edge line) — masks emission to outer/inner curve edges
+- Math Multiply: Fresnel mask × Noise mask → Mix Shader Factor
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — requires curve editing knowledge, shape keys, material node setup, and basic drivers.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x (standard curve, shape keys, material nodes; no version-specific features)
 
 ### Tags
-[PENDING EXTRACTION]
+#animation #curves #shaders #materials #motion-graphics #vfx #wireframe #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `powerful-logo-particle-flow-effect-in-blender.md` — another logo-driven animation effect
+- `sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial.md` — motion graphics animation companion
+- `photorealistic-renders-in-blender.md` — materials context for metallic/gold Cycles renders
+- `my-new-favorite-lighting-trick-in-blender.md` — Fresnel-based lighting effects

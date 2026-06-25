@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=NzZTrDln6Ko
 author: Ducky 3D
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.0"
+tags: [curves, geometry-nodes, shaders, animation, motion-graphics, uv-mapping, looping, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/curves-just-got-easier-in-blender-50/
 frame_count: 0
 ---
@@ -32,27 +32,48 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Blender 5.0's Curve to Tube node exposes a UV map attribute that maps textures evenly along each curve regardless of geometry distribution; used here to drive a Wave Texture in shading. Evenly spaced concentric circles are built with a Repeat Zone (radius = iteration × 0.05), flattened using a Path object as custom profile. Per-spline randomness drives color variation and wave phase offset for a non-uniform animated 2D background.
 
 ### Summary
-[PENDING EXTRACTION]
+Ducky 3D demonstrates the UV attribute from Blender 5.0's Curve to Tube node to create an animated 2D concentric-circles background. The Repeat Zone generates evenly-spaced rings (each circle's radius = iteration × 0.05, keeping constant gap between rings). Curve to Tube with a flat Path as custom profile produces ribbon geometry instead of tubes. In shading, the UV map attribute (copy the attribute name from the node) is fed into a Wave Texture Vector so the wave texture maps linearly and seamlessly along each curve's length. A stored random-per-spline attribute ("R") drives both random color (Color Ramp constant → Mix Color) and random phase offset (Multiply Add node) per spline. Animation: keyframe the Math Multiply Add node's Add input from −2π (frame 0) to 0 (frame 50/80) with linear interpolation — produces one seamless loop. Compositor: Sensor Noise (animated chroma) + Glare Bloom.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Evenly spaced circles:** Plane → Geometry Nodes → New → delete Group Input. Add Repeat Zone. Inside: Math Multiply (Iterations × 0.05) → Curve Circle (radius = multiply result) → Join Geometry → plug into Repeat Zone output. Outside: Join Geometry. Resolution=84, iterations=10.
+2. **Flat ribbon geometry:** Add Curve to Tube node → set Custom Profile → create a Path curve object; go to Edit mode → S scale the control points to very narrow width. Assign the Path as profile object in Curve to Tube settings.
+3. **Per-spline random attribute:** Store Named Attribute node: Random Value (min=−1) → domain=Splines → name "R".
+4. **Material:** Set Material node in GeoNodes → Emission shader; Emission Strength=2.
+5. **UV attribute in shader:** Attribute node → paste the UV map attribute name (copied from Curve to Tube node) → plug Vector into Wave Texture Vector. Wave Texture: Saw wave, Scale=1 (must be integer for seamless tiling). Color → Color Ramp (B-Spline) → Emission Color.
+6. **Per-spline randomness:** Attribute "R" → Math Multiply Add node's Add input → applies random phase offset per ring so they don't all align.
+7. **Color variation:** Mix Color: Color Ramp of wave → Factor; Attribute "R" → Color Ramp (constant mode, multi-color stops) → B input of Mix Color.
+8. **Optional color seed:** Noise Texture (high scale, detail, roughness) → Color Ramp (constant) → replaces the random value for visual color seed control.
+9. **Animation (seamless loop):** Select Math Multiply Add node's Add input → I keyframe at frame 0 = −2π (type `−2*pi`); at last frame = 0. Linear interpolation. Result: one full wave cycle per animation length.
+10. **Compositor:** Sensor Noise (chroma noise, animated) → Glare (Bloom, reduced size) → render.
+11. **Render:** EEVEE; World = black; PNG sequence; 50–80 frames.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Repeat Zone` — inside: Math Multiply (Iterations × 0.05) → Curve Circle (radius) → Join Geometry; iterations=10
+- `Curve to Tube` — Custom Profile = flat Path object; controls ribbon width and flatness
+- `Store Named Attribute` — Random Value (min=−1) → domain=Splines → name "R"
+- `Attribute` node (shader) — paste UV map name from Curve to Tube → Wave Texture Vector
+- `Wave Texture` — Saw; Scale=**1** (integer required for seamless UV loop); Phase Offset driven by "R" attribute × Multiply Add
+- `Math Multiply Add` — Add input animated: frame 0 = −2π → frame 50/80 = 0 (linear); creates seamless looping wave
+- `Mix Color` — Factor from wave Color Ramp; B from per-spline Color Ramp (constant) — adds per-ring color
+- `Glare` (Bloom) + `Sensor Noise` (chroma animated) — compositor polish
+- Blender Preferences → Animation → Default Interpolation = **Linear** (required for loop)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — requires Geometry Nodes Repeat Zone, Curve to Tube UV attribute, per-spline attributes, and phase-based loop animation math.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.0 (Curve to Tube node with UV attribute; Repeat Zone; Sensor Noise compositor node)
 
 ### Tags
-[PENDING EXTRACTION]
+#curves #geometry-nodes #shaders #animation #motion-graphics #uv-mapping #looping #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `a-new-way-to-loop-animations-in-blender.md` — Ducky 3D companion: seamless loop keyframe formula for GeoNodes
+- `a-powerful-lighting-node-in-blender-50.md` — Ducky 3D companion: Glare/Bloom compositor node techniques
+- `sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial.md` — similar looping 2D motion graphics
+- `ill-teach-you-geometry-nodes.md` — GeoNodes fundamentals including Repeat Zone
