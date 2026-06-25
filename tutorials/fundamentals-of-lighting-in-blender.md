@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=ENnEYoUpFfU
 author: Blender Guru
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x"
+tags: [lighting, theory, rendering, eevee, cycles, compositing, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/fundamentals-of-lighting-in-blender/
 frame_count: 0
 ---
@@ -56,27 +56,49 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+The four fundamental lighting traits that control viewer attention and realism: Position (shadow reveals form), Falloff (inverse square law — use to focus or distribute attention), Size (radius controls shadow softness and detail visibility), and Color (Kelvin for natural; full color for theatrical/sci-fi). Polish workflow: dark ground plane, 80mm camera, RGB Curves to crush darks, convert to Spot lamps to cut foreground, evaluate lamps in isolation, compare render slots.
 
 ### Summary
-[PENDING EXTRACTION]
+Blender Guru's comprehensive lighting fundamentals course lesson using a sci-fi crate. Covers the inverse square law (doubling distance = 25% light), how shadow is essential for form-reading (not an enemy), why a fill light should be significantly dimmer than the key, and how light source size controls whether viewers see form (soft light) vs detail like scratches/rivets (hard light). Color section: Kelvin temperature for natural-feeling light sources (1500K candle, 2200K incandescent, 5500K daylight, 7000K+ sky); free color picker for stylized/sci-fi colors. Polish techniques: dark-but-not-black ground plane for silhouette contrast; camera at 80mm (reduce box distortion); RGB Curves to crush ground texture; Spot lamp conversion to eliminate unwanted lit areas; Area lamp for interior storytelling light; evaluate one lamp at a time by hiding others; compare across Blender's render slots.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **World setup:** World tab → Strength = 0 (black world) to control all light manually. Add ground plane scaled large; set material Base Color near-black (not pure black) for silhouette readability + slight light bounce.
+2. **Camera first:** Lock camera position before lighting (N panel → View → Lock Camera to View for orbit control; uncheck when done). Camera focal length: 80mm for product shots (50mm default has distortion on boxes).
+3. **Key light position:** Use a Point lamp far/high to minimize falloff → even illumination across object. Move close to subject to focus viewer attention via contrast (inverse square law).
+4. **Fill light:** Duplicate key lamp → position opposite side → reduce power significantly (no exact ratio — just enough to reveal shadow-side detail without confusing form).
+5. **Inverse square law:** At 2× distance, light = 25% of original. Use this intentionally to create or minimize falloff for storytelling priority.
+6. **Light size (radius):** Increase radius → softer shadows → less detail, more form emphasis. Decrease radius → hard shadows → detail and texture pop. Match to purpose: soft for characters/organic, hard for textured mechanical objects.
+7. **Light color:** Use Kelvin temperature for natural sources (Light settings → Temperature dropdown). Use Color picker for sci-fi/theatrical colors. Color differentiation between key and fill helps brain separate surfaces.
+8. **Ground texture polish:** Apply PBR texture (e.g. concrete); UV scale to 2× for correct tiling; Shading tab → add RGB Curves node between color map and Principled BSDF → crush darks to maintain silhouette readability; disconnect roughness map, set manually.
+9. **Spot lamp conversion:** Change key/fill lamps from Point to Spot once happy with position → set Spot Size to control lit area → prevent light from spilling onto foreground or off-camera areas.
+10. **Interior Area lamp:** Add Area lamp inside transparent object for storytelling (small, flat, warm color like incandescent for vintage feel).
+11. **Evaluation:** Hide all lamps except one being adjusted. Use Render slots (F12 → slot 3, move lamp → F12 → slot 4) to compare before/after variants.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Point lamp: Omnidirectional; Position high and far for minimal falloff; close for attention focus
+- Sun lamp: Zero falloff (mimics sun at infinite distance); tends to look flat — prefer Point with distance
+- Spot lamp: Adds rotation control; set Spot Size for area cutoff; use Blend for feathering
+- Area lamp: Flat-plane light source; minimal up/down light spill; useful for glowing panels/interior sources
+- Light Radius: 0 = hard shadows + visible detail; high = soft shadows + form-only emphasis
+- Light Temperature: Kelvin scale (1500K fire → 2200K incandescent → 5500K daylight → 7000K+ sky)
+- RGB Curves node: Between texture color and Principled BSDF → invert curve to crush darks and preserve silhouette
+- Ground plane material: Base Color = near-black (not pure black); Roughness = high (matte, non-reflective)
+- Camera: Focal length = 80mm for product crate renders; N panel → Lock Camera to View for orbit-while-in-camera
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner — theory-first tutorial; no advanced nodes or setups required.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x (EEVEE with ray-traced GI approximation mentioned; features work across modern Blender versions)
 
 ### Tags
-[PENDING EXTRACTION]
+#lighting #theory #rendering #eevee #cycles #compositing #beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `3-easy-lighting-setups-blender-tutorial.md` — practical 3-setup lighting guide building on these fundamentals
+- `realistic-product-lighting-in-blender.md` — product lighting application of these principles
+- `my-new-favorite-lighting-trick-in-blender.md` — specific lighting trick complement
+- `photorealistic-renders-in-blender.md` — general photorealism rendering context
+- `the-key-to-realism-in-blender-or-3d.md` — companion realism theory tutorial

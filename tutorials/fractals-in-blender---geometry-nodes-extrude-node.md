@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=bHWvVtuLJkM
 author: CrossMind Studio
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 3.1"
+tags: [geometry-nodes, fractals, procedural, modeling, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/fractals-in-blender---geometry-nodes-extrude-node/
 frame_count: 0
 ---
@@ -32,27 +32,42 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Chain multiple copies of a grouped Extrude Mesh + Scale Element node pair to simulate fractal self-similar geometry on a cube's faces. Optionally use Face Area + Compare to selectively extrude only faces above a size threshold for non-uniform fractal detail. New in Blender 3.1.
 
 ### Summary
-[PENDING EXTRACTION]
+CrossMind Studio introduces Blender 3.1's new Extrude Mesh and Scale Element nodes and uses them to build fractal-like surface geometry. The core pattern: Extrude Mesh (faces, offset ~0.01) → use the Top Side output as selection for Scale Element (scale ~0.1). Group these two nodes (Ctrl+G), then manually chain 4–5 copies of the group (no Repeat Zone available in 3.1). Each iteration extrudes and shrinks the top faces of the previous result, creating a repeating self-similar pattern. A second extrude pass inside the group uses Face Area + Compare (threshold ~0.4) to re-extrude only larger-than-threshold faces, adding natural variation to the pattern. Render with Cycles, glass BSDF, and colored point lights placed inside the geometry for a crystal-refraction effect.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Geometry Nodes setup:** Default Cube → Geometry Nodes → New.
+2. **Extrude Mesh:** Add Mesh → Extrude Mesh → plug into Group Output. Mode = Faces; Offset ~0.01.
+3. **Scale Element (new 3.1):** Plug Top Side from Extrude Mesh → Scale Element Selection. Scale ~0.1. This shrinks only the newly extruded top faces.
+4. **Group the pair:** Select both Extrude Mesh + Scale Element → Ctrl+G → rename "extrude_and_scale". Tab to exit group.
+5. **Chain iterations:** Shift+D to duplicate group 4–5× and connect each output to the next input (manual chaining because Repeat Zone didn't exist in 3.1). Note: each iteration exponentially increases geometry — stop at ~5 iterations.
+6. **Optional Face Area variation:** Inside the group, add Face Area node + Compare (Greater Than, threshold ~0.4) → plug result into Extrude Mesh Selection. Only faces larger than threshold get extruded — creates large-center / small-edge variation.
+7. **Animate:** Animate the threshold or scale values over time to create emerging pattern animation.
+8. **Material:** Shader Editor → delete default, add Glass BSDF → plug into Surface. Cycles render.
+9. **Lighting:** Add Point lights with different colors inside/around the geometry; no HDRI. Colored light refracts through glass faces.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Extrude Mesh` (new in 3.1) — Mode: Faces; Offset ~0.01; Top Side output → Scale Element Selection
+- `Scale Element` (new in 3.1) — Selection from Extrude Top Side; Scale ~0.1 (subtle shrink of extruded faces)
+- Group (Ctrl+G): wraps both nodes for reuse; chain 4–5× manually
+- `Face Area` + `Compare` (Greater Than, threshold ~0.4) → Extrude Selection — adds size-dependent variation
+- Glass BSDF + Cycles + colored Point lights inside geometry for crystal render
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner — minimal node math; the main concept is chaining the group multiple times for iteration.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 3.1 (Extrude Mesh and Scale Element nodes are new in this release)
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #fractals #procedural #modeling #beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `ill-teach-you-geometry-nodes.md` — GeoNodes fundamentals including grouping and node chains
+- `math-x-blender-50-unlimited-power.md` — math-driven procedural GeoNodes
+- `using-geometry-nodes-for-vfx-in-blender.md` — more advanced GeoNodes applications
+- `geode-nodes-i-am-so-clever-blender-tutorial.md` — companion GeoNodes creative procedural tutorial
