@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=QJhiYYf6qJI
 author: vfx world
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 3.x/4.x"
+tags: [landscape, terrain, foliage, camera-animation, cycles, hdri, biome-reader, blenderkit, sketchfab, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi/
 frame_count: 0
 ---
@@ -52,27 +52,49 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Full cinematic landscape pipeline using A.N.T. Landscape add-on for terrain, Biome Reader for foliage scatter (grass + background trees), Blenderkit for assets and materials, weight painting to control foliage zones, Bezier curve Follow Path + Track To constraint for cinematic camera animation, and Easy HDRI with mixed sky for atmosphere. Note: transcript is in Hinglish (fragmented English) — some steps are approximated.
 
 ### Summary
-[PENDING EXTRACTION]
+vfx world builds a countryside landscape scene with multiple Sketchfab assets (old house, windmill, watch tower), A.N.T. Landscape terrain with lake preset, foliage from Biome Reader (grass biome mix + animated trees), Blenderkit ground material (Grassy Rock Ground with displacement + bump), water plane with animated procedural material, and background tree plane. Camera animation uses Follow Path constraint on Bezier curve + Track To constraint on an empty placed at the house, with Shaky-Fi add-on for slight camera shake. HDRI uses Easy HDRI add-on with two HDRIs mixed via Mix Shader for a cloudy sky look. Final result is a cinematic slow push shot.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Terrain:** Delete default cube. Enable A.N.T. Landscape add-on (Preferences). Shift+A → Mesh → Landscape → use Lake 1 preset (has water + sculpted surface). Scale up: S → 10, then S → 5. Ctrl+A → Apply Scale.
+2. **Foliage zone:** Object → Weight Paint mode → paint front area where grass should appear. Return to Object mode.
+3. **Camera:** Shift+A → Camera. Ctrl+Alt+0 to snap to viewport. Set focal length to 25mm (wide angle / GoPro look).
+4. **Assets:** Import from Sketchfab (FBX) — house, windmill, watch tower. Scale + rotate to fit camera composition. Also from Blenderkit: old house model (free). Place windmill/tower slightly off-center for depth.
+5. **Ground material:** Select ground → Materials → Blenderkit search "Grassy rock ground" (displacement material). Apply. Add Subdivision Surface modifier (right-click → Subdivide to add vertices for displacement). UV unwrap: Tab → A → right-click → Unwrap → Smart UV Project. In Shader Editor: scale UV to ~15. Enable Displacement+Bump in material → Scale 0.25.
+6. **Water:** Add plane at lake area → Blenderkit search "water" → free animated water material → apply.
+7. **Grass foliage:** Select ground → Biome Reader → open biomes → pick "Old Grasses" mix biome → apply. In particle settings, set Vertex Group to the weight-painted group, Swap (invert) so grass appears on correct area. Disable render in viewport (performance); render-only flag stays ON for final render.
+8. **Background tree plane:** Edit mode on new plane → extrude vertices to create boundary shape behind scene → Apply Scale. Biome Reader → select tree → Scatter Object (density 0.001 initially). Fix face orientation if trees appear underground: Tab → A → Shift+N → Inside. Duplicate plane for variation. Adjust scale + randomization.
+9. **Camera animation path:** Shift+A → Curve → Bezier. Edit path to arc across scene (subtle slow move). Select camera → Object Constraints → Follow Path → pick curve. Click Animate Path. Adjust camera offset/rotation. Add empty at house location → camera constraint → Track To → target empty (camera orbits house while moving).
+10. **Camera shake:** Shaky-Fi add-on → apply basic close-up shake preset.
+11. **HDRI:** Easy HDRI add-on → World tab → Create World Nodes. Pick base HDRI (one with sun, 0.05 sun intensity). Duplicate HDRI node + Mapping + Texture Coordinate → second HDRI (more clouds). Mix both via Mix Shader → adjust factor for cloud blend.
+12. **Color management:** Render Properties → Color Management → low contrast (cinematic look with slight warmth).
+13. **Render:** Cycles + GPU. All biomes visible in render only for performance.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- A.N.T. Landscape: Lake 1 preset; scale 10×10×5
+- Ground material: displacement+bump mode; UV scale ~15; displacement scale 0.25
+- Biome Reader (grass): Old Grasses biome mix; Vertex Group for zone; render-only visibility
+- Biome Reader (trees): density 0.001; randomize scale; face flip Shift+N Inside
+- Camera focal length: 25mm (wide)
+- Follow Path: Animate Path button; camera offset adjusted
+- Track To: target empty placed at house
+- Easy HDRI: two HDRIs mixed; sun intensity 0.05–0.1
+- Color Management: low contrast
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — requires multiple third-party add-ons (A.N.T. Landscape, Biome Reader, Easy HDRI, Blenderkit, Shaky-Fi); transcript is Hinglish with some gaps
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 3.x/4.x (standard built-in add-ons; exact version not stated)
 
 ### Tags
-[PENDING EXTRACTION]
+#landscape #terrain #foliage #camera-animation #cycles #hdri #biome-reader #blenderkit #sketchfab #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `photorealistic-renders-in-blender.md` — similar landscape/scene setup approach (PolyHaven, rigid body, HDRI)
+- `tutorial-how-to-make-a-volumetric-projector-in-blender-45.md` — atmosphere/volumetrics companion
+- `powerful-light-trails-in-blender-45-tutorial.md` — camera movement + curve path animation

@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=erICwexR7Iw
 author: Bad Normals
 ingested: 2026-06-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x"
+tags: [sculpting, glass, shaders, materials, cycles, thin-film, bump-mapping, geometry-nodes, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/remake-this-in-blender-in-20-mins/
 frame_count: 0
 ---
@@ -32,27 +32,49 @@ frame_count: 0
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Glass flower built by sculpting from a remeshed cylinder, with a luminescence shader driven by object-space distance from center (inverted Map Range → Color Ramp → Emission), Ray Depth multiplied into Emission Strength for deep-refraction brightening, Thin Film iridescence (~630nm), radially-symmetric noise Bump using ArcTan2(X,Y) + distance as Noise input, and a custom world HDR built from noise-dot patterns with colored Mix Color for vibrant glass reflections.
 
 ### Summary
-[PENDING EXTRACTION]
+Bad Normals recreates a Luma AI glass flower in Blender. Sculpted from a remeshed cylinder (GeoNodes blur pass for smooth disc base), sculpted large to fine. Inner petals = scaled-down duplicate. Stamens = Bezier curve with thickness × 6. Glass: Principled BSDF, Transmission up, Roughness 0.1, blue tint, Ctrl+L Link Materials to all parts. Glow: Texture Coordinate (Object) → distance from center → invert Map Range → Color Ramp (white center, purple edges) → Emission Color. Light Path → Ray Depth → Multiply → Emission Strength (deeper refraction = brighter). Thin Film ~630nm for surface iridescence. Custom HDR: Noise → Map Range (dots, 0–50) + second Noise → Color Ramp (red/blue) → Mix Color Multiply → Background Strength 50 = colorful reflections. Bump: Separate XY → ArcTan2 (angle around) + distance (radial) → Combine XYZ → Noise → Bump (0.25) → mix with object normals (0.1). Collection instance trick: host object → GeoNodes → instance flower Collection without joining meshes.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Sculpt base mesh:** Add Circle → Extrude → cylinder. Add Remesh modifier (dense). GeoNodes: blur position of each point (smooth disk). Sculpt large-to-fine: overall petal curvature first, then detail crevices.
+2. **Inner petals:** Duplicate main flower → Scale down + Scale Z → rotate slightly. Stamens: Bezier Curve → profile circle → thickness. Duplicate × 6–7.
+3. **Glass material:** Select main flower → new Principled BSDF material → Transmission = max → Roughness = 0.1 (not 0). Blue Base Color tint. Select ALL flower objects → Ctrl+L → Link Materials.
+4. **Background plane:** Add plane behind flower (visible backdrop for glass reflections).
+5. **Luminescence glow:** Add Texture Coordinate → Object → Emission Color chain. Object coords → Vector Length (or use implicit distance from 0,0,0). Add Map Range node: invert (From Min 0 / From Max 1 / To Min 1 / To Max 0); reduce To Max to ~0.5 for tighter falloff. Add Color Ramp: factor 0 (edge) = purple/beige; factor 1 (center) = near-white. → Emission Color.
+6. **Ray Depth boost:** Light Path → Ray Depth → Math (Multiply) → Emission Strength. Deep refractions get brighter automatically.
+7. **Thin Film:** Principled BSDF → Thin Film Thickness ~630nm for iridescent color layer.
+8. **Custom world HDR:** World → Background color = black. Add Noise Texture + Texture Coordinate (Generated/Object) + Map Range (extreme contrast, range 0–50) → creates bright dots. Second Noise (low detail, low scale) + Color Ramp (blue + warm red tones) → Mix Color Multiply → colored dots → Background Strength ~50.
+9. **Radial bump mapping:** Texture Coordinate (Object) → Separate XYZ → X + Y → Math (ArcTan2) = angular position around flower. Also take Vector Length for radial distance. Combine XYZ (angle → X, distance → Y) → Noise Texture (Scale ~10) → Bump node (Strength 0.25) → Normal input. Mix Color (Vector mode, factor 0.1) to blend in object normals for better flow alignment.
+10. **Sheen:** Principled BSDF → Sheen tiny value (~0.1) for surface micro-detail.
+11. **Collection instancing:** Move all flower parts into Collection "flower". Host empty object → GeoNodes → Instance Collection → non-destructive instancing without joining.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Principled BSDF: Transmission 1.0; Roughness 0.1; slight blue Base Color
+- Thin Film Thickness: ~630nm (adjust for color preference)
+- Map Range (glow): From 0–1, To 1–0.5 (inverted + clamped)
+- Color Ramp (glow): factor 0 = purple/beige; factor 1 = near-white
+- Ray Depth Math: Multiply → Emission Strength
+- Noise (world dots): high contrast Map Range → 0 to 50 range
+- World Background Strength: ~50
+- ArcTan2 input: X → first, Y → second (or either; result is angle around Z)
+- Bump Strength: 0.25; Mix with normals: 0.1 factor
+- GeoNodes: instance Collection without joining meshes
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — multi-system shader; clear explanation with good logic; requires understanding Map Range, Ray Depth, ArcTan2 math
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x (Thin Film parameter in Principled BSDF available since 4.0)
 
 ### Tags
-[PENDING EXTRACTION]
+#sculpting #glass #shaders #materials #cycles #thin-film #bump-mapping #geometry-nodes #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `you-should-make-glass-animations-in-blender-51.md` — glass shader companion (same Principled BSDF approach)
+- `real-time-caustics-in-blender-51.md` — another glass/transparent shader technique
+- `organic-liquid-metal-effect-in-blender-50-tutorial.md` — organic form generation (SDF Grid)
+- `my-circle-problem-in-blender-tutorial.md` — ArcTan2/radial pattern technique reference
