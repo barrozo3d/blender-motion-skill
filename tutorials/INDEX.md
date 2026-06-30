@@ -374,7 +374,7 @@ Each entry format:
 - **Blender Version:** Not specified
 - **Tags:** #geometry-nodes #procedural #animation #particles #displacement #materials #beginner #intermediate
 - **Summary:** Arabic-language 3.5+ hour beginner course covering Geometry Nodes from scratch: objects, joining, basic shapes, object info, scaling, extruding, insetting, displacement, particles, curves, geometry proximity, drawing curves, and materials. Comprehensive foundation for Arabic-speaking Blender learners.
-- **File:** tutorials/introduction-to-geometry-nodes-Ø§ØªØ¹Ù„Ù…-Ø§Ù‚ÙˆÙŠ-Ø§Ø¯Ø§Ø©-Ø¹Ù„ÙŠ-Ø¨Ù„Ù†Ø¯Ø±.md
+- **File:** tutorials/introduction-to-geometry-nodes-اتعلم-اقوي-اداة-علي-بلندر.md
 
 
 

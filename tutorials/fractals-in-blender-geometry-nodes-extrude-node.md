@@ -4,8 +4,9 @@ source: YouTube
 url: https://youtu.be/bHWvVtuLJkM?si=TswxlqazF-v8tdBA
 author: CrossMind Studio
 ingested: 2026-05-14
-blender_version: unknown
-tags: []
+blender_version: "3.1"
+tags: [geometry-nodes, procedural, fractal, extrude, abstract, glass, blender-3x, beginner, intermediate]
+extraction_status: complete
 ---
 
 # Fractals in Blender - Geometry Nodes Extrude Node
