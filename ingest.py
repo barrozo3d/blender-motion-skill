@@ -281,8 +281,11 @@ def build_raw_md(info, ch_transcripts, frame_paths, slug):
         chapters_section += f"\n### {ch['title']} [{t_fmt}]\n"
         if ch["text"]:
             chapters_section += f"**Transcript:** {ch['text']}\n\n"
-        if i < len(frame_paths):
-            # Path relative to skill root for Claude's Read tool
+        if len(ch_transcripts) == 1:
+            for fp in frame_paths:
+                rel = fp.relative_to(SKILL_DIR)
+                chapters_section += f"**Frame:** {rel}\n"
+        elif i < len(frame_paths):
             rel = frame_paths[i].relative_to(SKILL_DIR)
             chapters_section += f"**Frame:** {rel}\n"
 
