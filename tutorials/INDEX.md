@@ -786,6 +786,16 @@ Each entry format:
 - **Summary:** Mechanical robot arm IK rigging — single-bone chain with Shift+I IK constraint, per-bone axis locks (only Y rotates), stiffness bias. Pistons via Damp Track constraint to empties parented to geometry. Clamp range via Transformation constraint (Location range to Rotation range, local space). Bone Widget add-on for custom gizmo shapes; Parent to Nearest Bone add-on for geometry assignment.
 - **File:** tutorials/your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial.md
 
+
+### ZoZos Contact Solver - The ultimate Blender cloth simulator
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=D0k6evTvJDg
+- **Author:** CGMatter
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/zozos-contact-solver---the-ultimate-blender-cloth-simulator.md
+
 ---
 
 ## Tag Reference
