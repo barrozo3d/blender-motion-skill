@@ -796,6 +796,16 @@ Each entry format:
 - **Summary:** Setup guide for ZoZo's PPF Contact Solver (free open-source third-party engine) integrated into Blender — eliminates cloth self-intersection. Covers installation, Windows Native connection, Dynamic Groups (Shell/Solid/Rod/Static), vertex group pinning animated in Edit Mode, material TOML presets (denim/cotton/silk/rubber), invisible wall colliders, and multi-layer cloth stacking. Output bakes to per-frame shape keys.
 - **File:** tutorials/zozos-contact-solver---the-ultimate-blender-cloth-simulator.md
 
+
+### The FUTURE of Blender Cloth Simulation (with Tearing!)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=6hn12BWufTs
+- **Author:** CGDive (Blender Rigging Tuts)
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/the-future-of-blender-cloth-simulation-with-tearing.md
+
 ---
 
 ## Tag Reference
