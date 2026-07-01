@@ -1,2 +1,6 @@
 tutorials/frames/
 cookies.txt
+
+cookies.txt.stale-disabled
+__pycache__/
+batch_reingest.log
