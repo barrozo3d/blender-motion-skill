@@ -12,25 +12,12 @@ This is the skill's growing knowledge base. Every ingested tutorial is listed he
 
 Each entry format:
 ```
-### [Tutorial Title]
-- **Source:** YouTube / Article / Documentation
-- **URL:** link
-- **Author:** creator name
-- **Blender Version:** version shown
-- **Tags:** #technique #category #level
-- **Summary:** 2-3 sentence description of what's taught
-- **File:** tutorials/filename.md
-```
-
----
-
-## Tutorials
 
 ### 3 Easy Lighting Setups | Blender Tutorial
 - **Source:** YouTube
-- **URL:** https://youtu.be/FYJb10NIMH8
+- **URL:** https://www.youtube.com/watch?v=FYJb10NIMH8
 - **Author:** Max Hay
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 4.x
 - **Tags:** #lighting #volume #rendering #cycles #eevee #hdri #materials #shaders
 - **Summary:** Three reusable lighting recipes: a dramatic spotlight rig (main spot + dim area fill + Light Falloff/Color Ramp/Map Range rim-highlight trick) in volume scatter fog; a natural outdoor HDRI setup decoupled from a separate emissive sky-image background plane (with an optional lens-flare-on-alpha trick for visible suns); and a dark futuristic/neon setup using reflective surfaces, thick volume scatter, an emissive sign mesh, and a Compositor Glare/Bloom node.
 - **File:** tutorials/3-easy-lighting-setups-blender-tutorial.md
@@ -39,9 +26,9 @@ Each entry format:
 
 ### 3D Smoke (Blender Geometry Nodes)
 - **Source:** YouTube
-- **URL:** https://youtu.be/Vqe4jBf3wx4
+- **URL:** https://www.youtube.com/watch?v=Vqe4jBf3wx4
 - **Author:** Seanterelle
-- **Blender Version:** 5.0
+- **Blender Version:** Blender 5.0
 - **Tags:** #geometry-nodes #simulation #smoke-fire #volume #blender-5x #advanced
 - **Summary:** Physically-based 3D smoke simulation in Blender 5.0 using Geometry Nodes volume grid nodes. Implements velocity, divergence, pressure, and density fields in a simulation zone with variable solver/smoke resolution for interactive preview vs. final bake quality.
 - **File:** tutorials/3d-smoke-blender-geometry-nodes.md
@@ -50,9 +37,9 @@ Each entry format:
 
 ### A FULL Blender Compositor Course!
 - **Source:** YouTube
-- **URL:** https://youtu.be/_7N7emOvDko
+- **URL:** https://www.youtube.com/watch?v=_7N7emOvDko
 - **Author:** SharpWind
-- **Blender Version:** 4.5
+- **Blender Version:** Blender 4.5
 - **Tags:** #compositing #rendering #materials #shaders #lighting #beginner #intermediate #advanced
 - **Summary:** Full Compositor walkthrough: practical FX (Glare/Bloom, Mist-Pass fake fog, color grading, Ellipse Mask grading/vignettes, fake Defocus-based DOF via the Z-Pass, Cycles compositor-side denoising), then Render Layers with manual secondary-bounce visibility, and full Render Pass reconstruction (diffuse/glossy/transmission/volume × direct/indirect/color) with Cryptomatte for post-render per-object recoloring.
 - **File:** tutorials/a-full-blender-compositor-course.md
@@ -61,9 +48,9 @@ Each entry format:
 
 ### A New Way To Loop Animations in Blender
 - **Source:** YouTube
-- **URL:** https://youtu.be/9Fvw8HlWHpo
+- **URL:** https://www.youtube.com/watch?v=9Fvw8HlWHpo
 - **Author:** Ducky 3D
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 4.x
 - **Tags:** #geometry-nodes #animation #motion-design #abstract #glass #procedural #intermediate
 - **Summary:** Teaches a mathematically precise seamless loop technique using the Mesh Line node: add the Z Offset value to the Start Location keyframe to guarantee a perfect loop regardless of spacing. Builds a stacked glass cube array with spherical gradient scaling and noise displacement.
 - **File:** tutorials/a-new-way-to-loop-animations-in-blender.md
@@ -72,9 +59,9 @@ Each entry format:
 
 ### ALL 300+ Geometry Nodes in Blender
 - **Source:** YouTube
-- **URL:** https://youtu.be/Y0zAZnbBcQU
+- **URL:** https://www.youtube.com/watch?v=Y0zAZnbBcQU
 - **Author:** RADIUM
-- **Blender Version:** 4.3
+- **Blender Version:** Blender 4.5
 - **Tags:** #geometry-nodes #procedural #blender-4x #beginner #intermediate #advanced
 - **Summary:** One-hour reference video covering all 275+ Geometry Nodes in Blender 4.3 â€” each node's purpose, socket types, and use cases. Deep dives into Fields vs. single values, field context (domain adaptation), and attributes in the Spreadsheet Editor.
 - **File:** tutorials/all-300-geometry-nodes-in-blender.md
@@ -83,9 +70,9 @@ Each entry format:
 
 ### Another Blender String Tutorial....But even Better This Time!
 - **Source:** YouTube
-- **URL:** https://youtu.be/0lBaaCMpZGs
+- **URL:** https://www.youtube.com/watch?v=0lBaaCMpZGs
 - **Author:** Ducky 3D
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 3.x/4.x
 - **Tags:** #geometry-nodes #simulation #animation #motion-design #procedural #intermediate
 - **Summary:** Uses Simulation Zones to generate an array of Quadratic Bezier curves (strings), then displaces them with per-string randomized W values in a 4D Noise Texture for organic movement. Covers two animation modes: center swell and string reveal.
 - **File:** tutorials/another-blender-string-tutorialbut-even-better-this-time.md
@@ -96,7 +83,7 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/live/7FdfSKOkzXg
 - **Author:** Midge "Mantissa" Sinnaeve
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 3.x/4.x
 - **Tags:** #geometry-nodes #particles #volume #procedural #abstract #intermediate #advanced
 - **Summary:** Live stream exploring procedural nebula creation using Volume Cube + Distribute Points with iterated Noise Texture offsets through a Repeat Zone for organic space nebula shapes. Also explores converting points to volume and using Blur Attribute for smooth mesh nebulas.
 - **File:** tutorials/art-stream-27-nodes-nodes-nodes-blender-geometry-nodes.md
@@ -105,7 +92,7 @@ Each entry format:
 
 ### Blender 5 Beginner Tutorial - Part 2 - Materials and rendering
 - **Source:** YouTube
-- **URL:** https://youtu.be/RQvTplfsz8k
+- **URL:** https://www.youtube.com/watch?v=RQvTplfsz8k
 - **Author:** Rob Tuytel
 - **Blender Version:** 5.0
 - **Tags:** #materials #rendering #cycles #eevee #lighting #hdri #beginner #blender-5x
@@ -116,7 +103,7 @@ Each entry format:
 
 ### Blender 5.0 particle attraction and follow surface motion
 - **Source:** YouTube
-- **URL:** https://youtu.be/QHJXi25OczQ
+- **URL:** https://www.youtube.com/watch?v=QHJXi25OczQ
 - **Author:** Zack (3D animation)
 - **Blender Version:** 5.0
 - **Tags:** #geometry-nodes #simulation #particles #animation #procedural #intermediate #blender-5x
@@ -127,7 +114,7 @@ Each entry format:
 
 ### Blender 5.0's NEW Audio Visualisation is INSANE!
 - **Source:** YouTube
-- **URL:** https://youtu.be/YOx9me2MnGA
+- **URL:** https://www.youtube.com/watch?v=YOx9me2MnGA
 - **Author:** MTR Animation
 - **Blender Version:** 5.0
 - **Tags:** #geometry-nodes #simulation #animation #smoke-fire #volume #motion-design #blender-5x #intermediate
@@ -138,7 +125,7 @@ Each entry format:
 
 ### Blender 5.1's NEW Rigging Tool is INSANE!
 - **Source:** YouTube
-- **URL:** https://youtu.be/NwYZ1QKQhx0
+- **URL:** https://www.youtube.com/watch?v=NwYZ1QKQhx0
 - **Author:** MTR Animation
 - **Blender Version:** 5.1
 - **Tags:** #rigging #geometry-nodes #animation #particles #procedural #blender-5x #intermediate #advanced
@@ -149,7 +136,7 @@ Each entry format:
 
 ### Blender Geometry Nodes â€“ Sci-Fi Cube Creation (Step-by-Step Tutorial)
 - **Source:** YouTube
-- **URL:** https://youtu.be/ZmoL0Wa5n0Y
+- **URL:** https://www.youtube.com/watch?v=ZmoL0Wa5n0Y
 - **Author:** NextFrameSaga
 - **Blender Version:** 4.x
 - **Tags:** #geometry-nodes #procedural #materials #shaders #rendering #cycles #eevee #motion-design #blender-4x #beginner
@@ -160,7 +147,7 @@ Each entry format:
 
 ### Blender Tutorial: Connect The Dots with Geometry Nodes, The "Plexus" Effect
 - **Source:** YouTube
-- **URL:** https://youtu.be/tj6ZZYO5qPY
+- **URL:** https://www.youtube.com/watch?v=tj6ZZYO5qPY
 - **Author:** Entagma
 - **Blender Version:** 3.4
 - **Tags:** #geometry-nodes #procedural #particles #animation #motion-design #abstract #blender-3x #advanced
@@ -171,7 +158,7 @@ Each entry format:
 
 ### Blender Tutorial - Control Physics Sims with Geometry Nodes (Beginner Friendly)
 - **Source:** YouTube
-- **URL:** https://youtu.be/Fec4BhDFBUo
+- **URL:** https://www.youtube.com/watch?v=Fec4BhDFBUo
 - **Author:** Skramble
 - **Blender Version:** 4.5
 - **Tags:** #geometry-nodes #rigid-body #simulation #animation #procedural #blender-4x #intermediate
@@ -182,9 +169,9 @@ Each entry format:
 
 ### Blender Tutorial - Create a Beautiful River Landscape in Blender | Free Addon
 - **Source:** YouTube
-- **URL:** https://youtu.be/csvduOcQpIw
+- **URL:** https://www.youtube.com/watch?v=csvduOcQpIw
 - **Author:** Fattu Tutorials
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 3.x/4.x
 - **Tags:** #materials #displacement #rendering #cycles #lighting #hdri #organic #beginner
 - **Summary:** Creates a river landscape in Blender using the free Biome Reader add-on for vegetation and environment scattering. Covers terrain shaping, water/river materials, and outdoor lighting with HDRI.
 - **File:** tutorials/blender-tutorial-create-a-beautiful-river-landscape-in-blend.md
@@ -204,9 +191,9 @@ Each entry format:
 
 ### Create Text in Geometry Nodes! (Blender Tutorial)
 - **Source:** YouTube
-- **URL:** https://youtu.be/qrYmDg0HpYI
+- **URL:** https://www.youtube.com/watch?v=qrYmDg0HpYI
 - **Author:** Ryan King Art
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 4.x
 - **Tags:** #geometry-nodes #typography #animation #procedural #particles-reveal #beginner #intermediate
 - **Summary:** Creates and animates text entirely in Geometry Nodes using String to Curves, covering font selection, alignment, extrusion, wireframe effects, per-letter random transforms, particle reveal animations, and bubbly animated text with index-based random seeds.
 - **File:** tutorials/create-text-in-geometry-nodes-blender-tutorial.md
@@ -215,9 +202,9 @@ Each entry format:
 
 ### Creating an Underground Scene in Blender (Step by Step)
 - **Source:** YouTube
-- **URL:** https://youtu.be/-QbetK8c1As
+- **URL:** https://www.youtube.com/watch?v=-QbetK8c1As
 - **Author:** Max Hay
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 3.x/4.x
 - **Tags:** #materials #rendering #lighting #compositing #intermediate
 - **Summary:** Full scene-building walkthrough for an industrial underground silo environment: modeling custom factory stairs using the Spin tool, Mirror modifier, and bevel; constructing platforms and structural elements; then developing the complete scene with concrete textures and dramatic spotlight lighting.
 - **File:** tutorials/creating-an-underground-scene-in-blender-step-by-step.md
@@ -226,9 +213,9 @@ Each entry format:
 
 ### Credit Card Texture and Animation SaaS FinTech [ PART â€“ 1 ]
 - **Source:** YouTube
-- **URL:** https://youtu.be/DvMyxyMG0Mk
+- **URL:** https://www.youtube.com/watch?v=DvMyxyMG0Mk
 - **Author:** The Visual Vibe
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 3.x/4.x
 - **Tags:** #materials #shaders #animation #product-viz #brand-video #beginner
 - **Summary:** Designs a credit card texture in Figma (860Ã—540px with safe areas, typography, chip, Visa logo) then imports it into Blender for a SaaS/FinTech product animation with gradient and metallic material transitions. Covers Figma layout grids, pen tool chip creation, and PNG export for use as Image Texture nodes in Blender.
 - **File:** tutorials/credit-card-texture-and-animation-saas-fintech-part-1-blende.md
@@ -237,9 +224,9 @@ Each entry format:
 
 ### Demystifying Geometry Nodes: The Ultimate Guide to Mastering Blender's Procedural Power
 - **Source:** YouTube
-- **URL:** https://youtu.be/WbrjlYM0Qno
+- **URL:** https://www.youtube.com/watch?v=WbrjlYM0Qno
 - **Author:** Deayan Studios
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 4.x
 - **Tags:** #geometry-nodes #procedural #beginner #intermediate
 - **Summary:** Comprehensive conceptual guide to Geometry Nodes covering all data types (integer, float, vector, boolean, geometry), socket color-coding, node categories, data flow, Fields vs single values, and field context. Teaches how to use the Spreadsheet Editor to inspect attribute values across geometry domains.
 - **File:** tutorials/demystifying-geometry-nodes-the-ultimate-guide-to-mastering.md
@@ -248,9 +235,9 @@ Each entry format:
 
 ### Fundamentals of Lighting in Blender
 - **Source:** YouTube
-- **URL:** https://youtu.be/ENnEYoUpFfU
+- **URL:** https://www.youtube.com/watch?v=ENnEYoUpFfU
 - **Author:** Blender Guru
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 4.x
 - **Tags:** #lighting #rendering #cycles #eevee #materials #beginner
 - **Summary:** Teaches the four lighting fundamentals — Position, Falloff (inverse-square law, used to direct attention), Size (Radius/Area lamp controls shadow softness and detail-vs-form emphasis), and Color (Kelvin temperature for natural light vs. Color for stylized) — on a sci-fi crate. Also covers camera-lock-to-view staging, ground-plane bounce light, an RGB-Curves silhouette-readability trick, and final polish via Spot lamp vignetting and isolated single-light judging.
 - **File:** tutorials/fundamentals-of-lighting-in-blender.md
@@ -259,9 +246,9 @@ Each entry format:
 
 ### Geode Nodes (i am so clever) // Blender Tutorial
 - **Source:** YouTube
-- **URL:** https://youtu.be/1hKAkCP-tFQ
+- **URL:** https://www.youtube.com/watch?v=1hKAkCP-tFQ
 - **Author:** CGMatter
-- **Blender Version:** 4.5
+- **Blender Version:** Blender 4.5
 - **Tags:** #geometry-nodes #procedural #displacement #materials #shaders #organic #abstract #blender-4x #advanced
 - **Summary:** Procedurally generates an amethyst geode in Blender 4.5 Geometry Nodes: noise-distorted Icosphere exterior, Boolean cut (new Manifold mode), boundary isolation via Geometry Proximity, variable-height crystal extrusion via Noiseâ†’Map Range, and instanced spike geometry. Full amethyst and rock material setup.
 - **File:** tutorials/geode-nodes-i-am-so-clever-blender-tutorial.md
@@ -270,9 +257,9 @@ Each entry format:
 
 ### Glass Cell Division Effect in Blender 5.0 (tutorial)
 - **Source:** YouTube
-- **URL:** https://youtu.be/XOLuYDLYEgI
+- **URL:** https://www.youtube.com/watch?v=XOLuYDLYEgI
 - **Author:** Ducky 3D
-- **Blender Version:** 5.0
+- **Blender Version:** Blender 5.0
 - **Tags:** #geometry-nodes #simulation #glass #materials #shaders #animation #motion-design #abstract #blender-5x #intermediate
 - **Summary:** Creates a metaball-style cell division animation in Blender 5.0 using the new Points to SDF Grid and Grid to Mesh nodes for efficient organic blob geometry from animated point clouds â€” far more efficient than the old instancesâ†’volume method. Topped with an RGB glass dispersion material in Cycles.
 - **File:** tutorials/glass-cell-division-effect-in-blender-50-tutorial.md
@@ -281,9 +268,9 @@ Each entry format:
 
 ### How Apple Makes 3D Wallpapers (Blender Tutorial)
 - **Source:** YouTube
-- **URL:** https://youtu.be/KhBaHDvIamw
+- **URL:** https://www.youtube.com/watch?v=KhBaHDvIamw
 - **Author:** Ducky 3D
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 4.x
 - **Tags:** #materials #glass #animation #rendering #cycles #motion-design #abstract #beginner #intermediate
 - **Summary:** Recreates the Apple MacBook Air 3D wallpaper using a tall teardrop cylinder (Z:47, X/Y:2) with a circular Array modifier (14 cylinders, Align Rotation Y), a glass transmission material in Cycles, and an emissive highlight plane for the signature glowing band. Covers exact camera positioning for the spiral composition.
 - **File:** tutorials/how-apple-makes-3d-wallpapers-blender-tutorial.md
@@ -292,9 +279,9 @@ Each entry format:
 
 ### How I Built This Gate Animation in Blender | Scene Breakdown
 - **Source:** YouTube
-- **URL:** https://youtu.be/upUPrc35DYw
+- **URL:** https://www.youtube.com/watch?v=upUPrc35DYw
 - **Author:** Max Hay
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 4.x
 - **Tags:** #animation #motion-design #camera #compositing #rendering #materials #shaders #intermediate
 - **Summary:** Breakdown of a sci-fi gate opening animation using simple location keyframes staged with the Graph Editor, Mirror modifier for symmetrical animation, and staggered timing for sequential choreography. Complex visual look is achieved by layering emissive wireframe textures and particles on top of the basic keyframed motion.
 - **File:** tutorials/how-i-built-this-gate-animation-in-blender-scene-breakdown.md
@@ -303,9 +290,9 @@ Each entry format:
 
 ### How I Made Realistic Storm Clouds in Blender!
 - **Source:** YouTube
-- **URL:** https://youtu.be/Kep7URnyXgU
+- **URL:** https://www.youtube.com/watch?v=Kep7URnyXgU
 - **Author:** c g s l a v
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 4.x
 - **Tags:** #geometry-nodes #volume #rendering #cycles #lighting #hdri #organic #intermediate #advanced
 - **Summary:** Creates realistic storm clouds using a multi-pass Geometry Nodes pipeline: meshâ†’volumeâ†’distribute pointsâ†’set position with Noise Textureâ†’points to volumeâ†’meshâ†’volume. The cycling between representations adds fine organic detail. Also covers god rays using a Volume Scatter cube with an interior Spotlight.
 - **File:** tutorials/how-i-made-realistic-storm-clouds-in-blender.md
@@ -314,9 +301,9 @@ Each entry format:
 
 ### How to Make Cyberpunk Scenes in Blender
 - **Source:** YouTube
-- **URL:** https://youtu.be/SybPYdsd_DI
+- **URL:** https://www.youtube.com/watch?v=SybPYdsd_DI
 - **Author:** Max Hay
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 4.x
 - **Tags:** #materials #shaders #lighting #rendering #compositing #procedural #displacement #intermediate
 - **Summary:** Intermediate guide to building a cyberpunk alleyway in Blender: wet concrete with noise-driven roughness and normal strength for puddle effects (no roughness map), building modeling from photo reference using Ian Hubert's technique, neon emissive signs, and Volume Scatter atmosphere. Uses Polyhaven add-on for free PBR textures.
 - **File:** tutorials/how-to-make-cyberpunk-scenes-in-blender.md
@@ -325,9 +312,9 @@ Each entry format:
 
 ### How To Make This Style in Blender 5.0
 - **Source:** YouTube
-- **URL:** https://youtu.be/rbPOL9ibooY
+- **URL:** https://www.youtube.com/watch?v=rbPOL9ibooY
 - **Author:** Ducky 3D
-- **Blender Version:** 5.0
+- **Blender Version:** Blender 5.0
 - **Tags:** #geometry-nodes #animation #motion-design #materials #shaders #eevee #compositing #abstract #blender-5x #beginner #intermediate
 - **Summary:** Creates a stacked-curve motion graphics animation using 120 Curve Circles on a Mesh Line, animated by Wave and Noise Textures through stored Spline Parameter and Random Value attributes. Uses an 8mm ultra-wide camera for the distinctive zoomed-through-ring effect; rendered in Eevee with Emission shaders and compositing glow.
 - **File:** tutorials/how-to-make-this-style-in-blender-50.md
@@ -336,9 +323,9 @@ Each entry format:
 
 ### I Recreated movie scene in Blender & Nuke | Complete Tutorial
 - **Source:** YouTube
-- **URL:** https://youtu.be/iW6WF8guDMY
+- **URL:** https://www.youtube.com/watch?v=iW6WF8guDMY
 - **Author:** MISSING PIXEL VFX
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 5.0
 - **Tags:** #rendering #compositing #animation #camera #lighting #materials #intermediate #advanced
 - **Summary:** Full VFX pipeline recreating a Kong: Skull Island shot using free Sketchfab assets, Mixamo animation retargeting (Kong at 80m scale), a 700m camera distance with telephoto compression, atmospheric volume lighting, and multi-pass Blender rendering composited in Nuke. Covers asset fixing, helicopter blade rig with Empty parent, and Nuke compositing.
 - **File:** tutorials/i-recreated-movie-scene-in-blender-nuke-complete-tutorial.md
@@ -347,9 +334,9 @@ Each entry format:
 
 ### I'll teach you Geometry Nodes
 - **Source:** YouTube
-- **URL:** https://youtu.be/JU70u6cJZqI
+- **URL:** https://www.youtube.com/watch?v=JU70u6cJZqI
 - **Author:** Default Cube
-- **Blender Version:** 4.5
+- **Blender Version:** Blender 4.5
 - **Tags:** #geometry-nodes #procedural #blender-4x #beginner #intermediate
 - **Summary:** 5.5-hour comprehensive Geometry Nodes course in Blender 4.5 starting from zero: workspace navigation, Node Editor left-to-right flow, Spreadsheet Editor for live attribute inspection. First project is a 3D Menger Sponge fractal demonstrating the power of procedural iteration and instancing.
 - **File:** tutorials/ill-teach-you-geometry-nodes.md
@@ -358,7 +345,7 @@ Each entry format:
 
 ### Introduction to Geometry Nodes - Ø§ØªØ¹Ù„Ù… Ø§Ù‚ÙˆÙŠ Ø§Ø¯Ø§Ø© Ø¹Ù„ÙŠ Ø¨Ù„Ù†Ø¯Ø±
 - **Source:** YouTube
-- **URL:** https://youtu.be/RU3VO-qb91o
+- **URL:** https://www.youtube.com/watch?v=RU3VO-qb91o
 - **Author:** Tabasheer
 - **Blender Version:** Not specified
 - **Tags:** #geometry-nodes #procedural #animation #particles #displacement #materials #beginner #intermediate
@@ -369,9 +356,9 @@ Each entry format:
 
 ### Mastering Blender's Graph Editor
 - **Source:** YouTube
-- **URL:** https://youtu.be/MS1z9diLUOI
+- **URL:** https://www.youtube.com/watch?v=MS1z9diLUOI
 - **Author:** elijah sheffield
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 4.x
 - **Tags:** #animation #rigging #camera #beginner #intermediate
 - **Summary:** Demystifies the Graph Editor for animation: covers F-curves, interpolation modes (Linear vs Bezier), Bezier handle types, Auto Keying, and Animation Modifiers (Cycles, Noise, Envelope). Practical demonstration animates a pan flip with proper anticipation, weight, and easing using only three keyframes refined in the graph.
 - **File:** tutorials/mastering-blenders-graph-editor.md
@@ -380,9 +367,9 @@ Each entry format:
 
 ### Math x Blender 5.0 = UNLIMITED POWER!
 - **Source:** YouTube
-- **URL:** https://youtu.be/EvWAcSA86fw
+- **URL:** https://www.youtube.com/watch?v=EvWAcSA86fw
 - **Author:** MTR Animation
-- **Blender Version:** 5.0
+- **Blender Version:** Blender 5.0
 - **Tags:** #geometry-nodes #procedural #abstract #animation #blender-5x #expert #advanced
 - **Summary:** Builds an Apollonian Gasket fractal (infinite tangent circles) in Blender 5.0 Geometry Nodes by implementing Descartes' Circle Theorem with Math nodes, Repeat Zones, and For Each Element Zones. Pre-built curvature formula node groups handle the complex mathematics; the result is a fully procedural iterative fractal pattern.
 - **File:** tutorials/math-x-blender-50-unlimited-power.md
@@ -391,9 +378,9 @@ Each entry format:
 
 ### Organic Liquid Metal effect in blender 5.0 (tutorial)
 - **Source:** YouTube
-- **URL:** https://youtu.be/2MKKuHcni1U
+- **URL:** https://www.youtube.com/watch?v=2MKKuHcni1U
 - **Author:** Ducky 3D
-- **Blender Version:** 5.0
+- **Blender Version:** Blender 5.0
 - **Tags:** #geometry-nodes #simulation #metal #materials #shaders #animation #abstract #organic #blender-5x #intermediate
 - **Summary:** Creates an organic liquid metal effect in Blender 5.0 using SDF Grid Boolean (Union) to merge multiple sphere instances into a unified organic mesh with liquid connective tissue. Animated via 4D Noise Texture W value; includes metallic and subsurface fleshy material variants with Smooth Geometry node for artifact removal.
 - **File:** tutorials/organic-liquid-metal-effect-in-blender-50-tutorial.md
@@ -402,9 +389,9 @@ Each entry format:
 
 ### Powerful Light Trails in Blender 4.5 (tutorial)
 - **Source:** YouTube
-- **URL:** https://youtu.be/965bgIUHoxA
+- **URL:** https://www.youtube.com/watch?v=965bgIUHoxA
 - **Author:** Ducky 3D
-- **Blender Version:** 4.5
+- **Blender Version:** Blender 4.5
 - **Tags:** #geometry-nodes #simulation #animation #motion-design #materials #shaders #camera #abstract #blender-4x #intermediate
 - **Summary:** Topographic map-inspired light trail animation using Simulation Zone to array 77 Quadratic Bezier curves, Noise Texture displacement shaped by RGB Curves for flat ground areas, and a camera-parented gradient transparency that reveals curves as the camera moves. Uses Wave Texture for center focal highlighting and metallic floor material.
 - **File:** tutorials/powerful-light-trails-in-blender-45-tutorial.md
@@ -413,9 +400,9 @@ Each entry format:
 
 ### Powerful Logo Particle Flow Effect in Blender
 - **Source:** YouTube
-- **URL:** https://youtu.be/TTGcr-45jCE
+- **URL:** https://www.youtube.com/watch?v=TTGcr-45jCE
 - **Author:** Ducky 3D
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 4.x
 - **Tags:** #geometry-nodes #particles #particles-reveal #animation #logo-animation #typography #materials #shaders #motion-design #intermediate
 - **Summary:** Converts text or logos into a dusty particle flow effect using Distribute Points on Faces (density 10,000+, tiny radius) with selective displacement via two Noise Textures and a Mix Vector node â€” some areas stay readable while others disperse. Particles are colored procedurally with Noise Texture + Color Ramp in an Emission shader.
 - **File:** tutorials/powerful-logo-particle-flow-effect-in-blender.md
@@ -424,9 +411,9 @@ Each entry format:
 
 ### Procedural Grass in Blender Geometry Nodes | Fast Viewport Setup & Optimization Tutorial
 - **Source:** YouTube
-- **URL:** https://youtu.be/8wFnzrRz0Xg
+- **URL:** https://www.youtube.com/watch?v=8wFnzrRz0Xg
 - **Author:** RTF Dimensions
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 4.x
 - **Tags:** #geometry-nodes #procedural #particles #organic #rendering #beginner #intermediate
 - **Summary:** Builds a viewport-optimized procedural grass system using Geometry Nodes with Instance on Points and random rotation/scale variation, then optimizes by culling instances outside camera bounds. Explains how instances reference the original object for memory efficiency and how to link camera visibility properties to the node setup.
 - **File:** tutorials/procedural-grass-in-blender-geometry-nodes-fast-viewport-se.md
@@ -435,9 +422,9 @@ Each entry format:
 
 ### Realistic Cloth Physics in Blender â€“ Full Tutorial
 - **Source:** YouTube
-- **URL:** https://youtu.be/KnYGp58REUk
+- **URL:** https://www.youtube.com/watch?v=KnYGp58REUk
 - **Author:** Ahad Animates
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 4.x
 - **Tags:** #cloth #simulation #animation #rendering #beginner #intermediate
 - **Summary:** Step-by-step cloth simulation setup in Blender covering Cloth modifier settings (quality, mass, stiffness, damping), collision objects, pin vertex groups, self-collision, baking, and fabric material. Aimed at beginners and intermediate users wanting natural fabric movement in their animations.
 - **File:** tutorials/realistic-cloth-physics-in-blender-full-tutorial.md
@@ -446,42 +433,22 @@ Each entry format:
 
 ### Remake this in Blender in 20 mins
 - **Source:** YouTube
-- **URL:** https://youtu.be/erICwexR7Iw
+- **URL:** https://www.youtube.com/watch?v=erICwexR7Iw
 - **Author:** Bad Normals
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 4.x
 - **Tags:** #materials #glass #shaders #rendering #cycles #organic #abstract #geometry-nodes #intermediate
 - **Summary:** Recreates an AI-generated glass flower in 20 minutes: organic sculpting from a remeshed cylinder base, distance-based center glow emission using Texture Coordinate + Vector Length + Color Ramp in the glass shader, and multi-color luminescence matching the AI reference. Glass at Roughness 0.1 with slight blue tint.
 - **File:** tutorials/remake-this-in-blender-in-20-mins.md
 
 
 
-### Sci-Fi Grid Pattern Animation Loop - Blender Motion Graphics Tutorial
-- **Source:** YouTube
-- **URL:** https://youtu.be/IzSRBH8CDTo
-- **Author:** Ryan King Art
-- **Blender Version:** 5.0
-- **Tags:** #geometry-nodes #procedural #animation #motion-design #materials #shaders #eevee #abstract #blender-5x #beginner #intermediate
-- **Summary:** Creates a sci-fi triangular grid animation loop in Blender 5.0 using Extra Mesh Objects > Honeycomb (Edge Width: 1 to collapse into triangles) and the built-in Instance on Elements GN modifier to place Icospheres on every vertex. Procedural emission material and animated in Eevee with Filmic color management.
-- **File:** tutorials/sci-fi-grid-pattern-animation-loop-blender-motion-graphics-t.md
-
-
-
-### The COMPLETE BLENDER 3D Animation COURSE (5+ HOURS)
-- **Source:** YouTube
-- **URL:** https://youtu.be/IgpUXXg2Vbs
-- **Author:** JB 3D Studio
-- **Blender Version:** 4.4
-- **Tags:** #animation #rigging #rendering #materials #camera #blender-4x #beginner #intermediate
-- **Summary:** Complete 5-hour Blender 4.4 animation course covering the full production pipeline: navigation basics, 12 Principles of Animation (basketball project), robot character modeling, IK armature rigging, scene setup, animation, texturing, and final video render. Aimed at anyone with basic Blender knowledge.
-- **File:** tutorials/the-complete-blender-3d-animation-course-5-hours-blender-b3d.md
-
 
 
 ### Using Geometry Nodes for VFX in Blender
 - **Source:** YouTube
-- **URL:** https://youtu.be/PgRax5MeZgY
+- **URL:** https://www.youtube.com/watch?v=PgRax5MeZgY
 - **Author:** Jacob Zirkle
-- **Blender Version:** 4.5
+- **Blender Version:** Blender 4.5
 - **Tags:** #geometry-nodes #compositing #rendering #lighting #hdri #camera #blender-4x #intermediate #advanced
 - **Summary:** Full VFX pipeline integrating a 3D asset into live-action footage in Blender 4.5 using camera tracking, shadow catcher, ACES color workflow, and HDRI calibrated to footage brightness with a Multiply Mix Color node. Geometry Nodes drives the procedural VFX element; final composite assembled in the Blender compositor.
 - **File:** tutorials/using-geometry-nodes-for-vfx-in-blender.md
@@ -490,9 +457,9 @@ Each entry format:
 
 ### You Should Make Glass Animations in Blender 5.1
 - **Source:** YouTube
-- **URL:** https://youtu.be/vemW4ceygRg
+- **URL:** https://www.youtube.com/watch?v=vemW4ceygRg
 - **Author:** Ducky 3D
-- **Blender Version:** 5.1
+- **Blender Version:** Blender 5.1
 - **Tags:** #glass #animation #materials #shaders #motion-design #abstract #rendering #cycles #blender-5x #intermediate
 - **Summary:** Six glass animation design patterns using transparent glass objects as magnifying lenses over animated emissive texture planes â€” with no scene lights. Covers interlocking sphere arrays, ribbed glass panels, and proper emissive plane distance for optimal refraction spots. Key insight: Wave Texture at scale ~0.7 with animated Distortion looks best.
 - **File:** tutorials/you-should-make-glass-animations-in-blender-51.md
@@ -501,9 +468,9 @@ Each entry format:
 
 ### You Should Try this Blender Color Hack
 - **Source:** YouTube
-- **URL:** https://youtu.be/U5y1Krd-ykk
+- **URL:** https://www.youtube.com/watch?v=U5y1Krd-ykk
 - **Author:** Ducky 3D
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 4.x/5.x
 - **Tags:** #materials #shaders #glass #animation #motion-design #procedural #geometry-nodes #eevee #intermediate
 - **Summary:** Teaches a color distribution technique where a first Noise Texture drives highlight/dark patterns and a second Noise Texture provides color â€” connected via Mix Color with the first texture as Factor, so color distributes naturally within the pattern's highlights rather than being limited to center-to-edge gradients. Demonstrated with glass brick wall geometry nodes setup.
 - **File:** tutorials/you-should-try-this-blender-color-hack.md
@@ -512,9 +479,9 @@ Each entry format:
 
 ### The Key to Realism in Blender (or 3D)
 - **Source:** YouTube
-- **URL:** https://youtu.be/0OVEJVbklV0?si=9fHvKcSM0pjBBy2G
+- **URL:** https://www.youtube.com/watch?v=0OVEJVbklV0?si=9fHvKcSM0pjBBy2G
 - **Author:** Kaizen
-- **Blender Version:** Any (3.x / 4.x)
+- **Blender Version:** Blender 3.x/4.x
 - **Tags:** #realism #photorealism #3dscanning #lighting #camera #workflow #beginner
 - **Summary:** Introduces the "Triforce of 3D Realism" â€” Subject, Lighting, Camera â€” as the three pillars that together produce convincing photorealism. Covers using KIRI Engine for free mobile 3D scanning to generate realistic subjects without years of modeling skill, optimal scanning conditions (overcast outdoor vs. controlled indoor lighting), and how all three forces compound.
 - **File:** tutorials/the-key-to-realism-in-blender-or-3d.md
@@ -525,51 +492,21 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=F8pqNeVam54
 - **Author:** Polyfjord
-- **Blender Version:** 4.5
+- **Blender Version:** Blender 4.5
 - **Tags:** #lighting #volume #animation #rendering #cycles #intermediate #god-rays #projector #video-texture
 - **Summary:** Creates a volumetric projector effect by setting the World Shader to Volume Scatter (density ~0.1) as scene fog, then assigning a video image texture to a Spotlight via Use Nodes + Node Wrangler (Ctrl+T). Animated video travels through the fog as god rays. Key trick: set image color space to AGX Base sRGB for correct vibrant color.
 - **File:** tutorials/tutorial-how-to-make-a-volumetric-projector-in-blender-45.md
 
 
 
-### Add VFX into Cinematic RAW+LOG Footage (the right way) | ACES Part 1
-- **Source:** YouTube
-- **URL:** https://youtu.be/aJF2sAjRsy0?si=sF4GyRUcpJzAkv37
-- **Author:** InLightVFX
-- **Blender Version:** Any
-- **Tags:** #compositing #rendering #color-management #aces #vfx #theory #intermediate #advanced
-- **Summary:** Theory-focused Part 1: explains color gamut (ACES 2065-1 covers the full visible spectrum), linear vs non-linear gamma, and why Blender's linear light math enables accurate multi-pass compositing. Essential conceptual foundation before tackling the practical ACES workflow in Part 2.
-- **File:** tutorials/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-par.md
-
-
-
-### Add VFX to Cinematic RAW and LOG Footage (the right way) | ACES Part 2
-- **Source:** YouTube
-- **URL:** https://youtu.be/LssHxDCM7H4?si=WAKlvRJI_VfoW2rY
-- **Author:** InLightVFX
-- **Blender Version:** Any
-- **Tags:** #compositing #rendering #color-management #aces #vfx #davinci-resolve #workflow #advanced
-- **Summary:** Practical ACES pipeline: set DaVinci Resolve to ACESccc workspace, apply IDT per LOG clip, disable ODT before exporting EXR (RGB Half). In Blender, use Mario Cazares' ACES config, set background plate color space to ACES 2065-1, render VFX in ACEScg. EXR is the only format that preserves full ACES data.
-- **File:** tutorials/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces.md
-
-
-
-### Blender Tutorial - Eternals Gold Wireframe Animation
-- **Source:** YouTube
-- **URL:** https://youtu.be/WmldjCv9P84?si=8OfevIgZN31ZV4_A
-- **Author:** Blender Made Easy
-- **Blender Version:** Any
-- **Tags:** #animation #motion-design #logo-animation #curves #svg #wireframe #beginner #intermediate #build-animation
-- **Summary:** Recreates the Eternals self-drawing wireframe animation using a curve object (SVG or hand-traced): delete segments (not vertices) to create a loop gap, then keyframe Geometry > Mapping > End from 0â†’1. Apply scale and reset Mean Radius to 1.0 before animating. Use Switch Direction to control which way each curve builds.
-- **File:** tutorials/blender-tutorial-eternals-gold-wireframe-animation.md
 
 
 
 ### Photorealistic Renders In Blender
 - **Source:** YouTube
-- **URL:** https://youtu.be/J_mweAPcO4M?si=_bc3120mdobqksIE
+- **URL:** https://www.youtube.com/watch?v=J_mweAPcO4M?si=_bc3120mdobqksIE
 - **Author:** Extra 3d
-- **Blender Version:** Any
+- **Blender Version:** Blender 4.x
 - **Tags:** #realism #photorealism #materials #textures #lighting #workflow #intermediate #3dscanning #imperfections
 - **Summary:** Comprehensive photorealism pipeline: reference gathering in PureRef â†’ camera focal length/height decision early â†’ high-res stacked textures with imperfections (Polyhaven, Ambient CG, Megascans) â†’ photoscanned or AI-generated assets (Tripo3D: 1-4 photo input â†’ 4K PBR output) â†’ bevel all edges â†’ scale verification with Rigify rig.
 - **File:** tutorials/photorealistic-renders-in-blender.md
@@ -587,22 +524,12 @@ Each entry format:
 
 
 
-### Fractals in Blender - Geometry Nodes Extrude Node
-- **Source:** YouTube
-- **URL:** https://youtu.be/bHWvVtuLJkM?si=TswxlqazF-v8tdBA
-- **Author:** CrossMind Studio
-- **Blender Version:** 3.1
-- **Tags:** #geometry-nodes #procedural #fractal #extrude #abstract #glass #blender-3x #beginner #intermediate
-- **Summary:** Chains 4â€“5 copies of a grouped [Extrude Mesh (Offset 0.01) + Scale Elements (Top)] node pair to create a self-similar fractal pattern on a cube. Key insight: offset must be ~0.01; Scale value drives fractal variation. Optional 5th selective layer uses Face Area + Compare (>0.4) for emergent large-face detail. Rendered in Cycles with Glass BSDF + colored point lights.
-- **File:** tutorials/fractals-in-blender-geometry-nodes-extrude-node.md
-
-
 
 ### Photorealistic Eevee Renders In Blender 5.1
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=AoGPxjgqVYE&t=76s
 - **Author:** Extra 3d
-- **Blender Version:** 5.1
+- **Blender Version:** Blender 5.1
 - **Tags:** #eevee #rendering #photorealism #ray-tracing #lighting #light-probes #materials #glass #hdri #vulkan #blender-5x #beginner #intermediate
 - **Summary:** Full workflow for photorealistic Eevee renders in Blender 5.1: switch backend to Vulkan, enable ray tracing, then combine irradiance volume + reflection cubemap light probes (baked) to fix Eevee's screen-space limitations. Covers 5 chapters: theory, basic scene, light probes, glass/translucent materials, and relighting complete scenes.
 - **File:** tutorials/photorealistic-eevee-renders-in-blender-51.md
@@ -613,7 +540,7 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=WreZ_VKDn4M
 - **Author:** Extra 3d
-- **Blender Version:** Not specified (4.x UI)
+- **Blender Version:** Blender 4.x
 - **Tags:** #lighting #product-viz #materials #rendering #glass #brand-video #beginner #intermediate
 - **Summary:** Three-point product lighting system covering non-glossy products (Area Lights with Image Texture nodes to fix reflections) and glass products (Emission planes with Gradient Texture + Color Ramp for smooth falloff). Includes the 3D Cursor pivot trick for rotating lights around a product, hiding emission planes from camera via Visibility settings, and using Light Linking to prevent lights from contaminating ground reflections.
 - **File:** tutorials/realistic-product-lighting-in-blender.md
@@ -623,7 +550,7 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=ZK92Uuhiesg
 - **Author:** Ducky 3D
-- **Blender Version:** 4.x
+- **Blender Version:** Blender 4.x/5.0
 - **Tags:** #materials #shaders #animation #motion-design #abstract #procedural #beginner #intermediate
 - **Summary:** Creates a looping animated texture on a flat canvas plane using Shader Editor nodes: Voronoi Texture twisted into circular patterns by a Wave Texture (Rings), plus three stacked radial masks (outer edge, inner core, lighting variation). All motion driven by keyframed node values — no geometry animation. Part of Ducky 3D's "Blender as After Effects" series.
 - **File:** tutorials/replacing-adobe-after-effects-with-blender-tutorial.md
@@ -633,7 +560,7 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=BoCCxy9ec0g
 - **Author:** Ducky 3D
-- **Blender Version:** 5.0
+- **Blender Version:** Blender 5.0
 - **Tags:** #materials #shaders #compositing #motion-design #animation #procedural #lighting #intermediate
 - **Summary:** The key lesson: a Sun Beams Glare node alone looks weak — stack it on top of two Bloom Glare nodes (one tight/strong, one large/atmospheric) to give the brightness visual context. Demonstrated on a procedural animated dot-grid (Voronoi/Noise-masked Emission shader) with a seamless loop via mirrored keyframes on a 4D Noise Texture's W value, parallax via a duplicated/instanced grid layer, and Blender 5.0's Sensor Noise compositor node for grain.
 - **File:** tutorials/a-powerful-lighting-node-in-blender-50.md
@@ -643,7 +570,7 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=wOyk5V7PyfA
 - **Author:** Extra 3d
-- **Blender Version:** 5.1
+- **Blender Version:** Blender 5.1
 - **Tags:** #shaders #caustics #glass #cycles #voronoi #transparent-shader #light-path #procedural #extra-3d #intermediate
 - **Summary:** Fake real-time caustics via shadow manipulation — Cycles only. Mix Shader + Transparent Shader + Light Path (Is Shadow Ray) makes the shadow controllable. Voronoi 4D Smooth F1 (two with different smoothness subtracted via Difference node) creates caustic pattern fed into shadow. Water variant animates via W value. Final complex variant adds Gradient + Noise distortion + Color Ramp fringes.
 - **File:** tutorials/real-time-caustics-in-blender-51.md
@@ -653,7 +580,7 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=wWv0E94XE4M
 - **Author:** Extra 3d
-- **Blender Version:** 5.0
+- **Blender Version:** Blender 5.0
 - **Tags:** #volumetrics #noise #rendering #cycles #bug-fix #ray-marching #extra-3d #beginner
 - **Summary:** Blender 5.0 volumetrics noise fix — new default rendering algorithm causes noise that increasing samples cannot fix. Fix: Render Properties → Volume → enable Legacy Ray Marching. The legacy method is faster AND noise-free for typical fog/smoke use cases.
 - **File:** tutorials/remove-noise-from-volumetrics-in-blender-50.md
@@ -663,7 +590,7 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=89ZPdMI_nE8
 - **Author:** Ducky 3D
-- **Blender Version:** 4.x+
+- **Blender Version:** Blender 4.x
 - **Tags:** #wave-texture #curves #seam-fix #animation #motion-graphics #procedural #shader-animation #ducky-3d #intermediate
 - **Summary:** Fixing wave texture seam on closed curves — standard Texture Coordinate (Generated/Object) creates a visible break at the seam on looping curves. Fix: UV unwrap the curve as a strip (convert to mesh) or use Geometry Nodes Spline Parameter Factor (0→1 seamless around loop). Animating Phase drives smooth flow. Enables clean looping wave animations on circle/ring shapes.
 - **File:** tutorials/my-circle-problem-in-blender-tutorial.md
@@ -683,7 +610,7 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=1-Cj4mtdCMc
 - **Author:** Curtis Holt
-- **Blender Version:** Not specified (4.x/5.x era)
+- **Blender Version:** Blender 4.x
 - **Tags:** `#lighting` `#animation` `#materials` `#shaders` `#cycles` `#abstract` `#laser` `#vfx` `#intermediate` `#curtis-holt`
 - **Summary:** Curtis Holt (Project Fold) demonstrates a physical laser-style lighting method that avoids area lights or shader raycasting.
 - **File:** tutorials/my-new-favorite-lighting-trick-in-blender.md
@@ -693,7 +620,7 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=ih100VB7BUI
 - **Author:** SouthernShotty
-- **Blender Version:** 5.2 (experimental)
+- **Blender Version:** Blender 5.2 (experimental)
 - **Tags:** #cloth #simulation #geometry-nodes #animation #organic #blender-5x #intermediate #advanced
 - **Summary:** Full breakdown of Blender 5.2's Cloth Dynamics Experimental GN node — covers all parameters (Pin Group, Stretchiness, Bendiness, Sub Steps, Tearing, Geometry Collider, Custom Force, Bake node) then builds a "peeling skin" effect where an offset outer shell tears away from a skull mesh. The GN modifier is portable to any object. Requires Blender 5.2 experimental build.
 - **File:** tutorials/blender-new-cloth-simulator-changes-everything.md
@@ -704,7 +631,7 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=eQLCfPwEcrI
 - **Author:** Christopher 3D
-- **Blender Version:** 5.2
+- **Blender Version:** Blender 5.2
 - **Tags:** #materials #shaders #rendering #cycles #eevee #organic #blender-5x #beginner
 - **Summary:** The new Thin Wall checkbox in Blender 5.2's Principled BSDF simulates correct light transport through zero-thickness geometry (leaves, curtains, lampshades, glass panes, soap bubbles) without needing a Solidify modifier. Two sub-parameters — Weight (0.5 typical) and Anisotropy (−0.25 for fabric, 0.0 for foliage) — fine-tune the effect. Part of the OpenPBR specification integration.
 - **File:** tutorials/thin-wall-the-incredible-new-principled-bsdf-feature-in-blender-52.md
@@ -714,7 +641,7 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=HMxZTPjFoc0
 - **Author:** Cinematic Cookie
-- **Blender Version:** Not specified (4.x era)
+- **Blender Version:** Blender 4.x
 - **Tags:** #geometry-nodes #procedural #modelling #instancing #materials #organic #intermediate #advanced
 - **Summary:** Builds procedural desert/Middle-Eastern-style buildings in GN using Normal Z component + Compare node for automatic top-face selection, fed into a free custom Inset node for architectural recessing. Covers procedural scattering of multiple building instances and ends with a complete sandy building complex with carved windows and rooftop detail.
 - **File:** tutorials/procedural-desert-buildings-in-blender-geo-nodes-blender-tutorial.md
@@ -724,7 +651,7 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=na6NGPw4XWM
 - **Author:** INSYDIUM LTD
-- **Blender Version:** unspecified (NeXus plugin)
+- **Blender Version:** Blender 4.x
 - **Tags:** #particles #simulation #fluid #meshing #motion-blur #addon #intermediate
 - **Summary:** Using the NeXus particle plugin (Insydium) to emit a liquid particle stream from a sphere emitter, make it follow a scene curve's path, mesh the stream into a continuous surface, and apply render-time motion blur for a dynamic fluid-trail effect.
 - **File:** tutorials/nexus-for-blender-official-training---follow-curve.md
@@ -734,7 +661,7 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=NzZTrDln6Ko
 - **Author:** Ducky 3D
-- **Blender Version:** 5.0
+- **Blender Version:** Blender 5.0
 - **Tags:** #geometry-nodes #materials #shaders #motion-design #animation #procedural #abstract #intermediate
 - **Summary:** Uses the UV Map attribute auto-generated by Curve to Tube (with a flat Path as Custom Profile for ribbon geometry) to map a Wave Texture per-strand across an evenly-spaced curve array (constant ring spacing via Radius = iteration × constant inside a Repeat Zone). A per-spline Random attribute desyncs each strand's wave phase and drives per-strand coloring, finished with Sensor Noise + Bloom compositing for an After-Effects-style animated background.
 - **File:** tutorials/curves-just-got-easier-in-blender-50.md
@@ -744,7 +671,7 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=U2I8YDrO5Jc
 - **Author:** SouthernShotty
-- **Blender Version:** 5.2
+- **Blender Version:** Blender 5.2
 - **Tags:** #materials #shaders #rendering #lighting #glass #organic #intermediate #blender-5x
 - **Summary:** Blender 5.2's Thin Wall option on the Principled BSDF correctly renders one-sided transmissive/subsurface surfaces without a Solidify modifier — demonstrated on bubble/thin-film glass, faster and more natural foliage backlighting, fixing the classic dark-glass light-loss bug, and a frosted-glass creative effect.
 - **File:** tutorials/blenders-new-transparency-material-is-crazy.md
@@ -754,7 +681,7 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=RKz3DdbybVk
 - **Author:** Extra 3d
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 3.x/4.x
 - **Tags:** #geometry-nodes #materials #shaders #procedural #glass #lighting #volume #compositing #abstract #intermediate
 - **Summary:** Scatters a free crystal GLB model across a UV sphere using Geometry Nodes (Distribute Points on Faces → Instance on Points → Join Geometry), then builds a transmissive purple crystal shader and a bump/displacement rock material. Finished with high-focal-length DoF camera, point lights, cube volumetrics, and Cinematic Compositor+ grading.
 - **File:** tutorials/how-to-create-abstract-crystal-renders-in-blender.md
@@ -764,7 +691,7 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=aJF2sAjRsy0
 - **Author:** InLightVFX
-- **Blender Version:** Not specified
+- **Blender Version:** Any (theory only)
 - **Tags:** #compositing #rendering #intermediate
 - **Summary:** Color theory primer (not hands-on Blender): color gamut via the CIE diagram (ACES2065-1's gamut covers the full visible spectrum), gamma/transfer functions (linear vs. non-linear luminance math, why human vision is non-linear), and display-referred vs. scene-referred camera storage (RAW/Log) — explains why RAW/Log footage looks flat and how ACES's linear working space lets VFX artists ignore source footage gamma. Note: a near-duplicate entry for this video exists at the 80-char-truncated slug `tutorials/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-par.md` — left as-is per the known slugify duplicate-entry issue, not merged.
 - **File:** tutorials/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1.md
@@ -774,7 +701,7 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=LssHxDCM7H4
 - **Author:** InLightVFX
-- **Blender Version:** Not specified
+- **Blender Version:** Any (with ACES config installed)
 - **Tags:** #compositing #rendering #lighting #hdri #intermediate #advanced
 - **Summary:** Full hands-on ACES pipeline: DaVinci Resolve (Color Workspace ACES CC, IDT per clip, ODT sRGB for preview, disable ODT before EXR/RGB-Half export) → Blender (Display Device ACES, View Transform sRGB, render in ACES CG, per-image IDT via node Color Space, Shadow Catcher + split Main-Objects/Shadows render layers) → Compositor (Alpha Over chain, EEVEE 1-sample render-trigger workaround) → re-import final EXR to Resolve (IDT: ACES CG) for color grading and final ODT-based delivery export. EXR throughout preserves full dynamic range (demonstrated recovering blown highlights via the Gain slider). Note: a near-duplicate entry for this video exists at `tutorials/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces.md` — left as-is per the known slugify duplicate-entry issue, not merged.
 - **File:** tutorials/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2.md
@@ -784,7 +711,7 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=WmldjCv9P84
 - **Author:** Blender Made Easy
-- **Blender Version:** Not specified
+- **Blender Version:** Blender 4.x
 - **Tags:** #materials #shaders #animation #motion-design #logo-animation #procedural #metal #intermediate
 - **Summary:** Curve-based "build-on" logo animation (Bevel Depth + Start/End mapping in Spline mode) with a Taper-curve thickness falloff and a Fresnel-masked, driver-animated Noise Texture for a traveling molten-gold emission edge. Note: a near-duplicate legacy-format entry for this same video exists at `tutorials/blender-tutorial-eternals-gold-wireframe-animation.md` (single-dash slug, captions-based, missing the taper/material/render sections covered here) — left as-is per the known slugify duplicate-entry issue, not merged.
 - **File:** tutorials/blender-tutorial---eternals-gold-wireframe-animation.md
@@ -794,7 +721,7 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=bHWvVtuLJkM
 - **Author:** CrossMind Studio
-- **Blender Version:** 3.1
+- **Blender Version:** Blender 3.1
 - **Tags:** #geometry-nodes #procedural #materials #shaders #glass #abstract #beginner #intermediate
 - **Summary:** Chains 4-5 duplicated copies of a grouped [Extrude Mesh (Offset ~0.01) + Scale Elements (Top selection)] node pair — all sharing the same group data, so editing one updates all — to build a self-similar fractal pattern on a cube. An optional extra layer uses Face Area + Compare (>0.4) so only larger faces get additional recursive detail, for organic size variation. Rendered in Cycles with Glass BSDF + colored point lights inside hollow cubes. Note: a near-duplicate entry for this video exists at the single-dash slug `tutorials/fractals-in-blender-geometry-nodes-extrude-node.md` — left as-is per the known slugify duplicate-entry issue, not merged.
 - **File:** tutorials/fractals-in-blender---geometry-nodes-extrude-node.md

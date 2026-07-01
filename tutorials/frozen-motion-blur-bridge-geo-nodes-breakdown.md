@@ -1,14 +1,17 @@
 ---
-name: frozen-motion-blur-bridge-geo-nodes-breakdown
-description: Full node-group breakdown of the Frozen_MotionBlur geo nodes setup from file 061_AM_Frozen_motion_Blur_Bridge — animation chain, dependencies, and Strength control modification
+title: "Frozen Motion Blur Bridge — Geo Nodes Breakdown"
 blender_version: "4.x / 5.x"
-tags: #geometry-nodes #motion-blur #procedural #animation #scene-time #glass #displacement #intermediate #advanced #albin-merle
+tags: [geometry-nodes, motion-blur, procedural, animation, scene-time, glass, displacement, intermediate, advanced, albin-merle]
 source: direct-file-analysis
 url: https://www.youtube.com/watch?v=675BOBWbTt4
 author: Albin Merle
 ---
 
 # Frozen Motion Blur Bridge — Geo Nodes Breakdown
+
+## Raw Data
+
+*Source: direct-file-analysis — no YouTube transcript.*
 
 ## Overview
 
