@@ -1,12 +1,12 @@
 ---
-title: ZoZos Contact Solver - The ultimate Blender cloth simulator
+title: "ZoZos Contact Solver - The ultimate Blender cloth simulator"
 source: YouTube
 url: https://www.youtube.com/watch?v=D0k6evTvJDg
 author: CGMatter
 ingested: 2026-07-01
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.0+"
+tags: [cloth, simulation, physics, add-on, third-party, contact-solver, self-intersection, pinning, vertex-groups, toml, pc2-cache, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/
 frame_count: 4
 ---
@@ -33,27 +33,55 @@ frame_count: 4
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+ZoZo's Contact Solver — a third-party PPF (Projective Penetration-Free) physics engine open-sourced by a Chinese textile company — integrated into Blender via a free add-on. Solves cloth self-intersection and multi-layer cloth contact completely, which Blender's native solver cannot. The solver runs as a separate process (Windows Native or Docker), receives scene data via a Blender add-on bridge, simulates, and returns a PC2 cache that gets baked into shape keys on the mesh.
 
 ### Summary
-[PENDING EXTRACTION]
+12m25s CGMatter overview and setup guide for ZoZo's Contact Solver, a free open-source PPF cloth solver that eliminates self-intersection in Blender cloth simulations. Covers full installation (GitHub releases: add-on + solver zip), connection setup (Windows Native mode), dynamic groups (Shell/Solid/Rod/Static types), pinning via vertex groups keyframed in Edit Mode, material presets via TOML files (denim/cotton/silk/rubber), invisible wall colliders, and multi-layer cloth stacking. Output is baked to shape keys. Briefly contrasts with Blender 5.2's native Cloth Dynamics GN node (which does exist but lacks tearing and multi-layer handling at this level).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Download**: Go to GitHub repo (ppf-contact-solver), Releases section — download both the Blender extension `.zip` and the matching contact solver `.zip`. Version numbers must match.
+2. **Install add-on**: Install the Blender extension zip as any Blender 5.0+ add-on. It appears in the N-panel.
+3. **Connect solver**: In the N-panel, set Type to `Windows Native`, set Solver Path to the extracted PPF contact folder (parent folder, no sub-directory), give it a Project Name, click `Connect` — solver starts waiting for data.
+4. **Create cloth object**: Add a plane, subdivide it. In the add-on N-panel → Dynamic Groups → Create Group → Add Selected Objects → set Group Type to `Shell` (for one-sided surfaces like fabric; Solid = watertight mesh; Rod = strings; Static = collider).
+5. **Create collider**: Add a collision mesh (e.g. UV sphere), Apply Scale → Create new Dynamic Group → set type to `Static` → Add Selected Objects.
+6. **Transfer and run**: Click `Transfer` (sends scene to solver — may take minutes for dense meshes) → Click `Run` → playback is live. Click `Terminate` when satisfied.
+7. **Bake to mesh**: Click `Bake Animation → Bake All` on the cloth object — converts the PC2 cache to per-frame shape keys directly on the mesh. Apply subdivision surface + Shade Smooth as post-process.
+8. **Reset for next sim**: Click `Delete Remote Data` (clears solver data) + `Clear Local Animation` (removes shape keys) before re-simulating.
+9. **Pinning**: In the cloth Dynamic Group, under Pins section, create a vertex group from a selection. To animate pins, go into Edit Mode on the cloth, select pin verts, and keyframe their positions there (modifiers/constraints on the object are ignored by the solver — Edit Mode keyframes are the only supported method).
+10. **Material presets**: Under Dynamic Group → Material Parameters, load a TOML file specifying Young's modulus, friction, etc. CGMatter provides presets for denim/cotton/silk/rubber on his website.
+11. **Invisible colliders**: Under the solver panel → Invisible Colliders, add a Wall Collider (infinite plane), set position/thickness/friction. Alternative to creating a mesh static object.
+12. **Multi-layer cloth**: Stack multiple cloth planes, add all to the same Dynamic Group (each with its own Pin vertex group), transfer and run — the solver handles all inter-cloth contacts without intersection.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **ZoZo Contact Solver add-on** (N-panel) — main bridge UI
+- **Connection Type**: `Windows Native` (Windows) or `Docker` (cross-platform)
+- **Solver Path**: parent folder of extracted PPF contact solver
+- **Dynamic Groups**: container for simulated objects; types: `Shell`, `Solid`, `Rod`, `Static`
+- **Shell type**: one-sided surface (fabrics, cloth); `Solid` = watertight mesh
+- **Static type**: collision object (non-simulated)
+- **Pins**: vertex group on cloth object defining fixed/animated vertices
+- **Edit Mode keyframes on pins**: only way to animate pin positions (object-level modifiers/constraints ignored)
+- **Material Parameters**: TOML file with Young's modulus, friction, shell thickness, etc.
+- **Transfer button**: sends scene geometry + groups to solver process
+- **Run / Terminate**: start/stop live simulation
+- **Bake Animation → Bake All**: converts PC2 cache to per-frame shape keys on mesh
+- **Delete Remote Data / Clear Local Animation**: reset workflow between sims
+- **Invisible Colliders → Wall Collider**: infinite-plane collider; configurable position/thickness/friction
+- **Overlay Color toggle**: on/off per group for viewport clarity during simulation
+- **JupyterLab export option**: alternative to live Blender bridge; exports scene directly to solver (better for very large meshes)
+- **PC2 cache**: under-the-hood output format from solver, applied as `Mesh Cache` modifier before baking
+- **Post-processing**: Subdivision Surface + Shade Smooth after bake; micro-detail modifiers stack cleanly
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.0+
 
 ### Tags
-[PENDING EXTRACTION]
+cloth, simulation, physics, add-on, third-party, contact-solver, self-intersection, pinning, vertex-groups, toml, pc2-cache, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `blender-new-cloth-simulator-changes-everything.md` — Blender 5.2 native Cloth Dynamics GN node (contrasted in this video)
