@@ -4,7 +4,7 @@ source: YouTube
 url: https://youtu.be/qrYmDg0HpYI
 author: Ryan King Art
 ingested: 2026-05-13
-blender_version: Not specified
+blender_version: "Blender 4.x"
 tags: [geometry-nodes, typography, animation, procedural, particles-reveal, beginner, intermediate]
 ---
 

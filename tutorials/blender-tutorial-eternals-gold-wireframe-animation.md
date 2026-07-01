@@ -4,7 +4,7 @@ source: YouTube
 url: https://youtu.be/WmldjCv9P84?si=8OfevIgZN31ZV4_A
 author: Blender Made Easy
 ingested: 2026-05-13
-blender_version: any
+blender_version: "Blender 3.x/4.x"
 tags: [animation motion-design logo-animation curves svg wireframe brand-video beginner intermediate]
 ---
 

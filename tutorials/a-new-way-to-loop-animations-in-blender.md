@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=9Fvw8HlWHpo
 author: Ducky 3D
 ingested: 2026-06-25
-blender_version: "Blender 4.x+"
+blender_version: "Blender 4.x"
 tags: [animation, geometry-nodes, motion-graphics, looping, glass, lighting, beginner]
 extraction_status: complete
 frames_dir: tutorials/frames/a-new-way-to-loop-animations-in-blender/

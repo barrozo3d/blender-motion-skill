@@ -4,7 +4,7 @@ source: YouTube
 url: https://youtu.be/8wFnzrRz0Xg
 author: RTF Dimensions
 ingested: 2026-05-13
-blender_version: Not specified
+blender_version: "Blender 4.x"
 tags: [geometry-nodes, procedural, particles, organic, rendering, beginner, intermediate]
 ---
 

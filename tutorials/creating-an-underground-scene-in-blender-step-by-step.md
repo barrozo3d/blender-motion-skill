@@ -4,7 +4,7 @@ source: YouTube
 url: https://youtu.be/-QbetK8c1As
 author: Max Hay
 ingested: 2026-05-13
-blender_version: Not specified
+blender_version: "Blender 3.x/4.x"
 tags: [materials, rendering, lighting, compositing, intermediate]
 ---
 

@@ -1,4 +1,4 @@
-﻿# Tutorial Library Index
+# Tutorial Library Index
 
 This is the skill's growing knowledge base. Every ingested tutorial is listed here with tags for searchability.
 
@@ -312,17 +312,6 @@ Each entry format:
 
 
 
-### How to create a Cinematic Landscape inside Blender | Full tutorial with Project file
-- **Source:** YouTube
-- **URL:** https://youtu.be/QJhiYYf6qJI
-- **Author:** vfx world
-- **Blender Version:** Not specified
-- **Tags:** #rendering #lighting #hdri #camera #animation #organic #beginner
-- **Summary:** Full cinematic landscape tutorial using the Biome Reader add-on for procedural foliage scattering, path-based camera animation with Follow Path constraint, and a final HDRI sky. Covers basic terrain setup, texturing, and cinematic camera animation along a Bezier curve.
-- **File:** tutorials/how-to-create-a-cinematic-landscape-inside-blender-full-tuto.md
-
-
-
 ### How to Make Cyberpunk Scenes in Blender
 - **Source:** YouTube
 - **URL:** https://youtu.be/SybPYdsd_DI
@@ -477,17 +466,6 @@ Each entry format:
 
 
 
-### Superhero Landing Tutorial 02 | Ground Destruction VFX in Blender
-- **Source:** YouTube
-- **URL:** https://youtu.be/4ULxB4PzbAc
-- **Author:** Graphical Ninja
-- **Blender Version:** Not specified
-- **Tags:** #rigid-body #simulation #particles #smoke-fire #animation #rendering #compositing #advanced
-- **Summary:** Ground-destruction VFX combining Cell Fracture rigid body simulation (with a Force Field strength keyframed at the landing moment for slow-motion chunks), a particle system of debris rocks from a Collection, and a smoke simulation for dust trails. Features speed ramping via a slow-motion keyframe at 0.25 on frame 6.
-- **File:** tutorials/superhero-landing-tutorial-02-ground-destruction-vfx-in-blen.md
-
-
-
 ### The COMPLETE BLENDER 3D Animation COURSE (5+ HOURS)
 - **Source:** YouTube
 - **URL:** https://youtu.be/IgpUXXg2Vbs
@@ -496,17 +474,6 @@ Each entry format:
 - **Tags:** #animation #rigging #rendering #materials #camera #blender-4x #beginner #intermediate
 - **Summary:** Complete 5-hour Blender 4.4 animation course covering the full production pipeline: navigation basics, 12 Principles of Animation (basketball project), robot character modeling, IK armature rigging, scene setup, animation, texturing, and final video render. Aimed at anyone with basic Blender knowledge.
 - **File:** tutorials/the-complete-blender-3d-animation-course-5-hours-blender-b3d.md
-
-
-
-### Track Objects Using Align Rotation To Vector In Geometry Nodes â€“ Blender Tutorial
-- **Source:** YouTube
-- **URL:** https://youtu.be/ZBZ26xQ9Pnk
-- **Author:** Photini By Design
-- **Blender Version:** Not specified
-- **Tags:** #geometry-nodes #procedural #animation #rigging #intermediate
-- **Summary:** Makes instanced arrow objects on an Icosphere surface all point toward a movable Empty target using the Align Rotation to Vector node â€” computing the direction vector by subtracting current instance Position from the target's Object Info Location. Also covers a scale-by-proximity subsystem using Geometry Proximity.
-- **File:** tutorials/track-objects-using-align-rotation-to-vector-in-geometry-nod.md
 
 
 
@@ -540,17 +507,6 @@ Each entry format:
 - **Tags:** #materials #shaders #glass #animation #motion-design #procedural #geometry-nodes #eevee #intermediate
 - **Summary:** Teaches a color distribution technique where a first Noise Texture drives highlight/dark patterns and a second Noise Texture provides color â€” connected via Mix Color with the first texture as Factor, so color distributes naturally within the pattern's highlights rather than being limited to center-to-edge gradients. Demonstrated with glass brick wall geometry nodes setup.
 - **File:** tutorials/you-should-try-this-blender-color-hack.md
-
-
-
-### Your Guide to Mechanical Rigging in Blender (Robot Arm Tutorial)
-- **Source:** YouTube
-- **URL:** https://youtu.be/SCz1tmOVmFw
-- **Author:** DemNikoArt
-- **Blender Version:** Not specified
-- **Tags:** #rigging #animation #intermediate #advanced
-- **Summary:** Professional mechanical robot arm rigging using IK constraints for full arm control with a single end-effector bone, per-joint rotation limits, dynamic pistons via Stretch To constraints, and a single-bone claw/gripper controller. Uses Shift+S > Cursor to Selected for precision bone placement at mechanical pivot points.
-- **File:** tutorials/your-guide-to-mechanical-rigging-in-blender-robot-arm-tutori.md
 
 
 
@@ -729,7 +685,7 @@ Each entry format:
 - **Author:** Curtis Holt
 - **Blender Version:** Not specified (4.x/5.x era)
 - **Tags:** `#lighting` `#animation` `#materials` `#shaders` `#cycles` `#abstract` `#laser` `#vfx` `#intermediate` `#curtis-holt`
-- **Summary:** Physical intersecting-mesh laser lighting in Cycles — a UV Sphere (or flat plane) passes through a subject and carries a noise-textured material mixing Emission (glowing bleed lines), Transparent BSDF (invisible zones), and black Principled/Holdout (shadow-blocking zones). The three-zone mask creates organic, inconsistent scanner lines. Optional Volume Scatter atmosphere makes beams visible as volumetric light. Developed for Curtis Holt's animated short "Project Fold."
+- **Summary:** Curtis Holt (Project Fold) demonstrates a physical laser-style lighting method that avoids area lights or shader raycasting.
 - **File:** tutorials/my-new-favorite-lighting-trick-in-blender.md
 
 
@@ -848,9 +804,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=QJhiYYf6qJI
 - **Author:** vfx world
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 3.x/4.x
+- **Tags:** landscape, terrain, foliage, camera-animation, cycles, hdri, biome-reader, blenderkit, sketchfab, intermediate
+- **Summary:** Full cinematic landscape pipeline — A.N.T. Landscape (Lake 1 preset, scaled 50x), weight-painted foliage zones, Biome Reader grass+background trees, Blenderkit ground material (displacement+bump), animated procedural water, Follow Path + Track To camera constraints on Bezier curve, Easy HDRI with two mixed HDRIs for cloudy sky. Intermediate multi-add-on workflow; transcript is Hinglish.
 - **File:** tutorials/how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi.md
 
 
@@ -858,9 +814,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=IzSRBH8CDTo
 - **Author:** Ryan King Art
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.x
+- **Tags:** motion-graphics, eevee, geometry-nodes, looping, honeycomb, displacement, compositing, beginner
+- **Summary:** Seamless looping sci-fi glowing dot grid — Extra Mesh Honeycomb (50x50, Edge Width 1 to triangle) + Instance on Elements (Realize Instances) placing Icospheres. Two-noise 4D crossfade loop: noise1 W 40-80, noise2 W 0-40, Mix factor 0-1 over 251 frames with linear F-curves. Glare Bloom compositor; Displacement node makes glowing dots physically pop out. EEVEE, Filmic Very High Contrast.
 - **File:** tutorials/sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial.md
 
 
@@ -868,9 +824,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=4ULxB4PzbAc
 - **Author:** Graphical Ninja
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 3.x/4.x
+- **Tags:** vfx, rigid-body, particles, fluid-sim, destruction, compositing, nuke, intermediate
+- **Summary:** Ground destruction VFX pipeline (Part 2 of superhero landing series) — Cell Fracture (OwnVerts, recursive 2) + Rigid Body sim with Force Field (10,000 strength, 2 frames, falloff 1) + speed ramp to 0.25x. Rock particles (2,000 per chunk, Brownian 0.1, inherited velocity, Bridge rock collection) baked and copied to all chunks. Mantaflow smoke domain (128-256 res, timescale 0.25) from chunk surfaces. Voronoid displacement + SubSurf on chunks. Nuke comp with Holdout pass + Disjoint Over + Chemix grain mask.
 - **File:** tutorials/superhero-landing-tutorial-02-ground-destruction-vfx-in-blender.md
 
 
@@ -878,9 +834,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=IgpUXXg2Vbs
 - **Author:** JB 3D Studio
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 4.4
+- **Tags:** animation, rigging, beginner, modeling, rendering, 12-principles, robot, course
+- **Summary:** 5-hour beginner animation course by JB 3D Studio covering the full pipeline: Blender interface, 12 principles of animation, basketball bounce, robot character modeling, armature rigging, IK constraints, NLA editor, Cycles rendering. 11+ modules, soup-to-nuts production walkthrough.
 - **File:** tutorials/the-complete-blender-3d-animation-course-5-hours-blender-b3d-animation.md
 
 
@@ -888,9 +844,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=ZBZ26xQ9Pnk
 - **Author:** Photini By Design
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 4.x
+- **Tags:** geometry-nodes, tracking, align-rotation, instances, procedural, animation, intermediate
+- **Summary:** Reusable GeoNodes tracking modifier — Align Rotation to Vector node with direction vector (target Location minus point Position via Vector Math Subtract) drives Rotate Instances. Scale-by-distance: Vector Math Distance + Multiply Add + Combine XYZ into Scale. Exposed Group Inputs for Track Target, Scale Target, min/max scale per modifier. F-Curve Noise on master empty for automated random movement. Works on any mesh surface.
 - **File:** tutorials/track-objects-using-align-rotation-to-vector-in-geometry-nodes-blender-tutorial.md
 
 
@@ -898,9 +854,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=SCz1tmOVmFw
 - **Author:** DemNikoArt
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 4.x
+- **Tags:** rigging, ik, mechanical, armature, constraints, robot, intermediate
+- **Summary:** Mechanical robot arm IK rigging — single-bone chain with Shift+I IK constraint, per-bone axis locks (only Y rotates), stiffness bias. Pistons via Damp Track constraint to empties parented to geometry. Clamp range via Transformation constraint (Location range to Rotation range, local space). Bone Widget add-on for custom gizmo shapes; Parent to Nearest Bone add-on for geometry assignment.
 - **File:** tutorials/your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial.md
 
 ---

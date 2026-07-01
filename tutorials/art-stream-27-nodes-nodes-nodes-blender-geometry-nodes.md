@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/live/7FdfSKOkzXg
 author: Midge "Mantissa" Sinnaeve
 ingested: 2026-05-13
-blender_version: Not specified
+blender_version: "Blender 3.x/4.x"
 tags: [geometry-nodes, particles, volume, procedural, abstract, intermediate, advanced]
 ---
 

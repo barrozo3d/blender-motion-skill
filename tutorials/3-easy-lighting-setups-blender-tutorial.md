@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=FYJb10NIMH8
 author: Max Hay
 ingested: 2026-06-25
-blender_version: "Blender 4.x+"
+blender_version: "Blender 4.x"
 tags: [lighting, atmosphere, volume, compositing, hdri, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/3-easy-lighting-setups-blender-tutorial/

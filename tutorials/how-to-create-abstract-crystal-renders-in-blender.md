@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=RKz3DdbybVk
 author: Extra 3d
 ingested: 2026-06-23
-blender_version: "Not specified"
+blender_version: "Blender 3.x/4.x"
 tags: [geometry-nodes, materials, shaders, procedural, glass, lighting, volume, compositing, abstract, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/how-to-create-abstract-crystal-renders-in-blender/

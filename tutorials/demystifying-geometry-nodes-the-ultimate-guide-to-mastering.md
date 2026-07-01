@@ -4,7 +4,7 @@ source: YouTube
 url: https://youtu.be/WbrjlYM0Qno
 author: Deayan Studios
 ingested: 2026-05-13
-blender_version: Not specified
+blender_version: "Blender 4.x"
 tags: [geometry-nodes, procedural, beginner, intermediate]
 ---
 

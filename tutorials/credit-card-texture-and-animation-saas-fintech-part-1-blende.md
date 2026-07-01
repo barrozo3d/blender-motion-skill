@@ -4,7 +4,7 @@ source: YouTube
 url: https://youtu.be/DvMyxyMG0Mk
 author: The Visual Vibe
 ingested: 2026-05-13
-blender_version: Not specified
+blender_version: "Blender 3.x/4.x"
 tags: [materials, shaders, animation, product-viz, brand-video, beginner]
 ---
 

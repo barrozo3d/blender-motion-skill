@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=0OVEJVbklV0
 author: Kaizen
 ingested: 2026-06-25
-blender_version: "any"
+blender_version: "Blender 3.x/4.x"
 tags: [realism, lighting, compositing, camera, scanning, beginner, theory]
 extraction_status: complete
 frames_dir: tutorials/frames/the-key-to-realism-in-blender-or-3d/
