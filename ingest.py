@@ -172,6 +172,97 @@ def extract_frames(video_path, timestamps, out_dir):
             frames.append(dst)
     return frames
 
+# ── Ingest safeguards ─────────────────────────────────────────────────────────
+
+_STOP_WORDS = {
+    'the','a','an','and','or','in','of','to','is','it','i','we','you','this',
+    'that','for','are','on','at','be','by','with','have','was','as','from',
+    'so','if','but','not','do','my','me','he','she','they','up','out','just',
+    'can','all','now','will','our','when','their','what','about','here','one',
+    'been','some','get','which','there','has','had','his','her','its','them',
+    'then','than','also','into','more','would','could','should','very','like',
+}
+
+def _detect_hallucination(text):
+    """Content word repeated >= 8x in last 50 words → probable ASR loop."""
+    import collections
+    lines = [l for l in text.splitlines()
+             if not re.search(r'frame_\d+\.(jpg|png)|tutorials[/\\]frames', l, re.I)]
+    words = re.findall(r'\b[a-z]+\b', ' '.join(lines).lower())
+    if not words:
+        return False, '', 0
+    tail = [w for w in words[-50:] if w not in _STOP_WORDS]
+    if not tail:
+        return False, '', 0
+    top_word, top_count = collections.Counter(tail).most_common(1)[0]
+    return top_count >= 8, top_word, top_count
+
+def run_safeguards(ch_transcripts, frame_paths, expected_frames, has_video):
+    """
+    Run all ingest quality checks.
+    Returns (warnings, critical) — critical items mark extraction_status: needs-review.
+    """
+    warnings, critical = [], []
+    total_chars = sum(len(ch.get('text', '')) for ch in ch_transcripts)
+
+    # 1. Chapter transcript coverage
+    for ch in ch_transcripts:
+        text = ch.get('text', '').strip()
+        name = ch.get('title', '?')
+        if not text:
+            critical.append(f"Empty transcript in chapter '{name}'")
+        elif len(text) < 50:
+            warnings.append(f"Very short transcript ({len(text)} chars) in '{name}'")
+
+    # 2. Total transcript completeness
+    if total_chars < 500:
+        critical.append(
+            f"Total transcript only {total_chars} chars (min 500). "
+            "Captions unavailable or audio silent — extraction will be poor."
+        )
+    elif total_chars < 1200:
+        warnings.append(
+            f"Thin transcript: {total_chars} chars. "
+            "Notes may be shallow — consider --whisper-model small."
+        )
+
+    # 3. ASR hallucination detection (per chapter)
+    for ch in ch_transcripts:
+        text = ch.get('text', '')
+        if len(text) > 200:
+            hallu, word, count = _detect_hallucination(text)
+            if hallu:
+                critical.append(
+                    f"ASR hallucination in '{ch.get('title', '?')}': "
+                    f"'{word}' x{count} in last 50 content words. "
+                    "Review and truncate the affected section before extracting."
+                )
+
+    # 4. Frame count validation
+    if has_video and expected_frames > 0:
+        got = len(frame_paths)
+        if got == 0:
+            critical.append(
+                f"Frame extraction produced 0/{expected_frames} frames. "
+                "Check that ffmpeg is in PATH and the video downloaded successfully."
+            )
+        elif got < expected_frames:
+            warnings.append(f"Partial frames: {got}/{expected_frames} captured.")
+
+    return warnings, critical
+
+def _print_safeguard_report(warnings, critical):
+    if not warnings and not critical:
+        print("[SAFEGUARD] All checks passed")
+        return
+    print("[SAFEGUARD] Quality issues found:")
+    for w in warnings:
+        print(f"      WARNING  : {w}")
+    for c in critical:
+        print(f"      CRITICAL : {c}")
+    if critical:
+        print("      => extraction_status set to 'needs-review'")
+
 # ── Build raw .md ──────────────────────────────────────────────────────────────
 
 def build_raw_md(info, ch_transcripts, frame_paths, slug):
@@ -369,17 +460,20 @@ def main():
 
         # 3+4. Video + frames
         frame_paths = []
-        if is_yt and not args.skip_video and has_ffmpeg:
+        expected_frames = 0
+        video_attempted = is_yt and not args.skip_video and has_ffmpeg
+        if video_attempted:
+            if chapters:
+                timestamps = [ch.get("start_time", 0) + 5 for ch in chapters]
+            elif duration:
+                timestamps = [duration * p for p in [0.1, 0.3, 0.55, 0.8]]
+            else:
+                timestamps = [30, 120, 300]
+            expected_frames = len(timestamps)
             print("[3/6] Downloading video (lowest quality)...")
             try:
                 video = download_video_low(args.url, tmp)
-                if chapters:
-                    timestamps = [ch.get("start_time", 0) + 5 for ch in chapters]
-                elif duration:
-                    timestamps = [duration * p for p in [0.1, 0.3, 0.55, 0.8]]
-                else:
-                    timestamps = [30, 120, 300]
-                print(f"[4/6] Extracting {len(timestamps)} frame(s) to {frames_out.relative_to(SKILL_DIR)}...")
+                print(f"[4/6] Extracting {expected_frames} frame(s) to {frames_out.relative_to(SKILL_DIR)}...")
                 frame_paths = extract_frames(video, timestamps, frames_out)
                 print(f"      {len(frame_paths)} frame(s) saved")
             except Exception as e:
@@ -389,9 +483,17 @@ def main():
             print(f"[3/6] Skipping video download ({reason})")
             print("[4/6] Skipping frame extraction")
 
+        # Safeguard checks
+        sg_warnings, sg_critical = run_safeguards(
+            ch_transcripts, frame_paths, expected_frames, video_attempted
+        )
+        _print_safeguard_report(sg_warnings, sg_critical)
+
         # 5. Write raw .md
         print("[5/6] Writing raw tutorial file...")
         md = build_raw_md(info, ch_transcripts, frame_paths, slug)
+        if sg_critical:
+            md = md.replace("extraction_status: pending", "extraction_status: needs-review", 1)
         out_md.write_text(md, encoding="utf-8")
         update_index_pending(info, slug, out_md.name)
 
