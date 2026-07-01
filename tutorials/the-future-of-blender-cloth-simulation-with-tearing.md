@@ -1,12 +1,12 @@
 ---
-title: The FUTURE of Blender Cloth Simulation (with Tearing!)
+title: "The FUTURE of Blender Cloth Simulation (with Tearing!)"
 source: YouTube
 url: https://www.youtube.com/watch?v=6hn12BWufTs
 author: CGDive (Blender Rigging Tuts)
 ingested: 2026-07-01
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2 (experimental)"
+tags: [cloth, simulation, geometry-nodes, physics, tearing, blender-5x, experimental, pinning, wind-force, stability, beginner, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/the-future-of-blender-cloth-simulation-with-tearing/
 frame_count: 6
 ---
@@ -58,27 +58,51 @@ frame_count: 6
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Blender 5.2 Alpha's experimental **Cloth Dynamics GN node** — a Geometry Nodes-based cloth simulator built on a new solver. Superior stability vs. the legacy physics cloth system (no explosions/collapses on deforming objects when "Deforming Setting" is enabled), better performance, cleaner parameter names (Bendiness, Stretchiness), and native dynamic tearing without any pre-cutting. Set up entirely via a GN modifier on the cloth mesh; collision objects and forces plug in through a Geometry Collider + Combine Bundle effector chain.
 
 ### Summary
-[PENDING EXTRACTION]
+12m28s first-look overview by CGDive of Blender 5.2 Alpha's new experimental Cloth Dynamics GN node. Covers the full setup from scratch: downloading the 5.2 Alpha build, enabling experimental GN Dynamics preferences, wiring the Cloth Dynamics node, making collision objects work via a Collection → Geometry Collider → Combine Bundle → Effectors chain, pinning via vertex groups, wind via Simulation Force node, and dynamic tearing (threshold-based, no pre-cutting). Ends with a direct stability comparison against the legacy cloth system showing the new "Deforming Setting" option preventing simulation collapse.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Download**: blender.org → Download → scroll to Experimental → download Blender 5.2 Alpha for your OS.
+2. **Enable experimental features**: Edit → Preferences → Experimental → enable Geometry Nodes Dynamics (and any other GN experimental flags if unsure, enable all).
+3. **Create GN tree on cloth mesh**: Add a GN modifier, create new node tree, Shift+A → search `Cloth Dynamics`, plug into Group Output geometry.
+4. **Set up colliders**: Select all collision objects → move to a new collection (e.g. `collision`). In the GN tree: drag-drop the collection as a node → connect to a **Geometry Collider** node → connect its bundle output into a **Combine Bundle** node → plug Combine Bundle into the `Effectors` input of Cloth Dynamics. Multiple colliders or forces chain together through additional Combine Bundle nodes.
+5. **Improve quality**: Under `Solver` section of Cloth Dynamics — increase `Sub Steps` and `Constraint Steps` for better collision accuracy (note: also affects stiffness). Under `Structure` — increase `Collision Radius` to fix penetrations; raise `Geometry Friction` on the Geometry Collider node.
+6. **Tune cloth behaviour**: `Bendiness` (softness/flexibility, high = silk-like drape), `Stretchiness` (elongation under force), `Damping` (slows and smooths motion).
+7. **Pinning**: Edit Mode → select vertices → Ctrl+G → Assign to New Group. In GN tree: add a `Pin Group Input` node → plug into Group Input socket → new property appears in the GN modifier panel; select the vertex group there.
+8. **Wind / forces**: Shift+A → `Simulation Force` → set X/Y/Z values for directional force → plug into Combine Bundle alongside the collider effector. For turbulent wind, add oscillation/noise to the force values (reference Blender essay's X/Twitter example).
+9. **Tearing**: In Cloth Dynamics node, enable `Tearing` toggle → set `Threshold` (how much stretch before tear triggers). Cloth tears dynamically at runtime — no geometry pre-cutting required. Combine with pinning and force for interactive real-time tearing demos.
+10. **Deforming objects**: When a collision object is itself animated/deforming (e.g. shrinking Suzanne), enable `Deforming Setting` on the Cloth Dynamics node — prevents collision loss and simulation collapse that the old system suffered.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Cloth Dynamics** (GN node) — main cloth simulation node; inputs: Geometry, Effectors, Pin Group
+  - `Bendiness` — cloth softness (high = loose drape)
+  - `Stretchiness` — elongation resistance
+  - `Damping` — simulation slow-down/smoothing
+  - `Gravity` — default realistic, rarely change
+  - `Tearing` (toggle) + `Threshold` — dynamic tear on stretch
+  - `Invert Pinning Group` — inverts simulated vs. pinned regions (experimental, may be buggy in 5.2 Alpha)
+  - `Deforming Setting` — enables stable collision with animated/deforming collision objects
+  - **Solver sub-panel**: `Sub Steps`, `Constraint Steps` — quality vs. speed; also affects stiffness
+  - **Structure sub-panel**: `Collision Radius` — gap tolerance, increase to fix penetrations
+- **Geometry Collider** (GN node, inside modifier tree) — wraps a collection as a collision effector; `Geometry Friction` parameter
+- **Combine Bundle** (GN node) — chains multiple effector bundles (colliders + forces) into one Effectors input
+- **Simulation Force** (GN node) — applies directional or turbulent force as an effector
+- **Pin Group Input** (GN node) — exposes a vertex group selector property for pinning in the modifier panel
+- Blender 5.2 Alpha preference: Edit → Preferences → Experimental → Geometry Nodes Dynamics
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner / Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2 (experimental)
 
 ### Tags
-[PENDING EXTRACTION]
+cloth, simulation, geometry-nodes, physics, tearing, blender-5x, experimental, pinning, wind-force, stability, beginner, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `blender-new-cloth-simulator-changes-everything.md` — SouthernShotty's deeper dive into the same Blender 5.2 Cloth Dynamics GN node including the peeling-skin tearing effect
+- `zozos-contact-solver---the-ultimate-blender-cloth-simulator.md` — third-party PPF contact solver for Blender (no self-intersection, multi-layer cloth, comparison reference)

@@ -801,9 +801,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=6hn12BWufTs
 - **Author:** CGDive (Blender Rigging Tuts)
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2 (experimental)
+- **Tags:** cloth, simulation, geometry-nodes, physics, tearing, blender-5x, experimental, pinning, wind-force, stability, beginner, intermediate
+- **Summary:** First-look at Blender 5.2 Alpha's experimental Cloth Dynamics GN node. Full setup: Collection → Geometry Collider → Combine Bundle → Effectors chain for collisions; vertex group pinning via Pin Group Input node; Simulation Force node for wind; dynamic tearing via Tearing toggle + Threshold (no pre-cutting). "Deforming Setting" option fixes the old system's collapse with animated collision objects. Covers Bendiness, Stretchiness, Damping, Collision Radius, Sub Steps, Constraint Steps.
 - **File:** tutorials/the-future-of-blender-cloth-simulation-with-tearing.md
 
 ---
