@@ -816,6 +816,16 @@ Each entry format:
 - **Summary:** 10m27s procedural wood-shader build by Clipping Issues (Episode 1 of a "Don't Fear the Shader" series). Sets up an HDRI in viewport shading first so material judgments aren't made against Blender's default gray void...
 - **File:** tutorials/infinite-wood-dont-fear-the-shader-ep01.md
 
+
+### Como hacer Agua Realista en Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=fB_F8x_59LA
+- **Author:** MinerDesign
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/como-hacer-agua-realista-en-blender.md
+
 ---
 
 ## Tag Reference
