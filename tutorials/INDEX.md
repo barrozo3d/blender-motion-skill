@@ -811,9 +811,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=gpC7s-tGpc4
 - **Author:** Clipping Issues
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** not stated (Shader Editor node groups, Blender 4.x/5.x compatible)
+- **Tags:** materials, shaders, procedural-texture, wood, node-groups, map-range, vector-math, mixed-node, bump, hsv, beginner
+- **Summary:** 10m27s procedural wood-shader build by Clipping Issues (Episode 1 of a "Don't Fear the Shader" series). Sets up an HDRI in viewport shading first so material judgments aren't made against Blender's default gray void...
 - **File:** tutorials/infinite-wood-dont-fear-the-shader-ep01.md
 
 ---

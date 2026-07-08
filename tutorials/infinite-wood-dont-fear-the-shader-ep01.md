@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=gpC7s-tGpc4
 author: Clipping Issues
 ingested: 2026-07-08
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "not stated (Shader Editor node groups, Blender 4.x/5.x compatible)"
+tags: [materials, shaders, procedural-texture, wood, node-groups, map-range, vector-math, mixed-node, bump, hsv, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/infinite-wood-dont-fear-the-shader-ep01/
 frame_count: 12
 ---
@@ -88,27 +88,50 @@ frame_count: 12
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+100% procedural, infinite-tiling wood floorboard material built from Shader Editor nodes only (no texture maps). The whole material is organized as three additive layers — **micro** (grain: squashed Noise Texture), **medium** (rings: Wave Texture distorted by the grain), **macro** (plank breakup: Brick Texture used purely for its random grayscale data, not its visible mortar lines) — which are combined and routed into color, roughness, and bump inputs of the Principled BSDF, then packaged into a reusable Node Group with a clean slider UI.
 
 ### Summary
-[PENDING EXTRACTION]
+10m27s procedural wood-shader build by Clipping Issues (Episode 1 of a "Don't Fear the Shader" series). Sets up an HDRI in viewport shading first so material judgments aren't made against Blender's default gray void. Builds wood grain from a squashed Noise Texture routed through a custom Combine XYZ scale/stretch controller, then rings from a Wave Texture (Rings/Saw) distorted by that noise via Vector Math + Mix (Vector) + Map Range (to re-center the 0–1 noise to -1..1 so distortion doesn't drift the origin). Masks the distortion off the end-grain faces using Separate XYZ on the Normal → Absolute → Color Ramp. Uses a Brick Texture (mortar size 0) purely as random per-plank grayscale data, fed through Map Range with huge output values to violently offset each plank's coordinates and fracture the "infinite" wood into unique floorboards. Builds color (Mix Color on grain + bands), roughness (Add/Multiply math on grain + bands), and bump (daisy-chained Bump nodes, one of them fed by a duplicate high-contrast Brick Texture for the plank-seam grooves, then inverted to recess the gaps). Adds a Mix(0)/Mix(B) + Boolean Menu Switch "bypass" so the same shader can toggle between floorboards and a single solid wood slab (for tables). Adds per-plank Hue/Saturation/Value variation driven by the brick's random data, clamped tightly with Map Range nodes so it doesn't oversaturate into "disco floor" territory. Finishes by Ctrl+G grouping the whole tree into a single Node Group, exposing only the meaningful controls (grain scale, band distortion, floorboard toggle, colors) as named, min/max-clamped sliders via the Group Input node, and cleaning the group's internal layout with reroute points.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Reference setup** [0:00] — Viewport Shading → uncheck Scene World → pick a nice HDRI so material judgment isn't made under flat default lighting.
+2. **Layer philosophy** [0:00] — every material = micro + medium + macro detail layers; build and combine them independently.
+3. **Micro: wood grain** [0:35] — Noise Texture → Mapping node, squash X scale down for streaky grain. Build a custom stretch/scale controller: Combine XYZ fed by Value nodes, X run through a Math (Multiply) node by a small number — gives one "master switch" per axis. Press F to frame the important value nodes for quick recall later.
+4. **Medium: rings** [1:17] — Wave Texture, Type = Rings, Wave Profile = Saw, plugged into Object coordinates.
+5. **Distort the rings** [1:29] — Vector Math (Add) mixes noise's Color output (3 independent values) into the coordinates; Mix (Vector) node blends noise into Object coords via Factor. Map Range (switched to Vector, since 3 components) remaps the noise's 0–1 range to -1..1 *before* adding, so the origin/center doesn't drift. Re-use the grain's stretch controller on this noise for scale control.
+6. **Mask end grain** [2:57] — Separate XYZ on the surface Normal → X axis into a Math (Absolute) node (turns -1..1 into a 0–1 mask isolating faces pointing along X). Color Ramp crushes the mask's contrast to control exactly where distortion cuts off. Plug the ramp into a Mix (Vector) node's Factor between clean coordinates and warped coordinates; lower the ramp's white point (or add a Map Range after it) so distortion isn't fully zero on side faces.
+7. **Macro: plank breakup** [3:53] — Brick Texture, Mortar Size = 0 (only want its random per-brick grayscale, not visible mortar), Color1 = white, Color2 = black. Feed its Color output through a Map Range with very large output min/max, then add that huge offset into every object coordinate at the top of the tree — fractures the infinite wood into visually distinct planks. Tune Brick min/max to control spread.
+8. **Color** [4:46] — Mix Color node: grain drives Factor between two brown tones; second Mix Color layers the plank-band variation on top using the bands as mask.
+9. **Roughness** [5:00] — grain → Math (Add) for overall roughness level + Math (Multiply) for which parts are rougher; repeat for bands; mix the two together.
+10. **Bump** [5:22 / 6:08] — fine grain → Bump node; daisy-chain a second Bump node's Normal input into a third (stacks height data). Duplicate the Brick Texture with small Mortar Size + high smoothness, plug its Factor into a Bump node's Height, then set that Bump to **Invert** so grooves recess instead of protrude — carves plank seams with zero added geometry.
+11. **Floorboard/solid bypass switch** [6:08] — where the Brick offset feeds coordinates, add a Mix node (A=0, B=brick offset) plus one for the mortar; drive both Mix Factors from one Menu Switch node (Boolean type) so a single toggle switches between fractured floorboards and one solid slab without altering the underlying grain.
+12. **Per-plank color variation** [6:51] — Hue/Saturation/Value node before the Principled BSDF, driven by the Brick random Color data (raw 0–1 swings colors too hard → "disco floor"). Clamp each HSV input (Hue default 0.5, Sat/Value default 1) with its own Map Range node so brick randomness only nudges hue/sat/value a small amount; chain an extra Map Range beforehand for even more variation spread. Route the HSV factor through the floorboard/solid toggle too.
+13. **Cleanup & packaging** [7:59] — select everything except Material Output, Ctrl+G to collapse into one Node Group; Tab to enter/exit; add reroute nodes to tidy internal noodles; drag the meaningful value nodes (grain scale, band distortion, colors, floorboard toggle — the exact nodes framed with F earlier) onto the Group Input node so they surface as external sliders; rename inputs and organize into labeled panels (Wood Grain / Bands / Floorboards); set min/max limits on each slider to prevent invalid values; Ctrl+H on a node to hide unused sockets.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Noise Texture → Mapping (squash X)** — base grain; custom Combine XYZ + Value-node controller for stretch/scale, built so future tweaks don't require digging through the node tree.
+- **Wave Texture** — Type: Rings, Wave Profile: Saw, input = Object coordinates → base ring pattern.
+- **Vector Math (Add) + Mix (Vector)** — combines noise's 3-channel Color output into coordinates for ring distortion; Vector Math processes X/Y/Z simultaneously instead of one Math node per axis.
+- **Map Range (Vector mode)** — re-centers 0–1 noise output to -1..1 before adding to coordinates, so distortion doesn't shift the pattern's origin. Also reused later to clamp HSV inputs and to blow up Brick output for plank offsets.
+- **Separate XYZ (on Normal) → Math (Absolute) → Color Ramp** — generates a directional face mask (isolates end-grain faces) to exclude them from ring distortion.
+- **Brick Texture (Mortar Size = 0)** — used only for its per-brick random grayscale Color output, not its visual pattern; drives plank offset (macro) and per-plank HSV variation.
+- **Bump nodes, daisy-chained + Invert** — stack multiple height sources (grain, bands, plank-seam brick copy); Invert flips the last one so seams recess instead of protrude.
+- **Menu Switch (Boolean) + Mix nodes (A=0/B=offset)** — bypass switch toggling between fractured floorboards and one solid slab.
+- **Hue/Saturation/Value node** — per-plank color variation, driven by Brick random data through tight Map Range clamps.
+- **Node Group (Ctrl+G) + Group Input** — final packaging; only meaningful controls (grain scale, band distortion, floorboard toggle, colors, per input min/max) exposed as named sliders.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate (assumes comfort with the Shader Editor node graph; explains each node's purpose but moves fast and stacks many techniques)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not stated in the video — uses standard Shader Editor nodes (Noise/Wave/Brick Texture, Vector Math, Map Range, Bump, Menu Switch) compatible with recent Blender 4.x/5.x.
 
 ### Tags
-[PENDING EXTRACTION]
+`#materials` `#shaders` `#procedural-texture` `#wood` `#node-groups` `#map-range` `#vector-math` `#mixed-node` `#bump` `#hsv` `#beginner`
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[blenders-new-transparency-material-is-crazy]] — another procedural shader-building tutorial (glass/transparency) with similar node-by-node teaching style
+- [[blender-5-beginner-tutorial-part-2-materials-and-rendering]] — foundational materials/rendering basics for viewers newer to the Shader Editor
+- [[a-powerful-lighting-node-in-blender-50]] — companion node-based lighting technique to pair with this procedural material
