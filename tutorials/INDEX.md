@@ -821,9 +821,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=fB_F8x_59LA
 - **Author:** MinerDesign
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** not stated (Adaptive Subdivision + 4D Noise Texture, Blender 3.x/4.x/5.x compatible)
+- **Tags:** materials, shaders, water, ocean, procedural-texture, displacement, noise-texture, driver, adaptive-subdivision, hdri, eevee, spanish, beginner
+- **Summary:** 8m32s Spanish-language ("Como hacer Agua Realista en Blender") tutorial by MinerDesign, a follow-up to viewer requests after an animation he posted. Base setup: new file, add a Plane, apply a Subdivision Surface modifier set to **Adaptive** with subdivision type **Simple** (not Catmull-Clark, to avoid corner/edge deformation), switch to Render view...
 - **File:** tutorials/como-hacer-agua-realista-en-blender.md
 
 ---

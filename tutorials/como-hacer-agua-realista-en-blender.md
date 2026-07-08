@@ -4,9 +4,9 @@ source: YouTube
 url: https://www.youtube.com/watch?v=fB_F8x_59LA
 author: MinerDesign
 ingested: 2026-07-08
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "not stated (Adaptive Subdivision + 4D Noise Texture, Blender 3.x/4.x/5.x compatible)"
+tags: [materials, shaders, water, ocean, procedural-texture, displacement, noise-texture, driver, adaptive-subdivision, hdri, eevee, spanish, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/como-hacer-agua-realista-en-blender/
 frame_count: 4
 ---
@@ -36,27 +36,52 @@ frame_count: 4
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Procedural, animated sea-water material built entirely from stacked **4D Noise Textures** driving a real **Displacement** (not Bump) modifier chain on an Adaptive-Subdivision plane. Each noise layer's scale and animation speed are controlled independently via a Math (Multiply) node and a driver expression on the noise's W value (`#frame/N`), then all layers are summed with Math (Add) nodes into a single Displacement node feeding the material output — no keyframes needed for the motion.
 
 ### Summary
-[PENDING EXTRACTION]
+8m32s Spanish-language ("Como hacer Agua Realista en Blender") tutorial by MinerDesign, a follow-up to viewer requests after an animation he posted. Base setup: new file, add a Plane, apply a Subdivision Surface modifier set to **Adaptive** with subdivision type **Simple** (not Catmull-Clark, to avoid corner/edge deformation), switch to Render viewport shading, and set World Color to a Sky Texture for quick base lighting. Creates a new material ("agua"): Principled BSDF Roughness lowered to ~0.05, Base Color set dark with a slight blue tint (tuned for sea water; freshwater would use different values). The core trick is stacking multiple Noise Textures set to **4D** — the extra W coordinate can be driven over time to animate the noise without keyframing the texture itself, via a driver expression typed directly into the W field: `#frame/2000` (larger denominator = slower drift, smaller = faster; tune relative to the scene's FPS, 30 in this case). In Material Properties → Settings, Displacement is set to **Displacement Only** (not the default Bump-only) so the geometry actually deforms, visible with the plane in Edit Mode wireframe. To control each noise layer's visual scale independently from its own internal Scale value (kept fixed at ~0.1), a Math (Multiply) node is inserted after each Noise Texture's Fac output — raising the multiplier (e.g. to 10) exaggerates that layer's contribution without touching the noise's native scale. Multiple noise layers are combined with Math (Add) nodes chained in sequence before reaching the single Displacement node, allowing effectively unlimited noise layers to be summed for detail. Recommended recipe: 2 large base noises for the main swell, plus 1+ smaller/finer noise for surface detail, each duplicated/varied in scale and given its own W-driver speed (larger noises driven slower, e.g. `#frame/2000`, `#frame/1000`; smaller detail noise driven faster). Alternative to the 4D/W drift: add a Mapping node on a Noise Texture's Vector input and animate/drive its Location X (or X+Y for diagonal) to get directional flowing water instead of an in-place "boiling" look — useful for currents/rivers. A single Value node can be driven once and wired into multiple Mapping/W inputs to sync several noise layers to one master speed, though the author prefers driving each noise's W individually since different-scale noises read better at different speeds. Color Ramp nodes are used on some noise layers (pushed toward black) to increase contrast and carve out more defined large-scale swell zones. Ctrl+Shift+click on any Noise Texture node previews it directly in the shader editor background for quick checks while tuning. Because the whole setup is procedural and resolution-independent, scaling the base plane just requires re-tuning the noise Scale/Multiply values to match the new size. Closes with a lighting tip (pair with an HDRI rather than relying on the material alone), a note that Adaptive Subdivision gives more detail near the camera and less far away (optimizing render cost) versus a fixed Subdivision Surface level count (simpler but less optimal), and confirms the whole setup (including Displacement) works identically in EEVEE, just rendering slightly differently than Cycles.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Base mesh** [0:00] — new file → add Plane → Subdivision Surface modifier → set to **Adaptive** subdivision, type **Simple** (avoids corner distortion that Catmull-Clark would introduce).
+2. **Basic lighting** [0:00] — switch to Rendered viewport shading; World Properties → Color → Sky Texture for a quick base HDRI-like light.
+3. **Base material** [0:00] — new material named "agua"; Principled BSDF: Roughness ≈ 0.05, Base Color dark with a slight blue shift (sea-water look; adjust per water type).
+4. **4D Noise Texture** [0:00] — add a Noise Texture, set dimension to **4D**; the extra W value can be changed over time to animate the noise pattern in place (no geometry keyframes).
+5. **Animate via driver** [0:00] — right-click the noise's W field → Add Driver (or type `#` directly) → expression `#frame/2000`; bigger denominator = slower motion, smaller = faster; account for the scene's FPS when tuning.
+6. **Enable real displacement** [0:00] — Material Properties → Settings → Displacement dropdown → **Displacement Only** (default is Bump only, which doesn't deform geometry); connect a Displacement node's output to the Material Output's Displacement socket, with the noise (or noise sum) feeding the Displacement node's Height input.
+7. **Independent scale control** [0:00] — keep each Noise Texture's own Scale small/fixed (~0.1); add a Math (Multiply) node right after it and use that to scale the layer's actual visual contribution (e.g. multiply by 10) — keeps all layers controllable from one place instead of many differing Scale values.
+8. **Stack noise layers** [0:00] — duplicate the Noise Texture → Multiply chain; feed each into a Math (Add) node chained to the previous sum, then into the single Displacement node; each duplicate gets varied Scale/Multiply and its own W-driver speed (vary the denominator per layer — large slow swells, small fast detail).
+9. **Directional flow (optional)** [0:00] — add a Mapping node before a Noise Texture's Vector input; drive/animate its Location X (and Y for diagonal) instead of the noise's W to get water that visibly flows in a direction rather than churning in place.
+10. **Contrast shaping (optional)** [0:00] — pipe a noise layer through a Color Ramp, push the black point inward, to sharpen/define larger swell zones rather than uniform smooth noise.
+11. **Preview a single noise node** [0:00] — Ctrl+Shift+Click any Noise Texture node to view just that node's output in the shader editor backdrop.
+12. **Scale-up workflow note** [0:00] — because it's procedural, scaling the base plane requires re-tuning noise Scale/Multiply values to keep the wave size proportional (noise doesn't auto-scale with mesh size).
+13. **Adaptive vs fixed subdivision** [0:00] — Adaptive Subdivision increases detail near the camera and reduces it further away automatically (better perf); a fixed Subdivision Surface level count is simpler but wastes detail on distant geometry; Adaptive also renders well since it adds detail specifically for the render.
+14. **Renderer parity** [0:00] — confirmed the same setup (Displacement included) works in EEVEE, with a slightly different look than Cycles but functionally equivalent.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Subdivision Surface modifier — Adaptive / Simple** — camera-distance-based subdivision for the water plane; Simple type avoids edge/corner deformation.
+- **Sky Texture (World Color)** — fast placeholder environment lighting; author still recommends a proper HDRI for final lighting.
+- **Principled BSDF** — Roughness ~0.05, dark blue-tinted Base Color for sea water.
+- **Noise Texture (4D)** — W dimension driven by expression for time-based animation without keyframes.
+- **Driver expression `#frame/N`** — typed into a numeric field (here, Noise Texture W); N controls speed (bigger = slower).
+- **Material Settings → Displacement: Displacement Only** — required for the noise to actually deform geometry, not just fake bump normals.
+- **Displacement node** — takes summed noise Height input, outputs to Material Output's Displacement socket.
+- **Math (Multiply)** — per-layer visual scale control, decoupled from the Noise Texture's own Scale parameter.
+- **Math (Add), chained** — sums arbitrarily many noise layers into one Displacement input.
+- **Mapping node (Vector input)** — alternate animation method: drive Location X/Y for directional flow instead of animating W.
+- **Color Ramp** — contrast/black-point push on a noise layer to define larger swell shapes.
+- **Ctrl+Shift+Click (node preview)** — inspect a single node's output in the shader editor background.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner (explicitly framed by the author as "super easy"; assumes basic Shader Editor familiarity)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not stated — uses Adaptive Subdivision + 4D Noise Texture + driver expressions, standard across recent Blender 3.x/4.x/5.x; confirmed to work in both Cycles and EEVEE.
 
 ### Tags
-[PENDING EXTRACTION]
+`#materials` `#shaders` `#water` `#ocean` `#procedural-texture` `#displacement` `#noise-texture` `#driver` `#adaptive-subdivision` `#hdri` `#eevee` `#spanish` `#beginner`
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[blenders-new-transparency-material-is-crazy]] — another procedural shader-building tutorial with similar node-by-node teaching style
+- [[infinite-wood-dont-fear-the-shader-ep01]] — companion procedural-material approach: noise-driven layering (micro/medium/macro) combined into one shader, same design philosophy applied to wood instead of water
