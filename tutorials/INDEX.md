@@ -806,6 +806,16 @@ Each entry format:
 - **Summary:** First-look at Blender 5.2 Alpha's experimental Cloth Dynamics GN node. Full setup: Collection → Geometry Collider → Combine Bundle → Effectors chain for collisions; vertex group pinning via Pin Group Input node; Simulation Force node for wind; dynamic tearing via Tearing toggle + Threshold (no pre-cutting). "Deforming Setting" option fixes the old system's collapse with animated collision objects. Covers Bendiness, Stretchiness, Damping, Collision Radius, Sub Steps, Constraint Steps.
 - **File:** tutorials/the-future-of-blender-cloth-simulation-with-tearing.md
 
+
+### INFINITE WOOD! Don't Fear the Shader: EP01
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=gpC7s-tGpc4
+- **Author:** Clipping Issues
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/infinite-wood-dont-fear-the-shader-ep01.md
+
 ---
 
 ## Tag Reference
