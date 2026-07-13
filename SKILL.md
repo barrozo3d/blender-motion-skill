@@ -193,8 +193,12 @@ Structure the response as:
 
 ## Mode 2: Ingest Tutorial
 
-**Both steps happen automatically** when the user says "ingest this tutorial: [URL]".
-Do NOT wait to be asked for step 2 — run it immediately after step 1 completes.
+Three steps happen when the user says "ingest this tutorial: [URL]". Do NOT wait
+to be asked for step 2 or step 3 — run each immediately after the previous one
+completes. Frame capture is deliberately **not** automatic — it requires
+judgment about which moments in the video are worth a still, which is why it's
+a separate step done by Claude reading the transcript, not something ingest.py
+guesses at with blind percentages.
 
 ### Step 1 — Data collection (run ingest.py)
 
@@ -203,25 +207,30 @@ Run from this skill's own directory (the folder containing this SKILL.md — wor
 python ingest.py "[URL]"
 ```
 
-This runs without any API calls. It:
-- Downloads audio and transcribes with Whisper
+This runs without any API calls and downloads no video. It:
+- Downloads audio and transcribes with Whisper, preserving per-sentence timestamps (even inside chapters)
 - Parses YouTube chapters
-- Downloads low-quality video and extracts one frame per chapter
-- Saves `tutorials/<slug>.md` with raw transcript + frame paths
-- Saves frames to `tutorials/frames/<slug>/` (local only, not in git)
+- Saves `tutorials/<slug>.md` with the raw timestamped transcript (`frame_status: pending-selection`)
 - Updates `INDEX.md` with a pending stub
 - Commits and pushes raw data to GitHub
 
-The script prints the tutorial file path and frames directory at the end.
+The script prints the tutorial file path and a reminder to run `select_frames.py` next.
 
-### Step 2 — Extraction (done by Claude Code immediately after)
+### Step 2 — Frame selection (run select_frames.py)
 
-After ingest.py completes, run the full extraction pass without being asked:
+1. **Read the timestamped transcript** in the tutorial file's `## Raw Data` section.
+2. **Pick 4-8 moments** that actually show a technique/result worth a still — not blind percentages of the runtime, and not just chapter-start + a few seconds. Verify each pick against the transcript's own timestamps.
+3. **Run the script** with those timestamps (seconds or mm:ss, mixed freely):
+```bash
+python select_frames.py <slug> <ts1> <ts2> ...
+```
+This downloads the low-quality video, extracts exactly those frames to `tutorials/frames/<slug>/` (local only, not in git), appends a `## Captured Frames` section to the tutorial file, and sets `frame_status: complete` in the frontmatter. It does **not** commit — that happens together with the Structured Notes in Step 3.
 
-1. **Read the tutorial file** printed by ingest.py (e.g. `tutorials/my-tutorial.md`)
-2. **Read each frame** listed in the Raw Data section using the Read tool — the Read tool supports images, so `Read("tutorials/frames/slug/frame_000.jpg")` shows the actual frame
-3. **Analyze each frame**: identify which Blender editor is shown, list exact node names, parameter values, viewport content
-4. **Fill in ALL Structured Notes** (replace every `[PENDING EXTRACTION]`):
+### Step 3 — Extraction (done by Claude Code immediately after)
+
+1. **Read each frame** listed in the `## Captured Frames` section using the Read tool — the Read tool supports images, so `Read("tutorials/frames/slug/frame_000.jpg")` shows the actual frame
+2. **Analyze each frame**: identify which Blender editor is shown, list exact node names, parameter values, viewport content
+3. **Fill in ALL Structured Notes** (replace every `[PENDING EXTRACTION]`):
    - **Core Technique** — one sentence, the main Blender technique
    - **Summary** — 2-3 sentences, what the viewer learns and the end result
    - **Key Steps** — 5-10 steps with exact node names, menu paths, shortcuts
@@ -229,10 +238,10 @@ After ingest.py completes, run the full extraction pass without being asked:
    - **Difficulty** — Beginner / Intermediate / Advanced / Expert
    - **Blender Version** — from transcript or frames; "Not specified" if unclear
    - **Tags** — from the approved tag pool in the Key Rules section
-5. **Update frontmatter**: set `blender_version:`, `tags:`, `extraction_status: complete`
-6. **Find related tutorials**: scan `INDEX.md` for entries sharing 2+ tags, add cross-links in `## Related Tutorials`
-7. **Update INDEX.md entry**: replace `[PENDING]` fields with real version, tags, and summary
-8. **Commit and push** (from this skill's own directory):
+4. **Update frontmatter**: set `blender_version:`, `tags:`, `extraction_status: complete`
+5. **Find related tutorials**: scan `INDEX.md` for entries sharing 2+ tags, add cross-links in `## Related Tutorials`
+6. **Update INDEX.md entry**: replace `[PENDING]` fields with real version, tags, and summary
+7. **Commit and push** (from this skill's own directory):
 ```bash
 git add tutorials/<slug>.md tutorials/INDEX.md
 git commit -m "extract: [tutorial title]"
@@ -240,7 +249,10 @@ git push
 ```
 
 ### For web articles/documentation:
-Run ingest.py with the article URL — it fetches page text. Then follow Step 2 above (no frames for articles).
+Run ingest.py with the article URL — it fetches page text, `can_have_frames` is false, `frame_status: skipped`. Skip Step 2 (no frames) and go straight to Step 3.
+
+### Re-ingesting an existing tutorial
+`ingest.py --force` re-collects transcript-only data and refuses to overwrite a file that's already `extraction_status: complete` unless `--force` is passed. `select_frames.py --force` re-captures frames even if `frame_status` is already `complete`.
 
 ### Approved tag pool
 ```

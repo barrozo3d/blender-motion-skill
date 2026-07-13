@@ -150,7 +150,7 @@ cd "$HOME\.claude\skills\blender-motion"
 python ingest.py "https://www.youtube.com/watch?v=WreZ_VKDn4M" --skip-video
 ```
 
-`--skip-video` skips frame extraction so the test runs in ~2 minutes instead of 10+.
+Step 1 alone (`ingest.py`, with or without `--skip-video`) never downloads video anymore — it only collects transcript + metadata, so this test runs in ~2 minutes either way. `--skip-video` instead permanently marks the tutorial `frame_status: skipped` (use it for articles or text-only ingests where frame capture will never apply); without it, frames stay `pending-selection` until you run `select_frames.py`.
 
 ---
 
@@ -208,7 +208,8 @@ blender-motion/
 ├── SKILL.md              ← main skill instructions Claude reads
 ├── SETUP.md              ← this file
 ├── setup.ps1             ← Windows automated installer
-├── ingest.py             ← enhanced tutorial ingestion pipeline
+├── ingest.py             ← Step 1: transcript/metadata collection (no video/frames)
+├── select_frames.py      ← Step 2: content-aware frame capture (Claude picks timestamps)
 ├── batch_ingest.py       ← batch URL ingestion
 ├── requirements.txt      ← pip dependency list
 ├── references/           ← technique library (Blender-specific knowledge)
@@ -225,22 +226,31 @@ blender-motion/
 
 ## Ingest Pipeline Reference
 
+The pipeline is two scripts, run in sequence — frame capture is a deliberate,
+content-aware step done by Claude Code, not something either script guesses at:
+
 ```
-python ingest.py <url>                         full pipeline
-python ingest.py <url> --skip-video            no frames (faster, no ffmpeg needed)
+Step 1 — collect transcript only, no video/frames:
+python ingest.py <url>
+python ingest.py <url> --skip-video            article/text-only ingest, no frames ever
 python ingest.py <url> --whisper-model small   better accuracy, slower
 python ingest.py <url> --whisper-model medium  best accuracy, much slower
 python ingest.py <url> --force                 re-collect even if extraction_status: complete (overwrites Structured Notes)
+
+Step 2 — after reading the timestamped transcript, capture the chosen moments:
+python select_frames.py <slug> <ts1> <ts2> ...   seconds or mm:ss, e.g. 10 60 4:20 8:05
+python select_frames.py <slug> ... --force       re-capture even if frame_status: complete
 ```
 
-`ingest.py` refuses to overwrite a tutorial `.md` whose frontmatter already has `extraction_status: complete`, to protect hand-written Structured Notes from being wiped by an accidental re-ingest. Pass `--force` only when you intend to discard the existing extraction (e.g. recovering from a truncated/corrupt transcript) and will re-run the extraction pass afterward.
+`ingest.py` refuses to overwrite a tutorial `.md` whose frontmatter already has `extraction_status: complete`, to protect hand-written Structured Notes from being wiped by an accidental re-ingest. Pass `--force` only when you intend to discard the existing extraction (e.g. recovering from a truncated/corrupt transcript) and will re-run the extraction pass afterward. `select_frames.py` has the same guard on `frame_status: complete`.
 
 Pipeline stages:
 1. yt-dlp metadata + chapter list
-2. Whisper transcription (or yt-dlp captions fallback)
+2. Whisper transcription (or yt-dlp captions fallback), per-sentence timestamps preserved even inside chapters
 3. Transcript segmented by chapter
-4. Low-quality video download → ffmpeg frame extraction at chapter timestamps
-5. Claude vision analysis per frame (reads node graphs, settings, viewport)
-6. Claude multi-pass extraction (core technique, steps, nodes, tags)
-7. Auto cross-linking with existing tutorials (2+ shared tags)
-8. Write `.md` + update `INDEX.md` + git push
+4. Write `tutorials/<slug>.md` (`frame_status: pending-selection`) + update `INDEX.md` + git push — **no video download, no frames yet**
+5. Claude Code reads the timestamped transcript and picks 4-8 content-anchored moments (not blind percentages)
+6. `select_frames.py <slug> <timestamps>` downloads the low-quality video, extracts exactly those frames to `tutorials/frames/<slug>/`, sets `frame_status: complete` — not committed yet
+7. Claude Code vision-reads each captured frame (node graphs, settings, viewport) and writes the Structured Notes (core technique, steps, nodes, tags)
+8. Auto cross-linking with existing tutorials (2+ shared tags)
+9. Update `INDEX.md`, commit `.md` + `INDEX.md` together, git push
