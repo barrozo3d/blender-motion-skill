@@ -857,6 +857,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/how-to-fix-shading-errors-in-blender.md
 
+
+### I Tested 5 Different Ways to Simulate Water
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=QF-gxJLVNOw
+- **Author:** Nils Gallist
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/i-tested-5-different-ways-to-simulate-water.md
+
 ---
 
 ## Tag Reference
