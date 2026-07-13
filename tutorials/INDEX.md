@@ -826,6 +826,17 @@ Each entry format:
 - **Summary:** 8m32s Spanish-language ("Como hacer Agua Realista en Blender") tutorial by MinerDesign, a follow-up to viewer requests after an animation he posted. Base setup: new file, add a Plane, apply a Subdivision Surface modifier set to **Adaptive** with subdivision type **Simple** (not Catmull-Clark, to avoid corner/edge deformation), switch to Render view...
 - **File:** tutorials/como-hacer-agua-realista-en-blender.md
 
+
+
+### Blender 5.2: Printing Muscles
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=ByWrhGggWm8
+- **Author:** Cartesian Caramel
+- **Blender Version:** Blender 5.2
+- **Tags:** #geometry-nodes #procedural #simulation #uv-mapping #materials #shaders #cycles #eevee #advanced #intermediate #blender-5x #attributes #organic #sci-fi #anatomy #livestream
+- **Summary:** Unedited ~2hr livestream (no chapter markers) building a procedural "3D printer" Geometry Nodes rig: a spline traces across a mesh's per-UV-island map and progressively deforms/reveals the surface along it, faking a live tissue-printing/growth process, applied to hand tendons/muscles over a skeleton reference. Covers the tracer/deform/muscle-fiber node-group architecture, an ad-hoc auto-square-UV trick (shortest-edge-path gradients, no add-on), a progress auto-stop via Attribute Statistic, a minimum-stretch UV-unwrap trick for circular fiber UVs, and a genuinely useful Cycles-only gotcha: naming a Store Named Attribute output `UV` silently collides with Blender's reserved active-UV-map attribute and gets ignored in Cycles (EEVEE unaffected).
+- **File:** tutorials/blender-52-printing-muscles.md
+
 ---
 
 ## Tag Reference
