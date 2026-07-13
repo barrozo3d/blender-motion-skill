@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=EdEIUkWzYY0
 author: Josh - Blender Bros
 ingested: 2026-07-13
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.1"
+tags: [shading, normals, weighted-normal, boolean, bevel, topology, hard-surface, intermediate, advanced, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-fix-shading-errors-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How to fix SHADING ERRORS in Blender
@@ -22,12 +23,7 @@ frame_status: pending-selection
 
 ## Raw Data (for Claude Code extraction)
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-to-fix-shading-errors-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -164,30 +160,48 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:15] tutorials/frames/how-to-fix-shading-errors-in-blender/frame_000.jpg
+- [3:16] tutorials/frames/how-to-fix-shading-errors-in-blender/frame_001.jpg
+- [5:30] tutorials/frames/how-to-fix-shading-errors-in-blender/frame_002.jpg
+- [7:05] tutorials/frames/how-to-fix-shading-errors-in-blender/frame_003.jpg
+- [8:16] tutorials/frames/how-to-fix-shading-errors-in-blender/frame_004.jpg
+- [10:56] tutorials/frames/how-to-fix-shading-errors-in-blender/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Diagnoses the three distinct causes of hard-surface shading distortion (sharp-edge markings on bevels, non-90° bevel holding edges, and bent n-gon polygons from Booleans on curved surfaces) and gives a targeted fix for each — because a Weighted Normal modifier only fixes one of the three.
 
 ### Summary
-[PENDING EXTRACTION]
+A troubleshooting/diagnosis tutorial for hard-surface modeling, not a build. Covers why "weird shading errors" show up after Booleans and Bevels, and which of three different fixes actually applies depending on the root cause: clearing/avoiding sharp edge marks, adding a Weighted Normal modifier for flat-holding-edge angle mismatches, or improving topology/geometry density for curved-surface Boolean distortion (where Weighted Normal does nothing).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Sharp-marking artifact:** a visible line across a bevel's holding edge happens when a Sharp edge-mark exists on the original edge before the bevel is applied — the bevel splits that edge into two holding edges and both inherit the sharp mark. Fix options: (a) go to the bevel's holding edges and clear the Sharp mark, (b) remove the Sharp mark before adding the bevel so it's never inherited, or (c) if using Hard Ops, Ctrl+Shift-click **Recalculate** to auto-update sharp marks to match the new geometry (only works if "Sharp" is enabled in Hard Ops' sharp-and-seam settings).
+2. Sharp edge marks exist specifically for cases where **Shade Auto Smooth**'s angle threshold can't correctly separate two faces on its own (e.g. a Boolean at a very shallow angle) — manually right-click → Mark Sharp on the problem edge instead of fighting the Auto Smooth angle.
+3. **Flat-surface shading distortion:** a Bevel modifier on a flat plane can leave a subtle shading error visible under an unforgiving MatCap (checker) or reflective material, even with no visible geometry problem. Root cause: the bevel's holding edge is not perfectly 90°, verified by inspecting vertex normals in Edit Mode after applying the bevel.
+4. **Fix for flat-surface distortion:** add a **Weighted Normal** modifier (Object Data Properties → Normals, or Add Modifier → Normals → Weighted Normal). It forces holding edges to compute as perfectly 90°, which removes the distortion — confirmed by toggling the modifier on/off and comparing.
+5. **Curved-surface shading distortion:** running a Boolean on a curved mesh (e.g. a cylinder) produces a much more obvious distortion that a Weighted Normal modifier does **not** fix, because the cause is a genuinely bent (non-planar) n-gon polygon left behind by the Boolean, not a normal-angle mismatch. Isolating and separating the offending face shows it is visibly non-flat.
+6. **Fixes for curved-surface distortion** (three options, in order of practicality): (a) maintain clean quad-based topology from the start (grid-fill instead of leaving n-gons), (b) add more supporting geometry near the cut so the distortion is isolated to small, barely-visible n-gons/triangles instead of spreading across a large face — the recommended hard-surface workflow approach, or (c) use the Data Transfer modifier (less practical, referenced but not demonstrated in this video).
+7. Diagnostic checklist when a shading error appears: check whether a Sharp edge-mark is present, check the bevel's holding-edge angle (Weighted Normal candidate), and check whether the surface is curved (topology/geometry-density candidate, not Weighted Normal).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+Not a node-based technique — mesh/modifier workflow only. Modifiers used: **Bevel**, **Boolean**, **Weighted Normal** (Object Data Properties → Normals → Auto Smooth must be enabled first). Edge data: **Mark Sharp** (Edge menu / right-click). Add-on referenced: **Hard Ops** "Recalculate" (Ctrl+Shift-click) for sharp-mark auto-update — requires "Sharp" enabled under Hard Ops' sharp/seam settings to have any effect. Also referenced but not covered in depth: **Data Transfer modifier** (linked to a separate tutorial by the same channel).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate / Advanced — assumes familiarity with Bevel/Boolean modifier stacking and edge data (sharp marks, normals); the curved-surface n-gon diagnosis is a subtler hard-surface concept.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.1 (visible in viewport/title bar across the captured frames).
 
 ### Tags
-[PENDING EXTRACTION]
+#shading #normals #weighted-normal #boolean #bevel #topology #hard-surface #intermediate #advanced #blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Geode Nodes (i am so clever) // Blender Tutorial](geode-nodes-i-am-so-clever-blender-tutorial.md) — also uses Boolean (Manifold mode) on organic/procedural geometry, relevant if combining with GN-driven hard-surface work.
+- No other indexed tutorial currently covers Weighted Normal / sharp-edge shading diagnostics directly — this is the first entry on that specific topic.

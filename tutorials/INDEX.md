@@ -842,9 +842,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=n1_NMIV7A5U
 - **Author:** ALL THE WORKS
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.1
+- **Tags:** #geometry-nodes #procedural #instancing #organic #curves #beginner #intermediate #blender-5x
+- **Summary:** Scatters a Collection of hand-modeled low-poly rock variants across a mesh or curve using Distribute Points on Faces (Poisson Disk) + Instance on Points (Pick Instance), with Align Rotation to Vector for surface-normal alignment, layered Random Value nodes for scale/rotation variety, and an optional Normal/Compare face-selection mask. Covers merging overlapping instances via Realize Instances + Remesh + Decimate, and a curve-based scattering variant.
 - **File:** tutorials/easy-geometry-nodes---low-poly-rocks-blender-51.md
 
 
@@ -852,9 +852,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=EdEIUkWzYY0
 - **Author:** Josh - Blender Bros
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.1
+- **Tags:** #shading #normals #weighted-normal #boolean #bevel #topology #hard-surface #intermediate #advanced #blender-5x
+- **Summary:** Diagnostic (not build) tutorial covering three distinct causes of hard-surface shading distortion after Booleans/Bevels: inherited Sharp edge-marks on bevel holding edges (fix: clear the mark, avoid it pre-bevel, or Hard Ops Recalculate), non-90° holding-edge angles on flat surfaces (fix: Weighted Normal modifier), and bent n-gon polygons from Booleans on curved surfaces (Weighted Normal does NOT fix this — needs clean quad topology or added geometry density instead).
 - **File:** tutorials/how-to-fix-shading-errors-in-blender.md
 
 
@@ -862,9 +862,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=QF-gxJLVNOw
 - **Author:** Nils Gallist
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Mantaflow works on any recent Blender 3.x/4.x/5.x)
+- **Tags:** #simulation #fluid #particles #review #workflow #intermediate #advanced
+- **Summary:** Comparative benchmark (not a build tutorial) of five water-simulation tools on an identical splash scene: Blender-internal Mantaflow (free but slow, 19-115GB caches, crash-prone), Flip Fluids add-on (best realism/detail, CPU-bound), NeXus Particles (fast/GPU but no whitewater and broken caching), LiquiGen (external, real-time GPU, fastest iteration, exports via Alembic), and HydroFX (external, GPU, most fun to iterate with). Ranks tools by bake time, cache size, viewport performance, and final quality; honorable mention to an untested AI water LoRA.
 - **File:** tutorials/i-tested-5-different-ways-to-simulate-water.md
 
 ---

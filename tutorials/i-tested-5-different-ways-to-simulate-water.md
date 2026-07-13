@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=QF-gxJLVNOw
 author: Nils Gallist
 ingested: 2026-07-13
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (Mantaflow works on any recent Blender 3.x/4.x/5.x)"
+tags: [simulation, fluid, particles, review, workflow, intermediate, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/i-tested-5-different-ways-to-simulate-water/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # I Tested 5 Different Ways to Simulate Water
@@ -22,12 +23,7 @@ frame_status: pending-selection
 
 ## Raw Data (for Claude Code extraction)
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py i-tested-5-different-ways-to-simulate-water <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -238,30 +234,50 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [4:33] tutorials/frames/i-tested-5-different-ways-to-simulate-water/frame_000.jpg
+- [7:38] tutorials/frames/i-tested-5-different-ways-to-simulate-water/frame_001.jpg
+- [9:25] tutorials/frames/i-tested-5-different-ways-to-simulate-water/frame_002.jpg
+- [11:54] tutorials/frames/i-tested-5-different-ways-to-simulate-water/frame_003.jpg
+- [13:39] tutorials/frames/i-tested-5-different-ways-to-simulate-water/frame_004.jpg
+- [15:13] tutorials/frames/i-tested-5-different-ways-to-simulate-water/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Not a build tutorial — a comparative benchmark of five (plus one honorable mention) fluid-simulation tools for water, testing the same splash/running-figures scene in each: Blender's built-in Mantaflow, the Flip Fluids add-on, Insydium's NeXus Particles plugin (beta), JangaFX's LiquiGen, and the standalone HydroFX tool, evaluated on bake time, cache size, viewport performance, and final quality/whitewater detail.
 
 ### Summary
-[PENDING EXTRACTION]
+The author re-simulated an identical scene (two running character models splashing through a pool) across every tool to give a fair, timed comparison for artists deciding which fluid solver fits their budget and timeline. Findings: Blender-internal Mantaflow is free but slow to bake (20-40 min at 256 res, 2+ hours at 512, 19-115 GB cache) and prone to crashes, though the 512 render result looks decent. Flip Fluids gives the best realism/detail and rich particle control (foam, spray, viscosity) and is the author's top pick for quality, but is CPU-bound (a community GPU build gave no measurable speedup in this test) and still took over an hour at 512. NeXus Particles is fast and GPU-accelerated but its caching was broken during testing, and — more importantly — its particle output has no whitewater/foam/spray at all (later fixed with an "NX Foam" update that still didn't work for the author); it's built for mograph-style fluid, not realistic water. LiquiGen (external, real-time GPU particle sim) is dramatically faster and genuinely interactive (viewport is real-time even at 512 res, pre-bake/cache in ~5 seconds for hundreds of millions of particles) at some cost to top-end realism versus Flip Fluids; results export to Blender as Alembic (.abc) for further Geometry Nodes control. HydroFX (external, GPU-accelerated) was the most fun/interactive to use and fast (6m10s for the high-res test) but the demo version used couldn't export results. Overall tier take: Flip Fluids for realism, LiquiGen if speed/iteration matters more than perfect fidelity, avoid Mantaflow if any of the alternatives are available, HydroFX worth watching, NeXus not currently suited for realistic water/whitewater work. Honorable mention: an AI "water LoRA" (untested).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Build one reference scene (two humanoid figures splashing across a shallow pool) and keep the setup as close to identical as possible across every tool for a fair comparison.
+2. Test each tool at two comparable resolutions (grid resolution 256 and 512 for Mantaflow/Flip Fluids/NeXus; equivalent voxel-size settings for the others) and record bake/cache time, on-disk cache size, and viewport playback smoothness after baking.
+3. Blender-internal (Mantaflow): grid-based fluid sim, resolution 256 vs 512 — retains full control over foam/spray/liquid particle systems but scales badly in time and cache size (19 GB → 115+ GB going from 256 to 512) and repeated crashes forced console-command rendering instead of standard Ctrl+F12.
+4. Flip Fluids (add-on): CPU-bound by default; a community GPU-accelerated build exists but showed no real speed benefit in this test. Rich control over particle data (foam/spray/viscosity/APIC-like viscous behavior) makes it strong for motion-graphics use as well as realism, and it excludes simulation domain side-walls automatically from the cache — a nice touch the author called out.
+5. NeXus Particles (Insydium, beta): steeper setup (voxel-size based resolution, less beginner-friendly), GPU-accelerated and very fast to bake (~1 min at 256), but caching was broken at test time (confirmed by the developers on Discord) and the sim produces pure fluid with zero whitewater/foam/spray — a fundamental mismatch for realistic water, even after a later "NX Foam" update.
+6. LiquiGen (JangaFX, external/standalone): GPU-accelerated real-time particle solver (water, fire, and more); viewport is truly real-time even at high particle counts, letting you frame shots live; export via Alembic (.abc) back into Blender for Geometry Nodes-based particle control (e.g. resizing points) — trial version in this test capped export to 256 frames.
+7. HydroFX (external/standalone): GPU-accelerated, plays and caches simultaneously in the viewport, felt the most responsive/fun to iterate with; the demo license used could not export any results.
+8. Compile a results/tier-list: rank tools by realism, speed, and control based on the timed data, not just visual impression, and be explicit about caveats (crashes, trial limitations, "it might be a skill issue on my side").
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+No Geometry Nodes or shader graph work — this is an external-tool and simulation-solver comparison. Blender-side settings referenced: Mantaflow domain **Resolution Divisions** (256 / 512), particle systems for **foam/spray/liquid**. LiquiGen export path: **Alembic (.abc)** import into Blender, then optional Geometry Nodes to resize/re-attribute the imported particle points.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate / Advanced — assumes the viewer already knows how to set up a basic fluid domain and is choosing between tools rather than learning simulation basics from scratch; several tools involved (Flip Fluids, NeXus, LiquiGen, HydroFX) require separate paid licenses/add-ons.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Mantaflow (Blender's built-in fluid system) is stable across Blender 3.x/4.x/5.x, so this comparison isn't version-locked; the external tools (Flip Fluids, NeXus, LiquiGen, HydroFX) each have their own compatibility requirements outside this video's scope.
 
 ### Tags
-[PENDING EXTRACTION]
+#simulation #fluid #particles #review #workflow #intermediate #advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [NeXus for Blender Official Training - Follow Curve](nexus-for-blender-official-training---follow-curve.md) — shares #particles #simulation #fluid; official NeXus training for the same plugin this video benchmarks (and found lacking for whitewater realism).
+- [3D Smoke (Blender Geometry Nodes)](3d-smoke-blender-geometry-nodes.md) — shares #simulation, complementary GN-native volumetric fluid technique (smoke rather than water) if a fully in-Blender, no-add-on route is preferred over any of the tools compared here.
+- [How I Made Realistic Storm Clouds in Blender!](how-i-made-realistic-storm-clouds-in-blender.md) — shares #volume #simulation-adjacent workflow judgment on when procedural/GN tricks beat a "real" solver, same trade-off theme as this comparison.

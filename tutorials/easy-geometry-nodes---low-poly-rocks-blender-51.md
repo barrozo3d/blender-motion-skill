@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=n1_NMIV7A5U
 author: ALL THE WORKS
 ingested: 2026-07-13
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.1"
+tags: [geometry-nodes, procedural, instancing, organic, curves, beginner, intermediate, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/easy-geometry-nodes---low-poly-rocks-blender-51/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Easy Geometry Nodes - Low-poly Rocks Blender 5.1
@@ -22,12 +23,7 @@ frame_status: pending-selection
 
 ## Raw Data (for Claude Code extraction)
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py easy-geometry-nodes---low-poly-rocks-blender-51 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -107,30 +103,51 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:26] tutorials/frames/easy-geometry-nodes---low-poly-rocks-blender-51/frame_000.jpg
+- [3:22] tutorials/frames/easy-geometry-nodes---low-poly-rocks-blender-51/frame_001.jpg
+- [5:30] tutorials/frames/easy-geometry-nodes---low-poly-rocks-blender-51/frame_002.jpg
+- [7:23] tutorials/frames/easy-geometry-nodes---low-poly-rocks-blender-51/frame_003.jpg
+- [8:24] tutorials/frames/easy-geometry-nodes---low-poly-rocks-blender-51/frame_004.jpg
+- [10:04] tutorials/frames/easy-geometry-nodes---low-poly-rocks-blender-51/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
-
-### Summary
-[PENDING EXTRACTION]
+Distribute Points on Faces + Instance on Points to scatter a Collection of hand-modeled low-poly rock variants across any base geometry (plane, cube, or curve-to-mesh), with per-instance random scale/rotation and an optional normal-based face mask.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Model 2-3 base rock shapes: start from a cube, use the Bisect tool to carve edges (drag-select, then choose Fill/Clear in the operator options) to get a faceted low-poly look. Put the variants in their own Collection.
+2. On a target object (plane, cube, or curve), add a Geometry Nodes modifier and drag the rock Collection into a Collection Info node — set it to **Relative**, **Separate Children**, **Reset Children**.
+3. Add **Distribute Points on Faces** (Mesh input from Group Input), switch method to **Poisson Disk** for even spacing (exposes Distance Min / Density Max / Density Factor).
+4. Add **Instance on Points**: Points from the distribute node, Instance = Collection Info output, enable **Pick Instance** (randomizes which rock variant is used per point). Output straight to Group Output for the base result.
+5. Align instances to the surface: **Align Rotation to Vector**, feed the mesh **Normal** node into its Vector input, set Axis to Z, plug into Instance on Points' Rotation.
+6. Vary scale: a **Random Value** (Float, Min 1 / Max 1.5) into the base Scale; a second **Random Value** (Vector) with X/Y locked at 1 and Z ranged ~0.2-2.2 into **Scale Instances** for anisotropic stretch.
+7. Vary rotation: a **Random Value** into **Rotate Instances**, X/Y at 0, Z given a range for yaw variation.
+8. Optional face-mask variant: **Normal → Separate XYZ**, take Z, feed into a **Math (Compare)** node against a threshold (e.g. 0.5, with an Epsilon for tolerance), plug into Distribute Points on Faces' Selection to restrict scattering to vertical (or top/bottom) faces only — useful for e.g. only scattering on cliff faces, not flat tops.
+9. To merge overlapping instances into one solid mesh: **Realize Instances**, then a **Remesh** modifier (to fuse geometry) followed by **Decimate** (to bring the poly count back down). A **Geometry Proximity** node can add a ground-merging/blend effect.
+10. Add a small **UV Unwrap** node in the modifier stack to generate UVs for the combined shape so materials map correctly.
+11. Expose any node value to the modifier's UI by drag-selecting it and connecting to the Group Input node's panel — rename it in the N-panel sidebar so it becomes a user-facing property.
+12. Curve variant: convert a Bezier/curve circle to a mesh (Curve to Mesh) and feed that into the same distribute/instance setup to scatter rocks along a path instead of across a face.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+Collection Info (Relative, Separate Children, Reset Children) → Distribute Points on Faces (Poisson Disk; Distance Min, Density Max, Density Factor, Selection input for masking) → Align Rotation to Vector (Normal → Vector, Axis Z) → Instance on Points (Pick Instance) → Random Value ×3 (uniform float scale, anisotropic Z vector scale, Z rotation) → Normal + Separate XYZ + Compare (face-selection mask) → Realize Instances → Remesh modifier → Decimate modifier → Geometry Proximity → UV Unwrap node → Curve to Mesh (for the curve-based variant).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner / Intermediate — no simulation or advanced math, just core distribute/instance nodes plus two standard mesh modifiers.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.1 (per viewport frames and video title).
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #procedural #instancing #organic #curves #beginner #intermediate #blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Procedural Desert Buildings in Blender](procedural-desert-buildings-in-blender-geo-nodes-blender-tutorial.md) — shares #geometry-nodes #procedural #organic instancing/scattering approach.
+- [Procedural Grass in Blender Geometry Nodes](procedural-grass-in-blender-geometry-nodes-fast-viewport-se.md) — shares #geometry-nodes #procedural #organic Instance on Points scattering pattern.
+- [How to Create Abstract Crystal Renders in Blender](how-to-create-abstract-crystal-renders-in-blender.md) — shares #geometry-nodes #procedural, similar Distribute Points on Faces → Instance on Points → Join Geometry scatter pipeline.
