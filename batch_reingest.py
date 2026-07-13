@@ -1,25 +1,32 @@
 """
 batch_reingest.py — Re-ingest all tutorials in INDEX.md using the enhanced pipeline.
 
-Reads every URL from tutorials/INDEX.md, runs ingest.py for each one, and overwrites
-the existing tutorial files with Whisper transcription, chapter segmentation,
-multi-pass Claude extraction, and auto cross-linking.
+Reads every URL from tutorials/INDEX.md, runs ingest.py (Step 1) for each one:
+Whisper transcription with per-sentence timestamps + chapter segmentation.
+No video is downloaded and no frames are extracted here anymore — that's Step 2
+now (content-aware, see select_frames.py), since picking *which* moment is
+worth a still needs judgment this script doesn't have.
 
 Each tutorial is committed and pushed individually — so if the run is interrupted,
 everything processed so far is already on GitHub.
 
 Usage:
-  python batch_reingest.py                       # full pipeline (slow, ~15-20 hrs)
-  python batch_reingest.py --skip-video          # no frames, transcript+Claude only (~4-5 hrs)
+  python batch_reingest.py                       # transcript collection for all
+  python batch_reingest.py --skip-video          # mark frame_status: skipped (text-only)
   python batch_reingest.py --whisper-model small # better accuracy, slower Whisper
-  python batch_reingest.py --skip-video --start 10  # resume from tutorial #10
+  python batch_reingest.py --start 10            # resume from tutorial #10
 
 Estimated time (RTX 5070, GPU Whisper, base model):
-  --skip-video:   ~4-5 minutes per tutorial  ->  ~4-5 hours for 58 tutorials
-  full pipeline:  ~20-25 minutes per tutorial -> ~20 hours for 58 tutorials
+  ~4-5 minutes per tutorial -> ~4-5 hours for 58 tutorials (same regardless of
+  --skip-video now, since Step 1 never downloads video either way — that flag
+  only controls whether Step 2 will later attempt frame capture at all).
 
-After this script finishes, tell Claude Code: "extract all pending tutorials"
-and it will read each raw file + frames and do the full extraction pass.
+After this script finishes, tell Claude Code: "extract all pending tutorials" —
+for each one, Claude reads the timestamped transcript, picks real
+technique/result moments (even inside official chapters — don't trust
+chapter_start+5s blindly), runs `select_frames.py <slug> <ts...>` (this is
+where the video download + ffmpeg cost now lands, per tutorial), then writes
+the Structured Notes and commits.
 """
 
 import re
@@ -70,7 +77,7 @@ def eta(elapsed_sec, done, total):
 def main():
     parser = argparse.ArgumentParser(description="Re-ingest all tutorials with the enhanced pipeline")
     parser.add_argument("--skip-video", action="store_true",
-                        help="Skip video download and frame extraction (faster)")
+                        help="Mark entries frame_status: skipped (Step 2 won't attempt frame capture)")
     parser.add_argument("--whisper-model", default="base",
                         choices=["tiny", "base", "small", "medium", "large"])
     parser.add_argument("--start", type=int, default=1,
@@ -85,7 +92,7 @@ def main():
     print(f"\n{'='*60}")
     print(f"  blender-motion — Batch Re-ingest")
     print(f"  {total} tutorials found in INDEX.md")
-    print(f"  Mode: {'--skip-video (transcript + Claude only)' if args.skip_video else 'full pipeline (with frames + vision)'}")
+    print(f"  Mode: {'--skip-video (frame_status: skipped)' if args.skip_video else 'frame_status: pending-selection (Step 2 will pick frames)'}")
     print(f"  Whisper model: {args.whisper_model}")
     if args.start > 1:
         print(f"  Resuming from tutorial #{args.start}")

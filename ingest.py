@@ -3,23 +3,26 @@ ingest.py — Data collection for blender-motion skill (Step 1 of 2)
 
 NO API CALLS. Collects everything and saves to disk for Claude Code extraction.
 
-Pipeline:
+Pipeline (Step 1 — this script):
   1. yt-dlp metadata + chapter parsing
-  2. Whisper transcription (falls back to yt-dlp captions)
-  3. Transcript segmented by chapters
-  4. Low-quality video download + ffmpeg frame extraction at chapter boundaries
-  5. Save raw .md to tutorials/<slug>.md
-  6. Save frames to tutorials/frames/<slug>/ (local only, not committed to git)
-  7. Update INDEX.md with pending stub
-  8. git commit + push (raw .md + INDEX only)
+  2. Whisper transcription (falls back to yt-dlp captions), per-sentence
+     timestamps preserved even inside chapters
+  3. Transcript segmented by chapters (or one "Full Content" section)
+  4. Save raw .md to tutorials/<slug>.md (frame_status: pending-selection)
+  5. Update INDEX.md with pending stub
+  6. git commit + push (raw .md + INDEX only)
 
-Claude Code reads the saved file + frames and runs the extraction pass (Step 2).
-The path of the saved file is printed at the end — Claude uses that to start extraction.
+No video is downloaded and no frames are extracted here — frame timestamps
+need judgment (which moment actually shows the technique), not a blind
+percentage split, so that's deferred to select_frames.py (Step 2), run by
+Claude Code after reading the timestamped transcript. See select_frames.py's
+docstring for that step. Frames land in tutorials/frames/<slug>/ (local only,
+not committed to git) once selected.
 
 Usage:
   python ingest.py <youtube-url>
   python ingest.py <youtube-url> --whisper-model small
-  python ingest.py <youtube-url> --skip-video   (no frames, text-only extraction)
+  python ingest.py <youtube-url> --skip-video   (no frames ever, text-only extraction)
   python ingest.py <article-url>
 """
 
@@ -133,16 +136,29 @@ def ytdlp_captions(url, tmp):
     return ""
 
 def segment_by_chapters(transcript, chapters):
+    """
+    Bucket the Whisper transcript into sections (by official chapters, or one
+    "Full Content" section if none exist). Each section keeps both a joined
+    `text` blob (for the completeness/hallucination safeguards) and a
+    per-sentence `segments` list of (start_seconds, text) tuples — the fine
+    timestamps are what let Step 2 pick content-anchored frame moments instead
+    of trusting chapter boundaries blindly.
+    """
     segs = transcript.get("segments", [])
     if not chapters:
+        all_segs = [(s.get("start", 0), s["text"].strip()) for s in segs]
         return [{"title": "Full Content", "start": 0,
-                 "text": transcript.get("text", "").strip()}]
+                 "text": transcript.get("text", "").strip(),
+                 "segments": all_segs}]
     result = []
     for i, ch in enumerate(chapters):
         t0 = ch.get("start_time", 0)
         t1 = chapters[i+1].get("start_time", float("inf")) if i+1 < len(chapters) else float("inf")
-        text = " ".join(s["text"] for s in segs if t0 <= s.get("start", 0) < t1).strip()
-        result.append({"title": ch.get("title", f"Chapter {i+1}"), "start": t0, "text": text})
+        in_range = [s for s in segs if t0 <= s.get("start", 0) < t1]
+        text = " ".join(s["text"].strip() for s in in_range).strip()
+        seg_list = [(s.get("start", 0), s["text"].strip()) for s in in_range]
+        result.append({"title": ch.get("title", f"Chapter {i+1}"), "start": t0,
+                        "text": text, "segments": seg_list})
     return result
 
 # ── Step 3: Frame extraction ───────────────────────────────────────────────────
@@ -265,29 +281,44 @@ def _print_safeguard_report(warnings, critical):
 
 # ── Build raw .md ──────────────────────────────────────────────────────────────
 
-def build_raw_md(info, ch_transcripts, frame_paths, slug):
+def build_raw_md(info, ch_transcripts, slug, frame_status="pending-selection"):
     title    = info.get("title", "Unknown")
     url      = info.get("webpage_url", "")
     author   = info.get("uploader", "Unknown")
     today    = datetime.now().strftime("%Y-%m-%d")
     duration = info.get("duration", 0)
     dur_str  = f"{int(duration)//60}m{int(duration)%60}s" if duration else "unknown"
-    n_frames = len(frame_paths)
 
-    # Chapter breakdown with transcript excerpts + frame paths
+    # Chapter breakdown with per-sentence timestamped transcript.
+    # No frames yet at this point — frame capture is Step 2 (content-aware,
+    # see select_frames.py), not blind-timestamped here in Step 1.
     chapters_section = ""
-    for i, ch in enumerate(ch_transcripts):
+    for ch in ch_transcripts:
         t_fmt = f"{int(ch.get('start',0))//60}:{int(ch.get('start',0))%60:02d}"
         chapters_section += f"\n### {ch['title']} [{t_fmt}]\n"
-        if ch["text"]:
+        segs = ch.get('segments') or []
+        if segs:
+            chapters_section += "**Transcript (timestamped):**\n"
+            for t, txt in segs:
+                if not txt:
+                    continue
+                mm, ss = int(t) // 60, int(t) % 60
+                chapters_section += f"[{mm}:{ss:02d}] {txt}\n"
+            chapters_section += "\n"
+        elif ch.get("text"):
             chapters_section += f"**Transcript:** {ch['text']}\n\n"
-        if len(ch_transcripts) == 1:
-            for fp in frame_paths:
-                rel = fp.relative_to(SKILL_DIR)
-                chapters_section += f"**Frame:** {rel}\n"
-        elif i < len(frame_paths):
-            rel = frame_paths[i].relative_to(SKILL_DIR)
-            chapters_section += f"**Frame:** {rel}\n"
+
+    if frame_status == "skipped":
+        frame_note = "Frame capture was skipped for this ingest (--skip-video). Text-only extraction."
+    else:
+        frame_note = (
+            f"Frames are not captured yet. Read the timestamped transcript below, pick moments\n"
+            f"that actually show a technique/result worth a still (not blind percentages —\n"
+            f"even within a named chapter, verify the real moment against its timestamps), then run:\n"
+            f"  python select_frames.py {slug} <ts1> <ts2> ...\n"
+            f"(seconds or mm:ss). This appends a \"Captured Frames\" section and updates the\n"
+            f"frontmatter before you write the Structured Notes below."
+        )
 
     return f"""---
 title: {title}
@@ -299,7 +330,8 @@ blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
 frames_dir: tutorials/frames/{slug}/
-frame_count: {n_frames}
+frame_count: 0
+frame_status: {frame_status}
 ---
 
 # {title}
@@ -311,6 +343,8 @@ frame_count: {n_frames}
 ---
 
 ## Raw Data (for Claude Code extraction)
+
+{frame_note}
 
 {chapters_section}
 
@@ -415,7 +449,7 @@ def main():
 
     try:
         # 1. Metadata
-        print("[1/6] Fetching metadata...")
+        print("[1/4] Fetching metadata...")
         if is_yt:
             info = get_info(args.url)
         else:
@@ -429,7 +463,6 @@ def main():
 
         slug   = slugify(title)
         out_md = TUTORIALS_DIR / f"{slug}.md"
-        frames_out = FRAMES_DIR / slug
 
         if out_md.exists() and not args.force:
             existing = out_md.read_text(encoding="utf-8")
@@ -438,11 +471,11 @@ def main():
                 print(f"      Pass --force to re-collect anyway (this will wipe the existing Structured Notes).")
                 return
 
-        # 2. Transcript
+        # 2. Transcript (per-sentence timestamps preserved — see segment_by_chapters)
         ch_transcripts = []
         if is_yt:
             if has_whisper:
-                print(f"[2/6] Downloading audio + transcribing with Whisper ({args.whisper_model})...")
+                print(f"[2/4] Downloading audio + transcribing with Whisper ({args.whisper_model})...")
                 try:
                     audio = download_audio(args.url, tmp)
                     transcript = whisper_transcribe(audio, args.whisper_model)
@@ -451,57 +484,42 @@ def main():
                 except Exception as e:
                     print(f"      Whisper failed ({e}), using yt-dlp captions")
                     text = ytdlp_captions(args.url, tmp)
-                    ch_transcripts = [{"title": "Full Content", "start": 0, "text": text}]
+                    ch_transcripts = [{"title": "Full Content", "start": 0, "text": text, "segments": []}]
             else:
-                print("[2/6] Whisper not installed - using yt-dlp captions (pip install openai-whisper for better results)")
+                print("[2/4] Whisper not installed - using yt-dlp captions (pip install openai-whisper for better results)")
                 text = ytdlp_captions(args.url, tmp)
-                ch_transcripts = [{"title": "Full Content", "start": 0, "text": text}]
+                ch_transcripts = [{"title": "Full Content", "start": 0, "text": text, "segments": []}]
         else:
-            print("[2/6] Article - using page text")
+            print("[2/4] Article - using page text")
             ch_transcripts = [{"title": "Full Content", "start": 0,
-                               "text": info.get("description", "")}]
+                               "text": info.get("description", ""), "segments": []}]
 
-        # 3+4. Video + frames
-        frame_paths = []
-        expected_frames = 0
-        video_attempted = is_yt and not args.skip_video and has_ffmpeg
-        if video_attempted:
-            if chapters:
-                timestamps = [ch.get("start_time", 0) + 5 for ch in chapters]
-            elif duration:
-                timestamps = [duration * p for p in [0.1, 0.3, 0.55, 0.8]]
-            else:
-                timestamps = [30, 120, 300]
-            expected_frames = len(timestamps)
-            print("[3/6] Downloading video (lowest quality)...")
-            try:
-                video = download_video_low(args.url, tmp)
-                print(f"[4/6] Extracting {expected_frames} frame(s) to {frames_out.relative_to(SKILL_DIR)}...")
-                frame_paths = extract_frames(video, timestamps, frames_out)
-                print(f"      {len(frame_paths)} frame(s) saved")
-            except Exception as e:
-                print(f"      Frame extraction failed ({e}), continuing without frames")
-        else:
+        # Frame capture is deferred to Step 2 (select_frames.py), driven by Claude
+        # reading the timestamped transcript below — content-aware beats blind
+        # percentage timestamps, and picking *which* moments matter needs judgment
+        # this script deliberately doesn't have (no API calls made here).
+        can_have_frames = is_yt and not args.skip_video and has_ffmpeg
+        frame_status = "pending-selection" if can_have_frames else "skipped"
+        if not can_have_frames:
             reason = "article" if not is_yt else ("--skip-video" if args.skip_video else "ffmpeg not found")
-            print(f"[3/6] Skipping video download ({reason})")
-            print("[4/6] Skipping frame extraction")
+            print(f"[3/4] Frame capture skipped ({reason})")
+        else:
+            print("[3/4] Frame capture deferred to Step 2 (content-aware selection via select_frames.py)")
 
-        # Safeguard checks
-        sg_warnings, sg_critical = run_safeguards(
-            ch_transcripts, frame_paths, expected_frames, video_attempted
-        )
+        # Safeguard checks — transcript completeness/hallucination only; frame-count
+        # validation now happens in select_frames.py once real timestamps are chosen.
+        sg_warnings, sg_critical = run_safeguards(ch_transcripts, [], 0, False)
         _print_safeguard_report(sg_warnings, sg_critical)
 
-        # 5. Write raw .md
-        print("[5/6] Writing raw tutorial file...")
-        md = build_raw_md(info, ch_transcripts, frame_paths, slug)
+        # 4. Write raw .md + commit
+        print("[4/4] Writing raw tutorial file...")
+        md = build_raw_md(info, ch_transcripts, slug, frame_status)
         if sg_critical:
             md = md.replace("extraction_status: pending", "extraction_status: needs-review", 1)
         out_md.write_text(md, encoding="utf-8")
         update_index_pending(info, slug, out_md.name)
 
-        # 6. Git commit + push (raw .md + INDEX only, not frames)
-        print("[6/6] Committing raw data to GitHub...")
+        print("      Committing raw data to GitHub...")
         os.chdir(SKILL_DIR)
         subprocess.run(["git", "add", str(out_md.relative_to(SKILL_DIR)),
                         str(INDEX_FILE.relative_to(SKILL_DIR))], check=True)
@@ -512,8 +530,10 @@ def main():
         print(f"\n{'='*60}")
         print(f"  Collection complete. Claude Code: run extraction now.")
         print(f"  Tutorial file: tutorials/{out_md.name}")
-        if frame_paths:
-            print(f"  Frames:        tutorials/frames/{slug}/ ({len(frame_paths)} frames)")
+        if can_have_frames:
+            print(f"  Next: read the timestamped transcript, then run")
+            print(f"        python select_frames.py {slug} <ts1> <ts2> ...")
+            print(f"        before writing Structured Notes.")
         else:
             print(f"  Frames:        none (text-only extraction)")
         print(f"{'='*60}\n")
