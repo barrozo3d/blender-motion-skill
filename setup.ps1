@@ -9,10 +9,10 @@
 #
 # What this does:
 #   1. Checks Python (3.10+ required)
-#   2. Installs ffmpeg via winget
-#   3. Installs pip packages: yt-dlp, openai-whisper, anthropic
-#   4. Installs CUDA-enabled PyTorch (if NVIDIA GPU detected), else CPU
-#   5. Prompts for ANTHROPIC_API_KEY and saves it as a user env var
+#   2. Installs deno (required by yt-dlp for YouTube)
+#   3. Installs ffmpeg via winget
+#   4. Installs pip packages: yt-dlp, openai-whisper
+#   5. Installs CUDA-enabled PyTorch (if NVIDIA GPU detected), else CPU
 #   6. Verifies everything works
 # =============================================================================
 
@@ -25,7 +25,7 @@ function Write-Fail  { param($msg) Write-Host "  FAIL  $msg" -ForegroundColor Re
 
 Write-Host ""
 Write-Host "======================================================" -ForegroundColor Magenta
-Write-Host "  blender-motion skill — Setup" -ForegroundColor Magenta
+Write-Host "  blender-motion skill - Setup" -ForegroundColor Magenta
 Write-Host "======================================================" -ForegroundColor Magenta
 
 # ── Step 1: Python ────────────────────────────────────────────────────────────
@@ -47,7 +47,7 @@ try {
 }
 
 # ── Step 2: Deno (JS runtime required by yt-dlp for YouTube) ─────────────────
-Write-Host "`n[2/7] Checking Deno..." -ForegroundColor Cyan
+Write-Host "`n[2/6] Checking Deno..." -ForegroundColor Cyan
 $denoPath = Get-Command deno -ErrorAction SilentlyContinue
 if ($denoPath) {
     $dver = (deno --version 2>&1 | Select-Object -First 1)
@@ -63,7 +63,7 @@ if ($denoPath) {
 }
 
 # ── Step 3: ffmpeg ────────────────────────────────────────────────────────────
-Write-Host "`n[3/7] Checking ffmpeg..." -ForegroundColor Cyan
+Write-Host "`n[3/6] Checking ffmpeg..." -ForegroundColor Cyan
 $ffmpegPath = Get-Command ffmpeg -ErrorAction SilentlyContinue
 if ($ffmpegPath) {
     $ffver = (ffmpeg -version 2>&1 | Select-Object -First 1)
@@ -79,9 +79,9 @@ if ($ffmpegPath) {
     }
 }
 
-# ── Step 3: pip packages ──────────────────────────────────────────────────────
-Write-Host "`n[4/7] Installing pip packages (yt-dlp, openai-whisper, anthropic)..." -ForegroundColor Cyan
-pip install yt-dlp openai-whisper anthropic --quiet
+# ── Step 4: pip packages ──────────────────────────────────────────────────────
+Write-Host "`n[4/6] Installing pip packages (yt-dlp, openai-whisper)..." -ForegroundColor Cyan
+pip install yt-dlp openai-whisper --quiet
 if ($LASTEXITCODE -eq 0) {
     Write-OK "pip packages installed"
 } else {
@@ -89,8 +89,8 @@ if ($LASTEXITCODE -eq 0) {
     exit 1
 }
 
-# ── Step 4: PyTorch (CUDA if NVIDIA, else CPU) ────────────────────────────────
-Write-Host "`n[5/7] Installing PyTorch..." -ForegroundColor Cyan
+# ── Step 5: PyTorch (CUDA if NVIDIA, else CPU) ────────────────────────────────
+Write-Host "`n[5/6] Installing PyTorch..." -ForegroundColor Cyan
 $hasNvidia = Get-Command nvidia-smi -ErrorAction SilentlyContinue
 if ($hasNvidia) {
     $cudaLine = (nvidia-smi 2>&1 | Select-String "CUDA Version")
@@ -98,39 +98,19 @@ if ($hasNvidia) {
     Write-Host "  Installing CUDA 12.8 build (best for RTX 30xx/40xx/50xx)..." -ForegroundColor Yellow
     pip install torch --force-reinstall --index-url https://download.pytorch.org/whl/cu128 --quiet
     if ($LASTEXITCODE -eq 0) {
-        Write-OK "PyTorch (CUDA 12.8) installed — Whisper will use your GPU"
+        Write-OK "PyTorch (CUDA 12.8) installed - Whisper will use your GPU"
     } else {
         Write-Warn "CUDA torch install failed. Falling back to CPU build..."
         pip install torch --quiet
     }
 } else {
-    Write-Host "  No NVIDIA GPU detected — installing CPU build..." -ForegroundColor Yellow
+    Write-Host "  No NVIDIA GPU detected - installing CPU build..." -ForegroundColor Yellow
     pip install torch --quiet
-    Write-OK "PyTorch (CPU) installed — Whisper will run on CPU (slower)"
-}
-
-# ── Step 5: ANTHROPIC_API_KEY ─────────────────────────────────────────────────
-Write-Host "`n[6/7] ANTHROPIC_API_KEY setup..." -ForegroundColor Cyan
-$existingKey = [Environment]::GetEnvironmentVariable("ANTHROPIC_API_KEY", "User")
-if ($existingKey -and $existingKey.StartsWith("sk-ant-")) {
-    Write-OK "ANTHROPIC_API_KEY already set (user environment)"
-} else {
-    Write-Host "  The ingest pipeline calls the Claude API directly and needs your Anthropic API key." -ForegroundColor Yellow
-    Write-Host "  Get it from: https://console.anthropic.com/settings/keys" -ForegroundColor Yellow
-    Write-Host ""
-    $key = Read-Host "  Paste your ANTHROPIC_API_KEY (starts with sk-ant-)"
-    if ($key -and $key.StartsWith("sk-ant-")) {
-        [Environment]::SetEnvironmentVariable("ANTHROPIC_API_KEY", $key, "User")
-        $env:ANTHROPIC_API_KEY = $key
-        Write-OK "ANTHROPIC_API_KEY saved to user environment"
-    } else {
-        Write-Warn "Key not saved (invalid format). Set it manually:"
-        Write-Warn '  [Environment]::SetEnvironmentVariable("ANTHROPIC_API_KEY","sk-ant-...","User")'
-    }
+    Write-OK "PyTorch (CPU) installed - Whisper will run on CPU (slower)"
 }
 
 # ── Step 6: Verify ────────────────────────────────────────────────────────────
-Write-Host "`n[7/7] Verifying installation..." -ForegroundColor Cyan
+Write-Host "`n[6/6] Verifying installation..." -ForegroundColor Cyan
 $allOK = $true
 
 # yt-dlp
@@ -145,12 +125,6 @@ try {
     Write-OK "openai-whisper $wver"
 } catch { Write-Fail "whisper import failed"; $allOK = $false }
 
-# anthropic
-try {
-    $aver = python -c "import anthropic; print(anthropic.__version__)" 2>&1
-    Write-OK "anthropic $aver"
-} catch { Write-Fail "anthropic import failed"; $allOK = $false }
-
 # torch + CUDA
 try {
     $torchInfo = python -c "import torch; print(torch.__version__, '| CUDA:', torch.cuda.is_available())" 2>&1
@@ -161,21 +135,14 @@ try {
 if (Get-Command ffmpeg -ErrorAction SilentlyContinue) {
     Write-OK "ffmpeg on PATH"
 } else {
-    Write-Warn "ffmpeg not on PATH yet — open a new terminal and re-run 'ffmpeg -version' to confirm"
+    Write-Warn "ffmpeg not on PATH yet - open a new terminal and re-run 'ffmpeg -version' to confirm"
 }
 
 # deno
 if (Get-Command deno -ErrorAction SilentlyContinue) {
     Write-OK "deno on PATH"
 } else {
-    Write-Warn "deno not on PATH yet — open a new terminal and re-run 'deno --version' to confirm"
-}
-
-# API key
-if ($env:ANTHROPIC_API_KEY -and $env:ANTHROPIC_API_KEY.StartsWith("sk-ant-")) {
-    Write-OK "ANTHROPIC_API_KEY is set"
-} else {
-    Write-Warn "ANTHROPIC_API_KEY not set in current session — open new terminal to pick up env var"
+    Write-Warn "deno not on PATH yet - open a new terminal and re-run 'deno --version' to confirm"
 }
 
 Write-Host ""
@@ -186,7 +153,7 @@ if ($allOK) {
     Write-Host "======================================================" -ForegroundColor Green
 } else {
     Write-Host "======================================================" -ForegroundColor Yellow
-    Write-Host "  Some steps failed — see FAIL messages above." -ForegroundColor Yellow
+    Write-Host "  Some steps failed - see FAIL messages above." -ForegroundColor Yellow
     Write-Host "  Fix them and re-run setup.ps1" -ForegroundColor Yellow
     Write-Host "======================================================" -ForegroundColor Yellow
 }

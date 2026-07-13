@@ -13,9 +13,8 @@ This file serves two purposes:
 A structural change is anything that would affect how someone installs or runs this skill on a fresh machine:
 - New pip dependency added to `ingest.py` or any script → update `requirements.txt` + `setup.ps1` (pip install step) + `SETUP.md` (Step 3 or Troubleshooting)
 - New system dependency (new tool required) → update `setup.ps1` + `SETUP.md`
-- New environment variable required → update `setup.ps1` (Step 5) + `SETUP.md` (Step 4 or Troubleshooting)
-- Claude API model changed → update `SETUP.md` (reference table if present)
-- New CLI flag added to `ingest.py` → update `SETUP.md` (Ingest Pipeline Reference section)
+- New environment variable required → update `setup.ps1` + `SETUP.md` (add a step + Troubleshooting entry)
+- New CLI flag added to `ingest.py` or `select_frames.py` → update `SETUP.md` (Ingest Pipeline Reference section)
 - Directory or file renamed/added → update `SETUP.md` (Skill Structure section)
 - Git repo URL changed → update `SETUP.md` (Step 2) + `setup.ps1` (clone URL comment)
 
@@ -40,17 +39,14 @@ CHECKLIST:
 2. ffmpeg -version                           → need any version on PATH
 3. python -c "import yt_dlp"                 → need installed
 4. python -c "import whisper"                → need installed
-5. python -c "import anthropic"              → need installed
-6. python -c "import torch; print(torch.cuda.is_available())"  → True = GPU ready
-7. echo $env:ANTHROPIC_API_KEY               → need sk-ant-... value
-8. Test-Path ~\.claude\skills\blender-motion\SKILL.md  → need True
+5. python -c "import torch; print(torch.cuda.is_available())"  → True = GPU ready
+6. Test-Path ~\.claude\skills\blender-motion\SKILL.md  → need True
 ```
 
 For anything missing:
 - **ffmpeg missing** → `winget install ffmpeg`
-- **pip packages missing** → `pip install yt-dlp openai-whisper anthropic`
+- **pip packages missing** → `pip install yt-dlp openai-whisper`
 - **torch CPU-only** → `pip install torch --force-reinstall --index-url https://download.pytorch.org/whl/cu128`
-- **ANTHROPIC_API_KEY missing** → prompt user to get key from console.anthropic.com, then: `[Environment]::SetEnvironmentVariable("ANTHROPIC_API_KEY","sk-ant-...","User")`
 - **Skill not found** → `git clone https://github.com/barrozo3d/blender-motion-skill.git ~\.claude\skills\blender-motion`
 
 After fixing, re-run the checklist and confirm all green before proceeding.
@@ -100,36 +96,18 @@ cd "$HOME\.claude\skills\blender-motion"
 The script will:
 - Check Python version
 - Install `ffmpeg` via winget
-- Install `yt-dlp`, `openai-whisper`, `anthropic` via pip
+- Install `yt-dlp`, `openai-whisper` via pip
 - Install PyTorch with CUDA support (if NVIDIA GPU detected)
-- Prompt for your `ANTHROPIC_API_KEY` and save it to your user environment
 
 > **Note:** The CUDA torch download is ~2.8 GB. It may take 10–30 minutes depending on your connection.
 
 ---
 
-## Step 4 — Get Your Anthropic API Key
-
-The `ingest.py` script calls the Claude API directly (for vision analysis and extraction). You need a key:
-
-1. Go to https://console.anthropic.com/settings/keys
-2. Create a new key
-3. The setup script will ask for it — paste it when prompted
-
-If you need to set it manually:
-```powershell
-[Environment]::SetEnvironmentVariable("ANTHROPIC_API_KEY", "sk-ant-YOUR-KEY", "User")
-```
-
-Then open a new terminal for it to take effect.
-
----
-
-## Step 5 — Verify
+## Step 4 — Verify
 
 ```powershell
 ffmpeg -version
-python -c "import whisper, anthropic, yt_dlp; print('all OK')"
+python -c "import whisper, yt_dlp; print('all OK')"
 python -c "import torch; print('CUDA:', torch.cuda.is_available())"
 ```
 
@@ -142,7 +120,7 @@ CUDA: True    ← only if NVIDIA GPU present
 
 ---
 
-## Step 6 — Test Ingest
+## Step 5 — Test Ingest
 
 Run a quick test without downloading the full video:
 ```powershell
@@ -181,13 +159,6 @@ pip install openai-whisper
 **`CUDA: False` when you have an NVIDIA GPU**
 ```powershell
 pip install torch --force-reinstall --index-url https://download.pytorch.org/whl/cu128
-```
-
-**`ANTHROPIC_API_KEY not set` errors during ingest**
-```powershell
-$env:ANTHROPIC_API_KEY = "sk-ant-YOUR-KEY"   # current session only
-# OR to persist across sessions:
-[Environment]::SetEnvironmentVariable("ANTHROPIC_API_KEY", "sk-ant-YOUR-KEY", "User")
 ```
 
 **Git push fails (authentication)**

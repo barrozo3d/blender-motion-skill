@@ -1,13 +1,14 @@
-# blender-motion skill — ingest.py dependencies
+# blender-motion skill — ingest.py / select_frames.py dependencies
 yt-dlp
 openai-whisper    # pip install openai-whisper  (requires torch — already present if ComfyUI is installed)
-anthropic         # pip install anthropic
 
 # System dependencies (not pip):
 # ffmpeg — https://ffmpeg.org/download.html
 # Windows: winget install ffmpeg   OR   scoop install ffmpeg   OR   choco install ffmpeg
-# Must be on PATH for frame extraction to work.
-# Without ffmpeg: ingest still works but skips frame extraction and vision analysis.
+# Must be on PATH for select_frames.py's frame capture (Step 2) to work.
+# ingest.py (Step 1) doesn't call ffmpeg, but checks for it on PATH — if missing,
+# it marks the tutorial frame_status: skipped (permanently no frames) instead of
+# pending-selection.
 
 # deno — https://docs.deno.com/runtime/manual/getting_started/installation
 # Windows: winget install deno
