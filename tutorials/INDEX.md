@@ -847,6 +847,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/easy-geometry-nodes---low-poly-rocks-blender-51.md
 
+
+### How to fix SHADING ERRORS in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=EdEIUkWzYY0
+- **Author:** Josh - Blender Bros
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-fix-shading-errors-in-blender.md
+
 ---
 
 ## Tag Reference
