@@ -92,6 +92,16 @@ def main():
     timestamps = [parse_timestamp(t) for t in args.timestamps]
     out_dir = ingest.FRAMES_DIR / args.slug
 
+    # On a re-capture (--force), clear any frames from a previous run first —
+    # otherwise a smaller timestamp count than before leaves stale orphaned
+    # frame_NNN.jpg files that don't correspond to any current timestamp.
+    if out_dir.exists():
+        stale = list(out_dir.glob("frame_*.jpg"))
+        if stale:
+            print(f"      Clearing {len(stale)} frame(s) from a previous capture...")
+            for f in stale:
+                f.unlink()
+
     tmp = Path(tempfile.mkdtemp())
     try:
         print(f"[1/3] Downloading video (lowest quality) for {args.slug}...")
