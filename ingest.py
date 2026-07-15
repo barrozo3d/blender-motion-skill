@@ -213,10 +213,15 @@ def _detect_hallucination(text):
     top_word, top_count = collections.Counter(tail).most_common(1)[0]
     return top_count >= 8, top_word, top_count
 
-def run_safeguards(ch_transcripts, frame_paths, expected_frames, has_video):
+def run_safeguards(ch_transcripts):
     """
-    Run all ingest quality checks.
+    Run all Step-1 ingest quality checks (transcript completeness + ASR hallucination).
     Returns (warnings, critical) — critical items mark extraction_status: needs-review.
+
+    Frame-count validation is NOT done here: ingest.py no longer downloads video or
+    extracts frames (deferred to select_frames.py, Step 2), so there's nothing to check
+    yet at this point. See select_frames.py's own safeguard checks + append_safeguard_note()
+    for the frame-capture-time equivalent.
     """
     warnings, critical = [], []
     total_chars = sum(len(ch.get('text', '')) for ch in ch_transcripts)
@@ -254,17 +259,6 @@ def run_safeguards(ch_transcripts, frame_paths, expected_frames, has_video):
                     "Review and truncate the affected section before extracting."
                 )
 
-    # 4. Frame count validation
-    if has_video and expected_frames > 0:
-        got = len(frame_paths)
-        if got == 0:
-            critical.append(
-                f"Frame extraction produced 0/{expected_frames} frames. "
-                "Check that ffmpeg is in PATH and the video downloaded successfully."
-            )
-        elif got < expected_frames:
-            warnings.append(f"Partial frames: {got}/{expected_frames} captured.")
-
     return warnings, critical
 
 def _print_safeguard_report(warnings, critical):
@@ -279,9 +273,57 @@ def _print_safeguard_report(warnings, critical):
     if critical:
         print("      => extraction_status set to 'needs-review'")
 
+def build_safeguard_section(warnings, critical):
+    """
+    Render the WARNING/CRITICAL findings as a markdown section. Returns "" if both
+    lists are empty (clean ingests get no extra section — matches the console
+    behavior of only speaking up when something's actually wrong).
+
+    Persisting this into the .md file (not just printing to console) is what makes
+    a `needs-review` flag auditable later — otherwise the *reason* a tutorial got
+    flagged only ever existed in whatever terminal happened to be open at ingest time.
+    """
+    if not warnings and not critical:
+        return ""
+    lines = [
+        "\n## Ingest Safeguard Report\n",
+        "_Auto-generated at ingest/frame-capture time — explains why "
+        "`extraction_status` may be `needs-review`. Safe to delete once reviewed._\n",
+    ]
+    for c in critical:
+        lines.append(f"- **CRITICAL:** {c}")
+    for w in warnings:
+        lines.append(f"- WARNING: {w}")
+    lines.append("\n---\n")
+    return "\n".join(lines)
+
+def append_safeguard_note(content, note, level="WARNING"):
+    """
+    Insert one more finding into an existing '## Ingest Safeguard Report' section,
+    or create that section if this is the first finding for the file (e.g. Step 1's
+    transcript checks were clean but Step 2's frame-capture check in select_frames.py
+    found a problem). Shared by both ingest.py and select_frames.py so all quality-check
+    reasoning ends up in one place inside the file, regardless of which step found it.
+    """
+    line = f"- **{level}:** {note}" if level == "CRITICAL" else f"- {level}: {note}"
+    m = re.search(r"\n## Ingest Safeguard Report\n.*?\n---\n", content, re.DOTALL)
+    if m:
+        insertion_point = content.rindex("\n---\n", m.start(), m.end())
+        return content[:insertion_point] + line + "\n" + content[insertion_point:]
+    header = "## Raw Data (for Claude Code extraction)\n"
+    idx = content.index(header) + len(header)
+    section = (
+        "\n## Ingest Safeguard Report\n\n"
+        "_Auto-generated at ingest/frame-capture time — explains why "
+        "`extraction_status` may be `needs-review`. Safe to delete once reviewed._\n\n"
+        f"{line}\n\n---\n"
+    )
+    return content[:idx] + section + content[idx:]
+
 # ── Build raw .md ──────────────────────────────────────────────────────────────
 
-def build_raw_md(info, ch_transcripts, slug, frame_status="pending-selection"):
+def build_raw_md(info, ch_transcripts, slug, frame_status="pending-selection",
+                  sg_warnings=None, sg_critical=None):
     title    = info.get("title", "Unknown")
     url      = info.get("webpage_url", "")
     author   = info.get("uploader", "Unknown")
@@ -320,6 +362,8 @@ def build_raw_md(info, ch_transcripts, slug, frame_status="pending-selection"):
             f"frontmatter before you write the Structured Notes below."
         )
 
+    safeguard_section = build_safeguard_section(sg_warnings or [], sg_critical or [])
+
     return f"""---
 title: {title}
 source: YouTube
@@ -343,6 +387,7 @@ frame_status: {frame_status}
 ---
 
 ## Raw Data (for Claude Code extraction)
+{safeguard_section}
 
 {frame_note}
 
@@ -508,12 +553,12 @@ def main():
 
         # Safeguard checks — transcript completeness/hallucination only; frame-count
         # validation now happens in select_frames.py once real timestamps are chosen.
-        sg_warnings, sg_critical = run_safeguards(ch_transcripts, [], 0, False)
+        sg_warnings, sg_critical = run_safeguards(ch_transcripts)
         _print_safeguard_report(sg_warnings, sg_critical)
 
         # 4. Write raw .md + commit
         print("[4/4] Writing raw tutorial file...")
-        md = build_raw_md(info, ch_transcripts, slug, frame_status)
+        md = build_raw_md(info, ch_transcripts, slug, frame_status, sg_warnings, sg_critical)
         if sg_critical:
             md = md.replace("extraction_status: pending", "extraction_status: needs-review", 1)
         out_md.write_text(md, encoding="utf-8")

@@ -113,11 +113,14 @@ def main():
               f"{out_dir.relative_to(SKILL_DIR)}")
 
         if len(frame_paths) == 0:
-            print("[SAFEGUARD] CRITICAL: 0 frames captured — check ffmpeg is in PATH "
-                  "and the video downloaded correctly.")
+            note = "0 frames captured — check ffmpeg is in PATH and the video downloaded correctly."
+            print(f"[SAFEGUARD] CRITICAL: {note}")
+            content = ingest.append_safeguard_note(content, note, level="CRITICAL")
         elif len(frame_paths) < len(timestamps):
+            note = f"Partial frame capture: only {len(frame_paths)}/{len(timestamps)} requested frames were captured."
             print(f"[SAFEGUARD] WARNING: only {len(frame_paths)}/{len(timestamps)} "
                   f"requested frames were captured.")
+            content = ingest.append_safeguard_note(content, note, level="WARNING")
         else:
             print("[SAFEGUARD] All requested frames captured.")
 
