@@ -877,6 +877,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/how-to-make-this-style-in-blender.md
 
+
+### Realistic Ocean in Blender From Scratch (No Plugins)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=1eQp-H73zeI
+- **Author:** Vlabs
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/realistic-ocean-in-blender-from-scratch-no-plugins.md
+
 ---
 
 ## Tag Reference
