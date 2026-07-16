@@ -897,6 +897,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/doing-surface-imperfections-right-vray-cycles-arnold.md
 
+
+### Everything New in Blender 5.2 LTS 🍪
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=FlKu6e_VrDc
+- **Author:** CG Cookie – Learn Blender
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/everything-new-in-blender-52-lts.md
+
 ---
 
 ## Tag Reference
