@@ -867,6 +867,16 @@ Each entry format:
 - **Summary:** Comparative benchmark (not a build tutorial) of five water-simulation tools on an identical splash scene: Blender-internal Mantaflow (free but slow, 19-115GB caches, crash-prone), Flip Fluids add-on (best realism/detail, CPU-bound), NeXus Particles (fast/GPU but no whitewater and broken caching), LiquiGen (external, real-time GPU, fastest iteration, exports via Alembic), and HydroFX (external, GPU, most fun to iterate with). Ranks tools by bake time, cache size, viewport performance, and final quality; honorable mention to an untested AI water LoRA.
 - **File:** tutorials/i-tested-5-different-ways-to-simulate-water.md
 
+
+### How to make this style in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=oAKrQboXo78
+- **Author:** Bad Normals
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-make-this-style-in-blender.md
+
 ---
 
 ## Tag Reference
