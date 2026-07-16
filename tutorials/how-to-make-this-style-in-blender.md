@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=oAKrQboXo78
 author: Bad Normals
 ingested: 2026-07-16
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.x (viewport/UI style, exact point release not stated)"
+tags: [shaders, materials, gradients, color-ramp, node-groups, evaluate-closure, generated-coordinates, glass, emission, light-path, capsule-shader, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-make-this-style-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How to make this style in Blender
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-to-make-this-style-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### What we do [0:00]
@@ -318,30 +314,54 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:47] tutorials/frames/how-to-make-this-style-in-blender/frame_000.jpg
+- [1:38] tutorials/frames/how-to-make-this-style-in-blender/frame_001.jpg
+- [3:18] tutorials/frames/how-to-make-this-style-in-blender/frame_002.jpg
+- [6:00] tutorials/frames/how-to-make-this-style-in-blender/frame_003.jpg
+- [9:01] tutorials/frames/how-to-make-this-style-in-blender/frame_004.jpg
+- [11:34] tutorials/frames/how-to-make-this-style-in-blender/frame_005.jpg
+- [12:45] tutorials/frames/how-to-make-this-style-in-blender/frame_006.jpg
+- [13:56] tutorials/frames/how-to-make-this-style-in-blender/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Recreates a stylized "capsule gradient" art piece by driving per-object color gradients from Generated texture coordinates through a Color Ramp, bending that gradient near silhouette edges with a surface-normal-facing term, and sharing the whole setup across 16 instances via a node group with an Evaluate Closure socket so each capsule can carry its own color ramp while every other node stays linked.
 
 ### Summary
-[PENDING EXTRACTION]
+A style-replication tutorial (Bad Normals recreating art by Taiwanese artist Damon Zhang/Damong) that turns a flat piece of 2D concept art into a procedural Blender material technique. It covers building rounded "capsule" primitives cheaply (Bevel modifier instead of a Metaball or heavily-subdivided mesh), placing many of them precisely using snapping/x-ray/box-select instead of manual duplicate-and-nudge, decomposing a hand-picked reference gradient into a 0-1 grayscale source mapped through a Color Ramp, adding an edge-bending term from the surface normal's "facing" value so the gradient curves near the capsule's silhouette like the reference art, and — the most broadly reusable part — making that entire node setup live in one shared Node Group with an Evaluate Closure node so every capsule can have unique colors/bend while sharing every other node, so a global tweak (e.g. adding a Saturation node) propagates to all 16 instances at once. It finishes with a two-state emission trick (camera-ray vs. transmission-ray) so the capsules read differently when seen directly by the camera vs. through the glass panes in front of them, plus a modeled glass overlay for the "liquid" look.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Build a capsule cheaply:** instead of Shift-A → Mesh → Metaball → Capsule (which "merges" with neighboring metaballs), take a Cube, add a **Bevel** modifier with a large Amount and many Segments, then scale the cube in Edit Mode to elongate it — produces a capsule that doesn't visually bond to its neighbors.
+2. **Precise array placement:** enable **Snapping** (Increment/grid mode), enter Edit Mode, switch to X-Ray + Face-select (3), nudge capsules to touch exactly on the grid, then Shift-D duplicate + Shift-R repeat-last to fill out to 16 capsules in pairs of two.
+3. **Adjust the seam per column:** in Edit Mode with X-Ray on, box-select just the two touching middle faces of a column and move them up/down together to match the reference's irregular (non-straight) center seam, repeating per column.
+4. **Decompose the reference gradient:** identify the reference's color stops (yellow → purple → bright blue → deep blue) and note their approximate 0–1 position, since a gradient is just a grayscale 0-1 source mapped through a **Color Ramp** to colors.
+5. **Build the base bottom-to-top gradient:** in the Shader Editor, add a **Texture Coordinate** node → **Separate XYZ** (take the Y component, which runs bottom-to-top on the capsule) → feed that into a **Color Ramp** with stops at 0 (yellow), 0.25 (purple), 0.5 (bright blue), 1 (deep blue). Set the ramp's interpolation to **B-Spline** for smoother color transitions. Optionally switch color management to Filmic/AgX-neutral ("PBR neutral") if colors look washed out.
+6. **Add edge-bend to the gradient:** to make the gradient curve near the silhouette like the reference (instead of running perfectly straight top-to-bottom), compute how much the surface **Normal** faces "up" (a Normal node's Z/facing component gives roughly -1 at the bottom, 0 at the edge, +1 at the top) — remap so the edge reads 0 and center reads 1, **Multiply** this term by a small factor to control bend strength, add it into the base gradient value, then clamp the sum back to 0–1 (Color Ramp/Math-node clamp) before feeding the Color Ramp, since a Color Ramp expects a 0-1 factor.
+7. **Share the material without losing per-instance color:** select the whole node setup and **Ctrl-G** to group it into a **Node Group** — but a naive group makes every capsule identical since the Color Ramp lives inside the shared group. Fix: inside the group, disconnect the Color Ramp and replace it with an **Evaluate Closure** node; add a new group input socket named e.g. "Color Ramp" of Closure type; outside the group, add a **Closure** zone containing a copy of the Color Ramp and plug that zone's output into the new group-input socket. Now each material instance can plug in its own Closure (its own Color Ramp) while every other node in the group stays linked/shared — a global edit (e.g. adding a Saturation node before the ramp) affects every capsule at once.
+8. **Two-state emission for camera vs. transmission rays:** build two emission-strength states from the same **Emission** shader — one where dark colors don't glow, one where every color glows at normal brightness — and **Mix** between them using a **Light Path** node: feed `Is Camera Ray` OR'd/added with `Is Transmission Ray` into the mix factor, so the camera itself always sees the "normal" bright state, while every other ray (reflections/GI) sees the toned-down state. This keeps ambient glow contained while the direct camera view stays vivid.
+9. **Edge glow:** reuse the same Normal-facing node setup from step 6 but invert it (white at edges, black at center), run it through a **Power** node to control the glow falloff shape, add 1.0 so the base brightness is always ≥1 with edges brighter, control the amount with a **Multiply** node, and mix this "edge glow" emission state into the Light Path mix so it's only visible for transmission rays (i.e., only shows through the glass, not on direct camera-facing capsule surfaces).
+10. **Glass panes:** model with a Circle → select bottom ring → move down → Fill → Extrude → **Bevel** modifier → Shade Auto Smooth. Material: crank **Transmission** to 1 and set Base Color to pure white for a simple glass look; duplicate/place the glass panes to match the reference layout.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+**Bevel modifier** (capsule shaping), **Texture Coordinate** (Generated) → **Separate XYZ**, **Color Ramp** (B-Spline interpolation, 4 color stops), **Normal** node (facing/dot term for edge-bend and edge-glow gradients), **Math** nodes (Multiply for bend strength, Add, Clamp), **Node Group** (Ctrl-G) with a custom **Closure**-type input socket, **Evaluate Closure** node + **Closure Zone** (per-instance Color Ramp swap-in), **Emission** shader (two brightness states), **Light Path** node (`Is Camera Ray`, `Is Transmission Ray` combined into a Mix Shader/Mix Color factor), **Power** node (edge-glow falloff), **Transparent BSDF**/high-**Transmission** Principled BSDF (glass), **Shade Auto Smooth**. Color management set to a PBR-neutral/AgX-like view transform for less-washed-out colors.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — no single node is exotic, but stacking a Generated-coordinate gradient, a surface-normal edge-bend term, a Node-Group-with-Evaluate-Closure parameterization pattern, and a Light-Path-driven dual-brightness emission setup in one material requires comfort with node-based shading beyond a basic Color Ramp tutorial.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not explicitly stated on screen; the Evaluate Closure / Closure Zone nodes are a Blender 5.x node-group feature, so this requires a recent Blender 5.x build (title/UI chrome visible in frames doesn't show an exact point version).
 
 ### Tags
-[PENDING EXTRACTION]
+#shaders #materials #gradients #color-ramp #node-groups #evaluate-closure #generated-coordinates #glass #emission #light-path #capsule-shader #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [You Should Try this Blender Color Hack](you-should-try-this-blender-color-hack.md) — also builds a stylized emission/glass color-cycling shader using Noise Texture + Color Ramp + Emission, directly relevant to the gradient-to-emission technique here.
+- [Blender's NEW Transparency Material is CRAZY!](blenders-new-transparency-material-is-crazy.md) — covers the newer Thin Wall / transmission-based glass workflow that's a more modern alternative to the plain high-Transmission glass setup used for this video's glass panes.
+- [INFINITE WOOD! Don't Fear the Shader: EP01](infinite-wood-dont-fear-the-shader-ep01.md) — also demonstrates packaging a procedural shader into a reusable Node Group with exposed parameters, the same core pattern used here (minus the Evaluate Closure per-instance trick).

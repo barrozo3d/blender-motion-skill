@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=OW4L0vdo_e4
 author: Lucas
 ingested: 2026-07-16
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "N/A — cross-renderer conceptual video (Vray/Cycles/Arnold)"
+tags: [shading-theory, material-layering, roughness, surface-imperfections, blend-shader, cross-renderer, principled-bsdf, dirt-and-grime, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/doing-surface-imperfections-right-vray-cycles-arnold/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Doing Surface Imperfections Right | Vray, Cycles, Arnold..
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py doing-surface-imperfections-right-vray-cycles-arnold <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Introduction [0:00]
@@ -309,30 +305,53 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:30] tutorials/frames/doing-surface-imperfections-right-vray-cycles-arnold/frame_000.jpg
+- [1:26] tutorials/frames/doing-surface-imperfections-right-vray-cycles-arnold/frame_001.jpg
+- [3:20] tutorials/frames/doing-surface-imperfections-right-vray-cycles-arnold/frame_002.jpg
+- [5:31] tutorials/frames/doing-surface-imperfections-right-vray-cycles-arnold/frame_003.jpg
+- [9:54] tutorials/frames/doing-surface-imperfections-right-vray-cycles-arnold/frame_004.jpg
+- [11:26] tutorials/frames/doing-surface-imperfections-right-vray-cycles-arnold/frame_005.jpg
+- [14:41] tutorials/frames/doing-surface-imperfections-right-vray-cycles-arnold/frame_006.jpg
+- [18:10] tutorials/frames/doing-surface-imperfections-right-vray-cycles-arnold/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Argues that most "surface imperfection" shading (fingerprints, dust, stains, grime) is being modeled wrong as roughness variation — which physically blurs/distorts the reflection behind it — when in reality these are independent overlaid materials (material layering / a blend shader) that darken and tint a reflection while leaving its sharpness, shape, and detail completely intact.
 
 ### Summary
-[PENDING EXTRACTION]
+This is not a Blender screen-recording — it is a cross-renderer shading-theory video (demoed live in 3ds Max with Chaos Corona / V-Ray-style material editor UI, with Cycles and Arnold discussed conceptually) about how to correctly author "surface imperfections" like fingerprints, dust, dirt, stains, and grease. The core argument: roughness-map-driven imperfections physically model progressive micro-facet disruption, which blurs and distorts whatever is being reflected — but real-world references (a fingerprint-smudged glass, a dirty car hood, a mirror, a phone screen) show that fingerprints/dust/stains sit as a separate, mostly-opaque layer that darkens and slightly tints the reflection underneath while leaving its sharpness and detail almost completely intact — the reflected scene doesn't blur, it just dims through the grime. The fix is "material layering": build the imperfection as its own fully independent material (its own roughness, its own reflectivity, its own color) and blend it over the base material with a mask/distribution texture (a Blend/Layered shader), rather than piping that same mask into the base material's Roughness input. The rule of thumb given: surface-integrity changes (rust, scratches, corrosion, friction wear) are genuinely roughness variation on a single material and should stay that way; externally-deposited materials (fingerprints, dust, dirt, chemical residue, grease) are physically separate materials sitting on top and should use layering instead. The video explicitly warns not to abandon roughness by default — try roughness first, only switch to layering when the reference clearly shows undistorted reflections coming through the imperfection — because layering is typically more render-expensive (mixed results in the presenter's own render-cost tests: faster in roughly half of 13 test cases, sometimes far slower when refraction is involved).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Diagnose the problem first:** compare a roughness-variation render against a real-world reference (fingerprints on glass, dirty car paint, a mirror, a phone screen). If the reference shows the reflection/reflected detail staying sharp and recognizable *through* the imperfection (just darkened/tinted), roughness variation is the wrong tool — it would smear/average that detail away instead.
+2. **Understand the physical distinction:** roughness variation = one material whose microfacet distribution changes progressively across the surface (correct for rust, scratches, corrosion, surface wear — genuine changes to the surface itself). Material layering = two (or more) fully independent materials — each with its own roughness/reflectivity/color — blended by the coverage/thickness of the top layer (correct for fingerprints, dust, dirt, grease, chemical residue — externally deposited substances sitting on the surface, not changes to it).
+3. **Convert an existing roughness-driven imperfection to layering:** take the same mask texture that was previously piped into the base material's Roughness input (via a Remap/levels adjustment) and instead plug it into the **layer distribution/mask** input of a **Blend/Layered material** node — Blender equivalent: a **Mix Shader** (or **Add Shader** for a coating look) with the mask driving the Fac input, mixing the clean base **Principled BSDF** with a separate "grime" **Principled BSDF** that has its own (usually low) Roughness and its own Base Color/Transmission.
+4. **Build the grime/imperfection layer as its own material:** give it a lightly saturated Base Color, its own reflectivity, and tune its Roughness independently of the base surface — e.g. for fingerprint grease: fairly reflective, brighter diffuse, slightly refractive/transmissive so a bit of the base color shows through, with reduced "reflection clarity"/roughness so it doesn't itself blur.
+5. **Refine the distribution mask:** duplicate the original roughness map, add a **Remap**/contrast adjustment so highlights read stronger and the effect isn't blanket-applied everywhere, and feed that into the layer's mask/Fac input — controls where and how strongly the 100%-present-material effect (full grime opacity where the mask is white) takes over from the base.
+6. **Case-specific variants demonstrated:** a mirror needs the frame/silver base kept perfectly clean (no roughness variation) with the fingerprint/grease layer blended on top via a Blend shader, preserving the mirror's crisp reflection under the grime and even producing physically-correct double reflections (the grime layer sits on the glass, in front of the reflective silver backing). A smartphone screen additionally feeds the same fingerprint texture into an **Anisotropy** rotation input, since finger-swipe smudges create directional (anisotropic) micro-scratches, not just isotropic roughness.
+7. **When to use which (decision rule):** default to roughness variation — it's cheaper and correct for genuine surface-integrity changes. Only switch to material layering when a reference clearly shows an externally-deposited substance whose reflection stays sharp underneath; don't switch by default or "because it looks more advanced."
+8. **Substance Painter / texture-baking workflow:** instead of baking the dirt mask into the diffuse/roughness/height channels directly, create a dedicated user channel (e.g. "Dirt"), route the dirt layer's contribution only into that channel, and export it as its own grayscale map via the export template's User0 slot — giving a clean, ready-to-use distribution map for the material-layering setup in the target renderer.
+9. **Weigh the render-cost tradeoff:** material layering is not free — in the presenter's own 13-test comparison it was faster in about half the cases and meaningfully slower in others (especially once refraction/transmission is involved), so validate on your own scene/renderer before committing to it project-wide.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+Demonstrated in a 3ds Max–style material editor (Corona/V-Ray look) rather than Blender, but the ideas translate directly to Cycles: **Mix Shader** (or a Blend/Layered-material-style node group) with a mask-driven **Fac** input replacing "mask → Roughness input" wiring; two independent **Principled BSDF** nodes (clean base material + separate grime/dirt/fingerprint material, each with its own Roughness/Base Color/Transmission); a **Mapping**/**Color Ramp**/**Map Range** node standing in for the video's "Remap" node to re-contrast the distribution mask; **Anisotropic** rotation input on the Principled BSDF fed by the same mask for directional smudges (phone-screen case); for texture-baking pipelines, a dedicated grayscale "user channel" bake (equivalent to an extra Image Texture bake target in Blender) to keep the dirt mask separate from the base material's own maps.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — no exotic nodes are required (it's fundamentally a Mix Shader + two BSDFs), but correctly identifying *when* an imperfection is "layering" vs. "roughness" requires a conceptual shift most self-taught shading artists haven't been taught, and the case-specific reasoning (double reflections on a mirror, anisotropy on a phone screen) goes beyond a beginner "plug texture into roughness" workflow.
 
 ### Blender Version
-[PENDING EXTRACTION]
+N/A — cross-renderer conceptual video (Vray/Cycles/Arnold). Screen-recorded portions show a 3ds Max viewport with a Corona/V-Ray-style Material/Map browser, not Blender; the underlying Mix-Shader/Principled-BSDF concepts apply directly to Blender's Cycles/EEVEE without requiring any specific Blender version.
 
 ### Tags
-[PENDING EXTRACTION]
+#shading-theory #material-layering #roughness #surface-imperfections #blend-shader #cross-renderer #principled-bsdf #dirt-and-grime #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [How to fix SHADING ERRORS in Blender](how-to-fix-shading-errors-in-blender.md) — also a shading-diagnosis tutorial (root-causing visual artifacts rather than a build), a similar "understand the underlying cause before reaching for a fix" approach applied to normals/topology instead of material layering.
+- [You Should Try this Blender Color Hack](you-should-try-this-blender-color-hack.md) — also stacks multiple shader states (Noise Texture-driven color mixing) rather than a single flat material, relevant if combining this video's layering approach with procedural color variation.
+- No other indexed tutorial currently covers roughness-vs-material-layering shading theory directly — this is the first entry on that specific topic.

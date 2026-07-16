@@ -872,9 +872,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=oAKrQboXo78
 - **Author:** Bad Normals
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** N/A — cross-renderer conceptual video (Vray/Cycles/Arnold)
+- **Tags:** shading-theory, material-layering, roughness, surface-imperfections, blend-shader, cross-renderer, principled-bsdf, dirt-and-grime, intermediate
+- **Summary:** This is not a Blender screen-recording — it is a cross-renderer shading-theory video (demoed live in 3ds Max with Chaos Corona / V-Ray-style material editor UI, with Cycles and Arnold discussed conceptually) about how to correctly author "surface imperfections" like fingerprints, dust, dirt, stains, and grease. The core argument: roughness-map-driv...
 - **File:** tutorials/how-to-make-this-style-in-blender.md
 
 
@@ -882,9 +882,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=1eQp-H73zeI
 - **Author:** Vlabs
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** N/A — cross-renderer conceptual video (Vray/Cycles/Arnold)
+- **Tags:** shading-theory, material-layering, roughness, surface-imperfections, blend-shader, cross-renderer, principled-bsdf, dirt-and-grime, intermediate
+- **Summary:** This is not a Blender screen-recording — it is a cross-renderer shading-theory video (demoed live in 3ds Max with Chaos Corona / V-Ray-style material editor UI, with Cycles and Arnold discussed conceptually) about how to correctly author "surface imperfections" like fingerprints, dust, dirt, stains, and grease. The core argument: roughness-map-driv...
 - **File:** tutorials/realistic-ocean-in-blender-from-scratch-no-plugins.md
 
 
@@ -892,9 +892,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=OW4L0vdo_e4
 - **Author:** Lucas
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** N/A — cross-renderer conceptual video (Vray/Cycles/Arnold)
+- **Tags:** shading-theory, material-layering, roughness, surface-imperfections, blend-shader, cross-renderer, principled-bsdf, dirt-and-grime, intermediate
+- **Summary:** This is not a Blender screen-recording — it is a cross-renderer shading-theory video (demoed live in 3ds Max with Chaos Corona / V-Ray-style material editor UI, with Cycles and Arnold discussed conceptually) about how to correctly author "surface imperfections" like fingerprints, dust, dirt, stains, and grease. The core argument: roughness-map-driv...
 - **File:** tutorials/doing-surface-imperfections-right-vray-cycles-arnold.md
 
 
@@ -902,9 +902,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=FlKu6e_VrDc
 - **Author:** CG Cookie – Learn Blender
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.2 LTS
+- **Tags:** blender-5x, release-notes, geometry-nodes, grease-pencil, rigging, animation, rendering, eevee, cycles, compositing, feature-survey
+- **Summary:** A comprehensive "what's new" survey for the Blender 5.2 LTS (Long Term Support) release, structured as a multi-presenter compilation (each department narrated by a different community member/CG Cookie contributor) rather than a single workflow tutorial. It functions as an index of new features and quality-of-life changes rather than a deep dive int...
 - **File:** tutorials/everything-new-in-blender-52-lts.md
 
 ---

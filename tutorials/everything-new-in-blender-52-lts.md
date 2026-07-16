@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=FlKu6e_VrDc
 author: CG Cookie – Learn Blender
 ingested: 2026-07-16
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.2 LTS"
+tags: [blender-5x, release-notes, geometry-nodes, grease-pencil, rigging, animation, rendering, eevee, cycles, compositing, feature-survey]
+extraction_status: complete
 frames_dir: tutorials/frames/everything-new-in-blender-52-lts/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Everything New in Blender 5.2 LTS 🍪
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py everything-new-in-blender-52-lts <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -616,30 +612,59 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:17] tutorials/frames/everything-new-in-blender-52-lts/frame_000.jpg
+- [2:36] tutorials/frames/everything-new-in-blender-52-lts/frame_001.jpg
+- [7:42] tutorials/frames/everything-new-in-blender-52-lts/frame_002.jpg
+- [17:59] tutorials/frames/everything-new-in-blender-52-lts/frame_003.jpg
+- [19:15] tutorials/frames/everything-new-in-blender-52-lts/frame_004.jpg
+- [20:45] tutorials/frames/everything-new-in-blender-52-lts/frame_005.jpg
+- [21:27] tutorials/frames/everything-new-in-blender-52-lts/frame_006.jpg
+- [33:47] tutorials/frames/everything-new-in-blender-52-lts/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Not a single build technique — this is a release-notes/feature-roundup video (CG Cookie's Jonathan Lampel plus five guest presenters, one per department) walking through every notable addition and change in Blender 5.2 LTS across 15 chapters/departments: Modeling & UVs, Sculpting & Painting, Geometry Nodes, Grease Pencil, Animation & Rigging, Rendering, EEVEE, Cycles, Compositing, Video Editing, Virtual Reality, Assets & Pipeline, and User Interface.
 
 ### Summary
-[PENDING EXTRACTION]
+A comprehensive "what's new" survey for the Blender 5.2 LTS (Long Term Support) release, structured as a multi-presenter compilation (each department narrated by a different community member/CG Cookie contributor) rather than a single workflow tutorial. It functions as an index of new features and quality-of-life changes rather than a deep dive into any one of them — useful for quickly auditing what changed since 5.1 before adopting the LTS release in production, or for finding which chapter to search separately for a hands-on tutorial on a specific new feature (e.g. the new cloth/hair XPBD solver, the Principled BSDF Thin Wall option, or native online asset libraries).
 
 ### Key Steps
-[PENDING EXTRACTION]
+(This is a feature survey, not a single build — each numbered item below is one new 5.2 LTS feature/department covered in the video, not a sequential workflow.)
+1. **Modeling & UVs:** Loop Tools (circle, space evenly, flatten) built into core Blender and rewritten in C for speed; snapping to lattice objects; friendlier alignment options on the geometry-nodes Array modifier; selection now respects viewport back-face culling; 3D Text objects support complex above/below font instructions; UV editor gets delimit-by-seams/sharp/material-boundary for Select Linked, an any-axis Copy Mirror UV Coordinates operator, a Select by Winding operator (isolates flipped UVs), whole-island Select Overlapping, unwrap-to-original-bounds, and average-point snapping in the UV editor.
+2. **Sculpting & Painting:** new Scene Project sculpt brush (shrink-wraps geometry to other scene objects' surfaces); Add Primitive tools now available directly in Sculpt Mode; upgraded Color Filter fill mode (click to apply, click-drag to blend, Ctrl to swap secondary color, Ctrl+X fill from any tool); Dyntopo no longer requires re-confirming when switching modes; Voxel Remesher better interpolates vertex-color attributes; Vertex/Weight Paint modes now use a 3D brush like Sculpt Mode; reorganized Brush Advanced panel; texture-paint auto-save now includes the altered image.
+3. **Geometry Nodes:** new physics system for hair/cloth via an XPBD Solver node (two new modifiers: cloth dynamics, hair dynamics — experimental); Bundles let arbitrary data attach to geometry across modifier/object boundaries (Set/Get Geometry Bundle nodes); new **List** data type with Filter List, Closure to List, List Length, Get List Item, List Sort, and the new Collection Children node built on lists; new Sound socket type + Sample Sound Frequencies node (amplitude/frequency-range sampling for audio-reactive setups); geometry nodes can now run on Objects (not just modifiers), enabling use on collection instances; Merge by Distance split into Merge Points / Cluster by Distance / Cluster by Connected; new Mesh Bevel node (more granular than the Bevel modifier); three new attribute nodes (Rename Attribute, Get Attribute Names, Transfer Attribute) plus selection support on Capture Attribute and 4D-float-vector attribute storage; two new Curves nodes (Set NURBS Order, Set NURBS Weight); four new String nodes (Trim String, Reverse String, Split String, Set String Case) plus a base-number option on Value-to-String/String-to-Value and reverse-search on Find in String; six new bundle-based transform nodes (3D to Screen Space, Screen to 3D Space, Transform and Project, Connect with Depth, Principal Components, Geometry Principal Components); recursive closures (with a configurable call-stack depth limit in preferences); tool inputs now remembered between operator invocations and assignable from Python; internal performance work (de-duplicated field evaluation, faster face-corner-domain sampling).
+4. **Grease Pencil:** downloadable online brush packs; new stroke curve-type + threshold controls for point generation; improved alpha handling for dot/square brush line types; new dot-placement modes (count, radius, density) editable per-material; randomizable size/strength/rotation at the material level; stroke/fill mode and color overrides now switchable live in Draw Mode; new Delaunay fill solver that auto-detects and fills gaps; eraser tool setting removed in favor of last-used + hold-Ctrl toggle; Line Art now supports fills; Shift-L deselects fully-selected strokes in Edit Mode; Move to Layer shows groups/sublayers; vertex-mode color-attribute replacement gets blend modes and a stroke-mode option.
+5. **Animation & Rigging:** Shift-A bone spawning redo panel now exposes deform toggle, bone length (which now also scales B-Bone size), and coordinate-space/alignment options including a new "world align via object axes" mode; Ctrl-L can now copy object constraints; parenting to a bone adds a slider for position along the bone's length (defaults to tail for backward compatibility); new Duplicate and Rename operator in the Armature menu (rename-before-collision-check, avoiding .001 suffixes); Auto-IK no longer stops at a disconnected/emancipated parent; motion paths no longer render jagged during live auto-update; Dope Sheet gets a Select Keyframes by Type operator; Ctrl-click on empty marker-area space selects all markers to one side of the playhead; Objects gain access to breakdown animation tools; parent/child bone selection (square brackets) now works on all selected bones, not just the active one; new playback loop modes (play-once-and-return-to-start/end, ping-pong/"bounce") plus an Allow Pre-Roll playback option; Allow Negative Frames moved to a preferences sub-panel with a warning; new "remove all/by-type/first" bulk operations for F-Curve modifiers; Ctrl-click eye icon isolates curves; Graph Editor gains a local view (press `/`); Pose Library now auto-converts rotation order (Quaternion/Axis-Angle/Euler) when applying a pose to a differently-configured rig.
+6. **Rendering:** Principled BSDF gets a **Thin Wall** checkbox (correct thin-translucency rendering, e.g. light through leaves; removes refraction for glass, speeding up renders and reducing noise); new Scene Time node (matching the geometry-nodes one) plus Boolean/Integer/Vector input nodes; color spaces reorganized into menus with new reverse-transforms for Apple, RED, Blackmagic, Canon, and Sony camera color spaces, plus Adobe RGB/wide-gamut texture options; render output can now be disabled in favor of a compositor File Output node; Light/Shadow Linking setups copyable between objects; orthographic camera scale adjustable directly via a 3D-viewport widget; images dragged into World shaders assumed to be environment textures; AOV Output node now lists all available AOVs instead of requiring manual name entry.
+7. **EEVEE:** screen-space ray tracing overhaul (better contact reflections, smoother denoising, more accurate ambient occlusion, reduced light leaks); new back-face slider for single-/double-sided/blended screen-space GI; new anisotropic filtering option in Performance settings; lights now visible directly to camera when camera-ray-visibility is enabled, plus per-object raycast-shader-node visibility control; scenes with heavy instancing can render up to 2x faster; shadow pools up to 2GB now supported; the 8-attributes-per-material limit removed; reflection planes now compatible with refraction/blended-transparent materials/Shader to RGB; clear-coat layer normal support and the Cycles-originated normal-map-on-displacement option added to EEVEE's Principled BSDF.
+8. **Cycles:** headline feature is **texture caching** — variable-sized texture sets Cycles can choose from based on on-screen size, for large memory savings; Simplify panel can reduce viewport texture resolution independent of final render; Raycast node can sample custom (e.g. geometry-nodes) attributes at hit points (Cycles-only for now); subsurface scattering scale/anisotropy tuned to better match other renderers for cross-app texture sharing; shadows can now be disabled from the World individually.
+9. **Compositing:** both compositors (interactive/real-time and traditional) now support animation playback (image sequences, video, keyframed nodes with live preview); GPU now used by default instead of CPU for a large performance boost; node gizmos (e.g. ellipse/box mask) no longer exclusive to the compositor backdrop — now usable in the Image Editor too, respect transform offsets, and can be auto-keyed; new **Blank Image** node (definable-resolution color solid, avoids Alpha-Over clipping issues, usable as a convolution kernel e.g. for camera lens blur); new input socket types matching geometry nodes (integer, vector, matrix, transform, object/camera data — drag-and-droppable from the Outliner); new **text elements** directly in the compositor (font/alignment/wrap + a new String input socket, enabling effects like a typewriter animation); new preset node-group assets including film grain, a **Dithering** node group (pixel-art-style color reduction with Bayer dithering patterns), **Depth Atmosphere** (fog from mist/depth pass — EEVEE real-time compositor only; Cycles needs a pre-render), a new **Paint Filter** (with optional depth/position-pass-aware tracking, watercolor/oil-paint presets, paper texture overlay), and a **Night Vision** node group (2D and 3D versions); new camera-driven procedural-background node groups; VSE now uses GPU for compositing, and compositor node-group assets can be added directly as VSE strip modifiers (requires an image-input-first node group saved in 5.2), enabling one-click transitions; new default-input-type option (optional inputs falling back to Scene Time); new Warning node (custom error/warning messages); new per-node timing overlay for optimizing node-graph performance; Grease Pencil objects in EEVEE now write correct depth to the render's depth pass; Transform node gains anisotropic interpolation for smoother downscaling; Stabilize 2D node gains a frame input for re-timing stabilization to stay in sync with fast-forward/pause effects.
+10. **Video Editing (VSE):** frame pre-fetching now looks a few frames ahead of the playhead for smoother reverse scrubbing; faster OpenGL footage playback; proxies no longer need extra timecode files; text strips support custom line spacing and reusable style presets; solid color strips can have exact pixel dimensions; strip thumbnails shown only at start/end by default (full-strip display optional) for performance; per-view-layer selection and batch viewport-shading changes for scene strips; color scopes and the Image Editor now fully support HDR/wide-gamut; new composition-guide overlay and optional scrubbing region in the preview footer; more snapping options for strip image origins; unlimited video/audio channels on import; masks get a Move to Layer operator (hotkey `M`) and render ~10% faster.
+11. **Virtual Reality:** new location-scouting feature in the built-in VR Scene Inspection add-on — a camera with full camera controls inside VR, letting you plan shots/angles against a scanned real-world location without being there.
+12. **Assets & Pipeline:** native online asset libraries (opt-in, disabled by default for privacy/security) massively expand the bundled Essentials library (new base meshes, compositing setups, geometry-node groups, high-res viewport HDRIs); top-level "Compositing"/"Geometry Nodes" category names now hidden from node-add menus for cleaner organization; per-asset preferred import method; Asset Libraries get their own Preferences page (Essentials included); 16-bit EXR write time cut in half; new right-click render-dimensions X/Y swap option; stereoscopic/panoramic metadata now written to movies (direct upload to YouTube etc. without extra passthrough software); USD import now respects color spaces, plus a new USD export flush-frequency option to control memory use; glTF gets general fixes/performance plus point-cloud, iridescence, dispersion material, and Gaussian-splat (KHR primitive) support; Alembic import respects animated object visibility, camera-data F-curves, and subdivision-surface data; STL export can follow either viewport or render modifier settings.
+13. **User Interface:** Outliner auto-scrolls to the active object by default (toggleable); reorganized dropdown menu without the old filter icon; Shape Keys now listed in the Outliner; aligned editor edges no longer auto-snap together (hold Shift to still move them together); nested lists (e.g. bone collections) get auto-scroll-while-dragging, reverse sort, inverted search filtering, arrow-key navigation, and jump-to-selected (also in the asset shelf); new filled-filter icon and new download icons for the online-assets system; Set Parent (Ctrl-P) menu gets icons per parenting type; Sidebar tabs get a compact-view option and click-drag tab switching; new multi-line text-box input type; long menus/popovers pannable with middle-mouse and some popovers get collapsible sub-panels; hex color values pasteable directly (Ctrl-V) without opening the picker; number-input units now shown as a hint instead of inline text; icon ID names shown on hover with developer extras enabled; mouse button 4 now zooms to selection by default; Node Editor: Alt-hold edits properties across multiple selected group inputs, grouping/ungrouping avoids duplicate outputs and better guesses socket types, linked groups moved to an add-menu submenu (hides subgroup-only groups), multi-node resize, universal "+" add-socket button, Ctrl-click-to-rename group inputs directly on the node, new type-conversion nodes, 2D/4D vector input support, pixel subtype for floats/ints/vectors; new theme-brightness slider for 3D-viewport axis colors; Mac gets a new app icon plus automatic support for the transparent "liquid glass" system UI style.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+Headline new/changed nodes and settings across the release: Geometry Nodes — **XPBD Solver**, **Set/Get Geometry Bundle**, **List**-type nodes (Filter List, Closure to List, List Length, Get List Item, List Sort), **Collection Children**, **Sample Sound Frequencies**, **Mesh Bevel**, **Rename/Get Attribute Names/Transfer Attribute**, **Set NURBS Order/Weight**, String nodes (Trim/Reverse/Split/Set Case String); Shading/Rendering — Principled BSDF **Thin Wall** checkbox, new **Scene Time**/Boolean/Integer/Vector input nodes, reorganized **color space** menus (Apple/RED/Blackmagic/Canon/Sony reverse transforms), **AOV Output** node auto-listing; EEVEE — screen-space ray tracing overhaul, new back-face GI slider, **anisotropic filtering**; Cycles — **texture caching**, **Raycast** custom-attribute sampling; Compositor — **Blank Image** node, new **text element** + String socket, **Dithering** node group, **Depth Atmosphere**, **Paint Filter**, **Night Vision** node group, **Warning** node, per-node timing overlay.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner-to-Advanced spanning the whole video — the video itself requires no hands-on skill (it's a passive feature roundup), but several individual features it covers (XPBD cloth/hair solver, geometry-nodes Bundles/Lists/recursive closures, texture caching) are advanced topics in their own right that would need a dedicated follow-up tutorial to actually use.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2 LTS (stated in the title and narration; presenter on camera wears a Blender-branded shirt, chapter title cards read "Geometry Nodes," "Grease Pencil," "Rendering," "EEVEE," "Cycles," "Compositing," "User Interface," etc.).
 
 ### Tags
-[PENDING EXTRACTION]
+#blender-5x #release-notes #geometry-nodes #grease-pencil #rigging #animation #rendering #eevee #cycles #compositing #feature-survey
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender NEW Cloth Simulator changes EVERYTHING!](blender-new-cloth-simulator-changes-everything.md) — a hands-on deep dive into the new experimental cloth simulator built on the XPBD Solver node mentioned in this video's Geometry Nodes chapter.
+- [Blender 5.1's NEW Rigging Tool is INSANE!](blender-51s-new-rigging-tool-is-insane.md) — directly relevant background for the Animation & Rigging chapter here, covering the geometry-nodes-driven procedural rigging tool from the prior release.
+- [Blender's NEW Transparency Material is CRAZY!](blenders-new-transparency-material-is-crazy.md) — a focused tutorial on the Principled BSDF **Thin Wall** option that this video's Rendering chapter only summarizes in one sentence.
+- [A FULL Blender Compositor Course!](a-full-blender-compositor-course.md) — a full compositor fundamentals course, useful complementary context for this video's Compositing chapter (Blank Image node, text elements, Dithering/Depth Atmosphere/Paint Filter node groups).

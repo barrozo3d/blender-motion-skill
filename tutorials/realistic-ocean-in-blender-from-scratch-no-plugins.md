@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=1eQp-H73zeI
 author: Vlabs
 ingested: 2026-07-16
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "not stated on screen (Gabor Texture + Principled Volume node — Blender 4.x/5.x compatible)"
+tags: [materials, shaders, ocean, water, procedural-texture, gabor-texture, displacement, volume-scattering, light-path, eevee-cycles, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/realistic-ocean-in-blender-from-scratch-no-plugins/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Realistic Ocean in Blender From Scratch (No Plugins)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py realistic-ocean-in-blender-from-scratch-no-plugins <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### What we're building [0:00]
@@ -135,30 +131,51 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:34] tutorials/frames/realistic-ocean-in-blender-from-scratch-no-plugins/frame_000.jpg
+- [0:58] tutorials/frames/realistic-ocean-in-blender-from-scratch-no-plugins/frame_001.jpg
+- [1:51] tutorials/frames/realistic-ocean-in-blender-from-scratch-no-plugins/frame_002.jpg
+- [2:43] tutorials/frames/realistic-ocean-in-blender-from-scratch-no-plugins/frame_003.jpg
+- [3:19] tutorials/frames/realistic-ocean-in-blender-from-scratch-no-plugins/frame_004.jpg
+- [4:01] tutorials/frames/realistic-ocean-in-blender-from-scratch-no-plugins/frame_005.jpg
+- [5:08] tutorials/frames/realistic-ocean-in-blender-from-scratch-no-plugins/frame_006.jpg
+- [5:35] tutorials/frames/realistic-ocean-in-blender-from-scratch-no-plugins/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Builds a full ocean scene from three stock Blender ingredients only — a Displacement-modifier terrain driven by a Voronoi texture, a glass-like water volume (Transmission + IOR 1.33 + Principled Volume) whose clarity is controlled with an `Is Camera Ray` mix, and Gabor-texture-driven bump normals for both rock and water surface ripples — with no ocean-sim modifier, no add-ons, and no plugins.
 
 ### Summary
-[PENDING EXTRACTION]
+A fast (under 6 minutes), plugin-free walkthrough for building a stylized/cinematic ocean using only built-in Blender nodes and modifiers — no Ocean modifier, no Flip Fluids, no third-party add-ons. It layers four independent techniques: (1) a Displacement modifier over a subdivided plane, driven by a Voronoi texture, to sculpt rocky terrain without manual sculpting; (2) a Gabor Texture → Bump node combo for a procedural rock-grain material; (3) a "water as a solid glass block" material — a scaled-up cube with Transmission weight 1, IOR 1.33 (real-world water), Roughness 0, mixed with a Transparent BSDF via a Light Path `Is Camera Ray` factor so the water reads crystal-clear to the camera while still refracting/reflecting correctly for indirect rays; and (4) a Principled Volume node for underwater depth/color falloff (very low density, adjustable anisotropy for scattering direction, turquoise/aqua volume color). A second Gabor+Bump pass on the water's own material adds the final surface ripple detail. The result is a "recipe" video more than a deep-dive — each step names the node and rough value range without much explanation of why, so it's best used as a checklist to replicate the exact look rather than a from-first-principles lesson.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Terrain base:** Shift-A → Mesh → Plane, scale it up, Tab into Edit Mode, right-click → **Subdivide** (do this twice) to add pushable/pullable geometry.
+2. **Terrain displacement:** Modifier Properties → add **Displacement** modifier; Texture Properties → add a new texture, set type to **Voronoi** (cell-based noise that reads as rocky/irregular terrain); adjust Size and Intensity until the terrain silhouette looks natural.
+3. **Terrain material:** Material Properties → new material → Shader Editor → add a **Gabor Texture** node (procedural mathematically-generated wave pattern) → **Bump** node (Gabor's Value output → Bump's Height input) → Bump's Normal output → Principled BSDF's Normal input; rotate the Gabor pattern (e.g. 90°) to change grain direction; tweak by eye.
+4. **Water volume block:** Shift-A → add a Cube scaled to cover the whole scene (a "block of water" sitting on the terrain). New material: set **Transmission Weight = 1** (lets light pass through, essential for glass/water/ice), **IOR = 1.33** (real-world water value — bends light like real water), **Roughness = 0** (perfectly smooth/mirror-like surface — the terrain below will visibly reflect inside the cube once this is set).
+5. **Crystal-clear camera view fix:** add a **Transparent BSDF** and a **Mix Shader**; connect Transparent BSDF → Mix Shader input 1, Principled BSDF → Mix Shader input 2; add a **Light Path** node and plug its `Is Camera Ray` output into the Mix Shader factor. `Is Camera Ray` is true only for rays coming directly from the camera (not reflections/lighting), so this routes direct camera view to transparent/clear while keeping full reflective/refractive behavior for indirect rays — without it, water reads as murky or oddly opaque. Set a temporary blue Base Color to make the setup visible while building.
+6. **Underwater depth:** add a **Principled Volume** node, connect it to the Material Output's Volume socket. Set **Density** very low (0.01–0.05 range — too high looks like thick soup, too low loses the effect). **Anisotropy**: high positive value scatters light forward (sunlight cutting through shallow clear water look), low/negative value scatters light in all directions (murkier/deeper ocean feel). Set Volume **Color** to turquoise/aqua for a tropical-lagoon look.
+7. **Surface ripples (final water detail):** reuse the same Gabor Texture → Bump trick from step 3 — add a Gabor Texture, connect to a Bump node, plug the Bump's Normal output into the water material's Principled BSDF Normal input. Adjust the Gabor node's distance/scale/frequency: higher frequency = more/tighter ripples (rougher-reading water), lower frequency = longer smoother swells (calmer, deeper-reading ocean).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+**Displacement modifier** (terrain sculpting) + **Voronoi** texture, **Gabor Texture** node (used twice — terrain grain and water ripples) → **Bump** node → **Normal** input of **Principled BSDF**, water material settings: **Transmission Weight = 1**, **IOR = 1.33**, **Roughness = 0**, **Transparent BSDF** + **Mix Shader** driven by **Light Path → Is Camera Ray**, **Principled Volume** node (Density ~0.01–0.05, Anisotropy, turquoise Color) wired into the Material Output **Volume** socket.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner — every step is a single stock node/modifier with a stated value, no custom node groups, drivers, or geometry-nodes logic; the only conceptual leap is understanding why `Is Camera Ray` is needed to separate direct-view transparency from physically-correct reflection/refraction.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not stated on screen. The **Gabor Texture** node requires Blender 4.3 or later, so despite no explicit version card this tutorial needs at minimum Blender 4.3 (likely presented on a current 4.x/5.x build).
 
 ### Tags
-[PENDING EXTRACTION]
+#materials #shaders #ocean #water #procedural-texture #gabor-texture #displacement #volume-scattering #light-path #beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Como hacer Agua Realista en Blender](como-hacer-agua-realista-en-blender.md) — the other indexed water/ocean tutorial; uses Adaptive Subdivision + 4D Noise Texture + a driver instead of Displacement+Voronoi/Gabor, useful as an alternate no-plugin water recipe to compare against this one.
+- [Blender's NEW Transparency Material is CRAZY!](blenders-new-transparency-material-is-crazy.md) — covers the newer Thin Wall transmission option on the Principled BSDF, directly relevant to refining or modernizing the plain Transmission-weight-1 water/glass material built in step 4-5 here.
+- No other indexed tutorial currently covers the Gabor Texture node or Principled Volume for underwater depth directly — this is the first entry using either.
