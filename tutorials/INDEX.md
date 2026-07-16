@@ -887,6 +887,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/realistic-ocean-in-blender-from-scratch-no-plugins.md
 
+
+### Doing Surface Imperfections Right | Vray, Cycles, Arnold..
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=OW4L0vdo_e4
+- **Author:** Lucas
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/doing-surface-imperfections-right-vray-cycles-arnold.md
+
 ---
 
 ## Tag Reference
