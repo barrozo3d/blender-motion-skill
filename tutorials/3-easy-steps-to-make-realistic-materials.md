@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=hAWLqRpzK6I
 author: Jamie Dunbar
 ingested: 2026-07-18
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (modern UI; Cycles required for Bevel/Pointiness methods)"
+tags: [materials, shaders, procedural, rendering, cycles, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/3-easy-steps-to-make-realistic-materials/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # 3 Easy steps to make Realistic Materials
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py 3-easy-steps-to-make-realistic-materials <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### How materials tell a story [0:00]
@@ -242,30 +238,60 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:20] tutorials/frames/3-easy-steps-to-make-realistic-materials/frame_000.jpg
+- [4:26] tutorials/frames/3-easy-steps-to-make-realistic-materials/frame_001.jpg
+- [5:19] tutorials/frames/3-easy-steps-to-make-realistic-materials/frame_002.jpg
+- [6:53] tutorials/frames/3-easy-steps-to-make-realistic-materials/frame_003.jpg
+- [7:14] tutorials/frames/3-easy-steps-to-make-realistic-materials/frame_004.jpg
+- [8:30] tutorials/frames/3-easy-steps-to-make-realistic-materials/frame_005.jpg
+- [10:31] tutorials/frames/3-easy-steps-to-make-realistic-materials/frame_006.jpg
+- [11:27] tutorials/frames/3-easy-steps-to-make-realistic-materials/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Fully procedural wear shader — paint over metal chipped away by three stacked masks (bevel-difference edge wear, masked Voronoi scratches, noise damage) plus a gradient-based dirt layer, built once and reusable on any model.
 
 ### Summary
-[PENDING EXTRACTION]
+Jamie Dunbar builds a story-telling material on a shader ball (Tetsurin's free model). Two Principled BSDFs (shiny grey metal; matte orange paint with Noise→ColorRamp→Mix color variation) are combined with a Mix Shader whose factor is a procedural imperfection mask. Edge wear = difference of two Bevel nodes (radius 0 vs 0.002) through a Constant ramp at ~0.01, roughened by multiplying a contrasty noise. Scratches = Voronoi Distance-to-Edge masked by a duplicate Voronoi F1 (same scale via a shared Value node ≈10) with a Musgrave feeding the Mapping for randomness. Random damage = noise + ramp. All masks Add-combined into the Mix Shader factor and an inverted Bump (strength ~0.2) on the metal. Dirt = object-space Gradient Texture (Y-rot −90) roughened by adding noise into the mapping, layered as a brown tint over the paint colors with its own bump. Bevel/Pointiness don't work in EEVEE — use the AO method or bake to textures.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Base: duplicate Principled BSDF — metal (Metallic 1, light grey, roughness to taste) + paint (matte). Paint color variation: `Noise Texture` → `Color Ramp` (push stops together for contrast) → `Mix Color` factor between two orange tones → Base Color.
+2. Combine with `Mix Shader`; the whole tutorial builds its Factor mask. (Node Wrangler: Ctrl+Shift+click previews any node.)
+3. **Edge wear (Bevel method)**: two `Bevel` nodes → `Mix Color (Difference, Fac 1)` → `Color Ramp (Constant, white pos ≈0.01)`. Bevel radii: 0 and 0.002. Roughen: `Noise` (high scale/detail/roughness) → `Color Ramp` → `Mix Color (Multiply, Fac 1)` with the bevel mask.
+4. Method choice: Bevel = sharp-edged hard surface; **Ambient Occlusion = the EEVEE-safe option** and curved surfaces; Pointiness = organic sculpts (also good for extracting scales/wrinkles). Mixable.
+5. **Scratches**: `Voronoi` → Distance to Edge → `Color Ramp` (flipped, black ≈0.01, white cracks); duplicate Voronoi set to F1 + crushed `Color Ramp` as a mask; `Mix Color (Multiply)` — the F1 cells cut out cracks that align perfectly. Shared `Value` (≈10) → both Voronoi scales. Randomize: `Musgrave` height → Mapping location and/or rotation (Ctrl+T for mapping chain, Object coords).
+6. Combine: `Mix Color (Add)` edge wear + scratches → Mix Shader factor; `Bump` node — mask into Height, **Invert on** (cracks push in), Strength ≈0.2 → metal's Normal.
+7. **Random damage**: `Noise` + `Color Ramp` → `Mix Color (Add)` with the rest → factor + bump.
+8. Organize in named Frames (edge wear / cracks / damage / color).
+9. **Dirt**: Ctrl+T mapping on `Gradient Texture`, coords **Object** (center object + apply transforms first!), Mapping Y-rotation −90, X-location slides the dirt line; `Color Ramp (Constant)`. Roughen: noise+ramp `Mix (Add, Fac 1)` into the *mapping vector* feeding the gradient. Use as factor of a duplicated paint-color Mix with a brown tone, plus its own `Bump` into the paint's Normal (dirt sits on top).
+10. EEVEE: bake Bevel/Pointiness masks to image textures.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Bevel` ×2 (0 / 0.002) + `Mix (Difference)` + `Color Ramp (Constant, 0.01)` — edge wear
+- `Voronoi (Distance to Edge)` + `Voronoi (F1)` mask, shared `Value` scale ≈10, `Musgrave` → Mapping — scratches
+- `Bump` — Invert, Strength 0.2, masks into Height
+- `Gradient Texture` + Object coords + Mapping (rot Y −90) — dirt line
+- `Mix Color` modes used: Difference, Multiply, Add; `Mix Shader` for material blend
+- Node Wrangler: Ctrl+Shift+click preview, Ctrl+T mapping
+- Cycles-only: Bevel, Pointiness; EEVEE-safe: AO (or bake)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — modern UI; Cycles required for the Bevel/Pointiness methods (AO or baking for EEVEE).
 
 ### Tags
-[PENDING EXTRACTION]
+#materials #shaders #procedural #rendering #cycles #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Perfect Textures in Blender - Works Every Time](perfect-textures-in-blender---works-every-time.md) — image-based counterpart of the same wear philosophy (AO edge wear, environment blending)
+- [Doing Surface Imperfections Right | Vray, Cycles, Arnold](doing-surface-imperfections-right-vray-cycles-arnold.md) — shares #materials #shaders; roughness-map realism
+- [The Easiest Way to Texture in Blender (Adaptive, No UV Unwrapping)](the-easiest-way-to-texture-in-blender-adaptive-no-uv-unwrapping.md) — shares #materials; PBR quick setup

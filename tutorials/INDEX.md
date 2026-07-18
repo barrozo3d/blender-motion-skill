@@ -962,9 +962,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=hAWLqRpzK6I
 - **Author:** Jamie Dunbar
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Cycles for Bevel/Pointiness; AO or baking for EEVEE)
+- **Tags:** materials, shaders, procedural, rendering, cycles, intermediate
+- **Summary:** Fully procedural paint-over-metal wear shader on a shader ball: edge wear from the difference of two Bevel nodes (0 vs 0.002) through a Constant ramp (~0.01) roughened with multiplied noise; scratches from Voronoi Distance-to-Edge masked by a same-scale Voronoi F1 (shared Value ≈10) randomized by Musgrave into the mapping; random noise damage; all Add-combined into a Mix Shader factor plus an inverted Bump (~0.2). Dirt layer: object-space Gradient Texture (rot Y −90, apply transforms first) with noise added into its mapping vector, tinting the paint brown with its own bump. Method guide: Bevel = hard surface, AO = curved/EEVEE-safe, Pointiness = organic sculpts; bake masks to textures for EEVEE.
 - **File:** tutorials/3-easy-steps-to-make-realistic-materials.md
 
 
