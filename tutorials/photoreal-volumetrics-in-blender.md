@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=0xZby2ObL6o
 author: Nico Linde
 ingested: 2026-07-18
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (modern 4.x/5.x UI; version-agnostic)"
+tags: [volume, materials, shaders, lighting, hdri, rendering, cycles, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/photoreal-volumetrics-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Photoreal Volumetrics in Blender
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py photoreal-volumetrics-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -103,30 +99,58 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:26] tutorials/frames/photoreal-volumetrics-in-blender/frame_000.jpg
+- [1:08] tutorials/frames/photoreal-volumetrics-in-blender/frame_001.jpg
+- [2:15] tutorials/frames/photoreal-volumetrics-in-blender/frame_002.jpg
+- [3:06] tutorials/frames/photoreal-volumetrics-in-blender/frame_003.jpg
+- [3:20] tutorials/frames/photoreal-volumetrics-in-blender/frame_004.jpg
+- [3:50] tutorials/frames/photoreal-volumetrics-in-blender/frame_005.jpg
+- [4:03] tutorials/frames/photoreal-volumetrics-in-blender/frame_006.jpg
+- [4:36] tutorials/frames/photoreal-volumetrics-in-blender/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Three-layer photoreal volumetrics: cube-based atmospheric haze with a single-slider density/emission rig, gradient-driven ground fog, and free VDB clouds — all using tiny Principled Volume densities (~0.001) and sky-sampled colors.
 
 ### Summary
-[PENDING EXTRACTION]
+Nico Linde's fast volumetric recipe on a mountain scene (A.N.T. Landscape add-on: "lichen rock"-style preset for the mountain, "large terrain" for the ground; photo/aerial-image projection instead of procedural texturing, plus proportional-editing tweaks, an HDRI, and a human silhouette for scale). Three volume types: overall haze, distance haze, and VDB clouds. Key rig: Value node (≈0.001) → Math Multiply → both Density and Emission Strength of a Principled Volume, with one RGB color (sampled from the sky) into Color + Emission Color — one slider controls all fog. Ground fog uses Gradient + Mapping + Color Ramp instead of a second cube; VDB clouds (JangaFX free packs) need an Attribute(density) node into emission color and "custom range" unchecked in render settings so distant volumes render.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Terrain: A.N.T. Landscape presets; texture by projecting real photos (mountain photo / drone aerial for ground) — no crazy camera moves; tweak with proportional editing. HDRI for mood; human-silhouette image card for scale.
+2. Haze cube: new material → delete Principled BSDF → `Principled Volume`. Tiny values are key (~0.001).
+3. One-slider rig: `Value` (0.001-ish) → `Math: Multiply` → into **both Density and Emission Strength**; `RGB` node → Color + Emission Color, color-picked from the sky. Use ≥2 cubes: overall haze + a distance cube for atmospheric depth.
+4. Ground fog: same cube material + `Gradient Texture` controlled by `Mapping` + `Color Ramp` (adjust rotation/scale) — fog piles at the ground, fades up. Bonus: duplicate and rotate so peaks poke through fog to sell mountain height.
+5. VDB clouds: free JangaFX packs; save to Asset Browser. Same material, but plug an `Attribute` node (density) into **Emission Color** — otherwise the whole cloud lights up uniformly.
+6. Render settings: **uncheck Custom Range** (volumes) or distant VDBs won't render.
+7. VDBs double as ground fog/haze to break the gradient's smoothness. Movement: mix a Noise Texture and animate the Mapping location (cheap, usually convincing).
+8. Finish in compositor: rain/snow, color grading, sound.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Principled Volume` — Density ≈ 0.001–0.01, Emission Strength via shared multiplier
+- `Value` → `Math: Multiply` → Density + Emission Strength (single-slider control)
+- `RGB` (sky-sampled) → Color + Emission Color
+- `Gradient Texture` + `Mapping` + `Color Ramp` — ground fog falloff
+- `Attribute` (name: density) → Emission Color for VDBs
+- Render settings: Volumes → Custom Range OFF
+- A.N.T. Landscape add-on; JangaFX free VDB packs; Asset Browser
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — modern 4.x/5.x UI; version-agnostic (Cycles implied for volumetric render).
 
 ### Tags
-[PENDING EXTRACTION]
+#volume #materials #shaders #lighting #hdri #rendering #cycles #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [3 Easy Lighting Setups | Blender Tutorial](3-easy-lighting-setups-blender-tutorial.md) — shares #volume #lighting #hdri
+- [Perfect Textures in Blender - Works Every Time](perfect-textures-in-blender---works-every-time.md) — same author; environment-integration philosophy
+- [Blender Tutorial - Create a Beautiful River Landscape in Blender | Free Addon](blender-tutorial---create-a-beautiful-river-landscape-in-blender-free-addon.md) — shares landscape/HDRI workflow

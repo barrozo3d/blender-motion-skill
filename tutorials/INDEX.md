@@ -932,9 +932,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=0xZby2ObL6o
 - **Author:** Nico Linde
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (modern 4.x/5.x; version-agnostic)
+- **Tags:** volume, materials, shaders, lighting, hdri, rendering, cycles, intermediate
+- **Summary:** Three-layer photoreal volumetrics on an A.N.T.-Landscape mountain scene (photo-projected textures, HDRI, silhouette for scale): (1) haze cubes with Principled Volume at tiny densities (~0.001) rigged as Value → Math-Multiply → both Density and Emission Strength, sky-sampled RGB into Color + Emission Color — one slider controls everything; use one overall + one distance cube; (2) ground fog via Gradient Texture + Mapping + Color Ramp (duplicate rotated over peaks to sell height); (3) free JangaFX VDB clouds — Attribute(density) into Emission Color, and uncheck Custom Range in render settings so distant volumes render; VDBs double as fog to break gradient smoothness, animate Mapping location mixed with noise for movement.
 - **File:** tutorials/photoreal-volumetrics-in-blender.md
 
 
