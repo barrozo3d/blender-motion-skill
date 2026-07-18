@@ -927,6 +927,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/quick-easy-megastructures-in-blender.md
 
+
+### Photoreal Volumetrics in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=0xZby2ObL6o
+- **Author:** Nico Linde
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/photoreal-volumetrics-in-blender.md
+
 ---
 
 ## Tag Reference
