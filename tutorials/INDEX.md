@@ -917,6 +917,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/perfect-textures-in-blender---works-every-time.md
 
+
+### Quick & Easy Megastructures in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=DX36hit2g0s
+- **Author:** Nico Linde
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/quick-easy-megastructures-in-blender.md
+
 ---
 
 ## Tag Reference
