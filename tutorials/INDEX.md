@@ -952,9 +952,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=AMnMbxEwa7Q
 - **Author:** Grant Abbitt (Gabbitt)
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.0
+- **Tags:** materials, shaders, modeling, beginner, blender-5x
+- **Summary:** Texture complex hard-surface objects with zero UV unwrapping: Node Wrangler Ctrl+Shift+T auto-wires a freepbr.com PBR set, then switch texture coordinates from UV to Object and every Image Texture's projection from Flat to Box (Alt-click edits all selected nodes), raising Blend (~0.2) to dissolve projection seams — the material then adapts live to any mesh edit (loop cuts, insets, extrudes). Also covers the classic gotcha: Ctrl+A Apply Scale before beveling (non-uniform scale skews Ctrl+B), and the limitation that game-engine export still requires unwrap + bake at the end (model with live textures first, bake onto the final unwrap).
 - **File:** tutorials/the-easiest-way-to-texture-in-blender-adaptive-no-uv-unwrapping.md
 
 

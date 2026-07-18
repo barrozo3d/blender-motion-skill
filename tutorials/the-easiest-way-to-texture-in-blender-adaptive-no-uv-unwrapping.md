@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=AMnMbxEwa7Q
 author: Grant Abbitt (Gabbitt)
 ingested: 2026-07-18
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.0"
+tags: [materials, shaders, modeling, beginner, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/the-easiest-way-to-texture-in-blender-adaptive-no-uv-unwrapping/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 7
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # The Easiest Way to Texture in Blender (Adaptive, No UV Unwrapping)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py the-easiest-way-to-texture-in-blender-adaptive-no-uv-unwrapping <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -148,30 +144,55 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:14] tutorials/frames/the-easiest-way-to-texture-in-blender-adaptive-no-uv-unwrapping/frame_000.jpg
+- [3:09] tutorials/frames/the-easiest-way-to-texture-in-blender-adaptive-no-uv-unwrapping/frame_001.jpg
+- [3:35] tutorials/frames/the-easiest-way-to-texture-in-blender-adaptive-no-uv-unwrapping/frame_002.jpg
+- [4:05] tutorials/frames/the-easiest-way-to-texture-in-blender-adaptive-no-uv-unwrapping/frame_003.jpg
+- [4:30] tutorials/frames/the-easiest-way-to-texture-in-blender-adaptive-no-uv-unwrapping/frame_004.jpg
+- [5:20] tutorials/frames/the-easiest-way-to-texture-in-blender-adaptive-no-uv-unwrapping/frame_005.jpg
+- [6:00] tutorials/frames/the-easiest-way-to-texture-in-blender-adaptive-no-uv-unwrapping/frame_006.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Adaptive no-UV texturing: PBR textures applied via **Object texture coordinates + Box projection + Blend**, so the material keeps working no matter how the mesh is edited afterwards.
 
 ### Summary
-[PENDING EXTRACTION]
+Grant Abbitt textures a complex hard-surface shape without ever unwrapping. A cylinder is shaped (inset/extrude, Subdivision Surface ×3, sharpening bevels — after Ctrl+A Apply Scale, because a non-uniform scale skews bevels). Node Wrangler's Ctrl+Shift+T sets up a full PBR from freepbr.com (worn rusted painted). The Mapping/Texture Coordinate chain is switched from UV to **Object**, and every Image Texture's projection from Flat to **Box** (Alt-click edits all selected nodes at once); raising the **Blend** value dissolves the seams where box projections meet. Editing the mesh afterwards — loop cuts, insets, extrusions — keeps textures mapped correctly. Limitation: for game-engine export you still must unwrap and bake, but you can model with live textures first, then bake onto the final unwrap.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Model: cylinder → scale Z → edit mode: top face I (inset), E (extrude) up/down → `Subdivision Surface` levels 3/3 → select edge loops (Alt-click, Shift-Alt-click; "On Cage" toggle helps) → Ctrl+B bevel with wheel for segments.
+2. **Apply Scale first**: N-panel shows non-uniform scale → Ctrl+A → Scale in Object mode; otherwise bevels are lopsided.
+3. Enable **Node Wrangler** (Preferences → Add-ons). Select Principled BSDF → **Ctrl+Shift+T** → select all PBR maps (A) → "Principled Texture Setup" wires color/roughness/metallic/normal automatically.
+4. Free PBR source: freepbr.com ("worn rusted painted" .zip for Blender).
+5. Fix mapping: on the `Texture Coordinate`/`Mapping` chain switch from UV to **Object** (most accurate); it initially projects top-down and stretches sides.
+6. Select all `Image Texture` nodes → **Alt-click** the Projection dropdown → Flat → **Box** (changes every selected node). Box projects from all six directions.
+7. Seam lines where projections meet: **Alt-drag the Blend value** upward until crossings blend seamlessly.
+8. Edit freely afterwards (loop cut, inset, extrude) — texture adapts; Shade Smooth to finish.
+9. Limitation: unwrap + bake before game-engine export (model first with live textures, bake onto the unwrap at the end).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Texture Coordinate` → **Object** output → `Mapping` (Type: Point) → all Image Textures
+- `Image Texture` — Projection: **Box**; **Blend ≈ 0.2** (Alt-drag edits all selected)
+- Node Wrangler: Ctrl+Shift+T (Principled Texture Setup)
+- `Subdivision Surface` (3/3); Ctrl+B bevel; **Ctrl+A Apply Scale** (critical before beveling)
+- freepbr.com PBR maps
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.0 (title bar; technique works in any modern version)
 
 ### Tags
-[PENDING EXTRACTION]
+#materials #shaders #modeling #beginner #blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Perfect Textures in Blender - Works Every Time](perfect-textures-in-blender---works-every-time.md) — same box-projection idea done shader-level with Generated coords, plus layering/wear techniques
+- [Quick & Easy Megastructures in Blender](quick-easy-megastructures-in-blender.md) — shares #materials; UV-based displacement counterpart
