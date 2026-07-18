@@ -912,9 +912,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=s-kGlEsXTQw
 - **Author:** Nico Linde
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (modern 4.x/5.x UI; version-agnostic)
+- **Tags:** materials, shaders, procedural, rendering, cycles, intermediate
+- **Summary:** Nico Linde's four-step recipe for believable materials without UV unwrapping: (1) box-project 2–3+ image textures at the shader level (Generated + Box projection) and blend them with image masks / Multiply-Screen-Overlay modes instead of plain opacity; (2) make the shader geometry-aware with Ambient Occlusion nodes — Inside+small Distance for edge wear (grunge texture into AO Distance, Math-Divide for thickness), normal AO multiplied in for cavity grime; (3) drive Roughness via Color Ramp and Normal via Bump with Distance ≈0.01–0.02 (never the 1m default); (4) integrate into the environment by mixing in Alt-click-averaged sampled surround colors, or blending the ground's shader via Mix Shader + Gradient Texture driven by an Empty.
 - **File:** tutorials/perfect-textures-in-blender---works-every-time.md
 
 

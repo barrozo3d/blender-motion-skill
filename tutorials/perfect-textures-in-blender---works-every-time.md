@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=s-kGlEsXTQw
 author: Nico Linde
 ingested: 2026-07-18
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (modern 4.x/5.x UI; Node Wrangler add-on used)"
+tags: [materials, shaders, procedural, rendering, cycles, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/perfect-textures-in-blender---works-every-time/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Perfect Textures in Blender - Works Every Time
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py perfect-textures-in-blender---works-every-time <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -151,30 +147,59 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:04] tutorials/frames/perfect-textures-in-blender---works-every-time/frame_000.jpg
+- [1:35] tutorials/frames/perfect-textures-in-blender---works-every-time/frame_001.jpg
+- [2:03] tutorials/frames/perfect-textures-in-blender---works-every-time/frame_002.jpg
+- [3:19] tutorials/frames/perfect-textures-in-blender---works-every-time/frame_003.jpg
+- [3:31] tutorials/frames/perfect-textures-in-blender---works-every-time/frame_004.jpg
+- [4:48] tutorials/frames/perfect-textures-in-blender---works-every-time/frame_005.jpg
+- [5:52] tutorials/frames/perfect-textures-in-blender---works-every-time/frame_006.jpg
+- [6:13] tutorials/frames/perfect-textures-in-blender---works-every-time/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Four-step shader-level texturing method: layer multiple image textures with masked blending, make the material geometry-aware with Ambient Occlusion edge/cavity masking, drive roughness/normal from the textures, and tint the material with sampled environment colors.
 
 ### Summary
-[PENDING EXTRACTION]
+Nico Linde's repeatable recipe for believable materials without UV unwrapping. Textures are box-projected at the shader level (Generated coordinates + Box projection), at least 2–3 textures are blended using image masks and blend modes rather than plain opacity, AO nodes add edge wear and cavity grime automatically, and a final environment-color mix (sampled with Alt-click averaging) integrates the object into its scene. Demonstrated on a concrete bunker on rocks and a desert scene.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Add material; with Node Wrangler enabled hit `Ctrl+T` (Cmd+T on Mac) on an `Image Texture` node to get `Texture Coordinate` + `Mapping`; set coordinates to **Generated**, projection to **Box** (shader-level cube-projection, no UV unwrap). Plug a `Value` node into Mapping scale for global scale control.
+2. Blend a 2nd texture via `Mix Color`: don't just slide Factor — feed a 3rd grunge image through a `Color Ramp` into Factor as a mask.
+3. Alternatively use blend modes: **Multiply** removes whites, **Screen** removes blacks, **Overlay/Soft Light** removes grays; control via `RGB Curves` brightness/contrast on the mask image. Use at least 3 textures; frame nodes with `Ctrl+J` to stay organized.
+4. Edge wear: `Mix Color` whose Factor is an `Ambient Occlusion` node with **Inside** checked + small Distance → masks only edges. Plug a grunge texture into AO Distance for realism; a `Math (Divide)` node controls thickness; refine with `Color Ramp` or `Map Range`. For the edge color, reuse the base texture brightened with `RGB Curves` rather than a flat color.
+5. Cavity grime: multiply a normal (outside) `Ambient Occlusion` node into the color, Mix Factor = 1.
+6. Decals: image planes with shadow ray visibility off, placed where leaks/grunge make sense.
+7. Roughness/normal: feed textures through `Color Ramp` into Roughness, and through a `Bump` node into Normal — set Bump **Distance ≈ 0.01–0.02** (default 1 = one meter, far too strong); grungier textures can go higher.
+8. Environment integration: `Mix Color` with colors sampled from surroundings (hold **Alt** while picking to average samples), masked by a noise/image texture through a `Color Ramp`. Fancier: copy the ground's shader and blend via `Mix Shader` driven by a `Gradient Texture` controlled by an Empty.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Image Texture` → Projection: **Box**, Coordinates: **Generated** (via `Texture Coordinate` + `Mapping`)
+- `Mapping` scale driven by a single `Value` node
+- `Mix Color` — modes: Mix / Multiply / Screen / Overlay / Soft Light
+- `Color Ramp`, `RGB Curves`, `Map Range` — mask contrast control
+- `Ambient Occlusion` — **Inside** = edges-only mask; Distance input accepts a grunge texture; `Math: Divide` for thickness
+- `Bump` — Distance **0.01–0.02** (not the default 1.0)
+- `Mix Shader` + `Gradient Texture` + Empty object for ground-shader blending
+- Node Wrangler: `Ctrl+T` (texture setup), `Ctrl+J` (frame nodes)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — modern Blender 4.x/5.x UI; technique is version-agnostic (any Blender with Node Wrangler).
 
 ### Tags
-[PENDING EXTRACTION]
+#materials #shaders #procedural #rendering #cycles #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Doing Surface Imperfections Right | Vray, Cycles, Arnold](doing-surface-imperfections-right-vray-cycles-arnold.md) — shares #materials #shaders; complementary roughness-map philosophy
+- [Blender 5 Beginner Tutorial - Part 2 - Materials and rendering](blender-5-beginner-tutorial-part-2-materials-and-rendering.md) — shares #materials #rendering #cycles; beginner foundation for this workflow
+- [Creating an Underground Scene in Blender (Step by Step)](creating-an-underground-scene-in-blender-step-by-step.md) — shares #materials #lighting; scene-integration context
