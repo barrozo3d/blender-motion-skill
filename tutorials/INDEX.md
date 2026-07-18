@@ -957,6 +957,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/the-easiest-way-to-texture-in-blender-adaptive-no-uv-unwrapping.md
 
+
+### 3 Easy steps to make Realistic Materials
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=hAWLqRpzK6I
+- **Author:** Jamie Dunbar
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/3-easy-steps-to-make-realistic-materials.md
+
 ---
 
 ## Tag Reference
