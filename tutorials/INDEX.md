@@ -967,6 +967,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/3-easy-steps-to-make-realistic-materials.md
 
+
+### Everything New in Blender 5.2 Geometry Nodes
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=3B9_kJEjsqc
+- **Author:** Cartesian Caramel
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/everything-new-in-blender-52-geometry-nodes.md
+
 ---
 
 ## Tag Reference
