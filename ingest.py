@@ -40,7 +40,17 @@ SKILL_DIR     = Path(__file__).parent
 TUTORIALS_DIR = SKILL_DIR / "tutorials"
 FRAMES_DIR    = TUTORIALS_DIR / "frames"
 INDEX_FILE    = TUTORIALS_DIR / "INDEX.md"
-DEFAULT_WHISPER = "base"
+def _default_whisper_model():
+    """small on GPU (better accuracy, still fast), base on CPU (speed matters more)."""
+    try:
+        import torch
+        if torch.cuda.is_available():
+            return "small"
+    except Exception:
+        pass
+    return "base"
+
+DEFAULT_WHISPER = _default_whisper_model()
 
 # ── Utilities ─────────────────────────────────────────────────────────────────
 
@@ -98,10 +108,14 @@ def get_info(url):
 
 # ── Step 2: Transcript ─────────────────────────────────────────────────────────
 
+WHISPER_VOCAB_HINT = ("Blender, geometry nodes, Cycles, EEVEE, shader editor, Node Wrangler, Principled BSDF, subdivision surface, UV unwrap, HDRI, compositor, grease pencil, VDB, displacement, bevel, boolean, Mix Shader, Color Ramp")
+
 def whisper_transcribe(audio_path, model_name):
     import whisper
     model = whisper.load_model(model_name)
-    return model.transcribe(str(audio_path))
+    # initial_prompt biases decoding toward this skill's vocabulary — without it
+    # Whisper mis-hears domain terms (e.g. "COPs" -> "cups", "Houdini" -> "Odini").
+    return model.transcribe(str(audio_path), initial_prompt=WHISPER_VOCAB_HINT)
 
 def download_audio(url, tmp):
     out = str(tmp / "audio.%(ext)s")
@@ -485,6 +499,26 @@ def fetch_article(url):
 
 # ── Main ───────────────────────────────────────────────────────────────────────
 
+def find_duplicate_by_video_id(video_id, exclude_name):
+    """Return the tutorial file that already references this YouTube video ID, if any.
+
+    Slug/URL checks miss re-ingests where the uploader changed the title (new slug,
+    new URL text) — the 11-char video ID is the stable identity, so search for it.
+    """
+    if not video_id:
+        return None
+    needle = f"v={video_id}"
+    for f in TUTORIALS_DIR.glob("*.md"):
+        if f.name in ("INDEX.md", exclude_name):
+            continue
+        try:
+            if needle in f.read_text(encoding="utf-8", errors="ignore"):
+                return f
+        except OSError:
+            continue
+    return None
+
+
 def main():
     parser = argparse.ArgumentParser(description="Blender tutorial data collection (Step 1 of 2)")
     parser.add_argument("url")
@@ -516,6 +550,14 @@ def main():
 
         slug   = slugify(title)
         out_md = TUTORIALS_DIR / f"{slug}.md"
+
+        if is_yt and not args.force:
+            dup = find_duplicate_by_video_id(info.get("id", ""), out_md.name)
+            if dup:
+                print(f"      This video is already in the library under a different title:")
+                print(f"        {dup.name}")
+                print(f"      Skipping (same YouTube video ID). Pass --force to ingest anyway.")
+                return
 
         if out_md.exists() and not args.force:
             existing = out_md.read_text(encoding="utf-8")

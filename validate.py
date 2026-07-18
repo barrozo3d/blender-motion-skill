@@ -195,6 +195,9 @@ def main():
     check_tutorials()
     check_index()
 
+    print("\n[drift] Checking shared-script sync with sibling skills...")
+    check_script_drift()
+
     print("\n" + "=" * 60)
     if failures:
         print(f"RESULT: FAIL -- {len(failures)} issue(s) found:")
@@ -204,6 +207,57 @@ def main():
     else:
         print("RESULT: PASS -- all checks clean.")
         sys.exit(0)
+
+
+
+
+# ── Cross-skill script drift check (warn-only) ────────────────────────────────
+# The three skills (blender-motion / houdini-wand / unreal-sidekick) deliberately
+# carry copies of the same ingest pipeline. Copies have historically drifted
+# (missing UTF-8 fix, mismatched cookies flags), so when sibling skill dirs are
+# present on this machine, compare the shared helper functions and WARN on
+# differences. Never fails the run — per-skill divergence may be intentional,
+# but it should always be a conscious choice.
+SIBLING_SKILLS = ("blender-motion", "houdini-wand", "unreal-sidekick")
+SHARED_FUNCS = ("slugify", "download_audio", "ytdlp_captions", "segment_by_chapters",
+                "_detect_hallucination", "append_safeguard_note", "find_duplicate_by_video_id")
+
+
+def check_script_drift():
+    import ast
+    here = os.path.dirname(os.path.abspath(__file__))
+    skills_root = os.path.dirname(here)
+    my_name = os.path.basename(here)
+
+    def func_sources(pyfile):
+        try:
+            with open(pyfile, "r", encoding="utf-8") as fh:
+                src = fh.read()
+            tree = ast.parse(src)
+        except Exception:
+            return {}
+        found = {}
+        for node in ast.walk(tree):
+            if isinstance(node, ast.FunctionDef) and node.name in SHARED_FUNCS:
+                found[node.name] = ast.get_source_segment(src, node)
+        return found
+
+    mine = func_sources(os.path.join(here, "ingest.py"))
+    warned = False
+    for sib in SIBLING_SKILLS:
+        if sib == my_name:
+            continue
+        sib_ingest = os.path.join(skills_root, sib, "ingest.py")
+        if not os.path.isfile(sib_ingest):
+            continue
+        theirs = func_sources(sib_ingest)
+        for fn in SHARED_FUNCS:
+            if fn in mine and fn in theirs and mine[fn] != theirs[fn]:
+                print(f"  DRIFT WARNING: ingest.py::{fn}() differs from sibling skill '{sib}' "
+                      f"-- if the change was intentional, port it to all skills")
+                warned = True
+    if not warned:
+        print("  Shared ingest.py helpers in sync with sibling skills (or no siblings installed).")
 
 
 if __name__ == "__main__":
