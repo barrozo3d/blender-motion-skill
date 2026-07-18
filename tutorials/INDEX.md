@@ -937,6 +937,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/photoreal-volumetrics-in-blender.md
 
+
+### Photoreal Skies In Blender 5.0
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=nXubB9krxVI
+- **Author:** Extra 3d
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/photoreal-skies-in-blender-50.md
+
 ---
 
 ## Tag Reference
