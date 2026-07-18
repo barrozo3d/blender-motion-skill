@@ -153,4 +153,4 @@ Not specified — modern 4.x/5.x UI; version-agnostic (Cycles implied for volume
 ## Related Tutorials
 - [3 Easy Lighting Setups | Blender Tutorial](3-easy-lighting-setups-blender-tutorial.md) — shares #volume #lighting #hdri
 - [Perfect Textures in Blender - Works Every Time](perfect-textures-in-blender---works-every-time.md) — same author; environment-integration philosophy
-- [Blender Tutorial - Create a Beautiful River Landscape in Blender | Free Addon](blender-tutorial---create-a-beautiful-river-landscape-in-blender-free-addon.md) — shares landscape/HDRI workflow
+- [Blender Tutorial - Create a Beautiful River Landscape in Blender | Free Addon](blender-tutorial-create-a-beautiful-river-landscape-in-blend.md) — shares landscape/HDRI workflow
