@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=nXubB9krxVI
 author: Extra 3d
 ingested: 2026-07-18
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.0"
+tags: [lighting, hdri, volume, materials, shaders, rendering, blender-5x, beginner, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/photoreal-skies-in-blender-50/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Photoreal Skies In Blender 5.0
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py photoreal-skies-in-blender-50 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -100,30 +96,56 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:10] tutorials/frames/photoreal-skies-in-blender-50/frame_000.jpg
+- [2:21] tutorials/frames/photoreal-skies-in-blender-50/frame_001.jpg
+- [3:17] tutorials/frames/photoreal-skies-in-blender-50/frame_002.jpg
+- [3:42] tutorials/frames/photoreal-skies-in-blender-50/frame_003.jpg
+- [4:15] tutorials/frames/photoreal-skies-in-blender-50/frame_004.jpg
+- [4:43] tutorials/frames/photoreal-skies-in-blender-50/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Cinematic, animation-safe sky backgrounds without volumetric render cost: pure-sky HDRIs for the backdrop, mixed with a Sky Texture for lighting via a Light Path (camera ray) Mix Shader, plus cheap depth tricks (thin volume cube, light-blocking plane, cloud-shadow plane, fake emission fog).
 
 ### Summary
-[PENDING EXTRACTION]
+Extra 3d solves the "dead background" problem for animated cameras in Blender 5.0. Regular HDRIs contain buildings/trees and light scenes poorly, so use **pure skies** (Polyhaven's pure-sky HDRs at >8K, or the linked free collection). For daytime: keep the Sky Texture as the light source (match its Sun Rotation to the HDRI direction) and show the HDRI only to the camera by mixing World shaders with a `Light Path → Is Camera Ray` factor. Depth tips: a scene-covering cube with near-zero-density Principled Volume at anisotropy ~0.7; a dark max-roughness plane behind the camera as a light blocker (camera visibility off, viewport display Bounds); a noise-texture-alpha plane between sun and scene for cloud shadows; and "fake fog" — an Emission shader (bluish, very low strength) in the volume socket.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Get pure-sky HDRIs (no obstacles): Polyhaven pure skies (HDR format, >8K) or the free collection linked in the description.
+2. World setup: Shader Editor → World tab → select Background node → **Ctrl+T** (Node Wrangler) → load HDRI.
+3. Evening shots: pure sky alone works; night: keep HDRI strength low.
+4. Daytime with Sky Texture lighting: match Sky Texture **Sun Rotation** to the HDRI's sun direction (demo: Sun Size 0.545°, Sun Elevation 36°, Sun Rotation 185°, Sun Disc + Multiple Scattering on, low strength ~0.1) → `Mix Shader` between Sky Texture background and HDRI background, factor = `Light Path` **Is Camera Ray** (swap sockets if inverted): camera sees HDRI, lighting comes from Sky Texture.
+5. Depth: cube covering the scene → `Principled Volume` into Volume socket, very low density, **Anisotropy ≈ 0.7**.
+6. Light block: big plane behind the camera, dark diffuse, max roughness; Object Data → Visibility → uncheck Camera; Viewport Display → Bounds.
+7. Cloud shadows: big plane between sun and scene; `Noise Texture` → `Color Ramp` → Alpha of a basic material.
+8. Fake fog: `Emission` shader (bluish, very low strength) into the Volume socket.
+9. Composite with a cinematic compositor setup.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- World: `Background` × 2 + `Mix Shader` + `Light Path (Is Camera Ray)`
+- `Sky Texture` — Sun Size 0.545°, Elevation 36°, Rotation 185° (match HDRI), Sun Disc, Multiple Scattering, Strength 0.1
+- `Principled Volume` — density ≈ 0, Anisotropy 0.7 (cube)
+- `Emission` → Volume socket (fake fog, bluish, low strength)
+- `Noise Texture` + `Color Ramp` → Alpha (cloud-shadow plane)
+- Object visibility: Camera off, display as Bounds
+- Node Wrangler Ctrl+T; Polyhaven pure skies >8K HDR
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner–Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.0
 
 ### Tags
-[PENDING EXTRACTION]
+#lighting #hdri #volume #materials #shaders #rendering #blender-5x #beginner #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [3 Easy Lighting Setups | Blender Tutorial](3-easy-lighting-setups-blender-tutorial.md) — shares #lighting #hdri #volume
+- [Photoreal Volumetrics in Blender](photoreal-volumetrics-in-blender.md) — the full-volumetric counterpart when render budget allows

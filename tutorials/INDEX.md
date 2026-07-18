@@ -942,9 +942,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=nXubB9krxVI
 - **Author:** Extra 3d
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.0
+- **Tags:** lighting, hdri, volume, materials, shaders, rendering, blender-5x, beginner, intermediate
+- **Summary:** Animation-safe cinematic skies without volumetric cost: use pure-sky HDRIs (Polyhaven >8K HDR or free collections) for the backdrop; for daytime keep Sky Texture as the light source (match Sun Rotation to the HDRI; demo 0.545°/36°/185°, strength 0.1) and mix the two World Background nodes with Light Path → Is Camera Ray so the camera sees the HDRI while the Sky Texture lights the scene. Depth tricks: scene-covering cube with near-zero-density Principled Volume at anisotropy 0.7; dark max-roughness light-blocking plane behind camera (camera visibility off, bounds display); cloud-shadow plane (Noise Texture → Color Ramp → Alpha) between sun and scene; fake fog = bluish low-strength Emission in the Volume socket.
 - **File:** tutorials/photoreal-skies-in-blender-50.md
 
 
