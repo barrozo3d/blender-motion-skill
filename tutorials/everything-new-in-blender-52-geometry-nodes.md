@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=3B9_kJEjsqc
 author: Cartesian Caramel
 ingested: 2026-07-18
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [geometry-nodes, procedural, simulation, release-notes, blender-5x, feature-survey, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/everything-new-in-blender-52-geometry-nodes/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Everything New in Blender 5.2 Geometry Nodes
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py everything-new-in-blender-52-geometry-nodes <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -95,30 +91,57 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:17] tutorials/frames/everything-new-in-blender-52-geometry-nodes/frame_000.jpg
+- [0:34] tutorials/frames/everything-new-in-blender-52-geometry-nodes/frame_001.jpg
+- [0:54] tutorials/frames/everything-new-in-blender-52-geometry-nodes/frame_002.jpg
+- [1:26] tutorials/frames/everything-new-in-blender-52-geometry-nodes/frame_003.jpg
+- [2:07] tutorials/frames/everything-new-in-blender-52-geometry-nodes/frame_004.jpg
+- [3:04] tutorials/frames/everything-new-in-blender-52-geometry-nodes/frame_005.jpg
+- [3:49] tutorials/frames/everything-new-in-blender-52-geometry-nodes/frame_006.jpg
+- [4:13] tutorials/frames/everything-new-in-blender-52-geometry-nodes/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Release survey: every Geometry Nodes change in Blender 5.2 — new XPBD physics (cloth + hair), geometry-attached Bundles, the List data type, sound sampling, and a large batch of new utility nodes.
 
 ### Summary
-[PENDING EXTRACTION]
+Cartesian Caramel's condensed rundown of GN 5.2. Headliners: an experimental **XPBD Solver** node powering new Cloth Dynamics and Hair Dynamics modifiers (generalized, custom-force-capable); **Bundles attachable to geometry** (`Set/Get Geometry Bundle`) passing arbitrary data across modifier/object boundaries (visible in the spreadsheet); **Lists** as a core data type with a node family; a **Sound socket** + `Sample Sound Frequencies` (amplitude/frequency-range float output for audio-reactive setups); GN on **Empty objects** (enables GN on collection instances); `Mesh Bevel` node (modifier-grade control with per-edge offsets and selection outputs); plus new attribute, curve NURBS, and string nodes, six screen-space/PCA bundled assets, recursive closures, and performance work (field de-duplication, faster sampling).
 
 ### Key Steps
-[PENDING EXTRACTION]
+(Feature checklist rather than steps)
+1. **Physics**: `XPBD Solver` node (experimental) → Cloth Dynamics & Hair Dynamics modifiers; custom forces; demo panel: delta time 40 ms, mass 0.1 kg, stretchiness/bendiness/root bendiness.
+2. **Bundles on geometry**: `Set Geometry Bundle` / `Get Geometry Bundle`; data crosses modifier & object boundaries; inspect in spreadsheet.
+3. **Lists**: `Field to List`, `Closure to List` (index-input closure), `List Length`, `Get List Item`, `Filter List` (boolean), `Sort List` (custom weight); `Collection Children` node (child objects/collections, optional recursion).
+4. **Sound**: sound socket + `Sample Sound Frequencies` — amplitude or frequency-range sampling → sound-spectrum animation.
+5. **Empties can hold GN modifiers** — effects needing no original data; works on collection instances.
+6. **Merge by Distance decomposed**: `Merge Points` (same group ID), `Cluster by Distance`, `Cluster by Connected`.
+7. **`Mesh Bevel` node** — bevel-modifier-like with more control: per-side start/end offsets, miter, segments, shape, profile, and Vertex Face / Edge Face / Outer Edge / Mid Edge selection outputs.
+8. **Attributes**: `Rename Attribute` (single or prefix-batch), `Get Attribute Names` (list, filterable by domain/type), `Transfer Attribute` (N attributes at once); `Capture Attribute` gains Selection; 4D float vector storage (ops still 3D).
+9. **Curves**: `Set NURBS Order`, `Set NURBS Weight`.
+10. **Strings**: `Trim String`, `Reverse String`, `Split String` (delimiter → list), `Set String Case`; base input on value↔string conversion; find-from-end; string fields supported (string *attributes* not yet).
+11. **Bundled assets**: 3D to Screen Space, Screen to 3D Space, Transform and Project, Project with Depth, Principal Components, Geometry Principal Components.
+12. **Misc**: `Instance Reference` (geometry-set index per instance), `Get Geometry Component`, Compare on data-blocks, `Bone Info` exists output, viewer shows data-block names, recursive closures (call-stack depth limit in preferences), tool inputs remembered/assignable in Python, de-duplicated field evaluation (faster Sample UV Surface etc.).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+See feature checklist — all node names above are exact. Default group input can now be Scene Frame or Self Object.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate (survey; assumes GN familiarity)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #procedural #simulation #release-notes #blender-5x #feature-survey #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Everything New in Blender 5.2 LTS](everything-new-in-blender-52-lts.md) — the all-departments 5.2 survey; this video is the GN deep-dive companion
+- [ALL 300+ Geometry Nodes in Blender](all-300-geometry-nodes-in-blender.md) — baseline node catalog to diff these additions against
+- [Demystifying Geometry Nodes: The Ultimate Guide to Mastering Blender's Procedural Power](demystifying-geometry-nodes-the-ultimate-guide-to-mastering.md) — GN fundamentals
