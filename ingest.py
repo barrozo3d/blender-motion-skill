@@ -30,6 +30,10 @@ import sys, os, re, json, subprocess, tempfile, shutil, argparse
 from datetime import datetime
 from pathlib import Path
 
+# Ensure stdout handles Unicode on Windows (cp1252 default breaks non-ASCII titles)
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+
 # ── Configuration ─────────────────────────────────────────────────────────────
 
 SKILL_DIR     = Path(__file__).parent
@@ -60,10 +64,6 @@ def _ytdlp_cmd():
     if cookies_file.exists():
         return base + ["--cookies", str(cookies_file), "--remote-components", "ejs:github"]
     return base
-
-def _get_api_key():
-    """Not needed for collection — kept so check_prerequisites stays simple."""
-    return True
 
 def check_prerequisites():
     missing = []
@@ -105,11 +105,19 @@ def whisper_transcribe(audio_path, model_name):
 
 def download_audio(url, tmp):
     out = str(tmp / "audio.%(ext)s")
-    subprocess.run(
-        _ytdlp_cmd() + ["-x", "--audio-format", "mp3", "--audio-quality", "0",
-         "--no-playlist", "-o", out, url],
-        capture_output=True, timeout=300, check=True
-    )
+    cmd = _ytdlp_cmd() + ["-x", "--audio-format", "mp3", "--audio-quality", "0",
+         "--no-playlist", "-o", out, url]
+    # YouTube throttling makes one-off download failures common; a single retry
+    # usually recovers and preserves the timestamped Whisper transcript instead
+    # of degrading to the timestamp-less captions fallback.
+    for attempt in (1, 2):
+        try:
+            subprocess.run(cmd, capture_output=True, timeout=300, check=True)
+            break
+        except subprocess.CalledProcessError:
+            if attempt == 2:
+                raise
+            print("      Audio download failed - retrying once...")
     for f in tmp.iterdir():
         if f.suffix in (".mp3", ".m4a", ".ogg", ".webm"):
             return f
@@ -518,6 +526,7 @@ def main():
 
         # 2. Transcript (per-sentence timestamps preserved — see segment_by_chapters)
         ch_transcripts = []
+        used_captions_fallback = False
         if is_yt:
             if has_whisper:
                 print(f"[2/4] Downloading audio + transcribing with Whisper ({args.whisper_model})...")
@@ -528,10 +537,12 @@ def main():
                     print(f"      {len(transcript.get('segments',[]))} segments -> {len(ch_transcripts)} sections")
                 except Exception as e:
                     print(f"      Whisper failed ({e}), using yt-dlp captions")
+                    used_captions_fallback = True
                     text = ytdlp_captions(args.url, tmp)
                     ch_transcripts = [{"title": "Full Content", "start": 0, "text": text, "segments": []}]
             else:
                 print("[2/4] Whisper not installed - using yt-dlp captions (pip install openai-whisper for better results)")
+                used_captions_fallback = True
                 text = ytdlp_captions(args.url, tmp)
                 ch_transcripts = [{"title": "Full Content", "start": 0, "text": text, "segments": []}]
         else:
@@ -554,6 +565,8 @@ def main():
         # Safeguard checks — transcript completeness/hallucination only; frame-count
         # validation now happens in select_frames.py once real timestamps are chosen.
         sg_warnings, sg_critical = run_safeguards(ch_transcripts)
+        if used_captions_fallback:
+            sg_warnings.append('Transcript came from the yt-dlp captions fallback - NO per-sentence timestamps. Content-anchored frame selection (select_frames.py) will have to estimate moments; consider re-running ingest.py to retry Whisper before extracting.')
         _print_safeguard_report(sg_warnings, sg_critical)
 
         # 4. Write raw .md + commit
