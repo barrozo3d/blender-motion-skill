@@ -907,6 +907,16 @@ Each entry format:
 - **Summary:** A comprehensive "what's new" survey for the Blender 5.2 LTS (Long Term Support) release, structured as a multi-presenter compilation (each department narrated by a different community member/CG Cookie contributor) rather than a single workflow tutorial. It functions as an index of new features and quality-of-life changes rather than a deep dive int...
 - **File:** tutorials/everything-new-in-blender-52-lts.md
 
+
+### Perfect Textures in Blender - Works Every Time
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=s-kGlEsXTQw
+- **Author:** Nico Linde
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/perfect-textures-in-blender---works-every-time.md
+
 ---
 
 ## Tag Reference
