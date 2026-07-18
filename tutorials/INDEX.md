@@ -947,6 +947,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/photoreal-skies-in-blender-50.md
 
+
+### The Easiest Way to Texture in Blender (Adaptive, No UV Unwrapping)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=AMnMbxEwa7Q
+- **Author:** Grant Abbitt (Gabbitt)
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/the-easiest-way-to-texture-in-blender-adaptive-no-uv-unwrapping.md
+
 ---
 
 ## Tag Reference
