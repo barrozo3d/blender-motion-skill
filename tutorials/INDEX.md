@@ -922,9 +922,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=DX36hit2g0s
 - **Author:** Nico Linde
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (modern 4.x/5.x; version-agnostic)
+- **Tags:** materials, shaders, displacement, modeling, sci-fi, intermediate
+- **Summary:** Build detailed sci-fi megastructures fast using two methods: kitbashing greeble packs, and displacement detailing — subdivide + Simple subdivision modifier + Displace modifier (UV coords, Edit-Mode visibility on) driven by JSplacement-generated panel/circuit maps (~1M face budget, Decimate afterwards). Red paint panels are masked by the displacement map itself through a Color Ramp + Multiply Mix so paint follows panels; windows mix Emission/Transparent shaders with a JSplacement window mask. Space-station demo: cylinder → inset/bridge/loops/bevels, P-separate the section to displace, duplicate the ring, then selective greebles (antennas/railings) to break the silhouette.
 - **File:** tutorials/quick-easy-megastructures-in-blender.md
 
 

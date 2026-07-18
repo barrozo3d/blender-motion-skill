@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=DX36hit2g0s
 author: Nico Linde
 ingested: 2026-07-18
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (modern 4.x/5.x UI; version-agnostic)"
+tags: [materials, shaders, displacement, modeling, sci-fi, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/quick-easy-megastructures-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Quick & Easy Megastructures in Blender
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py quick-easy-megastructures-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -127,30 +123,54 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:58] tutorials/frames/quick-easy-megastructures-in-blender/frame_000.jpg
+- [2:36] tutorials/frames/quick-easy-megastructures-in-blender/frame_001.jpg
+- [3:23] tutorials/frames/quick-easy-megastructures-in-blender/frame_002.jpg
+- [4:12] tutorials/frames/quick-easy-megastructures-in-blender/frame_003.jpg
+- [4:39] tutorials/frames/quick-easy-megastructures-in-blender/frame_004.jpg
+- [5:13] tutorials/frames/quick-easy-megastructures-in-blender/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Fast sci-fi megastructure detailing with two methods: kitbashing (pre-made greeble packs) and displacement-modifier detailing driven by JSplacement-generated maps, plus procedural paint/window masks reusing the same displacement texture.
 
 ### Summary
-[PENDING EXTRACTION]
+Nico Linde builds a space station (~20 min modeling, ~10 min render) by blocking simple shapes (shape language matters: triangles=power, rectangles=stability, curves=movement), then adding detail via displacement: subdivide + Simple subdivision modifier, Displace modifier with a JSplacement sci-fi panel map on UV coordinates. Textures are rusty metal/concrete with roughness via Color Ramp; red paint panels are masked by the displacement map itself so paint follows panels. Windows mix Emission and Transparent shaders with a JSplacement mask. Finished with selective greebles (antennas, railings) to break the silhouette — detail everywhere reads as detail nowhere.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Decide silhouette/shape language before opening Blender; two detail methods: kitbash greeble packs (free/cheap packs linked) or displacement.
+2. Displacement maps: **JSplacement** (free; site offline — get via Internet Archive, or the web version) randomly generates sci-fi panels, circuits, wires, window grids; commercial use of outputs allowed.
+3. Mesh prep: subdivide, add `Subdivision Surface` modifier set to **Simple**; watch Statistics overlay — ~1M faces is enough; `Decimate` afterwards if needed.
+4. `Displace` modifier → New texture → import map → Coordinates: **UV** → enable the **Edit Mode display** icon so displacement is visible while adjusting UVs in the UV editor. Fully procedural: re-unwrap anytime.
+5. Materials: rusty metal/concrete; image texture → `Color Ramp` → Roughness. Preview under an HDRI (productioncrate.com free tier).
+6. Red paint: `Mix Color` set to **Multiply**; mask = the original displacement texture through a `Color Ramp` — since Displace uses UVs, the mask follows the panels exactly.
+7. Space station: cylinder → inset top/bottom → right-click Bridge Faces → edge loops + extrusions + bevels. Select inner loop → **P → Separate by Selection** so only that part gets sub-D + displace. Two materials (with/without red panels).
+8. Windows: extrude an edge loop of the original cylinder; `Mix Shader` between `Emission` and `Transparent`, factor = JSplacement window texture.
+9. Duplicate the detailed ring for depth; add greebles (antennas, railings) selectively to break the silhouette.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Modifiers: `Subdivision Surface` (Simple), `Displace` (UV coords, Edit Mode visibility), `Decimate`
+- Shader: `Color Ramp` → Roughness; `Mix Color` (Multiply) for paint mask; `Mix Shader` + `Emission` + `Transparent` for windows
+- External: JSplacement (displacement generator), HDRI from productioncrate
+- Modeling: Inset, Bridge Faces, edge loops, Bevel, P→Separate by Selection
+- Statistics overlay; ~1M face budget
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — modern 4.x/5.x UI; fully version-agnostic.
 
 ### Tags
-[PENDING EXTRACTION]
+#materials #shaders #displacement #modeling #sci-fi #intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Perfect Textures in Blender - Works Every Time](perfect-textures-in-blender---works-every-time.md) — same author; the texturing recipe used on this station
+- [Doing Surface Imperfections Right | Vray, Cycles, Arnold](doing-surface-imperfections-right-vray-cycles-arnold.md) — shares #materials #shaders
