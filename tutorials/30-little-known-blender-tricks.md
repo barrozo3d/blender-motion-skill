@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=5_Jy97TzZuM
 author: Robin Squares
 ingested: 2026-07-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (thin film + shader repeat zone imply 4.5+; modern 4.x/5.x UI)"
+tags: [materials, shaders, procedural, compositing, rendering, cycles, eevee, geometry-nodes, cloth, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/30-little-known-blender-tricks/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # 30 little-known Blender tricks
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py 30-little-known-blender-tricks <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Match materials [0:00]
@@ -344,30 +340,65 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:04] tutorials/frames/30-little-known-blender-tricks/frame_000.jpg
+- [3:32] tutorials/frames/30-little-known-blender-tricks/frame_001.jpg
+- [4:12] tutorials/frames/30-little-known-blender-tricks/frame_002.jpg
+- [4:55] tutorials/frames/30-little-known-blender-tricks/frame_003.jpg
+- [7:02] tutorials/frames/30-little-known-blender-tricks/frame_004.jpg
+- [8:25] tutorials/frames/30-little-known-blender-tricks/frame_005.jpg
+- [10:31] tutorials/frames/30-little-known-blender-tricks/frame_006.jpg
+- [11:44] tutorials/frames/30-little-known-blender-tricks/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A rapid-fire collection of 30 workflow, shading, compositing, and rendering tricks — the highest-value ones being texture bombing (per-cell texture offset via Voronoi), a Substance-style "histogram range" roughness control group, hybrid Cycles+Eevee fog rendering, shader AOV render passes, and Dual Mesh instant hexagons.
 
 ### Summary
-[PENDING EXTRACTION]
+Robin Squares runs through 30 short, mostly independent tips spanning shading (texture bombing, material matching by color division, layered smudge shaders, thin-film boosting via repeat zones, large-scale color variation via noise→HSV), rendering (noise-threshold cheat sheet, EXR/DWAB output, baked-emission "instant renders", hybrid Cycles/Eevee fog compositing), compositing (Filmic Log grading sandwich, shader AOVs), and workflow (Ctrl+F2 batch rename, F2 rename, Ctrl+F node search, lattice shrinkwrap, triangle-parent alignment, shot numbering by tens). Each tip is 10–40 seconds; the video is a checklist to raid rather than a single build.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Match materials** — sample wrong + right colors, Divide the two, multiply/divide into base color to align two materials' albedo.
+2. **Texture bombing** [frame_000, 1:04] — Texture Coordinate → Voronoi, mix a faint Noise into the vector to warp cells; then Vector Math (Add) offsets an image texture per Voronoi cell (optional Vector Rotate per cell) so tiling repetition disappears.
+3. **Instant Cycles renders** — bake diffuse light to a texture, set base color black, multiply baked texture by base color, plug into Emission; renders instantly but light/object become static.
+4. **Histogram-range roughness control** [frame_001, 3:32] — node group replicating Substance Designer's Histogram Range: Level (0.520) and Range (0.500) Value nodes feed Subtract/Add into a clamped Map Range (From 0–1) on the roughness input — "brightness/contrast tailor-made for roughness".
+5. **Cloth topology** [frame_002, 4:12] — rotate a subdivided plane 45°, cut your shape, Merge by Distance; diagonal topology falls with more interesting folds; a decimated plane gives a wrinkly look.
+6. **Shader AOV render passes** [frame_003, 4:55] — add AOV Output node in the shader (e.g. name "grunge"), add a matching Shader AOV in View Layer properties; Geometry Nodes attributes can feed shaders → AOVs.
+7. **Filmic Log grading sandwich** — in the compositor, wrap all color grading between two Convert Colorspace nodes (working space → Filmic Log → back).
+8. **Hybrid fog rendering** [frame_004, 7:02] — fog collection set to Indirect Only in the Cycles scene; linked-copy scene renders the volume pass in Eevee; Mix (Add) the two Render Layers in the compositor for near-Cycles quality at a fraction of the time.
+9. **Make any texture tile** [frame_005, 8:25] — texture on unwrapped plane, 3×3 Array modifier grid, Texture Paint clone stamp (samples from 3D cursor, Shift+RMB to place it) to paint out seams, then bake to a new texture.
+10. **Stronger thin film** [frame_006, 10:31] — black material with IOR 0, thin film thickness 50–1000, Repeat Zone with Add Shader inside to boost the effect through iterations, mix over the base material.
+11. **Instant hexagons** [frame_007, 11:44] — Geometry Nodes Dual Mesh on a grid (skewed slightly) = hexagons; on an icosphere = force-field shield; on a decimated Suzanne = creature scales.
+12. **Workflow one-liners** — Alt-click folder icon opens it in Explorer; Win+Ctrl+Shift+B restarts the GPU driver (safe mid-render); F2 rename / Ctrl+F2 batch rename with find-and-replace; Ctrl+F searches node graphs; number shots 10/20/30 to leave insertion room; realistic albedo stays ~0.2 (dark cloth) to ~0.9 (printer paper); save renders as EXR with DWA(B) compression instead of PNG.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Texture bombing: Texture Coordinate, Voronoi Texture, Noise Texture (faint vector mix), Mapping, Image Texture, Vector Math (Add), Vector Rotate
+- Histogram range group: Value ("Level" 0.520), Value ("Range" 0.500), Subtract, Add (both clamped), Map Range (Float, Clamp, From Min 0.000 / From Max 1.000) → Roughness; scene used Cycles GPU Compute, Noise Threshold 0.0100, Max Samples 4096
+- AOV pass: AOV Output (Name: "grunge", Color) after Mapping/Image Texture (Box projection, Blend 0.200) + Map Range; View Layer Properties → Shader AOV (same name)
+- Fog composite: two Render Layers (Cycles scene + Eevee linked-copy scene, volume/indirect-only split), Mix node set to Add
+- Thin film boost: Principled thin film thickness 50–1000, IOR 0 black base, Repeat Zone (Iterations) containing Add Shader
+- Color variation: Noise Texture (large scale) → Separate Color → Hue/Saturation/Value per R/G/B channel
+- Grading: Convert Colorspace (working → Filmic Log) … grading nodes … Convert Colorspace (Filmic Log → working)
+- Render output: EXR, DWAB compression, ~60% quality (or lossless ZIP) instead of PNG; noise threshold 0.01 (general, denoised) / 0.0025 (high-end, denoised)
+- GeoNodes: Dual Mesh (Keep Boundaries option visible) on Grid / Icosphere / decimated mesh
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified (thin film + shader repeat zone imply 4.5+; modern 4.x/5.x UI throughout)
 
 ### Tags
-[PENDING EXTRACTION]
+materials, shaders, procedural, compositing, rendering, cycles, eevee, geometry-nodes, cloth, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Doing Surface Imperfections Right | Vray, Cycles, Arnold..](doing-surface-imperfections-right-vray-cycles-arnold.md) — same layered-smudge-shader philosophy for glossy surfaces (tip 13) and roughness-map theory
+- [Perfect Textures in Blender - Works Every Time](perfect-textures-in-blender---works-every-time.md) — shares materials/shaders/procedural/rendering/cycles tags; complementary texture-realism workflow
+- [3 Easy steps to make Realistic Materials](3-easy-steps-to-make-realistic-materials.md) — shares materials/shaders/procedural/cycles tags; realistic-material quick wins in the same spirit
+- [A FULL Blender Compositor Course!](a-full-blender-compositor-course.md) — deep dive for the compositing tips here (grading sandwich, AOVs, render-layer mixing)
