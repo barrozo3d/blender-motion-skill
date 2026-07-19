@@ -204,10 +204,17 @@ def segment_by_chapters(transcript, chapters):
 
 def download_video_low(url, tmp):
     out = str(tmp / "video.%(ext)s")
-    subprocess.run(
-        _ytdlp_cmd() + ["-f", "worst[ext=mp4]/worst", "--no-playlist", "-o", out, url],
-        capture_output=True, timeout=600, check=True
-    )
+    cmd = _ytdlp_cmd() + ["-f", "worst[ext=mp4]/worst", "--no-playlist", "-o", out, url]
+    # Same one-off YouTube throttling failures as the audio download in Step 1;
+    # a single retry usually recovers (select_frames.py depends on this helper).
+    for attempt in (1, 2):
+        try:
+            subprocess.run(cmd, capture_output=True, timeout=600, check=True)
+            break
+        except subprocess.CalledProcessError:
+            if attempt == 2:
+                raise
+            print("      Video download failed - retrying once...")
     for f in tmp.iterdir():
         if f.suffix in (".mp4", ".webm", ".mkv"):
             return f
