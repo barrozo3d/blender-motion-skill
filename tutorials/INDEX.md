@@ -1037,6 +1037,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/this-blender-shader-is-the-secret-to-magical-3d-art.md
 
+
+### 5 Lighting SECRETS in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=qQgK7gYbvco
+- **Author:** Max Hay
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/5-lighting-secrets-in-blender.md
+
 ---
 
 ## Tag Reference
