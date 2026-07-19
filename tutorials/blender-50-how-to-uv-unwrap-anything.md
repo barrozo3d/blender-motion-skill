@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=dm3bBpZVmnE
 author: On Mars 3D
 ingested: 2026-07-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.0"
+tags: [materials, modeling, beginner, intermediate, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-50-how-to-uv-unwrap-anything/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender 5.0: How to UV Unwrap Anything
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-50-how-to-uv-unwrap-anything <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Introduction [0:00]
@@ -642,30 +638,60 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [4:44] tutorials/frames/blender-50-how-to-uv-unwrap-anything/frame_000.jpg
+- [6:55] tutorials/frames/blender-50-how-to-uv-unwrap-anything/frame_001.jpg
+- [9:02] tutorials/frames/blender-50-how-to-uv-unwrap-anything/frame_002.jpg
+- [13:07] tutorials/frames/blender-50-how-to-uv-unwrap-anything/frame_003.jpg
+- [14:05] tutorials/frames/blender-50-how-to-uv-unwrap-anything/frame_004.jpg
+- [17:06] tutorials/frames/blender-50-how-to-uv-unwrap-anything/frame_005.jpg
+- [22:51] tutorials/frames/blender-50-how-to-uv-unwrap-anything/frame_006.jpg
+- [23:36] tutorials/frames/blender-50-how-to-uv-unwrap-anything/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A universal 5-step UV unwrapping workflow (apply scale → project from view → mark seams → unwrap → pack islands) applied to hard-surface, sub-D, and organic models, plus the Blender 5.0 UV quality-of-life updates (UV sync on by default, mark seam inside the UV editor, pack to custom region, arrange islands).
 
 ### Summary
-[PENDING EXTRACTION]
+On Mars 3D demonstrates one repeatable workflow that unwraps any model type — low-poly triangulated game assets, clean sub-D hard surface, and organic meshes — with seam-placement logic explained through real-world objects (cut the caps off a can, split the label down the middle). The second half covers verifying UVs with checker maps and the UV Stretch overlay, troubleshooting non-square checkers (unapplied scale) and messy unwraps (missing seams), and hiding unavoidable seams at texture time via tri-planar projection and 3D painting in Substance Painter.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Apply Scale** — Ctrl+A → Apply Scale on every object (scale must read 1,1,1); unapplied scale is the #1 cause of rectangular (non-square) checker distortion [frame_006 troubleshooting moment at 20:16].
+2. **Project From View (or Reset)** — UV menu → Project from View for a clean slate in the UV editor; not required for unwrapping, purely to de-clutter.
+3. **Mark Seams** [frame_000, 4:44] — Tab → edge mode (2), Alt+click edge loops (Shift+Alt to add), Ctrl+click for shortest-path selection; right-click → Mark Seam (or M). Cylinder logic: cut caps off, split the sleeve once vertically. For objects with thickness, also seam the inner/outer boundary or the unwrap becomes a mess (demonstrated at 11:31).
+4. **Unwrap** — right-click → Unwrap; method Conformal for hard surface, Angle Based for organic — just try the other if one distorts (Minimum Stretch also available).
+5. **Pack Islands** [frame_001, 6:55] — UV → Pack Islands: Shape Method "Exact Shape (Concave)", Scale+Rotate on, Margin Method Scaled, margin bumped to 0.005–0.01 for texture padding, Pack To Closest UDIM.
+6. **Verify with a checker map** [frame_002, 9:02] — New Image in UV editor, Generated Type: UV Grid, 2048px; assign in Shading tab; want square checkers everywhere. Free "UV Checker Map Maker" gives procedural checkers with direction arrows.
+7. **Check distortion** [frame_004, 14:05] — Overlays → Display Stretch: Angle in the UV editor; blue = fine, green/red = distortion. On sub-D models set the Subdivision modifier's Advanced → UV Smooth to "Keep Boundaries"/"All" to fix seam-border distortion.
+8. **Speed-ups** — Select Sharp Edges (via Q quick favorites) auto-selects most hard-surface seams; Blender 5.0's UV sync lets you fix missed seams directly in the UV editor [frame_005, 17:06]: select edges there → UV → Mark Seam → L to select linked → Unwrap.
+9. **Blender 5.0 packing updates** — move islands between UDIMs with numpad; Ctrl+B marquee defines a custom region then Pack Islands → "Pack to Custom Region" [frame_006, 22:51]; Arrange UV Islands operator [frame_007, 23:36] with Initial Position/Axis/Align/Order (e.g. Bounding Box, Y, Min, Largest to Smallest) for texture sheets.
+10. **Hide seams while texturing** — in Substance Painter switch a fill's projection from UV to Tri-planar (projects along X/Y/Z and blends), or paint directly on the 3D model across seams.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Pack Islands: Shape Method Exact Shape (Concave); Scale ✓ Rotate ✓; Rotation Method Any; Margin Method Scaled; Margin 0.001 default → 0.005–0.01 recommended; Lock Method All; Pack To Closest UDIM / Custom Region
+- Unwrap methods: Conformal (hard surface), Angle Based (organic), Minimum Stretch
+- Subdivision Surface modifier: Catmull-Clark, Advanced → UV Smooth: Keep Boundaries → All (fixes border distortion)
+- UV editor overlay: UV Stretch display set to Angle; UV Opacity slider
+- Checker: 2048×2048 Generated UV Grid image
+- Arrange/Align Islands: Initial Position Bounding Box, Axis Y, Align Min, Order Largest to Smallest, Margin
+- Shortcuts: Ctrl+A apply scale, Alt+click edge loop, Shift+Alt add loop, Ctrl+click shortest path, M mark seam, L select linked, Q quick favorites, Z shading pie, Ctrl+B custom region marquee
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner–Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.0 (UV sync default, mark seam in UV editor, pack to custom region, arrange islands are 5.0 updates; workflow itself is version-agnostic)
 
 ### Tags
-[PENDING EXTRACTION]
+materials, modeling, beginner, intermediate, blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [The Easiest Way to Texture in Blender (Adaptive, No UV Unwrapping)](the-easiest-way-to-texture-in-blender-adaptive-no-uv-unwrapping.md) — the counterpoint workflow: texturing without UVs; this video covers when you do need proper UVs
+- [Perfect Textures in Blender - Works Every Time](perfect-textures-in-blender---works-every-time.md) — texture application that benefits from the clean UVs produced here
+- [How to fix SHADING ERRORS in Blender](how-to-fix-shading-errors-in-blender.md) — companion troubleshooting mindset for mesh/shading issues

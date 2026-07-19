@@ -992,9 +992,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=dm3bBpZVmnE
 - **Author:** On Mars 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.0
+- **Tags:** materials, modeling, beginner, intermediate, blender-5x
+- **Summary:** Universal 5-step UV workflow (apply scale, project from view, mark seams, unwrap, pack islands) applied to hard-surface, sub-D, triangulated and organic models, with seam-placement logic, checker-map + UV Stretch verification, and Blender 5.0 updates: UV sync on by default, mark seam inside the UV editor, pack to custom region, arrange islands. Ends with hiding seams via tri-planar projection and 3D painting in Substance Painter.
 - **File:** tutorials/blender-50-how-to-uv-unwrap-anything.md
 
 
@@ -1002,9 +1002,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=QkIr1-lDPW0
 - **Author:** Blender Studio
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.2 LTS
+- **Tags:** materials, shaders, procedural, displacement, beginner, blender-5x
+- **Summary:** Overview of Blender 5.2's first bundled procedural material assets (Essentials library, online assets): downloading, drag-to-assign, the packed-data model (click packed indicator to make local and unlock parameters), 1 UV unit ≈ 1 m² mapping convention, non-tiling procedural coverage, per-material parameter exploration (Fabric–Linen, Wooden Boards–Herringbone), and enabling displacement with Subdivision Surface or Cycles Adaptive Subdivision.
 - **File:** tutorials/brand-new-material-assets-in-blender-52-lts.md
 
 
@@ -1012,9 +1012,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=ilaD-V8R1gI
 - **Author:** CG Boost
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (modern 4.x/5.x UI)
+- **Tags:** materials, shaders, procedural, displacement, intermediate
+- **Summary:** All-in-one building texturing pipeline: box-mapped PolyHaven PBR bases (Object coords, Box projection blend 0.3, bump-only displacement), material blending via Mix Shader + Mix pairs with grunge→ColorRamp masks, stacked color variations, hand-painted wall paint and damage masks (custom rake/view-plane brushes), stencil-painted decals on an alpha-0 4K image (drips, dirt, graffiti), and procedural finishing: Bevel+Geometry dot-product edge wear and AO-node dirt with Less Than grunge breakup.
 - **File:** tutorials/how-to-texture-realistic-buildings-in-blender-b3d.md
 
 
@@ -1022,9 +1022,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=24EtrCpg4Iw
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (modern 4.x/5.x UI)
+- **Tags:** modeling, organic, beginner, intermediate
+- **Summary:** Four retopology workflow upgrades: the Retopology overlay with tunable depth offset (replaces In Front + backface culling), Ctrl+RMB extrude that orients geometry while extruding, the Relax Slide sculpt brush for redistributing vertices without volume loss, and Face Nearest snapping (vs Face Project) for extruding around limb-like forms; cleanup via LoopTools Space and Ctrl+R.
 - **File:** tutorials/4-new-retopology-tips-to-discover---blender-secrets.md
 
 
@@ -1032,9 +1032,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=mQPFjzAgGQo
 - **Author:** Levi Magony
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (EEVEE + real-time compositing, 4.x/5.x era)
+- **Tags:** shaders, materials, procedural, eevee, compositing, motion-design, abstract, intermediate
+- **Summary:** 9-step lightless procedural "magical crystal" shader in EEVEE: generated-coord Z gradient, Layer Weight (Facing) fake lighting with remapped normals, object-space Voronoi + noise frosted color variations, camera-space dual-Voronoi subtract cracks, reflection-space ambient color and diagonal highlight lines, emission+transparent mix driven by shading (Blended render method), plus a Grease Pencil line art rig (Tint gradient from empty, Simplify Sample → Dot Dash → Noise → Envelope) and real-time compositor Bloom + masked Sun Beams. Hex colors captured in frames.
 - **File:** tutorials/this-blender-shader-is-the-secret-to-magical-3d-art.md
 
 
@@ -1042,9 +1042,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=qQgK7gYbvco
 - **Author:** Max Hay
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (modern 4.x UI)
+- **Tags:** lighting, volume, cycles, rendering, shaders, intermediate, advanced
+- **Summary:** Five advanced lighting tricks from client work: image textures inside light sources via Use Nodes (phone photos of refracted light, fake water caustics; radius blurs the pattern), gobo planes with noise/image alpha masks parented to lights, reliable god rays (small-radius hard light + complex shadow caster + volume scatter cube at density 0.02–0.3), fake bounce lights (large radius, ~100W, color-matched, placed where bounce already exists, Ray Visibility volume scatter off), and Light Falloff → Color Ramp for distance-based color gradients (red near → blue far).
 - **File:** tutorials/5-lighting-secrets-in-blender.md
 
 ---

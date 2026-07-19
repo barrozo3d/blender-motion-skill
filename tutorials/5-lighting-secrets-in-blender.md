@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=qQgK7gYbvco
 author: Max Hay
 ingested: 2026-07-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (modern 4.x UI; Light Falloff described as a newer feature)"
+tags: [lighting, volume, cycles, rendering, shaders, intermediate, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/5-lighting-secrets-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # 5 Lighting SECRETS in Blender
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py 5-lighting-secrets-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -433,30 +429,57 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:14] tutorials/frames/5-lighting-secrets-in-blender/frame_000.jpg
+- [3:59] tutorials/frames/5-lighting-secrets-in-blender/frame_001.jpg
+- [6:04] tutorials/frames/5-lighting-secrets-in-blender/frame_002.jpg
+- [8:04] tutorials/frames/5-lighting-secrets-in-blender/frame_003.jpg
+- [10:55] tutorials/frames/5-lighting-secrets-in-blender/frame_004.jpg
+- [16:47] tutorials/frames/5-lighting-secrets-in-blender/frame_005.jpg
+- [21:26] tutorials/frames/5-lighting-secrets-in-blender/frame_006.jpg
+- [25:39] tutorials/frames/5-lighting-secrets-in-blender/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Five advanced light-shaping tricks: image textures inside light sources, gobo planes with alpha masks, reliable god rays (hard light + complex shadow + volume), fake bounce lights with ray-visibility control, and the Light Falloff node for distance-based color gradients.
 
 ### Summary
-[PENDING EXTRACTION]
+Max Hay demonstrates five production lighting techniques from his client work. (1) Enable Use Nodes on any light and plug a photo (e.g. a phone shot of sunlight refracting on a wall) into the emission color for complex, believable highlights — including fake water caustics. (2) Gobos: planes with noise/image textures run into the material alpha block light into interesting shadow patches. (3) God rays appear reliably when three things combine: a small-radius (hard) light, a complex shadow caster (gobo or tree model), and a volume scatter cube. (4) Fake bounce lighting: a large-radius, color-matched point light placed only where real bounce already happens, with volume scatter ray visibility disabled to kill the glow. (5) The Light Falloff node through a Color Ramp makes a light change color over distance (red near → blue far) — physically impossible, artistically powerful (shown on a Rezz/Virtual Riot client render balancing red vs blue-purple branding).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Image-textured lights** [frame_001, 3:59] — select light → shader editor → object → **Use Nodes**; drop an image texture into the Emission color. Light data strength/color and the Emission node both multiply the result. Rotate on local Z (R,Z,Z); increase light **radius** to blur the pattern naturally (too high erases it); optionally run image color → Color Ramp (Ease/B-Spline) → Emission strength so dark areas emit less; Hue/Sat to intensify rainbow splitting. Works with spot/point/area (area: set Spread to 0) [frame_002, 6:04 shows the caustic-streak result]. Water photo in a point light = fake caustics; stack multiple lights, some affecting volume, some not [frame_000, 1:14 — the dome scene].
+2. **Gobos** [frame_003 8:04 scene, frame_004 10:55 setup] — plane between light and scene, covering the lit area; material alpha driven by Noise Texture → Color Ramp (raise contrast so patches are opaque enough to shadow but not fully dark); increase noise detail/roughness; softness controlled by light radius + plane-to-light distance (keep soft so the blocker isn't identifiable, unless using recognizable leaves/tree). Or drop in any image (tiles, ice, paint) — unwrap plane (Cube Projection) and scale. Parent plane to light (Ctrl+P → Object Keep Transform) so it follows. Combinable with technique 1 for wild results.
+3. **God rays** [frame_005, 16:47] — every time: cube over the scene → delete Principled → **Volume Scatter** → Volume, density ~0.02–0.3; a hard light (small but nonzero radius); a strong shadow caster (high-contrast gobo or a tree model). If no rays: reduce the light radius.
+4. **Fake bounce light** [frame_006, 21:26] — large-radius point light placed where bounce light already exists (e.g. above a bright floor patch), color-matched to the surface it's "bouncing" from (slight blue-green here), subtle strength (~100W, not 1000). Kill volume glow: turn off Multiple Importance, and Object Properties → Visibility → **Ray Visibility → uncheck Volume Scatter**. Placing it where bounce makes no sense reads instantly as fake.
+5. **Light Falloff color gradient** [frame_007, 25:39] — light → Use Nodes → **Light Falloff** (Linear output; Strength ~0.19) → **Color Ramp** → Emission color. Set near-color and far-color stops; tune the falloff strength until the transition band sits in the visible range. HSV/HSL ramp interpolation sweeps the whole spectrum (trippy; he prefers RGB). Combine with technique 1 via MixRGB (Multiply) of a caustics image.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Light nodes: Use Nodes → Image Texture → (optional Color Ramp → strength) → Emission; light radius as blur control; area light Spread 0
+- Gobo plane: Noise Texture → Color Ramp (high contrast) → Material Alpha; or image texture, cube-projection unwrap; parent to light with Keep Transform
+- Volume: Cube → Volume Scatter, density 0.02–0.3
+- God rays = small light radius + hard shadow caster + volume
+- Bounce light: radius large, power ~100W, color-matched; Ray Visibility → Volume Scatter off; Multiple Importance off if reflections misbehave
+- Light Falloff: Linear (also Quadratic/Constant), Strength 0.190, Smooth 0 → Color Ramp (RGB interpolation) → Emission color
+- Assets seen: Botaniq tree addon for the god-ray blocker
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate–Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified (modern 4.x UI; Light Falloff gradient trick presented as a newer feature)
 
 ### Tags
-[PENDING EXTRACTION]
+lighting, volume, cycles, rendering, shaders, intermediate, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [3 Easy Lighting Setups | Blender Tutorial](3-easy-lighting-setups-blender-tutorial.md) — Max Hay's foundational lighting rigs these tricks build on
+- [Fundamentals of Lighting in Blender](fundamentals-of-lighting-in-blender.md) — the theory baseline
+- [Creating an Underground Scene in Blender (Step by Step)](creating-an-underground-scene-in-blender-step-by-step.md) — Max Hay scene work where these techniques appear
+- [How I Built This Gate Animation in Blender | Scene Breakdown](how-i-built-this-gate-animation-in-blender-scene-breakdown.md) — client-work breakdown companion
+- [Photoreal Volumetrics in Blender](photoreal-volumetrics-in-blender.md) — deeper volume-scatter control for the god-ray technique

@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=QkIr1-lDPW0
 author: Blender Studio
 ingested: 2026-07-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.2 LTS"
+tags: [materials, shaders, procedural, displacement, beginner, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/brand-new-material-assets-in-blender-52-lts/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 5
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Brand New Material Assets in Blender 5.2 LTS
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py brand-new-material-assets-in-blender-52-lts <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -120,30 +116,52 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:20] tutorials/frames/brand-new-material-assets-in-blender-52-lts/frame_000.jpg
+- [2:09] tutorials/frames/brand-new-material-assets-in-blender-52-lts/frame_001.jpg
+- [3:36] tutorials/frames/brand-new-material-assets-in-blender-52-lts/frame_002.jpg
+- [4:11] tutorials/frames/brand-new-material-assets-in-blender-52-lts/frame_003.jpg
+- [4:40] tutorials/frames/brand-new-material-assets-in-blender-52-lts/frame_004.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Using Blender 5.2 LTS's new bundled procedural material assets (Essentials library, downloaded as "online assets") — importing, making local for editing, tweaking exposed parameters, and enabling displacement.
 
 ### Summary
-[PENDING EXTRACTION]
+Blender Studio introduces the first official material asset library shipping with Blender 5.2: a small set of fully procedural materials (bricks, tiles, fabric, wood, metal, plastic, porcelain, skin, water) available through the Asset Browser's Essentials library as online assets, so they don't bloat the download. The video covers downloading and applying them, the packed-data model (assets import as non-editable packed data; click the packed indicator to make local and unlock parameters), UV scale conventions (1 UV unit ≈ 1 m², non-tiling so no repetition outside the unit square), and enabling displacement with sufficient mesh density.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Open the Asset Browser and select the **Essentials** library; enable **online access** to see online assets (marked with an online icon) [frame_000 shows the Essentials catalog structure — brushes, compositing, geometry nodes, materials, models].
+2. Download materials via the download icon on an asset, or multi-select → right-click → download all.
+3. Drag a material onto a mesh surface in the viewport — imports the datablock and assigns it to the slot under the cursor [frame_001, 2:09: materials catalog with Fabric/Metal/Tiles categories applied to a wall scene].
+4. Texture mapping: regular patterns use the mesh's UV map at 1 UV unit ≈ 1 m²; materials are procedural and non-tiling, so UVs can extend beyond the unit square with no repetition.
+5. To edit: Essentials materials import as **packed data** (grayed-out parameters, still linked to the library identity but stored in your file). Click the packed-indicator button on the material to **make local** — parameters ungray [frame_002, 3:36: Fabric–Linen node group with Base Color, Roughness 0.600, Subsurface Weight 0.600, Translucency 0.750, Bump, Scale].
+6. Explore per-material parameters — e.g. Wooden Boards–Herringbone exposes Coat Weight 0.250, Coat Roughness, Bump, Scale plus Pattern controls (Length, Width 0.04 m, Panels Long/Wide) [frame_003, 4:11].
+7. Displacement (e.g. Bricks–Cobblestone): enable it in the material *and* give the mesh enough vertices — Subdivision Surface modifier with high levels, or Cycles **Adaptive Subdivision** (dicing rate in px) for screen-dependent density [frame_004, 4:40]. Warning: subdivision + displacement is expensive.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Asset Browser: Essentials library filter; online-access toggle; per-asset download icon; right-click multi-download
+- Material node-group parameters (Fabric–Linen): Base Color, Roughness 0.600, Subsurface Weight 0.600, Translucency 0.750, Bump, Scale 1.000
+- Wooden Boards–Herringbone: Coat Weight 0.250, Coat Roughness, Bump, Scale, Pattern Length/Width (0.04 m)/Panels Long/Panels Wide
+- Displacement path: material displacement toggle + Subdivision Surface (Catmull-Clark) or Cycles Adaptive Subdivision (Dicing Pixel 1.000 px shown)
+- Other new online assets mentioned: grease pencil brushes, compositing filters, base meshes
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.2 LTS (online material assets are new in this release)
 
 ### Tags
-[PENDING EXTRACTION]
+materials, shaders, procedural, displacement, beginner, blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Everything New in Blender 5.2 LTS 🍪](everything-new-in-blender-52-lts.md) — the broader 5.2 release survey this feature belongs to
+- [Perfect Textures in Blender - Works Every Time](perfect-textures-in-blender---works-every-time.md) — manual texture workflows the asset library now shortcuts
+- [3 Easy steps to make Realistic Materials](3-easy-steps-to-make-realistic-materials.md) — hand-building the kind of procedural realism these assets bundle

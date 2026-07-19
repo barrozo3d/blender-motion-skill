@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=mQPFjzAgGQo
 author: Levi Magony
 ingested: 2026-07-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (EEVEE Next-era 4.x/5.x; real-time compositing required)"
+tags: [shaders, materials, procedural, eevee, compositing, motion-design, abstract, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/this-blender-shader-is-the-secret-to-magical-3d-art/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # This Blender Shader is the Secret to Magical 3D Art
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py this-blender-shader-is-the-secret-to-magical-3d-art <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Overview [0:00]
@@ -406,30 +402,62 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:30] tutorials/frames/this-blender-shader-is-the-secret-to-magical-3d-art/frame_000.jpg
+- [2:40] tutorials/frames/this-blender-shader-is-the-secret-to-magical-3d-art/frame_001.jpg
+- [4:40] tutorials/frames/this-blender-shader-is-the-secret-to-magical-3d-art/frame_002.jpg
+- [8:28] tutorials/frames/this-blender-shader-is-the-secret-to-magical-3d-art/frame_003.jpg
+- [13:44] tutorials/frames/this-blender-shader-is-the-secret-to-magical-3d-art/frame_004.jpg
+- [17:54] tutorials/frames/this-blender-shader-is-the-secret-to-magical-3d-art/frame_005.jpg
+- [19:07] tutorials/frames/this-blender-shader-is-the-secret-to-magical-3d-art/frame_006.jpg
+- [22:41] tutorials/frames/this-blender-shader-is-the-secret-to-magical-3d-art/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A 9-step procedural stylized "magical crystal" shader in EEVEE (lightless, emission-based) paired with a hand-drawn-style Grease Pencil line art rig and real-time compositing bloom/sunbeams.
 
 ### Summary
-[PENDING EXTRACTION]
+Levi Magony builds a fully procedural crystal shader with no scene lights: a generated-coordinate Z gradient, Layer Weight (Facing) fake lighting with a remapped normal, Voronoi color variations softened by object-space noise, camera-space Voronoi cracks (dual-texture subtract trick for sharp lines with round corners), reflection-space ambient color and diagonal highlight lines, and transparency mixed by shading (dark = more transparent). The line art half uses a Grease Pencil Object Line Art with tint-gradient-from-empty, Simplify (Sample) to control resolution, Dot Dash for gaps, Noise, and Envelope for rounded corners. Finishing happens in the real-time compositor with Bloom and a bloom-masked Sun Beams node. Setup: EEVEE, view transform Standard, world black→dark blue; works best on sharp-edged objects.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Gradient** [frame_000, 1:30] — Texture Coordinate (Generated) → Separate XYZ (Z; apply rotation first) → Color Ramp (B-Spline) dark blue #4586E2 → light turquoise #B5FFFE. Generated coords re-fit the gradient when the mesh deforms.
+2. **Shadows & highlights (lightless)** [frame_001, 2:40] — Layer Weight set to **Facing**; feed its Normal input from Texture Coordinate Normal → Mapping, rotating until shadows sit right; Color Ramp with #347CD8 / #CBFFFB; blend slider fine-tunes; no lights needed.
+3. **Color variations** [frame_002, 4:40] — Texture Coordinate (**Object**, to avoid generated-space distortion) → Voronoi (Smooth F1) → Color Ramp (alternate blues); plug an Object-space **Noise Texture (Detail 0)** into the Voronoi vector and clamp with a Color Ramp (black→dark gray blurs sharp parts, white→light gray reins in blur) for a frosted watercolor look. Mix: Voronoi setup Soft Light (bottom socket), then gradient via second Mix set to Overlay, both factor 1 (Node Wrangler Ctrl+Shift+RMB drag to mix).
+4. **Line art** [frame_003, 8:28] — Shift+A → Grease Pencil → Object Line Art (needs a camera). Modifiers: thickness up, Edge Types → Crease angle; **Tint modifier (Gradient)** with an Empty as the gradient object (place near object, radius/scale to fit), factor 1; layer blend mode **Divide**. Hand-drawn feel: **Simplify (Sample mode, length 0.03)** first — line art resolution controls gap size — then **Dot Dash** (dash = points per segment, gap = removed points), subtle **Noise**, and **Envelope** (spread length 2) to round corners. Alpha changes need a refresh (play/pause or edit-mode toggle).
+5. **Cracks** [frame_004, 13:44] — Texture Coordinate (**Camera**) → two linked Voronoi Distance-to-Edge textures (one F1, one Smooth F1 smoothness 0.11) → Math **Subtract** → Math **Divide** (Shift-drag for precision) → Color Ramp (Constant): sharp lines with rounded corners. One Value node drives both scales. Optional Mapping node (rerouted) repositions; Object coords make cracks static. Color white→turquoise; mix into shader with **Color Dodge** at ~0.75.
+6. **Ambient color** — Mix (blend mode **Color**) with lilac; mask = Texture Coordinate **Reflection** → Separate XYZ (Z) → Mapping (rotate on Y to put white at bottom, slide down Z until only a sliver remains) → Math Multiply for intensity → factor.
+7. **Reflections** [frame_005, 17:54] — Reflection coords → Separate XYZ (Z) → Color Ramp **Constant** with 4 stops making two diagonal white lines (second thinner; Ctrl+click on ramp adds stops), Mapping scale up + rotate Y −20°; tint turquoise; Mix set to **Add**, factor 0.8.
+8. **Transparency** [frame_006, 19:07] — feed everything into an **Emission** shader, mix with **Transparent BSDF** (transparent top socket) via Mix Shader; Material Settings → render method **Blended**, transparency overlap on. Factor = the "Shadows and Highlights" setup grouped (Ctrl+G) and reused: dark = transparent, bright = opaque, remapped by Color Ramp (black value 0.6, white 0.77). Extra: camera-space Voronoi "Random Smoothness" group into the Transparent BSDF color for internal facets.
+9. **Compositing** [frame_007, 22:41] — enable real-time compositing in a 3D viewport; **Glare → Bloom** (High quality, raise threshold, smaller size); **Sun Beams** node (source point centered, short rays, Ray Length ≈ 0.33) fed by a duplicated Bloom (mix 1, high threshold, size 1) as its mask; combine with Mix **Lighten**, low factor. Enable View Layer **Z pass** (+Combined) so Grease Pencil renders.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- EEVEE; Color Management → View Transform: **Standard**; world dark blue/black
+- Gradient: Generated → Separate XYZ Z → ColorRamp B-Spline (#4586E2 → #B5FFFE)
+- Fake light: Layer Weight (Facing) with Mapping-rotated Normal input; ColorRamp #347CD8/#CBFFFB
+- Variations: Object coords → Voronoi Smooth F1 + Noise (Detail 0) into vector; ramps as clamps; Mix Soft Light + Overlay, factors 1
+- Cracks: Camera coords → Voronoi Distance-to-Edge ×2 (F1 & Smooth F1 0.11) → Subtract → Divide → ColorRamp Constant; shared Value scale; Color Dodge 0.75
+- Line art: GP Object Line Art; Tint (Gradient, empty object, factor 1); layer blend Divide; Simplify Sample 0.03 → Dot Dash → Noise → Envelope (spread 2)
+- Transparency: Emission + Transparent BSDF via Mix Shader; render method Blended, transparency overlap ✓; factor from Shadows-and-Highlights group through ColorRamp (0.6/0.77)
+- Compositor: Glare Bloom (High, mix/threshold/size tuned) + Sun Beams (masked by second Bloom), Mix Lighten; View Layer Z pass on
+- Node Wrangler: Ctrl+Shift+click preview, Ctrl+Shift+RMB drag auto-mix
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified (EEVEE with real-time compositing — 4.x/5.x era)
 
 ### Tags
-[PENDING EXTRACTION]
+shaders, materials, procedural, eevee, compositing, motion-design, abstract, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [How to make this style in Blender](how-to-make-this-style-in-blender.md) — sibling stylized-look breakdown
+- [How Apple Makes 3D Wallpapers (Blender Tutorial)](how-apple-makes-3d-wallpapers-blender-tutorial.md) — glossy abstract aesthetic with related fake-lighting tricks
+- [Glass Cell Division Effect in Blender 5.0 (tutorial)](glass-cell-division-effect-in-blender-50-tutorial.md) — Voronoi-driven crystal/glass looks
+- [30 little-known Blender tricks](30-little-known-blender-tricks.md) — the noise→vector warping and color-variation micro-techniques used here

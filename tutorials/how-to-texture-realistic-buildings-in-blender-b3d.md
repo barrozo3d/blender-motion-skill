@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=ilaD-V8R1gI
 author: CG Boost
 ingested: 2026-07-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (modern 4.x/5.x UI; version-agnostic workflow)"
+tags: [materials, shaders, procedural, displacement, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-texture-realistic-buildings-in-blender-b3d/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How to texture REALISTIC buildings in Blender #b3d
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-to-texture-realistic-buildings-in-blender-b3d <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -335,30 +331,61 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [3:18] tutorials/frames/how-to-texture-realistic-buildings-in-blender-b3d/frame_000.jpg
+- [8:02] tutorials/frames/how-to-texture-realistic-buildings-in-blender-b3d/frame_001.jpg
+- [11:05] tutorials/frames/how-to-texture-realistic-buildings-in-blender-b3d/frame_002.jpg
+- [13:39] tutorials/frames/how-to-texture-realistic-buildings-in-blender-b3d/frame_003.jpg
+- [16:15] tutorials/frames/how-to-texture-realistic-buildings-in-blender-b3d/frame_004.jpg
+- [17:22] tutorials/frames/how-to-texture-realistic-buildings-in-blender-b3d/frame_005.jpg
+- [19:16] tutorials/frames/how-to-texture-realistic-buildings-in-blender-b3d/frame_006.jpg
+- [20:44] tutorials/frames/how-to-texture-realistic-buildings-in-blender-b3d/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+An all-in-one building/prop texturing pipeline: box-mapped PBR base materials blended with grunge masks, hand-painted damage and decals via texture painting, and procedural edge wear + AO dirt as the finishing layer.
 
 ### Summary
-[PENDING EXTRACTION]
+CG Boost textures a full urban building (from their Urban Environments course, free download provided) through a layered workflow: reference → gather free PolyHaven textures → build box-mapped materials and blend them with mix shader + mix (color) pairs driven by grunge-texture masks → hand-paint wall-paint masks and damage with custom brushes → stencil-paint decals (drips, dirt, graffiti) onto an alpha-zero image texture → add procedural edge wear (Bevel + Geometry dot product) and dirt (AO node) on detailed elements like a mashrabiya. Every layer uses the same masking pattern: something black-and-white plugged into a Mix Shader factor.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Base material with box mapping** [frame_000, 3:18] — PolyHaven "red plaster weathered" diffuse/roughness/displacement into Principled BSDF; Texture Coordinate (Object) → Mapping → all image textures, Value node into Mapping scale; Alt-change all image textures' projection Flat → **Box**, Blend 0.3 to hide seams. Displacement → Displacement node → Material Output (Material Settings → Displacement: **Bump only** — real displacement needs heavy polycounts). Hue/Saturation to tint. Ctrl+G to group each material.
+2. **Blend two materials** — Mix Shader for BSDFs + Mix node (Color mode) for displacements; plug material A into first sockets, B into second.
+3. **Color variation** [frame_001, 8:02 overview] — stack subtle variations: duplicate a material group (click the "2" user count to make single-user), desaturate via Hue/Sat, then drive the Mix Shader+Mix factor with a box-mapped **grunge texture through a Color Ramp**; repeat with plain Principled BSDFs (e.g. dark brown dirt patches) and different grunge/ramp combos.
+4. **Painted walls** [frame_002, 11:05] — texture painting needs UVs: Tab → A → U → Cube Projection, then UV → Pack Islands. New blank image texture ("blue paint") as mask into a Mix Shader factor blending main material vs a blue-tinted duplicate; paint the mask in Texture Paint mode (image selected in the shader editor = paint target). Add wear: Mix node set to **Subtract**, grunge setup into the bottom socket, factor 1 — chips the paint away.
+5. **Hand-painted damage** [frame_003, 13:39] — blank "damage" mask into Mix Shader + Mix factors revealing an under-material (PolyHaven "plaster grey 04"). Custom brush: Tool → Texture Mask → new, imported brush image; Mask Mapping **View Plane**, **Rake** on, Falloff **Constant**; F = size, Shift+F = strength. Paint corners/edges/foot-traffic zones; subtlety is key.
+6. **Decals** [frame_004, 16:15] — new image texture "decals" at 4096² (or 2048²) with **alpha set to 0** (critical); its color → new Principled BSDF → bottom of a Mix Shader, its **alpha → factor**. In Texture Paint: Tools → Texture → new, decal image, Mapping **Stencil**, hit Image Aspect; RMB move / Ctrl+RMB rotate / Shift+RMB scale the stencil; Cursor → Override Overlay to see through it. Paint drips under ledges, dirt at the base, graffiti where a tagger could reach.
+7. **Edge wear** [frame_006, 19:16] — Bevel node + Geometry node → Vector Math (**Dot Product**) → Color Ramp → Math (Multiply) = wear mask; plug a grunge setup through a **Map Range into the Bevel radius** for grungy, uneven edges; use as mask revealing under-wood on painted surfaces.
+8. **AO dirt** [frame_007, 20:44] — Ambient Occlusion node (Samples 16, tune Distance) → Color Ramp; Math (**Less Than**) with the edge-wear grunge (via Map Range, From Min 0.190/To Min 0.010 shown) for realistic breakup; mask into Mix Shader blending in a simple brown high-roughness Principled BSDF as dirt.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Box mapping: Texture Coordinate (Object) → Mapping (Point) + Value→Scale; Image Texture Projection Box, Blend 0.3
+- Material Settings → Displacement: Bump (not true displacement)
+- Blend pair: Mix Shader (BSDF) + Mix/Color (displacement), factors driven by grunge → Color Ramp
+- Paint-wear: Mix (Subtract) factor 1 between mask and grunge
+- Custom damage brush: Texture Mask, Mapping View Plane, Rake ✓, Falloff Constant
+- Decals: 4096×4096, alpha 0; stencil mapping, Image Aspect; alpha → Mix Shader factor
+- Edge wear: Bevel + Geometry.Normal → Vector Math Dot Product → Color Ramp → Math Multiply; grunge → Map Range → Bevel Radius
+- Dirt: Ambient Occlusion (Samples 16, Distance ~0.1) → Color Ramp → Math Less Than vs grunge Map Range
+- Assets: PolyHaven red_plaster_weathered / beige_wall / plaster_grey_04; free grunge textures + brush + decals in the video description
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified (modern 4.x/5.x UI; workflow is version-agnostic)
 
 ### Tags
-[PENDING EXTRACTION]
+materials, shaders, procedural, displacement, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Doing Surface Imperfections Right | Vray, Cycles, Arnold..](doing-surface-imperfections-right-vray-cycles-arnold.md) — the shading theory behind this video's layered grime/wear approach
+- [30 little-known Blender tricks](30-little-known-blender-tricks.md) — texture bombing and layered smudge tips that complement this pipeline
+- [3 Easy steps to make Realistic Materials](3-easy-steps-to-make-realistic-materials.md) — same realism-through-imperfection philosophy in compact form
+- [Blender 5.0: How to UV Unwrap Anything](blender-50-how-to-uv-unwrap-anything.md) — proper UVs for the texture-painting steps here (cube projection is the quick version)

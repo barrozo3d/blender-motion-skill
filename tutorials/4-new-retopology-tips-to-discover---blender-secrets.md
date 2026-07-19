@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=24EtrCpg4Iw
 author: Blender Secrets
 ingested: 2026-07-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (modern 4.x/5.x UI)"
+tags: [modeling, organic, beginner, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/4-new-retopology-tips-to-discover---blender-secrets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 4
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # 4 new retopology tips to discover! - Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py 4-new-retopology-tips-to-discover---blender-secrets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -88,30 +84,47 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:38] tutorials/frames/4-new-retopology-tips-to-discover---blender-secrets/frame_000.jpg
+- [1:25] tutorials/frames/4-new-retopology-tips-to-discover---blender-secrets/frame_001.jpg
+- [1:48] tutorials/frames/4-new-retopology-tips-to-discover---blender-secrets/frame_002.jpg
+- [2:31] tutorials/frames/4-new-retopology-tips-to-discover---blender-secrets/frame_003.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Four modern retopology workflow upgrades: the Retopology overlay (replacing In Front + backface culling), Ctrl+RMB extrude, the Relax Slide sculpt brush, and Face Nearest snapping.
 
 ### Summary
-[PENDING EXTRACTION]
+Blender Secrets replaces the old retopology setup (plane + face-project snapping + In Front display, which confusingly shows the mesh from both sides) with four newer tools: the dedicated Retopology overlay checkbox with a tunable depth offset, Ctrl+right-click extrusion that orients geometry while extruding, the Relax Slide brush to redistribute vertices without volume loss, and Face Nearest snapping for extruding around limb-like shapes where Face Project snaps everything to the camera-facing side.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Retopology overlay** [frame_000, 0:38] — instead of In Front + backface culling, enable Mesh Edit Mode Overlays → Retopology and tune the offset value (0.037 shown) just enough to see the retopo mesh on the near side only; too high and it shows through from the back again.
+2. **Faster extrusion** [frame_001, 1:25] — beyond F (F2 addon) or E-extrude: set the active tool to Tweak so vertices drag without pressing G, and extrude with **Ctrl+right-click** at the target position — it also rotates the new geometry toward the click, reducing cleanup (shown on a skull with a Mirror modifier: Clipping on, Merge 0.001 m).
+3. **Redistribute with Relax Slide** [frame_002, 1:48] — in Sculpt Mode pick the Relax Slide brush (with Shift held as the shift-brush) and brush over the new topology; it evens out spacing without deflating volume like the Smooth brush would.
+4. **Face Nearest snapping** [frame_003, 2:31] — when extruding around a form (an arm/snout), Face Project snaps all vertices to the visible side; switch Snap Target for Individual Elements from **Face Project** to **Face Nearest** so vertices wrap to the truly nearest surface, even the far side. If spacing ends up uneven, fix with LoopTools → Space, and add loops with Ctrl+R.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Overlays → Retopology: on, offset ≈ 0.037 (scene-dependent; keep as low as possible)
+- Snapping: Face Project (default) vs Face Nearest (for wrap-around extrusion); Align Rotation to Target visible in the snapping popover
+- Mirror modifier: Clipping ✓, Merge 0.001 m (typical retopo symmetry setup)
+- Sculpt Mode: Relax Slide brush (use as Shift/shift-brush); avoids Smooth-brush volume loss
+- Shortcuts: Ctrl+RMB extrude-to-cursor, F (F2 addon) fill, E extrude, G move, Ctrl+R loop cut; LoopTools → Space
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner–Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified (modern 4.x/5.x UI; Retopology overlay and Face Nearest snapping exist since 3.x)
 
 ### Tags
-[PENDING EXTRACTION]
+modeling, organic, beginner, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender 5.0: How to UV Unwrap Anything](blender-50-how-to-uv-unwrap-anything.md) — the natural next step after retopology: unwrapping the clean topology
+- [How to fix SHADING ERRORS in Blender](how-to-fix-shading-errors-in-blender.md) — mesh-quality troubleshooting that clean retopology prevents
