@@ -1027,6 +1027,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/4-new-retopology-tips-to-discover---blender-secrets.md
 
+
+### This Blender Shader is the Secret to Magical 3D Art
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=mQPFjzAgGQo
+- **Author:** Levi Magony
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/this-blender-shader-is-the-secret-to-magical-3d-art.md
+
 ---
 
 ## Tag Reference
