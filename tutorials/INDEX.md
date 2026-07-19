@@ -987,6 +987,16 @@ Each entry format:
 - **Summary:** Rapid-fire collection of 30 short tips: texture bombing (Voronoi per-cell offset), Substance-style histogram-range roughness group, baked-emission instant renders, hybrid Cycles+Eevee fog compositing, shader AOV render passes, Filmic Log grading sandwich, clone-stamp texture tiling on a 3×3 array, thin-film boosting via repeat zone, Dual Mesh instant hexagons, plus workflow one-liners (Ctrl+F2 batch rename, Ctrl+F node search, GPU driver restart, EXR/DWAB output, realistic albedo 0.2–0.9, shot numbering by tens).
 - **File:** tutorials/30-little-known-blender-tricks.md
 
+
+### Blender 5.0: How to UV Unwrap Anything
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=dm3bBpZVmnE
+- **Author:** On Mars 3D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-50-how-to-uv-unwrap-anything.md
+
 ---
 
 ## Tag Reference
