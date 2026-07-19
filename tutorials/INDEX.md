@@ -977,6 +977,16 @@ Each entry format:
 - **Summary:** Complete survey of Geometry Nodes changes in Blender 5.2: experimental XPBD Solver node powering new Cloth/Hair Dynamics modifiers with custom forces; Bundles attachable to geometry (Set/Get Geometry Bundle) crossing modifier/object boundaries; Lists as a core data type (Field to List, Closure to List, List Length, Get/Filter/Sort List, Collection Children); Sound socket + Sample Sound Frequencies for audio-reactive setups; GN on Empties (and thus collection instances); Merge-by-Distance decomposed into Merge Points / Cluster by Distance / Cluster by Connected; Mesh Bevel node with per-edge offsets and selection outputs; new attribute nodes (Rename, Get Names, Transfer, Capture with Selection, 4D storage), NURBS Order/Weight, string nodes, six screen-space/PCA assets, recursive closures, and field-dedup performance gains.
 - **File:** tutorials/everything-new-in-blender-52-geometry-nodes.md
 
+
+### 30 little-known Blender tricks
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=5_Jy97TzZuM
+- **Author:** Robin Squares
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/30-little-known-blender-tricks.md
+
 ---
 
 ## Tag Reference
