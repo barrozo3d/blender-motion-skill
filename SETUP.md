@@ -168,7 +168,7 @@ git config --global credential.helper manager
 Then re-run the push — Windows Credential Manager will prompt for GitHub login.
 
 **Whisper model download on first run**
-The first time Whisper runs it downloads the model (~150 MB for `base`). This is normal — subsequent runs use the cached model.
+The first time Whisper runs it downloads the model (~150 MB for `base`, ~461 MB for `small` — the default on CUDA machines). ingest.py prints a single "downloading weights (one-time)" notice instead of a progress bar. This is normal — subsequent runs use the cached model.
 
 ---
 
