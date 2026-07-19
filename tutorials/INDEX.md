@@ -997,6 +997,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-50-how-to-uv-unwrap-anything.md
 
+
+### Brand New Material Assets in Blender 5.2 LTS
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=QkIr1-lDPW0
+- **Author:** Blender Studio
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/brand-new-material-assets-in-blender-52-lts.md
+
 ---
 
 ## Tag Reference
