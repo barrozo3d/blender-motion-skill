@@ -1007,6 +1007,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/brand-new-material-assets-in-blender-52-lts.md
 
+
+### How to texture REALISTIC buildings in Blender #b3d
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=ilaD-V8R1gI
+- **Author:** CG Boost
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-texture-realistic-buildings-in-blender-b3d.md
+
 ---
 
 ## Tag Reference
