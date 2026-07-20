@@ -1123,9 +1123,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=5-mNgCpEkCI
 - **Author:** Grant Abbitt (Gabbitt)
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 4.3.1
+- **Tags:** #organic #displacement #cloth #intermediate #blender-4x
+- **Summary:** Full brush-by-brush survey of Blender 4.3's Sculpt Mode: add/subtract brushes (Draw, Clay, Clay Strips, Crease Polish/Sharp, Inflate, Layer, Flatten, Scrape, Trim), push/pull brushes (Grab, Snake Hook, Grab Silhouette, Pose, Boundary), and the full cloth-simulation brush family (Drag/Expand/Bend/Twist Cloth, Grab Planar, Pinch Folds), plus Mask and Face Sets. Anchored on the Voxel Remesh (R gizmo + Ctrl+R) and Dyntopo workflows needed to keep enough topology under each brush, and notes which brushes require a non-manifold mesh with real boundary edges.
 - **File:** tutorials/master-blender-sculpting-every-brush-explained.md
 
 ---

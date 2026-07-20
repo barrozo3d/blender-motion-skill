@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=5-mNgCpEkCI
 author: Grant Abbitt (Gabbitt)
 ingested: 2026-07-20
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.3.1"
+tags: [organic, displacement, cloth, intermediate, blender-4x]
+extraction_status: complete
 frames_dir: tutorials/frames/master-blender-sculpting-every-brush-explained/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Master Blender Sculpting: Every Brush Explained
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py master-blender-sculpting-every-brush-explained <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Start [0:00]
@@ -1339,30 +1335,61 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:44] tutorials/frames/master-blender-sculpting-every-brush-explained/frame_000.jpg
+- [3:15] tutorials/frames/master-blender-sculpting-every-brush-explained/frame_001.jpg
+- [6:49] tutorials/frames/master-blender-sculpting-every-brush-explained/frame_002.jpg
+- [13:01] tutorials/frames/master-blender-sculpting-every-brush-explained/frame_003.jpg
+- [21:00] tutorials/frames/master-blender-sculpting-every-brush-explained/frame_004.jpg
+- [30:52] tutorials/frames/master-blender-sculpting-every-brush-explained/frame_005.jpg
+- [33:19] tutorials/frames/master-blender-sculpting-every-brush-explained/frame_006.jpg
+- [42:47] tutorials/frames/master-blender-sculpting-every-brush-explained/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A comprehensive walkthrough of every brush in Blender 4.3's Sculpt Mode, organized by brush family (add/subtract, grab/push-pull, cloth simulation, boundary), paired with the Remesh/Dyntopo workflows needed to keep enough topology under each brush.
 
 ### Summary
-[PENDING EXTRACTION]
+Grant Abbitt starts from an Icosphere (not the default cube, which has too few vertices to sculpt) and demonstrates, in order, the add/subtract brushes (Draw, Clay, Clay Strips, Clay Thumb, Crease Polish/Sharp, Draw Sharp, Inflate/Deflate, Layer, Fill/Deepen, Flatten/Contrast, Plateau, Scrape Multiplane, Scrape Fill, Trim), the push/pull brushes (Grab, Snake Hook, Elastic Grab/Snake Hook, Grab 2D, Grab Silhouette, Nudge, Pinch/Magnify, Pull, Relax Pinch/Slide, Thumb, Twist, Pose, Boundary), and the cloth-simulation brush family (Drag/Expand/Grab/Inflate/Push Cloth, Bend/Twist Cloth, Grab Planar, Pinch Folds/Point, Boundary Cloth variants), plus Mask and Face Sets. Throughout, he stresses the Voxel Remesh (R for a live voxel-size gizmo, Ctrl+R to remesh) as the core workflow for keeping topology dense enough to sculpt cleanly, contrasts it with Dyntopo (creates new topology live instead of stretching existing geometry), and explains that boundary/cloth-boundary brushes only work on non-manifold meshes with actual open edges (e.g. a cylinder with its end caps deleted), while other cloth brushes are speed-sensitive — dragging too fast breaks the simulation.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Setup**: delete the default cube, Shift+A > Mesh > Ico Sphere, raise Subdivisions to ~6 in the operator redo panel for enough vertex density, then switch to the Sculpting workspace (auto-enters Sculpt Mode on the selected object).
+2. **Brush basics**: brush picker at the bottom of the viewport (icon size + name toggle in the dropdown), F to resize brush radius, Shift+F to change strength, Ctrl held while stroking inverts add<->subtract on most brushes.
+3. **Remesh workflow**: under the Remesh panel, set Voxel Size and press the Remesh button (or press R in-viewport for a live grid-size gizmo, then Ctrl+R to apply) — remeshing preserves overall shape while redistributing topology evenly; do this constantly after heavy stretching (Grab, Snake Hook, Blob-on-blob).
+4. **Draw family**: Draw (default add/subtract, Ctrl to invert), Smooth (hold Shift to jump to it from any brush), Blob (rounded bumps — stacking blobs stretches the mesh and needs a remesh), Clay/Clay Strips (wider, textured build-up — favorite for adding surface texture), Clay Thumb (pushes clay into itself, adds topology) vs. Nudge (same push feel, no new topology).
+5. **Crease/sharp family**: Crease Polish (gradual, gentler) vs. Crease Sharp (stronger, harder to control) both pull topology together to form a line/indent and can be reversed (Ctrl) to create a sharp protrusion; Draw Sharp is similar but doesn't pull the mesh together, giving a sharper default indent that can also be reversed into a ridge.
+6. **Volume-shaping family**: Inflate/Deflate (great for thin stretched lines from Grab/Snake Hook), Layer (builds a controlled-height plateau, driven by the Height setting; struggles on angled/curved sections), Fill/Deepen (default Fill closes gaps, Ctrl = Deepen), Flatten/Contrast and Plateau (flatten an area while pushing neighboring geometry up/out), Scrape Multiplane (levels an area down toward an existing crease/crevice) and Scrape Fill (shears the tops off high points — good for battered/bashed metal look), Trim (indiscriminately cuts flat in the brush's facing direction; pairs well with Scrape Fill).
+7. **Push/pull family**: Grab (moves topology bodily, needs frequent remeshing), Snake Hook (drags out thin protrusions, best combined with Dyntopo to avoid stretching), Elastic Grab/Snake Hook (same moves but affecting a much larger falloff area), Grab 2D (moves the full silhouette edge as seen from the current view, ignoring depth), Grab Silhouette (targets only outline-facing vertices, more predictable than plain Grab for outer-edge tweaks), Twist (rotates topology under the brush), Pose (segmented bend/rotate for posing limb-like protrusions, refined with Face Sets for precision), Boundary (drags open mesh edges — bend/twist/inflate/grab deformation types — only active on non-manifold meshes with real boundary edges, e.g. a cylinder with top/bottom faces deleted).
+8. **Dyntopo**: enable in the header, set Detail Size (functions like Voxel Size), and brushes such as Draw/Clay Strips generate new topology live as you paint instead of stretching the mesh; movement brushes like Grab do not use Dyntopo and still stretch. Snake Hook is the one push/pull brush that does leverage Dyntopo for live topology growth.
+9. **Cloth simulation brushes**: Drag/Expand/Contract/Grab/Grab Random/Inflate/Push Cloth, plus Bend/Twist Cloth, Grab Planar, Pinch Folds/Point — all run a live cloth sim under the brush, so slow, deliberate strokes are required (fast strokes barely register); Inflate Cloth, Bend/Twist Cloth and Grab Planar are specifically designed for long thin protrusions (their brush icons show a protruding shape) and work poorly on a plain sphere; higher face count makes the sim heavier and change its response, so effect is a function of both stroke speed and mesh resolution.
+10. **Cloth boundary brushes**: Bend Bounds / Twist Bounds need an open, non-manifold mesh (e.g. a cylinder with deleted end caps plus a Multiresolution modifier subdivided ~3x for detail, since Remesh cannot be used on non-manifold geometry); they combine the boundary drag with a rippling cloth simulation.
+11. **Masking & Face Sets**: Mask brush paints black areas immune to all other brushes (Alt+M clears the mask); Face Sets (paint face-set colors) let you scope brushes like Pose precisely to a region instead of relying on automatic segment detection.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Sculpt Mode panel**: Remesh section — Voxel Size field + Remesh button; in-viewport live gizmo via R (drag to set size) then Ctrl+R to execute. Typical voxel sizes shown: ~0.01-0.03 depending on desired resolution/performance.
+- **Dyntopo**: toggle in the header; Detail Size setting (analogous to Voxel Size) controls how fine new topology is generated while sculpting.
+- **Overlays > Statistics**: enabled to show live face count (used to demonstrate topology growth from ~2,000 to ~500,000+ faces after remeshing).
+- **Modifiers (for boundary/cloth-boundary brushes on open meshes)**: Multiresolution modifier added and subdivided ~3 times (~300+ faces) since Voxel Remesh doesn't work on non-manifold meshes with holes.
+- **Brush color coding**: gray/red-marked brushes add and subtract topology (most have a +/- default with Ctrl to invert); yellow-marked brushes (Grab, Nudge, Pose, Boundary, etc.) push/pull existing topology without adding new geometry and generally have no invert.
+- **Pose brush deformation modes**: Rotation (default, driven by pose segments count) or Face Sets (scoped to a painted face set), toggled in the tool settings.
+- **Cloth brush deformation targets** (Bend/Twist Bounds): selectable target list including Twist, Grab, Inflate, etc., applied through a cloth-simulation solve instead of direct vertex movement.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.3.1 (mentions all Blender 4.3 brushes, including newer additions)
 
 ### Tags
-[PENDING EXTRACTION]
+organic, displacement, cloth, intermediate, blender-4x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [4 NEW Retopology Tips to Discover - Blender Secrets](4-new-retopology-tips-to-discover---blender-secrets.md) — covers the same Relax Slide sculpt brush referenced here, plus organic/topology-focused workflow tips that complement this brush survey.
+- [Blender's NEW Cloth Simulator Changes Everything](blender-new-cloth-simulator-changes-everything.md) — deep dive on Blender 5.2's Cloth Dynamics GN node, a procedural counterpart to the cloth sculpt brushes (Drag/Expand/Bend/Twist Cloth) demonstrated in this video.
+- [Recreate this in Blender in 20 mins](remake-this-in-blender-in-20-mins.md) — applies organic sculpting from a remeshed cylinder base, directly building on the Remesh workflow taught here.
