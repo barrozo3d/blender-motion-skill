@@ -1163,9 +1163,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=XOsXZ1qDfSk
 - **Author:** Chris P
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 3.6.1
+- **Tags:** #geometry-nodes #simulation #particles #procedural #animation #materials #shaders #motion-design #abstract #advanced #blender-3x
+- **Summary:** Pure-Blender audio-reactive motion graphics with no add-ons: bakes 3 frequency bands (bass/mid/high) of a music track to F-Curves via the Graph Editor, then drives three Geometry Nodes systems from the baked values — bass-triggered bubbles that spawn and shrink inside a Simulation Zone, mid-range particles emitted along surface normals whose velocity scales with volume, and random high-frequency "laser" line bursts gated by a threshold. Includes cartoon-cloud bubble shading (Layer Weight + Color Ramp) and age-based particle emission color.
 - **File:** tutorials/blender-sound-reactive-geometry-nodes-tutorial-how-to-audio-music-simulation-mog.md
 
 ---

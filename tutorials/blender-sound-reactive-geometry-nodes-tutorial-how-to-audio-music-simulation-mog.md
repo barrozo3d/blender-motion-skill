@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=XOsXZ1qDfSk
 author: Chris P
 ingested: 2026-07-20
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "3.6.1"
+tags: [geometry-nodes, simulation, particles, procedural, animation, materials, shaders, motion-design, abstract, advanced, blender-3x]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-sound-reactive-geometry-nodes-tutorial-how-to-audio-music-simulation-mog/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Sound Reactive Geometry Nodes | Tutorial How-To Audio Music Simulation Mograph
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-sound-reactive-geometry-nodes-tutorial-how-to-audio-music-simulation-mog <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### What to expect [0:00]
@@ -420,30 +416,62 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:17] tutorials/frames/blender-sound-reactive-geometry-nodes-tutorial-how-to-audio-music-simulation-mog/frame_000.jpg
+- [3:16] tutorials/frames/blender-sound-reactive-geometry-nodes-tutorial-how-to-audio-music-simulation-mog/frame_001.jpg
+- [8:27] tutorials/frames/blender-sound-reactive-geometry-nodes-tutorial-how-to-audio-music-simulation-mog/frame_002.jpg
+- [12:53] tutorials/frames/blender-sound-reactive-geometry-nodes-tutorial-how-to-audio-music-simulation-mog/frame_003.jpg
+- [18:38] tutorials/frames/blender-sound-reactive-geometry-nodes-tutorial-how-to-audio-music-simulation-mog/frame_004.jpg
+- [22:45] tutorials/frames/blender-sound-reactive-geometry-nodes-tutorial-how-to-audio-music-simulation-mog/frame_005.jpg
+- [23:54] tutorials/frames/blender-sound-reactive-geometry-nodes-tutorial-how-to-audio-music-simulation-mog/frame_006.jpg
+- [25:00] tutorials/frames/blender-sound-reactive-geometry-nodes-tutorial-how-to-audio-music-simulation-mog/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Pure-Blender (no add-ons/scripting) audio-reactive motion graphics: baking three frequency bands of a music track to F-Curves via the Graph Editor's "Bake Sound to F-Curves," then feeding those baked values into three separate Geometry Nodes setups (bubble-growth simulation, outward-flying particles, flickering laser lines) driven entirely by Object Info location reads.
 
 ### Summary
-[PENDING EXTRACTION]
+Chris P (Sylvie/CrispyGoods) splits an audio track into low (bass), mid, and high frequency bands by baking each range's volume to the Z-location F-Curve of three helper objects (Cube = bass, Icosphere = mid, Torus = high). Those baked values then drive three independent Geometry Nodes systems: bubble-like spheres that spawn on a base Icosphere and shrink over time inside a Simulation Zone whenever the bass hits (with old, invisible points deleted every frame to control point-cloud growth), particles emitted along surface normals from a tiny sphere that fly faster the louder the mid-range gets (using a stored velocity attribute and an age-based delete/color system), and random red "laser" line segments generated per-frame from two random 2D vectors, visible only when the high-frequency volume passes a threshold. A cartoonish bubble-cloud shader (Layer Weight + Color Ramp + Emission/Transparent mix) and an age-based emission Color Ramp for the particles round out the look.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Set project frame rate first**, then bring in helper objects: a Cube (bass), an Icosphere (mid), and a Torus (high) — their sole purpose is to carry baked audio-volume data on their Z Location channel, they are not the visible motion-graphics objects themselves.
+2. **Bake each frequency band**: on frame 1 (Shift+Left-Arrow to jump there), select the helper object, insert a Location keyframe, open the Graph Editor, isolate the Z Location channel, then Channel > Bake Sound to F-Curves; pick the audio file and set a Low/High frequency range for that object (e.g. 0-300 Hz for bass, 300-4000 Hz for mid, 4000-20000 Hz for high) and click Bake Sound to F-Curve. Click Normalize and extend the scene's End Frame to cover the full song length. Repeat per object, always starting from frame 1 so all three bakes stay aligned.
+3. **Preview with real audio**: switch to the Video Sequencer, add the same audio file as a sound strip at frame 1, then play back in the 3D viewport/Graph Editor to confirm each object's Z Location visibly spikes with its assigned frequency band.
+4. **Bass bubbles — Geometry Nodes on a "Base" object** (an enlarged, subdivided Icosphere): Object Info (the Cube) > Separate XYZ > take the Z output as the bass volume; run it through a high-pass gate (Compare "less than 0.3" driving a Switch between 0.0 and the raw value) then a Math multiply to scale it, and feed the result into Distribute Points on Faces > Density, so points only appear once bass volume crosses the threshold.
+5. **Grow-and-shrink via Simulation Zone**: inside a Simulation Input/Output zone, use Set Point Radius (start at 1.0, or lower like 0.5 for a cleaner look) on the first frame; every subsequent frame, read the previous radius with a Math node (multiply by ~0.7) and re-apply it with Set Point Radius so spheres shrink over time. Critically, Join Geometry the previous frame's (shrunk) points with the newly distributed points each frame — otherwise the simulation loses all prior points on every frame instead of accumulating them.
+6. **Prevent runaway point counts**: inside the simulation loop, Delete Geometry any points whose radius has dropped below a small threshold (e.g. 0.01, tuned with a Less Than math node) so invisible/fully-shrunk bubbles don't keep piling up in the point cloud forever.
+7. **Instance and shade**: Instance on Points with a subdivided Icosphere (Shade Smooth applied inside Geometry Nodes) scaled by each point's radius; the "bass" material uses Object Info > Random per-instance factor into a Color Ramp (yellow-to-red) for variation, plus Layer Weight (Blend lowered) piped through a second Color Ramp to fake a rim/silhouette look, mixed between an Emission shader and a Transparent shader — the overlapping-sphere silhouette effect reads as a cartoonish glowing cloud rather than solid balls.
+8. **Mid-range particles — Geometry Nodes on a tiny center Icosphere**: emit points along the object's surface Normal, store that Normal in a Named Attribute ("V" for velocity) and store a separate "age" Named Attribute; inside a Simulation Zone, increment age by 1 each frame, Delete Geometry once age exceeds 60 (keeps particles from flying forever/off-screen), and each frame move every point by its stored V vector — scaling V's magnitude by the mid-frequency volume (from Object Info > Separate XYZ > Z) so louder mid-range hits shoot particles out faster/farther.
+9. **Mid-range shader**: divide the stored "age" attribute by 60 (matching the delete-at-60 lifespan) to get a 0-1 factor into a Color Ramp feeding an Emission shader, so particles are bright white when freshly born and fade/color-shift as they age.
+10. **High-frequency laser lines — no simulation zone needed**: each frame, generate two random Vector positions (e.g. X range ±50, Z range ±20, Y locked to 0) using the current Frame number as the Random node's ID/Seed so the vectors change every frame; build a Curve Line between them, Curve to Mesh with a Curve Circle profile, and set the circle's radius via another high-pass gate on the high-frequency Object Info Z value (Compare greater-than a threshold, Switch between 0 and the value) — so the line mesh has zero radius (invisible) except on frames where a high-frequency transient crosses the threshold, producing a flickering "laser burst" look. Apply an Emission material with high Strength for the laser glow.
+11. **Composite**: with all three systems in an "Audio" collection reacting to their respective baked F-Curves, hitting Play with the audio scrubbing/strip loaded shows bubbles pulsing on bass hits, particles flying faster on mid-range swells, and red lines flickering on high-frequency transients — no drivers, add-ons, or Python needed, purely F-Curve baking + Geometry Nodes math.
+12. **Extending the idea**: the same baked-frequency-range technique scales to a full spectrum analyzer — bake ~10 frequency divisions to 10 objects, scale bars on Z from each object's value, and color them via a green-to-yellow-to-red Color Ramp.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Graph Editor > Channel menu**: Bake Sound to F-Curves (per-object, per-frequency-range: Low/High Hz bounds, Normalize checkbox).
+- **Geometry Nodes (Bass/"low" tree)**: Object Info → Separate XYZ (Z = bass volume) → Compare (Less Than 0.3) → Switch (float) → Math (Multiply) → Distribute Points on Faces (Density input); Simulation Input/Output zone with Set Point Radius, Math (Multiply ~0.7 for decay), Join Geometry (previous + new points), Delete Geometry (Math Less Than ~0.01 on radius); Instance on Points (Ico Sphere, Scale = radius, Shade Smooth).
+- **Bass material (Shading)**: Object Info (Random) → Color Ramp (yellow→red) for per-instance variance; Layer Weight (Blend lowered) → Color Ramp → Mix Shader between Emission and Transparent BSDF for the cartoon-cloud silhouette look.
+- **Geometry Nodes (Mid tree)**: emits points along surface Normal, Store Named Attribute "V" (velocity = Normal, magnitude scaled by mid-frequency Object Info Z value) and "age"; Simulation Zone: Read age → Math Add 1 → Store; Delete Geometry (age > 60); Set Position (offset by V each frame); instances small Ico Spheres, Shade Smooth.
+- **Mid material**: age attribute ÷ 60 → Color Ramp → Emission Shader (bright-to-faded over particle lifetime).
+- **Geometry Nodes (High/"hi" tree)**: two Random Value (Vector) nodes seeded by the current Frame value → Curve Line → Curve to Mesh with a Curve Circle profile whose Radius is gated by Object Info (high-freq Z) → Compare (Greater Than) → Switch (0 or the value) → Set Material.
+- **High material**: plain Emission shader at high Strength for a laser-beam glow.
+- **Scene setup**: Video Sequencer with an audio Sound strip at frame 1 for audible/scrubbable playback while animating.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 3.6.1
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, simulation, particles, procedural, animation, materials, shaders, motion-design, abstract, advanced, blender-3x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender Tutorial: Connect The Dots with Geometry Nodes, The "Plexus" Effect](blender-tutorial-connect-the-dots-with-geometry-nodes-the-pl.md) — same era (Blender 3.4-3.6) advanced procedural/particle motion-design technique using per-frame randomization and point-cloud logic, directly comparable to this tutorial's laser-line and bubble systems.
+- [Blender 5.0 particle attraction and follow surface motion](blender-50-particle-attraction-and-follow-surface-motion.md) — closely related Geometry Nodes particle-simulation technique (surface-normal-driven point emission and velocity vectors), the same core mechanism used for this tutorial's mid-frequency flying particles.
