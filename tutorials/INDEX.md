@@ -1128,6 +1128,16 @@ Each entry format:
 - **Summary:** Full brush-by-brush survey of Blender 4.3's Sculpt Mode: add/subtract brushes (Draw, Clay, Clay Strips, Crease Polish/Sharp, Inflate, Layer, Flatten, Scrape, Trim), push/pull brushes (Grab, Snake Hook, Grab Silhouette, Pose, Boundary), and the full cloth-simulation brush family (Drag/Expand/Bend/Twist Cloth, Grab Planar, Pinch Folds), plus Mask and Face Sets. Anchored on the Voxel Remesh (R gizmo + Ctrl+R) and Dyntopo workflows needed to keep enough topology under each brush, and notes which brushes require a non-manifold mesh with real boundary edges.
 - **File:** tutorials/master-blender-sculpting-every-brush-explained.md
 
+
+### Easy Rigging Using RIGIFY in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=RdTuAY23vzk
+- **Author:** Grant Abbitt (Gabbitt)
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/easy-rigging-using-rigify-in-blender.md
+
 ---
 
 ## Tag Reference
