@@ -1067,6 +1067,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/hair-grooming-in-blender-ft-new-hair-system-hair-curves.md
 
+
+### the New Blender Fluid Simulator is AWESOME - MantaFlow Tutorial
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=JYc_6fXEjw4
+- **Author:** CG Geek
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/the-new-blender-fluid-simulator-is-awesome---mantaflow-tutorial.md
+
 ---
 
 ## Tag Reference
