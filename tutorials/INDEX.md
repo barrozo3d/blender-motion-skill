@@ -1093,9 +1093,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=PcYQtV1_nRg
 - **Author:** Fattu Tutorials
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 4.3.2
+- **Tags:** fluid, simulation, materials, rendering, cycles, hdri, lighting, beginner, blender-4x
+- **Summary:** Fast settings-focused FLIP Fluids (paid add-on) workflow: a scaled cube becomes the Domain and a UV sphere becomes the Fluid object, with a ground-plane Obstacle and framed camera. Domain settings cover Resolution 75, World (Surface Tension + Sheeting Effect), Materials (FF Water Ocean Volumetric with Foam/Bubbles/Spray), and Advanced FLIP Whitewater, baked over 300 frames and rendered in Cycles (GPU, 128 samples) under HDRI lighting.
 - **File:** tutorials/fluid-simulations-for-beginners-blender-tutorial-flip-fluids.md
 
 

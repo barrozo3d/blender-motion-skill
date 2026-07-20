@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=PcYQtV1_nRg
 author: Fattu Tutorials
 ingested: 2026-07-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.3.2"
+tags: [fluid, simulation, materials, rendering, cycles, hdri, lighting, beginner, blender-4x]
+extraction_status: complete
 frames_dir: tutorials/frames/fluid-simulations-for-beginners-blender-tutorial-flip-fluids/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Fluid Simulations for Beginners Blender Tutorial ( FLIP Fluids)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py fluid-simulations-for-beginners-blender-tutorial-flip-fluids <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -90,30 +86,62 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:45] tutorials/frames/fluid-simulations-for-beginners-blender-tutorial-flip-fluids/frame_000.jpg
+- [1:09] tutorials/frames/fluid-simulations-for-beginners-blender-tutorial-flip-fluids/frame_001.jpg
+- [2:29] tutorials/frames/fluid-simulations-for-beginners-blender-tutorial-flip-fluids/frame_002.jpg
+- [3:12] tutorials/frames/fluid-simulations-for-beginners-blender-tutorial-flip-fluids/frame_003.jpg
+- [3:40] tutorials/frames/fluid-simulations-for-beginners-blender-tutorial-flip-fluids/frame_004.jpg
+- [4:10] tutorials/frames/fluid-simulations-for-beginners-blender-tutorial-flip-fluids/frame_005.jpg
+- [4:34] tutorials/frames/fluid-simulations-for-beginners-blender-tutorial-flip-fluids/frame_006.jpg
+- [5:15] tutorials/frames/fluid-simulations-for-beginners-blender-tutorial-flip-fluids/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Beginner FLIP Fluids add-on workflow: turning a scaled cube into a fluid Domain and a UV sphere into a Fluid object, then baking a splash simulation with whitewater (foam/bubbles/spray).
 
 ### Summary
-[PENDING EXTRACTION]
+A fast, settings-focused walkthrough of the paid FLIP Fluids add-on for a simple sphere-drop water simulation. Covers scene setup (domain cube, fluid sphere, ground plane, camera), the FLIP Fluids object-type assignment (Domain / Fluid), World/Materials/Advanced simulation settings (surface tension, whitewater), baking, and a quick HDRI-lit Cycles render of the result.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Delete the default light; select the default cube, scale it to (4, 4, 4) and set its Z location to 4 — this becomes the simulation Domain.
+2. Add a UV sphere, enable "UV Sphere" options, scale it to (2.6, 2.6, 2.6), then move it up (Z location 5) above the domain — this becomes the fluid source.
+3. Add a plane as the ground/catch surface, scale it up, then position and aim the camera (location ~18, 18, rotation 45°, 0°, 45°, with a further X location tweak to -19) to frame the scene.
+4. Enable the FLIP Fluids add-on: select the cube and set its FLIP Fluids object type to Domain; select the plane and set it to Obstacle; select the sphere and set its object type to Fluid (not Inflow, since it's a one-time falling volume rather than a continuous emitter).
+5. Save the .blend file into a dedicated project folder first (FLIP Fluids requires a saved file path for its bake cache) and enable the domain's cache "Save As" path.
+6. In the Domain's simulation settings, set Resolution to 75 (raise to 90–95 on stronger hardware) for the voxel/particle density.
+7. Under the Domain's World settings, enable Surface Tension and Sheeting Effect; leave Viscosity disabled.
+8. Under Materials, apply the "FF Water Ocean Volumetric" preset material, then enable Foam, Bubbles, and Spray.
+9. Under Advanced, confirm Simulation Method = FLIP and enable FLIP Whitewater (Foam/Bubble/Spray, Basic settings).
+10. Set the simulation end frame to 300 and click Bake All (a full bake can take 1–2+ hours depending on hardware; the demo stops early at frame ~82 to preview, then redoes a full bake at Resolution 84 afterward).
+11. For the final look: set world Color to an Environment Texture (HDRI) at Strength 1.4, switch the render engine to Cycles with Device = GPU and Samples = 128, and set the ground plane's material to a dark gray with Roughness 0.3, then use Render > Render Image to preview.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- FLIP Fluids add-on (paid) object types: Domain (scaled cube), Fluid (UV sphere), Obstacle (ground plane)
+- Domain Resolution: 75 (tutorial default) up to 90–95 on faster systems; later re-baked at 84
+- Domain World settings: Surface Tension ON, Sheeting Effect ON, Viscosity OFF
+- Domain Materials: "FF Water Ocean Volumetric" preset, Foam/Bubbles/Spray enabled
+- Domain Advanced: Simulation Method = FLIP, FLIP Whitewater enabled (Basic: Foam, Bubble, Spray)
+- Bake range: 300 frames, Bake All
+- World lighting: Environment Texture (HDRI), Strength 1.4
+- Render engine: Cycles, Device GPU, Samples 128 (of a possible 256)
+- Ground plane material: dark gray, Roughness 0.3
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner (tutorial is explicitly aimed at first-time FLIP Fluids users; requires owning the paid FLIP Fluids add-on)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.3.2
 
 ### Tags
-[PENDING EXTRACTION]
+fluid, simulation, materials, rendering, cycles, hdri, lighting, beginner, blender-4x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [I Tested 5 Different Ways to Simulate Water](i-tested-5-different-ways-to-simulate-water.md) — shares fluid, simulation; directly benchmarks FLIP Fluids (this add-on) against Mantaflow and other tools
+- [NeXus for Blender Official Training - Follow Curve](nexus-for-blender-official-training---follow-curve.md) — shares fluid, simulation
