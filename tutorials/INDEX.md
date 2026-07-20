@@ -917,6 +917,207 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-52-health-potion-tutorial.md
 
+
+
+### Perfect Textures in Blender - Works Every Time
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=s-kGlEsXTQw
+- **Author:** Nico Linde
+- **Blender Version:** Not specified (modern 4.x/5.x UI; version-agnostic)
+- **Tags:** materials, shaders, procedural, rendering, cycles, intermediate
+- **Summary:** Nico Linde's four-step recipe for believable materials without UV unwrapping: (1) box-project 2–3+ image textures at the shader level (Generated + Box projection) and blend them with image masks / Multiply-Screen-Overlay modes instead of plain opacity; (2) make the shader geometry-aware with Ambient Occlusion nodes — Inside+small Distance for edge wear (grunge texture into AO Distance, Math-Divide for thickness), normal AO multiplied in for cavity grime; (3) drive Roughness via Color Ramp and Normal via Bump with Distance ≈0.01–0.02 (never the 1m default); (4) integrate into the environment by mixing in Alt-click-averaged sampled surround colors, or blending the ground's shader via Mix Shader + Gradient Texture driven by an Empty.
+- **File:** tutorials/perfect-textures-in-blender---works-every-time.md
+
+
+### Quick & Easy Megastructures in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=DX36hit2g0s
+- **Author:** Nico Linde
+- **Blender Version:** Not specified (modern 4.x/5.x; version-agnostic)
+- **Tags:** materials, shaders, displacement, modeling, sci-fi, intermediate
+- **Summary:** Build detailed sci-fi megastructures fast using two methods: kitbashing greeble packs, and displacement detailing — subdivide + Simple subdivision modifier + Displace modifier (UV coords, Edit-Mode visibility on) driven by JSplacement-generated panel/circuit maps (~1M face budget, Decimate afterwards). Red paint panels are masked by the displacement map itself through a Color Ramp + Multiply Mix so paint follows panels; windows mix Emission/Transparent shaders with a JSplacement window mask. Space-station demo: cylinder → inset/bridge/loops/bevels, P-separate the section to displace, duplicate the ring, then selective greebles (antennas/railings) to break the silhouette.
+- **File:** tutorials/quick-easy-megastructures-in-blender.md
+
+
+### Photoreal Volumetrics in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=0xZby2ObL6o
+- **Author:** Nico Linde
+- **Blender Version:** Not specified (modern 4.x/5.x; version-agnostic)
+- **Tags:** volume, materials, shaders, lighting, hdri, rendering, cycles, intermediate
+- **Summary:** Three-layer photoreal volumetrics on an A.N.T.-Landscape mountain scene (photo-projected textures, HDRI, silhouette for scale): (1) haze cubes with Principled Volume at tiny densities (~0.001) rigged as Value → Math-Multiply → both Density and Emission Strength, sky-sampled RGB into Color + Emission Color — one slider controls everything; use one overall + one distance cube; (2) ground fog via Gradient Texture + Mapping + Color Ramp (duplicate rotated over peaks to sell height); (3) free JangaFX VDB clouds — Attribute(density) into Emission Color, and uncheck Custom Range in render settings so distant volumes render; VDBs double as fog to break gradient smoothness, animate Mapping location mixed with noise for movement.
+- **File:** tutorials/photoreal-volumetrics-in-blender.md
+
+
+### Photoreal Skies In Blender 5.0
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=nXubB9krxVI
+- **Author:** Extra 3d
+- **Blender Version:** Blender 5.0
+- **Tags:** lighting, hdri, volume, materials, shaders, rendering, blender-5x, beginner, intermediate
+- **Summary:** Animation-safe cinematic skies without volumetric cost: use pure-sky HDRIs (Polyhaven >8K HDR or free collections) for the backdrop; for daytime keep Sky Texture as the light source (match Sun Rotation to the HDRI; demo 0.545°/36°/185°, strength 0.1) and mix the two World Background nodes with Light Path → Is Camera Ray so the camera sees the HDRI while the Sky Texture lights the scene. Depth tricks: scene-covering cube with near-zero-density Principled Volume at anisotropy 0.7; dark max-roughness light-blocking plane behind camera (camera visibility off, bounds display); cloud-shadow plane (Noise Texture → Color Ramp → Alpha) between sun and scene; fake fog = bluish low-strength Emission in the Volume socket.
+- **File:** tutorials/photoreal-skies-in-blender-50.md
+
+
+### The Easiest Way to Texture in Blender (Adaptive, No UV Unwrapping)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=AMnMbxEwa7Q
+- **Author:** Grant Abbitt (Gabbitt)
+- **Blender Version:** Blender 5.0
+- **Tags:** materials, shaders, modeling, beginner, blender-5x
+- **Summary:** Texture complex hard-surface objects with zero UV unwrapping: Node Wrangler Ctrl+Shift+T auto-wires a freepbr.com PBR set, then switch texture coordinates from UV to Object and every Image Texture's projection from Flat to Box (Alt-click edits all selected nodes), raising Blend (~0.2) to dissolve projection seams — the material then adapts live to any mesh edit (loop cuts, insets, extrudes). Also covers the classic gotcha: Ctrl+A Apply Scale before beveling (non-uniform scale skews Ctrl+B), and the limitation that game-engine export still requires unwrap + bake at the end (model with live textures first, bake onto the final unwrap).
+- **File:** tutorials/the-easiest-way-to-texture-in-blender-adaptive-no-uv-unwrapping.md
+
+
+### 3 Easy steps to make Realistic Materials
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=hAWLqRpzK6I
+- **Author:** Jamie Dunbar
+- **Blender Version:** Not specified (Cycles for Bevel/Pointiness; AO or baking for EEVEE)
+- **Tags:** materials, shaders, procedural, rendering, cycles, intermediate
+- **Summary:** Fully procedural paint-over-metal wear shader on a shader ball: edge wear from the difference of two Bevel nodes (0 vs 0.002) through a Constant ramp (~0.01) roughened with multiplied noise; scratches from Voronoi Distance-to-Edge masked by a same-scale Voronoi F1 (shared Value ≈10) randomized by Musgrave into the mapping; random noise damage; all Add-combined into a Mix Shader factor plus an inverted Bump (~0.2). Dirt layer: object-space Gradient Texture (rot Y −90, apply transforms first) with noise added into its mapping vector, tinting the paint brown with its own bump. Method guide: Bevel = hard surface, AO = curved/EEVEE-safe, Pointiness = organic sculpts; bake masks to textures for EEVEE.
+- **File:** tutorials/3-easy-steps-to-make-realistic-materials.md
+
+
+### Everything New in Blender 5.2 Geometry Nodes
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=3B9_kJEjsqc
+- **Author:** Cartesian Caramel
+- **Blender Version:** Blender 5.2
+- **Tags:** geometry-nodes, procedural, simulation, release-notes, blender-5x, feature-survey, intermediate
+- **Summary:** Complete survey of Geometry Nodes changes in Blender 5.2: experimental XPBD Solver node powering new Cloth/Hair Dynamics modifiers with custom forces; Bundles attachable to geometry (Set/Get Geometry Bundle) crossing modifier/object boundaries; Lists as a core data type (Field to List, Closure to List, List Length, Get/Filter/Sort List, Collection Children); Sound socket + Sample Sound Frequencies for audio-reactive setups; GN on Empties (and thus collection instances); Merge-by-Distance decomposed into Merge Points / Cluster by Distance / Cluster by Connected; Mesh Bevel node with per-edge offsets and selection outputs; new attribute nodes (Rename, Get Names, Transfer, Capture with Selection, 4D storage), NURBS Order/Weight, string nodes, six screen-space/PCA assets, recursive closures, and field-dedup performance gains.
+- **File:** tutorials/everything-new-in-blender-52-geometry-nodes.md
+
+
+### 30 little-known Blender tricks
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=5_Jy97TzZuM
+- **Author:** Robin Squares
+- **Blender Version:** Not specified (thin film + shader repeat zone imply 4.5+; modern 4.x/5.x UI)
+- **Tags:** materials, shaders, procedural, compositing, rendering, cycles, eevee, geometry-nodes, cloth, intermediate
+- **Summary:** Rapid-fire collection of 30 short tips: texture bombing (Voronoi per-cell offset), Substance-style histogram-range roughness group, baked-emission instant renders, hybrid Cycles+Eevee fog compositing, shader AOV render passes, Filmic Log grading sandwich, clone-stamp texture tiling on a 3×3 array, thin-film boosting via repeat zone, Dual Mesh instant hexagons, plus workflow one-liners (Ctrl+F2 batch rename, Ctrl+F node search, GPU driver restart, EXR/DWAB output, realistic albedo 0.2–0.9, shot numbering by tens).
+- **File:** tutorials/30-little-known-blender-tricks.md
+
+
+### Blender 5.0: How to UV Unwrap Anything
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=dm3bBpZVmnE
+- **Author:** On Mars 3D
+- **Blender Version:** Blender 5.0
+- **Tags:** materials, modeling, beginner, intermediate, blender-5x
+- **Summary:** Universal 5-step UV workflow (apply scale, project from view, mark seams, unwrap, pack islands) applied to hard-surface, sub-D, triangulated and organic models, with seam-placement logic, checker-map + UV Stretch verification, and Blender 5.0 updates: UV sync on by default, mark seam inside the UV editor, pack to custom region, arrange islands. Ends with hiding seams via tri-planar projection and 3D painting in Substance Painter.
+- **File:** tutorials/blender-50-how-to-uv-unwrap-anything.md
+
+
+### Brand New Material Assets in Blender 5.2 LTS
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=QkIr1-lDPW0
+- **Author:** Blender Studio
+- **Blender Version:** 5.2 LTS
+- **Tags:** materials, shaders, procedural, displacement, beginner, blender-5x
+- **Summary:** Overview of Blender 5.2's first bundled procedural material assets (Essentials library, online assets): downloading, drag-to-assign, the packed-data model (click packed indicator to make local and unlock parameters), 1 UV unit ≈ 1 m² mapping convention, non-tiling procedural coverage, per-material parameter exploration (Fabric–Linen, Wooden Boards–Herringbone), and enabling displacement with Subdivision Surface or Cycles Adaptive Subdivision.
+- **File:** tutorials/brand-new-material-assets-in-blender-52-lts.md
+
+
+### How to texture REALISTIC buildings in Blender #b3d
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=ilaD-V8R1gI
+- **Author:** CG Boost
+- **Blender Version:** Not specified (modern 4.x/5.x UI)
+- **Tags:** materials, shaders, procedural, displacement, intermediate
+- **Summary:** All-in-one building texturing pipeline: box-mapped PolyHaven PBR bases (Object coords, Box projection blend 0.3, bump-only displacement), material blending via Mix Shader + Mix pairs with grunge→ColorRamp masks, stacked color variations, hand-painted wall paint and damage masks (custom rake/view-plane brushes), stencil-painted decals on an alpha-0 4K image (drips, dirt, graffiti), and procedural finishing: Bevel+Geometry dot-product edge wear and AO-node dirt with Less Than grunge breakup.
+- **File:** tutorials/how-to-texture-realistic-buildings-in-blender-b3d.md
+
+
+### 4 new retopology tips to discover! - Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=24EtrCpg4Iw
+- **Author:** Blender Secrets
+- **Blender Version:** Not specified (modern 4.x/5.x UI)
+- **Tags:** modeling, organic, beginner, intermediate
+- **Summary:** Four retopology workflow upgrades: the Retopology overlay with tunable depth offset (replaces In Front + backface culling), Ctrl+RMB extrude that orients geometry while extruding, the Relax Slide sculpt brush for redistributing vertices without volume loss, and Face Nearest snapping (vs Face Project) for extruding around limb-like forms; cleanup via LoopTools Space and Ctrl+R.
+- **File:** tutorials/4-new-retopology-tips-to-discover---blender-secrets.md
+
+
+### This Blender Shader is the Secret to Magical 3D Art
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=mQPFjzAgGQo
+- **Author:** Levi Magony
+- **Blender Version:** Not specified (EEVEE + real-time compositing, 4.x/5.x era)
+- **Tags:** shaders, materials, procedural, eevee, compositing, motion-design, abstract, intermediate
+- **Summary:** 9-step lightless procedural "magical crystal" shader in EEVEE: generated-coord Z gradient, Layer Weight (Facing) fake lighting with remapped normals, object-space Voronoi + noise frosted color variations, camera-space dual-Voronoi subtract cracks, reflection-space ambient color and diagonal highlight lines, emission+transparent mix driven by shading (Blended render method), plus a Grease Pencil line art rig (Tint gradient from empty, Simplify Sample → Dot Dash → Noise → Envelope) and real-time compositor Bloom + masked Sun Beams. Hex colors captured in frames.
+- **File:** tutorials/this-blender-shader-is-the-secret-to-magical-3d-art.md
+
+
+### 5 Lighting SECRETS in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=qQgK7gYbvco
+- **Author:** Max Hay
+- **Blender Version:** Not specified (modern 4.x UI)
+- **Tags:** lighting, volume, cycles, rendering, shaders, intermediate, advanced
+- **Summary:** Five advanced lighting tricks from client work: image textures inside light sources via Use Nodes (phone photos of refracted light, fake water caustics; radius blurs the pattern), gobo planes with noise/image alpha masks parented to lights, reliable god rays (small-radius hard light + complex shadow caster + volume scatter cube at density 0.02–0.3), fake bounce lights (large radius, ~100W, color-matched, placed where bounce already exists, Ray Visibility volume scatter off), and Light Falloff → Color Ramp for distance-based color gradients (red near → blue far).
+- **File:** tutorials/5-lighting-secrets-in-blender.md
+
+
+### Create a Walk Cycle animation in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=SLh3hUIxv1s
+- **Author:** Pierrick Picaut
+- **Blender Version:** Blender 5.x
+- **Tags:** animation, rigging, organic, beginner, intermediate, blender-5x
+- **Summary:** Classic 4-key-pose walk cycle (Contact 1/13/25, Down 4/16, Passing 7/19, Up 10/22 at 24 fps) blocked pose-to-pose on the free P2M mannequin rig with no graph editor: asset-library linking + library override, Action Editor with Only Insert Available, constant interpolation, Ctrl+Shift+V mirrored paste, Breakdowner (Shift+E) for linear grounded-foot placement, contrapposto hips/chest, arm drag, heel-controller-only foot rotation, and airborne-foot swing/twist finishing touches.
+- **File:** tutorials/create-a-walk-cycle-animation-in-blender.md
+
+
+### Hair Grooming in Blender ft. New Hair System (Hair Curves)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=pQcYoH4H1MM
+- **Author:** adiidiin
+- **Blender Version:** Not specified (hair-curves system, 3.5+ node-group assets)
+- **Tags:** organic, geometry-nodes, materials, shaders, animation, beginner, intermediate
+- **Summary:** Full hair/eyebrow/eyelash workflow with the hair-curves system: inward-scaled UV'd scalp mesh + Empty Hair, sculpt-mode grooming with all Interpolate options on, stacked node-group modifiers (Set Hair Curve Profile → Duplicate → Clump → Curl → Trim → Interpolate Hair Curves), weight-painted vertex groups pasted into Density Mask per region, Principled Hair BSDF with Curves Info intercept/random color ramps, shrinkwrapped mirrored brows, and Attach Hair Curves to Surface lashes.
+- **File:** tutorials/hair-grooming-in-blender-ft-new-hair-system-hair-curves.md
+
+
+### the New Blender Fluid Simulator is AWESOME - MantaFlow Tutorial
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=JYc_6fXEjw4
+- **Author:** CG Geek
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/the-new-blender-fluid-simulator-is-awesome---mantaflow-tutorial.md
+
+
+### Fluid Simulations for Beginners Blender Tutorial ( FLIP Fluids)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=PcYQtV1_nRg
+- **Author:** Fattu Tutorials
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/fluid-simulations-for-beginners-blender-tutorial-flip-fluids.md
+
+
+### How this 2D/3D animation was made - Introduction to Blender greasepencil and tips for beginners
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=saIFT8_j0LQ
+- **Author:** Dédouze
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-this-2d3d-animation-was-made---introduction-to-blender-greasepencil-and-tips.md
+
+
+### Product Animation in Blender: Phone
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=lZPedlX6CMw
+- **Author:** Derek Elliott
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/product-animation-in-blender-phone.md
+
 ---
 
 ## Tag Reference

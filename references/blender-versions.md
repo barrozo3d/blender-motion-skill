@@ -8,7 +8,8 @@ When recommending workflows, always identify which version introduced each featu
 
 | Version | Status | Recommendation |
 |---|---|---|
-| **5.1** | Current latest (Mar 2026) | **Use for new projects** — latest features, EEVEE planar reflections |
+| **5.2 LTS** | Current latest, LTS (2026) | **Use for new projects** — latest features AND long-term support; XBPD cloth/hair dynamics (experimental), GN Bundles/Lists, sound sampling |
+| 5.1 | Stable (Mar 2026) | Good; EEVEE planar reflections |
 | 5.0 | Stable (Nov 2025) | Good; first 5.x release, volume GeoNodes, null scattering |
 | **4.5 LTS** | LTS (Jul 2025) | **Use for stability** — 2yr support, safest for production |
 | 4.4 | Stable | Good if user already on it |
@@ -41,6 +42,14 @@ When recommending workflows, always identify which version introduced each featu
 | Bone Info node | 5.1 | GeoNodes access to armature bone transforms (Pose, Rest, etc.) |
 | Volume grid manipulation nodes | 5.1 | Dilate, erode, clip volume grids procedurally |
 | Mesh Island & Matrix sockets | 5.1 | Advanced procedural workflows, matrix math in nodes |
+| XPBD Solver node (Cloth/Hair Dynamics modifiers) | 5.2 | Experimental — generalized physics with custom forces |
+| Bundles attached to geometry | 5.2 | Set/Get Geometry Bundle — arbitrary data across modifier/object boundaries |
+| Lists data type | 5.2 | Field to List, Closure to List, List Length, Get/Filter/Sort List, Collection Children |
+| Sound socket + Sample Sound Frequencies | 5.2 | Audio-reactive setups: amplitude/frequency-range sampling |
+| GN on Empty objects | 5.2 | Enables GN on collection instances |
+| Mesh Bevel node | 5.2 | Modifier-grade bevel with per-edge offsets and selection outputs |
+| Merge-by-Distance building blocks | 5.2 | Merge Points, Cluster by Distance, Cluster by Connected |
+| NURBS Order/Weight, string nodes, recursive closures | 5.2 | See everything-new-in-blender-52-geometry-nodes.md |
 
 ### Rendering
 
@@ -114,8 +123,11 @@ When recommending workflows, always identify which version introduced each featu
 - Volume Grid nodes, null scattering, and Closures available
 - Essential Assets (built-in GeoNodes modifiers) available
 
+### If a tutorial says "5.1"
+- Fully compatible with 5.2 LTS
+
 ### If a tutorial says "4.5"
-- Fully compatible with 5.0 and 5.1
+- Fully compatible with 5.0, 5.1, and 5.2
 - Can benefit from 5.x additions (volume GeoNodes, iridescence, EEVEE planar reflections)
 
 ### Common Breaking Changes
@@ -128,10 +140,10 @@ When recommending workflows, always identify which version introduced each featu
 
 ## Recommended Stack for Ad/Motion Design (2026)
 
-**For new projects (cutting-edge):**
+**For new projects (cutting-edge — 5.2 is both latest and LTS):**
 ```
-Blender 5.1
-├── Renderer: Cycles X (GPU +5–10% vs 5.0) or EEVEE Next (planar reflections, 25–50% faster shaders)
+Blender 5.2 LTS
+├── Renderer: Cycles X or EEVEE Next (planar reflections, faster shaders)
 ├── Denoiser: OptiX (NVIDIA) — improved stability in 5.0+
 ├── Color: AgX view transform
 ├── GeoNodes: Simulation Zone + Repeat Zone + Volume Grids + Closures

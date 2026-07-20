@@ -168,7 +168,7 @@ git config --global credential.helper manager
 Then re-run the push — Windows Credential Manager will prompt for GitHub login.
 
 **Whisper model download on first run**
-The first time Whisper runs it downloads the model (~150 MB for `base`). This is normal — subsequent runs use the cached model.
+The first time Whisper runs it downloads the model (~150 MB for `base`, ~461 MB for `small` — the default on CUDA machines). ingest.py prints a single "downloading weights (one-time)" notice instead of a progress bar. This is normal — subsequent runs use the cached model.
 
 ---
 
@@ -204,8 +204,9 @@ content-aware step done by Claude Code, not something either script guesses at:
 Step 1 — collect transcript only, no video/frames:
 python ingest.py <url>
 python ingest.py <url> --skip-video            article/text-only ingest, no frames ever
-python ingest.py <url> --whisper-model small   better accuracy, slower
 python ingest.py <url> --whisper-model medium  best accuracy, much slower
+# Default model is auto-selected: "small" when a CUDA GPU is available, else "base".
+# Pass --whisper-model explicitly to override either way.
 python ingest.py <url> --force                 re-collect even if extraction_status: complete (overwrites Structured Notes)
 
 Step 2 — after reading the timestamped transcript, capture the chosen moments:
@@ -225,3 +226,17 @@ Pipeline stages:
 7. Claude Code vision-reads each captured frame (node graphs, settings, viewport) and writes the Structured Notes (core technique, steps, nodes, tags)
 8. Auto cross-linking with existing tutorials (2+ shared tags)
 9. Update `INDEX.md`, commit `.md` + `INDEX.md` together, git push
+
+## Note: captured frames are local-only
+
+`tutorials/frames/` is gitignored — frame images never sync to GitHub. On a fresh
+clone, `frame_status: complete` in a tutorial's frontmatter refers to frames that
+existed on the machine that ingested it; the durable knowledge is the extracted
+Structured Notes, not the images. If you need the stills again on this machine,
+re-capture them with:
+
+```
+python select_frames.py <slug> <ts1> <ts2> ... --force
+```
+
+(timestamps are listed in the tutorial file's "Captured Frames" section).

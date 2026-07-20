@@ -128,7 +128,7 @@ If `execute_blender_code` fails:
 ## Mode 1: Analysis Workflow
 
 ### Step 1 — Check the Tutorial Library
-Before analyzing, read `tutorials/INDEX.md`. Search for matching techniques. If relevant tutorials exist, cite them in the output.
+Before analyzing, search `tutorials/INDEX.md` for matching techniques. The INDEX is ~1000 lines — grep it by keyword/tag first (e.g. `geometry-nodes`, `#materials`, a node name) and read only the matching entry blocks rather than the whole file. If relevant tutorials exist, cite them in the output.
 
 ### Step 2 — Visual Deconstruction
 Read `references/visual-deconstruction.md` and apply the full analysis framework:
@@ -191,7 +191,7 @@ Structure the response as:
 
 ---
 
-## Mode 2: Ingest Tutorial
+## Mode 3: Ingest Tutorial
 
 Three steps happen when the user says "ingest this tutorial: [URL]". Do NOT wait
 to be asked for step 2 or step 3 — run each immediately after the previous one
@@ -264,6 +264,19 @@ glass, metal, organic, brand-video,
 beginner, intermediate, advanced, expert,
 blender-3x, blender-4x, blender-5x
 ```
+
+---
+
+## Auto-Version-Check Rule
+
+**Trigger:** At the start of a consultation/analysis (Mode 1), before recommending versions or features.
+
+1. Read `references/version-tracker.md`; check `last_checked`.
+2. If more than 7 days ago: fetch `https://developer.blender.org/docs/release_notes/` and compare against the Known Versions table.
+3. New version found -> ingest its notes into `references/blender-versions.md`, update the tracker, commit and push.
+4. No new version -> just update `last_checked`.
+
+**Skip when** the user is in a hurry — don't add latency to a quick question.
 
 ---
 
