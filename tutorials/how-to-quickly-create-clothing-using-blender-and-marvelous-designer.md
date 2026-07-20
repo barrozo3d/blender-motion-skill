@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=Rp1G9mIBskI
 author: Martin Klekner
 ingested: 2026-07-20
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "2.8 RC"
+tags: [cloth, organic, animation, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-quickly-create-clothing-using-blender-and-marvelous-designer/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How to Quickly Create Clothing using Blender and Marvelous Designer
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-to-quickly-create-clothing-using-blender-and-marvelous-designer <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### <Untitled Chapter 1> [0:00]
@@ -293,30 +289,64 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:59] tutorials/frames/how-to-quickly-create-clothing-using-blender-and-marvelous-designer/frame_000.jpg
+- [6:38] tutorials/frames/how-to-quickly-create-clothing-using-blender-and-marvelous-designer/frame_001.jpg
+- [7:39] tutorials/frames/how-to-quickly-create-clothing-using-blender-and-marvelous-designer/frame_002.jpg
+- [10:31] tutorials/frames/how-to-quickly-create-clothing-using-blender-and-marvelous-designer/frame_003.jpg
+- [12:21] tutorials/frames/how-to-quickly-create-clothing-using-blender-and-marvelous-designer/frame_004.jpg
+- [17:06] tutorials/frames/how-to-quickly-create-clothing-using-blender-and-marvelous-designer/frame_005.jpg
+- [20:32] tutorials/frames/how-to-quickly-create-clothing-using-blender-and-marvelous-designer/frame_006.jpg
+- [21:19] tutorials/frames/how-to-quickly-create-clothing-using-blender-and-marvelous-designer/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A Blender <-> Marvelous Designer round-trip pipeline for building simulated cloth garments (an Ancient-Greek chiton and cloak) on a rigged character: pose the character in Blender for export, pattern and simulate the cloth in Marvelous Designer, then reimport the finished garment mesh into Blender for cleanup.
 
 ### Summary
-[PENDING EXTRACTION]
+Martin Klekner shows the full external-cloth-sim workflow used for character garments before Blender had its own robust cloth tools. In Blender, an Adobe Fuse/Mixamo character's animation is shifted forward so frame 1 holds a clean T-pose, then keyframes are baked and the armature exported as FBX. In Marvelous Designer, the character imports as an "avatar"; flat 2D rectangular fabric patterns are drawn, edited (add points, edit curvature for a neckline), mirrored to the back, and stitched together with the Segment Sewing tool before running the cloth simulation so the fabric drapes and sticks to the body. Internal elastic lines gather the waist, the Pin tool locks fabric to specific spots (e.g. a shoulder clasp for the cloak), and fabric presets (linen, wool, silk) change drape behavior. After remeshing to clean quad topology, the garment exports as OBJ and comes back into Blender for scale correction, smoothing, and proportional-editing touch-ups before texturing (in Substance Painter, only briefly mentioned).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Prep the character pose in Blender**: apply scale/rotation on the imported armature (Ctrl+A), enter Pose Mode, select all bones (A), and in the Graph Editor select all keyframes and slide them forward in time (G, X to lock the X/time axis) so the timeline's frame 1 is free.
+2. **Create a clean T-pose at frame 1**: go to frame 1, Pose > Clear Transform > All, then in the viewport press I > Available to key only the properties already keyed (location + rotation) for all selected bones — this linearly blends from the T-pose into the start of the original animation as you scrub forward.
+3. **Bake and export**: delete any now-unneeded keyframes, then Pose > Animation > Bake Action (set the end frame to the animation's last frame) to get a keyframe on every frame; select the full armature hierarchy and File > Export > FBX with "Selected Objects" checked.
+4. **Import into Marvelous Designer**: File > Import > FBX, enable the Autoscale option on import so the character avatar comes in at the correct real-world scale; check the Animation tab to confirm the baked animation imported, then return to Simulation mode.
+5. **Pattern the chiton**: in the 2D Pattern window, use the Rectangle tool to draw a fabric panel over the character's silhouette; refine it with the Edit Pattern tool (drag points/edges), the Add Point tool (insert new corner points), and the Edit Curvature tool (hotkey C, drag a segment to create a curved neckline).
+6. **Mirror and position**: right-click the pattern piece > Symmetric Pattern to mirror it into a back panel; in the 3D viewport, grab the new piece and push it behind the character (switch the manipulator/gizmo to World coordinates in Preferences > Gizmo if it's rotating with the camera, which is undesired).
+7. **Stitch with Segment Sewing**: hotkey N (Segment Sewing tool), click one edge segment then its matching segment on the other pattern piece to connect them — leave openings for the arms, stitch the sides so the fabric wraps the torso, and stitch the shoulder seams; press Spacebar to Simulate (icon glows yellow while active) and Ctrl+Z / Spacebar to stop and reset.
+8. **Gather the waist with an Internal Line + Elastic**: click both sides of the pattern near the waist to add an Internal Polygon Line (auto-mirrors since the pattern was created symmetrically), enable its Elastic option, then raise Strength and lower Ratio to cinch the fabric like a drawstring/future belt line.
+9. **Manually sculpt drape**: with simulation running, use the Select tool (hotkey Q) to grab and tuck fabric folds directly in the 3D viewport — the sim reacts live; pattern shapes can still be edited after simulating via the Edit Pattern tool (hotkey Z).
+10. **Change fabric behavior**: Fabric menu > pick a preset (e.g. Linen) to change drape/stiffness characteristics; re-run Simulate to see the new behavior, or hand-tune the underlying cloth parameters.
+11. **Bake the garment to the animation**: switch to the Animation tab and click the (red camera) "Freeze"/simulate-to-animation button, wait for it to compute cloth motion across all baked frames, then return to Simulation mode to spot-fix with the move tool.
+12. **Pin fabric for the cloak**: draw a new rectangular pattern for the cloak (Klamis), position it behind the character, and Pin its two top corners (Pin tool) so they can be dragged to a fixed spot (e.g. the shoulder clasp) without the simulation pulling them back to the pattern's rest shape; Ctrl+click a pinned polygon with the Pin tool to unpin it. Assign the cloak its own Fabric Type (e.g. wool coat weight or silk preset) independent of the chiton.
+13. **Optional pressure/wind and cleanup**: the Pressure parameter (e.g. -1) simulates a light outward force for a floatier drape; Reset 3D Arrangement recovers from an over-messed simulation; finish with the Remesh button for clean quad-ish topology instead of dense simulation triangles.
+14. **Export and reimport**: select all garment pattern pieces, File > Export > OBJ (ignore most options except scale, which is corrected in Blender); back in Blender, import the OBJ, rescale if needed (0.1 worked for this file), Ctrl+2 (or Shade Smooth) to smooth normals, and use Proportional Editing (O) to push/pull any protruding geometry; UVs come pre-laid-out from Marvelous Designer, so just select regions and pack islands before texturing.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Blender (pre-export)**: Ctrl+A (Apply Scale/Rotation on armature), Pose Mode > select-all (A), Graph Editor keyframe shift (G, X), Pose > Clear Transform > All, I > Available (partial keyframe insert), Pose > Animation > Bake Action, File > Export > FBX (Selected Objects checked).
+- **Marvelous Designer 2D Pattern tools**: Rectangle, Edit Pattern (drag points/edges), Add Point, Edit Curvature (hotkey C), Symmetric Pattern (right-click context menu), Segment Sewing (hotkey N), Internal Polygon Line + Elastic (Strength/Ratio sliders), Pin tool (Ctrl+click to unpin).
+- **Marvelous Designer 3D viewport**: Simulate toggle (Spacebar), Select/move tool (hotkey Q) for live fabric manipulation, Reset 3D Arrangement, Remesh button, Pressure parameter (negative values = outward force).
+- **Fabric menu**: per-pattern-piece Fabric Type presets (e.g. Linen, Silk, Wool Coat Weight) controlling drape stiffness/weight.
+- **Animation tab**: bake/compute button (freezes the cloth sim across the full baked FBX animation) so the garment follows the character's motion.
+- **Export**: File > Export > OBJ (garment pieces selected).
+- **Blender (post-import)**: Import OBJ, manual scale correction (e.g. 0.1), Ctrl+2 / Shade Smooth for normal smoothing, Proportional Editing (O) for spot mesh fixes, UV Editor to select/pack the Marvelous-Designer-generated UV islands.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 2.8 (Release Candidate) for the Blender side; Marvelous Designer (version not specified) for the garment patterning/simulation.
 
 ### Tags
-[PENDING EXTRACTION]
+cloth, organic, animation, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Master Blender Sculpting: Every Brush Explained](master-blender-sculpting-every-brush-explained.md) — shares the cloth/organic/intermediate focus; its cloth-simulation sculpt brush family (Drag/Expand/Bend/Twist Cloth) is a native-Blender alternative to the external Marvelous Designer draping shown here.
+- [Realistic Cloth Physics in Blender – Full Tutorial](realistic-cloth-physics-in-blender-full-tutorial.md) — covers the same garment-draping goal using Blender's native Cloth modifier instead of Marvelous Designer, useful as a no-external-software comparison.
+- [Blender NEW Cloth Simulator changes EVERYTHING!](blender-new-cloth-simulator-changes-everything.md) — modern (5.2) native alternative to this tutorial's external MD pipeline, covering pinning, tearing, and organic cloth behavior directly inside Blender's Geometry Nodes cloth system.

@@ -1173,9 +1173,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=Rp1G9mIBskI
 - **Author:** Martin Klekner
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 2.8 RC (+ Marvelous Designer)
+- **Tags:** #cloth #organic #animation #intermediate
+- **Summary:** Blender <-> Marvelous Designer round-trip pipeline for simulated character garments: pose the character to a clean T-pose at frame 1, bake and export FBX, then in Marvelous Designer pattern flat fabric rectangles (Edit Pattern, Add Point, Edit Curvature), mirror them, Segment-Sew the seams, simulate the drape, gather the waist with an elastic Internal Line, Pin fabric to fixed spots for a cloak, change Fabric Type presets (linen/wool/silk), remesh to clean topology, and reimport the OBJ into Blender for scale/normal cleanup.
 - **File:** tutorials/how-to-quickly-create-clothing-using-blender-and-marvelous-designer.md
 
 ---
