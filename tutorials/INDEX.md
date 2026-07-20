@@ -1143,9 +1143,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=IvyfdxkABKU
 - **Author:** 3Dnot2D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 4.x (AgX default, switched to Standard; Cycles GPU)
+- **Tags:** #camera #compositing #rendering #cycles #hdri #lighting #product-viz #intermediate #blender-4x
+- **Summary:** Full camera match-move pipeline: tracks handheld footage of a plaza (manual + automatic marker detection, Detect Features, Track Forward/Backward), solves the camera (Solve Error tuning via Clean Up/Filter Tracks down to ~0.25px), sets Floor/Origin/Axis/Scale from tracked markers, then composites a 3D car into the shot with a Poly Haven HDRI matched to the footage lighting (Node Wrangler Mapping rotation), a matte ground shadow-catcher, and a transparent-film Cycles render assembled back over the plate in an NLE.
 - **File:** tutorials/camera-tracking-in-blender-for-beginners-motion-tracking-tutorial.md
 
 ---

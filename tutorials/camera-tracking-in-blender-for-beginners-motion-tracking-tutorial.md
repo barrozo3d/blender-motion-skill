@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=IvyfdxkABKU
 author: 3Dnot2D
 ingested: 2026-07-20
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x (AgX default color management, Cycles GPU)"
+tags: [camera, compositing, rendering, cycles, hdri, lighting, product-viz, intermediate, blender-4x]
+extraction_status: complete
 frames_dir: tutorials/frames/camera-tracking-in-blender-for-beginners-motion-tracking-tutorial/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Camera Tracking in Blender for Beginners | Motion Tracking Tutorial
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py camera-tracking-in-blender-for-beginners-motion-tracking-tutorial <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -335,30 +331,66 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:22] tutorials/frames/camera-tracking-in-blender-for-beginners-motion-tracking-tutorial/frame_000.jpg
+- [2:45] tutorials/frames/camera-tracking-in-blender-for-beginners-motion-tracking-tutorial/frame_001.jpg
+- [4:24] tutorials/frames/camera-tracking-in-blender-for-beginners-motion-tracking-tutorial/frame_002.jpg
+- [7:48] tutorials/frames/camera-tracking-in-blender-for-beginners-motion-tracking-tutorial/frame_003.jpg
+- [9:36] tutorials/frames/camera-tracking-in-blender-for-beginners-motion-tracking-tutorial/frame_004.jpg
+- [10:35] tutorials/frames/camera-tracking-in-blender-for-beginners-motion-tracking-tutorial/frame_005.jpg
+- [13:42] tutorials/frames/camera-tracking-in-blender-for-beginners-motion-tracking-tutorial/frame_006.jpg
+- [16:05] tutorials/frames/camera-tracking-in-blender-for-beginners-motion-tracking-tutorial/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Full 2D-to-3D camera match-move pipeline in Blender's Motion Tracking workspace: solving a real camera's motion from footage, establishing scene scale/orientation from tracked markers, then compositing a 3D CG object (a car) into the live-action plate with HDRI lighting matched to the shot.
 
 ### Summary
-[PENDING EXTRACTION]
+3Dnot2D tracks a handheld shot of a plaza with a fountain, solves the camera's 3D motion, defines the floor/origin/axes/scale from tracker points, and drops a Volvo 3D model into the reconstructed scene so it sticks to the ground and follows the camera perspective correctly. The second half covers making the CG object render believably: transparent film + transparent glass so only the car renders, a Poly Haven overcast HDRI loaded into the World shader (rotated via Node Wrangler's Mapping node) to match the footage's lighting and pick up building reflections, a ground-shadow-catching plane sampled to match ground color, and finally compositing the alpha-rendered car frames back over the original footage in a video editor.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Set up the workspace**: clear the default scene (A, X, Delete), switch to the "VFX and Motion Tracking" workspace layout, and load footage — either the video file directly or (the presenter's preference) an image sequence rendered out of any NLE, since Blender scrubs/caches image sequences more reliably.
+2. **Fix color management first**: Render Properties > Color Management, switch from the default AgX to Standard so the footage isn't washed out/contrast-shifted; also switch the render engine to Cycles and the device to GPU for photorealistic VFX compositing later.
+3. **Sync the timeline**: click "Set Scene Frames" in the clip editor to auto-match the scene frame range to the footage length, then "Prefetch" to cache all frames into RAM (fixes the jagged/incomplete purple cache indicator bar) for smooth scrubbing.
+4. **Manual tracking markers (concept)**: Add a marker in the clip; each has a Pattern Size (the box Blender pattern-matches per frame) and a Search Size (Alt+S, the region searched for that pattern next frame) — smaller pattern/search regions give more precise (but less robust) tracking; Blender needs at least 8 markers per frame for a usable 3D solve. Tracking Settings has presets for footage types (blurry, fast motion, etc.); Default works for typical shots.
+5. **Automatic tracking**: on frame 1, click "Detect Features" to auto-place trackable markers; set Motion Model (Loc / Loc+Rot / Loc+Scale / Loc+Rot+Scale / Affine / Perspective — Affine is a safe default), enable Normalize (slower but more precise, accounts for lighting change during the shot), and set Correlation to 0.9 (Blender requires 90% pattern-match confidence to keep tracking a marker).
+6. **Track forward/backward**: Ctrl+T (or the track-forward icon) tracks selected markers through the footage; repeat Detect Features at the end of the clip and partway through, tracking forward then back to each keyframe, to build up a dense, well-distributed marker set across the whole shot.
+7. **Solve the camera**: in the Solve tab, set two keyframes (A/B) far enough apart for Blender to read parallax (or enable the auto Keyframe checkbox to let Blender choose), enable Refine: Focal Length, Optical Center, and Radial Distortion, then click Solve Camera Motion. Target a Solve Error under 1 px (ideally ≤0.5 px / a quarter-pixel is "more than enough").
+8. **Clean up bad tracks**: switch to Clean Up, use Filter Tracks with an error threshold (e.g. 10, then progressively lower — 7, etc.) to auto-select and delete (X) high-error tracks, then re-run Solve Camera Motion after each cleanup pass; watch the Average Error graph (a blue/red/green line per axis) — the goal is to flatten out the spikes.
+9. **Set up scene orientation**: in Set Up Tracking Scene / Orientation panel — select 3 markers on the ground plane and click "Floor" to align the world floor to them; select one marker and click "Set Origin"; select a second marker to define "Set X Axis"; select two markers a known real-world distance apart, type that distance, and click "Set Scale" to give the scene real-world units. Then Ctrl+P / "Setup Tracking Scene" from the bottom of the panel generates camera + background/foreground plane objects automatically (delete the auto-generated background/foreground split and light if you want manual control instead).
+10. **Composite the 3D asset**: append/copy the CG model (a Volvo car) into a new collection, rotate/position it to sit on the tracked ground plane, and verify it "sticks" to the footage (e.g. wheel contact point) when scrubbing — check Front/Numpad-1 view to catch any residual floating offset and nudge with G, Z.
+11. **Light to match**: Render > Film > Transparent (so only the CG renders, not the background plate) plus "Transparent Glass" for see-through car windows; download a Poly Haven overcast outdoor HDRI matching the shot's lighting mood, load it via World > Color > Environment Texture; use Ctrl+T (Node Wrangler add-on, enabled in Preferences) on the Environment Texture node to add Mapping + Texture Coordinate nodes so the HDRI can be rotated (Mapping > Rotation Z) to align reflections/building placement with the plate.
+12. **Ground shadow catcher + render**: give the tracked ground plane a material with color sampled (eyedropper) from the footage's actual ground, Roughness maxed out (non-reflective) so it only catches contact shadows; set Render preview/final samples (e.g. 128), enable Persistent Data for faster batch rendering, then in Compositing strip the node tree down to just the render layer's Image output (skip the auto-generated foreground/background split nodes) so the render is a car-only PNG sequence with alpha.
+13. **Final assembly**: render the animation to an 8-bit PNG (with alpha) image sequence, then import that sequence over the original footage in a video editor (e.g. DaVinci Resolve) for the final composited match-move shot.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Motion Tracking workspace / Clip Editor**: Marker panel (Add/Delete), Tracking Settings (Pattern Size, Search Size, Motion Model, Normalize, Correlation threshold), Track > Detect Features, Track Forward/Backward (Ctrl+T).
+- **Solve tab**: Keyframe A/B selectors, auto-Keyframe checkbox, Refine (Focal Length, Optical Center, Radial Distortion), Solve Camera Motion button, reported Solve Error (px).
+- **Clean Up tab**: Filter Tracks (error threshold slider), Clean Tracks (reprojection-error threshold), Average Error graph view.
+- **Orientation / Scene Setup panel**: Set Floor, Set Origin, Set X Axis, Set Scale (with a real-world distance value), and the overall "Setup Tracking Scene" action that spawns camera + background/foreground plane objects.
+- **Render Properties > Color Management**: View Transform set to Standard (from default AgX) for accurate footage color; Render Engine = Cycles, Device = GPU.
+- **Render Properties > Film**: Transparent enabled, plus Transparent Glass, so the render outputs a car-only alpha PNG.
+- **World Shader**: Environment Texture node (loads an .exr HDRI from Poly Haven) → Mapping node (Rotation Z to align reflections) → Texture Coordinate, wired via Node Wrangler's Ctrl+T shortcut (requires the Node Wrangler add-on enabled in Preferences).
+- **Ground plane material**: Base Color sampled via eyedropper from the plate's ground color, Roughness set to maximum (fully matte, non-reflective) to act as a shadow-catcher without visible highlights.
+- **Compositor**: simplified node tree — Render Layers > Image output only (auto-generated foreground/background split nodes removed) for a clean car-only render pass.
+- **Performance settings**: Preview/Render Samples ~128, Denoise enabled, Persistent Data enabled for faster sequential frame renders.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x (AgX is the default View Transform, switched to Standard; Cycles + GPU device; Node Wrangler add-on used for HDRI node setup)
 
 ### Tags
-[PENDING EXTRACTION]
+camera, compositing, rendering, cycles, hdri, lighting, product-viz, intermediate, blender-4x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Using Geometry Nodes for VFX in Blender](using-geometry-nodes-for-vfx-in-blender.md) — near-identical VFX pipeline (camera tracking, shadow catcher, HDRI matched to footage brightness) integrating a 3D asset into live-action footage; extends this video's approach with ACES color and Geometry Nodes-driven elements.
+- [I recreated a movie scene in Blender + Nuke (Complete Tutorial)](i-recreated-movie-scene-in-blender-nuke-complete-tutorial.md) — shares the camera + lighting + compositing pipeline for integrating CG assets into a shot, at a larger production scale (Kong: Skull Island recreation) with multi-pass rendering into Nuke instead of Blender's compositor.
+- [How to render faster in Blender (Cycles)](how-to-render-faster-in-blender-cycles.md) — Cycles/GPU optimization techniques directly applicable to speeding up the per-frame car renders in this tutorial's image-sequence workflow.
