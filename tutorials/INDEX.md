@@ -1138,6 +1138,16 @@ Each entry format:
 - **Summary:** Rigs a low-poly character with the Rigify add-on: adds and scales the Human meta-rig, matches bones to the mesh in Edit Mode (X-Mirror, Snap-to-Volume, deleting unused finger/face bones), applies scale, Generates Rig, parents the mesh with Automatic Weights, then walks through the color-coded control bones (IK/FK, tweak, foot roll). Finishes by fixing cross-object weight-paint bleed using Alt+Click bone preview and Auto Normalize.
 - **File:** tutorials/easy-rigging-using-rigify-in-blender.md
 
+
+### Camera Tracking in Blender for Beginners | Motion Tracking Tutorial
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=IvyfdxkABKU
+- **Author:** 3Dnot2D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/camera-tracking-in-blender-for-beginners-motion-tracking-tutorial.md
+
 ---
 
 ## Tag Reference
