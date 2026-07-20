@@ -1158,6 +1158,16 @@ Each entry format:
 - **Summary:** End-to-end beginner Grease Pencil 2D animation workflow: drawing tools and Draw/Object/Edit/Sculpt modes, a bouncing-ball exercise using Auto Keying with keyframe duplicate/reverse/retime tricks (Shift+D, S -1, S 2 for ones-vs-twos), Fill tool coloring (Multi Frame + Inverted Fill, Holdout materials), masked-layer cel shading, background image planes with camera parallax animation, and audio-driven lip sync with a mouth-shape reference chart.
 - **File:** tutorials/blender-2d-animation-tutorial-for-beginners-grease-pencil-tutorial.md
 
+
+### Blender Sound Reactive Geometry Nodes | Tutorial How-To Audio Music Simulation Mograph
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=XOsXZ1qDfSk
+- **Author:** Chris P
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-sound-reactive-geometry-nodes-tutorial-how-to-audio-music-simulation-mog.md
+
 ---
 
 ## Tag Reference
