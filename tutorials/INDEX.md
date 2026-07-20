@@ -1118,6 +1118,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/product-animation-in-blender-phone.md
 
+
+### Master Blender Sculpting: Every Brush Explained
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=5-mNgCpEkCI
+- **Author:** Grant Abbitt (Gabbitt)
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/master-blender-sculpting-every-brush-explained.md
+
 ---
 
 ## Tag Reference
