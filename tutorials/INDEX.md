@@ -1103,9 +1103,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=saIFT8_j0LQ
 - **Author:** Dédouze
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Blender 3.x-era 2D Animation workspace)
+- **Tags:** animation, motion-design, materials, shaders, rigging, compositing, beginner, intermediate
+- **Summary:** Technique breakdown (not a build tutorial) of a YouTube Premiere countdown scene made entirely with Grease Pencil: flat hand-drawn "canvas" objects floating in 3D space (frame-by-frame + onion skinning + sculpt-tool in-betweens + auto-interpolation), looped via Time Offset, warped by a Lattice driven by a parented Armature, or projected onto 3D surfaces via Surface draw-mode placement. 3D objects use a custom hard-stepped toon shader plus a duplicated-and-inverted Solidify outline. Closes with tips: one-face-per-object canvases, canvas-local double-tap axis moves (G, X, X), and Auto-Keying caution.
 - **File:** tutorials/how-this-2d3d-animation-was-made---introduction-to-blender-greasepencil-and-tips.md
 
 

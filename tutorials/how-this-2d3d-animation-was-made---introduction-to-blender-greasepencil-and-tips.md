@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=saIFT8_j0LQ
 author: Dédouze
 ingested: 2026-07-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (Blender 3.x-era 2D Animation workspace)"
+tags: [animation, motion-design, materials, shaders, rigging, compositing, beginner, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-this-2d3d-animation-was-made---introduction-to-blender-greasepencil-and-tips/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How this 2D/3D animation was made - Introduction to Blender greasepencil and tips for beginners
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-this-2d3d-animation-was-made---introduction-to-blender-greasepencil-and-tips <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Introduction & news [0:00]
@@ -201,30 +197,59 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:04] tutorials/frames/how-this-2d3d-animation-was-made---introduction-to-blender-greasepencil-and-tips/frame_000.jpg
+- [4:28] tutorials/frames/how-this-2d3d-animation-was-made---introduction-to-blender-greasepencil-and-tips/frame_001.jpg
+- [5:27] tutorials/frames/how-this-2d3d-animation-was-made---introduction-to-blender-greasepencil-and-tips/frame_002.jpg
+- [9:14] tutorials/frames/how-this-2d3d-animation-was-made---introduction-to-blender-greasepencil-and-tips/frame_003.jpg
+- [11:09] tutorials/frames/how-this-2d3d-animation-was-made---introduction-to-blender-greasepencil-and-tips/frame_004.jpg
+- [12:07] tutorials/frames/how-this-2d3d-animation-was-made---introduction-to-blender-greasepencil-and-tips/frame_005.jpg
+- [15:10] tutorials/frames/how-this-2d3d-animation-was-made---introduction-to-blender-greasepencil-and-tips/frame_006.jpg
+- [16:07] tutorials/frames/how-this-2d3d-animation-was-made---introduction-to-blender-greasepencil-and-tips/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Hybrid 2D/3D animation: Grease Pencil "canvas" objects (flat hand-drawn planes floating in 3D space, sometimes projected onto 3D surfaces) combined with toon-shaded 3D meshes, Lattice+Armature secondary deformation, and Time Offset looping.
 
 ### Summary
-[PENDING EXTRACTION]
+A technique breakdown (not a step-by-step build) of a commissioned YouTube Premiere countdown scene made entirely in Blender with Grease Pencil and no external images or paid plugins. Explains how flat, hand-drawn Grease Pencil "canvas" objects act like paper floating in 3D space — animated frame-by-frame with onion skinning, sculpt-tool in-betweening, and auto-interpolation, then optionally warped in real time by a Lattice (itself driven by an Armature) or projected directly onto 3D geometry in Surface draw mode. 3D objects like the teapot use a custom hard-stepped toon/cel shader plus a duplicated-and-inverted Solidify outline. Closes with three practical tips: building multi-face canvases as separate single-face objects, using canvas-local double-tap axis moves (G, X, X) in Edit Mode, and being careful with the Auto-Keying "record" toggle.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Split the scene into two object types: ordinary 3D meshes (teapot, table, floor/wall blocks) and Grease Pencil "canvas" objects — flat single-plane objects that behave like a sheet of paper floating in 3D space, each holding its own hand-drawn Layers/Masks and frame-by-frame 2D animation (seen in the 2D Animation workspace's "2D Full Canvas" viewport shading with a keyframed Dope Sheet below, frame_001).
+2. Draw each canvas frame-by-frame directly with a pen tablet: use onion skinning for traditional in-betweening, the Sculpt tool to duplicate and deform existing drawings for smoother transitions, Grease Pencil's line-smoothing and multi-frame-editing, and the auto-interpolation feature on isolated simple shapes (e.g. leaf highlights/shadows) rather than whole complex drawings.
+3. Loop a short hand-drawn cycle across the full timeline with a Time Offset modifier (Mode: Regular, Custom Range/Frame Start options) so the animation repeats automatically instead of being redrawn for the whole shot (confirmed in the modifier panel in frame_002/frame_004).
+4. Add a Lattice modifier on top of the frame-by-frame drawing for extra real-time warping, then optionally parent an Armature to the Lattice so each bone controls a group of lattice points — the rig-driven deformation and the drawing's own 2D animation play back together for a more organic result.
+5. For canvases that need to hug a 3D surface, switch Draw Mode's stroke Placement option from its default to Surface so new strokes project directly onto the 3D geometry under the pen; if strokes land far from the surface or clip inside it, adjust the Surface Offset (around 0.01 as a rough starting point — the ideal value shifts with camera settings and object scale, and drawing from Camera view projects more accurately than drawing in the 3D viewport).
+6. Shade 3D objects with a custom toon/cel-shader node group with hard color-ramp steps mapped to light falloff — confirmed in frame_005's node graph, where a "ceramic"-style custom shader group (Base Color, Subsurface, Metallic, Specular, Roughness inputs) feeds Material Output, giving the teapot its blue-to-yellow/pink stepped shading.
+7. Add an outline to 3D objects using the "inverted hull" trick: duplicate the object with a Solidify modifier at a slightly larger scale, flip/invert the normals on that copy, and apply a flat dark unlit material — the creator also flags Grease Pencil's own Line Art modifier as a promising alternative to try.
+8. Simplify multi-face Grease Pencil canvases: instead of one object with several faces (front/side/top) toggled via face-placement options, build one single-face object per face, draw only on its default front face, then duplicate (Shift+D) and rotate each copy into position for the side/top faces.
+9. In Edit Mode on a canvas, move strokes along the canvas's own local axes rather than world axes by pressing G then tapping the axis key twice (G, X, X / G, Y, Y / G, Z, Z) — a single tap moves along the world axis, a double tap constrains to the canvas's local axis, essential once the canvas is rotated off the orthogonal grid.
+10. Watch the Auto-Keying ("record") toggle in the header — it's enabled by default in the 2D Animation template and will key any change to any selected object (a 2D drawing, the camera, or a 3D object), so enable it only while actively animating one specific thing and disable it immediately after, to avoid accidentally animating static scene objects.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Grease Pencil "canvas" objects: single flat planes with their own Layers/Masks and frame-by-frame 2D animation, viewed via the "2D Full Canvas" viewport shading mode
+- Modifiers: Time Offset (Mode Regular, Custom Range/Frame Start — for looping short cycles), Lattice (real-time warp, optionally bone-driven via a parented Armature), Solidify (duplicated-outline trick with inverted normals + flat dark material), Line Art (mentioned as an untried alternative outline method)
+- Draw Mode stroke Placement: Surface (projects strokes onto 3D geometry beneath the pen), Surface Offset ≈ 0.01 as a starting point (varies with camera/scale)
+- Custom toon/cel-shader node group ("ceramic"-style) feeding Material Output — hard-stepped color ramp keyed to light falloff, blue base shifting to yellow/pink highlights
+- Local-axis stroke transforms in Edit Mode: G + axis key once = world axis; G + axis key twice = canvas-local axis
+- Auto-Keying ("record") toggle — on by default in the 2D Animation template; affects any selected object, not just Grease Pencil
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate (a conceptual breakdown assuming existing Blender familiarity; the closing tips section is beginner-friendly, but techniques like Surface-mode drawing and Lattice+Armature rigging need intermediate skill)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified (creator notes the tool "evolved a lot" across versions; UI shown is a Blender 3.x-era 2D Animation workspace)
 
 ### Tags
-[PENDING EXTRACTION]
+animation, motion-design, materials, shaders, rigging, compositing, beginner, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender 2D Animation Tutorial for Beginners (Grease Pencil Tutorial)](blender-2d-animation-tutorial-for-beginners-grease-pencil-tutorial.md) — shares animation, motion-design, beginner; also a Grease Pencil workflow
+- [Mastering Blender's Graph Editor](mastering-blenders-graph-editor.md) — shares animation, rigging, beginner, intermediate
+- [Easy Rigging Using RIGIFY in Blender](easy-rigging-using-rigify-in-blender.md) — shares animation, rigging, beginner, intermediate
