@@ -1077,6 +1077,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/the-new-blender-fluid-simulator-is-awesome---mantaflow-tutorial.md
 
+
+### Fluid Simulations for Beginners Blender Tutorial ( FLIP Fluids)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=PcYQtV1_nRg
+- **Author:** Fattu Tutorials
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/fluid-simulations-for-beginners-blender-tutorial-flip-fluids.md
+
 ---
 
 ## Tag Reference
