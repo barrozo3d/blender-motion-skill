@@ -1062,9 +1062,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=pQcYoH4H1MM
 - **Author:** adiidiin
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (hair-curves system, 3.5+ node-group assets)
+- **Tags:** organic, geometry-nodes, materials, shaders, animation, beginner, intermediate
+- **Summary:** Full hair/eyebrow/eyelash workflow with the hair-curves system: inward-scaled UV'd scalp mesh + Empty Hair, sculpt-mode grooming with all Interpolate options on, stacked node-group modifiers (Set Hair Curve Profile → Duplicate → Clump → Curl → Trim → Interpolate Hair Curves), weight-painted vertex groups pasted into Density Mask per region, Principled Hair BSDF with Curves Info intercept/random color ramps, shrinkwrapped mirrored brows, and Attach Hair Curves to Surface lashes.
 - **File:** tutorials/hair-grooming-in-blender-ft-new-hair-system-hair-curves.md
 
 
@@ -1096,6 +1096,16 @@ Each entry format:
 - **Tags:** [PENDING]
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/how-this-2d3d-animation-was-made---introduction-to-blender-greasepencil-and-tips.md
+
+
+### Product Animation in Blender: Phone
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=lZPedlX6CMw
+- **Author:** Derek Elliott
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/product-animation-in-blender-phone.md
 
 ---
 
