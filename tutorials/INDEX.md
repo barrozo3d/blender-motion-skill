@@ -1052,9 +1052,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=SLh3hUIxv1s
 - **Author:** Pierrick Picaut
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.x
+- **Tags:** animation, rigging, organic, beginner, intermediate, blender-5x
+- **Summary:** Classic 4-key-pose walk cycle (Contact 1/13/25, Down 4/16, Passing 7/19, Up 10/22 at 24 fps) blocked pose-to-pose on the free P2M mannequin rig with no graph editor: asset-library linking + library override, Action Editor with Only Insert Available, constant interpolation, Ctrl+Shift+V mirrored paste, Breakdowner (Shift+E) for linear grounded-foot placement, contrapposto hips/chest, arm drag, heel-controller-only foot rotation, and airborne-foot swing/twist finishing touches.
 - **File:** tutorials/create-a-walk-cycle-animation-in-blender.md
 
 
@@ -1086,6 +1086,16 @@ Each entry format:
 - **Tags:** [PENDING]
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/fluid-simulations-for-beginners-blender-tutorial-flip-fluids.md
+
+
+### How this 2D/3D animation was made - Introduction to Blender greasepencil and tips for beginners
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=saIFT8_j0LQ
+- **Author:** Dédouze
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-this-2d3d-animation-was-made---introduction-to-blender-greasepencil-and-tips.md
 
 ---
 
