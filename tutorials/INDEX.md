@@ -1057,6 +1057,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/create-a-walk-cycle-animation-in-blender.md
 
+
+### Hair Grooming in Blender ft. New Hair System (Hair Curves)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=pQcYoH4H1MM
+- **Author:** adiidiin
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/hair-grooming-in-blender-ft-new-hair-system-hair-curves.md
+
 ---
 
 ## Tag Reference
