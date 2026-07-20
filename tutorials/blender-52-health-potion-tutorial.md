@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=NrK9FjcNBJA
 author: Polygon Runway
 ingested: 2026-07-20
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.2"
+tags: [materials, shaders, procedural, glass, product-viz, lighting, hdri, compositing, rendering, cycles, blender-5x, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-52-health-potion-tutorial/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender 5.2 Health Potion Tutorial
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-52-health-potion-tutorial <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -217,30 +213,67 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:22] tutorials/frames/blender-52-health-potion-tutorial/frame_000.jpg
+- [1:09] tutorials/frames/blender-52-health-potion-tutorial/frame_001.jpg
+- [6:39] tutorials/frames/blender-52-health-potion-tutorial/frame_002.jpg
+- [7:33] tutorials/frames/blender-52-health-potion-tutorial/frame_003.jpg
+- [9:03] tutorials/frames/blender-52-health-potion-tutorial/frame_004.jpg
+- [11:16] tutorials/frames/blender-52-health-potion-tutorial/frame_005.jpg
+- [16:47] tutorials/frames/blender-52-health-potion-tutorial/frame_006.jpg
+- [18:09] tutorials/frames/blender-52-health-potion-tutorial/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Full small-prop scene build in Blender 5.2: hard-surface glass-bottle modeling from a single cylinder, procedural smudged glass/liquid shaders, the new Thin Wall Principled BSDF option for backlit translucency, essentials asset-library materials/HDRIs, and a compositor finishing pass (Bloom, DOF, color curves).
 
 ### Summary
-[PENDING EXTRACTION]
+Polygon Runway builds a fantasy "health potion" vial start-to-finish: modeling the bottle, liquid, cork, and label from one duplicated cylinder base; shading glass and red liquid with noise-driven roughness variation; using Blender 5.2's new Thin Wall BSDF setting to get a naturally translucent label/paper look and backlit liquid glow from an internal point light; texturing the ground and label with essentials/Polyhaven assets; and finishing with Bloom, depth of field, and color-curve grading in the compositor.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Base shape**: delete default cube, add a Cylinder, scale down (S, Shift+Z to lock Z), scale again in front ortho view to ~10-20cm; note the mesh scale must stay at 1 (scale applied in Edit Mode, not Object Mode).
+2. **Bevel + cleanup**: Alt-click bottom edge loop, Ctrl+B to bevel with more segments, delete top faces, Ctrl+R to add loop cuts, scale down the neck opening.
+3. **Duplicate-and-separate workflow**: reuse the same cylinder geometry via Shift+D (duplicate) + P (separate) to derive the liquid, the cork, and later the paper label from the vial mesh — rather than modeling each from scratch.
+4. **Cork**: from a duplicated slice, extrude (E), fill (F), bevel, and push/shape into a stopper; parent everything with Ctrl+P once positioned.
+5. **Liquid + vial mesh cleanup**: fill top with F, bevel, add Ctrl+R support loops, Subdivision Surface modifier (1 level) + Shade Smooth, then Solidify on the vial with a small Bevel (~0.002) and another Subdivision Surface.
+6. **Glass shader**: Cycles render, Transmission = 1, low Roughness driven by a Noise Texture → Mapping (Object coords, Ctrl+T Node Wrangler to auto-wire) → Color Ramp (compressed/inverted for smudges) into Roughness — never a flat roughness value for realistic glass.
+7. **Liquid shader**: duplicate the glass material, zero out roughness, set IOR ≈ 2.133, change Base Color to red (or desired liquid color).
+8. **Label material & Thin Wall**: apply an Essentials-library paper material (unpack via the library/"make local" icon to edit params), then use the new Blender 5.2 **Thin Wall** checkbox on the Principled BSDF for one-sided translucency without a Solidify modifier — demoed by toggling it with scene lights off/on to show wrinkle/bump/roughness/color response.
+9. **Interior backlight**: add a Point Light inside the vial (parented to it) to sell backlit liquid glow through the Thin Wall label/vial; reduce vial roughness slightly and darken it so it isn't too transparent.
+10. **Environment**: drop an Essentials-library "Forest" world HDRI, detach from library data, reduce strength (~0.1) for subtle reflections; add a Polyhaven wood-plank ground texture with fixed UV scale via the Polyhaven add-on.
+11. **Label UV + tint**: UV-unwrap the label (Angle Based), rotate/scale to fit, then Mix Color (Multiply) the paper texture over a chosen tint color, feeding the result into Base Color.
+12. **Duplication + camera**: parent label to vial, use Alt+D (linked duplicate) to place a second/third bottle, rotate for composition, switch to camera view (Numpad 0) with "camera to view" for framing; limit render bounds with Ctrl+B while iterating.
+13. **Compositor finishing**: enable "Use Nodes" compositing, add a Bloom node (Strength ≈5, tuned Threshold; check the essentials cloud presets), enable camera Depth of Field with a Focus Distance dialed to the label, and grade in Color Management via a Curves adjustment (~1.3 contrast lift) for a cinematic look.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Shader Editor (Glass):** Principled BSDF — Transmission 1.0, Metallic unplugged, Roughness ← Color Ramp ← Mapping (Object) ← Noise Texture (Ctrl+T auto-wire via Node Wrangler add-on).
+- **Shader Editor (Liquid):** Principled BSDF — Roughness 0, IOR 2.133, Base Color = red.
+- **Shader Editor (Label):** Essentials paper material (unpacked/local) + Principled BSDF **Thin Wall** enabled; Mix Color node set to Multiply blending the paper texture with a picked tint color, feeding Base Color.
+- **World Shader:** Essentials "Forest" HDRI, Strength ≈ 0.1, detached from library data.
+- **Modifiers:** Bevel, Subdivision Surface (1 level) + Shade Smooth, Solidify (vial shell).
+- **Lights:** one Area Light as main fill (lowered strength), one Point Light inside the vial (parented) for interior backlight/glow, later duplicated and dimmed for rim/backlight on the ground composition.
+- **Compositor:** Use Nodes → Bloom (Strength ≈5, custom Threshold, essentials presets available incl. Aberration), Camera Depth of Field (Focus Distance targeting the label).
+- **Color Management:** Curves node, gamma/exposure tweak, ~1.3 contrast adjustment for cinematic grade.
+- **Render:** Cycles, GPU + OptiX/GPU denoising enabled, reduced sample count.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2 (Thin Wall Principled BSDF option, Essentials asset library are 5.2-specific features)
 
 ### Tags
-[PENDING EXTRACTION]
+materials, shaders, procedural, glass, product-viz, lighting, hdri, compositing, rendering, cycles, thin-wall, blender-5x, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [THIN WALL, the incredible new Principled BSDF feature in Blender 5.2](thin-wall-the-incredible-new-principled-bsdf-feature-in-blender-52.md) — deep dive on the same Thin Wall BSDF feature used here for the label/liquid translucency.
+- [Blender's NEW Transparency Material is CRAZY!](blenders-new-transparency-material-is-crazy.md) — more Thin Wall use cases (bubbles, foliage, frosted glass).
+- [Realistic Product Lighting In Blender](realistic-product-lighting-in-blender.md) — glass product lighting techniques (Area Lights, emission planes) applicable to the vial/liquid shading here.
+- [Brand New Material Assets in Blender 5.2 LTS](brand-new-material-assets-in-blender-52-lts.md) — same Essentials asset-library material workflow used for the paper label.
+- [Photoreal Skies In Blender 5.0](photoreal-skies-in-blender-50.md) — HDRI + world-strength lighting approach similar to the Forest HDRI setup here.

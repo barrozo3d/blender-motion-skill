@@ -912,9 +912,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=NrK9FjcNBJA
 - **Author:** Polygon Runway
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** #materials #shaders #procedural #glass #product-viz #lighting #hdri #compositing #rendering #cycles #blender-5x #intermediate
+- **Summary:** Full "health potion" prop build: models bottle/liquid/cork/label from one duplicated cylinder (Shift+D + P separate workflow), shades glass and red liquid with noise-driven roughness variation, and uses Blender 5.2's new Thin Wall Principled BSDF option for translucent paper label and backlit liquid glow from an interior point light. Finishes with Essentials/Polyhaven HDRI + ground texture and a compositor pass (Bloom, DOF, color curves).
 - **File:** tutorials/blender-52-health-potion-tutorial.md
 
 
