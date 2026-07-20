@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=RdTuAY23vzk
 author: Grant Abbitt (Gabbitt)
 ingested: 2026-07-20
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.3"
+tags: [rigging, animation, beginner, intermediate, blender-4x]
+extraction_status: complete
 frames_dir: tutorials/frames/easy-rigging-using-rigify-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Easy Rigging Using RIGIFY in Blender
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py easy-rigging-using-rigify-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Introduction & Overview [0:00]
@@ -345,30 +341,65 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:22] tutorials/frames/easy-rigging-using-rigify-in-blender/frame_000.jpg
+- [1:39] tutorials/frames/easy-rigging-using-rigify-in-blender/frame_001.jpg
+- [4:16] tutorials/frames/easy-rigging-using-rigify-in-blender/frame_002.jpg
+- [6:14] tutorials/frames/easy-rigging-using-rigify-in-blender/frame_003.jpg
+- [6:43] tutorials/frames/easy-rigging-using-rigify-in-blender/frame_004.jpg
+- [8:04] tutorials/frames/easy-rigging-using-rigify-in-blender/frame_005.jpg
+- [9:21] tutorials/frames/easy-rigging-using-rigify-in-blender/frame_006.jpg
+- [11:56] tutorials/frames/easy-rigging-using-rigify-in-blender/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+End-to-end character rigging with Blender's built-in Rigify add-on: fitting a Human meta-rig to a low-poly character mesh, generating the final control rig, binding the mesh with Automatic Weights, and hand-correcting weight-paint bleed between separate mesh objects.
 
 ### Summary
-[PENDING EXTRACTION]
+Grant Abbitt rigs a low-poly PlayStation-style character (from his earlier modeling tutorials) using Rigify. He adds the Human meta-rig armature, scales and repositions its bones in Edit Mode to match the character (deleting unused face/finger bones for the low-poly design), generates the final control rig, parents the mesh to it with Automatic Weights, then tests it in Pose Mode. Because the character is built from several separate mesh objects, some bones bleed influence across unrelated body parts (e.g. rotating an arm also moves a leg); he fixes this per-object in Weight Paint mode using Alt+Click bone selection and the Auto Normalize option so painting one bone's influence to 1.0 correctly zeroes out competing bones.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Prep**: enable the Rigify add-on (Edit > Preferences > Add-ons, search "Rigify"), snap the 3D cursor to world origin (Shift+S), then Shift+A > Armature > Human (Meta-Rig) — found under the Rigify Meta-Rigs submenu alongside Animals and Basic Human/Quadruped rigs.
+2. **Scale to character**: in Object Mode, scale the whole meta-rig up to roughly match the character's size in Front Orthographic view; enable "In Front" under Object Data Properties > Viewport Display so bones stay visible through the mesh from any angle.
+3. **Match bones in Edit Mode**: enable X-Axis Mirror before moving bones so edits apply to both sides at once; use Period (.) to switch the Transform Pivot Point to 3D Cursor for rotating around a specific joint, and toggle Snap-to-Volume (magnet icon) so grabbed bone tips snap to the center of nearby mesh geometry — much faster than eyeballing Front/Side views.
+4. **Delete unused bones**: for a low-poly/no-finger-detail character, Ctrl+select down a finger chain and delete, making sure to also remove the topmost hand-adjacent bone; likewise delete the Face bone group (including a hidden extra "face" bone found via Alt+Click) since the character has no facial rig — leaving unused connected bones in place causes errors when generating the rig. Always verify bones that must stay parent-connected didn't get disconnected by an accidental plain-click-drag.
+5. **Apply scale before generating**: back in Object Mode, press Ctrl+A > Scale on the meta-rig (since it was scaled in Object Mode, not Edit Mode) — generating the rig without this produces an undersized result; Object Data Properties > N-panel > Item tab confirms Scale reads 1.0 once applied.
+6. **Generate Rig**: Object Data Properties > Rigify panel > Generate Rig button creates a second, separate armature object with all the animation controllers; the original meta-rig can be hidden or deleted afterward.
+7. **Bind mesh to rig**: select all character mesh objects, select the generated rig last (making it the active object), Ctrl+P > Parent > With Automatic Weights to auto-generate vertex groups and weights.
+8. **Test & read bone colors**: enter Pose Mode on the rig — purple = single root bone (moves the whole character), orange = finger controls (S to scale, R to rotate, G to grab/stretch), red = IK chain controls (end bone drives Inverse Kinematics up the chain; an IK/FK slider on the selected IK bone switches to green FK bones, which rotate top-down instead), blue = tweak bones (fine per-segment adjustment), red foot-roll bones near the ankle (roll for heel/toe rotation, keeps toes planted — key for walk cycles), yellow = core/torso control in the middle.
+9. **Fix weight-paint bleed**: switch to the Deform bone collection (bottom of the Bone Collections panel) since those are the actual deforming bones, not the visible control bones; enter Weight Paint mode (rig selected first, target mesh object selected last/active) and Alt+Click a bone to preview its current influence (blue = 0, red = 1).
+10. **Paint corrections with Auto Normalize**: enable Tool > Options > Auto Normalize so painting weight 1.0 onto one bone automatically zeroes competing bone influences on the same vertex (painting red without it leaves other bones' influence intact); use Weight = 1.0 with full Strength = 1.0 for hard reassignment, or a lower Strength (e.g. ~0.7) to gradually blend a value. Repeat per separate mesh object (torso, each leg, calves, etc.) since Blender has no quick "jump to next object" shortcut — go back to Object Mode, reselect rig then the next mesh object, Ctrl+Tab into Weight Paint again.
+11. **Cleanup**: use the bone-collection "star" icon to quickly isolate/solo one collection (e.g. Deform bones) instead of manually toggling visibility for each layer.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Add menu**: Armature > Rigify Meta-Rigs > Human (also Animals and Basic Human/Basic Quadruped variants available).
+- **Object Data Properties > Viewport Display**: In Front (enabled) to see bones through mesh geometry.
+- **Transform Pivot Point**: 3D Cursor (via Period key) for joint-centered rotation; Median Point is the default.
+- **Snapping**: Snap Target = Volume, for snapping bone tips to the center of nearby mesh geometry.
+- **Object Data Properties > Rigify panel**: Generate Rig button (creates the second, poseable rig object from the meta-rig).
+- **Ctrl+P parenting menu**: With Automatic Weights (binds mesh to armature with auto-generated vertex groups).
+- **Bone Collections panel**: Face / Face (Primary) / Face (Secondary) / Torso / Torso (Tweak) / Deform, etc. — Deform collection holds the actual skinning bones used for weight painting, separate from the visible control-bone layers.
+- **Pose Mode**: IK/FK slider property on the IK end-bone (per limb); bone color coding — purple (root), orange (fingers), red (IK + foot roll), green (FK), blue (tweak), yellow (torso/core).
+- **Weight Paint > Tool > Options**: Auto Normalize (checkbox) — critical for correctly zeroing competing bone weights; Weight and Strength are separate sliders (Weight = target value painted toward, Strength = per-stroke opacity).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.3 (continuation of the author's low-poly PlayStation-style character series)
 
 ### Tags
-[PENDING EXTRACTION]
+rigging, animation, beginner, intermediate, blender-4x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender 5.1's NEW Rigging Tool is INSANE!](blender-51s-new-rigging-tool-is-insane.md) — builds directly on a Rigify-rigged character (golem), extending it with Geometry Nodes-driven procedural deformers via the Bone Info node.
+- [Mastering Blender's Graph Editor](mastering-blenders-graph-editor.md) — the natural next step after rigging: animating and refining motion on the controls generated here via F-curves and interpolation.
+- [Create a Walk Cycle animation in Blender](create-a-walk-cycle-animation-in-blender.md) — uses a Rigify-style mannequin rig's IK/FK and foot-roll controls (as explained here) to block a full walk cycle.
+- [Your Guide to Mechanical Rigging in Blender (Robot Arm Tutorial)](your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial.md) — contrasting IK rigging approach (manual bone-chain constraints) for hard-surface/mechanical rigs vs. this video's Rigify auto-rig workflow for organic characters.
+- [The COMPLETE BLENDER 3D Animation COURSE](the-complete-blender-3d-animation-course-5-hours-blender-b3d-animation.md) — covers armature rigging and IK constraints as part of a full beginner animation pipeline, complementary to this focused Rigify walkthrough.
