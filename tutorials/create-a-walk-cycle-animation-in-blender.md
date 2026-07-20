@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=SLh3hUIxv1s
 author: Pierrick Picaut
 ingested: 2026-07-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.x"
+tags: [animation, rigging, organic, beginner, intermediate, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/create-a-walk-cycle-animation-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Create a Walk Cycle animation in Blender
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py create-a-walk-cycle-animation-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### intro [0:00]
@@ -340,30 +336,65 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:10] tutorials/frames/create-a-walk-cycle-animation-in-blender/frame_000.jpg
+- [3:25] tutorials/frames/create-a-walk-cycle-animation-in-blender/frame_001.jpg
+- [4:45] tutorials/frames/create-a-walk-cycle-animation-in-blender/frame_002.jpg
+- [6:20] tutorials/frames/create-a-walk-cycle-animation-in-blender/frame_003.jpg
+- [9:05] tutorials/frames/create-a-walk-cycle-animation-in-blender/frame_004.jpg
+- [12:30] tutorials/frames/create-a-walk-cycle-animation-in-blender/frame_005.jpg
+- [15:00] tutorials/frames/create-a-walk-cycle-animation-in-blender/frame_006.jpg
+- [17:30] tutorials/frames/create-a-walk-cycle-animation-in-blender/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Pose-to-pose walk-cycle blocking on a rigged character using four contrapposto key poses (Contact, Down, Passing, Up) and the Pose Breakdowner tool, with no graph editor refinement.
 
 ### Summary
-[PENDING EXTRACTION]
+A beginner-friendly walk-cycle exercise built entirely in Pose Mode on a free rigged mannequin (P2M_Regular_Rig): the character is linked in via the Asset Browser, then four key poses are blocked at 24fps (Contact 1/13/25, Down 4/16, Passing 7/19, Up/Push 10/22) using copy/mirror-paste and the Breakdowner, followed by a small polish pass on foot rotation. The goal is a convincing blocked walk without touching the Graph Editor, focusing on contrapposto hip/chest twist, arm drag, and grounded-foot placement.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Link the free P2M mannequin rig via the Asset Browser: Edit > Preferences > File Paths > Asset Libraries, add the unzipped rig folder, then drag-drop the rig into the scene with Import Settings set to Link.
+2. Right-click the linked collection > Library Override > Make Selected and Content to expose the rig for posing.
+3. Enter Pose Mode (Ctrl+Tab), open the Pose Library from the Asset Browser's corner arrow, filter to the character's own pose set, and apply hand poses by left-click (Ctrl+left-click applies the mirrored pose to the opposite hand).
+4. Switch the Timeline to the Action Editor, create a new Action + slot, set the end frame to 24 (Ctrl+E, assuming 24fps for a 1-second cycle), enable View > Playback Controls, and turn on Edit > Preferences > Animation > Only Insert Available to avoid stray channels.
+5. Open the linked Rig UI script in the Text Editor and run it to expose the custom rig control panel; select any bone and press K > Whole Character to key all available transform channels + custom properties.
+6. Block the Contact pose (frame 1): heel-down front foot / raised-toe back foot, lowered center of gravity to spread the legs, hips twisted one way and chest the opposite way (contrapposto), arms at maximum extension, torso pushed forward (not side-to-side) via the center-of-gravity/torso controller.
+7. Select all controllers, Shift+D to duplicate the pose to frame 13, Ctrl+C copy pose / Ctrl+Shift+V paste mirrored, set interpolation to Constant (T > Constant), then duplicate again to frame 25.
+8. Block the Passing pose (frame 7): flatten and center the front foot under the body, shift weight onto the supporting leg, clear hip/torso rotation with Alt+R, bring the rear foot forward and low, let the arms drag slightly as they cross the body; copy + mirror-paste 12 frames later.
+9. Use the Pose Breakdowner (select controllers > Shift+E, move the mouse to blend toward the neighboring pose) to place the Up pose (frame 10 — character at its highest, heel raised, cog pushed sideways) and the Down pose (frame 4 — character at its lowest, weight fully absorbed on the front foot); mirror-paste each 12 frames later.
+10. Color-code each pose's keyframes (select keys > R) for readability, and finish with a foot-rotation polish pass: swing/twist the foot slightly on the Passing pose, then rotate it outward on heel-strike (Contact) and straighten as it flattens (Down) — always driving rotation from the heel controller, never the foot controller, to keep the rig simple to edit.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+Not a shader/geometry-nodes tutorial — pure rig/keyframe animation. Key settings and tools used:
+- Action Editor (isolated from Dope Sheet) for the "Walk_Cycle" action
+- Edit > Preferences > Animation > Only Insert Available (enabled)
+- Auto Keying enabled throughout posing
+- Keyframe interpolation: Constant (T > Constant) between all key poses
+- Pose Breakdowner: Shift+E, mouse-drag to blend between neighboring poses
+- Whole Character keying: K > Whole Character
+- Mirrored pose paste: Ctrl+C (copy pose) / Ctrl+Shift+V (paste pose flipped)
+- 5 keyframes per 24-frame cycle at 24fps: Contact (1/13/25), Down (4/16), Passing (7/19), Up/Push (10/22)
+- Motion Paths (Object > Motion Paths > Calculate, Range = Scene Frame Range) used to review the root/foot trajectory
+- Rig: free P2M_Regular_Rig mannequin (P2Design "P2M Library 5x"), linked via Asset Browser + Library Override
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner (explicitly framed as a beginner exercise to practice key poses without the Graph Editor)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.x (creator states "a new version of Blender just released today")
 
 ### Tags
-[PENDING EXTRACTION]
+animation, rigging, organic, beginner, intermediate, blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Easy Rigging Using RIGIFY in Blender](easy-rigging-using-rigify-in-blender.md) — shares rigging, animation, beginner, intermediate
+- [Mastering Blender's Graph Editor](mastering-blenders-graph-editor.md) — shares animation, rigging, beginner, intermediate (natural next step once this blocked cycle needs curve refinement)
+- [Everything New in Blender 5.2 LTS](everything-new-in-blender-52-lts.md) — shares blender-5x, rigging, animation
+- [How to Quickly Create Clothing using Blender and Marvelous Designer](how-to-quickly-create-clothing-using-blender-and-marvelous-designer.md) — shares organic, animation, intermediate
