@@ -1168,6 +1168,16 @@ Each entry format:
 - **Summary:** Pure-Blender audio-reactive motion graphics with no add-ons: bakes 3 frequency bands (bass/mid/high) of a music track to F-Curves via the Graph Editor, then drives three Geometry Nodes systems from the baked values — bass-triggered bubbles that spawn and shrink inside a Simulation Zone, mid-range particles emitted along surface normals whose velocity scales with volume, and random high-frequency "laser" line bursts gated by a threshold. Includes cartoon-cloud bubble shading (Layer Weight + Color Ramp) and age-based particle emission color.
 - **File:** tutorials/blender-sound-reactive-geometry-nodes-tutorial-how-to-audio-music-simulation-mog.md
 
+
+### How to Quickly Create Clothing using Blender and Marvelous Designer
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=Rp1G9mIBskI
+- **Author:** Martin Klekner
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-quickly-create-clothing-using-blender-and-marvelous-designer.md
+
 ---
 
 ## Tag Reference
