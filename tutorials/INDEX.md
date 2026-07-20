@@ -1153,9 +1153,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=5epzCprCdGc
 - **Author:** Jesse J. Jones
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 3.6
+- **Tags:** #animation #camera #motion-design #beginner #blender-3x
+- **Summary:** End-to-end beginner Grease Pencil 2D animation workflow: drawing tools and Draw/Object/Edit/Sculpt modes, a bouncing-ball exercise using Auto Keying with keyframe duplicate/reverse/retime tricks (Shift+D, S -1, S 2 for ones-vs-twos), Fill tool coloring (Multi Frame + Inverted Fill, Holdout materials), masked-layer cel shading, background image planes with camera parallax animation, and audio-driven lip sync with a mouth-shape reference chart.
 - **File:** tutorials/blender-2d-animation-tutorial-for-beginners-grease-pencil-tutorial.md
 
 ---

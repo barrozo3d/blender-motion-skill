@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=5epzCprCdGc
 author: Jesse J. Jones
 ingested: 2026-07-20
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "3.6"
+tags: [animation, camera, motion-design, beginner, blender-3x]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-2d-animation-tutorial-for-beginners-grease-pencil-tutorial/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender 2D Animation Tutorial for Beginners (Grease Pencil Tutorial)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-2d-animation-tutorial-for-beginners-grease-pencil-tutorial <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -835,30 +831,65 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [3:57] tutorials/frames/blender-2d-animation-tutorial-for-beginners-grease-pencil-tutorial/frame_000.jpg
+- [7:56] tutorials/frames/blender-2d-animation-tutorial-for-beginners-grease-pencil-tutorial/frame_001.jpg
+- [13:08] tutorials/frames/blender-2d-animation-tutorial-for-beginners-grease-pencil-tutorial/frame_002.jpg
+- [17:03] tutorials/frames/blender-2d-animation-tutorial-for-beginners-grease-pencil-tutorial/frame_003.jpg
+- [19:07] tutorials/frames/blender-2d-animation-tutorial-for-beginners-grease-pencil-tutorial/frame_004.jpg
+- [25:55] tutorials/frames/blender-2d-animation-tutorial-for-beginners-grease-pencil-tutorial/frame_005.jpg
+- [31:39] tutorials/frames/blender-2d-animation-tutorial-for-beginners-grease-pencil-tutorial/frame_006.jpg
+- [44:58] tutorials/frames/blender-2d-animation-tutorial-for-beginners-grease-pencil-tutorial/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Complete beginner-level 2D animation workflow inside Blender using Grease Pencil: drawing, frame-by-frame keyframe animation with auto-keying, coloring/fills, cel shading with masked layers, background/camera integration, and audio-driven lip sync.
 
 ### Summary
-[PENDING EXTRACTION]
+Jesse J. Jones walks through Blender 3.6's Grease Pencil 2D animation mode end-to-end: navigating and drawing with pressure-sensitive brushes and geometry tools, understanding Draw/Object/Edit/Sculpt modes (each with different manipulation capabilities), animating a classic bouncing-ball exercise using Auto Keying plus keyframe duplication/scaling tricks (Shift+D to duplicate keys, S then -1 to reverse them, S then 2 to convert "ones" to "twos" timing), filling shapes with the paint bucket (including Multi Frame + Inverted Fill to color an entire animation at once, and Holdout materials for punching transparent holes), adding a masked shadow layer for simple cel-style shading, importing a background image plane and animating the camera for parallax, and finally importing audio to hand-animate lip sync using a mouth-shape reference chart plus copy/paste of drawn mouth-shape keyframes.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Start a 2D scene**: from Blender's splash screen click "2D Animation" (or File > New > 2D Animation) to get a pre-configured 2D workspace; recommended preference: set Spacebar to "Search" during first-run setup.
+2. **Navigate without leaving 2D**: mouse users orbit with middle-mouse-drag (Numpad 0 or the camera icon resets to the flat 2D view), Ctrl+MMB-drag zooms, Shift+MMB-drag pans; tablet users without a middle-mouse button enable "Emulate 3 Button Mouse" in Edit > Preferences > Input, then navigate with Alt-drag (orbit), Alt+Shift-drag (pan), Alt+Ctrl-drag (zoom).
+3. **Draw**: the default Pencil tool supports pressure sensitivity (toggle in the tool header) and Strength (opacity, also pressure-mappable); switch brushes via the icon next to the brush name (e.g. "Rough Pencil" for a jagged, brush-pen look); F resizes the brush live. Geometry tools (Line, Circle, etc.) leave editable yellow control points until confirmed with Enter or middle-mouse; hold Shift while drawing a circle to constrain it to a perfect circle.
+4. **Learn the four modes**: Draw Mode is for drawing only (no selection/move tools); Object Mode moves/rotates/scales an entire Grease Pencil object (G/R/S, same hotkeys as 3D) — note rotating on X or Z actually tips the flat drawing into 3D space, which is usually undesired for 2D work; Edit Mode (Point or Stroke sub-mode) transforms individual points or whole strokes; Sculpt Mode's Push brush nudges stroke lines into place without redrawing.
+5. **Animate the bouncing ball**: draw a circle on frame 1, set a short End frame (e.g. 20) in the timeline range fields, enable Auto Keying (the record-circle icon) so every draw/edit on a new frame auto-inserts a keyframe; onion skinning (configurable count and red/green before/after colors under the Grease Pencil "wrench" panel) shows neighboring frames while drawing. Later frames can be created either by drawing a fresh shape or by switching to Edit Mode and transforming (G/R/S) the existing stroke — both methods insert a new key with Auto Keying on.
+6. **Manipulate keyframes like 3D keyframes**: select keys in the Dope Sheet and press X > Delete Keyframes to remove unwanted ones (e.g. stray Fill-layer keys); Shift+D duplicates selected keyframes; the same G/R/S hotkeys apply to keyframe blocks — press S then type -1 and Enter to mirror a duplicated key sequence into reverse order (reused for the ball's up-bounce), or S then 2 to double the spacing between keys (convert animation from "on ones" to the traditional "on twos" for a more natural feel).
+7. **Color with the Fill tool**: keep line art and fills on separate Grease Pencil layers; disable "Visual Aids" under the Fill tool's Brush Settings > Advanced so a single click fills instead of requiring a confirm click; create new materials via the Material Properties ("beach ball") tab (+, then the "New" button) and set the material Type to Fill (Solid/Gradient/Texture style) or Stroke; to color every frame of an animation at once, enable Multi Frame, select all frames, switch to Inverted Fill (the minus icon) and click outside the shape rather than inside it.
+8. **Handle holes with Holdout**: filling a donut-like shape normally fills its holes too; create a new Fill material with the "Holdout" option enabled and paint over the hole with it to punch a true transparent cutout.
+9. **Add cel shading**: add a new layer (e.g. "Shadow") within the same Grease Pencil object; duplicate an existing color via the material-picker "beach ball" icon then click the copy/duplicate icon to detach it into its own independent material (so editing the shadow color doesn't affect the base fill color); draw shadow shapes with the Fill/Pencil tool (drawing with a Fill-type material acts like a lasso); in Layer Properties, disable "Use Lights" on every layer (2D work shouldn't be affected by scene lights) and enable Mask on the shadow layer, adding the Fills layer as the mask source so the shadow never draws outside the character silhouette.
+10. **Global edits via 3D Cursor pivot**: turn on the 3D Cursor overlay, Shift+Right-Click to place it at a custom pivot point, then set the Transform Pivot Point dropdown to "3D Cursor" so Move/Rotate/Scale operate from that point instead of the default Median Point; Shift+S > Cursor to World Origin resets it. To flip a drawing horizontally without inverting it globally, use S, X, -1, Enter (scale -1 specifically on the X/red axis) rather than a plain S -1.
+11. **Backgrounds and camera**: enable the "Import Images as Planes" add-on (Edit > Preferences > Add-ons), then File > Import > Images as Planes to bring in a background plate as a 3D plane you can push back in depth (G, Y) for parallax when the camera moves; animate any object (camera, background, character) the same way — open the N-panel Transform properties, right-click a value (e.g. Location) and "Insert Keyframe" on frame 1, move the playhead, then either enable Auto Keying and adjust the value, or manually insert another keyframe.
+12. **Multiple Grease Pencil objects**: for scenes with more than one character, exit Draw Mode to Object Mode, Shift+A > Grease Pencil > Blank to add a second empty Grease Pencil object (avoids the extra cleanup of the default "Stroke" preset), then build its own Lines/Fills layer set manually.
+13. **Lip sync workflow**: switch the Dope Sheet editor to the Video Sequencer (top-left editor-type dropdown), Add > Sound to import an audio file as a sound strip; enable "Audio Scrubbing" under the Playback dropdown so dragging the playhead plays back audio at that position; using a mouth-shape reference chart (Closed/M/B, S/Slightly Open, E, Ah, R/In-btwn/Oo, Oh, F, D/L), scrub through the dialogue and draw a new mouth shape on a dedicated Mouth layer at each phoneme change (Ctrl+C/Ctrl+V to reuse a drawn mouth shape); as a polish pass, select all lip-sync keyframes and nudge them 1-2 frames earlier so the mouth shape reads slightly ahead of the audio.
+14. **Export**: Output Properties (printer icon) > pick an output folder, set File Format to FFmpeg Video, Encoding > Container to MPEG-4 for an MP4, and (for lip sync scenes) set Audio Codec to something other than "No Audio" (e.g. MP3); Render > Render Animation to export the final video.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Workspace**: "2D Animation" template (from splash screen or File > New) sets up an orthographic 2D-friendly viewport, a Grease Pencil object named "Stroke" with Lines/Fills layers, and a Dope Sheet timeline.
+- **Tool header (Draw Mode)**: Pencil tool with Pressure toggle, Strength slider (with its own pressure toggle), Radius; brush picker (Pencil, Rough Pencil, Fill Area/paint bucket, Eraser [Soft/Hard/Point/Stroke modes], Line/Circle/Arc geometry tools, Cutter/Scissors for trimming overlapping strokes).
+- **Fill tool > Tool Settings > Advanced**: "Visual Aids" toggle (off = single-click fill); Multi Frame toggle + Inverted Fill (+/- icon) for batch-coloring a whole animation's frames at once.
+- **Material Properties ("beach ball" tab)**: per-material Type (Stroke vs. Fill), Style (Solid/Gradient/Texture), Base Color, and a Holdout checkbox for transparency cutouts; duplicate-then-"unlink" (copy icon) to branch a color into an independent material.
+- **Layer Properties panel** (per Grease Pencil layer): Blend Mode (Regular/Multiply/Add, etc.), "Use Lights" toggle (disable for flat 2D shading), Mask section (checkbox + "+layer" list) to clip one layer's drawing to another layer's fill silhouette; onion-skin visibility toggle per layer.
+- **Overlays dropdown**: 3D Cursor visibility toggle; Transform Pivot Point dropdown (Median Point / 3D Cursor / Individual Origins, etc.) controls the pivot used by Move/Rotate/Scale.
+- **N-panel (Transform)**: per-object Location/Rotation/Scale fields; right-click > Insert Keyframe; values turn yellow (keyframed on current frame) or green (interpolated/tweened) in the field background.
+- **Video Sequencer editor**: Add > Sound (imports an audio strip); Playback dropdown > Audio Scrubbing checkbox.
+- **Output Properties**: File Format = FFmpeg Video; Encoding > Container = MPEG-4; Encoding > Audio Codec (set away from "No Audio" for lip-sync exports).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 3.6
 
 ### Tags
-[PENDING EXTRACTION]
+animation, camera, motion-design, beginner, blender-3x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Mastering Blender's Graph Editor](mastering-blenders-graph-editor.md) — deeper dive into keyframe interpolation and easing that complements the Dope Sheet-level keyframe techniques (duplicate, scale, reverse) taught here for 2D animation.
+- [The COMPLETE BLENDER 3D Animation COURSE (5+ HOURS)](the-complete-blender-3d-animation-course-5-hours-blender-b3d-animation.md) — a 3D-focused beginner animation course covering the same foundational keyframing/Auto Keying concepts (bouncing ball, timing) applied to armature-rigged characters instead of Grease Pencil strokes.
