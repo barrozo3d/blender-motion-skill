@@ -1047,6 +1047,16 @@ Each entry format:
 - **Summary:** Five advanced lighting tricks from client work: image textures inside light sources via Use Nodes (phone photos of refracted light, fake water caustics; radius blurs the pattern), gobo planes with noise/image alpha masks parented to lights, reliable god rays (small-radius hard light + complex shadow caster + volume scatter cube at density 0.02–0.3), fake bounce lights (large radius, ~100W, color-matched, placed where bounce already exists, Ray Visibility volume scatter off), and Light Falloff → Color Ramp for distance-based color gradients (red near → blue far).
 - **File:** tutorials/5-lighting-secrets-in-blender.md
 
+
+### Create a Walk Cycle animation in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=SLh3hUIxv1s
+- **Author:** Pierrick Picaut
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/create-a-walk-cycle-animation-in-blender.md
+
 ---
 
 ## Tag Reference
