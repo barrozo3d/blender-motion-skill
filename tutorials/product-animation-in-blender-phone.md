@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=lZPedlX6CMw
 author: Derek Elliott
 ingested: 2026-07-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 2.8"
+tags: [materials, shaders, glass, metal, eevee, lighting, animation, camera, product-viz, brand-video, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/product-animation-in-blender-phone/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Product Animation in Blender: Phone
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py product-animation-in-blender-phone <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -927,30 +923,60 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [3:40] tutorials/frames/product-animation-in-blender-phone/frame_000.jpg
+- [9:00] tutorials/frames/product-animation-in-blender-phone/frame_001.jpg
+- [13:20] tutorials/frames/product-animation-in-blender-phone/frame_002.jpg
+- [16:20] tutorials/frames/product-animation-in-blender-phone/frame_003.jpg
+- [18:10] tutorials/frames/product-animation-in-blender-phone/frame_004.jpg
+- [26:10] tutorials/frames/product-animation-in-blender-phone/frame_005.jpg
+- [32:20] tutorials/frames/product-animation-in-blender-phone/frame_006.jpg
+- [48:15] tutorials/frames/product-animation-in-blender-phone/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Full EEVEE product-commercial pipeline for a phone: Boolean-based hard-surface modeling, PBR/glass/emission materials, manual studio-style lighting (no HDRI), and beat-synced keyframe animation across seven short looping scenes.
 
 ### Summary
-[PENDING EXTRACTION]
+A long-form, full-pipeline product-animation walkthrough: models a stylized phone from the default cube using Bevel + Solidify + Boolean cutouts (frame_000–frame_003 confirm the bevel-modifier rounded shape, port cutouts, and headphone jack), materials it with a metallic body, glass camera lenses, and an emission screen playing a live video texture, lights it manually with one Point Light plus several Area Lights against a seamless backdrop instead of an HDRI, then builds and breaks down seven short beat-driven scenes — a basic pan, a shape-key button press, an exploded camera-cluster reveal, a two-color reveal, a black-background float, a double-floating shot, and a multicolor color-swap finale — all rendered in EEVEE and synced to an audio track's waveform in the Video Sequencer.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Model the phone body from the default cube: scale it to 0 and Merge by Distance to get a flat plane, add a Bevel modifier (Only Vertices, ~10–11 segments) for rounded corners, a Solidify modifier for thickness, and a second Bevel modifier (Limit Method) for the outer edge chamfer (frame_000 shows this exact rounded-rectangle result with the Bevel modifier panel open).
+2. Cut ports, buttons, and a headphone jack into the body: duplicate the beveled plane (modifiers still active, not applied) into rough port/button shapes, move a copy set into a "trash" collection, apply the modifiers on those cutter copies, Merge by Distance to clean up bevel-intersection duplicate vertices, then add a Boolean modifier (Difference, eyedropper-picked target object, Bounds viewport display for clarity) on the phone body to carve the shapes in (frame_001 and frame_003 show the resulting port cutouts and headphone-jack slot on the beveled body).
+3. Detail the cut holes with Inset (I) + Extrude (E) + a small Bevel to make raised or recessed buttons, and enable Shade Auto Smooth to keep edges crisp without adding geometry.
+4. Build the camera cluster on the back: snap the 3D cursor to a face (Shift+S), add a circle, extrude inward then up and bevel for each lens housing, add edge loops so pulling the lens rings out stays straight, then Fill (F) + Inset + Extrude to seat each lens flush; duplicate an outer ring and Separate (P) it to become the cluster's cover glass.
+5. Material pass in Look Dev / automatic-HDRI mode: rename the default material (e.g. "PhoneBody"), give it a metallic base color; add a black material for interior camera housings (Roughness 1); add a glass "Lens" material (low roughness, Transmission = 1, Blend Mode = Alpha Blend/Alpha Hashed, Settings > Shadow off in EEVEE — frame_004 shows this glossy blue lens material with its color/roughness panel); add a "Glass" material for the cluster cover lens; add a "Screen" material using an Emission shader fed by a movie-clip Image Texture (UV-unwrap the screen face with Smart UV Project, set the clip's frame count, enable Auto Refresh so it plays back live in the viewport — noted as Blender 2.8-era functionality).
+6. Set up manual studio lighting instead of an HDRI: zero out World strength, add a seamless backdrop plane (shaded smooth, near-white ~0.9 roughness material), place one Point Light near its edge for both key illumination and a rim-light edge highlight, then add several Area Lights (Disc shape) around the object — duplicating/rotating per shot — tuning size/power per light until every face reads without pure-black or blown-out spots; adjust the camera's Focal Length (~80mm) to flatten perspective distortion (frame_005 shows the shiny phone front with composition-guide grid overlay under this lighting setup; frame_006 shows the camera object and its Focal Length/Depth of Field properties panel).
+7. Animate a beat-synced loop: derive frames-per-beat from the track's BPM at a fixed frame rate (30 fps → 68 frames/beat for most scenes), key start/end rotation/location, then set interpolation to Linear for steady pans or Bezier→Quadratic + Ctrl+E Ease Out for a fast "snap-into-place" beat hit — reused across all seven scene variants.
+8. Add camera Depth of Field: enable DOF on the camera, create and name an Empty ("focus") as the Focus Object, animate the Empty's location with Linear interpolation alongside the camera move, and dial the f-stop back from an extreme test value to a subtler one (~4).
+9. Shape-key micro-animation (Animation 2): add a Shape Key (Basis), add a second key, in that key select the button face (Ctrl+Numpad+ to grow the selection) and move it (G, Z), then key the shape key's Value slider (0 → 1) on the beat for a snappy button-press pop (frame_007 shows this exact Shape Keys panel — Basis/Key 1, Range, Interpolation, Vertex Group — alongside the Video Sequencer's audio waveform used to time the beat).
+10. Exploded camera-cluster shot (Animation 3): separate the joined mesh into individual island pieces (Edit Mode, L to select linked, P to separate by selection), parent all pieces to the main phone object (Ctrl+P, Keep Transform) so rotation stays correct, then animate each piece's local Y/Z location from an exploded start position back to a Quadratic-eased settled end position. For beat-exact syncing on later scenes, add the audio file in the Video Sequencer (Add > Sound), enable View > Waveform, and place keyframes directly on the waveform peaks. For the finale color-swap scene, keyframe material values directly — two switched RGB input nodes for the floor color, and a Mix Shader blended between two metallic color variants for the phone body — so everything snaps to a new color on the beat.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Modeling: Bevel (Only Vertices; separate Bevel w/ Limit Method + bevel weight for hard-surface edges), Solidify, Boolean (Difference, Bounds display mode), Shade Auto Smooth
+- Materials: Principled BSDF variants — "PhoneBody" (metallic), black interior (Roughness 1), "Lens" (low roughness, Transmission 1, Blend Mode Alpha Hashed/Blend), "Glass" (cluster cover), "Screen" (Emission + Image Texture / movie clip with Auto Refresh, UV via Smart UV Project)
+- Color-swap finale: two RGB input nodes switched (floor), Mix Shader between metallic color variants (phone body), both driven by keyframed node values
+- Lighting: World strength = 0; 1 Point Light (key + rim); several Area Lights (Disc shape, size/power tuned per shot); backdrop plane ~0.9 roughness
+- Camera: Focal Length ~80mm to flatten perspective; Depth of Field with a named Empty ("focus") as Focus Object; f-stop dialed to ~4
+- Animation: 30 fps, ~68 frames per beat-driven scene; interpolation Linear (steady pans) or Quadratic + Ease Out (snap beats); Shape Keys (Basis + posed key, keyed Value) for the button press; Ctrl+P Keep Transform parenting for exploded-view pieces
+- Audio sync: Video Sequencer, Add > Sound, View > Waveform enabled to read peaks for keyframe placement
+- Render: EEVEE with Bloom, Screen Space Reflections, and Soft Shadows enabled; output via FFmpeg/QuickTime at Perceptually Lossless quality
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate/Advanced (assumes comfort with modeling, materials, and keyframe animation; covers a full 75-minute production pipeline with many EEVEE-specific settings)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 2.8 (creator explicitly names it while demoing live video-texture playback in the viewport)
 
 ### Tags
-[PENDING EXTRACTION]
+materials, shaders, glass, metal, eevee, lighting, animation, camera, product-viz, brand-video, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Realistic Product Lighting In Blender](realistic-product-lighting-in-blender.md) — shares lighting, product-viz, materials, glass, brand-video, intermediate
+- [Credit Card Texture and Animation SaaS FinTech [PART-1]](credit-card-texture-and-animation-saas-fintech-part-1-blende.md) — shares materials, shaders, animation, product-viz, brand-video

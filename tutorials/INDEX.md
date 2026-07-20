@@ -1113,9 +1113,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=lZPedlX6CMw
 - **Author:** Derek Elliott
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 2.8
+- **Tags:** materials, shaders, glass, metal, eevee, lighting, animation, camera, product-viz, brand-video, intermediate
+- **Summary:** Full 75-minute EEVEE product-commercial pipeline: Boolean-based hard-surface phone modeling (Bevel + Solidify + cutout Booleans), metallic/glass/emission materials (including a live video texture on the screen), manual studio lighting (Point Light + Area Lights, no HDRI), and beat-synced keyframe animation across 7 scenes — a basic pan, a shape-key button press, an exploded camera-cluster reveal, a two-color reveal, a black-background float, a double-float, and an audio-waveform-synced multicolor finale.
 - **File:** tutorials/product-animation-in-blender-phone.md
 
 
