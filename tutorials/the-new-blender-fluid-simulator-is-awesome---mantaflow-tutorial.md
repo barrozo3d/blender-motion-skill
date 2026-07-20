@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=JYc_6fXEjw4
 author: CG Geek
 ingested: 2026-07-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 2.83 Alpha"
+tags: [fluid, simulation, particles, materials, shaders, glass, rendering, cycles, hdri, compositing, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/the-new-blender-fluid-simulator-is-awesome---mantaflow-tutorial/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # the New Blender Fluid Simulator is AWESOME - MantaFlow Tutorial
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py the-new-blender-fluid-simulator-is-awesome---mantaflow-tutorial <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -423,30 +419,64 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:47] tutorials/frames/the-new-blender-fluid-simulator-is-awesome---mantaflow-tutorial/frame_000.jpg
+- [2:45] tutorials/frames/the-new-blender-fluid-simulator-is-awesome---mantaflow-tutorial/frame_001.jpg
+- [5:10] tutorials/frames/the-new-blender-fluid-simulator-is-awesome---mantaflow-tutorial/frame_002.jpg
+- [6:35] tutorials/frames/the-new-blender-fluid-simulator-is-awesome---mantaflow-tutorial/frame_003.jpg
+- [9:15] tutorials/frames/the-new-blender-fluid-simulator-is-awesome---mantaflow-tutorial/frame_004.jpg
+- [12:10] tutorials/frames/the-new-blender-fluid-simulator-is-awesome---mantaflow-tutorial/frame_005.jpg
+- [14:05] tutorials/frames/the-new-blender-fluid-simulator-is-awesome---mantaflow-tutorial/frame_006.jpg
+- [17:35] tutorials/frames/the-new-blender-fluid-simulator-is-awesome---mantaflow-tutorial/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Full MantaFlow liquid-simulation pipeline: FLIP-based Domain/Flow/Effector setup, three-stage baking (Fluid → Mesh → Particles), and a from-scratch Cycles glass shader with icosphere-instanced foam/bubble particles and Vector Blur motion blur.
 
 ### Summary
-[PENDING EXTRACTION]
+Introduces Blender's then-new MantaFlow fluid/smoke simulator (Blender 2.82+, demoed on 2.83 Alpha): builds a Liquid Domain cube, a keyframed Inflow UV sphere, and collision Effector cubes, tunes Resolution/Time Scale/Time Steps, previews the sim live via the Replay cache mode, then bakes in three stages (Fluid → Mesh with Up Res Factor + Use Speed Vectors → Particles with Spray/Foam/Bubbles). Finishes with a Cycles glass-shader material lit by an HDRI, Transparent Glass film settings, icosphere-instanced foam/bubble particles with per-particle random-opacity variation and a randomized "Splash" collection to hide MantaFlow's particle grid-pattern bug, camera depth of field, and a Vector Blur compositing node for fluid motion blur.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Scale up the default cube (S, 3) and flatten it slightly on Z to shape the fluid Domain; add a UV sphere, scale it down, and lift it (G, Z) so it sits at the top edge of the domain as the fluid source; add a few extra cubes near the bottom as collision obstacles (frame_000 shows this domain cube + obstacle-cube layout).
+2. In the Physics tab, set the obstacle cubes' Fluid type to Effector (defaults to Collision, no changes needed); set the UV sphere's Fluid type to Flow, Flow Type = Liquid, Flow Behavior = Inflow (frame_001 confirms the Fluid Type dropdown: None / Flow / Domain / Effector).
+3. To stop the inflow adding fluid for the whole timeline, hover over Use Inflow at a chosen frame (e.g. 40), press I to keyframe it on, step forward one frame, uncheck it, and press I again to keyframe it off.
+4. Set the cube's Fluid type to Domain, Domain Type = Liquid (defaults to Gas/smoke — change it). Domain settings: Resolution Divisions 64 (raise for the final bake), Time Scale ≈ 0.5 (default felt too fast at 24fps), Time Steps Minimum raised to 2 for better accuracy on fast-moving fluid, Border Collisions per side, and under Liquid: Simulation Method FLIP, FLIP Ratio 0.970, Particle Radius 1.0 (frame_002 confirms these exact Domain/Liquid panel fields and values).
+5. Under Cache, switch Type from Modular to Replay (frame_003 shows this Modular/Replay/Final dropdown) to scrub a live, low-res preview of the simulation directly in the viewport; tune the inflow object's scale/keyframes until the fluid volume looks right, then switch Cache Type back to Module/Final before baking. Raise the cache End frame (default only bakes 50 frames) as needed, then click Bake — MantaFlow bakes are resumable (click Resume after an interrupted bake) and multi-threaded across CPU cores.
+6. Bake the Mesh stage: enable Mesh, set an Up Res Factor (e.g. 2) for a higher apparent resolution than the base division count, enable Use Speed Vectors (needed later for compositing-based motion blur, since Cycles' native motion blur is extremely slow on fluid meshes), then Bake Mesh.
+7. Bake the Particles stage: enable Spray, Foam, and Bubbles (frame_004 shows this Particles panel — Spray/Foam/Bubbles tabs — on an already-baked foamy splash mesh), leave most fine-tuning fields at default, optionally raise the Up Res Factor for higher-quality particles, then Bake Particles. For the final bake, raise Domain Resolution Divisions to 128+ (200–256 for higher quality if hardware allows) — particle count/resolution scales automatically with domain resolution.
+8. Shade the fluid mesh smooth, then build its material in the Shader Editor: delete the default Principled BSDF, add a Glass BSDF with IOR 1.333, and switch the render engine to Cycles (frame_005 shows the shader graph mid-setup; frame_006 confirms Cycles + GPU Compute render settings). Light the scene with a World Environment Texture HDRI (a colorful studio HDRI from HDRI Haven was used).
+9. In Render Properties > Film, enable Transparent, then enable Transparent Glass (a 2.83-Alpha-era feature at the time) so the water reads as clear fluid rather than heavily reflecting the environment; confirmed field: Transparent Glass Roughness Threshold = 0.1 (frame_006).
+10. Render the particles as low-poly Icospheres (1 subdivision): for foam, build a Diffuse + Glass (IOR 1.333) Add Shader mix with the diffuse color value dropped to ~0.5; for bubbles, duplicate that icosphere/material, keep only the Glass shader, and tint it slightly blue/brighter. Assign the Spray/Foam/Bubble particle systems to render as these objects. Work around MantaFlow's particle grid-pattern bug by duplicating the icosphere several times with varied rotation/scale, grouping them (Ctrl+G) into a collection (e.g. "Splash"), then setting the particle system's Render As = Collection with Pick Random enabled. Add extra per-particle opacity variation via a Mix Shader + Transparent BSDF driven by an Object Info node's Random output into the Factor. Finish with camera Depth of Field (Limits display, focus distance set to the fluid's center) and, in Compositing, a Vector Blur node (Image + Z/Depth + Speed inputs from the Vector render pass) with Blur Factor lowered to ~0.15, Curved enabled, and Max Speed ≈ 256 to control fluid motion blur (frame_007 shows the final rendered splash with the inflow sphere and obstacle cubes).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Domain (Liquid): Resolution Divisions 64 → 128+ for final bake; Time Scale ≈ 0.5; Time Steps Minimum = 2; Simulation Method FLIP; FLIP Ratio 0.970; Particle Radius 1.0
+- Cache: Type Modular / Replay (live viewport preview) / Final; End frame raised beyond the 50-frame default as needed; resumable, multi-threaded bakes
+- Mesh bake: Up Res Factor (e.g. 2), Use Speed Vectors enabled
+- Particles bake: Spray, Foam, Bubbles enabled; optional higher Up Res Factor for particle quality
+- Fluid material: Glass BSDF, IOR 1.333, Cycles render engine, World Environment Texture HDRI
+- Render > Film: Transparent + Transparent Glass, Roughness Threshold 0.1
+- Foam/bubble icospheres: 1 subdivision; foam = Diffuse + Glass Add Shader mix (diffuse value ≈ 0.5); bubbles = Glass only (blue-tinted, brighter)
+- Per-particle opacity variation: Mix Shader + Transparent BSDF + Object Info (Random → Factor)
+- Grid-pattern workaround: duplicated icospheres (varied rotation/scale) grouped into a "Splash" collection; particle Render As = Collection + Pick Random
+- Camera: Depth of Field enabled, Limits display, focus distance at the fluid's center
+- Compositing: Vector Blur node (Image/Z/Speed from the Vector render pass), Blur Factor ≈ 0.15, Curved enabled, Max Speed ≈ 256
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 2.83 Alpha (MantaFlow shipped in 2.82; Transparent Glass noted as possibly a 2.83-Alpha-only feature at the time)
 
 ### Tags
-[PENDING EXTRACTION]
+fluid, simulation, particles, materials, shaders, glass, rendering, cycles, hdri, compositing, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Fluid Simulations for Beginners Blender Tutorial (FLIP Fluids)](fluid-simulations-for-beginners-blender-tutorial-flip-fluids.md) — shares fluid, simulation, materials, rendering, cycles, hdri; a direct alternative-add-on comparison to this built-in MantaFlow workflow
+- [I Tested 5 Different Ways to Simulate Water](i-tested-5-different-ways-to-simulate-water.md) — shares fluid, simulation; directly benchmarks Mantaflow against FLIP Fluids and other tools
+- [NeXus for Blender Official Training - Follow Curve](nexus-for-blender-official-training---follow-curve.md) — shares fluid, simulation, particles

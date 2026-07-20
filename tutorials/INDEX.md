@@ -1083,9 +1083,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=JYc_6fXEjw4
 - **Author:** CG Geek
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 2.83 Alpha
+- **Tags:** fluid, simulation, particles, materials, shaders, glass, rendering, cycles, hdri, compositing, intermediate
+- **Summary:** Full built-in MantaFlow liquid pipeline: Domain (Liquid, Resolution 64→128+, FLIP, FLIP Ratio 0.970)/Inflow-sphere/Effector-cube setup, live Replay-cache preview, and three-stage baking (Fluid → Mesh with Speed Vectors → Particles with Spray/Foam/Bubbles). Finishes with a Cycles Glass BSDF fluid material under an HDRI, Transparent Glass film settings, icosphere-instanced foam/bubble particles (randomized "Splash" collection to hide MantaFlow's grid-pattern bug, per-particle opacity via Object Info Random), camera DOF, and a Vector Blur compositing node for fluid motion blur.
 - **File:** tutorials/the-new-blender-fluid-simulator-is-awesome---mantaflow-tutorial.md
 
 
