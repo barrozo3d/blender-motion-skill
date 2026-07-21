@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=mapuLpQNSAw
 author: Pierrick Picaut
 ingested: 2026-07-21
-blender_version: "[PENDING]"
-tags: []
-extraction_status: needs-review
+blender_version: "Not specified (~2020-era Blender 2.8x based on UI)"
+tags: [modelling, hard-surface, procedural, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/blender---full-animated-character-course-for-free-the-gameboy-project-part-01/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 7
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # BLENDER - Full animated character course for Free : THE GAMEBOY PROJECT PART 01
@@ -22,21 +23,7 @@ frame_status: pending-selection
 
 ## Raw Data (for Claude Code extraction)
 
-## Ingest Safeguard Report
-
-_Auto-generated at ingest/frame-capture time — explains why `extraction_status` may be `needs-review`. Safe to delete once reviewed._
-
-- **CRITICAL:** Empty transcript in chapter 'extend the loop slide tool'
-
----
-
-
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender---full-animated-character-course-for-free-the-gameboy-project-part-01 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### <Untitled Chapter 1> [0:00]
@@ -212,30 +199,52 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:22] tutorials/frames/blender---full-animated-character-course-for-free-the-gameboy-project-part-01/frame_000.jpg
+- [4:08] tutorials/frames/blender---full-animated-character-course-for-free-the-gameboy-project-part-01/frame_001.jpg
+- [6:23] tutorials/frames/blender---full-animated-character-course-for-free-the-gameboy-project-part-01/frame_002.jpg
+- [8:24] tutorials/frames/blender---full-animated-character-course-for-free-the-gameboy-project-part-01/frame_003.jpg
+- [10:50] tutorials/frames/blender---full-animated-character-course-for-free-the-gameboy-project-part-01/frame_004.jpg
+- [12:15] tutorials/frames/blender---full-animated-character-course-for-free-the-gameboy-project-part-01/frame_005.jpg
+- [14:24] tutorials/frames/blender---full-animated-character-course-for-free-the-gameboy-project-part-01/frame_006.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Face-loop-driven hard-surface box modeling (inset face + vertex bevel + F2 addon + subdivision modifier with supporting edge loops) applied to a stylized Game Boy handheld case — Part 1 of a free 16-part full character course (modeling → shading → rigging → animation → environment → compositing).
 
 ### Summary
-[PENDING EXTRACTION]
+Pierrick Picaut (P2Design) opens his free "Gameboy Project" course (released during COVID-19 lockdown, pay-what-you-want on Gumroad) by modeling the handheld's case body from a blueprint reference image. Sets up the reference: add an Empty (Image type), load the blueprint PNG, and — since Blender units default to meters while the blueprint is in millimeters — scale precisely (e.g. 0.019 for 19mm) using the Empty's own reference-image scale option so the object itself stays undistorted when moved (Alt+G/R/S resets to the correct proportioned transform). Duplicates and rotates the reference 90° on Y for a second orthographic view. Splits the mesh into working pieces (edit mode, Ctrl+R loop cut, P to separate by selection), then teaches his core hard-surface philosophy: don't box-model with excess loop cuts (destroys curvature control) — instead isolate each panel/shape with **face loops** built via **Inset Face (I)** + deleting the inner face, then **vertex bevel (Ctrl+Shift+B)** at the corners to create rounded corner geometry with an even, controllable segment count. The **F2 addon** (enabled via Preferences) fills selected-edge gaps in one keypress, and **Shift+N** recalculates face normals after heavy extrude/fill work. Once the paneled shape is blocked out, adds a **Subdivision Surface modifier** to smooth it — but explains subdivision surfaces behave like a NURBS/Bézier interpolation between control points, so straight edges need **supporting loop cuts** (via Ctrl+R, then converted to a tight bevel with Ctrl+B) placed near corners to keep faces flat and prevent unwanted curvature/warping. Uses matcap shading (metallic preview) to visually check surface quality. Closes by fitting the recessed LED screen area with the **Snap tool** (vertex snapping, G+Z) and filling the front screen face with **Grid Fill** (Ctrl+F) instead of manual extrude/scale/peel, provided the edge loop has an even vertex count.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Reference setup**: Add → Empty → Image, load the blueprint PNG; since default Blender units (meters) don't match a millimeter blueprint, manually scale to match real-world dimensions (e.g. 0.019 = 19mm) using the Empty's own Image/Reference scale field so the transform stays clean; duplicate + rotate 90° on Y for a second reference view; toggle Solid/X-Ray with Alt+Z to see through the model while aligning it to blueprints.
+2. **Splitting the mesh** [frame_001 4:08 blueprint-view scene] — Edit Mode → Ctrl+R (loop cut) to bisect, select the half to keep, P (Separate → Selection) to split into independent working objects per body panel.
+3. **Face-loop hard-surface technique** [frame_002 6:23; frame_003 8:24] — the core philosophy: avoid uncontrolled box-modeling with excess loop cuts; instead select the shape's border, press **I** (Inset Face) to create an isolating face loop, **X** to delete the now-redundant inner face, then **Ctrl+Shift+B** (vertex bevel) at corners with an even segment count (e.g. 4) to build rounded corners with predictable topology.
+4. **Fast geometry connection**: enable the **F2 addon** (Preferences → Add-ons) — select two vertices, position the 3D cursor, press **F** repeatedly to fill/connect geometry quickly; after heavy extrude/fill passes, select all and press **Shift+N** to recalculate normals (check orientation via the Face Orientation overlay).
+5. **Subdivision + supporting loops** [frame_004 10:50 metallic matcap check; frame_005 12:15 supporting loop cuts] — add a **Subdivision Surface modifier** (viewport level 2) to smooth the blocky mesh; because subdivision interpolates like a NURBS curve between edge-loop "control points," straight panel edges will bow/curve unless protected — add a **supporting loop cut (Ctrl+R)** near each corner, then tighten it into a bevel with **Ctrl+B** so consecutive points stay aligned and the surface reads as flat/straight rather than curved. Use a metallic matcap preview to visually verify surface quality/reflections.
+6. **LED recess placement** — enable **Snapping** (magnet icon, Vertex mode), press G+Z and snap the recess geometry onto an existing screen-edge vertex for exact alignment; extrude/loop-cut the inside of the recess, switch to matcap to verify, then bevel the resulting hard edges.
+7. **Front screen fill** [frame_006 14:24 near-final topology] — instead of manually extrude-scale-peel to cap the screen face, select the (even-vertex-count) boundary edge loop and use **Ctrl+F → Grid Fill** to auto-generate a clean face patch in one step (Pan/Offset options available if the pattern needs adjustment).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Modifiers:** Subdivision Surface (viewport level 2; behaves like NURBS/Bézier interpolation between edge points — needs supporting loop cuts to preserve straight edges).
+- **Add-ons:** F2 (Preferences → Add-ons) — fast face-fill from 2 selected vertices via repeated F presses.
+- **Key shortcuts used:** Ctrl+R (loop cut), P (Separate), I (Inset Face), X (Delete → Face), Ctrl+Shift+B (vertex bevel), Ctrl+B (edge bevel), Shift+N (recalculate normals), Alt+Z (X-Ray toggle), Shift+S → Cursor to Selected, G/Z + Snapping (vertex snap), Ctrl+F → Grid Fill, Alt+G/R/S (reset transform to origin/rotation/scale while keeping visual position via a parent Empty's own scale).
+- **Reference-image workflow:** Empty (Image type) with its own independent Image/Reference scale field, kept separate from the object transform to avoid distorting geometry moved relative to it.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner (explicitly pitched as beginner-friendly; assumes only basic Blender navigation)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified on screen (2020-era tutorial; UI matches Blender 2.8x)
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, hard-surface, procedural, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- Part 2-16 of the same "Gameboy Project" series (not yet ingested in this library beyond Part 1 and Part 5 — see `blender-easy-led-screen-shader-the-gameboy-project-part-05.md`) cover: further hard-surface modeling (Parts 2-3), shading (Part 4), decal shaders (Part 6), rigging (Parts 7-9), walk-cycle animation (Parts 10-12), environment (Parts 13-14), compositing (Final Part), plus a bonus animation-polish video.
+- [Create a Walk Cycle animation in Blender](create-a-walk-cycle-animation-in-blender.md) — same instructor (Pierrick Picaut), a *different* standalone walk-cycle tutorial using his P2M Library rig rather than this Gameboy character; complementary rigging/animation philosophy from the same teacher.

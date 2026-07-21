@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=BhJfdQn5Sf4
 author: Pierrick Picaut
 ingested: 2026-07-21
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (~2020-era Blender 2.8x based on UI)"
+tags: [shaders, materials, procedural, geometry-nodes, beginner, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-easy-led-screen-shader---the-gameboy-project-part-05/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 7
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # BLENDER Easy LED screen shader - THE GAMEBOY PROJECT PART 05
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-easy-led-screen-shader---the-gameboy-project-part-05 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### <Untitled Chapter 1> [0:00]
@@ -174,30 +170,55 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:30] tutorials/frames/blender-easy-led-screen-shader---the-gameboy-project-part-05/frame_000.jpg
+- [1:21] tutorials/frames/blender-easy-led-screen-shader---the-gameboy-project-part-05/frame_001.jpg
+- [1:52] tutorials/frames/blender-easy-led-screen-shader---the-gameboy-project-part-05/frame_002.jpg
+- [6:16] tutorials/frames/blender-easy-led-screen-shader---the-gameboy-project-part-05/frame_003.jpg
+- [7:57] tutorials/frames/blender-easy-led-screen-shader---the-gameboy-project-part-05/frame_004.jpg
+- [9:03] tutorials/frames/blender-easy-led-screen-shader---the-gameboy-project-part-05/frame_005.jpg
+- [10:49] tutorials/frames/blender-easy-led-screen-shader---the-gameboy-project-part-05/frame_006.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Fully procedural, non-physically-accurate shader-editor recipe for a plastic LED indicator light and a pixelated backlit LCD screen, using Layer Weight (Fresnel), Gradient, Brick, and Mix Color nodes stacked as emission-strength masks — Part 5 of a free 16-part Game Boy character course.
 
 ### Summary
-[PENDING EXTRACTION]
+Pierrick Picaut (P2Design) builds two shaders on the same character: a small plastic LED indicator, and the handheld's pixel screen. **LED material** [frame_000, 0:30]: base Principled BSDF made dark with very low roughness (sharp reflections, "plastic" look), then an **Emission shader** is added on top via an **Add Shader** node (deliberately chosen over the Principled BSDF's built-in Emission input, since Add Shader lets you dial an independent strength factor) [frame_001, 1:21]. To fake a bright emissive core fading to a darker rim, a **Layer Weight** node's **Facing** output (preferred over Fresnel for a more obvious gradient) drives a **Color Ramp** going bright yellow → dark red, feeding the emission color — an approach the author explicitly calls not physically correct (no real refraction) but visually convincing, which he frames as the actual goal ("we are playing with visual, the target is not the mean but the result") [frame_002, ~1:52]. A separate transparent cover material over the LED uses Transmission = 1, low roughness, and reduced Alpha/specularity so the underlying LED reads clearly through it. **LCD screen material** [frame_003, ~6:16 early UV/screen setup]: since a picture (a smiley face) will be used on the screen, the model's auto-generated modeling-time UVs are discarded and redone via **Project From View** in orthographic Front view (not using the "Bound" stretch-to-fit option, since the screen isn't square and stretching would distort the imported picture) — then manually rescaled to fit the UV space without distortion. The shader itself is pure **Emission** (Principled BSDF removed — no reflectivity wanted on an LCD). A radial **backlight vignette** is built from a Gradient texture set to **Quadratic Sphere** (not the default Linear) piped through a Color Ramp (switched to B-Spline for smoothness) for contrast control; because an unconnected texture node defaults to UV coordinates centered at the mesh's UV origin rather than its visual center, **Ctrl+T** auto-generates Mapping + Texture Coordinate nodes, and the Mapping node's Location X/Y are set to **-0.5** to recenter the gradient on the screen [frame_004, 7:57]. A pixel grid is built from a **Brick Texture** with both input colors forced to white (pure white pixels, black mortar lines), Row/Column width set equal (e.g. 0.5) for square pixels, Offset disabled (0), and Global Scale (~15, kept moderate — pushing it to 20-25 was shown to blur out the effect at render time) controlling pixel density [frame_005, 9:03]. The vignette and grid are combined via a **Mix Color** node set to **Multiply** (grid × vignette) to drive emission strength, further scaled by a **Math (Multiply)** node for overall brightness control, and the imported face texture is layered on top with a second Multiply Mix Color node stacked after the first — reachable by duplicating the existing mix node [frame_006, ~10:49 near-final green-screen result before/during face compositing]. Minor workflow tips: **Ctrl+Shift+click** any node to preview its output directly in the viewport; **Ctrl+H** hides a node's unused/unconnected sockets for a cleaner graph (Ctrl+H again to restore); a **Reroute** point (added via the node menu) helps re-route long connections cleanly.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **LED base material** — new material slot, assign to LED geometry in Edit Mode; darken the Principled BSDF base color and drop Roughness low for sharp plastic-like reflections.
+2. **LED emission gradient** — Add Shader node combining the Principled BSDF with a separate Emission shader (chosen over the BSDF's built-in emission input for independent strength control); Input → Layer Weight, use its **Facing** output (more visible gradient than Fresnel) → Converter → Color Ramp (bright yellow to dark red, or any target color) → plug into Emission color; adjust Emission Strength to taste.
+3. **Transparent LED cover** — new material slot/assignment; Transmission = 1 for full transparency; lower Roughness (transmission looks blurry otherwise); reduce Alpha slightly to cut reflectivity/specularity so the LED beneath reads clearly.
+4. **Screen UV re-unwrap** — new material slot/assignment for the screen plane; Edit Mode → UV Image Editor; discard the distorted auto-generated modeling UVs; with the plane selected in orthographic Front view, **U → Project From View** (skip "Bound," since a non-square screen would distort a square-cropped picture) then manually scale the result to fit the UV bounds without stretching distortion.
+5. **Screen shader base** — remove the Principled BSDF, use a pure **Emission** shader (no reflectivity desired on an LCD).
+6. **Backlight vignette** — Gradient Texture set to **Quadratic Sphere** → Converter Color Ramp (B-Spline interpolation for smoothness) for contrast; select the Gradient Texture and press **Ctrl+T** to auto-add Mapping + Texture Coordinate nodes; set Mapping **Location X = -0.5, Y = -0.5** to recenter the gradient's origin from the UV-grid corner (0-1 range) onto the mesh/UV center.
+7. **Pixel grid** — Brick Texture node, both Color 1/Color 2 inputs set to white (white pixels, black mortar), Brick Width = Row Height (e.g. 0.5) for square pixels, Offset Amount = 0, Global Scale ≈ 15 (higher values like 20-25 blur the effect away at render resolution); plug the same UV coordinates in for correct mapping; add a Reroute node to keep long wires tidy.
+8. **Combine + drive emission** — Mix Color node, Factor = 1, blend mode **Multiply** (vignette × grid) → feeds a Math node set to **Multiply** to scale overall emission strength → into the Emission shader's Strength/Color input.
+9. **Add the face texture** — Shift+A → Texture → Image Texture, load the face/decal image (no separate Mapping node needed since an unplugged Image Texture already defaults to UV coordinates); Ctrl+Shift+click to preview; duplicate the existing Mix Color (Multiply) node and place it after the first, layering the face image on top of the grid/vignette result. Fine-tune by adjusting grid pixel size, emission color, or emission strength.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Shader nodes:** Principled BSDF, Emission, Add Shader (for independent-strength emission layering, preferred over the Principled BSDF's built-in emission socket), Layer Weight (Facing output preferred over Fresnel), Color Ramp (Linear and B-Spline interpolation used at different points), Gradient Texture (Quadratic Sphere setting), Brick Texture (Row/Column width, Offset, Global Scale, dual Color inputs), Mapping + Texture Coordinate (auto-added via Ctrl+T), Mix Color (Multiply mode, duplicated for stacking), Math (Multiply), Image Texture, Reroute.
+- **Material settings:** Roughness (low, for sharp plastic reflections), Transmission (1.0 for the transparent cover), Alpha (reduced for the cover's specularity).
+- **UV workflow:** `U → Project From View` in orthographic Front view (Bound option intentionally skipped for a non-square screen), manual post-scale to avoid distortion.
+- **Shortcuts:** Ctrl+T (auto-generate Mapping/Texture Coordinate from a texture node), Ctrl+Shift+Click (preview any node's output in viewport), Ctrl+H (hide/show a node's unused sockets).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner-Intermediate (assumes basic shader-editor navigation; explains node choices in plain language throughout)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified on screen (2020-era tutorial; UI matches Blender 2.8x)
 
 ### Tags
-[PENDING EXTRACTION]
+shaders, materials, procedural, geometry-nodes, beginner, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `tutorials/blender---full-animated-character-course-for-free-the-gameboy-project-part-01.md` — same series/character (hard-surface modeling of the case this LED and screen material are applied to); Part 1 of the same 16-part course.
+- Parts 2-4, 6-16 of the "Gameboy Project" series are not yet ingested — Part 4 ("Shading surfaces in Blender") directly precedes this video and likely covers the base plastic/body materials this LED/screen work builds on top of.
+- [3 Easy steps to make Realistic Materials](3-easy-steps-to-make-realistic-materials.md) — general material-realism principles, contrasts with this tutorial's explicitly non-physical "visual over accuracy" emissive approach.

@@ -1203,9 +1203,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=mapuLpQNSAw
 - **Author:** Pierrick Picaut
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (~2020-era Blender 2.8x based on UI)
+- **Tags:** modelling, hard-surface, procedural, beginner
+- **Summary:** Part 1 of a free 16-part Game Boy character course (Pierrick Picaut/P2Design, released free during COVID-19 lockdown). Hard-surface box modeling of the handheld's case from a blueprint reference: Inset Face + vertex bevel technique for controlled rounded-corner topology, the F2 addon for fast face-fill, and Subdivision Surface + supporting edge loops to keep panel edges straight rather than curving. Closes with vertex-snapped LED recess placement and Grid Fill for the screen face.
 - **File:** tutorials/blender---full-animated-character-course-for-free-the-gameboy-project-part-01.md
 
 
@@ -1213,9 +1213,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=BhJfdQn5Sf4
 - **Author:** Pierrick Picaut
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (~2020-era Blender 2.8x based on UI)
+- **Tags:** shaders, materials, procedural, geometry-nodes, beginner, intermediate
+- **Summary:** Part 5 of the free "Gameboy Project" course. Fully procedural, deliberately non-physical shader-editor recipe for a plastic LED indicator (Layer Weight Facing output → Color Ramp gradient, Add Shader for independent emission strength) and a pixelated backlit LCD screen (Gradient Texture vignette + Brick Texture pixel grid multiplied together to drive Emission strength, re-projected UVs via Project From View).
 - **File:** tutorials/blender-easy-led-screen-shader---the-gameboy-project-part-05.md
 
 ---
