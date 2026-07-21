@@ -1208,6 +1208,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender---full-animated-character-course-for-free-the-gameboy-project-part-01.md
 
+
+### BLENDER Easy LED screen shader - THE GAMEBOY PROJECT PART 05
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=BhJfdQn5Sf4
+- **Author:** Pierrick Picaut
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-easy-led-screen-shader---the-gameboy-project-part-05.md
+
 ---
 
 ## Tag Reference
