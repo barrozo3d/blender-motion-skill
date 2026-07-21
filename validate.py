@@ -12,13 +12,14 @@ Checks performed:
   1. No [PENDING EXTRACTION] markers in any tutorial body
   2. No extraction_status: pending in frontmatter
   3. No blender_version: "[PENDING]" in frontmatter
-  4. No empty tags arrays (tags: [])
+  4. No empty tags arrays (tags: [] or tags: [""])
   5. INDEX.md has no duplicate **File:** entries
   6. Every tutorial file on disk appears in INDEX.md exactly once
   7. Every INDEX.md file reference points to a file that exists on disk
   8. Every tutorial with a YouTube source has non-trivial structured notes (> 200 chars)
   9. YouTube videos with duration > 3 min have a non-empty transcript
      (catches failed/truncated ingest where yt-dlp or Whisper returned nothing)
+  10. No PLACEHOLDER url: values in frontmatter
 """
 
 import os
@@ -133,8 +134,13 @@ def check_tutorials():
         if re.search(r'blender_version:\s*["\']?\[?PENDING', content, re.IGNORECASE):
             fail(f"{fname}: blender_version is still a PENDING placeholder")
 
-        if re.search(r"tags:\s*\[\s*\]", content):
+        if re.search(r"tags:\s*\[\s*(?:\"\"|'')?\s*\]", content):
             fail(f"{fname}: tags array is empty")
+
+        # url must not be a PLACEHOLDER (extract step once overwrote real URLs
+        # with the template value in unreal-sidekick — guarded here too)
+        if re.search(r"^url:.*PLACEHOLDER", content, re.MULTILINE):
+            fail(f"{fname}: url is a PLACEHOLDER — recover the real URL from git history or batch_ingest.py")
 
         if is_youtube_source(content):
             notes = get_notes_content(content)
