@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=uz8PIi3ELJg
 author: Lucas
 ingested: 2026-07-20
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (3.x/4.x-era Cycles)"
+tags: [materials, shaders, metal, procedural, cycles, product-viz, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/forgotten-metal-knowledge-vray-cycles-arnold/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Forgotten Metal Knowledge | Vray, Cycles, Arnold..
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py forgotten-metal-knowledge-vray-cycles-arnold <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Introduction [0:00]
@@ -511,30 +507,56 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [5:00] tutorials/frames/forgotten-metal-knowledge-vray-cycles-arnold/frame_000.jpg
+- [15:30] tutorials/frames/forgotten-metal-knowledge-vray-cycles-arnold/frame_001.jpg
+- [17:55] tutorials/frames/forgotten-metal-knowledge-vray-cycles-arnold/frame_002.jpg
+- [18:30] tutorials/frames/forgotten-metal-knowledge-vray-cycles-arnold/frame_003.jpg
+- [20:00] tutorials/frames/forgotten-metal-knowledge-vray-cycles-arnold/frame_004.jpg
+- [22:30] tutorials/frames/forgotten-metal-knowledge-vray-cycles-arnold/frame_005.jpg
+- [24:30] tutorials/frames/forgotten-metal-knowledge-vray-cycles-arnold/frame_006.jpg
+- [28:00] tutorials/frames/forgotten-metal-knowledge-vray-cycles-arnold/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Recreating the real-world "reflection tail-off" seen on polished/scratched metal — a sharp mirror-like core reflection blending into a broad, softer anisotropic halo — by layering multiple Cycles BSDF shaders of increasing roughness and decreasing presence, instead of relying on a single Roughness value in a Principled BSDF.
 
 ### Summary
-[PENDING EXTRACTION]
+A PBR shading-theory deep-dive by Lucas (30m21s), demonstrated hands-on in Blender's Shader Editor with Cycles, though the underlying principle applies equally to Vray/Arnold/any physically-based renderer. Starting from real macro/microscope photography of polished metal spheres, the video shows that visible surface scratches share the same diffuse color/IOR as the surrounding material and differ only in roughness/bump — and that at different physical scales, scratch patterns differ mainly in density and depth. Below the viewer's visual acuity, this can be approximated purely as "roughness increases as scratch density increases and apparent depth decreases," which means instead of physically bump-mapping every scale of scratch, you can blend several near-identical shaders together, each rougher and less present than the last. In Blender this is built two ways: (1) full material layering — duplicate Principled BSDF nodes (or, for texture-driven roughness, run the same roughness map through multiple Color Ramp/Curve nodes with increasing "lift" so each duplicated layer reads progressively rougher) and blend with a chain of **Mix Shader** nodes, where each Mix factor controls how present that rougher layer is; (2) a cheaper Cycles-specific shortcut — mix several **Glossy BSDF** nodes directly (instead of full Principled BSDF duplicates) at increasing Roughness and decreasing Mix factor, functionally identical but lighter to evaluate; this modern mixed-shader approach explicitly replaces the older, energy-non-conserving practice of just adding reflections together. The video compares this "multi-layer reflection" technique against two cheaper single-node alternatives via ground-truth turntable comparisons: **Clearcoat** (available in virtually every renderer including Blender's Principled BSDF Coat Weight — a one-click way to fake an extra reflection lobe, but it distorts the base material's underlying diffuse color/apparent IOR, isn't inherently metallic/colored correctly since it blends toward a dielectric coat, and only reads acceptably on black/white hero-distant materials — not recommended for serious lookdev); and **GGX Tailoff control** (a built-in exponent control on the GGX reflection model in renderers that expose it, modifying the falloff of the single already-calculated reflection at effectively no extra render cost — but Cycles doesn't natively expose this control without custom OSL/API work, the technique can't reproduce an arbitrary asymmetric ground-truth tail profile, and it can break into undesirable spread-out reflections at extreme parameter values). A 52-respondent survey of professional/hobbyist 3D artists found this reflection-falloff effect widely unaccounted for — most who noticed something "off" attributed it to dirt/fingerprints or reached for a clearcoat layer rather than recognizing true multi-layer reflection behavior. Real-world example breakdowns (skin edge halos, a fridge door, a cooking pot, Iron Man's helmet vs. the practical Mark II suit reference, an elevator interior) demonstrate multi-layer reflections capturing both a sharp mirror-like core reflection and a broad anisotropic-looking falloff simultaneously — something a single Roughness/reflection lobe structurally cannot do.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Gather microscopic/macro references of real metal surfaces; observe that scratches are only visible via their reflection response (same diffuse color/IOR as the base surface, different only in roughness/bump).
+2. Recognize the multi-scale pattern: as scratch scale decreases, scratches get denser and shallower; below the point where individual scratches are visually resolvable, this reduces to "higher local roughness," so you don't need literal bump geometry at every scale — you need a blend of roughness values.
+3. **Full material layering (any renderer, including Blender):** duplicate your base Principled BSDF/material multiple times, each duplicate with a higher Roughness value and a lower presence/opacity in the final blend; if driving roughness from a texture, route the same texture through multiple Color Ramp/Curve nodes with increasing "lift" so each duplicate reads progressively rougher while preserving the authored detail; tune each layer's roughness and mix weight against a reference photo until it matches.
+4. **Cycles shortcut:** instead of duplicating full Principled BSDFs, mix several **Glossy BSDF** nodes together via a chain of **Mix Shader** nodes — each Glossy BSDF gets a higher Roughness and the Mix Shader's Fac (presence) decreases for each successive, rougher layer.
+5. Compare against **Clearcoat/Coat Weight** as a cheap one-click alternative: quick to set up and universally available, but distorts the base material's diffuse color and apparent IOR (requiring manual compensation), doesn't tint/color correctly for colored metals since the coat itself is dielectric, and is only visually acceptable for black/white materials viewed from a distance — not suitable for serious hero-asset lookdev.
+6. Compare against a **GGX Tailoff exponent control** where the render engine exposes one: cheapest option since it only reshapes the single already-computed reflection, but not exposed in Cycles by default, limited to a fixed tail-profile shape (can't match an arbitrary ground-truth curve), and prone to breaking into unwanted spread reflections at extreme values.
+7. Validate with turntable comparisons against a ground-truth reference: plain single-roughness shading loses fine reflection detail entirely; GGX tailoff gets closer but still loses detail and can over-spread; full multi-layer reflection most closely matches ground truth at the cost of extra shader evaluation.
+8. Apply the finished multi-layer BSDF stack to real assets (skin, appliances, cookware, character armor/props) to get both a sharp core reflection and a soft anisotropic-looking halo simultaneously, which a single roughness value cannot reproduce.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Cycles Shader Editor nodes used:** Principled BSDF (duplicated per layer for full material layering), Glossy BSDF (Cycles-specific lighter-weight layering shortcut), Mix Shader (chain multiple layers together, Fac = layer presence), Color Ramp / Curve (to progressively "lift" a shared roughness texture per layer), Material Output.
+- **Principled BSDF alternative comparison point:** Coat Weight (Blender's built-in Clearcoat-equivalent) — flagged with the same distortion/miscoloring caveats discussed for Clearcoat in other renderers.
+- **Key parameter concept:** each layered shader gets progressively higher Roughness and progressively lower Mix Shader Fac (presence) than the layer before it — typically 2-4+ layers depending on desired fidelity vs. render cost.
+- **Cross-renderer context (not hands-on in Blender):** Vray and Arnold layered-material equivalents, and each engine's (non-)exposure of a GGX tail-off exponent control, are discussed for comparison but not built on screen.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced — shading/lookdev theory aimed at artists already comfortable with PBR concepts (roughness, IOR, energy conservation, node-based shader mixing); not a beginner material tutorial.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not explicitly stated (Cycles Shader Editor UI shown is consistent with a recent 3.x/4.x-era Blender build; Mix Shader + Glossy BSDF + Principled BSDF are stable long-standing Cycles nodes).
 
 ### Tags
-[PENDING EXTRACTION]
+materials, shaders, metal, procedural, cycles, product-viz, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `tutorials/organic-liquid-metal-effect-in-blender-50-tutorial.md` — metallic Cycles/EEVEE material work; shares tags: metal, materials, shaders.
+- `tutorials/blender-tutorial---eternals-gold-wireframe-animation.md` — procedural metal (molten gold) shading; shares tags: materials, shaders, metal, procedural.
+- `tutorials/product-animation-in-blender-phone.md` — metallic/glass product-viz materials; shares tags: materials, shaders, metal, product-viz.
+- No other ingested tutorial covers layered-BSDF reflection-tailoff theory specifically; check `references/materials-shaders.md` for general Cycles material-layering technique and cross-link once updated.

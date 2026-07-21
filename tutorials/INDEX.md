@@ -1193,9 +1193,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=uz8PIi3ELJg
 - **Author:** Lucas
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (3.x/4.x-era Cycles)
+- **Tags:** materials, shaders, metal, procedural, cycles, product-viz, advanced
+- **Summary:** PBR shading theory (hands-on in Cycles) on recreating the "reflection tail-off" of real polished/scratched metal by layering multiple BSDFs (duplicated Principled BSDF or mixed Glossy BSDF nodes via Mix Shader) of increasing roughness/decreasing presence, instead of one Roughness value. Compares against Clearcoat/Coat Weight (distorts base color, not properly metallic) and a GGX Tailoff exponent control (cheap but limited/not exposed in Cycles), validated with ground-truth turntable comparisons and a 52-artist survey.
 - **File:** tutorials/forgotten-metal-knowledge-vray-cycles-arnold.md
 
 ---
