@@ -1183,9 +1183,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=UhlIT_-3xQM
 - **Author:** Ryan King Art
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.2
+- **Tags:** compositing, procedural, rendering, cycles, beginner, intermediate, blender-5x
+- **Summary:** Tour of new Blender 5.2 Compositor nodes: String to Image (text-in-compositor, composited via Alpha Over Fac), GPU-default compositing, and new stylized asset-shelf effects — Film Grain (stock presets), Night Vision (depth-darken, distortion, glare), Depth Atmosphere (Depth-pass or Mist-pass driven fog with Min/Max Distance and tint), Dithering (Bayer pixel-art), Paint Filter (Watercolor/Oil Paint/Custom stroke texture), and Rim 2D (transparent-background edge outline/rim light). Flags Normal Mask, Position Mask, and Exposure Visualization as undocumented new nodes.
 - **File:** tutorials/new-compositing-effects-in-blender-52.md
 
 ---

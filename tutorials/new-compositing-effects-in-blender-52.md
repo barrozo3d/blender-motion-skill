@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=UhlIT_-3xQM
 author: Ryan King Art
 ingested: 2026-07-20
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.2"
+tags: [compositing, procedural, rendering, cycles, beginner, intermediate, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/new-compositing-effects-in-blender-52/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # New Compositing Effects in Blender 5.2!
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py new-compositing-effects-in-blender-52 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -433,30 +429,59 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:15] tutorials/frames/new-compositing-effects-in-blender-52/frame_000.jpg
+- [3:40] tutorials/frames/new-compositing-effects-in-blender-52/frame_001.jpg
+- [4:50] tutorials/frames/new-compositing-effects-in-blender-52/frame_002.jpg
+- [6:00] tutorials/frames/new-compositing-effects-in-blender-52/frame_003.jpg
+- [8:55] tutorials/frames/new-compositing-effects-in-blender-52/frame_004.jpg
+- [10:35] tutorials/frames/new-compositing-effects-in-blender-52/frame_005.jpg
+- [12:55] tutorials/frames/new-compositing-effects-in-blender-52/frame_006.jpg
+- [13:05] tutorials/frames/new-compositing-effects-in-blender-52/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Tour of the new compositing nodes added in Blender 5.2's node-based Compositor: `String to Image` (text-in-compositor), and new stylized-effect asset-shelf nodes — Film Grain, Night Vision, Depth Atmosphere, Dithering, Paint Filter, and Rim 2D — plus GPU-by-default compositing.
 
 ### Summary
-[PENDING EXTRACTION]
+Ryan King Art's feature-update video (14m35s) covering everything new in Blender 5.2's Compositor. Confirms the Compositor now defaults to **GPU** device (Render Properties → Performance → Compositor → Device), with CPU still available as a fallback. Demonstrates the new **String to Image** node for adding text directly inside the Compositor (font import, size, horizontal/vertical alignment, and word-wrap-by-width behavior), composited over a render via an **Alpha Over** node — since String to Image has no built-in alpha channel, its black-and-white output is instead wired into Alpha Over's **Fac** input so the text mask itself drives the mix; notes wishlist features (background box, drop shadow, native alpha output) the node currently lacks. Walks through downloading the new asset-shelf compositing effects (Essentials Online Asset Library — requires Edit → Preferences → System → Network → Allow Online Access; assets show a cloud icon until downloaded) and demos each new Blender 5.2 effect node in turn: **Film Grain** (Factor strength slider, multiple grain-stock Presets — e.g. "16mm Indie Cinema" — each with a distinct sharp/fuzzy character, Animated toggle for per-frame noise variation); **Night Vision** (green tint digital-goggles look with scanline detail; Animation Speed; Exposure to brighten; Depth Darken with Min/Max range driven by the render's Depth pass for a misty falloff; Distortion Factor/Frequency for old-TV/VHS-style line distortion; Glare with Strength/Size/Threshold; Flicker; Degrade, which itself layers in a film-grain-like effect); **Depth Atmosphere** (fog/mist generator driven either by the render's raw **Depth** pass — with Min/Max Distance controls for where fog starts/how quickly it thickens — or by Blender's dedicated **Mist pass**, which requires enabling Mist under View Layer properties, enabling the Mist viewport-display range on the active Camera, and configuring Start/Depth under World Properties → Mist Pass, with a note that mist-pass changes require a re-render (F12) to take effect in the compositor preview; also covers Atmosphere Thickness, Interactive Tint for a colored fog, Opacity, and optionally inserting a Color Ramp between the Mist pass and the Depth Atmosphere node to sharpen or soften the falloff curve); **Dithering** (pixel-art/retro effect with Intensity, a Bayer-pattern Type selector cycled via Ctrl+click, Pixelate size, and Color Amount to control palette reduction/banding); **Paint Filter** (hand-painted look with Watercolor/Oil Paint/Digital Geometric/Custom stroke-Texture presets — Custom lets you plug in any image, e.g. a brick displacement map, as the stroke pattern — plus Size, Simplification, Accidental Colors, Pooling, Sharpness, Seed, Edge Breakup + Scale for a canvas-grain look, and a Canvas material dropdown including Paper/None/Custom); and **Rim 2D** (colored edge-outline/rim-light effect that requires a transparent-background render to work — Factor brightness, Rim Color, Blend Type, Light Intensity, Blur Amount, Light Wrap for edge color spill, and a Transform/Offset to reposition the rim). Flags three additional new 5.2 nodes — **Normal Mask**, **Position Mask**, and **Exposure Visualization** — as essentially undocumented at time of recording (checked the Blender manual and searched YouTube, found nothing), included as a heads-up rather than a full walkthrough.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Confirm/set GPU compositing: Render Properties → Performance → Compositor → Device = GPU (falls back to CPU if no GPU is available).
+2. Switch to the Compositing workspace, click **New** to create a compositor node tree tied to the current scene.
+3. Add **String to Image**, type text into its field, adjust Font (import a custom font file), Size, horizontal alignment (left/center/right) and vertical alignment, and Width (narrow width wraps text to multiple lines; wide width keeps it on one line).
+4. Composite the text over a render: add **Alpha Over**, plug the render (Render Layers → Image) into the background input and String to Image into the foreground, then also plug String to Image's output into Alpha Over's **Fac** input (instead of relying on a nonexistent alpha channel) so the black/white text mask itself drives the blend.
+5. Enable the online asset library if needed: Edit → Preferences → System → Network → Allow Online Access; in the compositor's Asset Shelf, click any effect's cloud icon to download it before use.
+6. **Film Grain:** drop the node into the graph, drive Factor for strength, cycle through film-stock Presets (e.g. 8mm Caffenol, Super 8, 16mm Indie Cinema, 35mm Portra 400, 70mm Cinema, Custom) for different grain characters, enable Animated for per-frame-varying grain in rendered animations.
+7. **Night Vision:** wire in the render Image; tune Exposure, Animation Speed, Depth Darken (feed the render's **Depth** output into the node's Depth input, then set Min/Max Distance for a misty depth falloff), Distortion Factor/Frequency for scanline/VHS-style artifacts, Glare (Strength/Size/Threshold), Flicker, and Degrade (adds grain).
+8. **Depth Atmosphere (Depth-driven fog):** feed the render's Depth output into the node's Depth input; set Min Distance (where fog begins) and Max Distance (distance at which fog reaches full density — lower values = thicker/faster fog); adjust Atmosphere Thickness, Interactive Tint (color the fog, e.g. dark blue for a night scene), and Opacity.
+9. **Depth Atmosphere (Mist-pass-driven fog, alternative):** enable **Mist** under View Layer Properties → Passes; select the active Camera → Object Data Properties → Viewport Display → enable Mist (sets a Start/End gizmo line in the 3D viewport); go to World Properties → Mist Pass and set Start (where mist begins) and Depth (distance to 100% mist); back in the Compositor, wire Render Layers' Mist output into the Depth Atmosphere node's Mist input; re-render (F12) after any Mist Pass property change, since the compositor preview won't reflect world-mist edits until a fresh render; optionally insert a **Color Ramp** between the Mist pass and the Depth Atmosphere node to sharpen (darker ramp) or soften (lighter ramp) the falloff.
+10. **Dithering:** drop the node in; raise/lower Intensity for pixelation strength, Ctrl+click the Type field to cycle Bayer-pattern dithering methods, adjust Pixelate (pixel block size) and Color Amount (palette size — low = strong banding/posterization, high = closer to the original image with subtle pixel structure visible on zoom).
+11. **Paint Filter:** choose a stroke Texture preset (Watercolor, Oil Paint, Digital Geometric, or Custom — Custom exposes a Stroke Texture socket you can plug any image into, e.g. a brick displacement map, for a custom brush pattern); tune Size (splotch scale), Simplification (higher = smoother strokes, lower = messier/more detail especially at edges), Accidental Colors (extra blotchy color variation), Pooling (paint-pooling imperfection blobs), Sharpness (blur amount — a mid value reads most "painted"), Seed (randomize the paint pattern), and Canvas settings (Edge Breakup + Scale for a canvas-grain texture, plus a Canvas material dropdown: Paper/None/Custom texture).
+12. **Rim 2D:** render the source with a **transparent background** (required for this node to detect edges correctly); wire in the render; adjust Factor (brightness), Rim Color, Blend Type, Light Intensity (note: high values interact with Bloom/glare), Blur Amount (blurs the rim edge, not the underlying transparency edge), Light Wrap (increases edge color spill), and Transform/Offset to reposition the rim outline.
+13. Be aware of three additional Blender 5.2 compositor nodes — Normal Mask, Position Mask, Exposure Visualization — that were undocumented (no manual page, no other tutorials found) at the time of this video; investigate current Blender manual/changelog for up-to-date info if these are needed.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **New/updated Compositor nodes covered:** String to Image (Font, Size, alignment, Width/wrapping), Alpha Over (Fac-driven text compositing workaround), Film Grain (Factor, film-stock Presets, Animated), Night Vision (Tint, Animation Speed, Exposure, Depth Darken [Min/Max Distance], Distortion Factor/Frequency, Glare [Strength/Size/Threshold], Flicker, Degrade), Depth Atmosphere (Depth or Mist input, Min/Max Distance, Atmosphere Thickness, Interactive Tint, Opacity), Dithering (Intensity, Type [Bayer patterns, Ctrl+click to cycle], Pixelate, Color Amount), Paint Filter (Texture preset: Watercolor/Oil Paint/Digital Geometric/Custom + Stroke Texture socket, Size, Simplification, Accidental Colors, Pooling, Sharpness, Seed, Edge Breakup, Canvas Scale, Canvas material: Paper/None/Custom), Rim 2D (Factor, Rim Color, Blend Type, Light Intensity, Blur Amount, Light Wrap, Transform/Offset — requires transparent-background render).
+- **Undocumented-as-of-recording nodes:** Normal Mask, Position Mask, Exposure Visualization.
+- **Supporting settings:** Render Properties → Performance → Compositor → Device (GPU/CPU); Edit → Preferences → System → Network → Allow Online Access (for asset-shelf downloads); View Layer Properties → Passes → Mist checkbox; Camera → Object Data Properties → Viewport Display → Mist; World Properties → Mist Pass (Start/Depth); Color Ramp node (optional, for shaping mist falloff).
+- **Render engine:** Cycles (GPU Compute shown in the Scene properties panel).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner/Intermediate — no prior compositing-node experience strictly required, though familiarity with basic node-wiring (plugging Render Layers passes into effect inputs) is assumed; positioned as a feature-update tour rather than a from-scratch compositing course (a separate "compositing for beginners" video is referenced for fundamentals).
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2 (new features release).
 
 ### Tags
-[PENDING EXTRACTION]
+compositing, procedural, rendering, cycles, beginner, intermediate, blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `tutorials/everything-new-in-blender-52-lts.md` — broader "what's new in 5.2 LTS" feature survey covering compositing alongside geometry nodes, grease pencil, rigging, and rendering changes; shares tags: blender-5x, compositing, rendering.
+- `tutorials/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2.md` — hands-on Compositor Alpha Over / EXR workflow; shares tags: compositing, rendering.
