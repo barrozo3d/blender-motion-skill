@@ -1198,6 +1198,16 @@ Each entry format:
 - **Summary:** PBR shading theory (hands-on in Cycles) on recreating the "reflection tail-off" of real polished/scratched metal by layering multiple BSDFs (duplicated Principled BSDF or mixed Glossy BSDF nodes via Mix Shader) of increasing roughness/decreasing presence, instead of one Roughness value. Compares against Clearcoat/Coat Weight (distorts base color, not properly metallic) and a GGX Tailoff exponent control (cheap but limited/not exposed in Cycles), validated with ground-truth turntable comparisons and a 52-artist survey.
 - **File:** tutorials/forgotten-metal-knowledge-vray-cycles-arnold.md
 
+
+### BLENDER - Full animated character course for Free : THE GAMEBOY PROJECT PART 01
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=mapuLpQNSAw
+- **Author:** Pierrick Picaut
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender---full-animated-character-course-for-free-the-gameboy-project-part-01.md
+
 ---
 
 ## Tag Reference
