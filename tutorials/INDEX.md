@@ -1218,6 +1218,16 @@ Each entry format:
 - **Summary:** Part 5 of the free "Gameboy Project" course. Fully procedural, deliberately non-physical shader-editor recipe for a plastic LED indicator (Layer Weight Facing output → Color Ramp gradient, Add Shader for independent emission strength) and a pixelated backlit LCD screen (Gradient Texture vignette + Brick Texture pixel grid multiplied together to drive Emission strength, re-projected UVs via Project From View).
 - **File:** tutorials/blender-easy-led-screen-shader---the-gameboy-project-part-05.md
 
+
+### MetaHumans in Blender: Using OpenRigLogic to Customize DNA's Behavior | Inside Unreal
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=WZhDr5Ktf9c
+- **Author:** Unreal Engine
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea.md
+
 ---
 
 ## Tag Reference
