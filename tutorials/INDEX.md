@@ -1223,9 +1223,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=WZhDr5Ktf9c
 - **Author:** Unreal Engine
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.2 LTS (add-on supports 4.5–5.2)
+- **Tags:** metahuman, riglogic, dna, facial-rig, rigging, shape-keys, animation, mocap, add-on, unreal-engine, blender-5x, advanced
+- **Summary:** Inside Unreal stream with Polyhammer's James Baeber: free Character DNA add-on runs Epic's RigLogic runtime natively in Blender — drag-drop head/body DNA import for a 1:1 MetaHuman rig (face board, poses/visemes, wrinkle-map debugging, RBF-corrected body, RigLogic LODs where editing LOD 0 auto-fixes lower LODs, Texture Logic shader node, MetaHuman Animator mocap import, full DNA round-trip export). Pro editors replace the Maya Expression Editor: Raw Editor with PyTorch hyperopt bone matching (192 bones in 3.7s), Shape Key Editor (zero-delta ghosts, freeze), Behavior Viewer graphing PSD corrective trees, layer-by-layer (L1→L6, MH12/MH50) calibration, Backup Manager with pre/post-commit backups — demonstrated by converting human DNA onto a wrapped ape and fixing its facial rig.
 - **File:** tutorials/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea.md
 
 ---

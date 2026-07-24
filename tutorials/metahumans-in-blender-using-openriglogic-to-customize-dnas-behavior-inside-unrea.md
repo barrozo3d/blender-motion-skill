@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=WZhDr5Ktf9c
 author: Unreal Engine
 ingested: 2026-07-23
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.2 LTS (add-on supports 4.5–5.2)"
+tags: [metahuman, riglogic, dna, facial-rig, rigging, shape-keys, animation, mocap, add-on, unreal-engine, blender-5x, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 15
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # MetaHumans in Blender: Using OpenRigLogic to Customize DNA's Behavior | Inside Unreal
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -786,30 +782,72 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [18:40] tutorials/frames/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea/frame_000.jpg
+- [19:30] tutorials/frames/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea/frame_001.jpg
+- [20:05] tutorials/frames/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea/frame_002.jpg
+- [21:40] tutorials/frames/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea/frame_003.jpg
+- [22:55] tutorials/frames/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea/frame_004.jpg
+- [24:40] tutorials/frames/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea/frame_005.jpg
+- [29:30] tutorials/frames/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea/frame_006.jpg
+- [32:20] tutorials/frames/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea/frame_007.jpg
+- [37:50] tutorials/frames/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea/frame_008.jpg
+- [39:10] tutorials/frames/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea/frame_009.jpg
+- [45:10] tutorials/frames/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea/frame_010.jpg
+- [49:45] tutorials/frames/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea/frame_011.jpg
+- [53:40] tutorials/frames/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea/frame_012.jpg
+- [58:00] tutorials/frames/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea/frame_013.jpg
+- [64:45] tutorials/frames/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea/frame_014.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Running the full MetaHuman rig natively in Blender via Polyhammer's free Character DNA add-on (built on Epic's OpenRigLogic C++/Python runtime released at Unreal Fest), then customizing the DNA's behavior — bones, shape keys, correctives (PSDs), wrinkle maps — entirely in Blender with the add-on's pro editors (Raw Editor, Shape Key Editor, Behavior Viewer, hyperopt bone matching), replacing the traditional Maya Expression Editor pipeline. Demonstrated by converting human MetaHuman DNA onto a wrapped ape mesh and calibrating its facial rig.
 
 ### Summary
-[PENDING EXTRACTION]
+Inside Unreal stream with James Baeber (3D tools engineer, Polyhammer). DNA is Epic's proprietary format holding meshes, joints (bones), blend shapes (shape keys), plus a behavior layer: GUI controls → raw controls feeding the RigLogic runtime, PSDs (pose-space deformations / corrective expressions), RBFs (radial-basis interpolation driving corrective bones, mainly body/neck), and animated maps (mask values that blend 3 wrinkle color/normal variants over the base textures at the material level). RigLogic is application-agnostic — it runs in UE, Maya, Houdini, and now Blender. Part 1: import MetaHuman Creator's DCC export (head DNA + body DNA + maps folder) by drag-dropping the .dna into the viewport; you get a 1:1 working rig with face board, poses/visemes/emotions, wrinkle-map debugging views, per-instance/component/output toggles (bones, shape keys, wrinkle maps, RBFs), RigLogic-managed LODs (edit LOD 0, an algorithm fixes all lower LODs), the Texture Logic shader node (inspection, not final rendering — build your Eevee/Cycles graph from it), MetaHuman Animator / audio-based / markerless (UE 5.8) mocap imported straight onto the face board, and DNA round-trip export mimicking MetaHuman Creator's folder/naming conventions. Part 2: an ape (wrapped in Faceform Wrap with mouth ajar) exposes what MetaHuman Creator's own mesh-template import gets wrong; the add-on's converter instead templates DNA to the wrapped mesh verbatim. Calibration workflow: Raw Editor (edit raw controls + joint groups against an offset "target mesh"; paste deformed geometry over selection; sculpt; then a PyTorch "hyperopt" bone-matching operator — ~1000 iterations, CUDA/CPU/MPS, updated 192 bones in 3.7s — followed by paste-vertices for the residual and commit-to-DNA), Shape Key Editor (filter to non-zero keys; ghost icon = zero deltas; freeze sorting), Behavior Viewer (graphs PSD dependency trees — e.g. eye_lookDown_L × eye_lookLeft_L multiply into the lookDownLeft corrective — so you know which terminal shape key to edit and to fix upstream L1 poses first), rig-definition target poses (work through L1 before higher layers; MH12/MH50 scan-pose sets capture "essence"/"likeness"), and a Backup Manager (auto backup before/after every commit; manual backups exempt from the retention policy). Result: the fixed ape DNA re-imports into MetaHuman Creator (replace, no auto-calibration) with eyes closing and teeth no longer poking through. Q&A: free version evaluates RBFs but the RBF *editor* is pro; grooms aren't in DNA (export Alembic); clothes come from MetaHuman assembly as FBX and bind via the armature modifier + existing vertex groups; bones-first-then-shape-keys matters because shape keys exist only at LOD 0; UE 5.8 can create a Skeletal Mesh directly from a DNA asset once topology compatibility is broken.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Export from MetaHuman Creator**: Export tab → DCC export → file path. Output: `head.dna`, `body.dna`, and a maps folder (neutral + 3 wrinkle-map variants for color and normals, plus region masks).
+2. **Import into Blender**: File → Import → MetaHuman (.dna), or drag-drop the head DNA onto the viewport → dialog with *Include Body* (default on), LOD checkboxes, mesh/bones/vertex-group/material/face-board data toggles → Import. Face board controls (jaw, mouth, eyes) behave exactly as in UE.
+3. **Explore the Character DNA tab**: Face Board panel — eye-aim toggle, pose library (visemes, emotions — useful to learn control→face mapping or overlay emotion on mocap), wrinkle-map poses (3 poses driving each map to max; mask view for debugging/scan extraction).
+4. **Rig Instances panel** (scene data block persisting in the .blend): head + body components, each with its own RigLogic instance reading its DNA file; enable/disable per instance, per component, or per output (bones / shape keys / wrinkle maps / RBFs).
+5. **RBF demo**: yellow driver bones (e.g. arm) feed rotations into radial basis functions that pose corrective bones; with RBFs off the shoulder pinches and loses volume, on it holds — correctives are statically authored at key poses (e.g. clavicle) with a falloff/interpolation function.
+6. **Texture Logic node**: add in the shader graph, link the material in the rig instance; animation then drives the three variant mixes over base color/normal. For final Eevee/Cycles renders, use it as the starting point of your own graph — it's for inspection, not final pixels.
+7. **Animation**: import MetaHuman Animator performances onto the face board (iPhone, audio-driven, HMC depth, or UE 5.8 markerless full-body from single video); body animation plays back in real time.
+8. **LODs**: RigLogic natively handles LODs (and computes less at lower LODs — how MetaHuman crowds scale); edit LOD 0 only, the add-on algorithmically propagates to all lower LOD meshes.
+9. **DNA export round-trip**: mesh edits (e.g. proportional-edit the head) export back to head/body DNA + maps in MetaHuman Creator's exact folder structure/naming; re-import to verify.
+10. **Custom character (ape)**: wrap your sculpt/scan to MetaHuman topology in Faceform Wrap (or MetaHuman Creator 5.8's mesh import with auto-solve — great for humanoids, poor for an ape; it also auto-calibrates proportions you may not want). Wrap with mouth slightly open/eyelids nearly closed — usable for baking and for 3D point transfer of vertex groups (skips weight-painting ~800 bones, but breaks MetaHuman Creator compatibility; then use UE's create-Skeletal-Mesh-from-DNA instead).
+11. **Converter**: feed a base DNA; it templates the DNA into your wrapped mesh's shape verbatim (no auto-calibration), ~1 min. Better starting point than MetaHuman Creator's import for non-humans.
+12. **Raw Editor loop** (per broken pose): select raw control → Edit → Offset shows the target mesh copy → close the jaw via the (soloed) internal bones or paste-over-selection from deformed state → sculpt fixes (inflate brush etc.) → **Match Bones to Mesh** hyperopt (PyTorch env, one-time Install; CUDA/CPU/MPS; ~1000 iterations of bone rotations/translations; "updated 192 bones in 3.70s") → **Paste vertices from target mesh** for the 1:1 residual → Commit (writes the DNA; until commit you're only touching Blender scene data).
+13. **Shape Key Editor**: filter out zero-value items; the pose's active key is the one to edit; Edit → paste → Commit; repeat mirrored controls. Ghost icon = zero deltas (converter zeroes all shape keys); Freeze keeps list order stable while values change.
+14. **Sculpt helper**: Face Sets for upper/lower lip + *Auto-Masking by Face Sets* — first surface touched is the only one pulled, so lips can be adjusted without grabbing the opposing lip.
+15. **Correctives / PSDs**: combined expressions don't stack linearly; every combination has a corrective (see Epic's RigLogic white paper). **Behavior Viewer** graphs the dependency tree (e.g. `eye_lookDown_L × eye_lookLeft_L → lookDownLeft_L`, product of input values = activation); fix upstream (L1) poses before terminal correctives since terminal keys are deltas on everything below.
+16. **Calibration order**: use the rig definition's target poses (every listed raw control at 1.0), layer by layer — L1 first, then higher layers (L6 shown activating many controls at once); MH12 poses ≈ expression essence, MH50 ≈ likeness. Don't calibrate by scrubbing an imported face-ROM animation.
+17. **Backup Manager**: automatic backups before/after every commit (default policy keeps 5; manual backups never auto-deleted); revert/restore any commit — work non-destructively dozens of expressions deep.
+18. **Re-import to MetaHuman Creator**: remove rig → import from DNA (Replace, no auto-calibration) → verify with the face ROM; final UE level sequence shows before/after apes side by side (lip bite fixed, eyes close fully).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Polyhammer Character DNA add-on** (free, late beta): drag-drop .dna import (Include Body, LOD selection), Face Board + pose library, View Options (mask/combined view, solo internal bones, bone visibility), Rig Instances (head/body components, per-output toggles), Converter (DNA → wrapped mesh), Mesh Editor, **Raw Editor** (edit/revert/commit, offset target mesh, paste over selection, paste vertices from target, Match Bones to Mesh hyperopt with PyTorch install — CUDA/CPU/MPS), **Shape Key Editor** (filter by mesh/value, ghost = zero deltas, freeze, isolate dependency chain), **RBF Editor** (pro), **Behavior Viewer** (PSD graph; target poses per layer L1–L6+; show animated maps/RBFs), **Backup Manager** (auto pre/post-commit, manual, retention policy), Output/exporter (MetaHuman Creator folder conventions), **Texture Logic** shader node.
+- **Pro vs free**: free = full 1:1 rig incl. RBF evaluation, import/export, animation; pro = DNA behavior editors (raw/shape key/RBF editing). Separate paid "Character Control Rig" add-on (IK controls, Rigify template, AutoRig Pro support planned). One-time purchase, full source, lifetime updates.
+- **DNA format**: meshes, joints, blend shapes, GUI→raw controls, PSDs, RBFs, animated maps; head DNA + body DNA from MetaHuman Creator DCC export.
+- **Blender techniques**: proportional editing, sculpt inflate brush, Face Sets + auto-masking by face sets, armature modifier for FBX clothes (vertex groups preserved), Alembic import for grooms.
+- **UE 5.8 tie-ins**: markerless mocap, MetaHuman Creator mesh import auto-solve, DNA as U-Asset → right-click Create Skeletal Mesh from DNA.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2 LTS shown; add-on supports Blender 4.5–5.2 (last two LTS releases). Unreal Engine 5.8 features referenced.
 
 ### Tags
-[PENDING EXTRACTION]
+metahuman, riglogic, dna, facial-rig, rigging, shape-keys, animation, mocap, add-on, unreal-engine, blender-5x, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Easy Rigging Using RIGIFY in Blender](easy-rigging-using-rigify-in-blender.md) — Blender's native auto-rigging alternative; the paid Character Control Rig add-on mentioned here ships a Rigify template for MetaHumans
+- [Blender 5.1's NEW Rigging Tool is INSANE!](blender-51s-new-rigging-tool-is-insane.md) — armature/bone tooling in recent Blender releases
