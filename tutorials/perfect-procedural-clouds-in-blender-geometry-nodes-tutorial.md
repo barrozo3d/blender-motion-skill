@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=6_vwVjODhog
 author: adrien_ltn
 ingested: 2026-07-25
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.x"
+tags: [geometry-nodes, volume, procedural, cycles, rendering, materials, lighting, hdri, compositing, organic, intermediate, blender-4x]
+extraction_status: complete
 frames_dir: tutorials/frames/perfect-procedural-clouds-in-blender-geometry-nodes-tutorial/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Perfect Procedural Clouds in Blender | Geometry Nodes Tutorial
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py perfect-procedural-clouds-in-blender-geometry-nodes-tutorial <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -338,30 +334,63 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [3:40] tutorials/frames/perfect-procedural-clouds-in-blender-geometry-nodes-tutorial/frame_000.jpg
+- [4:38] tutorials/frames/perfect-procedural-clouds-in-blender-geometry-nodes-tutorial/frame_001.jpg
+- [5:40] tutorials/frames/perfect-procedural-clouds-in-blender-geometry-nodes-tutorial/frame_002.jpg
+- [8:20] tutorials/frames/perfect-procedural-clouds-in-blender-geometry-nodes-tutorial/frame_003.jpg
+- [9:12] tutorials/frames/perfect-procedural-clouds-in-blender-geometry-nodes-tutorial/frame_004.jpg
+- [10:14] tutorials/frames/perfect-procedural-clouds-in-blender-geometry-nodes-tutorial/frame_005.jpg
+- [12:18] tutorials/frames/perfect-procedural-clouds-in-blender-geometry-nodes-tutorial/frame_006.jpg
+- [14:05] tutorials/frames/perfect-procedural-clouds-in-blender-geometry-nodes-tutorial/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Fully procedural photoreal clouds in Geometry Nodes (no VDBs): a Houdini-style sphere-scatter → points → volume pipeline packaged as the "Cloud Creator" tool (free Converter + Pro Generator/shaders), rendered in Cycles with volume-step and render-pass optimizations.
 
 ### Summary
-[PENDING EXTRACTION]
+Adrien Lambert (adrien_ltn) walks through his Cloud Creator geometry-nodes tool, built by replicating Houdini's cloud generation pipeline in Blender: a Generator modifier scatters/displaces spheres into cloud silhouettes (4 cloud-species presets, curve-drawn shapes supported), a Converter modifier turns *any* geometry into a particle-scattered volume with noise/flatten/wind/vortex shaping, and dedicated volume shaders add billowy detail, gradient colors, and edge halation. The back half covers making Cycles volumes render fast (Max Steps 10–25, volume light bounces), HDRI-first lighting, volume direct/indirect passes in comp, and rendering clouds on separate layers at frame steps (every 2–10 frames) interpolated with Flowframes.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Build the base shape** — scatter spheres into a rough cloud silhouette by hand, or (Pro) use the `AL_CloudCreator_Generator` modifier: pick a cloud species preset, set `Seed` / `Length` / `Width` / `Scale`, then tune `Point Separation` (sphere density), `Distortion` (top-down shape warp), and `Flatten Bottom`. There is deliberately no height setting — vertical growth comes from the Displacement tab (`Iterations` adds small spheres displaced upward, `Spread` displaces omnidirectionally, `Cleanup` at 0 removes everything, 1 keeps strays). A `Children` tab adds smaller offspring spheres (`Density`, `Scale Mult`, repeat ≤2).
+2. **Curve-drawn clouds** — the cloud-shape/curve generator variant shares the same settings and presets and lets you draw exact shapes and trails.
+3. **Convert to volume** — enable the `AL_CloudCreator_Converter` modifier (free version): scatters particles through any input geometry (works on a Suzanne). `Resolution` = voxel size (lower = more detail — **type values instead of dragging sliders; low values crash machines; save first**), `Particle Size` adjusted per resolution, `Viewport Override` for readable point display, `Render Subd` keeps render-time detail (keep at 2–3 max).
+4. **Shape the volume** — `Noise` tab for organic deformation (lower resolution while tuning), `Flatten` tab (intensity + height, 0=bottom 1=top). Pro adds: animation speed for subtle life; `Wind` tab (Intensity ~20, Scale, Detail, Direction as X/Y/Z weights — use 1,1,0 + `Omnidirectional` for flat all-direction spread; `ZPadding` sets effect height; `Flip Z` for top-only trails like cumulonimbus); `Vortex` tab driven by an Empty (`CTRL: Empty`, `Radius` 2.0, `Intensity` 3.0, `Push` 0.5) for anime-style swirl.
+5. **Optimize** — `Camera Culling` tab: input render resolution (e.g. 1080×1920) + camera focal length, then cull off-screen particles with the padding slider. Bake as Still or Animation via the last node in the converter's node tree (bake ignores `Render Subd` — match viewport first).
+6. **Extra distortion** — if the base was an empty volume, a `Volume Displace` modifier sits in the stack; create a new texture and set it to **Color, not grayscale** (grayscale displaces on one axis only).
+7. **Render in Cycles** — EEVEE + volumetric shadows works, but Cycles is more realistic. Fix render times: Render Properties → Volumes → `Max Steps` between **10 and 25** (too low = blocky artifacts); leave `Step Rate` alone; raise volume light bounces if affordable.
+8. **Light with HDRIs** — "90% lighting, 10% shader." World shader → `Environment Texture` with an HDRI (Poly Haven); template ships with daytime/overcast/sunset HDRIs.
+9. **Shade** — Fast material ≈ improved `Volume Scatter`; Pro "Fancy" material adds `Top`/`Bottom` colors with `Z Offset` gradient, `Billowy Factor` (puffiness noise with its own scale settings), `Shadows` (internal AO-like control), `Wind Dispertion` (match GN wind: `Zpadding`, `ZBlur`, `Intensity`, `FlipZ`), and `Halation` (edge rainbow fringing — `Coverage` 0.3–0.6 sweet spot, `Mix`, `Color Offset`).
+10. **Composite** — enable **Volume Direct + Volume Indirect** passes; render EXRs for Nuke/Resolve; render clouds on their own layer at a frame `Step` (every 2–10 frames depending on motion) and interpolate with Flowframes to save massive render time.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `AL_CloudCreator_Generator` (frame [3:40]): Cloud Species `Fractus` (dropdown also `Humilis`, `Mediocris`, `Congestus` — frame [4:38]); Length 1.0, Width 0.25, Point Separation 0.1, Distortion 1.0, Flatten Bottom 0; Displacement: Displacement 2.0, Spread 0.3, Cleanup 1.0; Children: Density 10.0, Scale Mult 0.7.
+- `AL_CloudCreator_Converter` (frames [5:40], [8:20]): Resolution 0.1 m, Particle Size 0.5, Render Subd 1; tabs Noise / Flatten / Wind / Vortex / Camera Culling / Manage. Wind: Intensity 20, Direction (1,1,0), Omnidirectional ✓, ZPadding 0.1.
+- Vortex (frame [9:12]): CTRL Empty.001, Intensity 3.0, Radius 2.0, Push 0.5.
+- Bake: converter node tree → last node → Still/Animation → Bake (frame [10:14]).
+- Cycles: Render Properties → Volumes → Max Steps 10–25 (frame [12:18]); Step Rate Render 1.0 untouched; GPU Compute.
+- `CloudCreator_Fancy_Mtl` (frame [14:05]): Density 0.6, Z Offset 0.35, Billowy Factor 0.6, Shadows 0.95; Wind Dispertion: Zpadding 8.458, ZBlur 2.5, Intensity 0.005, FlipZ ✓; Halation: Mix 0.285, Color Offset 0.653.
+- Volume Displace modifier: texture color mode = Color (not grayscale).
+- Render passes: Volume Direct + Volume Indirect; EXR output for external comp.
+- Frame-step trick: Output → Frame Range `Step` 2–10 + Flowframes interpolation.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.x (creator mentions a Blender 4.5 update for the Pro tools)
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, volume, procedural, cycles, rendering, materials, lighting, hdri, compositing, organic, intermediate, blender-4x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `tutorials/how-i-made-realistic-storm-clouds-in-blender.md` — the DIY version of this pipeline (mesh→volume→points→noise→volume cycling, HDRI lighting, god rays); shares geometry-nodes, volume, cycles, hdri, organic.
+- `tutorials/3-easy-lighting-setups-blender-tutorial.md` — HDRI + volume scatter lighting recipes that pair with the "90% lighting" advice here; shares lighting, hdri, volume, cycles.
+- `tutorials/a-full-blender-compositor-course.md` — covers the volume direct/indirect render-pass reconstruction workflow this tutorial relies on in comp; shares compositing, rendering, lighting.
+- `tutorials/3d-smoke-blender-geometry-nodes.md` — geometry-nodes volume grid simulation for animated volumetrics; shares geometry-nodes, volume.
