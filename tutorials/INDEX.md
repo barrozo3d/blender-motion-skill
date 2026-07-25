@@ -1228,6 +1228,16 @@ Each entry format:
 - **Summary:** Inside Unreal stream with Polyhammer's James Baeber: free Character DNA add-on runs Epic's RigLogic runtime natively in Blender — drag-drop head/body DNA import for a 1:1 MetaHuman rig (face board, poses/visemes, wrinkle-map debugging, RBF-corrected body, RigLogic LODs where editing LOD 0 auto-fixes lower LODs, Texture Logic shader node, MetaHuman Animator mocap import, full DNA round-trip export). Pro editors replace the Maya Expression Editor: Raw Editor with PyTorch hyperopt bone matching (192 bones in 3.7s), Shape Key Editor (zero-delta ghosts, freeze), Behavior Viewer graphing PSD corrective trees, layer-by-layer (L1→L6, MH12/MH50) calibration, Backup Manager with pre/post-commit backups — demonstrated by converting human DNA onto a wrapped ape and fixing its facial rig.
 - **File:** tutorials/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea.md
 
+
+### Perfect Procedural Clouds in Blender | Geometry Nodes Tutorial
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=6_vwVjODhog
+- **Author:** adrien_ltn
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/perfect-procedural-clouds-in-blender-geometry-nodes-tutorial.md
+
 ---
 
 ## Tag Reference
