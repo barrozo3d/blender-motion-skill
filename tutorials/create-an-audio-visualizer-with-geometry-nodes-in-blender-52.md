@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=h_Q91x_8dd4
 author: Ryan King Art
 ingested: 2026-07-26
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.2"
+tags: [geometry-nodes, animation, motion-design, procedural, materials, metal, lighting, compositing, cycles, rendering, abstract, intermediate, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/create-an-audio-visualizer-with-geometry-nodes-in-blender-52/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Create an Audio Visualizer with Geometry Nodes in Blender 5.2
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py create-an-audio-visualizer-with-geometry-nodes-in-blender-52 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -353,30 +349,66 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:56] tutorials/frames/create-an-audio-visualizer-with-geometry-nodes-in-blender-52/frame_000.jpg
+- [3:24] tutorials/frames/create-an-audio-visualizer-with-geometry-nodes-in-blender-52/frame_001.jpg
+- [6:26] tutorials/frames/create-an-audio-visualizer-with-geometry-nodes-in-blender-52/frame_002.jpg
+- [7:17] tutorials/frames/create-an-audio-visualizer-with-geometry-nodes-in-blender-52/frame_003.jpg
+- [8:38] tutorials/frames/create-an-audio-visualizer-with-geometry-nodes-in-blender-52/frame_004.jpg
+- [12:30] tutorials/frames/create-an-audio-visualizer-with-geometry-nodes-in-blender-52/frame_005.jpg
+- [14:17] tutorials/frames/create-an-audio-visualizer-with-geometry-nodes-in-blender-52/frame_006.jpg
+- [15:51] tutorials/frames/create-an-audio-visualizer-with-geometry-nodes-in-blender-52/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Audio-reactive bar visualizer driven by the new **Sample Sound Frequencies** geometry node (Blender 5.2), mapping frequency amplitude along a UV-unwrapped row of planes into an Extrude Mesh offset.
 
 ### Summary
-[PENDING EXTRACTION]
+Builds a classic bar-style audio visualizer entirely in Geometry Nodes: a row of duplicated planes is UV-unwrapped from top view, and the UV X coordinate feeds the Low/High frequency inputs of the Sample Sound Frequencies node so each bar responds to a different frequency band. The amplitude extrudes each bar upward along its normal, and the setup is finished with beveled geometry, a grungy metal material, red/blue sci-fi area lighting, Bloom + chromatic aberration compositing, and a frames→video-editor render pipeline synced to the music.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Add a plane, Edit Mode → Top View (Numpad 7), Shift+D duplicate two mini-grids over on X, then repeat with **Shift+R** until you have a long row of bars.
+2. Select all → U → **Unwrap: Project from View**; ensure the UV island runs along the X axis (rotate 90° if needed) — the frequency spread maps onto this UV X coordinate.
+3. Split a Video Sequencer window, set it to the **existing scene** (not New), drag the music file in at exactly frame 1.
+4. In a new Geometry Nodes tree: add **Sample Sound Frequencies**, pick the sound from the dropdown, and drive its Time input with **Scene Time → Seconds** to sync playback.
+5. Add **Named Attribute** (exact UV map name, e.g. "UVMap") → **Separate XYZ** → X into both the Low and High frequency inputs, each through its own **Map Range** node for strength control.
+6. Group Input → **Extrude Mesh**; Amplitude → **Vector Math (Scale)** with **Normal** node as the vector → Extrude Mesh **Offset**; set Offset Scale ≈ 40.
+7. Tune the Map Ranges: first To Min = 250 (adds variation — too low and bars just rise uniformly), second To Min = 600, To Max = 50. Scale the UV island up so its ends overflow the 0–1 UV grid for maximum per-bar variation.
+8. Append **Mesh Bevel** (segments 3–4, also new in recent GeoNodes) + Shade Smooth + **Set Material**.
+9. Scene dressing: extruded-and-beveled backdrop plane, delete world for black background, 4–5 area lights (power ~1000, blue/red/purple), Filmic + Very High Contrast color management.
+10. Metal material: Principled with low roughness + high metallic; Noise Texture (Scale 1, Detail 15, Roughness 0.9–1) → ColorRamp → Roughness; duplicate with Hue/Saturation value raised for a rougher floor version.
+11. Compositor: **Glare** node set to Bloom / High quality / Strength 3, plus **Chromatic Aberration** (Lens Dispersion, factor ~0.1); enable Motion Blur in render properties.
+12. Render JPEG frames (quality 100%), cut down Cycles light paths (caustics off, most bounces 2, transmission/transparent 0), then assemble frames + audio in a fresh Video Editing file (image sequence at frame 1, AAC audio codec, media type Video).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Sample Sound Frequencies** (new in 5.2): sound datablock, Time (from Scene Time Seconds), All Channels, Low/High frequency inputs (defaults 0 Hz / 10000 Hz), FFT option; output Amplitude
+- **Scene Time** → Seconds output
+- **Named Attribute** — "UVMap" (must match Object Data Properties → UV Maps name exactly)
+- **Separate XYZ** — X only → both frequency inputs
+- **Map Range** ×2 — #1 To Min 250 (variation), #2 To Min 600 / To Max 50 (strength/side profile)
+- **Extrude Mesh** — Offset Scale 40; Offset = Normal × Amplitude via Vector Math Scale
+- **Mesh Bevel** — segments 3–4
+- **Set Material**
+- Material: Metallic ≈ 1, Noise Texture (Scale 1, Detail 15, Roughness ~0.9) → ColorRamp → Roughness; Ctrl+T (Node Wrangler) Texture Coordinate Object mapping
+- Lights: 4–5 area lights, power ~1000+, blue/red/purple; world deleted; Filmic + Very High Contrast
+- Compositor: Glare (Bloom, High, Strength 3), Chromatic Aberration (Lens Dispersion ~0.105); Viewport compositor set to Always
+- Render: Cycles (or Eevee for speed), Motion Blur on, light paths trimmed, JPEG frames at 100% quality
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.2 (Sample Sound Frequencies node requires 5.2+)
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, animation, motion-design, procedural, materials, metal, lighting, compositing, cycles, rendering, abstract, intermediate, blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender 5.0's NEW Audio Visualisation is INSANE!](blender-50s-new-audio-visualisation-is-insane.md) — the pre-5.2 approach: Graph Editor Sound to Samples driving an Empty as force controller; this tutorial replaces that keyframe-bake workflow with the native Sample Sound Frequencies node
+- [Everything New in Blender 5.2 Geometry Nodes](everything-new-in-blender-52-geometry-nodes.md) — feature survey covering the 5.2 GeoNodes additions used here (Sample Sound Frequencies, Mesh Bevel)

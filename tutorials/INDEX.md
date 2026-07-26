@@ -1243,9 +1243,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=h_Q91x_8dd4
 - **Author:** Ryan King Art
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.2
+- **Tags:** #geometry-nodes #animation #motion-design #procedural #materials #metal #lighting #compositing #cycles #rendering #abstract #intermediate #blender-5x
+- **Summary:** Bar-style audio visualizer built on the new Sample Sound Frequencies node (5.2): a UV-unwrapped row of planes maps UV X into the Low/High frequency inputs via Map Range nodes, and Amplitude drives Extrude Mesh along normals (Offset Scale 40, To Min 250/600 for variation/strength). Finished with Mesh Bevel, grungy metal material, red/blue area lighting, Bloom + chromatic aberration compositing, and a frames-to-Video-Editor pipeline synced to the audio.
 - **File:** tutorials/create-an-audio-visualizer-with-geometry-nodes-in-blender-52.md
 
 
