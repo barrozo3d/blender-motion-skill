@@ -1273,9 +1273,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=TYo0Vpf13E0
 - **Author:** Kai🔸
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.x (5.2+ for footage modifier)
+- **Tags:** #compositing #motion-design #camera #animation #procedural #advanced #blender-5x
+- **Summary:** Builds the film "time shift" shutter-desync streak (Project Hail Mary aspect-ratio blends) as a reusable compositor group asset: highlights isolated via Map Range 0.5 + threshold mix, smeared with Directional Blur (64 samples, −π/2 angle offset), and edge-wrapped through a hand-built 32-tap Translate-node accumulator (Repeat sampling, taps at index/31, 5-stage halving cascade with 0.001008 shift) run twice (Repeat − Clip) so only the wrapped tail is added back at 0.72. Exposes Highlight Threshold, Streak Length, Angle, Wrap/Symmetric toggles, Intensity/Tint panel, Scene Time 1D-noise animated jitter, Mask input, and a streaks-only output; usable in 5.2+ as a non-destructive modifier on video footage.
 - **File:** tutorials/how-to-create-a-time-shift-blur-in-blender.md
 
 

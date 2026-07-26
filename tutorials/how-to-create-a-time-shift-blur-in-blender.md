@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=TYo0Vpf13E0
 author: Kai🔸
 ingested: 2026-07-26
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.x (5.2+ for footage modifier)"
+tags: [compositing, motion-design, camera, animation, procedural, advanced, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-create-a-time-shift-blur-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How to Create a Time Shift Blur in Blender
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-to-create-a-time-shift-blur-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -468,30 +464,67 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:10] tutorials/frames/how-to-create-a-time-shift-blur-in-blender/frame_000.jpg
+- [4:55] tutorials/frames/how-to-create-a-time-shift-blur-in-blender/frame_001.jpg
+- [9:31] tutorials/frames/how-to-create-a-time-shift-blur-in-blender/frame_002.jpg
+- [11:45] tutorials/frames/how-to-create-a-time-shift-blur-in-blender/frame_003.jpg
+- [14:30] tutorials/frames/how-to-create-a-time-shift-blur-in-blender/frame_004.jpg
+- [17:15] tutorials/frames/how-to-create-a-time-shift-blur-in-blender/frame_005.jpg
+- [19:15] tutorials/frames/how-to-create-a-time-shift-blur-in-blender/frame_006.jpg
+- [23:15] tutorials/frames/how-to-create-a-time-shift-blur-in-blender/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A reusable compositor node-group asset recreating the film "time shift" / shutter-desync blur (Project Hail Mary-style): highlights are isolated, smeared with Directional Blur, and wrapped around the frame edge via a hand-built 32-tap Translate-node accumulator (Blender's compositor has no native wrap).
 
 ### Summary
-[PENDING EXTRACTION]
+Kai rebuilds the RE Timing Shift Box effect — deliberately desyncing shutter and film pull-down so highlights streak across frame — as a drag-and-drop compositor group asset with exposed controls: Highlight Threshold, Streak Length, Angle, Wrap Around Edges, Symmetric Blur, Streak Intensity, Tint, and an Animated Jitter panel, plus Mask input and a streaks-only output. The centerpiece lesson is working around Blender's missing edge-wrap: a "streak blur accumulator" built from small reusable subgroups (direction vector, translate tap, smoothing cascade) run twice (Repeat vs Clip sampling) and subtracted so only the wrapped tail survives, then added back over a normal Directional Blur. Works in the realtime compositor for 3D scenes and, in Blender 5.2+, as a non-destructive modifier on video footage.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Create a compositor group named "Time Shift Blur" (color tag: Filter). Core: **Directional Blur** with Samples 64.
+2. Highlight isolation: **Map Range** (From Min 0.5) → **Mix** (A = 1, factor = new "Highlight Threshold" input) → Multiply node with a "Mask" input (default 1, min 0, max 1, Hide Value) → **Mix Color (Multiply)** with the original image to restore streak color.
+3. Comp streaks over the image with two **Mix Color (Add)** nodes (image + blur; image + pure white) divided by each other — normalizes so the threshold slider behaves.
+4. Add **Lens Distortion** at 0.01 after the blur for subtle chromatic aberration.
+5. Expose Angle (through Math Subtract π/2 so 0° = vertical streaks like the real effect) and Streak Length (default 0.1, min 0, max 2).
+6. Edge wrap — build ".Streak Blur (Acc)" group from three Lego subgroups:
+   - **.Direction Vector**: Cosine + Sine of Angle × Length → Combine XYZ → **Relative to Pixel** (Vector, reference dimension Y, original image as reference) → Separate XYZ.
+   - **.Translate Tap**: two Multiply nodes × a per-tap position value → **Translate** node with both extension modes driven by a "Behavior" menu input (Repeat = infinite tiling).
+   - Tap chain: 32 taps (8 to prototype), each at position index/(n−1) (e.g. 0/7…7/7 for 8), all Added together then divided by n to average. Feed the group's Behavior = Repeat.
+   - **.Cascade**: blends the image with a shifted copy at factor 0.5; shift = 2^(stage−1) × 0.001008 (one tap gap ÷ 32, so 5 doubling stages exactly cover one gap). Chain 5 cascades (values 1–5) before the taps to melt the 32 copies into a continuous streak.
+7. Limit the wrap: run the accumulator twice — Behavior Repeat and Clip — **Mix Color (Subtract)** them (interiors cancel, only wrapped tail remains), then **Mix Color (Add)** onto the Directional Blur at factor **0.72** (matches accumulator vs Directional Blur brightness). A **Switch (Color)** node + "Wrap Around Edges" boolean input toggles the tail (false = black).
+8. Mirror the accumulator's angle with π×1.5 minus angle so the wrap follows any streak direction.
+9. Symmetric blur: duplicate the whole edge-wrap + streak-direction stack as "forward"/"backward" (backward angle = +π), Mix the two at 0.5, and gate through another Switch with a "Symmetric Blur" checkbox.
+10. Grading: Mix Color (Multiply) "Streak Intensity" (float 1, 0–5, in an "Adjust" panel), Mix Color (Multiply) "Tint" (default white), optional RGB Curves for falloff.
+11. Animated jitter (own panel with toggle): **Scene Time** Frame ÷ 10 → × Speed (0–20) → + Seed (int) → **Noise (1D)** W input → Subtract → × Amount (0.5, 0–2) → Switch (float) → Added to Streak Length → Math Maximum 0 clamp.
+12. Extra output "Streaks": final result Added onto pure black → second group output, for external compositing.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Directional Blur: Samples 64; Angle offset −π/2 (default up/down); add-back factor 0.72
+- Map Range From Min 0.5 (highlight threshold base); Lens Distortion 0.01 (chromatic aberration)
+- Relative to Pixel: Vector, reference dimension Y — converts angle/length into pixel offset
+- Translate node sampling Repeat = the wrap hack; Clip copy subtracted to isolate the tail
+- 32 taps at index/31 positions, sum ÷ 32; cascade constant 0.001008 = (1/32) tap gap over 5 ×2 stages
+- Jitter: frame/10 × speed + seed → 1D Noise → recentered (−0.5) × amount, max(0) clamped into streak length
+- Group asset inputs: Image, Mask, Highlight Threshold, Streak Length (0.1 / 0–2), Angle, Wrap Around Edges (bool), Symmetric Blur (bool), Adjust panel (Streak Intensity 1 / 0–5, Tint white), Animated Jitter panel (toggle, Speed 1 / 0–20, Amount 0.5 / 0–2, Seed int); outputs Image + Streaks
+- Finished filter is also sold as a drag-and-drop asset on the author's Ko-fi
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.x (realtime compositor; 5.2+ for use as a non-destructive modifier on video footage)
 
 ### Tags
-[PENDING EXTRACTION]
+compositing, motion-design, camera, animation, procedural, advanced, blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [A FULL Blender Compositor Course!](a-full-blender-compositor-course.md) — compositor fundamentals this build assumes
+- [New Compositing Effects in Blender 5.2](new-compositing-effects-in-blender-52.md) — the 5.2 compositor/modifier features this asset targets
+- [Replacing Adobe After Effects with Blender (tutorial)](replacing-adobe-after-effects-with-blender-tutorial.md) — same "Blender as finishing/comp tool" workflow
