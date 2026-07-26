@@ -1278,6 +1278,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/how-to-create-a-time-shift-blur-in-blender.md
 
+
+### How to Blend Separate Objects in Blender. Easy Method!
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=KGf58mE5fZI
+- **Author:** Kenan Proffitt
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-blend-separate-objects-in-blender-easy-method.md
+
 ---
 
 ## Tag Reference
