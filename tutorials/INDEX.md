@@ -1263,9 +1263,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=yR8FatqgTDQ
 - **Author:** SouthernShotty
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (4.2+ UI)
+- **Tags:** #geometry-nodes #procedural #materials #shaders #eevee #animation #organic #particles #intermediate
+- **Summary:** Stylized EEVEE-friendly feathers/fur: the bundled Scatter on Surface preset (density 150, Y-aligned, randomized rot/scale) is unpacked and extended with the key trick — Set Mesh Normal (Free) fed by Sample Nearest Surface from a hidden smooth proxy sphere so all instances shade as one smooth surface — plus a Scene Time/Noise → Rotate Instances idle-motion rig and an instance-domain "ran_color" Random Value attribute. Feather shader layers UV gradient, stretched noise lines (Scale 2, Distortion 1.1, UV X×5), random color mix (0.25), and a Layer Weight → HSV (Value 5) fake rim light; EEVEE looks best with ray tracing off or Fast GI tamed (1 ray/4 steps, thickness 0.1, bias 0.25).
 - **File:** tutorials/how-to-create-stylized-feathers-and-fur-in-blender.md
 
 

@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=yR8FatqgTDQ
 author: SouthernShotty
 ingested: 2026-07-26
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (4.2+ UI)"
+tags: [geometry-nodes, procedural, materials, shaders, eevee, animation, organic, particles, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-create-stylized-feathers-and-fur-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How to Create Stylized Feathers and Fur in Blender
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-to-create-stylized-feathers-and-fur-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Overview [0:00]
@@ -365,30 +361,61 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:53] tutorials/frames/how-to-create-stylized-feathers-and-fur-in-blender/frame_000.jpg
+- [5:55] tutorials/frames/how-to-create-stylized-feathers-and-fur-in-blender/frame_001.jpg
+- [6:15] tutorials/frames/how-to-create-stylized-feathers-and-fur-in-blender/frame_002.jpg
+- [9:45] tutorials/frames/how-to-create-stylized-feathers-and-fur-in-blender/frame_003.jpg
+- [11:10] tutorials/frames/how-to-create-stylized-feathers-and-fur-in-blender/frame_004.jpg
+- [13:45] tutorials/frames/how-to-create-stylized-feathers-and-fur-in-blender/frame_005.jpg
+- [16:25] tutorials/frames/how-to-create-stylized-feathers-and-fur-in-blender/frame_006.jpg
+- [17:40] tutorials/frames/how-to-create-stylized-feathers-and-fur-in-blender/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Stylized EEVEE-friendly fur/feathers: scatter feather instances with the bundled **Scatter on Surface** modifier preset, then kill the ugly instance shading by overriding normals — **Set Mesh Normal (Free mode)** fed by **Sample Nearest Surface** from a smooth proxy sphere — so all feathers shade as one smooth surface.
 
 ### Summary
-[PENDING EXTRACTION]
+SouthernShotty builds a low-poly-friendly stylized feather ball that renders clean in EEVEE without high density or heavy geometry. The bundled Scatter on Surface geometry-node preset is unpacked and extended with three additions: a normal override that samples shading normals from a hidden smooth sphere (replacing the old data-transfer-modifier trick), a Scene Time + Noise Texture rig driving Rotate Instances for subtle idle motion, and a Store Named Attribute (instance-domain color from a Random Value float) exposed to the shader for per-feather color variation. The feather shader layers a UV gradient, stretched-noise feather lines, the random color mix, and a Layer Weight–driven fake rim light through a Hue/Saturation/Value boost. Ends with EEVEE settings that preserve the flat stylized look (ray tracing off, or Fast GI tamed).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Base mesh: enable the **Extra Mesh Objects** extension → add Round Cube set to **Quad Sphere** (no pole pinching), Shade Smooth.
+2. Add the **Scatter on Surface** modifier (a bundled geometry-nodes preset); set Object to a simple feather asset (a subdivided plane scaled on Z, kept in the asset library).
+3. Modifier settings: Density 150, enable Scatter on Instances, Align Rotation to **Y axis**, Randomize: Offset Y 0.005, Rotation −25/15/15, Scale 0.15 with Uniform on.
+4. Open the GeoNodes editor and **unpack the library** so the preset becomes editable; pin the node tree and rename it to match the modifier (e.g. Feather_System_A).
+5. Normal fix (the key step, done just before Group Output): duplicate the ball, strip its modifiers, apply Subdivision level 1, stash it in assets as "normals" → drag it in as an Object Info node → **Sample Nearest Surface** (Vector mode; geometry into Mesh, **Normal** node into Value) → **Set Mesh Normal** switched to **Free mode**, sampled result into Custom Normal. All feathers now shade with the smooth sphere's normals. For complex characters, use a simplified copy of the character instead of a sphere.
+6. Animation (inserted before the preset's randomization): **Scene Time (Frame)** → Math Divide by 350 (speed; 50 = fast, 500 = slow) → Combine XYZ (X only) → Vector Add with **Position** → **Noise Texture** (defaults) → Vector Subtract 0.5 (via a Math Add 0 + 0.5 offset, recentering the noise) → **Rotate Instances** rotation input.
+7. Random color: **Store Named Attribute** ("ran_color", Color type, **Instance** domain, placed before instances are realized) ← **Random Value** (Float, 0–1).
+8. Shader (shared by ball + feather asset, "Feather_Mat"): Gradient Texture (Linear) with Ctrl+T mapping → UV → Separate XYZ to flip direction → ColorRamp (spline/ease for soft falloff); Noise Texture (Scale 2, Distortion 1.1, UV mapping with X scale 5) for stretched feather lines → ColorRamp; combine via Mix Color (low factor).
+9. Mix in the instance color: Color Attribute "ran_color" → ColorRamp → second Mix Color at factor ≈ 0.25.
+10. Tint + rim light: final ColorRamp with bright/dark orange stops → **Hue/Saturation/Value** (Value 5) → Principled BSDF Base Color (Roughness 1, Metallic 0); **Layer Weight (Facing 0.5)** drives the HSV factor (and rim ColorRamp) for a fake stylized backlight. Don't overdo gradient ramps — they reintroduce the false shadows the normal fix removed.
+11. EEVEE settings: looks best with **ray tracing off**; if on, disable Fast GI Approximation or tame it (1 ray, 4 steps, Thickness 0.1, Bias 0.25).
+12. Scaling up: duplicate the system for multiple feather/fur sizes and use the density mask + weight-painted vertex groups to place each type (game-style grooming).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Scatter on Surface** preset: Density 150, Align Rotation Y, Randomize Offset Y 0.005 / Rot −25°,15°,15° / Scale 0.15 Uniform
+- **Sample Nearest Surface** (Vector) + **Normal** + **Object Info** (smooth proxy sphere) → **Set Mesh Normal** (Free, Custom Normal)
+- **Scene Time** Frame → Divide 350 → Combine XYZ → Vector Add + **Position** → **Noise Texture** (defaults) → subtract 0.5 → **Rotate Instances**
+- **Store Named Attribute** "ran_color" (Color, Instance domain) ← **Random Value** (Float 0–1)
+- Shader: Gradient Texture Linear + Separate XYZ (UV X), ColorRamp (spline), Noise Texture Scale 2 / Distortion 1.1 with UV mapping X-scale 5, Mix Color ×2 (random-color mix factor 0.25), ColorRamp orange tint, Hue/Saturation/Value (Value 5) driven by **Layer Weight** Facing 0.5, Principled Roughness 1 / Metallic 0
+- EEVEE: ray tracing off preferred; Fast GI: 1 ray / 4 steps, Thickness 0.1, Bias 0.25
+- Plug: MoGraph Toolbox (free MoGraph array; paid adds fields, falloffs, springs, delays)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified (4.2+ UI: Extensions menu, bundled Scatter on Surface preset, EEVEE Next ray-tracing/Fast GI settings)
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural, materials, shaders, eevee, animation, organic, particles, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Procedural Grass in Blender Geometry Nodes | Fast Viewport Setup & Optimization Tutorial](procedural-grass-in-blender-geometry-nodes-fast-viewport-se.md) — same scatter-instances-on-surface family, optimization-focused
+- [How To Make This Style in Blender 5.0](how-to-make-this-style-in-blender-50.md) — stylized EEVEE shading via geometry nodes + shader tricks
