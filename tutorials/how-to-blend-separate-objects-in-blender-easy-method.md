@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=KGf58mE5fZI
 author: Kenan Proffitt
 ingested: 2026-07-26
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.1"
+tags: [geometry-nodes, procedural, materials, shaders, displacement, organic, intermediate, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-blend-separate-objects-in-blender-easy-method/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How to Blend Separate Objects in Blender. Easy Method!
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-to-blend-separate-objects-in-blender-easy-method <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -263,30 +259,55 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:26] tutorials/frames/how-to-blend-separate-objects-in-blender-easy-method/frame_000.jpg
+- [3:12] tutorials/frames/how-to-blend-separate-objects-in-blender-easy-method/frame_001.jpg
+- [5:16] tutorials/frames/how-to-blend-separate-objects-in-blender-easy-method/frame_002.jpg
+- [7:57] tutorials/frames/how-to-blend-separate-objects-in-blender-easy-method/frame_003.jpg
+- [9:00] tutorials/frames/how-to-blend-separate-objects-in-blender-easy-method/frame_004.jpg
+- [11:00] tutorials/frames/how-to-blend-separate-objects-in-blender-easy-method/frame_005.jpg
+- [12:46] tutorials/frames/how-to-blend-separate-objects-in-blender-easy-method/frame_006.jpg
+- [13:12] tutorials/frames/how-to-blend-separate-objects-in-blender-easy-method/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Boolean-free object blending via Geometry Nodes: **Geometry Proximity** drives contact-zone displacement on both meshes, **Sample Nearest Surface → Set Mesh Normal (Free)** blends shading normals across the seam, and the same proximity gradient is stored as a named attribute to mix the two materials in the shader.
 
 ### Summary
-[PENDING EXTRACTION]
+Kenan Proffitt melts a rock pillar into a terrain mound with no booleans and no merged vertices — "all just a trick." Proximity from the ground object displaces the rock's base (and, optionally, the ground under the rock, at the cost of joining the two geometries and losing easy reusability), a distance-blended custom normal makes the two surfaces shade as one, and a stored "blend" attribute drives a Mix Shader between the two materials (each wrapped as a node group for a clean master material). The result is fully dynamic: move or sink the rock anywhere and the geometry, normals, and material blend follow its contact with the ground.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. On the pillar, new GeoNodes tree: drag the **ground object** from the outliner in as an Object Info node (set to **Relative**) → its Geometry into **Geometry Proximity**.
+2. Proximity **Distance** → **Map Range** → a **Color Ramp** (reversed — more flexible than flipping the Map Range) → Offset/Offset Scale of a displace-geometry setup on the pillar; keep strength low (~0.1) so the base flares subtly into the ground. The ramp lets you carve the contact shape.
+3. Optional ground displacement: duplicate the proximity+ramp cluster, swap references (rock's geometry as the proximity target), displace the ground the reverse way, then **Join Geometry** — warns this couples the setup to the two objects and makes it less drop-in reusable.
+4. Normal blend: displaced pillar → **Sample Nearest Surface** (data type **Vector**; plug the **Normal** node into *Value*, not Sample Position — easy to confuse) sampling the ground → **Mix (Vector)** with A = sampled ground normal, B = the pillar's own normal, factor = a second **Geometry Proximity** distance → **Set Mesh Normal** in **Free** mode, mix result into Custom Normal. Optionally a Map Range on the factor to tune falloff.
+5. Material blend: the Map Range/ramp color output → **Store Named Attribute** "blend". Duplicate the geometry color ramp and cut its link to the displacement chain so material falloff can be tuned independently of geometry falloff.
+6. In the shader editor: select each material's full node chain (BSDF + displacement) → Ctrl+G into node groups ("muddy", "rock"); in a new "blended" material add both groups (Shift+A → Group), **Mix Shader** for the BSDFs + **Mix (Vector)** for displacement (keep A/B order consistent between the two mixes), factor = **Attribute** node reading "blend" (swap A/B if the blend runs the wrong direction).
+7. **Set Material** "blended" on the rock (before the Join Geometry). The blend is proximity-driven, so the rock can be moved/rotated/sunk anywhere and it reads as part of the ground; pulled away, it's a clean rock again.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Object Info (ground, **Relative** mode) → **Geometry Proximity** (Distance out)
+- Map Range + reversed **Color Ramp** → displacement offset (strength ≈ 0.1)
+- **Sample Nearest Surface** (Vector; Normal → Value) + second Geometry Proximity as mix factor → **Mix Vector** → **Set Mesh Normal** (Free, Custom Normal)
+- **Store Named Attribute** "blend" (from the ramp color), separate ramp copy for material vs geometry falloff
+- Shader: material node groups + **Mix Shader** (BSDF) + Mix Vector (displacement), factor from **Attribute** "blend"; **Set Material** before Join Geometry
+- Materials sourced from Texture Haven (rock face + muddy tracks)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.1 (5.1.2 shown in title bar)
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural, materials, shaders, displacement, organic, intermediate, blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [How to Create Stylized Feathers and Fur in Blender](how-to-create-stylized-feathers-and-fur-in-blender.md) — uses the exact same Sample Nearest Surface → Set Mesh Normal (Free) custom-normal trick, there to smooth scattered instances
+- [Geode Nodes (i am so clever) // Blender Tutorial](geode-nodes-i-am-so-clever-blender-tutorial.md) — proximity/displacement-driven procedural rock work with material blending

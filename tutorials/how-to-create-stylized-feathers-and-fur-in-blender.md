@@ -419,3 +419,4 @@ geometry-nodes, procedural, materials, shaders, eevee, animation, organic, parti
 ## Related Tutorials
 - [Procedural Grass in Blender Geometry Nodes | Fast Viewport Setup & Optimization Tutorial](procedural-grass-in-blender-geometry-nodes-fast-viewport-se.md) — same scatter-instances-on-surface family, optimization-focused
 - [How To Make This Style in Blender 5.0](how-to-make-this-style-in-blender-50.md) — stylized EEVEE shading via geometry nodes + shader tricks
+- [How to Blend Separate Objects in Blender. Easy Method!](how-to-blend-separate-objects-in-blender-easy-method.md) — same Sample Nearest Surface → Set Mesh Normal (Free) trick, applied to seam-blending two objects
