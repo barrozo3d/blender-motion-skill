@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=ZqON1ms8VOM
 author: Curtis Holt
 ingested: 2026-07-26
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified"
+tags: [animation, rigging, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/i-fixed-a-difficult-animation-issue-kind-of/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 4
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # I Fixed a Difficult Animation Issue! (Kind Of)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py i-fixed-a-difficult-animation-issue-kind-of <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -180,30 +176,47 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:05] tutorials/frames/i-fixed-a-difficult-animation-issue-kind-of/frame_000.jpg
+- [1:55] tutorials/frames/i-fixed-a-difficult-animation-issue-kind-of/frame_001.jpg
+- [2:20] tutorials/frames/i-fixed-a-difficult-animation-issue-kind-of/frame_002.jpg
+- [5:45] tutorials/frames/i-fixed-a-difficult-animation-issue-kind-of/frame_003.jpg
+
+---
+
 ## Structured Notes
 
+> **Format note:** This is a talking-head progress vlog (Curtis Holt's human-animation-pipeline R&D), not a step-by-step tutorial. Frames confirm no on-screen Blender work beyond one picture-in-picture mocap-character clip at ~1:05. The value is the *conceptual design* of his automated foot-sliding cleanup, captured below.
+
 ### Core Technique
-[PENDING EXTRACTION]
+Algorithmic mocap foot-sliding cleanup: classify each foot per frame-range as a "support foot" (rotation + location within a flatness threshold, with look-back/look-ahead keyframe context), then magnetize the remaining positional difference to the flat grounded pose.
 
 ### Summary
-[PENDING EXTRACTION]
+Curtis Holt reports progress on his custom human animation pipeline (markerless mocap → Blender, with an Unreal-to-Blender workflow via Polyhammer tools). His foot-sliding fix works by assessing heel/spin control bones against rotation and location thresholds to categorize support feet, considering keyframes before and after the contact, then snapping ("grav boots"-style magnetism) the foot to ground — effective against sliding but needing animator polish for naturalness. He proposes a next step: a body-wide "smart context" pre-analysis pass that labels events (foot planting, fingers opening/closing, neck turning) as queryable markers/API so each cleanup script no longer re-detects context algorithmically. Also discusses hand-capture gaps in markerless systems, Rokoko Smart Gloves vs. a DIY ESP32 "pressure volume" glove idea.
 
 ### Key Steps
-[PENDING EXTRACTION]
+(Conceptual pipeline design, not reproducible click-path:)
+1. Detect support feet: check heel + spin control bone rotation and location against a flatness threshold per frame window.
+2. Include pre/post keyframe context to catch different "entry methods" into flat contact (heel-down duration, tilt-to-flat transitions).
+3. When classified as supporting, gravitate/snap the residual offset to the flat grounded position — eliminates sliding at the cost of a visible snap.
+4. Pre-mark correction regions with empties and curves sized by sliding distance, as an informational layer for cleanup scripts.
+5. Proposed evolution: full-body semantic event labeling (a queryable marker API: "all cases where fingers open, N pre-frames, M post-frames") shared by all cleanup scripts.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+None shown — no node setups or parameter values appear in the video.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced (conceptual pipeline/tool-development discussion)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified
 
 ### Tags
-[PENDING EXTRACTION]
+animation, rigging, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [My New Favorite Lighting Trick in Blender!](my-new-favorite-lighting-trick-in-blender.md) — same author (Curtis Holt), Project Fold ecosystem
+- [MetaHumans in Blender: Using OpenRigLogic to Customize DNA's Behavior](metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea.md) — the Polyhammer Unreal↔Blender character pipeline Curtis mentions testing, plus mocap import

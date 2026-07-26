@@ -1253,9 +1253,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=ZqON1ms8VOM
 - **Author:** Curtis Holt
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified
+- **Tags:** #animation #rigging #advanced #curtis-holt #vlog
+- **Summary:** Talking-head R&D vlog (not a tutorial): Curtis Holt's automated mocap foot-sliding cleanup — classifies support feet via heel/spin control-bone rotation+location thresholds with pre/post keyframe context, then magnetizes the residual offset to the flat grounded pose ("grav boots" snap; kills sliding, needs animator polish). Proposes a body-wide semantic event-labeling pass (queryable markers: fingers open/close, foot plants) to replace per-script context detection; also covers markerless mocap's missing hand capture, Rokoko Smart Gloves vs a DIY ESP32 glove idea.
 - **File:** tutorials/i-fixed-a-difficult-animation-issue-kind-of.md
 
 
