@@ -1258,6 +1258,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/i-fixed-a-difficult-animation-issue-kind-of.md
 
+
+### How to Create Stylized Feathers and Fur in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=yR8FatqgTDQ
+- **Author:** SouthernShotty
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-create-stylized-feathers-and-fur-in-blender.md
+
 ---
 
 ## Tag Reference
