@@ -1268,6 +1268,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/how-to-create-stylized-feathers-and-fur-in-blender.md
 
+
+### How to Create a Time Shift Blur in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=TYo0Vpf13E0
+- **Author:** Kai🔸
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-create-a-time-shift-blur-in-blender.md
+
 ---
 
 ## Tag Reference
