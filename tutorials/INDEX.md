@@ -1248,6 +1248,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/create-an-audio-visualizer-with-geometry-nodes-in-blender-52.md
 
+
+### I Fixed a Difficult Animation Issue! (Kind Of)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=ZqON1ms8VOM
+- **Author:** Curtis Holt
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/i-fixed-a-difficult-animation-issue-kind-of.md
+
 ---
 
 ## Tag Reference
