@@ -1238,6 +1238,16 @@ Each entry format:
 - **Summary:** Fully procedural photoreal clouds without VDBs using the creator's "Cloud Creator" geometry-nodes tool (free Converter / paid Pro), modeled on Houdini's cloud pipeline: a Generator scatters and displaces spheres into cloud silhouettes (Humilis/Mediocris/Congestus/Fractus presets, curve-drawn shapes), a Converter turns any geometry into a particle-scattered volume (Resolution = voxel size, Noise/Flatten/Wind/Vortex tabs, camera-culling optimization, bake to still/animation), and volume shaders add billowy noise, Z-gradient colors, and edge halation. Rendering half: Cycles Volumes Max Steps 10–25 for sane render times, HDRI-first lighting ("90% lighting, 10% shader"), Volume Direct/Indirect passes for comp, and rendering clouds on separate layers every 2–10 frames interpolated with Flowframes.
 - **File:** tutorials/perfect-procedural-clouds-in-blender-geometry-nodes-tutorial.md
 
+
+### Create an Audio Visualizer with Geometry Nodes in Blender 5.2
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=h_Q91x_8dd4
+- **Author:** Ryan King Art
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/create-an-audio-visualizer-with-geometry-nodes-in-blender-52.md
+
 ---
 
 ## Tag Reference
