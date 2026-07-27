@@ -1288,6 +1288,16 @@ Each entry format:
 - **Summary:** Boolean-free blending of a rock into terrain with Geometry Nodes: ground-object Geometry Proximity (via Relative Object Info) drives Map Range + reversed Color Ramp displacement at the contact (strength ~0.1, optionally mirrored onto the ground at the cost of a Join Geometry), Sample Nearest Surface (Vector, Normal→Value) mixed with the mesh's own normal by proximity distance feeds Set Mesh Normal (Free) so both surfaces shade as one, and the ramp color is stored as a "blend" attribute driving a Mix Shader between the two materials (each Ctrl+G-grouped into a clean master material). Fully dynamic — move/sink the rock and the blend follows.
 - **File:** tutorials/how-to-blend-separate-objects-in-blender-easy-method.md
 
+
+### [Tut] How Pick Instance is used for Instance Variations - P10 Geometry Nodes Beginners
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=fgPiXjKkRdI
+- **Author:** Bradley Animation
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin.md
+
 ---
 
 ## Tag Reference
