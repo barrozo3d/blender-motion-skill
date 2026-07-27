@@ -1299,6 +1299,16 @@ Each entry format:
 - **File:** tutorials/tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin.md
 - **Related:** Easy Geometry Nodes - Low-poly Rocks Blender 5.1 (`easy-geometry-nodes---low-poly-rocks-blender-51.md`) — shares geometry-nodes/procedural/instancing/beginner tags, also uses Distribute Points + Instance on Points (Pick Instance) for per-point variety.
 
+
+### Blender Finally Did It!!
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=KNqV2wJgxVM
+- **Author:** Ducky 3D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-finally-did-it.md
+
 ---
 
 ## Tag Reference
