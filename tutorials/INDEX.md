@@ -1304,9 +1304,10 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=KNqV2wJgxVM
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.2
+- **Tags:** #geometry-nodes #procedural #displacement #animation #lighting #rendering #cycles #motion-design #abstract #volume #intermediate #blender-5x
+- **Summary:** Showcases Blender 5.2's new native Mesh Bevel node in Geometry Nodes (no more external-model-then-instance workaround). Builds a volume-distributed grid of beveled cube instances whose scale is driven by an animated, looping Noise Texture → Color Ramp, plus a culled cylinder "rain line" accent layer, finished with a white emission-plane rim light and an orange disc Area Light in Cycles.
+- **Related:** A New Way To Loop Animations in Blender (`a-new-way-to-loop-animations-in-blender.md`) — the exact loop-keyframe trick referenced directly in this video's transcript. Also shares tags with Blender 5.0's NEW Audio Visualisation is INSANE! (volume, blender-5x), Glass Cell Division Effect in Blender 5.0 (abstract, blender-5x), and You Should Make Glass Animations in Blender 5.1 (motion-design, cycles, blender-5x) — all Ducky 3D "new 5.x feature" showcases.
 - **File:** tutorials/blender-finally-did-it.md
 
 ---

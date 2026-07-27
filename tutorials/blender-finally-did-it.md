@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=KNqV2wJgxVM
 author: Ducky 3D
 ingested: 2026-07-27
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.2"
+tags: [geometry-nodes, procedural, displacement, animation, lighting, rendering, cycles, motion-design, abstract, volume, intermediate, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-finally-did-it/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Finally Did It!!
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-finally-did-it <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -329,30 +325,66 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:36] tutorials/frames/blender-finally-did-it/frame_000.jpg
+- [2:44] tutorials/frames/blender-finally-did-it/frame_001.jpg
+- [4:57] tutorials/frames/blender-finally-did-it/frame_002.jpg
+- [6:09] tutorials/frames/blender-finally-did-it/frame_003.jpg
+- [7:10] tutorials/frames/blender-finally-did-it/frame_004.jpg
+- [11:47] tutorials/frames/blender-finally-did-it/frame_005.jpg
+- [13:57] tutorials/frames/blender-finally-did-it/frame_006.jpg
+- [16:02] tutorials/frames/blender-finally-did-it/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Using Blender 5.2's new native **Mesh Bevel** node inside Geometry Nodes (no more external-bevel-then-instance workaround) to build a volume-distributed cube grid whose scale is driven by an animated, looping noise texture — an abstract "digital rain" block animation, finished with two-light Cycles lighting.
 
 ### Summary
-[PENDING EXTRACTION]
+Ducky3D demonstrates the brand-new Mesh Bevel node in Blender 5.2's geometry nodes (previously bevels for instanced geometry had to be modeled externally and dragged in). After a quick overview of the node's sockets (Miter Spread, Segments, Shape, Selections: Vertex/Face, Edge/Face kill, Outer Edge, Mid Edge), he builds a full animation: a wide cube is converted to a volume, points are distributed on a grid, cubes are instanced on those points and beveled/shade-smoothed in place, then a Noise Texture → Color Ramp drives per-instance scale (via Position + Vector Math) to create a rippling "eaten away" block effect. The scale animation is made to loop by keyframing the Color Ramp factor input (0 → 25 → back to 0 with -25, Linear interpolation) rather than the color. A secondary grid of thin instanced cylinders (randomly culled via a boolean Random Value into Delete Geometry on Instance) is layered in as accent "rain lines." The scene is lit with a large white emission plane (rim/base light) plus a colored (orange) disc Area Light with low Spread for a soft gradient, rendered in Cycles at 300 samples with denoising, and exported as a PNG sequence.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Add a Plane → enter Geometry Nodes workspace → new node tree → delete default Group Input link → add a **Cube** node.
+2. Add a **Mesh Bevel** node on the cube's Mesh socket; briefly demo controls: Start/End Left/Right Offset, Miter Spread, Segments, Shape (concave/convex via curve), and Selection sockets (Vertex of Face / Edge of Face kill / Outer Edge / Mid Edge) feeding a Delete Geometry (Faces) to preview each selection's effect. "Outer Edge" selection on a double Mesh Bevel setup gives a wireframe look.
+3. Bypass the demo bevel chain; reshape the base Cube wide on Y (flat "canvas" shape).
+4. Add **Mesh to Volume** → **Distribute Points in Volume** (mode: Grid, not Random) with Spacing X/Y/Z ≈ 0.140 and Threshold 0.100 to get a dense, evenly spaced point grid.
+5. Add **Instance on Points** → instance a **Cube**, scale instances down (X/Y/Z) to leave gaps; enable viewport Cavity + Outline for readability while sizing.
+6. Add **Mesh Bevel** (Offsets ≈ 0.02, Segments 3) + **Set Shade Smooth** on the instanced cube mesh to finish each block's look.
+7. Drive per-instance scale: **Position** node → **Vector Math** → **Noise Texture** (Scale 6.6, Detail 2, Roughness/Lacunarity/Distortion tuned) → **Color Ramp** (factor, not color, into scale) so white = full scale (1.0), black = scaled to ~0.
+8. Loop the animation: duplicate the Position/Vector Math chain and blend via a **Mix Color** node with two Factor keyframes; keyframe the Color Ramp/Mix **Factor** value (not the color stops) at frame 0 = 0, later frame = 25, then back at frame 0 = -25 at the far end; set Interpolation to **Linear** in Preferences/Animation before keying or it won't loop cleanly.
+9. Add a secondary layer: **Join Geometry** ← a **Grid** (rotated 90° on X, scaled to peek through the top) feeding **Instance on Points** with a thin **Cylinder** (rotated 90° X, Radius 0.01, Depth scaled) for "rain line" accents.
+10. Thin out the cylinder instances with **Random Value** (Boolean) → **Delete Geometry** set to delete **Instances** (not Faces) for a balanced, non-overwhelming density.
+11. Lighting: switch to Cycles. Add a large **Plane** behind the subject, give it an **Emission** material (white, boosted strength) as a soft base/rim light; set World background strength to black (pure black background). Add an **Area Light** (shape: Disc), rotate to point at a corner, tint orange, raise Exposure, lower **Spread** for a harder gradient edge (raise Spread for softer).
+12. Render settings: disable Caustics; set Transparent/Volume/Transmission bounces toward 0 (keep others at 1); enable the Denoiser; Samples ≈ 300 (renders in ~3s at 1080p in the demo). Export via the printer/output icon as a PNG sequence, then Render → Render Animation.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Mesh Bevel (Geometry Nodes) — Start/End Left/Right Offset, Miter → Spread, Segments, Shape, Profile (curve), Selections (Edges / Vertex of Face / Edge of Face / Outer Edge / Mid Edge)
+- Mesh to Volume (Density 1.000, Voxel Amount 64000, Exterior Band Width 0.2m in the example)
+- Distribute Points in Volume — mode **Grid**, Spacing X/Y/Z ≈ 0.140, Threshold 0.100
+- Instance on Points, Cube, Set Shade Smooth
+- Position → Vector Math → Noise Texture (Scale 6.600) → Color Ramp (RGB, Linear interpolation) → instance Scale
+- Mix Color node (for the loop-blend trick), keyframed Factor input, Linear F-Curve interpolation
+- Grid + Transform Geometry (rotate 90° X) + Join Geometry for the accent-line layer
+- Cylinder instances, Radius 0.01, Random Value (Boolean) → Delete Geometry (domain: Instance)
+- Cycles render: Denoiser on, ~300 samples, Caustics off, Transparent/Volume/Transmission bounces ~0
+- Lighting: Emission-material Plane (base/rim light) + Area Light (Disc, orange tint, low Spread, raised Exposure), World strength = black
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — no simulation, but requires comfort with geometry nodes fields (Position/Vector Math), volume distribution, instance-domain deletion, and keyframing node-socket values with correct interpolation for a seamless loop.
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.2 (built specifically to showcase the new native Mesh Bevel node in Geometry Nodes, unavailable before 5.2).
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural, displacement, animation, lighting, rendering, cycles, motion-design, abstract, volume, intermediate, blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- **A New Way To Loop Animations in Blender** (`a-new-way-to-loop-animations-in-blender.md`) — Ducky 3D; this is the exact loop trick referenced directly in the transcript ("I actually talked about this trick in a video a few days ago"), applied here to the Color Ramp/Mix factor keyframes.
+- **Blender 5.0's NEW Audio Visualisation is INSANE!** (`blender-50s-new-audio-visualisation-is-insane.md`) — MTR Animation; shares geometry-nodes, animation, volume, motion-design, blender-5x, intermediate.
+- **Glass Cell Division Effect in Blender 5.0** (`glass-cell-division-effect-in-blender-50-tutorial.md`) — Ducky 3D; shares geometry-nodes, animation, motion-design, abstract, blender-5x, intermediate; similar "new 5.x node replaces the old workaround" framing.
+- **You Should Make Glass Animations in Blender 5.1** (`you-should-make-glass-animations-in-blender-51.md`) — Ducky 3D; shares animation, motion-design, abstract, rendering, cycles, blender-5x, intermediate.
