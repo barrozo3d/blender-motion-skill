@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=fgPiXjKkRdI
 author: Bradley Animation
 ingested: 2026-07-27
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified"
+tags: [geometry-nodes, procedural, instancing, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # [Tut] How Pick Instance is used for Instance Variations - P10 Geometry Nodes Beginners
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Recap about Instance & Realize Instance [0:00]
@@ -251,30 +247,60 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:58] tutorials/frames/tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin/frame_000.jpg
+- [4:43] tutorials/frames/tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin/frame_001.jpg
+- [7:21] tutorials/frames/tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin/frame_002.jpg
+- [8:48] tutorials/frames/tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin/frame_003.jpg
+- [10:39] tutorials/frames/tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin/frame_004.jpg
+- [12:41] tutorials/frames/tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin/frame_005.jpg
+- [15:09] tutorials/frames/tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin/frame_006.jpg
+- [17:03] tutorials/frames/tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Faking instancing variation in Geometry Nodes: since real instances all share one geometry (editing one edits all), the "Pick Instance" option on Instance on Points — combined with Collection Info's "Separate Children" — lets you instance a *different* object from a pre-built collection onto each point, so the result *looks* varied even though nothing is procedurally generated per-instance.
 
 ### Summary
-[PENDING EXTRACTION]
+Part 10 of a Geometry Nodes beginner series. Recaps `Object Info` (Original vs. Relative transforms, the "geometry cannot be retrieved from the modifier object" self-reference error, and the "As Instance" toggle for performance and for instancing unsupported types like lights/cameras), then moves into `Collection Info` + `Separate Children` + `Pick Instance` as the practical recipe for instance variation: pull in a collection of pre-made variants (e.g. flower models, snowman versions), separate its children into individual instances, and let Pick Instance select one per point — using `Instance Index` (tied to point ID/index) to control which variant lands where, with a `Random Value` (integer) node to break up visible ordering patterns.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Object Info basics** — `Instance on Points` takes points from one geometry and instances a second geometry (object, or object pulled via `Object Info`) onto each point.
+2. **Original vs. Relative** — on `Object Info`, use *Original* to clear the source object's transform (so instances don't inherit its position/rotation offset); *Relative* keeps it, which usually rotates instances around the wrong pivot. Original only clears object-level transform, not edit-mode-baked offsets.
+3. **Self-reference error** — an `Object Info` node cannot read the geometry of the object holding its own Geometry Nodes modifier (chicken/egg: the modifier evaluates after the group output). Use the `Group Input` / `Self Object` + explicit geometry input instead; only transform data is safely readable via Self Object.
+4. **As Instance toggle** — turning on "As Instance" on `Object Info` can massively cut evaluation cost for heavy source geometry (ties into Blender's caching/eval system, most noticeable with a Simulation/"same time" style dependency in the tree). It's also *required* to reference object types Geometry Nodes can't represent as real geometry — lights and cameras — which otherwise output nothing.
+5. **Collection Info — single instance vs. Separate Children** — `Collection Info` by default outputs the whole collection as one packed instance. Enable **Separate Children** to unpack it into one instance per member object (this is what makes per-point variation possible). **Instance Depth** controls how many container layers get unpacked (0 = none, 1 = outermost layer revealed) — the toggle is simpler for one level.
+6. **Reset Children** — clears inner objects' transforms to world origin (analogous to Original/Relative on Object Info, but for collection members); keep source objects centered at the origin for predictable results.
+7. **Pick Instance** — on `Instance on Points`, enabling Pick Instance selects one of the separated-children instances per point instead of instancing the whole bundle. Input geometry must already be real instances (not realized/joined mesh data) or it errors.
+8. **Instance Index** — controls *which* instance is picked per point; defaults to reading `ID` (falling back to index). Sequential point order gives a visible repeating pattern; feed a **Random Value** node (Integer, wired to Instance Index) to randomize — values wrap automatically (e.g. index 4 of 4 objects wraps to 0), no need to manually range-clamp. Duplicating an object multiple times inside the collection biases the random pick toward it (a simple weighting hack).
+9. **ID vs Index nuance** — `Distribute Points on Faces` explicitly writes its own `ID` attribute (large unique numbers, distinct from point index); for that node ID ≠ index and disabling one vs the other gives different results. For most other point sources ID mirrors index, so it rarely matters for beginners.
+10. **Nested collections** — a collection containing sub-collections (e.g. two snowman variants) needs the same Separate Children treatment to expose each sub-collection as its own pickable instance; Reset Children is less useful here since collections themselves don't carry object transforms.
+11. **Geometry to Instance** — for procedurally generated (not externally authored) variants, `Join Geometry`'s sibling node `Geometry to Instance` converts each of its multi-input branches into its own instance (rather than merging them), so Pick Instance can select among procedurally-built variants too.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Instance on Points` — core instancing node; **Pick Instance** toggle, **Instance Index** input
+- `Object Info` — **Transform: Original/Relative**, **As Instance** toggle; outputs realized geometry by default
+- `Collection Info` — **Separate Children** toggle, **Reset Children** toggle, **Instance Depth** (unpack layers)
+- `Random Value` (Integer) → feeds `Instance Index` for randomized variant selection
+- `Distribute Points on Faces` — writes its own `ID` point attribute (distinct from point index)
+- `Set ID` — explicitly sets ID from index
+- `Geometry to Instance` — converts each multi-input branch into a separate instance (procedural equivalent of a variant collection)
+- `Join Geometry` — mentioned as the node `Geometry to Instance` visually resembles but behaves differently (joins vs. keeps-separate-as-instances)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner (part 10 of a structured beginner series; assumes episodes 1–9, especially the "Original/Relative" and "Instance on Points" basics from episode 5, already watched).
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified (author: Bradley Animation; Geometry Nodes instancing API used — Object Info, Collection Info, Instance on Points w/ Pick Instance — has been stable since Blender 3.x).
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural, instancing, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `easy-geometry-nodes---low-poly-rocks-blender-51.md` — "Easy Geometry Nodes - Low-poly Rocks Blender 5.1" (shares geometry-nodes, procedural, instancing, beginner tags; also uses Instance on Points with Pick Instance to scatter pre-made variants from a Collection).

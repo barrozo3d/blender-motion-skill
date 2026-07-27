@@ -1293,10 +1293,11 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=fgPiXjKkRdI
 - **Author:** Bradley Animation
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified
+- **Tags:** #geometry-nodes #procedural #instancing #beginner
+- **Summary:** Beginner-series episode on faking instance variation in Geometry Nodes: recaps Object Info (Original/Relative transforms, the self-reference "geometry cannot be retrieved" error, and the As Instance toggle for perf + instancing lights/cameras), then covers the core recipe — Collection Info + Separate Children + Pick Instance on Instance on Points — to pick a different pre-made variant per point, with Instance Index + a Random Value node to randomize which variant lands where. Also covers Geometry to Instance for procedurally-generated variants.
 - **File:** tutorials/tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin.md
+- **Related:** Easy Geometry Nodes - Low-poly Rocks Blender 5.1 (`easy-geometry-nodes---low-poly-rocks-blender-51.md`) — shares geometry-nodes/procedural/instancing/beginner tags, also uses Distribute Points + Instance on Points (Pick Instance) for per-point variety.
 
 ---
 
