@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=Y4qk49lryRk
 author: Seanterelle
 ingested: 2026-07-28
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (UI shows classic dark node-editor theme without newer node-color coding conventions, consistent with Blender 3.x/early 4.x)"
+tags: [geometry-nodes, procedural, animation, materials, shaders, rendering, cycles, motion-design, abstract, organic, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/beginner-geometry-nodes---helix-twist-blender-tutorial/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Beginner Geometry Nodes - Helix Twist [Blender Tutorial]
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py beginner-geometry-nodes---helix-twist-blender-tutorial <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -379,30 +375,63 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:00] tutorials/frames/beginner-geometry-nodes---helix-twist-blender-tutorial/frame_000.jpg
+- [3:10] tutorials/frames/beginner-geometry-nodes---helix-twist-blender-tutorial/frame_001.jpg
+- [9:20] tutorials/frames/beginner-geometry-nodes---helix-twist-blender-tutorial/frame_002.jpg
+- [11:00] tutorials/frames/beginner-geometry-nodes---helix-twist-blender-tutorial/frame_003.jpg
+- [16:00] tutorials/frames/beginner-geometry-nodes---helix-twist-blender-tutorial/frame_004.jpg
+- [20:35] tutorials/frames/beginner-geometry-nodes---helix-twist-blender-tutorial/frame_005.jpg
+- [21:04] tutorials/frames/beginner-geometry-nodes---helix-twist-blender-tutorial/frame_006.jpg
+- [23:50] tutorials/frames/beginner-geometry-nodes---helix-twist-blender-tutorial/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Drive a set of strand curves to wrap around (and unwrap from) a central axis by animating Curve Tilt and Curve Scale off each strand's Spline Parameter Factor, then mesh the result with Curve to Mesh — producing a "candy/rope twist" that folds together and apart over the timeline, finished with a bake-node trick to keep surface textures stable despite the moving geometry.
 
 ### Summary
-[PENDING EXTRACTION]
+A from-scratch Geometry Nodes build of a multi-strand helix that twists together into a rope/candy shape and untwists apart, animated by frame. Six vertical strand curves are generated from a Curve Circle profile, individually separated via Curve Group ID, then spun around a central Curve Line by driving Curve Tilt with the strand's length-based Spline Parameter Factor. Curve Scale (also driven by that factor, remapped through Map Range and a Power node) makes the strands taper together at one end. Because the raw twisted curve stretches unevenly, a second, evenly-resampled "guide curve" is built and the twisted shape is resampled onto it via Sample Curve, keeping strand length constant for clean texturing. The guide is meshed with Curve to Mesh (Curve Circle profile, capped), and the fold/unfold animation is driven by Scene Time > Frame remapped through a Mix node and Power node for eased, non-linear timing. The second half covers rendering setup (GPU Cycles, mobile-aspect camera, motion blur) and shading a glossy, subsurface-scattering "candy" material colored via stored per-strand Curve Index / Spline Parameter attributes, plus a Bake node trick that freezes the mesh's end-state vertex positions so procedural surface textures (e.g. Voronoi specks) don't swim as the geometry animates.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Base shapes:** Add a default cube, delete it, open a Geometry Nodes editor, create a new node tree. Add a Curve Line (the central spin axis) and a Curve Circle set to 6 points (one point per strand) feeding a Curve to Mesh node as the Profile Curve to preview the raw helix.
+2. **Separate strands:** Convert the Curve Circle to points (Curve to Points), then Points to Curves so each point becomes its own curve; set the new curve's evaluated Curve Group ID to the point Index so each of the 6 strands is an individually-controllable spline (frame_001 shows the resulting per-strand curve set, viewed orthographic).
+3. **Twist via Tilt:** Feed the profile curve's Curve Tilt from the central Curve Line's Spline Parameter, using Length (not Factor) so the twist rate stays constant regardless of curve length; multiply length by a twist-rate constant. Add a Resample Curve (by Length, ~0.001) on the central line first — without it, tilt only has 2 points to interpolate and the twist looks broken.
+4. **Taper together:** Drive Curve Scale from the same Spline Parameter Factor, remapped through a Map Range node (e.g. 0.001→1 mapped to 1.0→2.0, base scale ~0.1) and smoothed through a Power node (power ≈5) so the strands come together abruptly at one end and stay open at the other (frame_002/frame_003 show the resulting twisted "candy" shape at two different lengths).
+5. **Guide-curve resample (constant-length fix):** Because the twisted curve stretches unevenly (bad for meshing/texturing), build a second plain Curve Line, resample it finely, run its own Curve to Mesh with the same profile curve (no twist/scale needed), then use Sample Curve (by Length, using the twisted curve's own Spline Parameter length as the source) to project the twisted curve's shape/animation onto the guide curve at constant length. Requires converting the sampled mesh output back to a curve and re-deriving Curve Index via a Curve of Point node, since Spline Parameter is meaningless on a mesh.
+6. **Final mesh:** Curve to Mesh the guide curve with a small Curve Circle profile (scale ≈0.05), Fill Caps on; lengthen the central line and guide curve as needed to get a longer, "candy-like" spiral (frame_002 vs. frame_003).
+7. **Frame-driven animation:** Add a Scene Time node (Frame output), Map Range it from the scene frame range to the fold-together start/end factor values; replace the direct Map Range easing with a 0–1 Map Range feeding a Mix node (between the min/max target values) plus a Power node (~0.2–0.5) for a fast-start/slow-finish ease — Power nodes only behave correctly on a 0–1 input range, hence the extra remap.
+8. **Render setup:** Set Material > Set Material node with a default material, switch Shading workspace, enable Cycles + GPU, add a Sun light (rotated for angle), raise exposure, add a ground plane, add a camera (View > Align Active Camera to View), set a mobile aspect ratio (1080×1920), enable Motion Blur, and lower render samples (~32) for test renders (frame_004 shows the first clay-vs-rendered test render, split-screen).
+9. **Per-strand color attributes:** Before the final Curve to Mesh, add two Store Named Attribute (Integer) nodes to bake "curve index" (from Curve to Points' index) and a Float "curve fact" (Spline Parameter Factor) onto the geometry so the Shader Editor can read them via Attribute nodes for per-strand coloring/gradients.
+10. **Candy shading:** Principled BSDF fed by an Attribute node (per-strand index) mixed toward a target hue via a Mix Color node (Hue/Saturation), Subsurface weight = 1 with small radius (~0.01) for the translucent candy look, a Bevel node into the Normal input to soften the hard cap edges (~0.0025–0.005, 16–32 samples), and a small Coat layer with low roughness (frame_005/frame_006 show the final glossy pink/red twisted-candy result under two Sun lights for soft dual shadows).
+11. **Stabilizing surface texture (Bake trick):** For non-moving surface detail (e.g. glossy Voronoi specks mixed via a Mix Shader), a Bake node freezes the mesh at the end frame; Sample Index reads the baked end-state Position per vertex, stored via a Store Named Attribute (Vector) as "end position"; an Attribute node then feeds that fixed position into the texture coordinate input so procedural textures stop swimming as the animated geometry moves (frame_007 shows the loose/apart animation state with the bake-related node graph visible). Re-bake any time the base geometry changes.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Curve generation:** Curve Line, Curve Circle (6 points, used as Profile Curve), Curve to Points, Points to Curves, Curve Group ID = Index.
+- **Twist control:** Curve Tilt driven by Spline Parameter (Length mode) × twist-rate constant; Resample Curve (By Length, ~0.001) required before tilt for smooth interpolation.
+- **Taper control:** Curve Scale driven by Spline Parameter Factor → Map Range (e.g. 0.001–1 → 1.0–2.0, base scale 0.1) → Power node (~5).
+- **Constant-length guide fix:** second Curve Line → Resample Curve → Curve to Mesh (same profile) → Sample Curve (By Length, using source Spline Parameter length) → convert mesh back to Curve → Curve of Point node (Curve Index) to re-derive per-strand index.
+- **Final mesh:** Curve to Mesh with Curve Circle profile (scale ≈0.05), Fill Caps enabled.
+- **Animation drive:** Scene Time (Frame) → Map Range (0–1) → Mix node (start/end fold values, e.g. 0.4 to a large negative value) → Power node (0.2–0.5 for ease).
+- **Attributes for shading:** Store Named Attribute (Integer) ×2 — "curve index" and per-point index; Store Named Attribute (Float) — "curve fact" (Spline Parameter Factor).
+- **Shading:** Principled BSDF; Attribute node (curve index) → Mix Color (Hue/Saturation) for per-strand tint; Subsurface weight = 1, radius ≈0.01; Bevel node (0.0025–0.005, 16–32 samples) → Normal input; Coat layer, low roughness.
+- **Texture-stabilizing bake:** Bake node → Sample Index (Position) → Store Named Attribute (Vector, "end position") → Attribute node feeding texture coordinate of a Voronoi-driven Mix Shader (glossy specks, Glossy BSDF, low roughness).
+- **Render:** Cycles, GPU compute, Motion Blur enabled, ~32 test samples, mobile aspect ratio 1080×1920, Sun lights (large angle for soft shadows), AgX color management with high-contrast look.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — labeled "beginner" by the author, but the constant-length guide-curve resample trick (step 5) and the Power-node-needs-0–1-range fix for animation easing (step 7) are non-obvious gotchas that go beyond a first Geometry Nodes tutorial. The core twist/taper mechanic (steps 1–6) is genuinely beginner-friendly.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not stated explicitly in the transcript. Node editor styling (muted node colors, classic dark theme) is consistent with Blender 3.x/early 4.x rather than the newer 5.x node-color scheme seen in other library entries.
 
 ### Tags
-[PENDING EXTRACTION]
+#geometry-nodes #procedural #animation #materials #shaders #rendering #cycles #motion-design #abstract #organic #beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- **Blender Tutorial - Procedural Rope in Geometry Nodes** (`tutorials/blender-tutorial-procedural-rope-in-geometry-nodes.md`) — same core domain (interlocking spiral/strand curves built with Geometry Nodes, animated organic twisting), shares #geometry-nodes #procedural #organic #animation tags; a good next step for more advanced multi-strand curve rigs.
+- **Curves Just Got Easier in Blender 5.0** (`tutorials/curves-just-got-easier-in-blender-50.md`) — shares the per-strand attribute-driven coloring/texturing approach (Spline Parameter / per-spline Random attributes read in the Shader Editor) and #geometry-nodes #materials #shaders #motion-design #procedural #abstract tags, useful for extending this tutorial's per-strand shading trick.

@@ -1326,9 +1326,10 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=Y4qk49lryRk
 - **Author:** Seanterelle
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (node editor styling consistent with Blender 3.x/early 4.x)
+- **Tags:** #geometry-nodes #procedural #animation #materials #shaders #rendering #cycles #motion-design #abstract #organic #beginner
+- **Summary:** Builds a multi-strand helix that twists together into a rope/candy shape and unwinds apart, animated by frame: strand curves driven by Curve Tilt + Curve Scale off Spline Parameter, resampled onto an evenly-spaced guide curve via Sample Curve for constant strand length, meshed with Curve to Mesh, eased with a Mix+Power node combo, and finished with a glossy subsurface "candy" shader plus a Bake-node trick to keep procedural surface textures from swimming as the geometry animates.
+- **Related:** Blender Tutorial - Procedural Rope in Geometry Nodes (`blender-tutorial-procedural-rope-in-geometry-nodes.md`) — same interlocking spiral-strand domain. Curves Just Got Easier in Blender 5.0 (`curves-just-got-easier-in-blender-50.md`) — shares the per-strand attribute-driven shading approach.
 - **File:** tutorials/beginner-geometry-nodes---helix-twist-blender-tutorial.md
 
 ---
