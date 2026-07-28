@@ -1310,6 +1310,16 @@ Each entry format:
 - **Related:** A New Way To Loop Animations in Blender (`a-new-way-to-loop-animations-in-blender.md`) — the exact loop-keyframe trick referenced directly in this video's transcript. Also shares tags with Blender 5.0's NEW Audio Visualisation is INSANE! (volume, blender-5x), Glass Cell Division Effect in Blender 5.0 (abstract, blender-5x), and You Should Make Glass Animations in Blender 5.1 (motion-design, cycles, blender-5x) — all Ducky 3D "new 5.x feature" showcases.
 - **File:** tutorials/blender-finally-did-it.md
 
+
+### Photoreal Metahumans In Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=kaDtwG3JimM
+- **Author:** Extra 3d
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/photoreal-metahumans-in-blender.md
+
 ---
 
 ## Tag Reference
