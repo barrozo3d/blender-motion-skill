@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=kaDtwG3JimM
 author: Extra 3d
 ingested: 2026-07-28
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (UI shows modern tab layout with Geometry Nodes tab + Cycles GPU compute, consistent with Blender 4.x)"
+tags: [materials, shaders, rigging, animation, cycles, organic, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/photoreal-metahumans-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Photoreal Metahumans In Blender
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py photoreal-metahumans-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -283,30 +279,59 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:45] tutorials/frames/photoreal-metahumans-in-blender/frame_000.jpg
+- [2:30] tutorials/frames/photoreal-metahumans-in-blender/frame_001.jpg
+- [5:55] tutorials/frames/photoreal-metahumans-in-blender/frame_002.jpg
+- [6:55] tutorials/frames/photoreal-metahumans-in-blender/frame_003.jpg
+- [7:20] tutorials/frames/photoreal-metahumans-in-blender/frame_004.jpg
+- [8:25] tutorials/frames/photoreal-metahumans-in-blender/frame_005.jpg
+- [10:35] tutorials/frames/photoreal-metahumans-in-blender/frame_006.jpg
+- [11:05] tutorials/frames/photoreal-metahumans-in-blender/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A cross-application photoreal-human pipeline: generate a likeness-matched head base mesh from a single photo (Meshy AI), drive Unreal Engine 5's MetaHuman Identity/Character tools with that mesh to build a rigged, textured, groomed character, then export the DNA rig + grooms and reassemble the full character (with working hair/beard shaders) inside Blender via the free Polyhammer add-on.
 
 ### Summary
-[PENDING EXTRACTION]
+The video walks through creating a photorealistic MetaHuman entirely from one reference photo. A single front-facing image is turned into a textured 3D head mesh in Meshy AI, cleaned up and re-exported from Blender as FBX, then used inside Unreal Engine's MetaHuman Identity tool to facial-track and conform a MetaHuman preset to match the real person's head shape, skin, and groom. The finished character (rig, 4K textures, grooms) is exported in DCC format and DNA/groom files, then reassembled in Blender using the Polyhammer add-on: the DNA file brings in the rigged head/body, groom FBX files are imported separately, and a shared node-based hair shader (Image Texture -> Separate Color -> Principled BSDF, high transparent bounces) is built and bound to the face with a Surface Deform modifier.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Reference gathering:** Collect and categorize references (skin color, face shape, groom, height, body) in PureRef — treated as the most important step.
+2. **Head base mesh (Meshy AI):** Upload a clean, neutral-pose, front-facing reference photo to Meshy's Image-to-3D tool; use Standard topology + Meshy 6 model + A-Pose; generate, compare against the reference, and download as GLB (frame_000, frame_001 — result: 232,748 tris / 116,357 verts clay mesh).
+3. **Prep in Blender:** Import the GLB, `Alt+P` > Clear Parent (Keep Transform off), Edit Mode > select all > `Mesh > Merge > By Distance`, then export as FBX with "Selected Objects Only" checked.
+4. **UE5 project setup:** Install Epic Games Launcher + Unreal Engine (5.6 used), enable the MetaHuman Core Data option during install, create a blank project, enable all MetaHuman plugins in Plugins browser (restart required), and organize the Content Browser into Imports / Identities / Characters / Exports folders.
+5. **MetaHuman Identity (facial tracking):** Create a MetaHuman Identity asset, assign the imported head FBX as its component, set camera Field of View to 20, rotate the model to face camera (`E` for rotation gizmo), lock the frame, run facial tracking, generate the MetaHuman head mesh, then generate the rig (frame_002 shows the Identity editor's footage/tracking view).
+6. **MetaHuman Character build:** Create a MetaHuman Character asset, pick a preset close to the reference for groom/body proportions (frame_003 shows the default/unconformed body in the Blend sub-tab), then in the Head tab use `Conform > From Identity` to transform the head shape to the tracked mesh (frame_004), match skin tone/texture (150+ face texture variants available), add a groom preset matching the reference, and sculpt the body via the Model sliders.
+7. **Rig + export from UE:** Generate the full rig, download textures at 4K, go to the Assembly tab and export once at Cinematic settings, then re-export in DCC format (frame_005 shows the rigged, textured result with beard groom).
+8. **Groom export:** In the Cinematic export folder, locate LOD0 groom assets, right-click each groom > Export, and export the corresponding groom textures as PNG.
+9. **Blender add-on setup (one-time):** Create a free Polyhammer account, generate an API token, and add it as a remote repository under Preferences > Add-ons/Extensions > Repositories to install the Polyhammer MetaHuman importer.
+10. **Reassembly in Blender:** Drag the exported DNA file into Blender and import it (brings in the rigged head/body but no hair, frame_006). Import the exported groom FBX files separately. For each groom, build a shader in the Shader Editor: Image Texture -> Separate Color node (RGB channels split) -> Principled BSDF, and raise Render Properties > Light Paths > Transparent > Max Bounces to 64 for correct hair-card transparency (frame_007). Bind each groom to the face with a Surface Deform modifier (select target face mesh, click Bind).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Meshy AI:** Image-to-3D, Model Type = Standard, AI Model = Meshy 6, Pose = A-Pose, Image Enhancement on.
+- **Blender mesh cleanup:** `Mesh > Merge > By Distance`; FBX export with "Selected Objects" only.
+- **UE5 MetaHuman Identity:** Field of View = 20; rotation gizmo (`E`) to align footage; frame lock before tracking.
+- **UE5 MetaHuman Character:** Conform panel > "From Identity" (Import DNA Options, both checkboxes unchecked per the video); Skin section slider (150+ face textures); Body > Model sliders; Assembly export = Cinematic, then DCC format.
+- **Blender groom shader (Shader Editor):** Image Texture node -> Separate Color node (splits R/G/B groom texture channels) -> Base Color input of Principled BSDF.
+- **Render Properties > Light Paths > Transparent > Max Bounces = 64** (needed for hair-card groom transparency to render correctly).
+- **Groom binding:** Surface Deform modifier on each groom object, Target = face mesh, then click Bind.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced — not a single-app Blender technique, but a full pipeline across Meshy AI, Unreal Engine 5 (MetaHuman Identity + Character + plugins), the third-party Polyhammer add-on, and Blender shading/modifiers. Individual steps are approachable but the setup (UE5 + plugins + Polyhammer token) is a real barrier and is explicitly called out as "the most difficult part" in the video.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not stated explicitly in the transcript. The captured Blender viewport (frame_006/frame_007) shows the modern tab layout (Layout/Modeling/Sculpting/UV Editing/Texture Paint/Shading/Animation/Rendering/Compositing/Geometry Nodes/Scripting) with Cycles + GPU Compute — consistent with Blender 4.x.
 
 ### Tags
-[PENDING EXTRACTION]
+#materials #shaders #rigging #animation #cycles #organic #advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- **MetaHumans in Blender: Using OpenRigLogic to Customize DNA's Behavior | Inside Unreal** (`tutorials/metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea.md`) — shares the exact MetaHuman DNA / Unreal Engine -> Blender rigging pipeline (tags: metahuman, dna, rigging, unreal-engine); that video covers customizing the DNA-driven facial rig behavior after import, a natural next step once this video's character is in Blender.
+- No other library entries currently share 2+ of this tutorial's approved tags (materials/shaders/rigging/animation/cycles/organic/advanced) in combination with the MetaHuman/UE5 subject matter — this is the first full photo-to-MetaHuman pipeline entry in the library.

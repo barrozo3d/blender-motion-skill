@@ -1315,9 +1315,10 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=kaDtwG3JimM
 - **Author:** Extra 3d
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (viewport UI consistent with Blender 4.x — modern tab layout, Cycles GPU compute)
+- **Tags:** #materials #shaders #rigging #animation #cycles #organic #advanced
+- **Summary:** Full photo-to-MetaHuman pipeline: generates a likeness head mesh from one photo in Meshy AI, uses it to facial-track and conform a MetaHuman preset in Unreal Engine 5 (Identity + Character tools), then exports the DNA rig and grooms and reassembles the fully textured, groomed character in Blender via the free Polyhammer add-on, including a from-scratch hair/beard shader (Image Texture -> Separate Color -> Principled BSDF) bound to the face with Surface Deform.
+- **Related:** MetaHumans in Blender: Using OpenRigLogic to Customize DNA's Behavior | Inside Unreal (`metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea.md`) — shares the MetaHuman DNA / Unreal Engine -> Blender rigging pipeline.
 - **File:** tutorials/photoreal-metahumans-in-blender.md
 
 ---
