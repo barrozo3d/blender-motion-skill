@@ -1321,6 +1321,16 @@ Each entry format:
 - **Related:** MetaHumans in Blender: Using OpenRigLogic to Customize DNA's Behavior | Inside Unreal (`metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea.md`) — shares the MetaHuman DNA / Unreal Engine -> Blender rigging pipeline.
 - **File:** tutorials/photoreal-metahumans-in-blender.md
 
+
+### Beginner Geometry Nodes - Helix Twist [Blender Tutorial]
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=Y4qk49lryRk
+- **Author:** Seanterelle
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/beginner-geometry-nodes---helix-twist-blender-tutorial.md
+
 ---
 
 ## Tag Reference
