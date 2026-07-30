@@ -1337,9 +1337,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=PUjZECgANYU
 - **Author:** Curtis Holt
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified
+- **Tags:** motion-capture, facial-animation, pipeline, mocap-tools, opinion
+- **Summary:** Opinion/R&D-log video (not a build tutorial): argues AI-assisted scripting now gets solo creators ~90% of the way to commercial mocap suite quality using free tools (MetaHuman live-link facial capture + custom Blender Python smoothing/retargeting scripts) instead of paying thousands for hardware/subscriptions. Covers the "90/10 principle" for evaluating tools, remaining pain points (finger capture, body sampling smoothness), and a hard requirement for local/offline operation with no usage limits.
 - **File:** tutorials/the-end-of-expensive-motion-capture.md
 
 ---

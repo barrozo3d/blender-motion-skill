@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=PUjZECgANYU
 author: Curtis Holt
 ingested: 2026-07-30
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified"
+tags: [motion-capture, facial-animation, pipeline, mocap-tools, opinion]
+extraction_status: complete
 frames_dir: tutorials/frames/the-end-of-expensive-motion-capture/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 2
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # The End of Expensive Motion Capture?
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py the-end-of-expensive-motion-capture <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -262,30 +258,41 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [4:20] tutorials/frames/the-end-of-expensive-motion-capture/frame_000.jpg
+- [11:44] tutorials/frames/the-end-of-expensive-motion-capture/frame_001.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Building a low/no-cost human motion capture pipeline for Blender by combining a free MetaHuman-style live-link facial tracker with custom Python/OpenAI-assisted smoothing and retargeting scripts, rather than buying commercial mocap suits/subscriptions (e.g. Rokoko).
 
 ### Summary
-[PENDING EXTRACTION]
+This is a talking-head opinion/R&D-log video, not a step-by-step build tutorial. Curtis Holt argues that AI-assisted scripting has let solo creators reach ~90% of the quality of expensive mocap products (thousands of pounds/dollars in equipment, ~$10-500+/year subscriptions for features like smoothing or facial wrinkle maps) using free tooling: Unreal's MetaHuman live-link facial capture (now usable outside Unreal, free under a seat-license model unless you earn over $1M/yr) plus his own Blender scripts for body/facial retargeting and smoothing, built with OpenAI's help over one month (July 2026). He frames the decision as a "90/10 principle" — a free/cheap tool gets you 90% of the way, and a bit of scripting + artistic control covers the remaining 10%, so the marginal value of paid equipment/software is shrinking fast. Remaining pain points in his pipeline: finger capture quality and body-motion sliding/sampling smoothness (not resolved by better hardware necessarily — he's unsure if it's a hardware or a post-processing problem). He also stresses "runs locally/offline, no token limits" as a hard requirement for anything he adopts.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Use a free live-link facial capture tool (MetaHuman-style face tracking, shown running via webcam) to drive a facial rig in near real time — demoed on screen at ~4:20.
+2. Layer in custom Blender Python scripts (written with OpenAI assistance) to fix/retarget/smooth the incoming facial and body capture data — this is where most of the quality gain over the raw feed comes from.
+3. For body capture, use a separate low-cost/free source (he mentions just recording himself on a treadmill) and splice the facial and body data together in Blender, since his pipeline treats face and body as independently swappable data sources.
+4. Deliberately avoid relying on a single vendor/toolset for the pipeline — combine multiple free/cheap capture sources so any one of them becoming unavailable doesn't break the pipeline (redundancy over lock-in).
+5. Evaluate any new mocap tool against a fixed checklist: local/offline capability, no artificial token or usage limits, and whether it actually closes a real gap (e.g. finger detail, sampling smoothness) rather than adding cost for marginal polish.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+No specific Blender nodes, modifiers, or node-tree settings are shown — this video has no geometry-nodes or shader-node content. The one on-screen demo (frame_000, ~4:20) shows a "Live Link" facial-capture UI with a webcam preview panel on the left and a retargeted MetaHuman-style face model reacting in real time on the right, alongside a "Target Profile" list — consistent with Unreal's Live Link Face / MetaHuman Animator-style tooling rather than a native Blender addon UI.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Not applicable (opinion/commentary video, no hands-on steps for a viewer to follow).
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified.
 
 ### Tags
-[PENDING EXTRACTION]
+motion-capture, facial-animation, pipeline, mocap-tools, opinion
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+None yet — first motion-capture-pipeline-focused entry in this library. Future mocap or facial-animation ingests should cross-link here.
