@@ -118,4 +118,4 @@ geometry-nodes, procedural-generation, architecture, modifier-stack, asset-showc
 ---
 
 ## Related Tutorials
-- `tutorials/easy-railing-generator-with-geometry-nodes.md` — another parametric-architecture geometry-nodes asset (railings), shares tags: geometry-nodes, procedural-generation, architecture.
+- `tutorials/easy-railing-generator-with-geometry-nodes-blender-52.md` — another parametric-architecture geometry-nodes asset (railings), shares tags: geometry-nodes, procedural-generation, architecture.

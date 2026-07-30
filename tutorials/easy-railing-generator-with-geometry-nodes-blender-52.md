@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=deAw5dU5Wfs
 author: Max Hay
 ingested: 2026-07-30
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.2"
+tags: [geometry-nodes, procedural-generation, architecture, modifier-stack, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/easy-railing-generator-with-geometry-nodes-blender-52/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Easy Railing Generator with Geometry Nodes | Blender 5.2
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py easy-railing-generator-with-geometry-nodes-blender-52 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -576,30 +572,51 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [3:07] tutorials/frames/easy-railing-generator-with-geometry-nodes-blender-52/frame_000.jpg
+- [7:29] tutorials/frames/easy-railing-generator-with-geometry-nodes-blender-52/frame_001.jpg
+- [9:39] tutorials/frames/easy-railing-generator-with-geometry-nodes-blender-52/frame_002.jpg
+- [10:11] tutorials/frames/easy-railing-generator-with-geometry-nodes-blender-52/frame_003.jpg
+- [16:22] tutorials/frames/easy-railing-generator-with-geometry-nodes-blender-52/frame_004.jpg
+- [19:01] tutorials/frames/easy-railing-generator-with-geometry-nodes-blender-52/frame_005.jpg
+- [21:39] tutorials/frames/easy-railing-generator-with-geometry-nodes-blender-52/frame_006.jpg
+- [26:51] tutorials/frames/easy-railing-generator-with-geometry-nodes-blender-52/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A beginner-friendly geometry-nodes fence/railing generator: convert any edge or extruded point-path into a curve, resample it to even spacing, and instance a modeled railing segment along it with correct rotation via curve tangent — so railings auto-follow any edge or freehand path instead of being hand-placed.
 
 ### Summary
-[PENDING EXTRACTION]
+Max Hay builds a reusable railing/fence generator from scratch. He first quickly models a simple railing segment (cylinder posts + spun/mirrored horizontal bars), then builds a geometry-nodes tree that takes any mesh edge/vertex path, converts it to a curve, resamples it to even spacing, and instances the railing object along it with rotation driven by the curve's tangent. He fixes two common problems along the way — overlapping/misaligned instances (spacing) and broken corner rotation (via Split Edges + Endpoint Selection) — then shows how exposing node inputs to the modifier lets the same node group drive independently-configured railings on multiple objects. The last third of the video is a looser show-and-tell of a much more advanced platform+stairs+railing generator built on the same core concept (not a full tutorial for that part).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Model the railing segment**: Add a Cylinder (24 verts is enough), thin it with Shift+Z scale, use the Spin tool on the top face (axis Y, 8 steps) around a 3D cursor placed at the post center to generate the horizontal bar loop, Mirror modifier (clipping on) to complete it, duplicate/adjust for a second bar. Apply the mirror modifier and delete the resulting double-face at the seam. Fix any thickness issues with Alt+S (shrink/fatten) then Apply Scale. Set the origin to the bottom of the post (select the two bottom faces → Shift+S Cursor to Selected, enable "Affect Only Origins" → Shift+S Selection to Cursor), then move the origin to one side/edge (not the center) — this matters later for corner rotation.
+2. **Build the driving path**: add any mesh object, enter Edit Mode, select all, Merge at Center (M) to collapse it to a single vertex — this vertex can then be extruded freehand to draw a path, or an existing object's edge can be duplicated/separated out (Edit Mode → select edge loop → Duplicate → Separate → Selection, then delete only the resulting faces) to reuse an existing building edge as the path.
+3. **Core node tree** (frame_001-004): `Mesh to Curve` (mesh input must become a curve before curve-only operations work) → `Resample Curve` set to Length mode (e.g. every 2m) for even post spacing → `Instance on Points`, with an `Object Info` node (eyedropper-pick the railing object, Apply Scale on it first) plugged into the instance geometry.
+4. **Fix rotation**: add `Curve Tangent` → `Align Rotation to Vector` (formerly "Align Euler to Vector") → plug into the Instance on Points `Rotation` input; test each axis (X/Y/Z) in the Align node until the instances point along the path — X worked correctly except at corners in the demo.
+5. **Fix corners**: insert a `Split Edges` node on the incoming *mesh* (before Mesh to Curve — Split Edges only accepts mesh input, not curve) so each edge becomes its own independent curve segment instead of one continuous bending curve — this stops the railing warping around corners. This adds one extra unwanted instance per corner; remove it with an `Endpoint Selection` node (Start Size / End Size control how many end-points get included) fed through a `Boolean Math` "Not" node and plugged into the Instance on Points `Selection` input, tuned to select only the duplicate corner point for exclusion.
+6. **Reusable modifier**: put the whole node group on any object as a Geometry Nodes modifier — the same tree instantly generates railings along that object's edges/points without rebuilding anything.
+7. **Expose controls per-object**: drag key node inputs (Resample Curve's Length, Endpoint Selection values, the Object Info's Object slot, etc.) out to the node group's Group Input so they appear as per-object modifier parameters — this keeps one shared node group while letting each object using it have independent spacing, railing style/object, and endpoint tweaks (frame_005: swapping in a different imported railing/fence asset per-object via the modifier's Object field).
+8. **To make it a real, editable mesh**: add a `Realize Instances` node at the end of the tree before applying the modifier — Blender won't let you apply a modifier that still outputs instances otherwise.
+9. **Advanced extension shown (not fully explained/tutorialized)**: a bigger "Platform Gen" system built on the same core (frame_006, frame_007) where extruding an edge auto-generates a scaled/tiled platform, extruding-and-raising an edge auto-detects a slope and generates stairs, and railings can be swapped between styles (cylinder posts, square, flat vs. graded profile) via modifier inputs. A parallel technique for railings that need a solid continuous profile (a pipe/tube rather than repeated post instances): skip Split Edges, run the mesh→curve path through a `Fillet Curve` node (rounds corners, adjustable size) instead of relying on per-segment instancing, then `Curve to Mesh` with a small-resolution `Curve Circle` plugged into the Profile input to extrude a round pipe along the whole path, `Join Geometry` to combine multiple such pipes (e.g. two rails at different heights via `Set Position`/`Transform Geometry`) into a complete railing.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+`Mesh to Curve`, `Resample Curve` (mode: Length), `Instance on Points`, `Object Info` (with eyedropper object pick), `Curve Tangent`, `Align Rotation to Vector` (axis X/Y/Z toggle), `Split Edges` (mesh-only, must precede Mesh to Curve), `Endpoint Selection` (Start Size / End Size), `Boolean Math` (Not), `Realize Instances` (required before applying the modifier), `Fillet Curve` (corner rounding, for the solid-pipe variant), `Curve to Mesh` with `Curve Circle` as Profile input, `Join Geometry`, `Set Position` / `Transform Geometry` (for stacking multiple rail heights). Group-Input-exposed fields become per-object modifier parameters (Length, Endpoint Selection sizes, Object slot).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner (explicitly pitched as a first geometry-nodes generator project); the platform/stairs extension shown later is Advanced/Expert and left unexplained by the creator himself.
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.2 (per video title).
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural-generation, architecture, modifier-stack, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `tutorials/blender-procedural-building-geometry-nodes.md` — another parametric-architecture geometry-nodes asset (full building generator), shares tags: geometry-nodes, procedural-generation, architecture.

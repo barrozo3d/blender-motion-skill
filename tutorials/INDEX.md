@@ -1367,9 +1367,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=deAw5dU5Wfs
 - **Author:** Max Hay
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.2
+- **Tags:** geometry-nodes, procedural-generation, architecture, modifier-stack, beginner
+- **Summary:** Beginner geometry-nodes tutorial building a railing/fence generator from scratch: Mesh to Curve → Resample Curve → Instance on Points, with Curve Tangent + Align Rotation to Vector for orientation and Split Edges + Endpoint Selection to fix corner instancing. Covers exposing node inputs to the modifier for per-object control, Realize Instances for applying, and a looser show-and-tell of an advanced platform/stairs generator plus a Fillet Curve + Curve to Mesh solid-pipe railing variant.
 - **File:** tutorials/easy-railing-generator-with-geometry-nodes-blender-52.md
 
 ---
