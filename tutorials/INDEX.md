@@ -1347,9 +1347,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=VdxTlfLLe_s
 - **Author:** SharpWind
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (recent, modifier UI matches 4.x/5.x)
+- **Tags:** geometry-nodes, procedural-generation, architecture, modifier-stack, asset-showcase
+- **Summary:** Feature walkthrough (not a build-from-scratch tutorial) of a paid procedural-building geometry-nodes asset: one `Building_Generator` modifier with six grouped panels (General Shape, Colors, Floor Distribution, Details, Roof Elements, Manage) driving brick facade, window/awning distribution, fire escapes, and roof clutter from sliders and seeds. Demonstrates organizing a complex node asset into readable modifier-panel sections rather than the node graph itself.
 - **File:** tutorials/blender-procedural-building-geometry-nodes.md
 
 ---

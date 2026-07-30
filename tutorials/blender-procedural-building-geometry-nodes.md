@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=VdxTlfLLe_s
 author: SharpWind
 ingested: 2026-07-30
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (recent, modifier UI matches 4.x/5.x)"
+tags: [geometry-nodes, procedural-generation, architecture, modifier-stack, asset-showcase]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-procedural-building-geometry-nodes/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 7
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender PROCEDURAL BUILDING! | Geometry Nodes
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-procedural-building-geometry-nodes <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -76,30 +72,50 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:06] tutorials/frames/blender-procedural-building-geometry-nodes/frame_000.jpg
+- [0:10] tutorials/frames/blender-procedural-building-geometry-nodes/frame_001.jpg
+- [0:16] tutorials/frames/blender-procedural-building-geometry-nodes/frame_002.jpg
+- [0:27] tutorials/frames/blender-procedural-building-geometry-nodes/frame_003.jpg
+- [0:43] tutorials/frames/blender-procedural-building-geometry-nodes/frame_004.jpg
+- [0:57] tutorials/frames/blender-procedural-building-geometry-nodes/frame_005.jpg
+- [1:21] tutorials/frames/blender-procedural-building-geometry-nodes/frame_006.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A single pre-built geometry-nodes "Building_Generator" modifier drives an entire procedural apartment-building asset — one mesh with a `GeometryNodes` modifier exposing a large set of grouped, human-readable input controls (not a from-scratch build tutorial; this is a product showcase/usage guide for an asset the creator sells).
 
 ### Summary
-[PENDING EXTRACTION]
+SharpWind demonstrates the control panel of a paid procedural building asset for Blender. The whole building — brick facade, window rows, awnings, fire escapes, roof details — comes from one geometry-nodes modifier organized into six collapsible sections in the modifier stack: General Shape, Colors, Floor Distribution, Details, Roof Elements, and Manage. Each section exposes sliders/seeds so a huge number of building variations can be produced from one asset without touching the node tree itself. The video is a feature walkthrough for buyers, not a from-scratch node-building tutorial.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Apply the `GeometryNodes` modifier (named `Building_Generator`) to the asset's base object — this is the only setup step; everything else is parameter tweaking.
+2. **General shape** section: set `Width`, `Depth`, `Height`, and `BlankWallSelector` (an index picking which wall, if any, is left blank/flat so the building can butt up against a neighboring one).
+3. **Colors** section: pick `Ground Floor Color`, `Floors Color`, `Top Color` via a standard Blender color-wheel picker (Linear/Perceptual + RGB/HSV toggle, Hue/Saturation/Value/Alpha fields, hex input), plus four independent `Awning Color 1-4` swatches; also a brick-type toggle between "old" and "modern" brick variants for extra visual variety.
+4. **Floor Distribution** section: control upper-floor count, ring frequency/offset and gap frequency/offset (both X and Y axes), and fire-escape stair frequency/offset — note fire-escape placement is overridden wherever a gap already exists (gaps mean no wall to attach stairs to).
+5. **Details** section: `Door Frequency`, `Ground Floor Window Amount` + its `Seed`, `Upper Awning Amount` + `Seed`, `Lower Awning Amount` + `Seed`, and separate percentage/seed controls for how many awnings appear extended vs. contracted.
+6. **Roof Elements** section: counts (and per-type seeds) for antennas, chimneys, and AC units, plus an AC-unit size slider (0 = all small, 1 = all big). Overlap priority is roof-element-type dependent: chimneys override/replace antennas, AC units override chimneys — so the creator recommends configuring roof elements bottom-up (antennas first) to avoid pieces disappearing under higher-priority ones.
+7. **Manage** section is explicitly internal/geometry-nodes bookkeeping — not meant to be touched by the user.
+8. To customize beyond the exposed parameters: make the `Parts` collection visible and edit the source models directly, respecting strict placement conventions — the front-facing wall piece must keep its authored orientation and sit exactly 0.5m from its own origin; corner pieces likewise must keep their orientation and each side must be 0.5m from origin (the asset ships with a template object showing the expected pivot/orientation setup).
+9. Materials are intentionally minimal for asset-file-size reasons: mostly simple procedural shaders, with only 6 total brick textures plus one extra texture for the lower-floor support elements.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+Not a raw node-tree tutorial (the node graph itself is never shown) — the reusable pattern is the *organization*: group modifier-stack inputs into named, collapsible panel sections (General Shape / Colors / Floor Distribution / Details / Roof Elements / Manage) so a complex geometry-nodes asset stays usable without opening the node editor. Modifier panel fields observed: Width, Depth, Height, BlankWallSelector (General shape); Ground Floor Color, Floors Color, Top Color, Awning Color 1-4 (Colors); upper-floor/ring/gap/fire-escape frequency+offset pairs (Floor Distribution); Door Frequency, Ground Floor Window Amount/Seed, Upper/Lower Awning Amount/Seed, Lower Awnings Extended + Extension seed (Details).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner (as a user of the asset — just modifier-parameter tweaking, no node authoring required). The underlying node tree itself would be Advanced/Expert to build from scratch, but that construction isn't shown.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified on screen; modifier-panel styling is consistent with recent Blender 4.x/5.x.
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural-generation, architecture, modifier-stack, asset-showcase
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `tutorials/easy-railing-generator-with-geometry-nodes.md` — another parametric-architecture geometry-nodes asset (railings), shares tags: geometry-nodes, procedural-generation, architecture.
