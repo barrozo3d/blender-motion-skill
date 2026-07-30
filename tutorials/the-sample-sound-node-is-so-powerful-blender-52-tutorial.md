@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=B0KwaI0Eqqk
 author: Ducky 3D
 ingested: 2026-07-30
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.2"
+tags: [geometry-nodes, audio-visualization, shading, procedural-generation, motion-graphics]
+extraction_status: complete
 frames_dir: tutorials/frames/the-sample-sound-node-is-so-powerful-blender-52-tutorial/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # The Sample Sound Node is So Powerful (Blender 5.2 tutorial)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py the-sample-sound-node-is-so-powerful-blender-52-tutorial <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -286,30 +282,51 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:26] tutorials/frames/the-sample-sound-node-is-so-powerful-blender-52-tutorial/frame_000.jpg
+- [3:50] tutorials/frames/the-sample-sound-node-is-so-powerful-blender-52-tutorial/frame_001.jpg
+- [5:00] tutorials/frames/the-sample-sound-node-is-so-powerful-blender-52-tutorial/frame_002.jpg
+- [6:10] tutorials/frames/the-sample-sound-node-is-so-powerful-blender-52-tutorial/frame_003.jpg
+- [7:50] tutorials/frames/the-sample-sound-node-is-so-powerful-blender-52-tutorial/frame_004.jpg
+- [10:00] tutorials/frames/the-sample-sound-node-is-so-powerful-blender-52-tutorial/frame_005.jpg
+- [11:00] tutorials/frames/the-sample-sound-node-is-so-powerful-blender-52-tutorial/frame_006.jpg
+- [14:50] tutorials/frames/the-sample-sound-node-is-so-powerful-blender-52-tutorial/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Using Blender 5.2's new `Sample Sound Frequencies` geometry-nodes node to convert an imported audio track into a per-vertex/per-face amplitude value, then driving mesh extrusion (flat or circular waveform bars) and/or a shader attribute from that value to build reactive audio-visualizer geometry.
 
 ### Summary
-[PENDING EXTRACTION]
+Ducky3D walks through the brand-new `Sample Sound Frequencies` node in Blender 5.2 geometry nodes. He builds a simple rig that samples an imported audio clip's amplitude over time, then uses that value to (1) build a classic flat audio-waveform bar animation, (2) build the same thing wrapped into a circular/radial waveform, and (3) push the same amplitude data into the Shader Editor via a named attribute so it can drive an emission color instead of (or in addition to) geometry displacement. The video is an intro/baseline tutorial — he states outright there's much more to do with the node and plans follow-ups.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Import audio: Video Sequencer → New → Add → Sound, place the clip at frame 1 (mute it with H if you don't want playback audio — it's still readable by geometry nodes), extend the timeline (e.g. to 5000 frames) to scrub the whole song.
+2. Add a Grid mesh (~10x10 size, ~100 vertices) as the object to drive a Geometry Nodes tree on.
+3. Add a `Sample Sound Frequencies` node (Shift+A → search "sample sound frequencies"). Assign your audio in its dropdown. Feed a `Scene Time` node's `Seconds` output into the sample node's `Time` input so playback drives it automatically without keyframing.
+4. Set `Sample Sound Frequencies` → `High`/`Low` in Hertz to control which frequency band is captured (creator used High=15000, and warns Low should be set close to High, e.g. ~800+, not left near 20 — too wide a gap makes the low end visually dominate and swamp the high end). `FFT` size acts like a resolution/detail control (default 4096; lower values like 256 look "zoomed into the low end," higher like 32768 shows more fine detail but animates more slowly); window function (`Hann` shown) was left untouched/unexplained.
+5. For a **flat** waveform: take `Position` → `Separate XYZ`, feed one axis into a `Map Range` node to remap the amplitude output range, boost the high end with a `Math` node (×100 in the demo), then feed Low/High into the Sample node's own Low/High. Preview live with a `Viewer` node (plug amplitude output in) before wiring further.
+6. Build the bar geometry: Grid → `Split Edges` → `Scale Elements` (scale down so each face becomes an isolated bar) → `Extrude Mesh`, with the remapped amplitude value plugged into the extrude's `Offset` — this is what animates the bars up/down with the music. Verify axis: if bars all scale together instead of extruding individually, the wrong axis was picked in Separate XYZ/Map Range.
+7. Finish the flat waveform with a `Mesh Bevel` node (small offset, several segments) on the extruded bars for rounded, polished-looking bar caps.
+8. For a **circular** waveform: swap the Grid for a `Cylinder` (no fill caps), tune radius/depth/vertex count, then repeat the same Split Edges → Scale Elements → Extrude Mesh chain. Key difference: drive the mapping from an `Index` node instead of `Position` — since bar order is already sequential (face index 0, 1, 2...) around the cylinder, using Index avoids any UV-mapping/unwrapping work needed to place a flat waveform texture onto a circular surface.
+9. To visualize the same amplitude data in the **Shader Editor**: add a `Store Named Attribute` node in the geometry-nodes tree (domain = Face, named e.g. "S" for sound), inserted *before* the Mesh Bevel node (so the raw per-face value is stored, not the beveled/subdivided geometry's values) and plug the Map Range output into its `Value` input. Add a `Set Material` node with a new material using an `Emission` shader. In the Shading workspace, add an `Attribute` node referencing name "S", plug its `Fact`/`Color` output into an optional `Color Ramp` (to recolor low vs. high amplitude, e.g. blue→another color) and then into the Emission color — the mesh now glows/reacts to the same audio data driving the geometry.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+`Sample Sound Frequencies` (inputs: sound clip, Time, All Channels/Channel toggle, Low, High, FFT size, window function e.g. Hann; output: Amplitude), `Scene Time` (Seconds → Sample node's Time), `Separate XYZ`, `Map Range` (Float, Clamp, From Min/Max, To Min/Max), `Math` (multiply/boost), `Viewer` node (for live-preview debugging), `Split Edges`, `Scale Elements`, `Extrude Mesh` (Offset driven by amplitude), `Mesh Bevel` (Offset, Segments, Shape), `Index` (for circular/index-based mapping instead of Position), `Store Named Attribute` (domain: Face, name: "S", Value = amplitude), `Set Material`, Shader Editor `Attribute` node (name-matched to the stored attribute) → optional `Color Ramp` → `Emission`.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — requires comfort with geometry nodes fundamentals (extrude, split edges, map range) but the sound-specific node itself is presented as simple/approachable.
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.2 (title-stated; `Sample Sound Frequencies` and `Mesh Bevel` geometry nodes are recent additions).
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, audio-visualization, shading, procedural-generation, motion-graphics
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+None yet with overlapping audio-reactive tags — first audio-visualization entry in this library.

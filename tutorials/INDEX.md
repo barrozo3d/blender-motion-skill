@@ -1357,9 +1357,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=B0KwaI0Eqqk
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.2
+- **Tags:** geometry-nodes, audio-visualization, shading, procedural-generation, motion-graphics
+- **Summary:** Intro tutorial to Blender 5.2's new `Sample Sound Frequencies` geometry-nodes node: samples audio amplitude via Scene Time, remaps it with Map Range, and uses it to drive Extrude Mesh offset for both flat and circular (Index-mapped) waveform bar visualizers, plus pushes the same value into the Shader Editor via Store Named Attribute to drive an Emission color.
 - **File:** tutorials/the-sample-sound-node-is-so-powerful-blender-52-tutorial.md
 
 ---
