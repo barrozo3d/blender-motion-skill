@@ -1332,6 +1332,16 @@ Each entry format:
 - **Related:** Blender Tutorial - Procedural Rope in Geometry Nodes (`blender-tutorial-procedural-rope-in-geometry-nodes.md`) — same interlocking spiral-strand domain. Curves Just Got Easier in Blender 5.0 (`curves-just-got-easier-in-blender-50.md`) — shares the per-strand attribute-driven shading approach.
 - **File:** tutorials/beginner-geometry-nodes---helix-twist-blender-tutorial.md
 
+
+### The End of Expensive Motion Capture?
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=PUjZECgANYU
+- **Author:** Curtis Holt
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/the-end-of-expensive-motion-capture.md
+
 ---
 
 ## Tag Reference
