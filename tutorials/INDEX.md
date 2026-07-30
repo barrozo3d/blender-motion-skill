@@ -1352,6 +1352,16 @@ Each entry format:
 - **Summary:** Feature walkthrough (not a build-from-scratch tutorial) of a paid procedural-building geometry-nodes asset: one `Building_Generator` modifier with six grouped panels (General Shape, Colors, Floor Distribution, Details, Roof Elements, Manage) driving brick facade, window/awning distribution, fire escapes, and roof clutter from sliders and seeds. Demonstrates organizing a complex node asset into readable modifier-panel sections rather than the node graph itself.
 - **File:** tutorials/blender-procedural-building-geometry-nodes.md
 
+
+### The Sample Sound Node is So Powerful (Blender 5.2 tutorial)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=B0KwaI0Eqqk
+- **Author:** Ducky 3D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/the-sample-sound-node-is-so-powerful-blender-52-tutorial.md
+
 ---
 
 ## Tag Reference
