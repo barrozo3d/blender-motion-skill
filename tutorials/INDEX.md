@@ -1372,6 +1372,16 @@ Each entry format:
 - **Summary:** Beginner geometry-nodes tutorial building a railing/fence generator from scratch: Mesh to Curve → Resample Curve → Instance on Points, with Curve Tangent + Align Rotation to Vector for orientation and Split Edges + Endpoint Selection to fix corner instancing. Covers exposing node inputs to the modifier for per-object control, Realize Instances for applying, and a looser show-and-tell of an advanced platform/stairs generator plus a Fillet Curve + Curve to Mesh solid-pipe railing variant.
 - **File:** tutorials/easy-railing-generator-with-geometry-nodes-blender-52.md
 
+
+### Introduction to Substrate - Episode 1
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=P5I38f2O6W8
+- **Author:** Ben Cloward
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/introduction-to-substrate---episode-1.md
+
 ---
 
 ## Tag Reference
