@@ -1382,6 +1382,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/introduction-to-substrate---episode-1.md
 
+
+### How to make Godrays in Blender ( NO PLUGINS )
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=alDV81qXQtA
+- **Author:** Vlabs
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-make-godrays-in-blender-no-plugins.md
+
 ---
 
 ## Tag Reference
