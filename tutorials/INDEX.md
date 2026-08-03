@@ -1392,6 +1392,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/я-сделал-инструмент-которого-мне-не-хватало-в-blender.md
 
+
+### Sand Simulation - Blender Tutorial (Nexus)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=8Swzwo83OP0
+- **Author:** CGMatter
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/sand-simulation---blender-tutorial-nexus.md
+
 ---
 
 ## Tag Reference
