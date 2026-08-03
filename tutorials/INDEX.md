@@ -1382,6 +1382,16 @@ Each entry format:
 - **Summary:** No-plugin Cycles god-rays/haze recipe: add a large cube encompassing the scene, delete its Principled BSDF, wire a Volume Scatter node into the material's Volume input, and tune Density (0.01-0.05 for subtle haze, higher for heavy fog) and Anisotropy (0.3-0.6 for stronger god-ray scattering); optionally layer a second lower-density volume cube for extra atmospheric depth.
 - **File:** tutorials/how-to-make-godrays-in-blender-no-plugins.md
 
+
+### Я сделал инструмент, которого мне не хватало в Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=r1SNvD73Qvo
+- **Author:** Batyr K.
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/я-сделал-инструмент-которого-мне-не-хватало-в-blender.md
+
 ---
 
 ## Tag Reference
