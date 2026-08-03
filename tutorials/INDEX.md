@@ -1397,9 +1397,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=8Swzwo83OP0
 - **Author:** CGMatter
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (3.x-4.x era workflow)
+- **Tags:** #simulation #fluid #particles #geometry-nodes #procedural #typography #materials #abstract #advanced
+- **Summary:** Uses the third-party Nexus add-on's granular SPH fluid solver to make a text mesh assemble out of clumping sand particles, driven by an "infection" growth mask (red/blue color-coded) that freezes particles outside the spreading region via a speed clamp. Covers baking to a real Point Cloud object, a Point-Info-driven sandy material, and a cache-retiming trick to make the sand settle and stop instead of jittering forever.
 - **File:** tutorials/sand-simulation---blender-tutorial-nexus.md
 
 

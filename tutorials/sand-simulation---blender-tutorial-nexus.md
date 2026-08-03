@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=8Swzwo83OP0
 author: CGMatter
 ingested: 2026-08-03
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (3.x-4.x era workflow)"
+tags: [simulation, fluid, particles, geometry-nodes, procedural, typography, materials, abstract, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/sand-simulation---blender-tutorial-nexus/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 7
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Sand Simulation - Blender Tutorial (Nexus)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py sand-simulation---blender-tutorial-nexus <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -173,30 +169,63 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:59] tutorials/frames/sand-simulation---blender-tutorial-nexus/frame_000.jpg
+- [1:42] tutorials/frames/sand-simulation---blender-tutorial-nexus/frame_001.jpg
+- [2:42] tutorials/frames/sand-simulation---blender-tutorial-nexus/frame_002.jpg
+- [3:52] tutorials/frames/sand-simulation---blender-tutorial-nexus/frame_003.jpg
+- [4:48] tutorials/frames/sand-simulation---blender-tutorial-nexus/frame_004.jpg
+- [5:48] tutorials/frames/sand-simulation---blender-tutorial-nexus/frame_005.jpg
+- [6:26] tutorials/frames/sand-simulation---blender-tutorial-nexus/frame_006.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Granular SPH fluid simulation (via the Nexus add-on) driven by an "infection" growth mask that freezes unaffected particles, used to fake a text mesh assembling itself out of sand.
 
 ### Summary
-[PENDING EXTRACTION]
+CGMatter builds a sand-like particle effect using the third-party **Nexus** add-on: a text object is converted to points inside its volume, simulated with Nexus's granular SPH fluid solver so particles behave like clumping/collapsing sand, then an "infection" growth system (colored red/blue) is used to freeze particles outside the growing region so the letter appears to assemble from a spreading point rather than falling all at once. Finishes with exporting the simulation as a real Point Cloud object, a simple noise-driven sandy material, and a cache-remapping trick to make the sand settle and stop instead of jittering forever.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Create text object (e.g. letter "R"), give it depth/extrude + bevel, convert to mesh.
+2. Add a ground plane; assign a Nexus **Collider** (`nxCollider`) to it with high friction so nothing slides.
+3. Add a Nexus **Emitter** (`nxEmitter`) on the text object, set to spawn from inside the volume all at once ("initial burst" shot mode, hexagonal packing, zero initial speed).
+4. In the emitter's Display settings, view particles as spheres to judge spacing, then halve the radius to fix overly wide spacing.
+5. Add `nxGravity` so particles fall; nudge the ground plane down slightly to stop particles clipping through it.
+6. To get sand-like clumping (not liquid splashing): open the Fluid solver settings and change solver type to **SPH**, type **Granular**. Tune `Friction` + `Friction Iterations` high for clumping, `Stability` for how much clumps hold together vs. separate, and reduce particle `Radius`.
+7. Fix particles "passing through themselves": in the fluid's substep settings, disable **Adaptive** and raise the fixed substep count; also disable **Subframe Emit** on the emitter.
+8. Add `nxInfectio` (infection/growth) node — a gizmo marks the growth origin; set `Infected Color` to pure red and the emitter's `Initial Color` to pure blue, so particle redness becomes a readable "is this particle activated yet" mask.
+9. Add `nxSpeed`, leave base speed at 0, and use **Clamp** on max speed so it's driven by the infection mask: multiply clamp-max by the particle's red channel (0 = frozen, 1 = free) via the Mapping panel — this is what makes only the "infected" front of the growth move.
+10. Lower the collider plane slightly further to prevent an initial-frame collision glitch that disrupts the growth pattern.
+11. Refine look: reduce friction/stability slightly, increase both simulation-level and fluid-level sub-steps for quality (GPU-accelerated; costs render/playback time).
+12. **Cache & export:** add `nxCache`, choose/create a cache folder, **Build Cache** (bakes once, reused forever — the live viewport otherwise is not real geometry, confirmed by an empty render before this step). Then on the emitter's **Export** tab, enable **Create Point Cloud** to generate a real Blender Point Cloud object driven by the cached sim data (position, velocity, radius, the infection color attribute, etc. all carry over as point attributes, inspectable in the Spreadsheet editor).
+13. Add visual variance: multiply point `Radius` by a random factor (Point Info → Random, range 0–1) so grains aren't uniform size.
+14. **Material:** Point Info → Random → Color Ramp (dark brown to bright sandy tan) → Principled BSDF base color; tweak brightness/color to taste.
+15. **Settle-and-stop trick** (post-cache, no re-simulation needed): on the Nexus Cache's **Playback** tab, set `Retiming` to **Custom**, disable Auto, set the in/out frame range (e.g. Start 2 / Stop 120), then edit the retiming curve to ease out (linear ramp that flattens near the end) so playback appears to slow down and settle near the last frames instead of jittering indefinitely.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Third-party add-on: **Nexus** (not native Blender physics) — adds `nxCollider`, `nxEmitter`, `nxGravity`, `nxFluid` (SPH/Granular solver), `nxSpeed`, `nxInfectio`, `nxCache` object modifiers/components
+- Fluid solver: `SPH`, type `Granular`; key params `Friction`, `Friction Iterations`, `Stability`, `Cohesion`, particle `Radius`, `Sub Steps` (Adaptive off + fixed count)
+- Emitter: shape `Object` (volume), Shot mode `Initial Burst`, packing `Hexagonal`, `Subframe Emit` off
+- Growth/masking: `nxInfectio` (Infected Color, growth origin gizmo), `nxSpeed` with `Clamp` node mapped from the red color channel
+- Export: `Create Point Cloud` (NexusObjectProperties.create_point_cloud)
+- Shading (Geometry Nodes on the point cloud): `Point Info` (Random) → `Color Ramp` (brown→tan) → `Principled BSDF`; radius randomized via `Point Info Random` multiply
+- `nxCache` → Playback tab → `Retiming: Custom` with an editable ease curve for the settle-and-stop effect
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate/Advanced (requires the paid/third-party Nexus add-on; fluid solver tuning and the infection-driven speed clamp are non-obvious techniques)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified exactly; workflow (Point Cloud objects, Geometry Nodes Point Info/Color Ramp) is consistent with Blender 3.x–4.x
 
 ### Tags
-[PENDING EXTRACTION]
+simulation, fluid, particles, geometry-nodes, procedural, typography, materials, abstract, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender 5.0 particle attraction and follow surface motion](blender-50-particle-attraction-and-follow-surface-motion.md) — different tool (native GeoNodes vector fields vs. Nexus SPH), but same family of noise/mask-driven particle motion.
+- [Blender Tutorial - Control Physics Sims with Geometry Nodes (Beginner Friendly)](blender-tutorial-control-physics-sims-with-geometry-nodes-be.md) — same underlying goal as this video's "settle and stop" cache-retiming trick (non-destructive control over a baked simulation's playback), achieved there via a native GeoNodes Map Range setup instead of Nexus's built-in retiming curve.
