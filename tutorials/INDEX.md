@@ -1407,9 +1407,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=CztCgbqaiZk
 - **Author:** Artemiy Galutskiy
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (silent video, no version indicator visible in captured frames)
+- **Tags:** #geometry-nodes #procedural #abstract #typography #motion-design
+- **Summary:** Music-only video (no narration — extracted from visuals only). Builds a Geometry Nodes setup producing dense, evenly-offset "looping" contour/wave lines that trace the silhouette of input geometry — shown on a flat plane (radiating swirl pattern) and on 3D text (concentric contours around the letter "A"), with a Color Ramp driving line color. Exact node names/values unverified due to lack of audio — re-watch directly for precise parameters.
 - **File:** tutorials/abstract-wave-lines-looping-curves-geometry-nodes-tutorial.md
 
 ---
