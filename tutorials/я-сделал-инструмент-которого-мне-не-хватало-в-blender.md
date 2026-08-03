@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=r1SNvD73Qvo
 author: Batyr K.
 ingested: 2026-08-03
-blender_version: "[PENDING]"
-tags: []
-extraction_status: needs-review
+blender_version: "4.x/5.x (Simulation Nodes zones, not exactly specified)"
+tags: [geometry-nodes, simulation, particles, procedural, product-viz, motion-design, abstract, glass, intermediate, blender-4x, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/я-сделал-инструмент-которого-мне-не-хватало-в-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Я сделал инструмент, которого мне не хватало в Blender
@@ -22,21 +23,14 @@ frame_status: pending-selection
 
 ## Raw Data (for Claude Code extraction)
 
-## Ingest Safeguard Report
+## Ingest Safeguard Report — Reviewed
 
-_Auto-generated at ingest/frame-capture time — explains why `extraction_status` may be `needs-review`. Safe to delete once reviewed._
-
-- **CRITICAL:** ASR hallucination in 'Full Content': 'flow' x9 in last 50 content words. Review and truncate the affected section before extracting.
+_Reviewed by Claude Code: false positive. "Flow" is the literal name of the custom tool being demonstrated (Surface Flow / Surface Flow Light) and its parameters (Flow Speed, Flow Scale, Flow Type). The transcript is coherent and matches the video's actual 16:42 runtime with no repeat-loop artifact — no truncation needed._
 
 ---
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py я-сделал-инструмент-которого-мне-не-хватало-в-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -346,30 +340,56 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:38] tutorials/frames/я-сделал-инструмент-которого-мне-не-хватало-в-blender/frame_000.jpg
+- [1:57] tutorials/frames/я-сделал-инструмент-которого-мне-не-хватало-в-blender/frame_001.jpg
+- [3:52] tutorials/frames/я-сделал-инструмент-которого-мне-не-хватало-в-blender/frame_002.jpg
+- [6:17] tutorials/frames/я-сделал-инструмент-которого-мне-не-хватало-в-blender/frame_003.jpg
+- [7:25] tutorials/frames/я-сделал-инструмент-которого-мне-не-хватало-в-blender/frame_004.jpg
+- [10:00] tutorials/frames/я-сделал-инструмент-которого-мне-не-хватало-в-blender/frame_005.jpg
+- [13:08] tutorials/frames/я-сделал-инструмент-которого-мне-не-хватало-в-blender/frame_006.jpg
+- [16:24] tutorials/frames/я-сделал-инструмент-которого-мне-не-хватало-в-blender/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Custom Geometry Nodes add-on ("Surface Flow" / free "Surface Flow Light") that distributes flowing particle-like points across any closed-surface mesh, using noise-driven vector fields for the movement and a Simulation Zone to bake the motion.
 
 ### Summary
-[PENDING EXTRACTION]
+Batyr K. demonstrates his own GeoNodes asset that generates a "flow" of small instanced spheres moving across a surface — usable for product-shot ambiance (cream tube), rising bubbles inside a liquid, or an abstract vortex hugging a glass. The tool is dragged onto any mesh from the Asset Browser as a Nodes modifier and exposes particle size, density, distribution spacing, and flow (noise) behavior without any manual node editing.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Prepare a single, hole-free "shell" mesh that approximates the surface you want particles to travel across (doesn't need to be exact, just watertight and roughly matching the real object's silhouette).
+2. Drag `Surface Flow Light` (or full `Surface Flow`) from the Asset Browser onto the shell object — adds a `Nodes` modifier with the tool's node tree.
+3. Under **Particle Size**: toggle `Uniform Size` off to vary size per-particle via a Noise Texture; tune `Min`/`Max` size and noise `Scale`.
+4. Under **Distribution of Points**: raise `Density Max` for particle count, lower `Distance Min` to let particles spawn closer together.
+5. Under **Flow**: set `Flow Speed` (governs simulation velocity/vortex strength — large values cause particles to fling apart), `Flow Scale` (size of the noise pattern — higher = more defined swirling streaks), and `Flow Type` (Perlin / Voronoi / Magic noise, each giving a different flow silhouette).
+6. Toggle `Show Surface` off to hide the proxy shell in viewport/render, and toggle the real product mesh visibility back on.
+7. Assign a render material via the `Particle Material` slot.
+8. Select the object → **Physics** tab → **Simulation Nodes** panel → **Bake** to cache the simulation before final render (required — the sim recalculates from frame 1 every time otherwise, and edits after baking need the cache cleared via the trash icon first).
+9. (Full version only) Enable `Stick to Surface` to keep particles from clipping through the proxy geometry, `Particle Relaxation` (+ iteration count) to push apart overlapping particles, and `Self Collision` (+ substeps) if particles must not overlap each other — expensive, usually unnecessary when `Stick to Surface` is already constraining them.
+10. For animated `Flow Seed`, drive it with `#frame / 10` (or similar) so the noise offsets each frame instead of accumulating particles in place.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Modifier type: `Nodes` (Geometry Nodes) — pre-built node tree, not hand-wired in this video
+- Exposed modifier inputs: `Particle Size` (Uniform Size toggle, Min/Max, Scale, Size From Noise seed), `Distribution of Points` (Density Max, Distance Min), `Flow` (Flow Speed, Flow Scale, Flow Type: Perlin/Voronoi/Magic, animated seed via `#frame/10`), `Show Surface`, `Use Custom Object`, `Project to Surface`, `Particle Material`
+- Full-version-only extras: `Stick to Surface`, `Surface Offset`, `Particle Relaxation` (+ iterations), `Self Collision` (+ substeps)
+- Uses Blender's native **Simulation Nodes** zone under the hood (bake/clear via Physics tab)
+- Render engine shown: Octane (for the cream tube) and native Blender viewport/EEVEE-style preview for the other two demos — technique itself is render-engine agnostic since it's just point/instance geometry
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate (as a user of the pre-built tool — no node authoring required; the underlying node tree itself would be Advanced to build from scratch)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified exactly, but uses Simulation Nodes zones (Blender 3.6+) and an Asset Browser workflow consistent with Blender 4.x/5.x
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, simulation, particles, procedural, product-viz, motion-design, abstract, glass, intermediate, blender-4x, blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender 5.0 particle attraction and follow surface motion](blender-50-particle-attraction-and-follow-surface-motion.md) — same core idea (GeoNodes particles flowing across a surface via noise-driven vector fields), independently built node-by-node rather than as a packaged asset; useful as a "how would I build this myself" companion to this video.

@@ -1387,9 +1387,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=r1SNvD73Qvo
 - **Author:** Batyr K.
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x/5.x (Simulation Nodes zones, not exactly specified)
+- **Tags:** #geometry-nodes #simulation #particles #procedural #product-viz #motion-design #abstract #glass #intermediate #blender-4x #blender-5x
+- **Summary:** Demonstrates a custom packaged GeoNodes asset (Surface Flow / free Surface Flow Light) that distributes flowing, noise-driven particle instances across any watertight proxy surface — shown on a cream tube product shot, bubbles rising inside a liquid-filled glass, and an abstract vortex hugging a drinking glass. Exposes particle size/density/distribution and Flow Speed/Scale/Type controls without manual node editing; full version adds Stick to Surface, Particle Relaxation, and Self Collision.
 - **File:** tutorials/я-сделал-инструмент-которого-мне-не-хватало-в-blender.md
 
 
