@@ -1392,6 +1392,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/я-сделал-инструмент-которого-мне-не-хватало-в-blender.md
 
+
+### 언리얼 머티리얼, 저는 이렇게 공부하고 관리합니다
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=5fY3S-da_dI
+- **Author:** PivotOn
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/언리얼-머티리얼-저는-이렇게-공부하고-관리합니다.md
+
 ---
 
 ## Tag Reference
