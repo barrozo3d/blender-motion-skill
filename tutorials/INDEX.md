@@ -1402,6 +1402,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/sand-simulation---blender-tutorial-nexus.md
 
+
+### Abstract Wave Lines | Looping Curves | Geometry Nodes Tutorial
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=CztCgbqaiZk
+- **Author:** Artemiy Galutskiy
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/abstract-wave-lines-looping-curves-geometry-nodes-tutorial.md
+
 ---
 
 ## Tag Reference
