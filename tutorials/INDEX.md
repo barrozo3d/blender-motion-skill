@@ -1852,6 +1852,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---long-version-marvelous-designer-like-cloth-grabbing.md
 
+
+### Blender Secrets - Auto Masking Cavities in Sculpt Mode
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=RbqpANWvTWY
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---auto-masking-cavities-in-sculpt-mode.md
+
 ---
 
 ## Tag Reference
