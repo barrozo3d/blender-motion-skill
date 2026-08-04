@@ -2102,6 +2102,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---modeling-from-photos-with-the-knife-tool-part-1-basics.md
 
+
+### Blender Secrets - Reconstruct a Face / Head from just a few photos with Keen Tools Face Builder
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=rUh2cEWAIgk
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---reconstruct-a-face-head-from-just-a-few-photos-with-keen-tools.md
+
 ---
 
 ## Tag Reference
