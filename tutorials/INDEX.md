@@ -1517,9 +1517,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=QV2Av9dSDbc
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified
+- **Tags:** procedural, organic, advanced
+- **Summary:** Builds an ornate swirl-shaped weapon (for 3D printing, not subdivision topology) as dozens of individually hand-shaped bevel curves and box-modeled mesh pieces traced over a reference image, unified at the end via Convert-to-Mesh → Join → voxel Remesh → Sculpt-smooth → repeated 50% Decimate (30M → ~300-400k triangles). Covers curve bevel-objects for non-round ridges, Mirror modifier merge pitfalls, the Extra Objects add-on's Simple Star primitive with per-face inset/extrude, and Symmetrize as the reliable fix for messy merged regions.
 - **File:** tutorials/how-do-you-model-that-kingdom-hearts-keyblade---blender-secrets.md
 
 

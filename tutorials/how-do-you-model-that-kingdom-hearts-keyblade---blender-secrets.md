@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=QV2Av9dSDbc
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified"
+tags: [procedural, organic, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/how-do-you-model-that-kingdom-hearts-keyblade---blender-secrets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How do you model that? Kingdom Hearts Keyblade - Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-do-you-model-that-kingdom-hearts-keyblade---blender-secrets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -447,28 +443,56 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:14] tutorials/frames/how-do-you-model-that-kingdom-hearts-keyblade---blender-secrets/frame_000.jpg
+- [4:00] tutorials/frames/how-do-you-model-that-kingdom-hearts-keyblade---blender-secrets/frame_001.jpg
+- [5:35] tutorials/frames/how-do-you-model-that-kingdom-hearts-keyblade---blender-secrets/frame_002.jpg
+- [13:19] tutorials/frames/how-do-you-model-that-kingdom-hearts-keyblade---blender-secrets/frame_003.jpg
+- [18:04] tutorials/frames/how-do-you-model-that-kingdom-hearts-keyblade---blender-secrets/frame_004.jpg
+- [18:36] tutorials/frames/how-do-you-model-that-kingdom-hearts-keyblade---blender-secrets/frame_005.jpg
+- [32:56] tutorials/frames/how-do-you-model-that-kingdom-hearts-keyblade---blender-secrets/frame_006.jpg
+- [34:53] tutorials/frames/how-do-you-model-that-kingdom-hearts-keyblade---blender-secrets/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Building an ornate, freeform organic/hard-surface shape (a Kingdom Hearts Keyblade) as a bundle of individually hand-shaped bevel curves and box-modeled mesh pieces traced directly over a reference image, then unifying everything at the end via Convert-to-Mesh → Join → Remesh → Sculpt-smooth → Decimate — a "model loose, unify late" workflow aimed at 3D printing (not quad/subdivision-ready topology).
 
 ### Summary
-[PENDING EXTRACTION]
+A complex organic-swirl weapon design is built piece by piece rather than as one continuous mesh. Each curl/tendril starts as a 2-vertex edge subdivided a few times then converted to a Curve (preferred over a native Bezier path for more predictable control-point behavior), given bevel Depth for thickness, and shaped to match a reference image using Alt+S (radius scale) per control point — keeping vertex counts low keeps curves smoother and easier to control. A separate small circular curve, scaled down on two of its points, is used as a custom **Bevel Object** on the main curves to add a non-round ridge/edge detail along their length. A Mirror modifier (axis-dependent, needs an Empty as the mirror object, and its Merge option can visibly break adjacent-but-not-touching curves if left on) handles symmetric parts; most curls are unique per side and just duplicated + reshaped instead. Harder shapes (rings, box-modeled sections, the star guard) are built as ordinary meshes: primitives collapsed to a vertex and extruded, cylinders capped with Grid Fill, Ctrl+R loop cuts to approach curved forms, and a **Simple Star** primitive (from the Extra Objects add-on) with per-face Inset/Extrude to create the decorative guard. Trickier one-off shapes get converted from curve to mesh specifically to gain per-vertex control that curves don't offer, then Symmetrize is used to mirror the fix-ups. At the end, everything is Converted to Mesh, joined (Ctrl+J), and unified with a Remesh (voxel) pass; a few Sculpt-Mode techniques — Smooth (to blend seams), a Mask + Fair Positions attempt (found unreliable, crashed Blender on this model), and ultimately X-ray box-select + **Symmetrize** as the reliable way to delete/rebuild half of a messy merged region — clean up merge artifacts. A Decimate modifier is applied repeatedly at 50% (rather than solving for one target ratio directly, since large-percentage single passes are slow/unstable) to bring the mesh from ~30 million triangles down to a 3D-printable ~300–400k.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Find multiple reference images; pick one with a clear side view. Import it into Blender, add a reference-sized cube (author estimated ~1.5m) to scale the image against, then disable the reference image's selectability so it can't be grabbed by accident.
+2. For each curl: start with a Plane, delete down to 2 vertices (one edge), subdivide a few times in Edit Mode, then Convert To → Curve. Give it Bevel Depth (avoid exactly 0 — use a tiny nonzero value instead, since 0 can break remeshing later) and make sure end caps are closed. Reshape with Alt+S per point (curve radius scale, not object S) and add a Subdivision modifier for smoothness. Favor as few control points as the shape allows — fewer points keeps curves rounder and more predictable; subdivide an existing segment (right-click → Subdivide) only when a spot genuinely needs more control.
+3. For a non-round ridge/edge along a curve: create a second small curve (e.g. a circle), scale down two of its points asymmetrically, and set it as the main curve's **Bevel Object** (Curve properties → Geometry → Bevel → Object) instead of using the simple round bevel depth.
+4. Mirror symmetric curls with a Mirror modifier set to the correct axis, using a dedicated Empty (scaled down via the modifier's own panel, not by pressing S on the empty directly, which breaks the mirror math) as the Mirror Object. Watch for the modifier's **Merge** option silently snapping/distorting nearby-but-distinct curve endpoints — disable Merge if curves need to sit close without interacting.
+5. Build rigid/mechanical sub-parts (rings, grips, box shapes) as ordinary meshes: collapse a primitive to one vertex and extrude with E to rough in a shaft; use a capless cylinder for grip shapes, Ctrl+R loop cuts to approximate curvature, and Ctrl+F → Grid Fill to close circular end caps. Classic box modeling (extrude, scale, loop cuts, then a Subdivision modifier) works fine for simpler mechanical shapes.
+6. For the decorative star guard: enable the **Extra Objects** add-on, add its Simple Star mesh primitive, keep only the front face, use F to merge stray triangulated faces into clean quads, then Inset (I, pressed twice or with the "Individual" checkbox) each point face individually, extrude the resulting loops, scale to individual origins (not the median point) for a faceted look, set the origin to the star's center (Shift+S → Cursor to Selected → Origin to 3D Cursor) before mirroring, and finish with a Bevel modifier so the edges catch light like a real faceted object.
+7. When a curve's control-point limitations get in the way of a specific irregular shape, Convert it to Mesh (temporarily lowering the bevel object's resolution first keeps the resulting mesh light), edit at the vertex level (Proportional Editing helps for organic pulls), then use **Symmetrize** (favorited in the Quick Favorites menu) to mirror one-off edits — set the object's origin to center first or Symmetrize won't work correctly.
+8. Final unification: Convert every remaining curve/mesh piece to mesh, select all, Ctrl+J to join into one object, then Remesh (voxel, resolution picked interactively) to fuse everything into one continuous manifold suitable for sculpting and printing.
+9. Clean up remesh seams/artifacts in Sculpt Mode primarily with the **Smooth** brush; a Mask-selection + **Fair Positions** approach was tried for isolating and flattening an unwanted leftover shape but proved unreliable (crashed Blender twice in this session) — the more dependable fix for large messy regions was X-ray box-select the whole half, delete it, and **Symmetrize** from the clean side instead.
+10. To reduce a print-ready mesh's triangle count without long single-pass waits, apply a **Decimate** modifier repeatedly at 50% (Apply, add another Decimate at 50%, repeat) rather than solving for one large target ratio in one pass — this took the model from roughly 30 million down to ~300–400k triangles.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Curve setup: Edge → Convert to Curve, Bevel Depth (nonzero, small if you want a fine tip), Bevel Object (secondary curve, for non-round ridges), Resolution, + Subdivision modifier
+- Mirror modifier: Axis per-part, Empty as Mirror Object (scaled via modifier panel), Merge toggle (can distort near-but-distinct geometry)
+- Add-on: Extra Objects (for the Simple Star primitive)
+- Mesh tools: Ctrl+R (loop cut), Ctrl+F → Grid Fill, F (merge faces to quad / close n-gon), I (inset, toggle Individual), Shift+D (duplicate), Alt+S (curve radius scale), Symmetrize (mesh menu / Quick Favorites)
+- Sculpt Mode: Smooth brush, Mask + Fair Positions (unreliable on dense meshes), Remesh (voxel), Grab brush (shape adjustment)
+- Finishing: Decimate modifier, applied repeatedly at 50% rather than one large-ratio pass
+- Scene scale set to centimeters for small-object precision; grid scale reduced (e.g. 0.01) to match
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced — no single step is conceptually hard, but the workflow requires judgment across dozens of individually hand-fit curve/mesh pieces and troubleshooting remesh/mirror edge cases as they come up.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified.
 
 ### Tags
-[PENDING EXTRACTION]
+procedural, organic, advanced
 
 ---
 
