@@ -2532,6 +2532,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-77---unwrap-a-cup---follow-active-quads.md
 
+
+### Daily Blender Tip 75 - More Fracture Stuff!
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=ZDq2WOrqpRM
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-75---more-fracture-stuff.md
+
 ---
 
 ## Tag Reference
