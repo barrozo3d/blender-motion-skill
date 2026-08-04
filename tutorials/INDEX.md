@@ -1822,6 +1822,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/create-a-photoreal-moon-in-minutes-3d-tutorial-blender-secrets.md
 
+
+### Export VDM maps from Zbrush to Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=KACmuXsoc30
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/export-vdm-maps-from-zbrush-to-blender.md
+
 ---
 
 ## Tag Reference
