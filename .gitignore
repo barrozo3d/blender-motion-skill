@@ -4,3 +4,7 @@ cookies.txt
 cookies.txt.stale-disabled
 __pycache__/
 batch_reingest.log
+batch_ingest_blendersecrets.log
+batch_ingest_blendersecrets.sh
+wait_for_batch_done.sh
+blendersecrets_channel_queue.txt
