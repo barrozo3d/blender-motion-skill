@@ -2082,6 +2082,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---modeling-sci-fi-greebles-on-a-sphere-using-annotate-tool.md
 
+
+### Blender Secrets - Decorative Edges for Sofas and Cushions
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=8D8F0BpeZvQ
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---decorative-edges-for-sofas-and-cushions.md
+
 ---
 
 ## Tag Reference
