@@ -2312,6 +2312,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-128---material-basics-dustsnow.md
 
+
+### Daily Blender Tip 120 - NEW Curve Tool in Grease Pencil Blender 2.8
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=7SXqr_HlYEg
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-120---new-curve-tool-in-grease-pencil-blender-28.md
+
 ---
 
 ## Tag Reference
