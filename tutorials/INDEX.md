@@ -1632,6 +1632,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/what-if-you-alpha-brush-texture-is-square-or-the-resolution-is-too-low-blender-s.md
 
+
+### Image to 3D model workflow in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=DBuKtyPaIbw
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/image-to-3d-model-workflow-in-blender.md
+
 ---
 
 ## Tag Reference
