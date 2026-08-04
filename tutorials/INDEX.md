@@ -2442,6 +2442,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-88---how-to-make-a-character-follow-a-path.md
 
+
+### Daily Blender Tip 87 - Adding Props To Your Character (like a stylish hat)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=eQTkprbLxfA
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-87---adding-props-to-your-character-like-a-stylish-hat.md
+
 ---
 
 ## Tag Reference
