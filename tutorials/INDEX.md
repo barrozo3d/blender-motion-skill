@@ -1742,6 +1742,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/perfect-holes-with-quad-topology-in-curved-surfaces---step-by-step-blender-begin.md
 
+
+### Step by Step: Boolean Holes to Quad Topology | Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=pe-8GiRCLmM
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/step-by-step-boolean-holes-to-quad-topology-blender-secrets.md
+
 ---
 
 ## Tag Reference
