@@ -2572,6 +2572,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-68---plant-part-2-adding-twigs-with-particles.md
 
+
+### Daily Blender Tip 66 - Quick Tree Trunk With Skin Modifier
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=nfuk9ywJc44
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-66---quick-tree-trunk-with-skin-modifier.md
+
 ---
 
 ## Tag Reference
