@@ -2302,6 +2302,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-132---limited-dissolve-or-how-to-make-an-awewsome-scifi-sphere.md
 
+
+### Daily Blender Tip 128 - Material Basics: Dust/Snow
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=1F-wFa-oExw
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-128---material-basics-dustsnow.md
+
 ---
 
 ## Tag Reference
