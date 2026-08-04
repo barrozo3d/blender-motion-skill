@@ -2702,6 +2702,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-number-45---quick-hair-fur-and-how-to-comb-and-weight-paint.md
 
+
+### Daily Blender Tip #44 - Non-Destructive Boolean Workflow, Round Edges, Bevels,
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=JBJ5dYjPieI
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-44---non-destructive-boolean-workflow-round-edges-bevels.md
+
 ---
 
 ## Tag Reference
