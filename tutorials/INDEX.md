@@ -1782,6 +1782,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/making-an-ocean-with-foam-and-a-boat-blender-secrets.md
 
+
+### Combining Ragdoll physics with Motion Capture animation | Rokoko Smartsuit 2 | Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=d16IOajUwIc
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/combining-ragdoll-physics-with-motion-capture-animation-rokoko-smartsuit-2-blend.md
+
 ---
 
 ## Tag Reference
