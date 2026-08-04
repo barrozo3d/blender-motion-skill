@@ -2712,6 +2712,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-44---non-destructive-boolean-workflow-round-edges-bevels.md
 
+
+### Daily Blender Tip #43 - Import Images As Planes Add-On
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=d028uL7ZRXE
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-43---import-images-as-planes-add-on.md
+
 ---
 
 ## Tag Reference
