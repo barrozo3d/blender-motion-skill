@@ -2372,6 +2372,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-101---cycles-bevel-shader-in-blender-28.md
 
+
+### Daily Blender Tip 99 - Drawing In 3D With Grease Pencil And Converting To Mesh
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=Fl8PXZWnxr4
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-99---drawing-in-3d-with-grease-pencil-and-converting-to-mesh.md
+
 ---
 
 ## Tag Reference
