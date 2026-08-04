@@ -1832,6 +1832,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/export-vdm-maps-from-zbrush-to-blender.md
 
+
+### Ruffled Skirts | Virtual Fashion | Blender Tutorial | Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=hJ5zUTp9zCc
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ruffled-skirts-virtual-fashion-blender-tutorial-blender-secrets.md
+
 ---
 
 ## Tag Reference
