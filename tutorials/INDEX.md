@@ -2692,6 +2692,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-46---2-types-of-quick-fluids.md
 
+
+### Daily Blender Tip Number 45 - Quick Hair / Fur and How to Comb and Weight Paint
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=cZlzzIBqYbY
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-number-45---quick-hair-fur-and-how-to-comb-and-weight-paint.md
+
 ---
 
 ## Tag Reference
