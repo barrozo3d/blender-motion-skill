@@ -2232,6 +2232,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-139---blender-fracture-modifier-build---quick-start.md
 
+
+### Daily Blender Tip 138 - How To Make A Curtain In One Minute
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=lYoeTliKX_4
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-138---how-to-make-a-curtain-in-one-minute.md
+
 ---
 
 ## Tag Reference
