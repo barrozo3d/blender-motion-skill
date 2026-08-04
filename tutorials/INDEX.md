@@ -2182,6 +2182,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-224---growing-plant-animation-part-2-blender-27-28.md
 
+
+### Daily Blender Tip 186 - Make a rope
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=v6WFoVV3IhY
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-186---make-a-rope.md
+
 ---
 
 ## Tag Reference
