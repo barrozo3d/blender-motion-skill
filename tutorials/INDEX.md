@@ -2642,6 +2642,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-56---how-to-use-the-booltool-add-on.md
 
+
+### Daily Blender Tip 54 - 2 Viewport Tips
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=qj2yDtU2M_I
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-54---2-viewport-tips.md
+
 ---
 
 ## Tag Reference
