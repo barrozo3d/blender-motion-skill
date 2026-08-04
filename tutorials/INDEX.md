@@ -2012,6 +2012,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---5-minutes-of-topology-tips.md
 
+
+### Blender Secrets - 5 minutes of Beveling knowledge (17 tips!)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=rzZFIpqc98M
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---5-minutes-of-beveling-knowledge-17-tips.md
+
 ---
 
 ## Tag Reference
