@@ -1932,6 +1932,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/12-tips-for-creating-epic-trees-in-blender-without-paid-add-ons.md
 
+
+### Blender Secrets - Draw Grease Pencil On Surfaces (without offset distance issue)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=xLAlFoRPTPM
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---draw-grease-pencil-on-surfaces-without-offset-distance-issue.md
+
 ---
 
 ## Tag Reference
