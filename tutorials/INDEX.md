@@ -2412,6 +2412,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-95---using-empty-to-animate-displacement-modifier-in-a-loop.md
 
+
+### Daily Blender Tip 90 - How To Have Characters Interact With Physics Simulations
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=RXTJshRSyjk
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-90---how-to-have-characters-interact-with-physics-simulations.md
+
 ---
 
 ## Tag Reference
