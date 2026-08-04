@@ -2162,6 +2162,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/15-blender-secrets-compilation-of-15-blender-tutorials-in-11-minutes.md
 
+
+### Not a tutorial: Modeling a chair with wireframe backrest
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=IgZqPjHr0eI
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/not-a-tutorial-modeling-a-chair-with-wireframe-backrest.md
+
 ---
 
 ## Tag Reference
