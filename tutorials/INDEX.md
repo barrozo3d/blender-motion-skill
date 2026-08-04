@@ -1892,6 +1892,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---create-towers-with-ivy.md
 
+
+### Blender Secrets - 4 tips for Cinematic Lighting
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=lXvmt0QxAFY
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---4-tips-for-cinematic-lighting.md
+
 ---
 
 ## Tag Reference
