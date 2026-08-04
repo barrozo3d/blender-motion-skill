@@ -2452,6 +2452,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-87---adding-props-to-your-character-like-a-stylish-hat.md
 
+
+### Daily Blender Tip 86 - Simple Character Walk Cycle
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=-QCqVZVwwvM
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-86---simple-character-walk-cycle.md
+
 ---
 
 ## Tag Reference
