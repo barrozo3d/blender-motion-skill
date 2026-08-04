@@ -1507,9 +1507,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=t_r8qT_4oGM
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified
+- **Tags:** beginner
+- **Summary:** Every way to move or set an object's origin independently of its geometry: the on-screen gizmo, Object Mode's "Affect Only → Origins" toggle, Edit Mode Select-All-then-move, a Maya-style D-key origin drag, and Object → Set Origin → Origin to Geometry / Origin to 3D Cursor.
 - **File:** tutorials/blender-origin-pivot-point-tips---blender-secrets.md
 
 
