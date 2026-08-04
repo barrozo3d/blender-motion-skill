@@ -2122,6 +2122,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---blender-gis-extra-bonus-tutorial.md
 
+
+### Daily Blender Secrets - 10 ways to make Holes in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=oFg367w5Cpo
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-secrets---10-ways-to-make-holes-in-blender.md
+
 ---
 
 ## Tag Reference
