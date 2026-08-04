@@ -2032,6 +2032,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---5-minutes-of-n-gons-to-quads-tips.md
 
+
+### Blender Secrets - 6 Minutes of Boolean Basics
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=_S3D8djM5bE
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---6-minutes-of-boolean-basics.md
+
 ---
 
 ## Tag Reference
