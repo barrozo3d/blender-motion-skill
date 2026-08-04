@@ -1562,6 +1562,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/for-beginners-easiest-modeling-technique-long-version.md
 
+
+### Anime Girl character course overview - Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=M-zUIL-DnRA
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/anime-girl-character-course-overview---blender-secrets.md
+
 ---
 
 ## Tag Reference
