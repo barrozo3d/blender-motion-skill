@@ -2212,6 +2212,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-141---fracture-modifier-helper-add-on.md
 
+
+### Daily Blender Tip 140 - Fracture Modifier: Use Constraints
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=Lh1wtY2uRPE
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-140---fracture-modifier-use-constraints.md
+
 ---
 
 ## Tag Reference
