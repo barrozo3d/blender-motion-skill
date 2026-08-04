@@ -2192,6 +2192,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-186---make-a-rope.md
 
+
+### Daily Blender Tip 146 - Microdisplacement in one minute!
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=i0c4uCa-WRQ
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-146---microdisplacement-in-one-minute.md
+
 ---
 
 ## Tag Reference
