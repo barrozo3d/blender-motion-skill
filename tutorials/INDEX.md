@@ -2652,6 +2652,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-54---2-viewport-tips.md
 
+
+### Daily Blender Tip 51 - Layer Management
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=qZTR0HWZ1UE
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-51---layer-management.md
+
 ---
 
 ## Tag Reference
