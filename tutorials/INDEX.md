@@ -2362,6 +2362,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-102---random-object-colors-in-blender-28.md
 
+
+### Daily Blender Tip 101 - Cycles Bevel Shader in Blender 2.8
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=OIXSc-DM4Pk
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-101---cycles-bevel-shader-in-blender-28.md
+
 ---
 
 ## Tag Reference
