@@ -1692,6 +1692,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/modeling-a-devil-fruit-from-one-piece---blender-secrets.md
 
+
+### First look at the new "Master Characters in Blender" course from CG Boost
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=QNckGYykCNc
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/first-look-at-the-new-master-characters-in-blender-course-from-cg-boost.md
+
 ---
 
 ## Tag Reference
