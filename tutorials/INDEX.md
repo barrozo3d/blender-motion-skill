@@ -2682,6 +2682,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-47---custom-transform-orientation.md
 
+
+### Daily Blender Tip 46 - 2 Types Of Quick Fluids
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=eElKEBoKUG8
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-46---2-types-of-quick-fluids.md
+
 ---
 
 ## Tag Reference
