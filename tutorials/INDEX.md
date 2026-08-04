@@ -1472,6 +1472,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/this-technique-lets-you-make-hard-surface-models-easily.md
 
+
+### How to model ornamental iron railings in Blender using Curves - Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=_1OLudY5qQY
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-model-ornamental-iron-railings-in-blender-using-curves---blender-secrets.md
+
 ---
 
 ## Tag Reference
