@@ -2632,6 +2632,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-59---crease-edges.md
 
+
+### Daily Blender Tip 56 - How To Use the BoolTool Add-on
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=5_Xa3HwVLRA
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-56---how-to-use-the-booltool-add-on.md
+
 ---
 
 ## Tag Reference
