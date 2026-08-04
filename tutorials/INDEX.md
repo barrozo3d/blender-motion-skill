@@ -1492,6 +1492,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/create-game-ready-characters-blender-secrets.md
 
+
+### Easy Ear Sculpting Tip - Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=-ij6rXb15yA
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/easy-ear-sculpting-tip---blender-secrets.md
+
 ---
 
 ## Tag Reference
