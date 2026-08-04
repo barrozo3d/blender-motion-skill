@@ -2672,6 +2672,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-48---installing-custom-fonts-from-google-fonts.md
 
+
+### Daily Blender Tip 47 - Custom Transform Orientation
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=dQZ2RwpvFtM
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-47---custom-transform-orientation.md
+
 ---
 
 ## Tag Reference
