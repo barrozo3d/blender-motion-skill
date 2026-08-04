@@ -1762,6 +1762,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/step-by-step-image-file-to-3d-geometry-blender-secrets.md
 
+
+### Review and Tips for using the XPPen Artist Pro 16 Gen 2 in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=HV4pRb6XKAI
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/review-and-tips-for-using-the-xppen-artist-pro-16-gen-2-in-blender.md
+
 ---
 
 ## Tag Reference
