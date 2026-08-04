@@ -1487,9 +1487,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=br5g7m-jE_Q
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified
+- **Tags:** intermediate
+- **Summary:** Course advertisement (not a tutorial) for "Complete Game Ready Fantasy Character Creation for Blender" — narration over course b-roll describing scope only (sculpting, retopology, materials, rigging, export to UE); no technique actually demonstrated on screen.
 - **File:** tutorials/create-game-ready-characters-blender-secrets.md
 
 

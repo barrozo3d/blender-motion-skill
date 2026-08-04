@@ -4,12 +4,12 @@ source: YouTube
 url: https://www.youtube.com/watch?v=br5g7m-jE_Q
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified"
+tags: [intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/create-game-ready-characters-blender-secrets/
 frame_count: 0
-frame_status: pending-selection
+frame_status: skipped
 ---
 
 # Create Game Ready Characters | Blender Secrets
@@ -70,27 +70,27 @@ frontmatter before you write the Structured Notes below.
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+None — this is a course-advertisement video, not a tutorial. No technique is demonstrated on screen (audio-over-course-footage sales pitch only), so no frames were captured.
 
 ### Summary
-[PENDING EXTRACTION]
+Promotional video for the author's paid course "Complete Game Ready Fantasy Character Creation for Blender" (13+ hours, 68+ lessons at time of recording). Describes the course's scope in prose only: blocking out/sculpting a stylized character (body, hands, face, hair, musculature), sculpting and materializing clothing, retopology (manual, Blender's built-in auto-retopo, and paid add-ons Quad Remesher / OK Topo Remesher), stylized PBR materials via custom procedural node groups (included as course downloads), and finally rigging + export to Unreal Engine. No node graphs, UI, or step-by-step technique is actually shown — it's narration over course b-roll. Aimed at intermediate+ Blender users, not beginners (author points to a separate "Anime Girl" course for beginners).
 
 ### Key Steps
-[PENDING EXTRACTION]
+N/A — no technique demonstrated to extract steps from.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+N/A
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate (per the course's own stated target audience — not applicable as a difficulty rating for a tutorial technique, since none is shown).
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified.
 
 ### Tags
-[PENDING EXTRACTION]
+intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+N/A — advertisement, not a technique entry. No cross-links.
