@@ -2342,6 +2342,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-114---easily-add-camera-movement-to-a-2d-painting.md
 
+
+### Daily Blender Tip 113 - From Sketch To Clean Lines in Grease Pencil
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=QO5a2rKhMtQ
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-113---from-sketch-to-clean-lines-in-grease-pencil.md
+
 ---
 
 ## Tag Reference
