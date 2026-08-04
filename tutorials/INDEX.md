@@ -1427,9 +1427,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=qcOMsFVMMQA
 - **Author:** Cartesian Caramel
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.3
+- **Tags:** geometry-nodes, simulation, particles, fluid, volume, procedural, materials, rendering, advanced, blender-5x
+- **Summary:** Livestream exploring Blender 5.3's new Rasterize Points and Geometry Materials nodes, building a from-scratch grid-based pseudo-fluid particle sim inside a Simulation Zone: velocity/density rasterized to a voxel grid each step, a Volume Gradient of density drives repulsion, custom SDF node groups handle collision, gravity is delta-time scaled, and at high point counts the sim visibly explodes and resettles fluid-like. Finishes with curve trails colored by velocity length for a colorful energy-trail render.
 - **File:** tutorials/fluid-sim-testing-in-blender-53-rasterize-points-node.md
 
 ---

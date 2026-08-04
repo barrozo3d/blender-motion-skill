@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=qcOMsFVMMQA
 author: Cartesian Caramel
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.3"
+tags: [geometry-nodes, simulation, particles, fluid, volume, procedural, materials, rendering, advanced, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/fluid-sim-testing-in-blender-53-rasterize-points-node/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Fluid sim testing in Blender 5.3! (Rasterize Points Node)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py fluid-sim-testing-in-blender-53-rasterize-points-node <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -1817,30 +1813,55 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [3:05] tutorials/frames/fluid-sim-testing-in-blender-53-rasterize-points-node/frame_000.jpg
+- [7:55] tutorials/frames/fluid-sim-testing-in-blender-53-rasterize-points-node/frame_001.jpg
+- [19:01] tutorials/frames/fluid-sim-testing-in-blender-53-rasterize-points-node/frame_002.jpg
+- [20:32] tutorials/frames/fluid-sim-testing-in-blender-53-rasterize-points-node/frame_003.jpg
+- [30:26] tutorials/frames/fluid-sim-testing-in-blender-53-rasterize-points-node/frame_004.jpg
+- [31:19] tutorials/frames/fluid-sim-testing-in-blender-53-rasterize-points-node/frame_005.jpg
+- [102:00] tutorials/frames/fluid-sim-testing-in-blender-53-rasterize-points-node/frame_006.jpg
+- [105:30] tutorials/frames/fluid-sim-testing-in-blender-53-rasterize-points-node/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A pseudo-fluid particle simulation built entirely inside a Simulation Zone using the new (Blender 5.3) **Rasterize Points** node: particle velocity and density are voxelized into a grid every step, a density **gradient** pushes particles apart (repulsion) and a **Volume Gradient**-derived force pulls them together, all combined with custom SDF-mesh collision node groups — an unscripted, live-experimentation approach to a grid-based (as opposed to SPH) fluid-like simulation.
 
 ### Summary
-[PENDING EXTRACTION]
+Livestream exploring two Blender 5.3 Geometry Nodes additions: the **Geometry Materials** node (reads material slots off any geometry type) and the **Rasterize Points** node (stacks/accumulates point attribute values into a voxel grid, the reverse of Sample Grid). The bulk of the stream builds a from-scratch particle "fluid" inside a Simulation Zone: points are rasterized to a density grid, a Volume Gradient of that density (scaled by voxel size) generates a repulsion force, custom SDF-collision node groups (from the author's free Gumroad node pack) handle collision with a wireframe collider cube, and gravity + delta-time-scaled forces are added incrementally. At high point/voxel counts the sim visibly "explodes" and resettles into a fluid-like puddle. The back half adds curve trails, colors particles by velocity length (Curves Info → Normalize → Light Falloff, in the Shader Editor) and organizes the node graph into named frames (Particle Sim, Cube Collision, Rail Curves) for a final colorful, energy-trail-style render.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Geometry Materials node** — plug any mesh/point-cloud/curve/grease-pencil geometry in to read its material slots directly (does not work on Instances — material data lives on the instanced geometry, not the instance itself).
+2. **Rasterize Points basics** — `Points` node (Count, Radius) → `Rasterize Points` (Voxel Size or a Matrix input for grid increments of 1; Value input = what gets accumulated per voxel — e.g. plain `1` to visualize point density as grid brightness). Interpolation modes (Nearest/Linear/Cubic) trade visible cell blockiness for smoothness; author found Cubic introduced visible artifacts and settled on Linear as the safer default.
+3. **Read the grid back onto points** with `Sample Grid` after rasterizing — when stacking a *value+position* (not just nearest-sample), divide the summed result by the point count per voxel to normalize (otherwise denser voxels read artificially bright/large).
+4. **Fake attraction/repulsion** — rasterize point **position**, sample the resulting grid, subtract from each point's own position to get a vector toward/away from the local density center; feed that into a custom `Set Velocity` / "Velocity Step" helper node group (from the author's free node pack), inside a Simulation Zone so it accumulates frame-over-frame.
+5. **SDF collision** — two custom node groups ("SDF Mesh", "SDF Collision" from the same free pack) take a Signed Distance Field sample + its normal from a collider mesh (here, a cube with inverted normals + Wire display) and resolve bounce/friction against it; the same nodes work with volume-based SDFs (sample a grid's SDF + its gradient as the normal), not just mesh SDFs.
+6. **Gravity** — added as a simple `-9.81 m/s²` Z force, but must be scaled by the simulation's **Delta Time** before being added to velocity, or the effect is either negligible or wildly wrong depending on the zone's substep count.
+7. **Scaling up the point count** (into the millions of voxels) pushes the interaction from "per-point" to "per-voxel" — the sim visibly explodes outward as a shell/ring, then gravity pulls it back down into a settled, fluid-like puddle shape. This voxel-level (grid) behavior is explicitly *not* an accurate physical fluid sim — it's a stylized approximation, and this is the visual "look" the whole stream is chasing.
+8. **Velocity-based grid gradient force (recap, ~106:00)** — rasterize velocity AND density into the grid each step; take the **Volume Gradient** of the density (scaled by the grid's voxel/transform scale, via a Grid Info transform → extract X-scale → divide) to get a repulsion vector; divide the rasterized velocity by density to normalize it back to a per-point value; sample both grid results back onto the points and feed into the simulation's velocity. Output the density as a volume too — it can double as a rough pseudo-smoke visualization, though the author notes doing real smoke this way still needs **divergence**, which this setup skips (so it behaves more like curl-noise than incompressible smoke).
+9. **Look-dev pass** — trail curves off the final particle positions (separate object, organized into a "Rail Curves" node frame), color by velocity length (`Curves Info` → attribute `velocity` → `Normalize`/`Length` → `Light Falloff` → emission), and switch color management to Standard while tuning colors, back to AGX/ACES for the final look.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Geometry Nodes: **Rasterize Points** (new 5.3), **Geometry Materials** (new 5.3), Sample Grid, Volume Gradient, Grid Info, Simulation Zone (Delta Time), Set Position, Points, custom SDF-collision node groups (author's free Gumroad pack)
+- Rasterize Points: Voxel Size ~0.1m (or Matrix for grid-aligned increments of 1); interpolation Linear (Cubic showed artifacts)
+- Shader nodes for velocity-color look: Curves Info, Normalize, Light Falloff, Material Output (Surface)
+- Gravity: -9.81 m/s² on Z, scaled by Simulation Zone Delta Time before accumulating into velocity
+- Collider: cube mesh, normals flipped inward, Viewport Display set to Wire
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced/Expert — requires prior comfort with Simulation Zones, volume/grid nodes, and custom node-group collision logic; this is live R&D on brand-new nodes, not a guided beginner path.
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.3 (stream is explicitly testing new 5.3 Geometry Nodes: Rasterize Points, Geometry Materials).
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, simulation, particles, fluid, volume, procedural, materials, rendering, advanced, blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [How to Build After Effects-Style Motion Graphics in Blender](how-to-build-after-effects-style-motion-graphics-in-blender.md) — shares `geometry-nodes` and `procedural` tags; much simpler instancing/proximity setup vs. this stream's grid/volume-based simulation.
