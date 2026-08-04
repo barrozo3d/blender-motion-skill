@@ -2282,6 +2282,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-133---cast-modifier-or-how-to-make-another-weird-sphere.md
 
+
+### Daily Blender Tip 131 - How To Make A Pillow In One Minute
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=EAKd0g65fo8
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-131---how-to-make-a-pillow-in-one-minute.md
+
 ---
 
 ## Tag Reference
