@@ -2242,6 +2242,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-138---how-to-make-a-curtain-in-one-minute.md
 
+
+### Daily Blender Tip 137 - Tissue Add-on: Experiment 3
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=8wimWMzVA9M
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-137---tissue-add-on-experiment-3.md
+
 ---
 
 ## Tag Reference
