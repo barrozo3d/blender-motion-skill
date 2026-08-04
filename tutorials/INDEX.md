@@ -1602,6 +1602,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/how-to-texture-paint-in-blender----using-xppen-artist-pro-22-gen-2-ucupaint-auto.md
 
+
+### Easy PBR Textures - Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=qxxoDYGrvtw
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/easy-pbr-textures---blender-secrets.md
+
 ---
 
 ## Tag Reference
