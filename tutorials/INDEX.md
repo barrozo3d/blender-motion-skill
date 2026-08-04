@@ -2512,6 +2512,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-79---texture-painting-and-custom-brushes.md
 
+
+### Daily Blender Tip 78 - Export UV Layout
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=w-GVrw0FBXs
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-78---export-uv-layout.md
+
 ---
 
 ## Tag Reference
