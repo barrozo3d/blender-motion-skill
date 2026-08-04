@@ -1512,6 +1512,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-origin-pivot-point-tips---blender-secrets.md
 
+
+### How do you model that? Kingdom Hearts Keyblade - Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=QV2Av9dSDbc
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-do-you-model-that-kingdom-hearts-keyblade---blender-secrets.md
+
 ---
 
 ## Tag Reference
