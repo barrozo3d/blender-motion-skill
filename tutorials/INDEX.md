@@ -2492,6 +2492,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-82---using-empties-for-transformations-and-mirroring.md
 
+
+### Daily Blender Tip 80 - My Painting Workflow In Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=Z7JCMVygWoA
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-80---my-painting-workflow-in-blender.md
+
 ---
 
 ## Tag Reference
