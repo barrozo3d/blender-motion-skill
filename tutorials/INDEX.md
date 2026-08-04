@@ -1752,6 +1752,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/step-by-step-boolean-holes-to-quad-topology-blender-secrets.md
 
+
+### Step by Step: Image File to 3D Geometry | Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=HUL9o27m11M
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/step-by-step-image-file-to-3d-geometry-blender-secrets.md
+
 ---
 
 ## Tag Reference
