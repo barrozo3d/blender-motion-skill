@@ -2462,6 +2462,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-86---simple-character-walk-cycle.md
 
+
+### Daily Blender Tip 85 - Rigging A Simple Character Part 2
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=I-OSWKJg0ss
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-85---rigging-a-simple-character-part-2.md
+
 ---
 
 ## Tag Reference
