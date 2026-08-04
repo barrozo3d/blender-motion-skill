@@ -2552,6 +2552,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-72---wave-modifier-and-blender-28.md
 
+
+### Daily Blender Tip 69 - Add Leaves To Our Plant (Make a Plant Part 3)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=DOfWm3GIh-k
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-69---add-leaves-to-our-plant-make-a-plant-part-3.md
+
 ---
 
 ## Tag Reference
