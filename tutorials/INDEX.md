@@ -2052,6 +2052,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---hard-surface-sculpting-tips-part-2.md
 
+
+### Blender Secrets - Hard Surface Sculpting Tips
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=3Ty0dNNO4bE
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---hard-surface-sculpting-tips.md
+
 ---
 
 ## Tag Reference
