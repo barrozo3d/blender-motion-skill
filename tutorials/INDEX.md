@@ -1882,6 +1882,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/creating-a-realistic-forest-in-blender-using-billboards-low-poly-planes-with-tre.md
 
+
+### Blender Secrets - Create Towers with Ivy
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=3cllYcT-MRg
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---create-towers-with-ivy.md
+
 ---
 
 ## Tag Reference
