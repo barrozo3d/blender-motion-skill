@@ -1672,6 +1672,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/how-to-make-awesome-topology-animation-blender-secrets.md
 
+
+### In-depth look at my new Hard Surface course - Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=K6IEt4T91Jw
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/in-depth-look-at-my-new-hard-surface-course---blender-secrets.md
+
 ---
 
 ## Tag Reference
