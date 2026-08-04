@@ -1497,9 +1497,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=-ij6rXb15yA
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified
+- **Tags:** organic, beginner, intermediate
+- **Summary:** Blocks out an ear's cartilage folds as bevel-thickness curves traced over reference photos, converts curves + a separate flat shell plane to mesh, joins and Voxel-Remeshes them into one manifold, then finishes with standard sculpt brushes (Draw, Grab, Clay Strips, Smooth).
 - **File:** tutorials/easy-ear-sculpting-tip---blender-secrets.md
 
 

@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=-ij6rXb15yA
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified"
+tags: [organic, beginner, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/easy-ear-sculpting-tip---blender-secrets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 4
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Easy Ear Sculpting Tip - Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py easy-ear-sculpting-tip---blender-secrets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -58,30 +54,47 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:32] tutorials/frames/easy-ear-sculpting-tip---blender-secrets/frame_000.jpg
+- [1:00] tutorials/frames/easy-ear-sculpting-tip---blender-secrets/frame_001.jpg
+- [1:14] tutorials/frames/easy-ear-sculpting-tip---blender-secrets/frame_002.jpg
+- [1:22] tutorials/frames/easy-ear-sculpting-tip---blender-secrets/frame_003.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Block out an ear's cartilage folds as bevel-thickness curves traced directly over a reference photo, convert the curve blockout plus a separate flat "shell" plane to mesh, join and remesh (Dyntopo/Remesh) to fuse them into one manifold, then finish by hand-sculpting with standard brushes.
 
 ### Summary
-[PENDING EXTRACTION]
+Rather than sculpting an ear from a sphere or freehand, trace its cartilage ridges as curves with bevel depth/thickness directly over reference images (curve created from a subdivided edge converted to a curve, not a native Bezier path — the author found this works better in practice; resolution set to 1 to keep vertex count low, plus a Subdivision modifier for smoothness). Adjust each curve to match the reference with G/Alt+S/E, duplicating strands with Shift+D as needed, and nudge some vertices along Y for volume. Separately, a plane with extra loops forms the ear's flat outer shell, pushed into shape with the Grab brush in Sculpt Mode and given thickness. Convert everything to mesh, join with Ctrl+J, then use a Voxel/"foxhole" Remesh in Sculpt Mode to fuse the curve-tubes and shell plane into one continuous sculptable surface — after which it's finished with ordinary brushes (Draw, Grab, Clay Strips, Smooth).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Gather multiple reference photos of an ear (the author notes a single reference may not show the characteristic Y-shaped cartilage ridge clearly, so cross-check with more than one image).
+2. Build the curve tool: start with a single edge, subdivide it a few times, then Convert To → Curve (preferred over starting from a native curve/path). Give it bevel Depth for thickness and set Resolution to 1 to minimize vertex count, then add a Subdivision Surface modifier for smoothing.
+3. Trace the ear's ridges directly over the reference image: move points with G, scale with Alt+S, extend the strand with E; nudge some points along Y to add dimensionality (not perfectly flat); duplicate additional cartilage strands from existing points with Shift+D.
+4. Separately build the flat outer ear shape from a Plane with extra loop cuts, then push it into rough 3D shape using the **Grab** brush in Sculpt Mode, and give it thickness (e.g. Solidify or manual extrude).
+5. Convert the curve network to mesh, select everything (curves + shell), and Ctrl+J to join into a single object.
+6. In Sculpt Mode, apply a **Remesh** (voxel-based, referred to loosely as "foxhole remesh" in the transcript) to fuse the separate tube-like curve geometry and the shell plane into one continuous, sculptable manifold surface.
+7. Finish the form using standard sculpt brushes: **Draw**, **Grab**, **Clay Strips**, and **Smooth** — since the underlying volumes are already blocked out correctly, this final pass is comparatively quick.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Curve setup: Edge → Convert to Curve, Bevel Depth > 0, Resolution = 1, + Subdivision Surface modifier
+- Sculpt Mode brushes: Grab (shell shaping), Draw, Clay Strips, Smooth (final detailing)
+- Remesh: Voxel Remesh in Sculpt Mode to merge curve-mesh + shell-mesh into one manifold after Ctrl+J join
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner–Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified.
 
 ### Tags
-[PENDING EXTRACTION]
+organic, beginner, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+No other ingested tutorials share 2+ tags with this one yet.
