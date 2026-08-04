@@ -1772,6 +1772,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/review-and-tips-for-using-the-xppen-artist-pro-16-gen-2-in-blender.md
 
+
+### Making an Ocean with Foam and a Boat | Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=qjJ3kSCis4k
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/making-an-ocean-with-foam-and-a-boat-blender-secrets.md
+
 ---
 
 ## Tag Reference
