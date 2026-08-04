@@ -2142,6 +2142,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-secrets---15-tips-compilation-part-3.md
 
+
+### Daily Blender Secrets - 15 Tips Compilation (Part 2)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=4AttSorvirM
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-secrets---15-tips-compilation-part-2.md
+
 ---
 
 ## Tag Reference
