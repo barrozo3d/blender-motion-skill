@@ -2112,6 +2112,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---reconstruct-a-face-head-from-just-a-few-photos-with-keen-tools.md
 
+
+### Blender Secrets - Blender GIS (Extra Bonus Tutorial)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=IcL7N335oCk
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---blender-gis-extra-bonus-tutorial.md
+
 ---
 
 ## Tag Reference
