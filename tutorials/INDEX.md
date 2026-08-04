@@ -2152,6 +2152,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-secrets---15-tips-compilation-part-2.md
 
+
+### 15 Blender Secrets (Compilation of 15 Blender Tutorials in 11 minutes)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=hZ2iWrbRNd0
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/15-blender-secrets-compilation-of-15-blender-tutorials-in-11-minutes.md
+
 ---
 
 ## Tag Reference
