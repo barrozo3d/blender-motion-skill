@@ -1952,6 +1952,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---car-modeling-tips.md
 
+
+### Blender Secrets -  How to make a Base Mesh for Sculpting (three methods)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=UojINqTfZsM
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---how-to-make-a-base-mesh-for-sculpting-three-methods.md
+
 ---
 
 ## Tag Reference
