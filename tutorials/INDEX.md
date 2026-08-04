@@ -1732,6 +1732,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/remeshing-tips-for-beginners-blender-secrets.md
 
+
+### Perfect Holes with Quad Topology in Curved Surfaces - Step by step Blender beginner version
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=bfdI_-ymkas
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/perfect-holes-with-quad-topology-in-curved-surfaces---step-by-step-blender-begin.md
+
 ---
 
 ## Tag Reference
