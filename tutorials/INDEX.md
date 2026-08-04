@@ -1972,6 +1972,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---scaling-tips-for-better-3d-modeling.md
 
+
+### Blender Secrets - Every Circular Array or Radial Array method
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=Q6nq1HEA5Y8
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---every-circular-array-or-radial-array-method.md
+
 ---
 
 ## Tag Reference
