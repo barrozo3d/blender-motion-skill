@@ -2332,6 +2332,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-119---super-easy-pbr-textures-with-node-wrangler.md
 
+
+### Daily Blender Tip 114 - Easily Add Camera Movement To A 2D Painting
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=KMcdkXGBTo8
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-114---easily-add-camera-movement-to-a-2d-painting.md
+
 ---
 
 ## Tag Reference
