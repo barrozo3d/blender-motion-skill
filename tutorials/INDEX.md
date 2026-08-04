@@ -1417,9 +1417,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=-cscjxxxebk
 - **Author:** Bring Your Own Laptop
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (recent 4.x-era Geometry Nodes UI)
+- **Tags:** geometry-nodes, procedural, motion-design, typography, materials, animation, camera, rendering, intermediate
+- **Summary:** A Geometry Nodes dot-grid whose per-point scale is driven by proximity (Geometry Proximity → Map Range) to an animated text object, revealing/hiding the text as it slides through — a procedural, After Effects-style kinetic-typography effect. Also covers instance coloring via Object Info Random + Color Ramp sampled from a flat palette image, and the AGX→Standard color-management fix for true graphic-design colors.
 - **File:** tutorials/how-to-build-after-effects-style-motion-graphics-in-blender.md
 
 

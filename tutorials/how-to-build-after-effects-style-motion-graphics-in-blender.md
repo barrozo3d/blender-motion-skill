@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=-cscjxxxebk
 author: Bring Your Own Laptop
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (recent 4.x-era Geometry Nodes UI)"
+tags: [geometry-nodes, procedural, motion-design, typography, materials, animation, camera, rendering, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-build-after-effects-style-motion-graphics-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How to Build After Effects-Style Motion Graphics in Blender
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-to-build-after-effects-style-motion-graphics-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro to Blender Motion Graphics [0:00]
@@ -365,30 +361,55 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [4:05] tutorials/frames/how-to-build-after-effects-style-motion-graphics-in-blender/frame_000.jpg
+- [6:52] tutorials/frames/how-to-build-after-effects-style-motion-graphics-in-blender/frame_001.jpg
+- [8:19] tutorials/frames/how-to-build-after-effects-style-motion-graphics-in-blender/frame_002.jpg
+- [10:22] tutorials/frames/how-to-build-after-effects-style-motion-graphics-in-blender/frame_003.jpg
+- [11:20] tutorials/frames/how-to-build-after-effects-style-motion-graphics-in-blender/frame_004.jpg
+- [12:22] tutorials/frames/how-to-build-after-effects-style-motion-graphics-in-blender/frame_005.jpg
+- [14:19] tutorials/frames/how-to-build-after-effects-style-motion-graphics-in-blender/frame_006.jpg
+- [16:14] tutorials/frames/how-to-build-after-effects-style-motion-graphics-in-blender/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A Geometry Nodes dot-grid whose per-point scale is driven by proximity to an animated text object, so the dots reveal/hide the text as it slides across — a fully procedural, After Effects-style kinetic-typography effect built entirely with native nodes (no add-ons).
 
 ### Summary
-[PENDING EXTRACTION]
+Builds a grid of UV spheres via Instance on Points, colors them with a random-per-instance value remapped through a Color Ramp (sampled from a flat graphic-design palette image), then adds a Text object animated across the screen on Location X. A Geometry Proximity node measures each dot's distance to the text mesh, and a Map Range node converts that distance into an instance scale (0 at 1m away → 1 at the text surface), so dots shrink to nothing right where the text passes and grow back elsewhere. Ends with color-management and render/output settings for exporting the animation as a video.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Cube → new Geometry Nodes modifier → delete Group Input → `Shift A` → **Grid** → wire to Group Output (Wireframe view mode to confirm it's a grid, not a plane); increase Size X/Y and Vertices X/Y to cover the camera frame (final: Size ~55.2×30.2m, Vertices ~50×13).
+2. `Shift A` → **Instance on Points** (Points ← Grid), **UV Sphere** → Instances input, **Transform Geometry** node inserted before Instance on Points to scale spheres down (drag all 3 Scale values together).
+3. Material tab → assign default material → switch viewport to **Rendered** shading → add a **Set Material** node inside the Geometry Nodes tree itself (materials assigned in Object mode don't show unless also set in the node tree).
+4. Shader Editor on the sphere material: **Object Info → Random** output → **Color Ramp** → Base Color of Principled BSDF. Color Ramp stops are sampled with the eyedropper from a flat palette reference image opened in a separate Image Editor window; interpolation set from Linear to **Constant** for hard color bands instead of gradients: adjust each stop's position to control the ratio of each color.
+5. Render Properties → Color Management → View Transform: **AGX → Standard** (AGX is a filmic emulation that mutes graphic-design flat colors; Standard restores true sRGB hex-accurate color). World shader background color set separately in the Shader Editor's World tab.
+6. Add Text object (`Shift A` in 3D viewport), increase Font Size (type values >10 manually, e.g. 15–20), pick a rounded font via the font-file browser icon. Keyframe **Location X** at the timeline start (text off-screen right) and end (text off past left) to animate it sliding through; drag the keyframe's frame number left to shorten/tighten the timing, and set the scene end frame to match (e.g. 144).
+7. In the spheres' Geometry Nodes tree: drag the Text object into the tree as an input node, set it to **Relative** (Transform Space) so its animated position registers — otherwise the proximity read is static and wrong. Add **Geometry Proximity** (target = text) → outputs Distance → **Map Range** (0m distance → scale 1, ~1m distance → scale 0, tune the far value to control fade width) → plug result into Instance on Points' **Scale** input.
+8. Hide the text mesh itself once the effect reads correctly: move it into its own Collection and disable that collection's viewport/render visibility (geometry nodes still reference it fine; it just stops rendering as a visible mesh).
+9. Output tab: set resolution and output folder; Output Properties → File Format → video container (MPEG-4, not Matroska), quality "Perceptually Lossless". Preferences → System → set render device to the GPU backend (Metal/OptiX/CUDA) before Render → Render Animation.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Geometry Nodes: Grid, Instance on Points, Transform Geometry, Set Material, Geometry Proximity, Map Range
+- Shader nodes: Object Info (Random output), Color Ramp (Constant interpolation), Principled BSDF (Base Color only — Base Color piped straight to Surface, bypassing the BSDF's own shading, for a flat/graphic look)
+- Grid: Size X/Y ~55.2×30.2m, Vertices X/Y ~50×13 (tuned to exactly cover the camera frame)
+- Color Management → View Transform: Standard (not AGX)
+- Render output: MPEG-4 container, Perceptually Lossless quality; GPU render device (OptiX/CUDA/Metal)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — no simulation or advanced math, but chains 6+ Geometry Nodes concepts (instancing, proximity, remapping) that a beginner wouldn't yet know to combine.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified in video or frames (UI matches a recent 4.x-era Geometry Nodes layout; no version splash or About dialog shown).
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural, motion-design, typography, materials, animation, camera, rendering, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Fluid sim testing in Blender 5.3! (Rasterize Points Node)](fluid-sim-testing-in-blender-53-rasterize-points-node.md) — shares `geometry-nodes` tag; different domain (fluid/particle rasterization vs. instance-on-points typography) but same instancing/attribute-driven-scale pattern.
