@@ -2092,6 +2092,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---decorative-edges-for-sofas-and-cushions.md
 
+
+### Blender Secrets - Modeling from Photos with the Knife Tool (part 1: basics)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=VzsxFT3-Kmk
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---modeling-from-photos-with-the-knife-tool-part-1-basics.md
+
 ---
 
 ## Tag Reference
