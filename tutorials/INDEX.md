@@ -1702,6 +1702,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/first-look-at-the-new-master-characters-in-blender-course-from-cg-boost.md
 
+
+### 3D Sculpting on the go with XPPen Magic Drawing Tablet and visiting Ghibli museum (Nomad Sculpt)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=WKaQ_V-FHGA
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/3d-sculpting-on-the-go-with-xppen-magic-drawing-tablet-and-visiting-ghibli-museu.md
+
 ---
 
 ## Tag Reference
