@@ -2062,6 +2062,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---hard-surface-sculpting-tips.md
 
+
+### Blender Secrets - Modeling Circular Hard Surface Details
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=tHnKR8DB1gg
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---modeling-circular-hard-surface-details.md
+
 ---
 
 ## Tag Reference
