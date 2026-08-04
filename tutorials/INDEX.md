@@ -2292,6 +2292,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-131---how-to-make-a-pillow-in-one-minute.md
 
+
+### Daily Blender Tip 132 - Limited Dissolve (Or How To Make An Awewsome Scifi Sphere...)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=HnbVAwIk0lk
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-132---limited-dissolve-or-how-to-make-an-awewsome-scifi-sphere.md
+
 ---
 
 ## Tag Reference
