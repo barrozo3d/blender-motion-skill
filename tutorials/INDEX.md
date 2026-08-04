@@ -1662,6 +1662,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/offset-edge-slide---blender-secrets.md
 
+
+### How to make awesome Topology Animation | Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=m7dccc-J9aQ
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-make-awesome-topology-animation-blender-secrets.md
+
 ---
 
 ## Tag Reference
