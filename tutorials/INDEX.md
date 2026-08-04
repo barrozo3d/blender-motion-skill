@@ -1872,6 +1872,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/better-billboards-using-normal-maps-low-poly-trees.md
 
+
+### Creating a Realistic Forest in Blender using Billboards (low poly Planes with tree images)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=mSdzwRcFJM0
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/creating-a-realistic-forest-in-blender-using-billboards-low-poly-planes-with-tre.md
+
 ---
 
 ## Tag Reference
