@@ -1482,6 +1482,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/how-to-model-ornamental-iron-railings-in-blender-using-curves---blender-secrets.md
 
+
+### Create Game Ready Characters | Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=br5g7m-jE_Q
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/create-game-ready-characters-blender-secrets.md
+
 ---
 
 ## Tag Reference
