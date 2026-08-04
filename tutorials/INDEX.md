@@ -1902,6 +1902,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---4-tips-for-cinematic-lighting.md
 
+
+### Blender Secrets - How to merge 3D Scans and bake the Texture as Color Attributes
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=AxDXWgFDwLA
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---how-to-merge-3d-scans-and-bake-the-texture-as-color-attributes.md
+
 ---
 
 ## Tag Reference
