@@ -134,13 +134,15 @@ Step 1 alone (`ingest.py`, with or without `--skip-video`) never downloads video
 
 ## YouTube Bot Detection (cookies.txt)
 
-Chrome 127+ broke yt-dlp's automatic cookie extraction (`--cookies-from-browser` fails with DPAPI error). If you see `Sign in to confirm you're not a bot` errors, fix it once:
+As of 2026-08, `ingest.py` automatically passes `--extractor-args youtube:player_client=android` on every call that doesn't have a `cookies.txt` present, since YouTube's default `web_safari` client started throwing HTTP 429 + `Sign in to confirm you're not a bot` on many (not all) videos. This needs no setup — it's built into `_ytdlp_cmd()` in `ingest.py`. The android client only exposes a single combined mp4 (no audio-only stream); `download_audio()` handles that fine since it re-encodes to mp3 either way.
+
+If a video *still* fails under the android client (rare — seen mainly on age-restricted or region-locked videos), fall back to cookies. Chrome 127+ broke yt-dlp's automatic cookie extraction (`--cookies-from-browser` fails with DPAPI error), so this has to be manual:
 
 1. Install the **"Get cookies.txt LOCALLY"** extension in Chrome/Edge/Firefox
 2. Go to **youtube.com** while logged in to your Google account
 3. Click the extension icon → **Export** → save as **`cookies.txt`**
 4. Place `cookies.txt` in `~/.claude/skills/blender-motion/` (same folder as `ingest.py`)
-5. `ingest.py` detects it automatically — no other changes needed
+5. `ingest.py` detects it automatically and switches to cookie auth (dropping the android-client arg) — no other changes needed
 
 > `cookies.txt` is in `.gitignore` and will never be committed to GitHub.
 

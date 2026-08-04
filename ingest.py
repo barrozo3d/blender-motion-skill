@@ -65,7 +65,14 @@ def slugify(text):
 def _ytdlp_cmd():
     """Return yt-dlp invocation, using cookies.txt if present for YouTube bot bypass.
 
-    YouTube bot detection requires authentication. To fix 429/sign-in errors:
+    Without cookies.txt, the 'android' player client is forced — as of 2026-08
+    YouTube's default web_safari client started throwing HTTP 429 + "Sign in
+    to confirm you're not a bot" on many (not all) videos. The android client
+    sidesteps that check without needing authentication. It only exposes a
+    single combined mp4 (no audio-only stream), which is fine here since
+    download_audio() re-encodes whatever format it gets to mp3 anyway.
+
+    If a video still fails under the android client too, fall back to cookies:
     1. Install browser extension: 'Get cookies.txt LOCALLY' (Chrome/Edge/Firefox)
     2. Go to youtube.com while logged in
     3. Click the extension -> Export -> save as cookies.txt in this skill directory
@@ -75,7 +82,7 @@ def _ytdlp_cmd():
     cookies_file = SKILL_DIR / "cookies.txt"
     if cookies_file.exists():
         return base + ["--cookies", str(cookies_file), "--remote-components", "ejs:github"]
-    return base
+    return base + ["--extractor-args", "youtube:player_client=android"]
 
 def check_prerequisites():
     missing = []

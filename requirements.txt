@@ -16,6 +16,8 @@ openai-whisper    # pip install openai-whisper  (requires torch — already pres
 # Without deno: yt-dlp may fail or return incomplete video format data.
 
 # cookies.txt — NOT a system install, exported manually from browser
-# Required when YouTube shows "Sign in to confirm you're not a bot" errors.
+# ingest.py auto-tries --extractor-args youtube:player_client=android first
+# (no setup needed) to dodge "Sign in to confirm you're not a bot" errors.
+# Only export cookies.txt if a video still fails under the android client.
 # See SETUP.md → "YouTube Bot Detection" section for export instructions.
 # Place as cookies.txt in this skill directory — never commit to git.
