@@ -2202,6 +2202,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-146---microdisplacement-in-one-minute.md
 
+
+### Daily Blender Tip 141 - Fracture Modifier: Helper Add-on
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=Tc3Q_OzR628
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-141---fracture-modifier-helper-add-on.md
+
 ---
 
 ## Tag Reference
