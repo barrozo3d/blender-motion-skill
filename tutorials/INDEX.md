@@ -2522,6 +2522,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-78---export-uv-layout.md
 
+
+### Daily Blender Tip 77 - Unwrap a Cup - Follow Active Quads
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=ScRIlkmNTfw
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-77---unwrap-a-cup---follow-active-quads.md
+
 ---
 
 ## Tag Reference
