@@ -1982,6 +1982,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---every-circular-array-or-radial-array-method.md
 
+
+### Blender Secrets - Making Holes in Cylinders with decent Quad Topology
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=JvJ_Hoj82us
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---making-holes-in-cylinders-with-decent-quad-topology.md
+
 ---
 
 ## Tag Reference
