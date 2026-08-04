@@ -1992,6 +1992,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---making-holes-in-cylinders-with-decent-quad-topology.md
 
+
+### Blender Secrets - 5 mins of ArchViz Tips (Diamond Tufting, Pillow Edges, Pillows, Interactive Cloth)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=hpFaDiTDZgc
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---5-mins-of-archviz-tips-diamond-tufting-pillow-edges-pillows-in.md
+
 ---
 
 ## Tag Reference
