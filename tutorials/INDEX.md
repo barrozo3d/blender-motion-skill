@@ -2502,6 +2502,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-80---my-painting-workflow-in-blender.md
 
+
+### Daily Blender Tip 79 - Texture Painting and Custom Brushes
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=u1h3_0aOBe4
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-79---texture-painting-and-custom-brushes.md
+
 ---
 
 ## Tag Reference
