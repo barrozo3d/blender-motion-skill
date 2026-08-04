@@ -1502,6 +1502,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/easy-ear-sculpting-tip---blender-secrets.md
 
+
+### Blender Origin / Pivot Point Tips - Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=t_r8qT_4oGM
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-origin-pivot-point-tips---blender-secrets.md
+
 ---
 
 ## Tag Reference
