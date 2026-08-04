@@ -1552,6 +1552,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/grease-pencil-in-blender-5---new-pen-tool-and-sharp-corners-and-some-common-grea.md
 
+
+### For Beginners: Easiest Modeling Technique (long version)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=YCd_tS_3BTU
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/for-beginners-easiest-modeling-technique-long-version.md
+
 ---
 
 ## Tag Reference
