@@ -2582,6 +2582,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-66---quick-tree-trunk-with-skin-modifier.md
 
+
+### Daily Blender Tip 65 - Properly Use Poliigon Textures And Add-On
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=mOwgdioU1Pw
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-65---properly-use-poliigon-textures-and-add-on.md
+
 ---
 
 ## Tag Reference
