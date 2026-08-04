@@ -1792,6 +1792,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/combining-ragdoll-physics-with-motion-capture-animation-rokoko-smartsuit-2-blend.md
 
+
+### Blender Secrets - In Depth Cloth Sculpting tricks with Pose Brush
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=dtFFc6f2rK8
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---in-depth-cloth-sculpting-tricks-with-pose-brush.md
+
 ---
 
 ## Tag Reference
