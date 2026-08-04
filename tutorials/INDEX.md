@@ -2482,6 +2482,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-84---rigging-a-simple-character-part-1.md
 
+
+### Daily Blender Tip 82 - Using Empties For Transformations And Mirroring
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=tUU0zFfMaEE
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-82---using-empties-for-transformations-and-mirroring.md
+
 ---
 
 ## Tag Reference
