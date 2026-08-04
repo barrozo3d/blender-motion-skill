@@ -1682,6 +1682,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/in-depth-look-at-my-new-hard-surface-course---blender-secrets.md
 
+
+### Modeling a Devil Fruit from One Piece - Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=_-a8k2LaZbA
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/modeling-a-devil-fruit-from-one-piece---blender-secrets.md
+
 ---
 
 ## Tag Reference
