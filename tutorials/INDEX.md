@@ -1862,6 +1862,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---auto-masking-cavities-in-sculpt-mode.md
 
+
+### Better Billboards using Normal Maps (Low Poly Trees)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=Ix-KT9a4PSo
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/better-billboards-using-normal-maps-low-poly-trees.md
+
 ---
 
 ## Tag Reference
