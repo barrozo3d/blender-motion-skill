@@ -1942,6 +1942,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---draw-grease-pencil-on-surfaces-without-offset-distance-issue.md
 
+
+### Blender Secrets - Car Modeling Tips
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=jcSDF917dBo
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---car-modeling-tips.md
+
 ---
 
 ## Tag Reference
