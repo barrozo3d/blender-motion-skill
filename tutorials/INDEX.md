@@ -1812,6 +1812,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/monster-sculpting-full-process-blender-secrets-stranger-things-vecna.md
 
+
+### Create a Photoreal Moon in minutes | 3D Tutorial | #blender secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=iNL98QwGEmQ
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/create-a-photoreal-moon-in-minutes-3d-tutorial-blender-secrets.md
+
 ---
 
 ## Tag Reference
