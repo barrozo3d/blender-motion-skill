@@ -2042,6 +2042,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---6-minutes-of-boolean-basics.md
 
+
+### Blender Secrets - Hard Surface Sculpting Tips Part 2
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=f8xoUkPY4e8
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---hard-surface-sculpting-tips-part-2.md
+
 ---
 
 ## Tag Reference
