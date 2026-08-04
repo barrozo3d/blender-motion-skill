@@ -2252,6 +2252,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-137---tissue-add-on-experiment-3.md
 
+
+### Daily Blender Tip 136 - Tissue Add-on: Experiment 2
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=HabMke3KDFc
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-136---tissue-add-on-experiment-2.md
+
 ---
 
 ## Tag Reference
