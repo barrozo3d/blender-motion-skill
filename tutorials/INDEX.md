@@ -2022,6 +2022,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---5-minutes-of-beveling-knowledge-17-tips.md
 
+
+### Blender Secrets - 5 minutes of N-Gons to Quads tips
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=DwpajQ0oQPI
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---5-minutes-of-n-gons-to-quads-tips.md
+
 ---
 
 ## Tag Reference
