@@ -1462,6 +1462,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/6-panel-cut-tips---blender-secrets.md
 
+
+### This technique lets you make Hard Surface models easily
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=_6uBdIsvm7c
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/this-technique-lets-you-make-hard-surface-models-easily.md
+
 ---
 
 ## Tag Reference
