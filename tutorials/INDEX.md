@@ -2422,6 +2422,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-90---how-to-have-characters-interact-with-physics-simulations.md
 
+
+### Daily Blender Tip 89 - Riggin With Seperate Objects Or Not?
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=9takya3FrtI
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-89---riggin-with-seperate-objects-or-not.md
+
 ---
 
 ## Tag Reference
