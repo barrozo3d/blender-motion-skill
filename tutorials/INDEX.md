@@ -1442,6 +1442,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/easily-add-details-to-a-surface-without-connecting-them-or-using-booleans---blen.md
 
+
+### Cloth Tearing with Geometry Nodes in Blender 5.2 - Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=nhhv9lw152A
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/cloth-tearing-with-geometry-nodes-in-blender-52---blender-secrets.md
+
 ---
 
 ## Tag Reference
