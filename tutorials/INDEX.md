@@ -1542,6 +1542,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/easy-hole-modeling-for-beginners---blender-secrets.md
 
+
+### Grease Pencil in Blender 5 - New Pen tool and Sharp Corners (and some common Grease Pencil issues)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=tyPirJ_qWKs
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/grease-pencil-in-blender-5---new-pen-tool-and-sharp-corners-and-some-common-grea.md
+
 ---
 
 ## Tag Reference
