@@ -2392,6 +2392,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-97---exploring-grease-pencil---different-brushes.md
 
+
+### Daily Blender Tip 96 - 2D Animation From 3D Animation (Blender 2.8)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=QI5rEvu7r4I
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-96---2d-animation-from-3d-animation-blender-28.md
+
 ---
 
 ## Tag Reference
