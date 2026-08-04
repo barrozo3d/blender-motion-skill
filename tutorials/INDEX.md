@@ -2472,6 +2472,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-85---rigging-a-simple-character-part-2.md
 
+
+### Daily Blender Tip 84 - Rigging A Simple Character Part 1
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=_OZVTOF1U_U
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-84---rigging-a-simple-character-part-1.md
+
 ---
 
 ## Tag Reference
