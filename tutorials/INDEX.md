@@ -2132,6 +2132,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-secrets---10-ways-to-make-holes-in-blender.md
 
+
+### Daily Blender Secrets - 15 Tips Compilation (part 3)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=xLAakVcA1hc
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-secrets---15-tips-compilation-part-3.md
+
 ---
 
 ## Tag Reference
