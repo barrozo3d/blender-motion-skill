@@ -1922,6 +1922,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---4-tips-for-photoreal-lighting.md
 
+
+### 12 Tips for Creating Epic Trees in Blender Without Paid Add-Ons
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=6wHgqPPQ3WI
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/12-tips-for-creating-epic-trees-in-blender-without-paid-add-ons.md
+
 ---
 
 ## Tag Reference
