@@ -2382,6 +2382,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-99---drawing-in-3d-with-grease-pencil-and-converting-to-mesh.md
 
+
+### Daily Blender Tip 97 - Exploring Grease Pencil - Different Brushes
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=j3M8DFFcysM
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-97---exploring-grease-pencil---different-brushes.md
+
 ---
 
 ## Tag Reference
