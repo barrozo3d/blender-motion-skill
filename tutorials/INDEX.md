@@ -2722,6 +2722,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-43---import-images-as-planes-add-on.md
 
+
+### Daily Blender Tip #40 - How To Make Pipes
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=v6mJ6XJatUI
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-40---how-to-make-pipes.md
+
 ---
 
 ## Tag Reference
