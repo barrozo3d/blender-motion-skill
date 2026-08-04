@@ -1532,6 +1532,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/how-do-you-model-that-wrench---blender-secrets.md
 
+
+### Easy hole modeling for beginners - Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=jrR1T-dIA8c
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/easy-hole-modeling-for-beginners---blender-secrets.md
+
 ---
 
 ## Tag Reference
