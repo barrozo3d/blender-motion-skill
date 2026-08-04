@@ -2542,6 +2542,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-75---more-fracture-stuff.md
 
+
+### Daily Blender Tip 72 - Wave Modifier And Blender 2.8!
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=gHx-hH5rrD8
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-72---wave-modifier-and-blender-28.md
+
 ---
 
 ## Tag Reference
