@@ -1622,6 +1622,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/interactive-cloth-new-cloth-brushes-more---blender-secrets.md
 
+
+### What if you Alpha Brush texture is square? Or the resolution is too low? Blender Sculpting tips
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=rtnsLjP1ebo
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/what-if-you-alpha-brush-texture-is-square-or-the-resolution-is-too-low-blender-s.md
+
 ---
 
 ## Tag Reference
