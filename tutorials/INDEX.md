@@ -2172,6 +2172,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/not-a-tutorial-modeling-a-chair-with-wireframe-backrest.md
 
+
+### Daily Blender Tip 224 - Growing Plant animation (part 2) (Blender 2.7 & 2.8)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=qJgbhKcHKsY
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-224---growing-plant-animation-part-2-blender-27-28.md
+
 ---
 
 ## Tag Reference
