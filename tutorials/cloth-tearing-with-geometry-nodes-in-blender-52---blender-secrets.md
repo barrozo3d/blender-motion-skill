@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=nhhv9lw152A
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.2"
+tags: [geometry-nodes, simulation, cloth, procedural, animation, intermediate, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/cloth-tearing-with-geometry-nodes-in-blender-52---blender-secrets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Cloth Tearing with Geometry Nodes in Blender 5.2 - Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py cloth-tearing-with-geometry-nodes-in-blender-52---blender-secrets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### 1-minute summary [0:00]
@@ -207,30 +203,52 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:01] tutorials/frames/cloth-tearing-with-geometry-nodes-in-blender-52---blender-secrets/frame_000.jpg
+- [3:15] tutorials/frames/cloth-tearing-with-geometry-nodes-in-blender-52---blender-secrets/frame_001.jpg
+- [4:10] tutorials/frames/cloth-tearing-with-geometry-nodes-in-blender-52---blender-secrets/frame_002.jpg
+- [5:40] tutorials/frames/cloth-tearing-with-geometry-nodes-in-blender-52---blender-secrets/frame_003.jpg
+- [6:50] tutorials/frames/cloth-tearing-with-geometry-nodes-in-blender-52---blender-secrets/frame_004.jpg
+- [8:04] tutorials/frames/cloth-tearing-with-geometry-nodes-in-blender-52---blender-secrets/frame_005.jpg
+- [9:25] tutorials/frames/cloth-tearing-with-geometry-nodes-in-blender-52---blender-secrets/frame_006.jpg
+- [9:50] tutorials/frames/cloth-tearing-with-geometry-nodes-in-blender-52---blender-secrets/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Blender 5.2's new experimental **Cloth Dynamics** geometry node replaces the old Cloth modifier + Hook modifier workflow: empties pin the cloth via Typed Bundle ("Pin Position") + Named Attribute nodes wired straight into the node's Effectors input, and a native **Tearing** option (with a custom edge-group threshold) lets the cloth rip procedurally where you choose, all without leaving the geometry nodes tree.
 
 ### Summary
-[PENDING EXTRACTION]
+Contrasts the old cloth-pinning workflow (Ctrl+H hook-to-empty per vertex, a vertex group per hook, combining all pin groups into one for the Cloth modifier's Shape > Pin Group) with the new Blender 5.2 approach: an experimental **Cloth Dynamics** node inside Geometry Nodes takes per-hook pin data via `Object Info` (hook location) → `Typed Bundle` (search "Pin Position") ← `Named Attribute` (the corner's vertex group, as Selection) → `Combine Bundle` → the node's **Effectors** socket. Enabling **Tearing** on the node lets the cloth rip; by default it tears at the highest-stress point (usually right at a hook), but assigning a **custom vertex group** for the tear location and setting Tearing to "Custom" instead of "All" lets you control exactly where it rips (e.g. down the middle) instead of at the hook.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Add a Grid, subdivide it a few times in Edit Mode, and optionally triangulate (triangulated cloth reads as more realistic when simulated).
+2. **(Old workflow, for contrast)** Select a corner vertex → Ctrl+H → Hook to New Object → create + assign a vertex group per hook corner → rename the resulting empties for clarity → add the classic **Cloth** modifier → under Shape, add a combined pin vertex group containing all hook vertices (the old workflow requires this combined group in addition to the per-hook ones).
+3. **(New workflow)** Remove the old Cloth and Hook modifiers entirely — they conflict with the geometry-nodes approach. Add a new Geometry Nodes modifier, then search-add the experimental **Cloth Dynamics** node. Playing the sim now just drops the cloth flat since it isn't wired to any hooks yet.
+4. Per hook: drag the hook empty into the node editor (creates an **Object Info** node) → take its Location output → plug into a **Typed Bundle** node (search-added, then set to "Pin Position") → take a **Named Attribute** node reading that corner's vertex group → plug into the Typed Bundle's Selection input. Duplicate this pair for every hook (4 in the demo).
+5. Feed all the per-hook Typed Bundle outputs into a **Combine Bundle** node, and plug that into the Cloth Dynamics node's **Effectors** input. The pin vertex groups used for the old Hook modifiers are reused here directly — no combined "master" pin group is needed this time.
+6. Playing the timeline now lets you grab and move the empties to manipulate the cloth live. Tune **Stretchiness** and **Bendiness** on the Cloth Dynamics node (defaults were far too stretchy/bendy in the demo — small values like 0.029/0.075 read as a stiffer, more fabric-like cloth). Add a **Shade Smooth** node (or the modifier equivalent) plus a matcap for cleaner viewport preview.
+7. Enable **Tearing** on the Cloth Dynamics node. By default (Edge Group = "All") the cloth tears wherever stress is highest — usually right at a hook attachment. To control tear location instead: in Edit Mode, select the desired edge loop, assign it to a new vertex group (a "tearing group"), feed that group through another `Named Attribute` node into the node's **Edge Group** input, and switch the Edge Group mode from All to **Custom** so only that selection can rip.
+8. Tune the **Threshold** parameter to control how much stress/pulling force is needed before tearing triggers — the demo found the default 1.2 was already close to ideal; doubling it to ~2 made tearing require noticeably more force.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Geometry Nodes: **Cloth Dynamics (Experimental)**, Object Info, Named Attribute, Typed Bundle (mode: Pin Position), Combine Bundle, Shade Smooth
+- Cloth Dynamics params: Stretchiness ~0.029, Bendiness ~0.075, Tearing (bool), Edge Group mode (All / Custom), Threshold (default 1.2)
+- Old-workflow reference: Ctrl+H hook-to-object, per-corner vertex groups, Cloth modifier → Shape → Pin Group (combined)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — assumes comfort with vertex groups and basic Geometry Nodes wiring; the underlying cloth physics concepts (pinning, tearing threshold) are explained from scratch.
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.2 (Cloth Dynamics is explicitly an experimental new node in this release).
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, simulation, cloth, procedural, animation, intermediate, blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Fluid sim testing in Blender 5.3! (Rasterize Points Node)](fluid-sim-testing-in-blender-53-rasterize-points-node.md) — shares `geometry-nodes`, `simulation`, `procedural`; both explore brand-new native GN simulation nodes.

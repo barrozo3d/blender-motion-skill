@@ -1447,9 +1447,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=nhhv9lw152A
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.2
+- **Tags:** geometry-nodes, simulation, cloth, procedural, animation, intermediate, blender-5x
+- **Summary:** Blender 5.2's experimental Cloth Dynamics geometry node replaces the old Cloth+Hook modifier workflow: empties pin the cloth via Typed Bundle (Pin Position) + Named Attribute nodes into the node's Effectors input, and a native Tearing option with a custom edge-group threshold lets the cloth rip exactly where you choose instead of always at the highest-stress hook point.
 - **File:** tutorials/cloth-tearing-with-geometry-nodes-in-blender-52---blender-secrets.md
 
 
