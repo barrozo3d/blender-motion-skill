@@ -1522,6 +1522,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/how-do-you-model-that-kingdom-hearts-keyblade---blender-secrets.md
 
+
+### How do you model that? Wrench - Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=S9WVxHp1Sc0
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-do-you-model-that-wrench---blender-secrets.md
+
 ---
 
 ## Tag Reference
