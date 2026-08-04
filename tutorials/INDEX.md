@@ -1582,6 +1582,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/grid-fill-update-in-blender-45-lts---blender-secrets.md
 
+
+### Making a new Logo Animation - Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=7MIePxGcze0
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/making-a-new-logo-animation---blender-secrets.md
+
 ---
 
 ## Tag Reference
