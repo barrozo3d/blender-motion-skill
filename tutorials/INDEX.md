@@ -1652,6 +1652,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/vertex-groups-modifiers-and-tissue-add-on---blender-secrets.md
 
+
+### Offset Edge Slide - Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=y7EuYx9CaTU
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/offset-edge-slide---blender-secrets.md
+
 ---
 
 ## Tag Reference
