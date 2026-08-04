@@ -2602,6 +2602,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-64---faster-render-speeds-by-rendering-seperate-layers-re-uplo.md
 
+
+### Daily Blender Tip 63 - Using SkinWrap To Project A Sticker To A Surface
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=ZtrD7vxi6ik
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-63---using-skinwrap-to-project-a-sticker-to-a-surface.md
+
 ---
 
 ## Tag Reference
