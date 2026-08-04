@@ -1572,6 +1572,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/anime-girl-character-course-overview---blender-secrets.md
 
+
+### Grid Fill update in Blender 4.5 LTS - Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=gS8MHAXKFQE
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/grid-fill-update-in-blender-45-lts---blender-secrets.md
+
 ---
 
 ## Tag Reference
