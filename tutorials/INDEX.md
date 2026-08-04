@@ -1842,6 +1842,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/ruffled-skirts-virtual-fashion-blender-tutorial-blender-secrets.md
 
+
+### Blender Secrets - (Long Version) Marvelous Designer-like Cloth Grabbing
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=1YqtY02n8iU
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---long-version-marvelous-designer-like-cloth-grabbing.md
+
 ---
 
 ## Tag Reference
