@@ -2592,6 +2592,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-65---properly-use-poliigon-textures-and-add-on.md
 
+
+### Daily Blender Tip 64 - Faster Render Speeds By Rendering Seperate Layers (Re-Upload)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=WqxHOro0dV8
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-64---faster-render-speeds-by-rendering-seperate-layers-re-uplo.md
+
 ---
 
 ## Tag Reference
