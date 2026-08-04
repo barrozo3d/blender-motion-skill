@@ -2352,6 +2352,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-113---from-sketch-to-clean-lines-in-grease-pencil.md
 
+
+### Daily Blender Tip 102 - Random Object Colors in Blender 2.8
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=3G0OxL2lfLs
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-102---random-object-colors-in-blender-28.md
+
 ---
 
 ## Tag Reference
