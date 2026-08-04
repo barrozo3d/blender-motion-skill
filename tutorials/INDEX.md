@@ -2622,6 +2622,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-62---duplicate-linked.md
 
+
+### Daily Blender Tip 59 - Crease Edges
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=4YF1p_odCwk
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-59---crease-edges.md
+
 ---
 
 ## Tag Reference
