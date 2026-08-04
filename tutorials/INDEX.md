@@ -1437,9 +1437,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=juXPyDLTJTE
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified
+- **Tags:** materials, procedural, beginner, intermediate
+- **Summary:** Snaps a detail mesh onto a host surface using Face Project snapping, then blends the seam with a weight-painted Shrinkwrap modifier (weight 1 at the base fading to 0) and a Data Transfer modifier (custom normals, nearest-face-interpolated) so the two objects shade as one continuous surface — no booleans or geometry merge required.
 - **File:** tutorials/easily-add-details-to-a-surface-without-connecting-them-or-using-booleans---blen.md
 
 

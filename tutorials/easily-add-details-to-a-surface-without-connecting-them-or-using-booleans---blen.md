@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=juXPyDLTJTE
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified"
+tags: [materials, procedural, beginner, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/easily-add-details-to-a-surface-without-connecting-them-or-using-booleans---blen/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 4
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Easily Add Details to a Surface without Connecting them or using Booleans - Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py easily-add-details-to-a-surface-without-connecting-them-or-using-booleans---blen <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -81,30 +77,49 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:26] tutorials/frames/easily-add-details-to-a-surface-without-connecting-them-or-using-booleans---blen/frame_000.jpg
+- [1:01] tutorials/frames/easily-add-details-to-a-surface-without-connecting-them-or-using-booleans---blen/frame_001.jpg
+- [1:27] tutorials/frames/easily-add-details-to-a-surface-without-connecting-them-or-using-booleans---blen/frame_002.jpg
+- [1:55] tutorials/frames/easily-add-details-to-a-surface-without-connecting-them-or-using-booleans---blen/frame_003.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Non-destructively snapping a small "detail" mesh onto a larger surface using Face Project snapping, then blending the seam invisibly with a weight-painted Shrinkwrap modifier and a Data Transfer modifier — no boolean, no geometry merge.
 
 ### Summary
-[PENDING EXTRACTION]
+Snap a detail object onto a host surface via face-project snapping with rotation aligned to the target, fix the origin so it snaps flush, then extrude+scale its base to close the gap. A Shrinkwrap modifier (with a weight-painted vertex group, weight 1 at the base fading to 0 upward) pulls only the base flush to the surface while leaving the rest of the shape intact. A Data Transfer modifier (face-corner data + custom normals, nearest-face-interpolated) copies the host's shading data onto the detail so the two objects blend with matching normals and no visible seam.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Enable snapping with **Face Project** and **Align Rotation to Target** so the detail object orients to the host surface.
+2. Fix the detail object's origin to its base (select bottom vertices → Shift+S → Cursor to Selection → Object → Set Origin to 3D Cursor) so it snaps flush rather than by its default origin.
+3. Move the detail object with snapping on — it now sticks to the surface, oriented to its normal.
+4. Turn snapping off, select the base vertices, press E then immediately right-click to cancel the transform (this leaves new overlapping vertices in place without moving them) — then S to scale those new vertices to close the gap, and Ctrl+R to add extra loops near the base for a smoother Shrinkwrap gradient.
+5. Create a new **Vertex Group**, add a **Shrinkwrap** modifier targeting the host surface, and assign that vertex group to the modifier's Vertex Group field so only the weighted vertices shrinkwrap (unweighted parts of the mesh keep their original shape instead of flattening).
+6. Paint the vertex group weights: either use Weight Paint mode's **Gradient** tool for a smooth falloff, or manually Ctrl+click-select each horizontal loop and assign decreasing weights outward — the base loop must be weight 1.
+7. Switch to a shiny matte-cap shading preset with random colors and outline off to clearly inspect the blend quality; both objects need adequate subdivision, and the Shrinkwrap modifier must sit after the Subdivision Surface modifier in the stack.
+8. Hold Ctrl to temporarily re-enable snapping later for repositioning the detail object without turning the tool back on globally.
+9. Fix any remaining shading mismatch with a **Data Transfer** modifier on the detail object: source = host surface, same vertex group as the Shrinkwrap, enable **Face Corner Data** + **Custom Normals**, mapping set to **Nearest Face Interpolated**.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Modifiers (in order): Subdivision Surface → Shrinkwrap (Nearest Surface Point, target = host, Vertex Group = weighted group) → Data Transfer (Face Corner Data, Custom Normals, Nearest Face Interpolated) → Smooth by Angle
+- Vertex Group weight-paint: Gradient tool, or manual per-loop weight assignment (1.0 at base, decreasing outward)
+- Viewport: matte-cap shading, outlines off, random colors off (for inspection only)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner/Intermediate — pure modifier + snapping workflow, no geometry nodes or scripting.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified in transcript or frames.
 
 ### Tags
-[PENDING EXTRACTION]
+materials, procedural, beginner, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+No other ingested tutorials share 2+ tags with this one yet.
