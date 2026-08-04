@@ -1962,6 +1962,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---how-to-make-a-base-mesh-for-sculpting-three-methods.md
 
+
+### Blender Secrets -  Scaling Tips for Better 3D Modeling
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=jlh275ZKsLw
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---scaling-tips-for-better-3d-modeling.md
+
 ---
 
 ## Tag Reference
