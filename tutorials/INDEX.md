@@ -2322,6 +2322,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-120---new-curve-tool-in-grease-pencil-blender-28.md
 
+
+### Daily Blender Tip 119 - Super Easy PBR Textures With Node Wrangler
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=t1v7lPbCipo
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-119---super-easy-pbr-textures-with-node-wrangler.md
+
 ---
 
 ## Tag Reference
