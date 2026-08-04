@@ -1422,6 +1422,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/how-to-build-after-effects-style-motion-graphics-in-blender.md
 
+
+### Fluid sim testing in Blender 5.3! (Rasterize Points Node)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=qcOMsFVMMQA
+- **Author:** Cartesian Caramel
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/fluid-sim-testing-in-blender-53-rasterize-points-node.md
+
 ---
 
 ## Tag Reference
