@@ -2072,6 +2072,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---modeling-circular-hard-surface-details.md
 
+
+### Blender Secrets - Modeling Sci-Fi Greebles on a Sphere (using Annotate Tool)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=IeLNfxeEqz0
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---modeling-sci-fi-greebles-on-a-sphere-using-annotate-tool.md
+
 ---
 
 ## Tag Reference
