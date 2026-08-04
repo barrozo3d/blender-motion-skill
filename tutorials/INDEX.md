@@ -2662,6 +2662,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-51---layer-management.md
 
+
+### Daily Blender Tip 48 - Installing Custom Fonts From Google Fonts
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=V1C0TxBfuw0
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-48---installing-custom-fonts-from-google-fonts.md
+
 ---
 
 ## Tag Reference
