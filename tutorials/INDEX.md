@@ -2402,6 +2402,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-96---2d-animation-from-3d-animation-blender-28.md
 
+
+### Daily Blender Tip 95 - Using Empty To Animate Displacement Modifier In A Loop
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=FIYZk64PsWY
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-95---using-empty-to-animate-displacement-modifier-in-a-loop.md
+
 ---
 
 ## Tag Reference
