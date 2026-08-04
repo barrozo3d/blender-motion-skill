@@ -2222,6 +2222,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-140---fracture-modifier-use-constraints.md
 
+
+### Daily Blender Tip 139 - Blender Fracture Modifier Build - Quick Start
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=6Tk22EdbbLc
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-139---blender-fracture-modifier-build---quick-start.md
+
 ---
 
 ## Tag Reference
