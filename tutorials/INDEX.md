@@ -2612,6 +2612,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-63---using-skinwrap-to-project-a-sticker-to-a-surface.md
 
+
+### Daily Blender Tip 62 - Duplicate Linked
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=W3EtoiG99mo
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-62---duplicate-linked.md
+
 ---
 
 ## Tag Reference
