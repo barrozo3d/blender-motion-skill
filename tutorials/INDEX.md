@@ -1612,6 +1612,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/easy-pbr-textures---blender-secrets.md
 
+
+### Interactive Cloth + new Cloth Brushes & more - Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=bHmZfA07F0Y
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/interactive-cloth-new-cloth-brushes-more---blender-secrets.md
+
 ---
 
 ## Tag Reference
