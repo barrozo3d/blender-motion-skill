@@ -2562,6 +2562,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-69---add-leaves-to-our-plant-make-a-plant-part-3.md
 
+
+### Daily Blender Tip 68 - Plant Part 2: Adding Twigs With Particles
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=HqwpZutERRU
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-68---plant-part-2-adding-twigs-with-particles.md
+
 ---
 
 ## Tag Reference
