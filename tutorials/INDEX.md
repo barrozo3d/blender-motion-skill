@@ -1592,6 +1592,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/making-a-new-logo-animation---blender-secrets.md
 
+
+### How to Texture Paint in Blender -- Using XPPen Artist Pro 22 (Gen 2) + Ucupaint, Auto Reload & Krita
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=96ppCrgb2JI
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-texture-paint-in-blender----using-xppen-artist-pro-22-gen-2-ucupaint-auto.md
+
 ---
 
 ## Tag Reference
