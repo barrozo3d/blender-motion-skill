@@ -1712,6 +1712,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/3d-sculpting-on-the-go-with-xppen-magic-drawing-tablet-and-visiting-ghibli-museu.md
 
+
+### Creating a Japanse city from a photo using fSpy
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=GzHvD9RFrT8
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/creating-a-japanse-city-from-a-photo-using-fspy.md
+
 ---
 
 ## Tag Reference
