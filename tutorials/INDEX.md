@@ -1412,6 +1412,16 @@ Each entry format:
 - **Summary:** Music-only video (no narration — extracted from visuals only). Builds a Geometry Nodes setup producing dense, evenly-offset "looping" contour/wave lines that trace the silhouette of input geometry — shown on a flat plane (radiating swirl pattern) and on 3D text (concentric contours around the letter "A"), with a Color Ramp driving line color. Exact node names/values unverified due to lack of audio — re-watch directly for precise parameters.
 - **File:** tutorials/abstract-wave-lines-looping-curves-geometry-nodes-tutorial.md
 
+
+### How to Build After Effects-Style Motion Graphics in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=-cscjxxxebk
+- **Author:** Bring Your Own Laptop
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-build-after-effects-style-motion-graphics-in-blender.md
+
 ---
 
 ## Tag Reference
