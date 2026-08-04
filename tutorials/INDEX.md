@@ -1802,6 +1802,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---in-depth-cloth-sculpting-tricks-with-pose-brush.md
 
+
+### Monster Sculpting | Full Process | Blender Secrets | Stranger Things Vecna
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=s6GQv6eZVms
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/monster-sculpting-full-process-blender-secrets-stranger-things-vecna.md
+
 ---
 
 ## Tag Reference
