@@ -1642,6 +1642,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/image-to-3d-model-workflow-in-blender.md
 
+
+### Vertex Groups, Modifiers and Tissue Add-on - Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=75inBBl39es
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/vertex-groups-modifiers-and-tissue-add-on---blender-secrets.md
+
 ---
 
 ## Tag Reference
