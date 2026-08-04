@@ -1452,6 +1452,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/cloth-tearing-with-geometry-nodes-in-blender-52---blender-secrets.md
 
+
+### 6 Panel Cut Tips - Blender Secrets
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=IZFniY_vyGo
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/6-panel-cut-tips---blender-secrets.md
+
 ---
 
 ## Tag Reference
