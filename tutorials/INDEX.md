@@ -2262,6 +2262,26 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-136---tissue-add-on-experiment-2.md
 
+
+### Daily Blender Tip 135 - Tissue Add-on: Experiment 1
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=aoZD_EwpWmo
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-135---tissue-add-on-experiment-1.md
+
+
+### Daily Blender Tip 133 - Cast Modifier (Or How To Make Another Weird Sphere...)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=yEDi5SIqXxs
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/daily-blender-tip-133---cast-modifier-or-how-to-make-another-weird-sphere.md
+
 ---
 
 ## Tag Reference
