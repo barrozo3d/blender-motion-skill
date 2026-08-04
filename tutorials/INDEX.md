@@ -2002,6 +2002,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/blender-secrets---5-mins-of-archviz-tips-diamond-tufting-pillow-edges-pillows-in.md
 
+
+### Blender Secrets - 5 minutes of Topology Tips
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=V7Y-Il-7JFE
+- **Author:** Blender Secrets
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-secrets---5-minutes-of-topology-tips.md
+
 ---
 
 ## Tag Reference
