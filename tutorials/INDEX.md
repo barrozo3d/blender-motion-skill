@@ -1917,9 +1917,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=do_S94ZXLSc
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Cycles required, modern 3.x-4.x UI)
+- **Tags:** #lighting #hdri #cycles #materials #shaders #rendering #intermediate
+- **Summary:** Four photoreal lighting techniques: real-world IES light profiles (Cycles-only) driving a Point light's Emission Strength via an IES Texture node (Radius 0.02-0.03 for a sharp, artifact-free distribution pattern); a textured/video Spot light built with Ctrl+T auto-texture-node-wiring (Match Movie Length + Auto Refresh for video); the procedural Nishita Sky Texture with Sun Disc as a physically-based sun (Elevation/Rotation/Size/Air-Dust-Ozone controls, Solidify modifier to stop light leaks, Linear-keyframed Elevation for sunset timelapses); and manual HDRI world lighting via Poly Haven with a Transparent-Film + PNG/EXR RGBA trick to keep the lighting but hide the HDRI background.
 - **File:** tutorials/blender-secrets---4-tips-for-photoreal-lighting.md
 
 

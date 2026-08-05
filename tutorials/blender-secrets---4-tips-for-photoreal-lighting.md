@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=do_S94ZXLSc
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (Cycles required, modern 3.x-4.x UI)"
+tags: [lighting, hdri, cycles, materials, shaders, rendering, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---4-tips-for-photoreal-lighting/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 5
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Secrets - 4 tips for Photoreal Lighting
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-secrets---4-tips-for-photoreal-lighting <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### IES lights [0:00]
@@ -106,30 +102,49 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:35] tutorials/frames/blender-secrets---4-tips-for-photoreal-lighting/frame_000.jpg
+- [1:03] tutorials/frames/blender-secrets---4-tips-for-photoreal-lighting/frame_001.jpg
+- [1:45] tutorials/frames/blender-secrets---4-tips-for-photoreal-lighting/frame_002.jpg
+- [2:32] tutorials/frames/blender-secrets---4-tips-for-photoreal-lighting/frame_003.jpg
+- [3:38] tutorials/frames/blender-secrets---4-tips-for-photoreal-lighting/frame_004.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Four physically-grounded lighting techniques for photoreal renders: real-world IES light-profile textures on a point light, a textured/video spotlight as a practical light source, the procedural Nishita sky texture as a physically-based sun, and manual HDRI world lighting with an optional transparent-background render.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows tip 1's node setup: an IES Texture node (Internal/External toggle, Vector input) wired into an Emission shader's Strength, with a point light casting a dome-shaped light-distribution pattern in the viewport — exactly matching the transcript's IES-profile description. Frame 001 shows the tip's real-world payoff: a photoreal kitchen render (Polygon-asset scene) with three IES-shaped pools of light under the range hood and cabinets. Frame 002 shows tip 2: a Spot light with an Image Texture (Color→Emission Color) casting a magenta/pink textured beam across a room, Spot properties panel showing Power 1200W, Radius, Beam Shape Size/Blend. Frame 003 shows tip 3: the World tab's Sky Texture node set to Nishita with Sun Disc enabled — Sun Size 0.545, Sun Intensity 1.000, Sun Elevation 15°, Sun Rotation 0°, Air/Dust/Ozone all 1.000 — lighting an interior through a window with soft, low-angle light. Frame 004 shows tip 4: browsing Poly Haven's free "HDRIs: Outdoor" library directly in-app (via the Poly Haven add-on) with the World node graph (Environment Texture → Background → World Output) visible underneath.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **IES lights (Cycles only — not supported in EEVEE):** download free IES profile files (widely available online, essential for archviz realism); add a Point light, enable Use Nodes on it; in the Shader Editor, Shift+A → search "IES Texture", set it to External and load the .ies file, connect its Fac/output to the light's Emission Strength. Lower the light Radius (0.02-0.03 is a safe sweet spot) to make the IES distribution pattern sharper — a Radius of exactly 0 risks render artifacts.
+2. **Textured/video spotlight:** add a Spot light, enable Use Nodes, switch viewport to Rendered View and raise intensity; select the light's Emission node and press Ctrl+T to auto-generate an attached Image Texture node chain; load an image or video (for video: open the N-panel, click "Match Movie Length" next to the frame value, enable Auto Refresh); use Normal texture coordinates. Adjust Light Radius for blur/softness and Beam Shape Spot Size to widen the textured beam's coverage area.
+3. **Nishita procedural sun/sky:** set Render Engine to Cycles; in the World tab set Color to Sky Texture, choose Nishita, enable Sun Disc — this immediately gives a physically-based sky background and lighting. Sun Rotation controls the sun's horizontal (azimuth) position; Sun Elevation its height; Sun Size controls shadow softness (bigger = softer shadows); Air/Dust/Ozone control atmospheric influence (raising Air produces more dramatic, saturated sunsets). Add a Solidify modifier to room geometry to prevent light leaking through thin walls. For a sunset timelapse, keyframe the Sun Elevation value with Linear interpolation.
+4. **Manual HDRI world lighting:** in the World tab, click the yellow dot next to Color → Environment Texture → Open, and load an HDRI (Poly Haven is the recommended free source, browsable in-app per frame 004). Switch to Render Preview to confirm the HDRI lights the scene and shows as the background. To hide the HDRI from the final render background while still using it for lighting, go to the Render tab and enable Film → Transparent, and export to a format that supports alpha (PNG or EXR) with RGBA channels checked.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Shading:** IES Texture node (Internal/External, Vector) → Emission Strength; Image/Video Texture (with Match Movie Length + Auto Refresh for video) → Emission Color, Ctrl+T shortcut to auto-wire texture nodes onto a selected shader node.
+- **World:** Sky Texture (Nishita model: Sun Disc, Sun Size, Sun Intensity, Sun Elevation, Sun Rotation, Altitude, Air, Dust, Ozone) → Background → World Output; Environment Texture (HDRI image) → Background → World Output.
+- **Lights:** Point (Use Nodes, Radius 0.02-0.03 for sharp IES), Spot (Power, Radius, Beam Shape Size/Blend).
+- **Modifiers:** Solidify (on room walls, to prevent HDRI/sky light leaks).
+- **Render:** Cycles required for IES lights; Film → Transparent + PNG/EXR + RGBA for HDRI-lit-but-hidden-background renders.
+- **Add-on:** Poly Haven add-on for in-app free HDRI browsing/download (frame 004).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Cycles-required workflow (IES, Nishita sky) with modern node/UI naming (Physical Light unit toggle visible in frame 002), consistent with Blender 3.x-4.x.
 
 ### Tags
-[PENDING EXTRACTION]
+lighting, hdri, cycles, materials, shaders, rendering, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender Secrets - 4 tips for Cinematic Lighting](blender-secrets---4-tips-for-cinematic-lighting.md) — shares lighting, hdri, materials, shaders, cycles; same channel, direct companion video (cinematic vs. photoreal lighting tips).
+- [5 Lighting SECRETS in Blender](5-lighting-secrets-in-blender.md) — shares lighting, cycles, rendering, shaders, intermediate.
