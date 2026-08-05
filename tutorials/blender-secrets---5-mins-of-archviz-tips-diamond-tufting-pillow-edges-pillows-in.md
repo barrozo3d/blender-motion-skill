@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=hpFaDiTDZgc
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (version-agnostic core workflow, 3.x-5.x)"
+tags: [cloth, simulation, materials, procedural, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---5-mins-of-archviz-tips-diamond-tufting-pillow-edges-pillows-in/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Secrets - 5 mins of ArchViz Tips (Diamond Tufting, Pillow Edges, Pillows, Interactive Cloth)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-secrets---5-mins-of-archviz-tips-diamond-tufting-pillow-edges-pillows-in <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -93,30 +89,53 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:39] tutorials/frames/blender-secrets---5-mins-of-archviz-tips-diamond-tufting-pillow-edges-pillows-in/frame_000.jpg
+- [1:08] tutorials/frames/blender-secrets---5-mins-of-archviz-tips-diamond-tufting-pillow-edges-pillows-in/frame_001.jpg
+- [1:34] tutorials/frames/blender-secrets---5-mins-of-archviz-tips-diamond-tufting-pillow-edges-pillows-in/frame_002.jpg
+- [2:18] tutorials/frames/blender-secrets---5-mins-of-archviz-tips-diamond-tufting-pillow-edges-pillows-in/frame_003.jpg
+- [2:44] tutorials/frames/blender-secrets---5-mins-of-archviz-tips-diamond-tufting-pillow-edges-pillows-in/frame_004.jpg
+- [3:18] tutorials/frames/blender-secrets---5-mins-of-archviz-tips-diamond-tufting-pillow-edges-pillows-in/frame_005.jpg
+- [3:35] tutorials/frames/blender-secrets---5-mins-of-archviz-tips-diamond-tufting-pillow-edges-pillows-in/frame_006.jpg
+- [4:44] tutorials/frames/blender-secrets---5-mins-of-archviz-tips-diamond-tufting-pillow-edges-pillows-in/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Four ArchViz soft-furnishing techniques: a gravity-free Cloth-sim pillow, curve-based decorative piping/edges (including a version that hugs complex 3D-scanned geometry), diamond-tufted button upholstery via Poke Faces + Bevel + dual Extrude-Along-Normals, and a draped cloth simulation pinned/moved with a hook.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the pillow setup: a subdivided plane with a Cloth modifier, Field Weights Gravity set to 0, and Pressure enabled — ready to bake into a puffed pillow shape with no gravity sag. Frame 001 shows the payoff after baking + Subdivision + Shade Smooth + Cloth Brush detailing in Sculpt Mode: a soft, wrinkled pillow. Frame 002 shows a duplicated/separated edge loop (from a simple cube) about to be converted to a Curve for decorative piping. Frame 003 shows the more advanced version on a scanned armchair: a curve with Bevel Depth and a Taper Object, snapped along the complex organic upholstery seam (Shift indicator visible, Curve Deform panel open). Frame 004 shows diamond-tufting step 1: the Face menu open with Poke Faces highlighted, about to be run on a twice-subdivided cube. Frame 005 shows the mid-process result: Alt+E "Extrude Region and Shrink/Fatten" pulling the beveled diamond-pattern vertices inward, creating dimpled indentations across the cube's faces. Frame 006 shows the finished diamond-tufted button-upholstery cube — a dense, symmetric quilted pattern with pronounced button divots at each diamond intersection. Frame 007 shows the final technique: a cloth-simulated drape sagging naturally over a box, being pulled/reshaped interactively via a hook (three axis-handle lines visible at the pull point).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Gravity-free pillow (Cloth sim):** scale a cube flat (S, Z, 0.01) to make a thin plane; add edge loops (Ctrl+R, increase cuts for resolution); add a Cloth modifier; under Field Weights set Gravity to 0 and enable/set Pressure to 1 (this inflates the cloth like a balloon instead of letting it sag); press Spacebar or Bake to run the sim; scrub to the frame where the pillow shape looks best and Apply the Cloth modifier to freeze it as a static mesh.
+2. **Pillow corner detail + wrinkles:** Alt-click a face in the middle to select a full face-loop/ring; Alt+E → Extrude Along Normals to add a corner seam; add a Subdivision modifier and Shade Smooth; switch to Sculpt Mode and use the Cloth Brush to hand-add wrinkles and asymmetric variation for realism.
+3. **Decorative piping/edges (simple geometry):** in Edit Mode select the edges you want piped, duplicate and Separate (P) them into a new object; with only that new object selected, Object → Convert → Curve; give the curve some Bevel Depth and enable Shade Smooth to get a rounded piping profile.
+4. **Decorative piping on complex/scanned geometry:** enable snapping to Face; select, duplicate, and separate a single vertex; extrude it along the seam by pressing E or Ctrl+RMB-click repeatedly to build up the edge path vertex by vertex; convert to a Curve and add Bevel Depth as before. For rounder corners, subdivide a few extra vertices at the corners and run Smooth Vertices a couple of times.
+5. **Diamond tufting (button upholstery):** start from a cube, subdivide twice in Edit Mode; Face menu → Poke Faces, then Face menu → Tris to Quads, then Poke Faces again (Shift+R to repeat the last operator quickly). In Vertex select mode, pick one of the vertices with 16 connecting edges (the diamond-pattern centers), then Select → Select Similar → Amount of Connecting Edges to grab all of them at once; Ctrl+Shift+B to bevel just those vertices. In Face select mode, Alt+E → Extrude Along Face Normals to push faces inward for the recessed diamond channels, then immediately Alt+E → Extrude Along Face Normals again (without deselecting) to push a second set slightly outward for the puffed button faces; grow the selection twice with Ctrl+Numpad+ (this also switches pivot point to Individual Origins), then S to scale each selection inward for the button-divot taper. Shade Smooth in Object Mode, then Ctrl+1 to add one level of Subdivision Surface for the final soft quilted look.
+6. **Draped cloth with an interactive hook:** add a plane above the target object, Subdivide (right-click → Subdivide) and Shift+R a few more times for enough resolution for the cloth to deform correctly; enable Collision on the object(s) the cloth should drape over; select one plane vertex, assign it to a new Vertex Group, Ctrl+H to add a Hook to that vertex; enable Cloth physics on the plane, set the new vertex group as the Pin Group, enable Self-Collisions for extra realism; press Spacebar from frame 1 to run the sim, then use the hook (an Empty) to interactively drag and reshape the draped cloth.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Modifiers:** Cloth (Field Weights → Gravity 0, Pressure 1 for the pillow; Pin Group + Self-Collisions for the drape), Subdivision Surface, Bevel (on curve piping via Bevel Depth + Taper Object), Curve Deform.
+- **Sculpt:** Cloth Brush (wrinkle/variation detailing on the finished pillow).
+- **Mesh ops:** Poke Faces, Tris to Quads, Select Similar → Amount of Connecting Edges, Bevel Vertices (Ctrl+Shift+B), Extrude Along Face Normals (Alt+E), Ctrl+Numpad+ (grow selection / switch pivot to Individual Origins).
+- **Rigging-lite:** Vertex Group + Hook modifier (Ctrl+H) for interactive cloth manipulation via an Empty.
+- **Object conversion:** Object → Convert → Curve (turns a duplicated edge selection into a beveled piping profile).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — core modifier/mesh-editing/Cloth-sim workflow, version-agnostic across modern Blender (3.x-5.x).
 
 ### Tags
-[PENDING EXTRACTION]
+cloth, simulation, materials, procedural, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Realistic Cloth Physics in Blender – Full Tutorial](realistic-cloth-physics-in-blender-full-tutorial.md) — shares cloth, simulation, intermediate; direct complement (general cloth-sim fundamentals vs. these applied ArchViz recipes).
+- [15 Blender Secrets (Compilation of 15 Blender Tutorials in 11 minutes)](15-blender-secrets-compilation-of-15-blender-tutorials-in-11-minutes.md) — shares materials, cloth, simulation, intermediate; same channel, overlapping cloth-curtain-to-mesh technique.

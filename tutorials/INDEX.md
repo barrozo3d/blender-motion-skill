@@ -1997,9 +1997,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=hpFaDiTDZgc
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (version-agnostic core workflow, 3.x-5.x)
+- **Tags:** #cloth #simulation #materials #procedural #intermediate
+- **Summary:** Four ArchViz soft-furnishing techniques: a gravity-free, pressure-inflated Cloth-sim pillow finished with Cloth Brush sculpt wrinkles; curve-based decorative piping/edges built from a duplicated edge selection (or, for scanned geometry, vertex-by-vertex with face snapping) converted to a beveled Curve; diamond-tufted button upholstery via Poke Faces → Tris to Quads → Select Similar (connecting edges) → Bevel Vertices → dual Extrude Along Face Normals with Individual-Origins scaling; and a draped Cloth sim pinned to a Vertex Group and reshaped live via a Hook modifier.
 - **File:** tutorials/blender-secrets---5-mins-of-archviz-tips-diamond-tufting-pillow-edges-pillows-in.md
 
 
