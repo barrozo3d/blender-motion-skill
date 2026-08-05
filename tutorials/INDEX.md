@@ -1937,9 +1937,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=xLAlFoRPTPM
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (core Grease Pencil/Curve workflow, 2.9x-5.x)
+- **Tags:** #modelling #procedural #materials #beginner #intermediate
+- **Summary:** Draws ornamental surface patterns directly on a 3D object via Grease Pencil's Stroke Placement = Surface, avoiding zoom-dependent offset drift by working in Orthographic view (Numpad5). Strokes are smoothed (right-click Smooth, Shift+R), converted to a Bezier curve ("GP_Layer"), Decimate-Curve-simplified (~10%), and given physical thickness via Bevel Depth/Resolution — turning a hand-drawn pattern into a raised-relief engraved curve mesh (demoed as goblet filigree).
 - **File:** tutorials/blender-secrets---draw-grease-pencil-on-surfaces-without-offset-distance-issue.md
 
 

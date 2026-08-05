@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=xLAlFoRPTPM
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (core Grease Pencil/Curve workflow, 2.9x-5.x)"
+tags: [modelling, procedural, materials, beginner, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---draw-grease-pencil-on-surfaces-without-offset-distance-issue/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 5
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Secrets - Draw Grease Pencil On Surfaces (without offset distance issue)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-secrets---draw-grease-pencil-on-surfaces-without-offset-distance-issue <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -60,30 +56,52 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:18] tutorials/frames/blender-secrets---draw-grease-pencil-on-surfaces-without-offset-distance-issue/frame_000.jpg
+- [0:45] tutorials/frames/blender-secrets---draw-grease-pencil-on-surfaces-without-offset-distance-issue/frame_001.jpg
+- [1:05] tutorials/frames/blender-secrets---draw-grease-pencil-on-surfaces-without-offset-distance-issue/frame_002.jpg
+- [1:25] tutorials/frames/blender-secrets---draw-grease-pencil-on-surfaces-without-offset-distance-issue/frame_003.jpg
+- [1:45] tutorials/frames/blender-secrets---draw-grease-pencil-on-surfaces-without-offset-distance-issue/frame_004.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Draw ornamental surface patterns (e.g. engraved goblet filigree) directly onto a 3D object with Grease Pencil's Surface stroke placement, avoiding the classic zoom-dependent offset drift by working in Orthographic view, then convert the finished drawing into a beveled 3D curve mesh.
 
 ### Summary
-[PENDING EXTRACTION]
+A short, clean demonstration on a red goblet/chalice model. Frame 000 shows the Stroke Placement dropdown open with "Surface" selected (arrow pointing at it) — the key setting that snaps drawn strokes onto the actual object surface instead of a fixed 3D plane. Frame 001 shows the numpad-5 orthographic toggle in use (green "[5]" key hint) on the same goblet, illustrating the fix for offset drift while zooming. Frame 002 shows the payoff: a dense, fully-drawn ornamental swirl pattern covering the entire goblet surface, drawn directly in Draw Mode. Frame 003 shows the "Convert Grease Pencil" operator's redo panel (Type: Bezier Curve, Bevel Depth, Bevel Resolution, Normalize Weight, Radius Factor) right after conversion — the strokes are now curve geometry sitting just above the surface with a thin bevel already applied. Frame 004 shows the finished, thickened, and presumably decimated curve pattern — a crisp raised-relief ornamental engraving fully wrapped around the goblet, viewed in Edit Mode on the "GP_Layer" curve object with full Bevel (Round profile, Depth, Resolution, Fill Caps) settings visible in the sidebar.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Add a blank Grease Pencil object and switch to Draw Mode.
+2. Optionally change the Grease Pencil material's Base Color to something high-contrast so strokes are easier to see against the object.
+3. Set Stroke Placement to **Surface** — this is what makes strokes snap directly onto the 3D object rather than floating on a fixed plane.
+4. Tune the Offset value: 0 makes strokes overlap/z-fight with the surface; a small value like 0.01 keeps strokes drawn just above it, avoiding clipping.
+5. **Avoid offset drift while zooming:** the offset distance is affected by camera zoom in Perspective view. Press Numpad5 to switch to Orthographic view before drawing — in Orthographic, zooming in/out no longer changes the apparent offset distance. Press Numpad5 again to toggle back to Perspective when done.
+6. Draw the pattern directly on the surface in Draw Mode.
+7. Tab into Edit Mode, right-click → Smooth on drawn strokes to clean up jitter; repeat with Shift+R for a stronger smoothing pass.
+8. **Convert to curve geometry:** convert the Grease Pencil object into curves (Object → Convert → Curve equivalent for Grease Pencil) — this produces a new curve object named "GP_Layer". Hide the original Grease Pencil object's visibility in the Outliner once converted.
+9. Select the GP_Layer curve, enter Edit Mode, right-click → Decimate Curve to simplify the (often very dense) converted stroke geometry — the author typically decimates to around 10% (0.1).
+10. Give the pattern physical thickness by increasing the curve's Bevel Depth, and raise its Resolution for a smoother round cross-section.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Grease Pencil (Draw Mode):** Stroke Placement = Surface, Offset (small value like 0.01), material Base Color for stroke visibility.
+- **View:** Numpad5 (toggle Orthographic/Perspective — critical for consistent surface-offset behavior while zooming).
+- **Edit Mode operators:** right-click → Smooth (Shift+R to repeat), right-click → Decimate Curve (~10%/0.1 typical), Convert Grease Pencil → Curve (Type: Bezier Curve, Bevel Depth, Bevel Resolution, Normalize Weight, Radius Factor).
+- **Curve settings:** Bevel (Round profile, Depth, Resolution, Fill Caps) for final stroke thickness.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner to Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — core Grease Pencil + Curve workflow, version-agnostic across modern Blender (2.9x-5.x).
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, procedural, materials, beginner, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [This Blender Shader is the Secret to Magical 3D Art](this-blender-shader-is-the-secret-to-magical-3d-art.md) — shares materials, procedural, intermediate; also uses a Grease Pencil line-art rig as part of its effect.
