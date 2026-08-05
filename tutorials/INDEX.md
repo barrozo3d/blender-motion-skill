@@ -1887,9 +1887,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=3cllYcT-MRg
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (built-in add-ons/modifiers, 2.8x-5.x)
+- **Tags:** #procedural #organic #modelling #intermediate
+- **Summary:** Builds a stone tower entirely from built-in Blender add-ons: Extra Objects' Wall Factory generator (stones scaled to overlap via Alt+S) bent into a cylinder with Simple Deform (Bend 360°, Z-axis), heightened via an Array modifier, varied with a second hidden top section, softened with a Voxel-mode Remesh (transcript mis-heard as "Foxhole"), and finally covered in procedurally-grown ivy via the built-in Add Curve: IvyGen add-on (Max Ivy Length, Gravity, Randomness, separate Leaves/Stem materials).
 - **File:** tutorials/blender-secrets---create-towers-with-ivy.md
 
 
