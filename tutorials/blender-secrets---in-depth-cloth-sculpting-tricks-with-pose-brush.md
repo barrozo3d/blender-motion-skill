@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=dtFFc6f2rK8
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (Pose brush Cloth Simulation target, 3.x-5.x)"
+tags: [cloth, simulation, organic, rigging, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---in-depth-cloth-sculpting-tricks-with-pose-brush/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Secrets - In Depth Cloth Sculpting tricks with Pose Brush
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-secrets---in-depth-cloth-sculpting-tricks-with-pose-brush <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -77,30 +73,55 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:35] tutorials/frames/blender-secrets---in-depth-cloth-sculpting-tricks-with-pose-brush/frame_000.jpg
+- [0:50] tutorials/frames/blender-secrets---in-depth-cloth-sculpting-tricks-with-pose-brush/frame_001.jpg
+- [1:35] tutorials/frames/blender-secrets---in-depth-cloth-sculpting-tricks-with-pose-brush/frame_002.jpg
+- [2:20] tutorials/frames/blender-secrets---in-depth-cloth-sculpting-tricks-with-pose-brush/frame_003.jpg
+- [2:30] tutorials/frames/blender-secrets---in-depth-cloth-sculpting-tricks-with-pose-brush/frame_004.jpg
+- [3:05] tutorials/frames/blender-secrets---in-depth-cloth-sculpting-tricks-with-pose-brush/frame_005.jpg
+- [3:40] tutorials/frames/blender-secrets---in-depth-cloth-sculpting-tricks-with-pose-brush/frame_006.jpg
+- [4:15] tutorials/frames/blender-secrets---in-depth-cloth-sculpting-tricks-with-pose-brush/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Use the Sculpt Mode Pose brush's Face Sets deformation (instead of Topology-based) combined with its "Cloth Simulation" Deformation Target to pose a clothed character's limb and get realistic, physically-simulated fabric folds automatically — far easier than hand-sculpting creases — demoed live on a textured bomber-jacket character.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the setup: X-ray view enabled in Edit Mode, Lasso Select used to select the entire arm mesh region straight through the model (webcam PIP of the presenter visible throughout). Frame 001 shows the payoff of that selection: two separate Face Sets created (upper arm highlighted, a yellow circle marking the boundary) via "Face Set from Edit Mode Selection," run twice — once for the upper arm, once up to the elbow. Frame 002 shows the Pose brush's Deformation Target set to Geometry with Rotate/Twist Face — bending the arm this way moves geometry smoothly but produces no cloth folds. Frame 003 shows the critical setting change: Deformation Target switched to **Cloth Simulation** — the same bend now visibly produces real fabric folds at the elbow crease. Frame 004 shows a side-by-side-style comparison confirming the Geometry-only bend stays smooth with no folds. Frame 005 shows Deformation Target = Cloth Simulation with Deformation (sub-mode) = **Squash & Stretch** — compressing the arm's length to generate a dense cluster of realistic wrinkle folds. Frame 006 is a close-up of those cloth-sim-generated wrinkles, showing convincing overlapping fabric creases that would be very difficult to hand-sculpt. Frame 007 shows post-fix cleanup: Alt+H (unhide) revealing the rest of the mesh with visible self-intersection near the shoulder seam, about to be corrected with the Grab brush.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. In Edit Mode, enable X-Ray view and use Lasso Select to select an entire limb region all the way through the mesh (front and back faces both).
+2. In Sculpt Mode, create a Face Set from that Edit Mode selection ("Face Set from Edit Mode Selection"). Repeat the process for a second region (e.g. select up to the elbow only) to create a second, adjacent Face Set — giving the Pose brush two independently-posable segments (upper arm / lower arm).
+3. Select the Pose brush and open its Tool settings; the Deformation Target normally defaults to **Geometry**, which rotates purely based on mesh topology (Rotation Origins: Topology or similar) — functional but produces no cloth folds when bending a clothed character.
+4. Change **Deformation Target to Face Sets** so the Pose brush picks up and moves along the Face Set boundaries you created, rather than guessing from raw topology.
+5. For realistic cloth behavior, change Deformation Target to **Cloth Simulation** instead — moving/rotating the limb now runs an actual lightweight cloth simulation on the fly, producing genuine fold geometry as you pose, rather than simple smooth bending. This is slower than pure Geometry mode but gives convincing folds "for free."
+6. Beyond simple rotate/twist, the Pose brush also supports **Scale** and **Squash & Stretch** as Deformation types. Using Squash & Stretch with Cloth Simulation active compresses the limb and generates dense, realistic wrinkle folds — though it also shortens the limb's apparent length.
+7. **Recommended workflow to avoid unwanted shortening:** first stretch the limb out slightly using Geometry-based deformation, then switch to Cloth Simulation + Squash & Stretch and squash it back down toward its original length — this yields great folds while keeping proportions closer to correct.
+8. **Cleanup:** squashing/posing can cause minor self-intersection at segment boundaries — fix small overlaps with the Smooth brush; for larger intersections after unhiding the rest of the mesh (Alt+H), hover over the problem area and press Alt+Q to set it as the active sculpt object, then use the Grab brush to manually pull the geometry back into place.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Sculpt tool:** Pose brush — Deformation Target (Geometry / Face Sets / Cloth Simulation), Deformation type (Rotate/Twist, Scale, Squash & Stretch), Rotation Origins, Pose Origin Offset, Smooth Iterations, Keep Anchor Point, Connected Only.
+- **Face Sets:** "Face Set from Edit Mode Selection" (built from an X-Ray + Lasso Select region in Edit Mode).
+- **Other brushes used:** Smooth (minor intersection fixes), Grab (larger intersection fixes after Alt+Q sets the active sculpt target).
+- **Edit Mode:** X-Ray toggle, Lasso Select (for through-mesh region selection).
+- **Shortcuts:** Alt+Q (set hovered object as active sculpt target), Alt+H (unhide).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Pose brush's Cloth Simulation Deformation Target is a relatively recent addition (Blender 3.x+), consistent with modern Blender 3.x-5.x.
 
 ### Tags
-[PENDING EXTRACTION]
+cloth, simulation, organic, rigging, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender Secrets - Hard Surface Sculpting Tips](blender-secrets---hard-surface-sculpting-tips.md) — shares organic, advanced; same channel, complementary Sculpt Mode brush/mask knowledge.
+- [Blender Secrets - 5 mins of ArchViz Tips (Diamond Tufting, Pillow Edges, Pillows, Interactive Cloth)](blender-secrets---5-mins-of-archviz-tips-diamond-tufting-pillow-edges-pillows-in.md) — shares cloth, simulation; same channel, complementary cloth-simulation-for-fabric-detail technique from a modeling (rather than sculpting) angle.

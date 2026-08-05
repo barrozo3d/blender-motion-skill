@@ -1797,9 +1797,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=dtFFc6f2rK8
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Pose brush Cloth Simulation target, 3.x-5.x)
+- **Tags:** #cloth #simulation #organic #rigging #advanced
+- **Summary:** Poses a clothed character's limb with the Sculpt Mode Pose brush using two Face Sets (built via X-Ray+Lasso Select → Face Set from Edit Mode Selection) and Deformation Target = Cloth Simulation instead of Geometry — producing real, physically-simulated fabric folds while bending, especially strong with the Squash & Stretch deformation type. Recommends pre-stretching with Geometry mode first to offset the length-shortening from squashing. Cleanup via Smooth brush for minor intersections, Alt+Q + Grab brush for larger ones.
 - **File:** tutorials/blender-secrets---in-depth-cloth-sculpting-tricks-with-pose-brush.md
 
 
