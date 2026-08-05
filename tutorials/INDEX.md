@@ -2157,9 +2157,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=hZ2iWrbRNd0
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 2.8x (references Blender 2.8 + a Blender 2.83 alpha experimental build)
+- **Tags:** #materials #shaders #procedural #animation #rigging #cloth #simulation #beginner #intermediate
+- **Summary:** Grab-bag of 13 unrelated quick tips: cross-build smoke sim via Alembic, select-linked (L/Ctrl+L), Noise/ColorRamp/Bump procedural shading, Shift+RMB reroute-node insertion, tris-to-quads (Alt+J), custom transform orientations for sliding along a face, Copy Attributes rotation copying, linked/unlinked animation data, a cloth-sim curtain baked to a static mesh via shape keys, Holdout collections for render masking, support loops for non-destructive sharp edges, and the experimental Blender 2.83 alpha Cloth Sculpt Brush (mask, pinch, expand) for sculpting fabric.
 - **File:** tutorials/15-blender-secrets-compilation-of-15-blender-tutorials-in-11-minutes.md
 
 

@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=hZ2iWrbRNd0
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "2.8x (references Blender 2.8 + a Blender 2.83 alpha experimental build)"
+tags: [materials, shaders, procedural, animation, rigging, cloth, simulation, beginner, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/15-blender-secrets-compilation-of-15-blender-tutorials-in-11-minutes/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # 15 Blender Secrets (Compilation of 15 Blender Tutorials in 11 minutes)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py 15-blender-secrets-compilation-of-15-blender-tutorials-in-11-minutes <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -227,30 +223,62 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:16] tutorials/frames/15-blender-secrets-compilation-of-15-blender-tutorials-in-11-minutes/frame_000.jpg
+- [1:30] tutorials/frames/15-blender-secrets-compilation-of-15-blender-tutorials-in-11-minutes/frame_001.jpg
+- [2:16] tutorials/frames/15-blender-secrets-compilation-of-15-blender-tutorials-in-11-minutes/frame_002.jpg
+- [3:45] tutorials/frames/15-blender-secrets-compilation-of-15-blender-tutorials-in-11-minutes/frame_003.jpg
+- [6:16] tutorials/frames/15-blender-secrets-compilation-of-15-blender-tutorials-in-11-minutes/frame_004.jpg
+- [7:12] tutorials/frames/15-blender-secrets-compilation-of-15-blender-tutorials-in-11-minutes/frame_005.jpg
+- [7:44] tutorials/frames/15-blender-secrets-compilation-of-15-blender-tutorials-in-11-minutes/frame_006.jpg
+- [10:00] tutorials/frames/15-blender-secrets-compilation-of-15-blender-tutorials-in-11-minutes/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A grab-bag of 13 unrelated quick tips spanning simulation (smoke/cloth), modifiers, shading nodes, and modeling/UI shortcuts — no single throughline, each tip is a standalone technique.
 
 ### Summary
-[PENDING EXTRACTION]
+A rapid compilation with no single build. Frame 000 shows a smoke simulation baked inside the Fracture-modifier ("Factor") build workflow, exported via Alembic into Blender 2.8. Frame 001 shows a Noise Texture → ColorRamp → Bump → Principled BSDF node chain for cheap procedural surface detail. Frame 002 shows using Shift+RMB-drag across a node connection to auto-insert a Reroute node for cleaner node trees. Frame 003 shows creating and naming a custom Transform Orientation from a selected face so an object can be moved/rotated along an arbitrary surface. Frame 004 shows a cloth-sim curtain setup with Self Collisions enabled to stop the cloth clipping through itself. Frame 005 shows a Holdout collection creating a transparency mask in the render (colored cubes with one turned into a see-through hole). Frame 006 shows placing and confirming a support-loop cut (Ctrl+R) next to a Subdivision-Surface-smoothed cube to sharpen an edge non-destructively. Frame 007 shows the experimental Blender 2.83 alpha Cloth Sculpt Brush's Mask tool, with modifiers hidden so the mask isn't obscured.
 
 ### Key Steps
-[PENDING EXTRACTION]
+Because this is 13 disconnected tips, key steps are grouped by tip rather than one sequential build:
+1. **Smoke sim across builds:** simulate + bake smoke in the Fracture-modifier build, point the domain's cache file path at the baked cache folder, save the .blend, export an Alembic (.abc), then in standard Blender 2.8 import the Alembic and append just the smoke domain object from the saved .blend to bring the sim over.
+2. **Select connected geometry:** hover a face and press L, or with faces already selected press Ctrl+L, to select all topologically connected faces.
+3. **Procedural texture layering:** chain Noise Texture → Bump → Principled BSDF for surface detail, and route the Noise Texture's Fac through a ColorRamp first for extra contrast control; mix multiple noise textures with a Mix RGB node for more complex patterns.
+4. **Reroute node shortcut:** hold Shift and drag the right mouse button across an existing node connection to auto-insert a Reroute node at that point; press G to reposition it for a cleaner node graph.
+5. **Triangles to quads:** in Edit Mode with all faces selected, press Alt+J (or Face menu → Tris to Quads) to convert an all-triangle import into quads.
+6. **Custom transform orientation:** in Edit Mode select a face as the basis, open the Transform Orientation dropdown, click "+", name it; then use Object → Transform → Align to Transform Orientation on another object, and G then X/Y (or G, Shift+Z to exclude an axis) to slide along that face's surface.
+7. **Copy rotation between objects:** enable the built-in Copy Attributes add-on in Preferences, select the target then the source object, Ctrl+C → Copy Rotation.
+8. **Copy/link animation:** select target then source object, Ctrl+L → Animation Data (this *links* the action, so edits propagate both ways); to decouple, Object → Relations → Make Single User → Object Animation → All. Works on armatures too if they share the same rig structure.
+9. **Cloth curtain → static mesh:** build a subdivided plane, shade smooth, assign the top vertex row to a vertex group, create a Basis shape key plus a second key (scale the top verts down, value 1 at frame 0 → value 1 later on the timeline for the reveal), add a Cloth modifier, assign the vertex group as the Pin Group, enable Self Collisions, play the sim; once happy with a frame, "Create Shape Key from Mix", delete the old shape keys, then Apply the Cloth modifier to bake the result into a regular static mesh.
+10. **Holdout mask:** add the target object to its own collection, enable the Holdout column in the Outliner filter, toggle Holdout on for that collection, then enable Film → Transparent so the holdout actually clips background/other geometry. Works identically in EEVEE and Cycles.
+11. **Support loops:** add a Subdivision Surface modifier, Ctrl+R to add a loop cut near an edge, left-click to place + left-click to confirm; the closer to the edge, the sharper that edge stays. Support loops keep edges crisp non-destructively (creasing/Bevel modifier are the alternatives) and — unlike those — survive export to other software.
+12. **Cloth Sculpt Brush (experimental Blender 2.83 alpha):** download the special "ClothBrush" build from graphicall.org (7-Zip unpack, launch the bundled .exe), add subdivision + Shade Smooth to a plane, switch to Sculpting workspace, disable symmetry, select the (unlabeled) Cloth brush, lower Cloth Mask to ~0.1, drag to deform. Bonus: Alt+Ctrl+Numpad0 snaps the active camera to the current viewport view; Ctrl+Numpad0 makes a selected camera active; "Lock Camera to View" (addable to Quick Favorites) lets you fly the camera like the viewport.
+13. **Cloth Brush masking:** add a Subdivision modifier on top for smoothing (temporarily disable it — modifiers hide the mask overlay), use the Mask brush + its Expand function, prefer "Plain" falloff, hold Shift to smooth, use Pinch Point with Plain falloff for pinched folds (cloth mask ≈0.1, strength ≈1), press F to resize the brush radius live; the brush can also be used on a shape key to "animate" the cloth deformation.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Shading:** Noise Texture → ColorRamp → Bump → Principled BSDF; Mix RGB to combine multiple noise textures.
+- **Compositor:** Render Layers → (Reroute) → Composite/Viewer, Shift+RMB-drag to insert reroutes.
+- **Modifiers:** Cloth (Shape pin group, Self Collisions), Subdivision Surface (for support-loop demo and cloth-brush smoothing), Fracture/"Factor" modifier build for smoke sim.
+- **Add-ons:** Copy Attributes (built-in, for Copy Rotation), experimental Cloth Sculpt Brush build (Blender 2.83 alpha, from graphicall.org).
+- **Operators/shortcuts:** L / Ctrl+L (select linked), Alt+J (tris to quads), Ctrl+R (loop cut), Ctrl+C → Copy Rotation, Ctrl+L → Animation Data, Alt+Ctrl+Numpad0 (camera to view), Ctrl+Numpad0 (set active camera).
+- **Render:** Holdout collection + Film → Transparent (EEVEE and Cycles).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner to Intermediate (mixed — most tips are beginner shortcuts, the cloth-sim curtain and Cloth Sculpt Brush sections are intermediate)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 2.8x (explicitly references importing into "Blender 2.8" and a "Blender 2.83 alpha" experimental build for the Cloth Sculpt Brush) — UI and shortcuts shown are from this era; core concepts (loop cuts, shape keys, holdout, transform orientations) still apply in modern Blender.
 
 ### Tags
-[PENDING EXTRACTION]
+materials, shaders, procedural, animation, rigging, cloth, simulation, beginner, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Realistic Cloth Physics in Blender – Full Tutorial](realistic-cloth-physics-in-blender-full-tutorial.md) — shares cloth, simulation, animation.
+- [Blender NEW Cloth Simulator changes EVERYTHING!](blender-new-cloth-simulator-changes-everything.md) — shares cloth, simulation, animation.
