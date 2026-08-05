@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=rzZFIpqc98M
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (modern 3.x-5.x Bevel modifier/shader Bevel node)"
+tags: [procedural, materials, shaders, cycles, intermediate, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---5-minutes-of-beveling-knowledge-17-tips/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Secrets - 5 minutes of Beveling knowledge (17 tips!)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-secrets---5-minutes-of-beveling-knowledge-17-tips <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### <Untitled Chapter 1> [0:00]
@@ -115,30 +111,53 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:38] tutorials/frames/blender-secrets---5-minutes-of-beveling-knowledge-17-tips/frame_000.jpg
+- [1:05] tutorials/frames/blender-secrets---5-minutes-of-beveling-knowledge-17-tips/frame_001.jpg
+- [1:45] tutorials/frames/blender-secrets---5-minutes-of-beveling-knowledge-17-tips/frame_002.jpg
+- [2:15] tutorials/frames/blender-secrets---5-minutes-of-beveling-knowledge-17-tips/frame_003.jpg
+- [2:36] tutorials/frames/blender-secrets---5-minutes-of-beveling-knowledge-17-tips/frame_004.jpg
+- [2:52] tutorials/frames/blender-secrets---5-minutes-of-beveling-knowledge-17-tips/frame_005.jpg
+- [3:24] tutorials/frames/blender-secrets---5-minutes-of-beveling-knowledge-17-tips/frame_006.jpg
+- [4:17] tutorials/frames/blender-secrets---5-minutes-of-beveling-knowledge-17-tips/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A comprehensive bevel-knowledge reel: when to use Ctrl+B (edit-mode bevel) vs. the Bevel modifier vs. per-edge Bevel Weight vs. the shader Bevel node, how to fix bad bevel results (custom normals, N-gons, double geometry, unapplied scale), and how to use custom bevel profiles/miters for hard-surface and stair-step detail.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the Edge menu (Ctrl+E) with "Edge Bevel Weight" highlighted by an arrow on a curved hard-surface part, with a Bevel modifier already set to Limit Method = Weight in the sidebar — confirming per-edge-weighted bevels driven from a single modifier. Frame 001 shows the Data Transfer setup: a hidden, perfectly round "Source Object" positioned inside a lower-poly beveled shape to donate smooth custom normals. Frame 002 shows the shader-side alternative in action: a Principled BSDF's Normal input set to Bevel (Samples, Radius fields visible) on a wood cabinet material, producing a soft rounded edge highlight with zero extra geometry. Frame 003 confirms this only renders correctly in Cycles Rendered view, labelled "Bevel Node (16 samples)" next to the rendered cabinet. Frame 004 shows classic Ctrl+B interactive beveling on a cube corner, with the bottom-left overlay showing live Width/Segments/Profile/Miter values as the mouse drags. Frame 005 shows the Bevel operator's redo panel with Miter Outer = Patch and Inner = Sharp being set on a corner, changing how two meeting bevels resolve at the joint. Frame 006 shows a Custom Profile Type bevel forming a clean stair/roof-ridge shape on a cube corner. Frame 007 shows the "Merge → At Last" (should include "By Distance") menu open on messy overlapping hard-surface geometry, fixing double-vertex bevel artifacts.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Ctrl+B (edit-mode bevel):** select edges, press Ctrl+B and drag; best for large bevels that visibly change the object's silhouette. Scroll the mouse wheel mid-drag to add segments; press B again while dragging to morph the profile from convex to concave; open the operator redo panel for full control over Segments, Shape, Miter, and Profile Type.
+2. **Bevel modifier (small/uniform bevels):** add a Bevel modifier, set Limit Method to Angle and tune the overall Amount for consistent small edge bevels across the whole mesh.
+3. **Per-edge Bevel Weight (varying bevel amounts from one modifier):** set the Bevel modifier's Limit Method to Weight; select specific edges, Ctrl+E → Edge Bevel Weight, then drag to set each edge's weight — lets a single modifier produce different bevel sizes on different edges.
+4. **Data Transfer for smoother 2-segment bevels:** for objects with just a simple 2-edge bevel, place a smoother/rounder duplicate object at the same location (hidden from viewport and render), add a Data Transfer modifier targeting it as the source, and enable Face Corner Data + Custom Normals — transfers the smoother object's normals onto the simpler bevel for a rounder look without extra geometry. Alternative: a Weighted Normal modifier on the simple 2-edge-bevel object achieves a similar smoothing without needing a second source object.
+5. **Shader Bevel node (fake, render-only rounding):** in the Material tab (or Shader Editor), plug a Bevel node into the Principled BSDF's Normal input (or add it directly in the node graph); keep Radius small; more Samples looks better but costs render time; boosting Specular and lowering Roughness helps sell the fake edge highlight. Cycles + Rendered viewport only — does not work in EEVEE, and it adds render time, so best reserved for cases where it saves significant modeling time versus real geometry.
+6. **Miters for meeting bevels:** where two beveled edges meet at a corner, use Inner/Outer Miter (Sharp, Patch, Arc) in the bevel operator/modifier options to control how the corner resolves — Miter Outer = Arc or Patch adds extra geometry, which can be useful for retopology-friendly results.
+7. **Custom bevel profiles (stairs, ridges, hard-surface detail):** Ctrl+B to start a bevel, open the operator panel, increase Segments and Profile, enable Custom Profile, and pick from built-in presets (including a Support Loops preset) or hand-build a fully custom profile curve — key for interesting, realistic hard-surface edge details.
+8. **Fixing bad bevel results:** N-gons (faces with 5+ vertices) can break a bevel — select the offending two vertices and press J to add a connecting edge/cut. Modifier stack order matters — sometimes just nudging a Boolean cutter object slightly fixes bevel glitches. Double/overlapping geometry causes artifacts too — select all in Edit Mode, M → By Distance (Merge by Distance), and increase the merge threshold cautiously (too high will collapse intentional detail). Geometry that's simply too close together (tight edge loops) starves the bevel of room — select and slide with double-G (Edge Slide) to give it breathing room. Finally, always apply Scale (Ctrl+A → Scale) on objects before beveling, since unapplied scale produces inconsistent bevel results.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Modifiers:** Bevel (Limit Method: Angle vs. Weight; Miter Outer/Inner: Sharp/Patch/Arc; Profile Type: Superellipse vs. Custom; Segments, Amount/Width, Material Index, Harden Normals, Clamp Overlap, Mark Loop/Seams/Sharp), Data Transfer (Face Corner Data, Custom Normals), Weighted Normal.
+- **Edit-mode operators:** Ctrl+B (bevel edges), Ctrl+E → Edge Bevel Weight, M → Merge (By Distance / At Last / At Center / Collapse), double-G (Edge Slide), J (connect two selected vertices to fix N-gons), Ctrl+A → Apply Scale.
+- **Shading:** Bevel node (Radius, Samples) → Principled BSDF Normal input — Cycles + Rendered view only, does not work in EEVEE.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate to Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Bevel modifier's Miter/Profile options and the shader Bevel node are consistent with modern Blender 3.x-5.x.
 
 ### Tags
-[PENDING EXTRACTION]
+procedural, materials, shaders, cycles, intermediate, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [6 Panel Cut Tips - Blender Secrets](6-panel-cut-tips---blender-secrets.md) — shares procedural, materials, cycles, intermediate, advanced; same channel, complementary hard-surface detailing (bevel fundamentals vs. panel-line application).
+- [How to Texture Realistic Buildings in Blender](how-to-texture-realistic-buildings-in-blender-b3d.md) — shares materials, procedural, intermediate.

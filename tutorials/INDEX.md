@@ -2017,9 +2017,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=rzZFIpqc98M
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (modern 3.x-5.x Bevel modifier/shader Bevel node)
+- **Tags:** #procedural #materials #shaders #cycles #intermediate #advanced
+- **Summary:** Dense bevel-technique reel: Ctrl+B vs. Bevel modifier vs. per-edge Bevel Weight (Limit Method=Weight) for varying bevels from one modifier, Data Transfer/Weighted Normal for smoothing simple 2-edge bevels, the Cycles-only shader Bevel node for fake render-time rounding, Inner/Outer Miter (Sharp/Patch/Arc) for meeting-corner resolution, Custom Bevel Profiles for stairs/hard-surface detail, and fixes for common bevel failures (N-gons via J, double geometry via Merge By Distance, tight geometry via Edge Slide, unapplied Scale).
 - **File:** tutorials/blender-secrets---5-minutes-of-beveling-knowledge-17-tips.md
 
 
