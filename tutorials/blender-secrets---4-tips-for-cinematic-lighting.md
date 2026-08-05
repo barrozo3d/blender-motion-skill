@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=lXvmt0QxAFY
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (EEVEE + Cycles compatible, modern 3.x-4.x UI)"
+tags: [lighting, hdri, materials, shaders, volume, cycles, eevee, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---4-tips-for-cinematic-lighting/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 5
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Secrets - 4 tips for Cinematic Lighting
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-secrets---4-tips-for-cinematic-lighting <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -107,30 +103,49 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:47] tutorials/frames/blender-secrets---4-tips-for-cinematic-lighting/frame_000.jpg
+- [1:32] tutorials/frames/blender-secrets---4-tips-for-cinematic-lighting/frame_001.jpg
+- [2:16] tutorials/frames/blender-secrets---4-tips-for-cinematic-lighting/frame_002.jpg
+- [2:57] tutorials/frames/blender-secrets---4-tips-for-cinematic-lighting/frame_003.jpg
+- [3:44] tutorials/frames/blender-secrets---4-tips-for-cinematic-lighting/frame_004.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Four cinematic-lighting tricks: aiming a spotlight through the camera view for precise placement, using an image plane as a light-shaping gobo/cutter in front of a spot, fast HDRI browsing with the Gaffer add-on (mis-transcribed as "Kevver"/"Gether" in the auto transcript — confirmed from the on-screen HDRI panel in frame 003), and driving an emission shader's strength with an expression to make a light pulsate.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows tip 1: the N-panel's View tab with Local Camera enabled and a Spot light selected as the active local camera, letting the artist press Numpad0 to see exactly what the spotlight illuminates (car showroom scene, two camera angles compared side by side). Frame 001 shows tip 2's node setup: an Image/Video texture (leaves footage) plugged into a Principled BSDF's Alpha input, used on an Image-as-Planes object positioned in front of a spotlight to cast a leaf-shaped gobo pattern to fake dappled light. Frame 002 shows the same gobo idea extended with a volumetric cube: a Volume Scatter node (Density 0.470) driving the cube's Volume output, producing visible light shafts/haze through the leaf-shadowed beam in the render on the right. Frame 003 confirms the HDRI add-on is **Gaffer**: its Lights panel (World tab) shows a browsable grid of HDRI thumbnails ("HDRi 01 Hdri Background Lighting Kit") for one-click swapping, demoed on a car render. Frame 004 shows the start of tip 4 (pulsating light): an Emission shader node on a cube with Strength at its default 1.000, about to have a driver expression added to the Strength field via right-click → Add Driver (Ctrl key hint visible) — the exact expression text and the anti-negative-value node setup mentioned in the transcript were not legible in the captured frame or spoken in the audio.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Spotlight-as-camera aiming:** add a Spot light; open the N-panel → View tab; enable Local Camera and pick the spotlight as the local camera; under View Lock check Lock Camera to View; press Numpad0 to enter the light's point of view for precise aiming. Soften the spot with the Radius and Blend values; switch Light type in the Light properties if a softer Area light suits the shot better.
+2. **Image-plane gobo:** import a video/image via the Images as Planes add-on; enable Show Backface in the plane's material; if the source has no alpha channel, plug its Color output into the Alpha input (add a MapRange node and raise From Min to fine-tune which parts read as transparent). Position/scale the plane in front of the spotlight; raise the light's Power as needed; adjust Light Radius to control shadow softness and Beam Shape Spot Size for beam width. In EEVEE, set the plane's Shadow Mode to Alpha Hashed so the alpha cutout casts a correct shadow silhouette.
+3. **Volumetric light shafts:** add a large cube enclosing the scene, give it a material with a Volume Scatter node plugged into Volume, and lower Density for a subtle haze that reveals the gobo-shaped beam.
+4. **Gaffer add-on for fast HDRI swapping:** install the Gaffer .zip via Preferences, set the folder containing your HDRIs; enable it under World → HDRI tab; the first run needs to Render Preview to generate thumbnails, after which you can flip through HDRIs live in the viewport. Default rotation is usually fine but is adjustable. For memory efficiency, pair a low-res HDRI (for lighting) with a separate high-res JPEG background (for reflections only).
+5. **Pulsating light via driver expression:** create an Emission shader for the material; right-click the Strength field → Add Driver, and enter a two-parameter sine-style expression (first number = pulsation speed — smaller is faster; second number = emission strength — bigger is brighter). To prevent the expression from ever going negative (which would subtract light from the scene), an additional node/clamp setup is used, but neither its exact formula nor the clamp node graph were verifiable from the available transcript or captured frame — revisit this tutorial's video directly if exact driver syntax is needed.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Lights:** Spot (Radius, Blend, Beam Shape Spot Size, Power), Area (as a spot alternative).
+- **Shading:** Principled BSDF (Alpha input fed by image/video Color for gobo cutout), MapRange (From Min to tune alpha threshold), Volume Scatter (Density) on an enclosing cube for light shafts, Emission shader (Strength driven by expression).
+- **Add-ons:** Images as Planes (built-in), Gaffer (third-party, free on GitHub / paid on Blender Market — fast HDRI browsing with auto-generated thumbnails).
+- **Render:** EEVEE Shadow Mode = Alpha Hashed for gobo planes; Local Camera / Lock Camera to View for spot-as-camera aiming.
+- **Animation:** Driver expression on Emission Strength for pulsating light (exact expression not captured — see Key Steps note).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — EEVEE (Alpha Hashed shadow mode, "Global Ex..." HDRI world panel) and Cycles-compatible node setups shown; UI consistent with modern Blender 3.x-4.x.
 
 ### Tags
-[PENDING EXTRACTION]
+lighting, hdri, materials, shaders, volume, cycles, eevee, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [5 Lighting SECRETS in Blender](5-lighting-secrets-in-blender.md) — shares lighting, volume, cycles, rendering→shaders, intermediate; near-identical gobo/god-ray/HDRI toolkit from a different author, strong complementary reference.
+- [Better Billboards using Normal Maps (Low Poly Trees)](better-billboards-using-normal-maps-low-poly-trees.md) — shares lighting, cycles, materials, shaders, intermediate.

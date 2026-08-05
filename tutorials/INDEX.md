@@ -1897,9 +1897,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=lXvmt0QxAFY
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (EEVEE + Cycles compatible, modern 3.x-4.x UI)
+- **Tags:** #lighting #hdri #materials #shaders #volume #cycles #eevee #intermediate
+- **Summary:** Four cinematic lighting tips: aim a Spot light precisely by making it the Local Camera (N-panel View tab, Lock Camera to View, Numpad0); build a leaf/gobo light-shaper from an Images-as-Planes video texture (Color→Alpha, MapRange) in front of a spot, extended with a Volume Scatter-filled cube for visible light shafts; browse/swap HDRIs live via the Gaffer add-on (auto-transcribed as "Kevver"/"Gether," confirmed from on-screen UI); and drive an Emission shader's Strength with an expression/driver for a pulsating light (exact expression syntax not verifiable from the source video).
 - **File:** tutorials/blender-secrets---4-tips-for-cinematic-lighting.md
 
 
