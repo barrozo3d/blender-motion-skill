@@ -1927,9 +1927,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=6wHgqPPQ3WI
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 2.8x-2.9x (M3 add-on step specifically: 2.83.2)
+- **Tags:** #procedural #organic #particles #animation #rigging #materials #intermediate
+- **Summary:** Twelve free tree-building techniques: the M3 node-based tree generator (Trunk/Branch/Tree Parameters nodes) with armature-rig "Fast Wind" animation, the built-in Sapling add-on, fully hand-modeled Skin-modifier trunks with weight-painted twig/leaf Hair particle systems, photogrammetry-scanned bark texture baked and blended onto a procedural trunk (Mix Shader + Gradient), Grease Pencil-sculpted stylized branches, and Hair-particle forest scattering across an A.N.T. Landscape terrain.
 - **File:** tutorials/12-tips-for-creating-epic-trees-in-blender-without-paid-add-ons.md
 
 

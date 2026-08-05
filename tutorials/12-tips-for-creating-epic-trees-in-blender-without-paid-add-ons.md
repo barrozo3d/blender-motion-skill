@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=6wHgqPPQ3WI
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "2.8x-2.9x (M3 add-on step specifically: 2.83.2)"
+tags: [procedural, organic, particles, animation, rigging, materials, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/12-tips-for-creating-epic-trees-in-blender-without-paid-add-ons/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # 12 Tips for Creating Epic Trees in Blender Without Paid Add-Ons
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py 12-tips-for-creating-epic-trees-in-blender-without-paid-add-ons <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -271,30 +267,62 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:20] tutorials/frames/12-tips-for-creating-epic-trees-in-blender-without-paid-add-ons/frame_000.jpg
+- [3:12] tutorials/frames/12-tips-for-creating-epic-trees-in-blender-without-paid-add-ons/frame_001.jpg
+- [4:25] tutorials/frames/12-tips-for-creating-epic-trees-in-blender-without-paid-add-ons/frame_002.jpg
+- [6:44] tutorials/frames/12-tips-for-creating-epic-trees-in-blender-without-paid-add-ons/frame_003.jpg
+- [8:29] tutorials/frames/12-tips-for-creating-epic-trees-in-blender-without-paid-add-ons/frame_004.jpg
+- [11:16] tutorials/frames/12-tips-for-creating-epic-trees-in-blender-without-paid-add-ons/frame_005.jpg
+- [14:49] tutorials/frames/12-tips-for-creating-epic-trees-in-blender-without-paid-add-ons/frame_006.jpg
+- [17:39] tutorials/frames/12-tips-for-creating-epic-trees-in-blender-without-paid-add-ons/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Six complementary free ways to build convincing trees: the M3 node-based tree generator, the built-in Sapling add-on, a fully hand-modeled Skin-modifier trunk with particle-scattered twigs/leaves, photogrammetry-scanned bark texture blended onto a procedural trunk, Grease Pencil-sculpted stylized trees, and particle-scattered forest planets.
 
 ### Summary
-[PENDING EXTRACTION]
+A rapid-fire tips compilation (not a single build) covering 12 tree-creation techniques with no paid add-ons. Frame 000 shows the free M3 add-on's dedicated node editor (Trunk Node → Branch Node → Tree Parameters) generating a bare branch structure; frame 001 shows the same tree after a Tweak node adds a leaf material; frame 002 shows the finished tree with its auto-weight-painted armature rig (`tree_rig`) ready for the "Fast Wind" animation operator. Frame 003 shows a hand-extruded vertex skeleton (Edit Mode) that becomes a custom trunk via the Skin modifier — frame 004 shows the resulting trunk plus twig objects laid out for a weight-painted Hair particle system. Frame 005 shows the Cycles bake step that transfers a photogrammetry scan's diffuse texture onto a clean cylinder for reuse as a tileable bark texture. Frame 006 shows a Grease Pencil stroke (Stroke placement mode) converted to a beveled curve/mesh branch for the stylized-sculpt workflow. Frame 007 shows the final payoff: an 800-count Hair particle system scattering the finished tree across an End Landscape terrain to build a forest.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Install the free M3 (ModularTree) add-on — works best on its older Blender 2.83.2 build (portable install recommended); enable "AddMeshM3" in Preferences.
+2. In the M3 Node Tree editor: Shift A → add Trunk Node + Branch Node, connect them, add a Tree Parameters node, enable Auto Update, click Create Tree. Watch the `resolution` value — too high can freeze Blender.
+3. Add a Tweak node and click Execute (re-click after every value change) to generate leaf coverage; enable Create Leafs and pick a leaf object. Enable Create Armature (Armature Min Radius 0.00) for a ready-to-animate rig.
+4. Animate wind: select the armature → F3 → search "Fast Wind" → tune strength/speed. Leaves won't follow unless you add an Armature modifier (Bone Envelopes, target = tree rig) to the leaf particle object, placed above the particle system in the stack.
+5. Alternative built-in path: Shift A → Curve → Sapling Tree Gen (press F9 to recall its settings panel); enable Use Armature under Armature settings and both Armature/Leaf Animation checkboxes under Animation settings for one-click wind; use Fast Preview while tuning.
+6. Hand-model a custom trunk: in Edit Mode, M-merge a default cube to one vertex, then repeatedly E-extrude branches (rotating the view between extrusions to avoid a flat-looking tree); add a Skin modifier in Object Mode, then Ctrl+A drag in Edit Mode to set per-vertex skin thickness (proportional editing works here too).
+7. Twigs: duplicate/scale the trunk, edit vertices for uniqueness, Subdivide + Smooth Vertices (Shift+R to repeat) the original trunk, apply the Skin modifier, then Weight Paint the trunk to mark twig placement. Put twig objects in their own collection and add an Advanced Hair particle system on the trunk rendering that collection, using the weight-painted Vertex Group for density and Rotation (axis = Normal, randomized seed).
+8. Leaves: convert/remove the twig particle system, import a leaf image via Images as Planes, reposition its origin to the leaf base (Shift+S cursor-to-selected, then Object → Origin → Origin to 3D Cursor), join all twigs (Ctrl+J), apply Skin, and add a second Advanced Hair particle system rendering the leaf object with randomized location.
+9. Blend a photogrammetry-scanned trunk in for realism: bake the scan's diffuse texture onto a plain cylinder (radius 0.5m, depth 3.15m, Cap Fill "Nothing", Shade Smooth) via Cycles Bake → Selected to Active with a fresh Image Texture node target; box-map that baked texture onto the procedural trunk using Object-based coordinates driven by an Empty (Empty scale = mapping scale); Mix Shader with a Gradient Texture to fade between the scan's own texture and the box-mapped baked texture.
+10. Combine scanned + hand-modeled trunks: delete the base cube mesh, Ctrl+RMB to place vertices for trunk paths, E-extrude branches, add a Skin modifier, select the first vertex per mesh island and "Mark Root", adjust thickness with Ctrl+A, Smooth Shading + Subdivision modifier, then merge with the baked photogrammetry texture as in step 9; an M3 Tweak node can still generate leaf coverage for this hybrid trunk.
+11. Stylized sculpted trees: add a Grease Pencil object, Draw mode with Stroke placement (so new strokes snap to existing geometry), Convert → Path, add depth/resolution/fill caps, Convert → Mesh, Remesh modifier (small voxel size), then Sculpt mode with Dyntopo (Constant Detail, sampled from current mesh resolution then doubled) using Clay Strips (Ctrl to invert, Shift to smooth) and Draw Sharp brushes; enable Front Faces Only under Advanced brush settings to protect thin geometry.
+12. Build a forest: join/clean the finished tree into one object, add terrain via the built-in "A.N.T. Landscape" (End Landscape) add-on, add a Hair particle system to the landscape (Advanced, Render as Object → the tree, enable Rotation + Random Rotation, add Scale randomness); set the source tree's own Viewport Display to Bounds before pushing particle count up, since the tree may need a 90° Y rotation to sit correctly on the terrain.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **M3 add-on (own node editor, not native Geometry Nodes):** Trunk Node (seed, length, radius, resolution, shape, randomness, axis attraction), Branch Node (amount, split angle, radius, start, shape convex, resolution, randomness, prob, gravity strength, floor avoidance), Tree Parameters node (active tree, auto_update, output preview/final, resolution, create leafs, create armature, randomize tree), Tweak node (seed, length, branch number, execute).
+- **Modifiers:** Skin modifier (trunk/branch thickness via Ctrl+A vertex skin resize), Remesh modifier (voxel size), Subdivision Surface, Armature modifier (Bone Envelopes) on leaf particle objects.
+- **Particles:** Advanced Hair particle systems for twigs (Vertex Group Density from weight paint, Rotation axis = Normal) and leaves (randomized location); Hair particle system on landscape for forest scatter (Number, Rotation, Random Rotation, Scale randomness, Render → Object).
+- **Materials/Baking:** Cycles Bake (Selected to Active, Bake type Diffuse) onto a fresh Image Texture node; Box texture mapping via Empty object coordinates; Mix Shader + Gradient Texture to blend two trunk textures.
+- **Sculpt:** Dyntopo with Constant Detail; Clay Strips and Draw Sharp brushes; Front Faces Only (Advanced) to avoid destroying thin geometry.
+- **Operator:** "Fast Wind" (F3 search) applied to an armature for one-click procedural wind animation.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+M3 add-on step specifically recommends the portable Blender 2.83.2 build; the rest (Sapling, Skin modifier, Grease Pencil sculpting, particle systems) is core functionality usable in any modern Blender version — UI shown matches Blender 2.8x/2.9x era.
 
 ### Tags
-[PENDING EXTRACTION]
+procedural, organic, particles, animation, rigging, materials, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [How to Create Stylized Feathers and Fur in Blender](how-to-create-stylized-feathers-and-fur-in-blender.md) — shares procedural, materials, animation, organic, particles; same family of particle-driven organic surface coverage.
+- [Blender Tutorial - Procedural Rope in Geometry Nodes](blender-tutorial---procedural-rope-in-geometry-nodes.md) — shares procedural, organic, animation.
+- [Create a Walk Cycle animation in Blender](create-a-walk-cycle-animation-in-blender.md) — shares animation, rigging, organic (relevant to this tutorial's armature/wind-rig step).
+- [4 new retopology tips to discover! - Blender Secrets](4-new-retopology-tips-to-discover---blender-secrets.md) — shares organic, intermediate; same channel/author.
