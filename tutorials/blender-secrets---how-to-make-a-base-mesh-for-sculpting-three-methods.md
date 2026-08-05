@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=UojINqTfZsM
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (Skinify Rig/Rigify/Metaball/GP-trace workflow, 3.x-5.x)"
+tags: [organic, procedural, rigging, modelling, intermediate, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---how-to-make-a-base-mesh-for-sculpting-three-methods/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Secrets -  How to make a Base Mesh for Sculpting (three methods)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-secrets---how-to-make-a-base-mesh-for-sculpting-three-methods <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -79,30 +75,72 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:30] tutorials/frames/blender-secrets---how-to-make-a-base-mesh-for-sculpting-three-methods/frame_000.jpg
+- [0:45] tutorials/frames/blender-secrets---how-to-make-a-base-mesh-for-sculpting-three-methods/frame_001.jpg
+- [1:00] tutorials/frames/blender-secrets---how-to-make-a-base-mesh-for-sculpting-three-methods/frame_002.jpg
+- [1:50] tutorials/frames/blender-secrets---how-to-make-a-base-mesh-for-sculpting-three-methods/frame_003.jpg
+- [2:35] tutorials/frames/blender-secrets---how-to-make-a-base-mesh-for-sculpting-three-methods/frame_004.jpg
+- [2:50] tutorials/frames/blender-secrets---how-to-make-a-base-mesh-for-sculpting-three-methods/frame_005.jpg
+- [3:45] tutorials/frames/blender-secrets---how-to-make-a-base-mesh-for-sculpting-three-methods/frame_006.jpg
+- [4:35] tutorials/frames/blender-secrets---how-to-make-a-base-mesh-for-sculpting-three-methods/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Three distinct workflows for generating a sculptable base mesh from scratch: skeleton-driven mesh generation via the Skinify Rig + Rigify add-ons (demoed on a dragon/wyvern rig), Metaball blockout over a photo reference (demoed on a horse), and 2D silhouette tracing via Grease Pencil converted to a Voxel-remeshed 3D blob (demoed on a mech/robot design).
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows Method 1's starting rig: a dragon/wyvern-style Rigify armature in Pose Mode with the Skinify Rig panel open (Add Shape, Thickness, Resolution, Bevel Faces, Head Offset visible) ready to generate mesh geometry from the selected bones. Frame 001 shows the resulting skinned mesh in Edit Mode — capsule-like tube geometry following each bone of the wing/limb rig, about to be inflated and cleaned up. Frame 002 shows the Separate menu with "By Loose Parts" highlighted, splitting the skinified mesh into individual pieces for selective remeshing/joining. Frame 003 shows Method 2's setup: a Metaball ball being scaled/positioned over a horse-and-rider photo reference, with Resolution, Influence, and Update settings visible in the sidebar. Frame 004 shows a further-developed metaball blockout — a smooth horse-body silhouette built from several overlapping metaball spheres, still shown with their individual influence-radius wireframes over the reference photo. Frame 005 shows the metaball, after Convert to Mesh, being cleaned up in Edit Mode: the Merge menu open with "By Distance" highlighted (red arrow) and a Symmetrize operator's redo panel visible (Direction, Threshold) — confirming the transcript's symmetry-fix-then-merge-vertices step. Frame 006 shows Method 3's source material: a black silhouette of a bipedal mech/robot design loaded as a Front Orthographic background reference Empty. Frame 007 shows the resulting traced base mesh — a blocky, low-poly silhouette matching the robot's outline — with a modifier stack of Mirror → Solidify → Remesh (Voxel mode, Voxel Size, Smooth Shading) visible in the sidebar.
 
 ### Key Steps
-[PENDING EXTRACTION]
+**Method 1 — Skeleton-driven (Skinify Rig + Rigify):**
+1. Enable the Skinify Rig add-on and the Rigify add-on in Preferences.
+2. Shift+A to add an armature of choice (a Rigify metarig).
+3. In Pose Mode, select the bones to generate geometry from, open the Create tab in the N-panel, and click Add Shape under Skinify Rig options.
+4. Hide or delete the armature once the mesh is generated.
+5. With the generated geometry selected, Ctrl+A → Visual Geometry to Mesh — this applies the Skin and Subdivision modifiers that Skinify Rig adds automatically.
+6. Switch to Sculpt Mode and use the Inflate brush to round out the tube-like base shape.
+7. In Edit Mode, Separate by Loose Parts, then re-join (Ctrl+J) whichever pieces should be remeshed together as a single object.
+
+**Method 2 — Metaball blockout over reference:**
+1. Shift+A → Metaball → Ball in Object Mode.
+2. Shift+D to duplicate additional metaball spheres, moving (G), scaling (S), and rotating (R) each one into place to block out major volumes against a photo reference.
+3. Once the blockout reads correctly, select the main metaball object (not the individual sub-balls) and right-click → Convert to Mesh.
+4. In Edit Mode, select all, use Mesh → Symmetrize (switching the symmetry Direction if the result mirrors the wrong way), then M → By Distance to merge overlapping vertices — lowering the Merge Distance value as needed for clean results without collapsing intended detail. This produces a clean, symmetrical sculptable base mesh.
+
+**Method 3 — 2D silhouette trace (Grease Pencil) + Voxel Remesh:**
+1. Drag and drop a thumbnail/silhouette sketch into the Front Viewport as a reference image; press Alt+G to reset its position to World Origin.
+2. Convert it to Grease Pencil using the "Trace Image to Grease Pencil" operator, convert that Grease Pencil object to a Path, then convert the Path to a Mesh.
+3. Hide or delete the original reference image Empty and the intermediate Grease Pencil object.
+4. In Edit Mode, select all vertices and M → By Distance to reduce vertex count from the trace; select all and press F to fill the outline into a flat face.
+5. Use Circle Select to select and dissolve/delete any stray vertices that aren't part of the intended outline.
+6. Add a Mirror modifier set to Bisect for symmetry, then a Solidify modifier for thickness, then a Remesh modifier set to Voxel mode — carefully tune Voxel Size (too small can freeze Blender).
+7. Optionally add primitive meshes directly in Edit Mode near the traced shape — the Voxel Remesh will automatically merge them into the base mesh. Precision doesn't matter at this stage since it's only a rough base for the subsequent sculpting pass.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Add-ons:** Skinify Rig, Rigify.
+- **Skinify Rig panel:** Add Shape, Thickness, Resolution, Bevel Faces, Head Offset.
+- **Modifiers (auto-added / manually stacked):** Skin + Subdivision (from Skinify Rig, applied via Visual Geometry to Mesh), Mirror (Bisect), Solidify, Remesh (Voxel mode, Voxel Size, Smooth Shading).
+- **Sculpt:** Inflate brush (rounding out skinified tube geometry).
+- **Metaball settings:** Resolution, Render, Influence, Update on (Always, etc.).
+- **Mesh operators:** Separate → By Loose Parts, Ctrl+J (join), Convert to Mesh, Mesh → Symmetrize, M → Merge By Distance, F (fill), Circle Select + Dissolve/Delete.
+- **Grease Pencil workflow:** Trace Image to Grease Pencil, Convert → Path, Convert → Mesh, Alt+G (reset location).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate to Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Skinify Rig/Rigify, Metaball, and Grease Pencil trace/Voxel Remesh are all consistent with modern Blender 3.x-5.x.
 
 ### Tags
-[PENDING EXTRACTION]
+organic, procedural, rigging, modelling, intermediate, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender Secrets - Hard Surface Sculpting Tips](blender-secrets---hard-surface-sculpting-tips.md) — shares organic, procedural, advanced; same channel, natural next step once a base mesh exists.
+- [Blender Secrets - Hard Surface Sculpting Tips Part 2](blender-secrets---hard-surface-sculpting-tips-part-2.md) — shares organic, procedural, advanced; same channel, its own base-mesh-sculpting section (Round Cube start) is a simpler alternative to these three methods.

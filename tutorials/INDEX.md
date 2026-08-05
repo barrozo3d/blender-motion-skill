@@ -1957,9 +1957,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=UojINqTfZsM
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Skinify Rig/Rigify/Metaball/GP-trace workflow, 3.x-5.x)
+- **Tags:** #organic #procedural #rigging #modelling #intermediate #advanced
+- **Summary:** Three base-mesh workflows: (1) Skinify Rig + Rigify — pose a rig, Add Shape to generate skin/subdivision geometry from bones, Visual Geometry to Mesh, Inflate-brush + Separate/Join cleanup (dragon/wyvern example); (2) Metaball blockout over a photo reference, Convert to Mesh, Symmetrize + Merge by Distance (horse example); (3) Grease Pencil trace of a 2D silhouette → Path → Mesh, fill+cleanup, Mirror+Solidify+Voxel-Remesh, with primitive meshes addable in Edit Mode for the remesh to auto-merge (mech/robot example).
 - **File:** tutorials/blender-secrets---how-to-make-a-base-mesh-for-sculpting-three-methods.md
 
 
