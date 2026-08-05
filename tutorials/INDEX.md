@@ -2007,9 +2007,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=V7Y-Il-7JFE
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (core mesh-editing workflow, 3.x-5.x)
+- **Tags:** #modelling #procedural #intermediate
+- **Summary:** Five manual topology-cleanup techniques: Rotate Edge (Ctrl+E) to fix bad triangle shading; systematic extrude/merge/fill patterns to reduce N quads down to fewer quads (4→2, 5→3, 3→1); adding an edge loop across triangulated geometry where Ctrl+R fails (Alt-select loop → Ctrl+I invert → Subdivide → slide new loop); conforming/straightening a wavy edge loop (G,G,E or LoopTools Flatten); and three ways to flatten (Select Similar Coplanar+Flatten, scale-to-zero, delete+Grid Fill) or smooth (Smooth Vertices, Sculpt Mode, Vertex-Group-masked Smooth modifier) a patch of geometry.
 - **File:** tutorials/blender-secrets---5-minutes-of-topology-tips.md
 
 

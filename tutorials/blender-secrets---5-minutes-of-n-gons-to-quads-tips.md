@@ -158,4 +158,4 @@ modelling, procedural, intermediate
 
 ## Related Tutorials
 - [4 new retopology tips to discover! - Blender Secrets](4-new-retopology-tips-to-discover---blender-secrets.md) — shares modelling, intermediate; same channel, overlapping retopology/quad-cleanup subject matter.
-- [Blender Secrets - 5 minutes of Topology Tips](blender-secrets---5-minutes-of-topology-tips.md) — same channel, obviously related topology-cleanup subject by title, but not yet extracted at the time of this pass (no tags yet to confirm a real match) — revisit this cross-link once that file is processed.
+- [Blender Secrets - 5 minutes of Topology Tips](blender-secrets---5-minutes-of-topology-tips.md) — shares modelling, procedural, intermediate; same channel, direct companion topology-cleanup video.

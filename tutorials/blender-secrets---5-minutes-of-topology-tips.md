@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=V7Y-Il-7JFE
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (core mesh-editing workflow, 3.x-5.x)"
+tags: [modelling, procedural, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---5-minutes-of-topology-tips/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Secrets - 5 minutes of Topology Tips
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-secrets---5-minutes-of-topology-tips <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Rotate edges [0:00]
@@ -119,30 +115,56 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:20] tutorials/frames/blender-secrets---5-minutes-of-topology-tips/frame_000.jpg
+- [0:44] tutorials/frames/blender-secrets---5-minutes-of-topology-tips/frame_001.jpg
+- [1:32] tutorials/frames/blender-secrets---5-minutes-of-topology-tips/frame_002.jpg
+- [2:03] tutorials/frames/blender-secrets---5-minutes-of-topology-tips/frame_003.jpg
+- [2:33] tutorials/frames/blender-secrets---5-minutes-of-topology-tips/frame_004.jpg
+- [3:24] tutorials/frames/blender-secrets---5-minutes-of-topology-tips/frame_005.jpg
+- [3:50] tutorials/frames/blender-secrets---5-minutes-of-topology-tips/frame_006.jpg
+- [4:07] tutorials/frames/blender-secrets---5-minutes-of-topology-tips/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Five manual topology-cleanup techniques for hand-modeling: rotating edges to fix bad triangle shading, systematically reducing N quads down to fewer quads via extrude/merge/fill patterns, adding an edge loop across triangulated geometry (where Ctrl+R doesn't work), conforming/straightening a wavy edge loop, and three different ways to flatten or smooth a patch of geometry.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the payoff of tip 1: a low-poly triangulated character bust (Suzanne-like) mid-Edit-Mode with the status bar reading "Rotate Selected Edge" after using Ctrl+E → Rotate Edge to fix a shading artifact caused by a poorly-oriented triangle diagonal. Frames 001-002 show tip 2's quad-reduction pattern on a plane: frame 001 is the "before" (4 quads, Top Orthographic), frame 002 mid-process with F (fill) about to close a gap after extruding and merging — the systematic edge-count-reduction dance described in the transcript. Frame 003 shows tip 3's setup: a triangulated cone, illustrating the case where the normal Ctrl+R loop cut doesn't work and the Alt-select-loop → Ctrl+I invert → Subdivide → Alt-select-new-loop → G,G-slide method is needed instead. Frame 004 shows tip 4 (conform edges): a subdivided cube with an internal edge loop highlighted orange and an Edge Slide double-arrow icon — mid G,G,E conform-to-neighbor operation. Frame 005 shows tip 5's "Select Similar → Coplanar" step (panel open, Type=Coplanar, Compare=Equal) on a cube face selection, and frame 006 shows the alternate "delete + grid fill" method's X (Delete) menu with "Faces" highlighted by an arrow. Frame 007 shows the Vertex context menu on a sphere with "Smooth Vertices" highlighted by an arrow — the first of the three smoothing methods.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Rotate problem edges:** on low-poly triangulated models, a badly-oriented diagonal edge causes visible faceted/incorrect shading — select it, Ctrl+E → Rotate Edge (CW or CCW, either works), which flips the diagonal to the other pair of corners for better shading.
+2. **Reduce N quads to fewer quads (geometry-reduction patterns):**
+   - 4→2: select and extrude two edges, extrude again, select the corner vertices and scale them apart, select the resulting edges and fill (F), then extrude the final two edges.
+   - 5→3: extrude the middle edge, extrude the other edges further out than the middle one, merge (M) the resulting close vertices, fill the gap (F), extrude the three remaining edges, and optionally scale the middle face down for better geometry distribution.
+   - 3→1: extrude two edges plus the middle edge (only halfway as far as the outer two), merge (M) the close vertices, fill the gap (F), then extrude the single remaining edge out (E).
+3. **Add an edge loop across triangulated geometry (Ctrl+R doesn't work on tris):** in Edge select mode, Alt+click the boundary edge loop nearest where you want the cut, Ctrl+I to invert the selection (grabbing everything except that loop), right-click → Subdivide, then Alt+click the newly created loop and press G,G to slide it into position.
+4. **Conform/straighten a wavy edge loop:** select it, press G,G (Edge Slide) then E to conform its shape to the neighboring loop — only works if a perfectly straight loop exists adjacent to it; press F while sliding to toggle which side to conform to; hold Ctrl while sliding to move in increments (useful for centering). Alternative: select the edges, right-click → LoopTools → Flatten (add-on). For straightening only part of a loop rather than the whole thing, use the G-stretch option instead. A blunt-but-effective alternative: select the edges and press S, Z, 0 (scale to zero on the relevant axis).
+5. **Flatten a patch of faces (3 methods):** (a) select target faces, Select Similar → Coplanar (raise the threshold if needed), right-click → LoopTools → Flatten — works regardless of the faces' angle; (b) select faces and scale to zero on the axis they're most perpendicular to (S, Z, 0) — works best when faces are aligned close to that axis; (c) delete the selected faces entirely, select the surrounding boundary edges, and Ctrl+F → Grid Fill to rebuild a clean flat patch.
+6. **Smooth a rough area (3 methods):** (a) select vertices, right-click → Smooth Vertices, then Shift+R to repeat until smooth enough; (b) switch to Sculpt Mode, disable Symmetry, and sculpt/smooth while holding Shift — works best with more subdivisions or Dyntopo enabled, takes practice; (c) add the non-smooth vertices to a Vertex Group and use that group as the input mask for a Smooth or Laplacian Smooth modifier for a non-destructive, adjustable result.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Edit-mode operators:** Ctrl+E → Rotate Edge, E (extrude), M (merge), F (fill), Ctrl+R (loop cut — doesn't work on triangles), Ctrl+I (invert selection), Subdivide, G,G (Edge Slide), Ctrl+F → Grid Fill, S+axis+0 (scale to zero), right-click → Smooth Vertices, Shift+R (repeat last operator).
+- **Selection:** Alt+click (select edge loop), Select Similar → Coplanar (Type, Compare, Threshold).
+- **Add-on:** LoopTools (built-in) — Flatten operator.
+- **Sculpt:** Sculpt Mode smoothing (Shift-hold), Dyntopo for better results, Symmetry disabled.
+- **Modifiers:** Smooth modifier / Laplacian Smooth modifier, driven by a Vertex Group mask.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — core mesh-editing workflow, version-agnostic across modern Blender (3.x-5.x).
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, procedural, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender Secrets - 5 minutes of N-Gons to Quads tips](blender-secrets---5-minutes-of-n-gons-to-quads-tips.md) — shares modelling, procedural, intermediate; same channel, direct companion topology-cleanup video.
+- [4 new retopology tips to discover! - Blender Secrets](4-new-retopology-tips-to-discover---blender-secrets.md) — shares modelling, intermediate; same channel, overlapping topology/retopology subject matter.
