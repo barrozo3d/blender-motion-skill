@@ -2057,9 +2057,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=3Ty0dNNO4bE
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Multires/Dyntopo sculpt workflow, 3.x-5.x)
+- **Tags:** #organic #procedural #materials #advanced
+- **Summary:** Part 1 of a hard-surface sculpting series (Part 2 continues it): panel cuts via Crease brush (accumulates depth at overlaps — a problem) vs. the Layer brush with Persistent+Set Persistent Base (the fix, clean non-accumulating cuts); geometric Mask workflow (Curve/Line/Lasso stroke, Strength>1 for crisp edges, Shrink Mask+Paint-Mask-preserving Remesh+Smooth-filter for clean inflated-panel sides); and alpha-texture stamping (free JRO Tools/Bergman 3D packs, Area Plane mapping, Ctrl+F to rotate) including a Radial-value Drag-Dot mode for perfect circular bolt/rivet arrays.
 - **File:** tutorials/blender-secrets---hard-surface-sculpting-tips.md
 
 

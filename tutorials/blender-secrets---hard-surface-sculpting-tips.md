@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=3Ty0dNNO4bE
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (Multires/Dyntopo sculpt workflow, 3.x-5.x)"
+tags: [organic, procedural, materials, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---hard-surface-sculpting-tips/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Secrets - Hard Surface Sculpting Tips
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-secrets---hard-surface-sculpting-tips <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Round Cube [0:00]
@@ -150,30 +146,57 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:45] tutorials/frames/blender-secrets---hard-surface-sculpting-tips/frame_000.jpg
+- [1:35] tutorials/frames/blender-secrets---hard-surface-sculpting-tips/frame_001.jpg
+- [2:20] tutorials/frames/blender-secrets---hard-surface-sculpting-tips/frame_002.jpg
+- [3:25] tutorials/frames/blender-secrets---hard-surface-sculpting-tips/frame_003.jpg
+- [4:20] tutorials/frames/blender-secrets---hard-surface-sculpting-tips/frame_004.jpg
+- [4:55] tutorials/frames/blender-secrets---hard-surface-sculpting-tips/frame_005.jpg
+- [6:20] tutorials/frames/blender-secrets---hard-surface-sculpting-tips/frame_006.jpg
+- [7:55] tutorials/frames/blender-secrets---hard-surface-sculpting-tips/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Part 1 of a hard-surface sculpting series (Part 2 builds on this — see Related Tutorials): sculpt-mode panel-cut techniques (Crease vs. persistent-base Layer brush), geometric mask-based extrusion for raised/recessed panels, and alpha-texture stamping (including a radial-array mode) for fast bolt/rivet/greeble detailing.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the starting point: a Round Cube (Extra Objects add-on) set to Quadsphere, shaded with a red matcap and Cavity viewport shading enabled (arrow pointing at the Cavity toggle) to make sculpted detail read more clearly, mimicking a ZBrush-style clay preview. Frame 001 shows a straight L-shaped line being drawn with the Crease brush's Line stroke method directly on the sphere. Frame 002 shows the sphere after some panel-cut sculpting, viewed at an angle where the cuts read as soft dark cavity-shaded patches rather than crisp lines — illustrating the problem described in the transcript (Crease brush strokes accumulating depth at overlaps, looking uneven) that motivates switching to the Layer brush. Frame 003 shows the Mask workflow on a cube: a raised rectangular panel already extruded via mask+move, with a second viewport showing the actual mask boundary curve just drawn (Ctrl+RMB curve stroke) as a clean L-shaped path. Frame 004 shows a more complex panel shape masked and inflated on the same cube — an angular, multi-notch raised panel produced via Mesh Filter → Inflate rather than a straight extrude-along-normal move. Frame 005 shows the alpha-texture brush setup: a plain sphere with the brush Texture panel open (arrow pointing at the texture slot) about to receive a stamped alpha detail. Frame 006 shows the free JRO Tools alpha-texture thumbnail browser — a grid of bolt/gear/circular greeble patterns available for drag-and-drop stamping, exactly matching the transcript's alpha-library workflow.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Base setup:** delete the default scene content, add a Round Cube (Extra Objects add-on, enable in Preferences), press F9 to recall the operator options if the popup closes, choose the Quadsphere preset; add a Multiresolution modifier and click Subdivide a few times for enough geometry to sculpt on; Shade Smooth; switch to a red matcap and (optionally) enable Cavity viewport shading for a more pronounced ZBrush-like preview (note: Cavity can look too extreme/noisy as a permanent setting — the author turns it back off after checking it). Move the sphere up with G, Z, 1 if needed for framing.
+2. **Panel cuts — Crease brush (problem case):** freehand crease lines look rough no matter the skill level; pressing E and choosing Line from the stroke-method menu gives perfectly straight lines, but overlapping strokes accumulate extra depth, producing uneven results — not ideal for clean panel cuts.
+3. **Panel cuts — Layer brush with Persistent Base (fix):** switch to the Layer brush, set it to Subtract (and optionally set Height to Subtract too) so it cuts into the surface; press E again and choose Line stroke method; critically, check **Persistent** and click **Set Persistent Base** *before* drawing any strokes — this prevents repeated/overlapping strokes from accumulating depth, giving clean, consistent panel cuts. Note: clicking Set Persistent Base once sometimes doesn't register — click it two or three times if strokes still accumulate. Switch stroke method to Drag Dot to stamp individual dots (e.g. combined with a bolt-shaped alpha).
+4. **Mask-based panel shapes:** draw masks manually with the Mask brush; Shift+F to increase brush strength interactively, or type a value directly into the Strength field (values above 1, e.g. 2, give a crisper/less-blurry mask edge) — mesh resolution also affects mask quality. Press E to pick a stroke method: Curve (hold Ctrl+RMB-drag for a smooth handled corner, Ctrl+RMB-click for a sharp corner, then Ctrl+LMB-click to draw the stroke along that curve) or Line, both good for clean geometric mask shapes; hold Ctrl while masking to subtract from the existing mask. Use the Dots stroke method to fill a mask area, or the Lasso Mask tool (found in the Tool panel's Box Mask submenu) for freeform selections. Sharpen mask edges via Mask → Sharpen Mask; invert with Ctrl+I.
+5. **Extruding masked panels:** either move the unmasked part directly (simple extrude-like offset) or use Mesh Filter set to Inflate for a different, face-normal-based extrusion effect. To clean up artifacts on the sides of an inflated panel: Mask → Shrink Mask (repeat as needed), sample the mesh resolution in the Remesh panel with Paint Mask enabled (preserves the mask through the remesh), click Remesh, then use Mesh Filter → Smooth (drag right for more smoothing) for a cleaner transition; Alt+M to clear the mask when done, and finish with manual Smooth-brush touch-ups on the sides.
+6. **Alpha texture detailing:** ensure the model has enough subdivision (Multires modifier) for the alpha's resolution to read properly; in Sculpt Mode press E → Drag Dot stroke method; create a new brush Texture and load an alpha image (free packs available from JRO Tools, Bergman 3D, Gumroad, ArtStation — most are sold as "ZBrush alphas" but work identically in Blender since they're just grayscale height images); switch the texture list to Thumbnails view to browse visually; set the brush direction to Add or Subtract depending on the alpha; set Mapping to Area Plane; drag the alpha onto the surface to stamp detail. Press F to resize the brush radius, Shift+F to adjust strength, Ctrl+F before stamping to rotate the texture to a specific angle; enable Constant Detail/Follow to make sure the whole texture gets used; enable Symmetry on an axis to mirror stamps automatically.
+7. **Radial array of alpha stamps:** in Sculpt Mode with Drag Dot stroke method active, set a Radial value on the desired axis in the brush's Stroke settings — this lets you drag once and get a perfect circular array of stamped alpha instances (e.g. bolts evenly spaced around a hole), with control over how many angles/copies to place. Load a new texture the same way as before (Mapping = Area Plane) for each new alpha you want to array.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Add-on:** Extra Objects (Round Cube primitive, Quadsphere preset).
+- **Modifiers:** Multiresolution (subdivision for sculptable detail).
+- **Sculpt brushes:** Crease (Line stroke — accumulates depth, not ideal for panel cuts), Layer (Subtract, Persistent + Set Persistent Base — the fix for clean non-accumulating panel cuts), Mask (Curve/Line/Dots/Lasso stroke methods, Strength field for values >1), Smooth, Drag Dot (for alpha stamping and radial arrays).
+- **Mesh Filter:** Inflate, Smooth.
+- **Mask operations:** Shift+F (strength), Ctrl+I (invert), Mask → Sharpen Mask, Mask → Shrink Mask, Alt+M (clear).
+- **Remesh:** Paint Mask option (preserves mask through remesh), sampled Voxel Size.
+- **Alpha texture workflow:** brush Texture slot, Thumbnails browser view, Mapping = Area Plane, Add/Subtract direction, F (radius), Shift+F (strength), Ctrl+F (rotate texture before stamping), Symmetry toggle, Radial value (Stroke settings) for circular alpha arrays.
+- **Viewport:** matcap shading (red), Cavity toggle (for pronounced clay-render preview, used sparingly).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Multires/Dyntopo sculpt workflow with mask/alpha tools, consistent with modern Blender 3.x-5.x.
 
 ### Tags
-[PENDING EXTRACTION]
+organic, procedural, materials, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender Secrets - Hard Surface Sculpting Tips Part 2](blender-secrets---hard-surface-sculpting-tips-part-2.md) — shares organic, procedural, materials, advanced; **direct sequel** from the same channel — this Part 1 covers panel cuts/masks/alphas, Part 2 covers base-mesh blocking, Mask Extract object-splitting, and Line Project.
+- [Blender Secrets - Auto Masking Cavities in Sculpt Mode](blender-secrets---auto-masking-cavities-in-sculpt-mode.md) — shares organic, procedural; same channel, complementary Sculpt Mode masking technique.

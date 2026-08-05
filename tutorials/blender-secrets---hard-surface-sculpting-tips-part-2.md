@@ -166,5 +166,6 @@ organic, procedural, materials, advanced
 ---
 
 ## Related Tutorials
+- [Blender Secrets - Hard Surface Sculpting Tips](blender-secrets---hard-surface-sculpting-tips.md) — shares organic, procedural, materials, advanced; **Part 1 of this same series** — covers panel cuts (Crease vs. persistent-base Layer brush), mask-based extrusion, and alpha-texture stamping/radial arrays that this Part 2 builds on.
 - [Blender Secrets - Auto Masking Cavities in Sculpt Mode](blender-secrets---auto-masking-cavities-in-sculpt-mode.md) — shares organic, procedural; same channel, complementary Sculpt Mode masking technique.
 - [6 Panel Cut Tips - Blender Secrets](6-panel-cut-tips---blender-secrets.md) — shares procedural, materials, advanced; same channel, directly overlapping panel-cut/hard-surface-detailing subject from a modifier-based (rather than sculpt-based) angle.
