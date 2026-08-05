@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=GzHvD9RFrT8
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (Cycles/AGX/fSpy/Gaffer workflow, likely 4.0+ given AGX)"
+tags: [materials, shaders, volume, lighting, hdri, rendering, cycles, camera, animation, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/creating-a-japanse-city-from-a-photo-using-fspy/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Creating a Japanse city from a photo using fSpy
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py creating-a-japanse-city-from-a-photo-using-fspy <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -269,30 +265,66 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:00] tutorials/frames/creating-a-japanse-city-from-a-photo-using-fspy/frame_000.jpg
+- [3:40] tutorials/frames/creating-a-japanse-city-from-a-photo-using-fspy/frame_001.jpg
+- [6:05] tutorials/frames/creating-a-japanse-city-from-a-photo-using-fspy/frame_002.jpg
+- [7:55] tutorials/frames/creating-a-japanse-city-from-a-photo-using-fspy/frame_003.jpg
+- [9:15] tutorials/frames/creating-a-japanse-city-from-a-photo-using-fspy/frame_004.jpg
+- [10:45] tutorials/frames/creating-a-japanse-city-from-a-photo-using-fspy/frame_005.jpg
+- [12:15] tutorials/frames/creating-a-japanse-city-from-a-photo-using-fspy/frame_006.jpg
+- [16:25] tutorials/frames/creating-a-japanse-city-from-a-photo-using-fspy/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A complete photo-to-3D city pipeline: match a real photograph's camera with the free fSpy app + Blender add-on, block out buildings by moving vertices to match the photo (boolean cuts, bevels), project-texture the buildings directly from the photo (fixing UV distortion via a Knife-Project grid), add a matching background plane + volumetric haze + HDRI for atmosphere, animate a subtle camera move, and finish with an emissive "lit window" story detail and EXR rendering for color grading.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the standalone fSpy app: a real Shinjuku/Tokyo skyline photo with a 3D calibration cube and its vanishing-point guide lines overlaid, camera parameters visible in the side panel — mid-calibration. Frame 001 shows the same photo after import into Blender via the fSpy add-on: a default cube now precisely aligned to the photo's perspective from the matched camera's point of view, confirming the camera match succeeded. Frame 002 shows detailed building blockout in progress: a rooftop structure's edges (orange selection) being shaped to match the actual rooftop geometry visible in the background photo, viewed from the matched camera angle. Frame 003 shows a wider blockout stage: several gray, un-textured building volumes roughly matching the skyline's silhouette, with a Shader Editor graph (Texture Coordinate → Mapping → Image Texture → Principled BSDF) open below, about to receive the projected photo texture. Frame 004 shows the Knife-Project fix in two side-by-side views: Camera Perspective (left, buildings now textured with the photo but showing UV wobble) and Front Orthographic (right, a dense reference grid overlaid in orange ready to be knife-projected through the buildings to add clean, undistorted geometry). Frame 005 shows the background plane setup: the photo visible behind a simple box/plane shape in Camera Perspective, with a Move/Transform panel and Proportional Editing option visible, mid-alignment. Frame 006 shows the render-setup stage: Output panel (Resolution, Frame Rate, File Format, Color, Compression) open next to a Top Orthographic view showing the camera's path/track line across the scene, with the Timeline below for the camera-move animation. Frame 007 shows the atmospheric final payoff: a heavily hazy, moody rendered cityscape close-up with one small illuminated window glowing in an otherwise dark building — the deliberate "last person alive" story detail.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Camera-match a real photo with fSpy:** download the standalone fSpy app and the matching Blender fSpy add-on (v1.0.3 specifically noted — using a mismatched version is a common cause of it "not working"); install and enable the add-on in Preferences. Drag a photo into the standalone app, enable the 3D guide cube, and adjust the vanishing-point line endpoints (hold Shift while dragging for precision) until the cube's perspective matches real buildings in the photo — pick reference buildings that are further away for a more accurate vanishing point. Before finalizing, align fSpy's axis directions to Blender's (using the on-screen navigation gizmo as reference) to avoid an upside-down/misoriented import. Save the fSpy file.
+2. **Import into Blender:** use the fSpy add-on's Import option to load the saved file — this brings in both the photo (as camera background) and a matched Camera object; delete Blender's original default camera, since the imported one (named after the fSpy project) replaces it. Save the .blend file at this point.
+3. **Block out buildings to match the photo:** enable X-Ray so photo-referenced geometry is visible through the mesh; in Edit Mode delete unseen bottom faces; move vertices with axis-constrained G+X/Y/Z (or Alt-click to select whole edge loops) to match building silhouettes in the photo. Duplicate (Shift+D) a basic building shape for the next one, using G then Shift+Z to move without affecting height, R+Z to rotate to match orientation. Use G,G (edge slide) then C to slide an edge outward along local orientation after rotating something.
+4. **Boolean-cut architectural details:** duplicate a face, scale/position it to define a cutout shape (e.g. a gap in a facade), extrude it through the building with E+Y, check/fix face orientation with Shift+N (flipped normals cause boolean problems), then use Face → Intersect (Boolean) to carve the cut. If a boolean cut doesn't take effect, try a different Solver method or enable Self-Intersection. Reuse the same duplicated-face trick on other sides since it's already perfectly aligned to what needs cutting.
+5. **Detail corners and repeat:** select corner edges, Ctrl+B to bevel (scroll for segments), set Shape to 0 for a clean chamfer profile. The rest of the modeling is repetitive basic extrude/loop-cut/bevel work — production/photo-projected mapping carries a lot of visual weight even on very simple cube-based geometry.
+6. **Project-texture from the photo:** in the Shader Editor, select the Principled BSDF and press Ctrl+T to auto-generate the necessary texture-coordinate node chain; pick the photo (already loaded via the fSpy file) as the Image Texture. Select all in Edit Mode, U → Project From View to project UVs matching the camera angle, then check the result in Material Preview.
+7. **Fix UV/texture distortion with a Knife-Project grid:** the initial projected texture looks wobbly/distorted on angled faces. Fix: move everything to world origin (optional, for tidiness); add a Grid primitive, set its resolution to 100×100, rotate/scale it to encompass all buildings without overlapping them; go to Front Orthographic, select all in Edit Mode and X → Only Faces (leaving just an edge grid); rename the buildings object for organization; with the buildings selected then Ctrl-select the grid in the Outliner, use Mesh → Knife Project with Cut Through enabled — this slices extra geometry into the buildings wherever the fine grid crosses them, giving enough resolution that the projected texture no longer distorts. Delete/hide the grid afterward.
+8. **Background plane:** add a plane behind the buildings, apply the same background photo texture and project-from-view UVs; add a Track To constraint targeting the camera so it always faces it; scale to fill the frame; add extra edge loops so its texture doesn't distort either; disable the camera-background reference image once it's no longer needed.
+9. **Volumetric haze:** add a large cube enclosing the scene (set its Viewport Display to Bounds for performance); give it a material with the Principled BSDF removed and a Volume Scatter node wired into the Volume output instead — Density controls haze thickness. Moving the volume cube itself (e.g. placing it just in front of the camera) changes which buildings read with more contrast.
+10. **HDRI lighting:** add an HDRI via the Gaffer add-on (this example uses a Poly Haven HDRI) for quick browsing/testing; render in Cycles with GPU + Denoise enabled for speed. HDRI rotation and brightness, plus haze Density, are all adjustable to dial in mood.
+11. **Animate a subtle camera move:** add a keyframe at frame 1 (set to Linear interpolation for a mechanical, e.g. helicopter-shot-style, movement rather than eased motion); set render resolution (e.g. 4K); move to a later frame, nudge the camera position (hold Shift for subtle precision) and down slightly, keyframe again (also Linear). Calculate frame count from desired duration × fps (5 seconds × 24fps = 120 frames) and set the End frame accordingly.
+12. **Test-render before committing:** limit render time per frame (e.g. 1 second) and drop resolution (e.g. 25%) for a fast H.264 preview via Ctrl+F12 / Render Animation — always sanity-check camera movement and framing at low quality before a slow high-quality render. Adjust keyframes if the motion doesn't sell the 3D depth of the scene well.
+13. **Final render setup:** set resolution back to full (4K), switch File Format to OpenEXR (16-bit/half-float is enough) for an image sequence, use the AGX view transform for a linear-friendly result suited to later color grading, increase per-frame render time budget, and estimate total render time (frames × seconds-per-frame ÷ 60). Set viewport shading to Solid before rendering to reduce system load. Save before committing to the full render.
+14. **Story detail — a lit window:** add extra edge loops (G,G to slide edges without texture distortion) around one window; assign it a second, named material with the Principled BSDF replaced by an Emission shader; drive its color via a Blackbody node using a real-world color-temperature value (~2200-3400K gives a warm artificial-light look — searchable online) rather than eyeballing a color; increase Emission Strength for prominence; placing the window on the HDRI's shaded side makes it stand out more by contrast. Increasing haze Density and lowering HDRI brightness further sells a dark, moody, "last person alive in a post-apocalyptic city" atmosphere.
+15. **Finish:** render the final 4K EXR sequence, then color-grade the result externally (this example used DaVinci Resolve).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Add-ons:** fSpy (standalone camera-matching app + matching Blender import add-on, v1.0.3), Gaffer (HDRI browsing).
+- **Camera matching:** fSpy vanishing-point cube guide, axis-orientation matching to Blender's gizmo.
+- **Modeling:** X-Ray, axis-constrained G moves, Shift+D duplicate, G+Shift+[axis] (exclude an axis), R+[axis] rotate, G,G+C (edge slide then slide-along-edge), Boolean (Face → Intersect, Solver/Self-Intersection options), Shift+N (recalculate normals), Ctrl+B (bevel, Shape=0 for chamfer).
+- **UV/Texturing:** Ctrl+T (auto-build texture node chain from a selected shader input), U → Project From View, Mesh → Knife Project (Cut Through) against a dense reference Grid for distortion-free photo projection, X → Only Faces (reduce a solid grid to just its edge lattice).
+- **Constraints:** Track To (background plane always facing camera).
+- **Shading:** Volume Scatter node (Density) on an enclosing cube for haze; Emission shader + Blackbody node (real color-temperature values) for the lit-window detail.
+- **Render:** Cycles (GPU + Denoise), AGX view transform, OpenEXR 16-bit/half-float image sequence output, Linear keyframe interpolation for camera moves, low-res/short-time-limit test renders before full quality.
+- **External:** DaVinci Resolve for final color grading.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Cycles/AGX/fSpy/Gaffer workflow, consistent with modern Blender 3.x-4.x (AGX view transform implies 4.0+).
 
 ### Tags
-[PENDING EXTRACTION]
+materials, shaders, volume, lighting, hdri, rendering, cycles, camera, animation, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender Secrets - Blender GIS (Extra Bonus Tutorial)](blender-secrets---blender-gis-extra-bonus-tutorial.md) — shares materials, lighting, hdri, rendering, cycles; same channel, complementary real-world-photo-to-3D-environment technique (satellite/GIS data vs. this video's single-photo fSpy camera match).
+- [Blender Secrets - 4 tips for Photoreal Lighting](blender-secrets---4-tips-for-photoreal-lighting.md) — shares lighting, hdri, cycles, materials, rendering; same channel, complementary HDRI/photoreal lighting fundamentals used throughout this build.
+- [Blender Secrets - 4 tips for Cinematic Lighting](blender-secrets---4-tips-for-cinematic-lighting.md) — shares lighting, hdri, materials, volume, cycles; same channel, same Gaffer add-on and volumetric-haze technique referenced in both.

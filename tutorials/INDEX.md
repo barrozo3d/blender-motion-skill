@@ -1717,9 +1717,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=GzHvD9RFrT8
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Cycles/AGX/fSpy/Gaffer workflow, likely 4.0+ given AGX)
+- **Tags:** #materials #shaders #volume #lighting #hdri #rendering #cycles #camera #animation #advanced
+- **Summary:** Full photo-to-3D city pipeline from a real Tokyo/Shinjuku photograph: fSpy camera-matching (standalone app + Blender add-on, vanishing-point alignment, axis-matching), vertex-level building blockout matched to the photo, Boolean facade cuts, photo-projected texturing fixed for distortion via a dense Knife-Project reference grid, a Track-To background plane, volumetric haze (Volume Scatter cube), Gaffer HDRI lighting, a Linear-interpolated camera move sized to a target duration, low-res test renders before a full 4K EXR/AGX render, and a story-detail emissive window (Blackbody-driven color temperature) for a moody post-apocalyptic look — finished with external color grading in DaVinci Resolve.
 - **File:** tutorials/creating-a-japanse-city-from-a-photo-using-fspy.md
 
 
