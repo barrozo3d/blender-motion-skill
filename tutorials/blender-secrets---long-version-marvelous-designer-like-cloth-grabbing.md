@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=1YqtY02n8iU
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (Cloth/Hook/Multires workflow, 2.9x-5.x)"
+tags: [cloth, simulation, rigging, organic, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---long-version-marvelous-designer-like-cloth-grabbing/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Secrets - (Long Version) Marvelous Designer-like Cloth Grabbing
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-secrets---long-version-marvelous-designer-like-cloth-grabbing <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -220,30 +216,58 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:10] tutorials/frames/blender-secrets---long-version-marvelous-designer-like-cloth-grabbing/frame_000.jpg
+- [3:15] tutorials/frames/blender-secrets---long-version-marvelous-designer-like-cloth-grabbing/frame_001.jpg
+- [4:15] tutorials/frames/blender-secrets---long-version-marvelous-designer-like-cloth-grabbing/frame_002.jpg
+- [5:45] tutorials/frames/blender-secrets---long-version-marvelous-designer-like-cloth-grabbing/frame_003.jpg
+- [6:45] tutorials/frames/blender-secrets---long-version-marvelous-designer-like-cloth-grabbing/frame_004.jpg
+- [9:10] tutorials/frames/blender-secrets---long-version-marvelous-designer-like-cloth-grabbing/frame_005.jpg
+- [12:35] tutorials/frames/blender-secrets---long-version-marvelous-designer-like-cloth-grabbing/frame_006.jpg
+- [13:50] tutorials/frames/blender-secrets---long-version-marvelous-designer-like-cloth-grabbing/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Make a garment interactively grabbable like Marvelous Designer by rigging Hook modifiers onto Cloth-sim vertices (a Pin Group excluded from the simulation but still user-manipulable), scaling the whole scene up 10x for simulation stability, then baking and hand-sculpting the resulting realistic folds — including an optional custom Python script (downloadable from GitHub) that automates the repetitive hook-setup/teardown steps.
 
 ### Summary
-[PENDING EXTRACTION]
+A long, casual, unscripted walkthrough (auto-transcript contains some clear mishearings — "faults" = "folds," "clotsim" = "cloth sim," "Germany" = "Geometry," corrected throughout below). Frame 000 shows the author's custom automation script open in Blender's Text Editor (a bpy operator class defining vertex-group/hook/cloth-sim setup) next to the shirted character it targets — this script adds an "Add Hooks" / "Remove Hooks" pair of N-panel buttons that automate the entire hook-rigging process shown manually later in the video. Frame 001 shows the manual shirt-modeling stage: Circle Select (C) building up a shirt-shaped face selection on one half of a base-mesh character's torso. Frame 002 shows the completed, now-mirrored selection covering the full torso/sleeve area symmetrically. Frame 003 shows the critical scale-up step: the whole character scaled to 10/10/10 (visible in the N-panel Scale fields) to make the cloth simulation behave correctly, since Blender's cloth solver is tuned for near-real-world scale and a normal human-sized mesh sims poorly. Frame 004 shows the resulting Vertex Group weight-paint-style dot overlay on the shirt — the Pin Group used to mark which vertices are excluded from the simulation (held by hooks) versus left to simulate freely. Frame 005 shows several Empty objects (hooks) positioned around the shirt's shoulders/chest, one being moved (G) to interactively deform the cloth in real time — the actual "Marvelous-Designer-like grabbing" payoff. Frame 006 shows the Object → Apply menu with "Visual Geometry to Mesh" highlighted (Ctrl+A) — baking the cloth sim + hook deformation permanently into the mesh once the folds look good. Frame 007 shows the final hand-sculpting pass: a Multiresolution modifier added, Draw brush active (strength reduced for mouse-based sculpting without pressure sensitivity), enhancing the simulation-generated folds with additional hand-sculpted detail, visualized here with a colorful Face Sets overlay.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **(Optional) Automate with the provided script:** download the author's Python script + manual from GitHub; open/paste it into Blender's Text Editor and run it (no errors = success). This adds "Add Hooks" and "Remove Hooks" buttons to the N-panel: with a garment selected, Add Hooks automatically sets up the vertex group, Cloth modifier, pin group, self-collisions, and disables gravity in one click; Remove Hooks (with the garment re-selected) tears all of that back down to a plain mesh again.
+2. **Get a base mesh:** import/append a rigged or static human base mesh (e.g. from Blender Studio's asset library); if it's a linked duplicate, Ctrl+A → Make Instances Real so it can actually be edited, then delete the now-unneeded parent Empty. Shade Smooth the result.
+3. **Model a simple garment from the body mesh:** in Wireframe mode, deselect all, use Circle Select (C, hold Shift to subtract, right-click to exit the tool) to select a shirt-shaped patch of faces on one side of the torso/arms; use Select → Mirror (with Extend enabled) to add the mirrored half to the selection; Shift+D to duplicate the selected faces, Alt+S to scale them outward along normals (create a small gap above the body's surface) — make sure Auto Merge Vertices is off first, or the duplicate will immediately re-merge with the body. Press P → Separate by Selection to split the duplicated shell into its own "shirt" object.
+4. **Add simulation geometry:** cloth sims need reasonably fine geometry but not excessive density — add a Subdivision Surface modifier and apply it immediately for just enough resolution.
+5. **Scale up for simulation stability:** Blender's cloth solver is tuned around real-world human scale but often still sims poorly at 1:1 — select everything and scale up (e.g. S, 10, Enter) to make the simulation behave dramatically better; scale back down after baking if needed. (This is presented as a general troubleshooting tip: "if your simulations don't look good, just scale them up.")
+6. **Rig hooks manually (if not using the script):** since Blender's cloth sim can't be grabbed directly like Marvelous Designer's cloth, you must add Hook modifiers as grab handles. Create an empty Vertex Group; select one vertex at a time on the garment, press H → Hook to Object (there's no way to hook multiple vertices to independent handles simultaneously — doing so would place a single hook at their combined median point) — repeat per hook point, add each hooked vertex to the vertex group and click Assign so you can later select "everything in that group" to double check.
+7. **Set up the Cloth modifier:** add a Cloth modifier to the garment; leave Quality Steps and similar settings alone while experimenting, only raising them once you're happy with the simulation and are done iterating; extend the Simulation Cache frame range and the Timeline's End frame (default 250) so you have room to experiment without looping. Set the Pin Group to the vertex group containing your hooked vertices (this excludes them from the simulation so they stay directly controllable) — this step is easy to forget. Enable Self-Collisions; the author also mentions disabling gravity here ("keep it simple" — likely so the shirt doesn't sag from gravity while you're manually posing folds via hooks) — note: the transcript mis-heard this setting name, cross-check against Cloth → Field Weights → Gravity in-app if replicating.
+8. **Grab and pose folds:** in Object Mode, play the simulation, then select individual hook Empties and move them with G to interactively create folds — work subtly, since folds can easily look unnatural if overdone or purely improvised. Reference photos of real fabric folds (or photos of yourself in the target pose) give far more convincing results than sculpting from imagination. Cycle through the different hooks one at a time, nudging each until the fold pattern looks interesting; folds can appear even in un-hooked areas because the whole piece is one connected cloth simulation. (Caution flagged in the video: disabling a garment's selectability while the sim is active can reset the simulation — if that happens, undo carefully and re-verify no settings were accidentally reverted, a known Blender quirk.)
+9. **Bake and refine:** once the fold pattern looks good, pause the sim and Ctrl+A → Visual Geometry to Mesh to permanently apply the Cloth modifier (and hooks) — this locks in the folds as static geometry so nothing can move or break afterward. Add a Multiresolution modifier for further hand-sculpting; the Draw brush is a simple, effective tool for adding/enhancing folds (reduce brush strength if sculpting with a mouse, since there's no pressure sensitivity to modulate it automatically) — use the existing simulation-generated folds as inspiration/guides and add complementary detail by hand. Hold Shift to erase unwanted additions, Ctrl to invert direction (push in instead of out); be careful not to sculpt through and clip the underlying body mesh. Remove the now-unneeded Collision modifier/setup from the base body mesh once finished.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Modifiers:** Subdivision Surface (applied for sim-ready density), Cloth (Pin Group, Self-Collisions, Field Weights → Gravity, Quality Steps, Cache frame range), Collision (on the base body mesh, removable after baking), Hook (per grabbed vertex, target = an Empty), Multiresolution (for post-sim hand sculpting).
+- **Selection/modeling:** Circle Select (C, Shift to subtract), Select → Mirror (Extend), Shift+D (duplicate) + Alt+S (scale along normals), P → Separate by Selection, Auto Merge Vertices (must be OFF during shirt duplication).
+- **Rigging:** H → Hook to Object (one vertex at a time), Vertex Group + Assign (for building the Pin Group).
+- **Apply:** Ctrl+A → Visual Geometry to Mesh (bakes Cloth+Hooks permanently).
+- **Sculpt:** Draw brush (Strength reduced for mouse use), Shift (erase), Ctrl (invert direction), Face Sets (used here just for visualization contrast).
+- **Scale trick:** scaling the whole rig 10x before simulating for better cloth-solver stability at otherwise-real-world scale.
+- **External tool:** custom author-provided Python script (GitHub, not yet packaged as an add-on) — "Add Hooks"/"Remove Hooks" N-panel operators automating steps 6-7.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Cloth modifier (Pin Group, Self-Collisions), Hook modifier, and Multiresolution workflow, consistent with modern Blender 2.9x-5.x.
 
 ### Tags
-[PENDING EXTRACTION]
+cloth, simulation, rigging, organic, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender Secrets - In Depth Cloth Sculpting tricks with Pose Brush](blender-secrets---in-depth-cloth-sculpting-tricks-with-pose-brush.md) — shares cloth, simulation, organic, advanced; same channel, complementary sculpt-mode approach to generating realistic cloth folds (Pose brush + Cloth Simulation deformation vs. this video's Hook+Cloth-modifier grabbing).
+- [Blender Secrets - 5 mins of ArchViz Tips (Diamond Tufting, Pillow Edges, Pillows, Interactive Cloth)](blender-secrets---5-mins-of-archviz-tips-diamond-tufting-pillow-edges-pillows-in.md) — shares cloth, simulation, rigging; same channel, its "draped cloth with interactive hook" segment is a simpler version of this same Hook+Pin-Group technique.

@@ -1847,9 +1847,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=1YqtY02n8iU
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Cloth/Hook/Multires workflow, 2.9x-5.x)
+- **Tags:** #cloth #simulation #rigging #organic #advanced
+- **Summary:** Makes a garment interactively grabbable like Marvelous Designer: model a simple shirt from a base mesh (Circle Select, mirror, duplicate+offset, Separate), scale the whole rig 10x for cloth-solver stability, rig Hook modifiers to individual vertices with a Pin Group excluding them from the sim, then grab hooks in Object Mode to pose realistic folds live. Bakes via Ctrl+A Visual Geometry to Mesh, then refines with Multires + Draw brush hand-sculpting. Includes a downloadable GitHub Python script that automates the repetitive hook rigging/teardown into "Add Hooks"/"Remove Hooks" N-panel buttons.
 - **File:** tutorials/blender-secrets---long-version-marvelous-designer-like-cloth-grabbing.md
 
 
