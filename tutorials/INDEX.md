@@ -1857,9 +1857,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=RbqpANWvTWY
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 3.4+ (Auto Masking Cavity feature is explicitly new in 3.4)
+- **Tags:** #organic #procedural #beginner #intermediate
+- **Summary:** Blender 3.4+'s Sculpt Mode Cavity Auto Masking (dropdown or Alt+A pie menu, plus per-brush Advanced overrides): constrains brush strokes to surface recesses (or raised areas via Cavity Inverted), tuned with Factor/Blur; "Create Mask" bakes a standalone Mask From Cavity that can be refined further with Smooth/Sharpen Mask filters. Demoed on a detailed T-Rex sculpt; noted use case is bringing out extra detail on 3D scans.
 - **File:** tutorials/blender-secrets---auto-masking-cavities-in-sculpt-mode.md
 
 
