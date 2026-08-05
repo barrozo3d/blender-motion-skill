@@ -2087,9 +2087,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=8D8F0BpeZvQ
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (core mesh/curve workflow, 3.x-5.x)
+- **Tags:** #modelling #materials #procedural #intermediate
+- **Summary:** Short standalone tip (same technique as this channel's fuller "5 mins of ArchViz Tips" video): curve-based decorative piping for upholstery — duplicate+separate an edge selection, Convert to Curve, add Bevel Depth + Shade Smooth; for complex/scanned geometry without a clean edge loop, use Snap-to-Face + Project Individual Elements to build the seam path vertex by vertex instead, then convert/bevel the same way. Subdivide+smooth extra vertices at corners for rounder turns.
 - **File:** tutorials/blender-secrets---decorative-edges-for-sofas-and-cushions.md
 
 
