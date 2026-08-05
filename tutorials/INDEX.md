@@ -1457,9 +1457,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=IZFniY_vyGo
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.0+ (Instances on Elements modifier is explicitly new in 5.0)
+- **Tags:** #procedural #materials #displacement #cycles #intermediate #advanced
+- **Summary:** Six hard-surface panel-cut methods, most ending in a bake to a normal map: (1) sharp-marked edges + Bevel(Miter Outer=Arc)/Subdivision modifier stack for straight/diagonal cuts, (2) ripped edges (V) for naturally rounded panel corners, (3) Sculpt-mode Mask brush + Curve Stroke + Inflate mesh filter, (4) Sculpt-mode Layer brush with Persistent Base + Line stroke for straight sculpted cuts, (5) direct normal-map painting via the free Youku Paint extension, and (6) the Blender 5.0 Instances on Elements modifier for vertex-group-masked scattered surface details (rivets/bolts) with Realized Instances for baking.
 - **File:** tutorials/6-panel-cut-tips---blender-secrets.md
 
 

@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=IZFniY_vyGo
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.0+ (Instances on Elements modifier is explicitly new in 5.0)"
+tags: [procedural, materials, displacement, cycles, intermediate, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/6-panel-cut-tips---blender-secrets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # 6 Panel Cut Tips - Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py 6-panel-cut-tips---blender-secrets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -129,30 +125,53 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:20] tutorials/frames/6-panel-cut-tips---blender-secrets/frame_000.jpg
+- [0:55] tutorials/frames/6-panel-cut-tips---blender-secrets/frame_001.jpg
+- [1:44] tutorials/frames/6-panel-cut-tips---blender-secrets/frame_002.jpg
+- [2:20] tutorials/frames/6-panel-cut-tips---blender-secrets/frame_003.jpg
+- [2:57] tutorials/frames/6-panel-cut-tips---blender-secrets/frame_004.jpg
+- [3:38] tutorials/frames/6-panel-cut-tips---blender-secrets/frame_005.jpg
+- [4:31] tutorials/frames/6-panel-cut-tips---blender-secrets/frame_006.jpg
+- [5:04] tutorials/frames/6-panel-cut-tips---blender-secrets/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Six distinct ways to create hard-surface panel-cut details (armor plating, machined casing seams) — non-destructive modifier stacks, sculpt-mode masking/layer brushes, texture-paint normal painting, and the Blender 5.0 Instances on Elements modifier for scattered surface details — most feeding into a baked normal map for use on low-poly geometry.
 
 ### Summary
-[PENDING EXTRACTION]
+A dense hard-surface tips reel. Frame 000 shows the payoff of method 1: a Bevel modifier (Miter Outer = Sharp, tested against Arc) on sharp-marked edges producing crisp panel seams, called out with an arrow. Frame 001 shows the same modifier stack (Subdivision → Solidify → Bevel → Subdivision) applied to a cylindrical object, producing clean panel-line geometry. Frame 002 shows method 2: drawing a panel-cut mask in Sculpt Mode with the Curve Stroke tool (Ctrl+RMB drag/click for handles/sharp corners) at Strength 1 on a dense mesh. Frame 003 shows the Mesh Filter set to Inflate being used to deflate the unmasked (inverted) region, carving the panel cut into the surface — before/after split-view. Frame 004 shows method 3: Sculpt Mode's Layer brush (subtract, persistent base) with Alt+E's stroke-method menu open, about to switch to Line for perfectly straight sculpted panel lines. Frame 005 shows method 4: painting panel depth directly onto a normal map via the free Youku Paint extension's New Layer (Bump Map channel) dialog in Texture Paint mode. Frame 006 shows method 5 in action: the Blender 5.0 Instances on Elements modifier scattering five different rivet/bolt-like detail objects around a fluted cylindrical surface via a vertex group mask. Frame 007 shows the baking step — a high-poly panel mesh baking its detail down to a normal map for a low-poly target, split view showing source geometry next to the resulting purple normal-map texture.
 
 ### Key Steps
-[PENDING EXTRACTION]
+Six independent methods, each ending in "bake to a normal map for low-poly use":
+1. **Sharp-edge + modifier stack (non-destructive, straight/diagonal cuts):** mark edges Sharp in Edit Mode; stack modifiers in order (Subdivision → Solidify/Edge Split as needed → Bevel → Subdivision); on the Bevel modifier set Miter Outer to Arc to avoid overhang artifacts at corners, 1-2 segments. For diagonal cuts, select two vertices and press J to create a new edge, then mark it Sharp too. Toggle "Display Modifier in Edit Mode" off to work faster.
+2. **Rip-edge variant (rounded corners):** instead of marking Sharp, select edges and press V to rip them; same modifier stack minus the Edge Split modifier — produces naturally rounded panel-cut corners. Both methods can be combined on the same mesh (some edges marked Sharp for straight cuts, others ripped for rounded ones).
+3. **Sculpt-mode mask + Inflate filter:** draw panel cuts with the Mask brush (Strength 1) using Curve Stroke (Ctrl+RMB drag = curve handle, Ctrl+RMB click = sharp corner, Enter to commit); set Brush Size unit to Scene so radius doesn't change with zoom; select all + X to delete the curve if not reusing it (Line Stroke method available for straight segments, Alt+E to reset stroke method to Dots); set Mesh Filter to Inflate, invert the mask (Ctrl+I) and drag left to deflate the panel-cut area; clear mask (Alt+M); optionally Quadriflow remesh at the sampled resolution and run Smooth mesh filter to soften jagged edges before baking to a normal map.
+4. **Sculpt-mode Layer brush (straight lines, most ergonomic per the author):** ensure dense geometry (Multiresolution modifier subdivided a few times); select the Layer brush, set to Subtract, reduce height, enable Persistent + click "Set Persistent Base" so repeated strokes don't accumulate depth; Alt+E → Line stroke method for straight cuts; Brush Size unit = Scene for zoom-independent radius. Note: Ctrl+Z sometimes also undoes the persistent-base state — just re-click "Set Persistent Base" if that happens.
+5. **Direct normal-map painting (no dense mesh required):** install the free Youku Paint extension, run "Quick Youku Paint Node Setup", add a new image (Normal channel, high resolution); in Texture Paint mode paint depth using Line/Curve stroke methods; bake to a real normal map via the channel's gear icon → Bake Normal Channel, then save the image. To fix mistakes, reopen the normal map in the Image Editor, sample the neutral (flat) normal color, and paint directly over problem areas either on the texture or in the 3D viewport.
+6. **Instances on Elements modifier (Blender 5.0+, scattered surface details):** create a vertex group and add target vertices to it; add the Instances on Elements modifier, pick the detail object (or a Collection of several), set the Mask field to that vertex group, adjust Scale; enable Pick Instance for correct per-point placement, and use Surface Offset to close any gap between instances and the base surface. Edit the vertex group live in Weight Paint mode (Strength 2, overlay disabled) to add/remove detail placements. Before baking to a normal/height map, enable "Realized Instances" or the instances won't appear in the bake.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Modifiers:** Bevel (Miter Outer = Arc, 1-2 segments), Solidify, Edge Split, Subdivision Surface (Catmull-Clark), Multiresolution, Instances on Elements (Blender 5.0+: Instance On field, Instance Type Object/Collection, Mask vertex group, Pick Instance, Realized Instances, Surface Offset).
+- **Sculpt tools:** Mask brush (Strength, Curve Stroke, Line Stroke), Mesh Filter (Inflate, Smooth), Layer brush (Subtract, Persistent Base), Brush Size Unit (Scene vs View).
+- **Texture Paint / extension:** Youku Paint (free) — Bump/Normal channel node setup, Bake Normal Channel.
+- **Baking:** high-poly detail → normal map for low-poly target, standard for all six methods.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate to Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.0+ (Instances on Elements modifier is explicitly stated as new in Blender 5.0; other five methods are version-agnostic modifier/sculpt workflows usable in any modern Blender)
 
 ### Tags
-[PENDING EXTRACTION]
+procedural, materials, displacement, cycles, intermediate, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [How to Texture Realistic Buildings in Blender](how-to-texture-realistic-buildings-in-blender-b3d.md) — shares materials, procedural, displacement, intermediate; similar detail/wear-baking philosophy applied to a different surface domain.
+- [How to Make Cyberpunk Scenes in Blender](how-to-make-cyberpunk-scenes-in-blender.md) — shares materials, procedural, displacement, intermediate.
