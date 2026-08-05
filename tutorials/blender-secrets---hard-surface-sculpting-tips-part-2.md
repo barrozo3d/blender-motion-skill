@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=f8xoUkPY4e8
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (Dyntopo/Multires/Mask Extract workflow, 3.x-5.x)"
+tags: [organic, procedural, materials, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---hard-surface-sculpting-tips-part-2/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Secrets - Hard Surface Sculpting Tips Part 2
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-secrets---hard-surface-sculpting-tips-part-2 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Base mesh sculpting [0:00]
@@ -121,30 +117,54 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:15] tutorials/frames/blender-secrets---hard-surface-sculpting-tips-part-2/frame_000.jpg
+- [0:58] tutorials/frames/blender-secrets---hard-surface-sculpting-tips-part-2/frame_001.jpg
+- [1:15] tutorials/frames/blender-secrets---hard-surface-sculpting-tips-part-2/frame_002.jpg
+- [1:45] tutorials/frames/blender-secrets---hard-surface-sculpting-tips-part-2/frame_003.jpg
+- [2:15] tutorials/frames/blender-secrets---hard-surface-sculpting-tips-part-2/frame_004.jpg
+- [2:55] tutorials/frames/blender-secrets---hard-surface-sculpting-tips-part-2/frame_005.jpg
+- [3:25] tutorials/frames/blender-secrets---hard-surface-sculpting-tips-part-2/frame_006.jpg
+- [4:35] tutorials/frames/blender-secrets---hard-surface-sculpting-tips-part-2/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Part 2 of a hard-surface sculpting series (a helmet/creature-head hybrid is the running example): organic base-mesh blocking with standard sculpt brushes, Mask+Mesh-Filter panel-cut carving, Mask Extract for splitting a design into separately-sculptable sub-objects with automatic Solidify thickness, and the Line Project tool for fast flat hard-surface faceting.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the very start: a Dyntopo-sculpted organic base blob (round cube pushed/pulled with Grab/Snake Hook/Clay Strip/Crease/Scrape/Smooth brushes) already reading as a horned helmet silhouette. Frame 001 shows the panel-cut stage: the same shape now covered in an angular armor-plate pattern carved via Mask+Inflate, tool menu open on the left. Frame 002 shows the refined, remeshed-and-smoothed result of that same panel-cut pass — crisp raised plate seams with clean geometry. Frame 003 shows the Mask Extract setup: a Curve-stroke mask being drawn (orange highlighted path with red arrow) to define a plate boundary that will be extracted as a separate object. Frame 004 shows the Mask Extract operator's redo panel (Add Boundary Loop, Smooth Iterations, Apply Shrinkwrap) immediately after extraction — one helmet plate has now become its own detached shell. Frame 005 shows that extracted plate mid-refinement, with its own Solidify-modifier thickness and a visible extruded rim (orange outline) around the panel edges. Frame 006 shows close-up detail sculpting on one such extracted plate — sharper, more defined panel-line grooves being refined individually. Frame 007 shows the Line Project section's starting point: a plain Round Cube primitive (from the Extra Objects add-on) set to a low-facet Quadsphere shape, about to be faceted with the Line Project tool.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Base mesh sculpting:** start from a Round Cube (Extra Objects add-on); use the Grab brush to push/pull the overall shape; with Dyntopo enabled, Snake Hook pulls out new geometry (e.g. a horn); Clay Strip adds/removes volume (hold Shift to smooth); Crease sketches refinement lines; Scrape flattens areas into more angular hard-surface planes; Smooth erases mistakes.
+2. **Panel cuts via Mask + Mesh Filter Inflate:** draw panel-cut lines with the Mask brush using Curve Stroke for clean angular shapes; enable Symmetry for matching both sides; open the Tool panel's Mesh Filter, set Filter Type to Inflate, and drag right to inflate the masked/unmasked regions into raised plates; Alt+M to clear the mask; switch Filter Type to Smooth; it's a good idea to Remesh at this point (sample the current geometry resolution, click Remesh, wait), then drag right again with the Smooth filter for a final clean pass.
+3. **Mask Extract to split high-poly designs into sub-objects:** once a rough base shape exists, press E for a hard-surface-friendly stroke method (e.g. Curve) and draw panel-cut lines with the Mask tool; Ctrl+I to invert the mask; before extracting, Remesh the object down to a lighter resolution (enable "Paint Mask" in the Remesh options first so the mask survives the remesh) at whatever Voxel Size looks reasonable; go to Mask → Mask Extract, click OK — this creates new standalone geometry from the masked region (an automatic Solidify modifier is added, whose thickness can be increased). Hide the original base mesh in the Outliner once its plates have been extracted; if needed, unhide it, select all vertices in Edit Mode and scale down slightly so the base sits just under the plates. Add a Remesh modifier to the new extracted geometry (doesn't need to be high-res), right-click → Visual Geometry to Mesh to apply all modifiers, and use Mesh Filter → Smooth to clean up the result.
+4. **Separate multiple extracted pieces into individual objects:** select all in Edit Mode, press P → Separate by Loose Parts. To sculpt on a specific piece afterward, hover over it and press Alt+Q (or click to the left of its name in the Outliner) — the actively-sculptable object is marked with a brush icon.
+5. **Detail individual plates:** use the Scrape brush with a Line or Curve stroke method to bevel plate edges; add a Multiresolution modifier to increase resolution and sculpt fine detail using alpha textures (referenced as covered more fully in "Part 1" of this series). By default a Multires modifier only shows sculpted detail on the currently active object — select all objects you want to sculpt together first if working across several plates, and use Mesh Filter → Smooth across the whole selection when needed.
+6. **Line Project for fast hard-surface faceting:** add a Round Cube (Extra Objects add-on) set to Quadsphere type with Arc value 100+ for a dense enough base; in Sculpt Mode select the Line Project tool; if the Quadsphere is too low-res, go back to Object Mode, right-click → Change Round Cube, and raise the Arc value. Enable Mesh Symmetry; drag the LMB to draw a flattening line-cut; press F to flip the flattening direction; hold Spacebar to reposition the line mid-draw; hold Ctrl to constrain the angle; enable "Limit to Segment" to restrict the effect to only where the line was drawn. Line Project flattens geometry but performs no actual boolean cut, so remeshing afterward is recommended — press Shift+R to preview the remesh resolution, then Ctrl+R to commit the remesh, making it easier to keep sculpting cleanly. New Round Cubes remember the previously-used settings.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Sculpt brushes:** Grab, Snake Hook (with Dyntopo), Clay Strip, Crease, Scrape, Smooth, Mask (Curve/Line stroke methods), Line Project.
+- **Mesh Filter:** Inflate, Smooth (Tool panel).
+- **Mask operations:** Ctrl+I (invert), Alt+M (clear), Mask → Mask Extract (Add Boundary Loop, Smooth Iterations, Apply Shrinkwrap options).
+- **Modifiers:** Solidify (auto-added by Mask Extract), Remesh (Voxel Size, Paint Mask option to preserve mask through remesh), Multiresolution (for alpha-texture detail sculpting).
+- **Add-on:** Extra Objects (Round Cube primitive, Quadsphere type with Arc value).
+- **Edit-mode/object operators:** P → Separate by Loose Parts, Alt+Q (set active sculpt object), right-click → Visual Geometry to Mesh, right-click (Object Mode) → Change Round Cube.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Dyntopo/Multires sculpt workflow with Mask Extract and Line Project, consistent with modern Blender 3.x-5.x.
 
 ### Tags
-[PENDING EXTRACTION]
+organic, procedural, materials, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender Secrets - Auto Masking Cavities in Sculpt Mode](blender-secrets---auto-masking-cavities-in-sculpt-mode.md) — shares organic, procedural; same channel, complementary Sculpt Mode masking technique.
+- [6 Panel Cut Tips - Blender Secrets](6-panel-cut-tips---blender-secrets.md) — shares procedural, materials, advanced; same channel, directly overlapping panel-cut/hard-surface-detailing subject from a modifier-based (rather than sculpt-based) angle.

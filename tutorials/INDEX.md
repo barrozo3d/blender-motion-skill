@@ -2047,9 +2047,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=f8xoUkPY4e8
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Dyntopo/Multires/Mask Extract workflow, 3.x-5.x)
+- **Tags:** #organic #procedural #materials #advanced
+- **Summary:** Part 2 of a hard-surface sculpting series (helmet/creature-head example): Dyntopo base-mesh blocking (Grab/Snake Hook/Clay Strip/Crease/Scrape/Smooth); panel cuts via Mask+Mesh-Filter-Inflate+Remesh; Mask Extract to split a design into separately-sculptable sub-objects (auto Solidify thickness, Paint-Mask-preserving Remesh beforehand, Separate by Loose Parts, Alt+Q to pick the active sculpt target); Multires+alpha detailing; and the Line Project tool for fast flat faceting on a Round-Cube Quadsphere (Ctrl-constrain angle, Limit to Segment, remesh afterward since it doesn't boolean-cut).
 - **File:** tutorials/blender-secrets---hard-surface-sculpting-tips-part-2.md
 
 
