@@ -1907,9 +1907,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=AxDXWgFDwLA
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 3.2+ (Color Attributes bake workflow)
+- **Tags:** #materials #procedural #organic #cycles #advanced
+- **Summary:** Merges two textured 3D scans (deer head + cow body example) without losing either texture: boolean-trim + Proportional-Editing overlap blend + matched UV map names + BoolTool join, then Dyntopo-sculpt the seam on a texture-free duplicate (Dyntopo strips texture, hence the duplicate), and finally Cycles-bake the original's texture (Emit or Diffuse channel, Selected to Active, Extrusion ~0.2) onto the sculpted duplicate as a Color Attribute (vertex colors) — viewable via Color Attribute viewport shading and touch-up-paintable with the Sculpt Paint tool.
 - **File:** tutorials/blender-secrets---how-to-merge-3d-scans-and-bake-the-texture-as-color-attributes.md
 
 

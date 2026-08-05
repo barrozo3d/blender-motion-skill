@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=AxDXWgFDwLA
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "3.2+ (Color Attributes bake workflow)"
+tags: [materials, procedural, organic, cycles, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---how-to-merge-3d-scans-and-bake-the-texture-as-color-attributes/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Secrets - How to merge 3D Scans and bake the Texture as Color Attributes
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-secrets---how-to-merge-3d-scans-and-bake-the-texture-as-color-attributes <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -95,30 +91,57 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:35] tutorials/frames/blender-secrets---how-to-merge-3d-scans-and-bake-the-texture-as-color-attributes/frame_000.jpg
+- [0:55] tutorials/frames/blender-secrets---how-to-merge-3d-scans-and-bake-the-texture-as-color-attributes/frame_001.jpg
+- [1:20] tutorials/frames/blender-secrets---how-to-merge-3d-scans-and-bake-the-texture-as-color-attributes/frame_002.jpg
+- [1:50] tutorials/frames/blender-secrets---how-to-merge-3d-scans-and-bake-the-texture-as-color-attributes/frame_003.jpg
+- [2:05] tutorials/frames/blender-secrets---how-to-merge-3d-scans-and-bake-the-texture-as-color-attributes/frame_004.jpg
+- [2:45] tutorials/frames/blender-secrets---how-to-merge-3d-scans-and-bake-the-texture-as-color-attributes/frame_005.jpg
+- [3:15] tutorials/frames/blender-secrets---how-to-merge-3d-scans-and-bake-the-texture-as-color-attributes/frame_006.jpg
+- [3:40] tutorials/frames/blender-secrets---how-to-merge-3d-scans-and-bake-the-texture-as-color-attributes/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Merge two separately-textured 3D scans into one seamless object (demoed as a deer head grafted onto a cow body) without losing either texture: boolean-trim + join the meshes, Dyntopo-sculpt the seam on a texture-free duplicate, then bake the original photoscan textures back onto that sculpted duplicate as Color Attributes (vertex colors).
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the prep stage: a cow scan (black-and-white photoscanned texture) with a boolean cutter cube positioned to trim away the unwanted head. Frame 001 shows Proportional Editing (O, adjustable falloff circle) being used to smoothly reposition/blend the overlap area between the two scan parts before joining. Frame 002 shows the successful result: a deer head seamlessly boolean-joined (BoolTool, Ctrl+Numpad+, Union) onto the cow body — bounding box outline still visible, "Ctrl+[+]" shortcut hint confirming the join method. Frame 003 shows the Dyntopo sculpting stage on the seam: red matcap shading with the Dyntopo detail menu open (Constant Detail / Relative Detail / Brush Detail options, arrow pointing at it) — texture is grayed out at this point since Dyntopo strips it. Frame 004 shows the Clay Strips brush actively blending the seam on the deer-cow hybrid (still in matcap red, texture-free). Frame 005 shows the Cycles Bake node setup used afterward: an Emission shader chain (Texture Coordinate → Mapping → Image Texture → Emission → Material Output) — matching the transcript's note that the original texture was wired through Emission rather than Diffuse. Frame 006 shows the actual Bake panel mid-setup: Selected to Active checked, Bake Type = Emit, Margin/Extrusion settings visible, with the full-color textured deer-cow model now shown (orange selection outline) ready to bake onto the hidden duplicate. Frame 007 shows the final payoff: the fully colored, seamless deer-cow hybrid displayed via Color Attribute viewport shading directly on the sculpted/baked duplicate — with the Paint tool active in Sculpt Mode's tool list for final touch-up blending.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Prep both scans:** ensure both objects have enough geometry (add and apply a Subdivision modifier if not); for dense scans, remove doubled vertices first (Edit Mode, M → By Distance) to avoid problems later.
+2. **Trim unwanted geometry:** use a boolean cutter object to remove parts you don't need from either scan; apply the Boolean modifier and delete the cutter/bounding-box object afterward.
+3. **Position the overlap:** move/rotate the two objects so they overlap as intended; use Proportional Editing (press O, scroll to adjust the influence radius) to smoothly blend how the surfaces overlap where they'll be joined.
+4. **Match UV map names:** before joining, make sure both objects' UV maps have the exact same name (the name itself doesn't matter, only that it matches) — otherwise one object loses its texture after joining.
+5. **Join via BoolTool:** select both objects and press Ctrl+Numpad+ to union-join them with BoolTool. Inspect the model's interior afterward — if leftover intersecting geometry wasn't cleanly removed, enable "Hole Tolerant" on the Boolean modifier and re-apply, then delete the bounding box.
+6. **Sculpt the seam on a texture-free duplicate:** duplicate the joined object and hide the original (which retains its texture); switch the duplicate to Sculpt Mode, use a matcap for clarity, enable Dyntopo with Constant Detail (sample part of the model to set an appropriate resolution) — Dyntopo makes seam-sculpting easy but destroys texture info, which is exactly why a duplicate is used instead of the original. Use Clay Strips and Smooth to blend the seam geometry together.
+7. **Bake original texture back onto the sculpted duplicate as Color Attributes (vertex colors):** add a Color Attribute to the duplicate. In the Outliner, select the original textured mesh first, then Ctrl-select the duplicate as well (note: selection order convention flips — in the 3D viewport itself you'd need Shift instead of Ctrl for the same source→target order). In the Cycles Bake panel, set Bake Type to whichever shader channel the original texture is actually plugged into (Emit if it's wired through an Emission shader, as in this example; Diffuse if it's the base color — in that case also disable Direct and Indirect so lighting doesn't influence the bake). Check "Selected to Active" so it bakes from the original onto the duplicate; set Output to Active Color Attribute; make sure you're in Object Mode, then click Bake.
+8. **View and refine the result:** once baked, hide the original mesh again; enable Color Attribute in Viewport Shading options to see the baked colors in Object/Sculpt Mode. If the bake has gaps or misses geometry, increase the Extrusion value (acts like a bake cage — 0.2 is often a good starting value) and re-bake with the same selection order. Use the Paint tool in Sculpt Mode to manually touch up color at the seam — press S to sample the color under the cursor, and use a low brush Strength for gradual blending.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Mesh cleanup:** Subdivision modifier (apply if geometry is too sparse), M → By Distance (remove doubles on dense scans).
+- **Boolean:** BoolTool (Ctrl+Numpad+ join/union), Boolean modifier's Hole Tolerant option for imperfect intersections.
+- **Editing:** Proportional Editing (O, scroll for radius) for smooth overlap blending.
+- **Sculpt:** Dyntopo (Constant Detail, sampled resolution), Clay Strips, Smooth, Paint tool (S to sample color, low Strength for blending).
+- **Shading (source texture, example used Emission):** Texture Coordinate → Mapping → Image Texture → Emission → Material Output.
+- **Baking (Cycles):** Selected to Active, Bake Type (Emit or Diffuse with Direct/Indirect disabled), Output = Active Color Attribute, Extrusion (bake-cage-like offset, ~0.2 often works well), Object Mode required.
+- **Viewport:** Color Attribute shading mode (to preview baked vertex colors without a texture).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — "Color Attributes" (the modern renamed term for vertex colors) and Cycles Bake-to-Color-Attribute workflow are consistent with Blender 3.2+.
 
 ### Tags
-[PENDING EXTRACTION]
+materials, procedural, organic, cycles, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender Secrets - Hard Surface Sculpting Tips](blender-secrets---hard-surface-sculpting-tips.md) — shares organic, materials, advanced; same channel, complementary sculpt-mode masking/detailing knowledge.
+- [Blender Secrets - 6 Minutes of Boolean Basics](blender-secrets---6-minutes-of-boolean-basics.md) — shares materials, procedural; same channel, directly relevant BoolTool/Boolean-modifier fundamentals used here for the scan-trimming step.
