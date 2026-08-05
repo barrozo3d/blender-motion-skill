@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=d16IOajUwIc
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (Rigidbody/NLA/Rokoko/Mixamo workflow, 2.9x-4.x)"
+tags: [rigid-body, simulation, animation, rigging, expert]
+extraction_status: complete
 frames_dir: tutorials/frames/combining-ragdoll-physics-with-motion-capture-animation-rokoko-smartsuit-2-blend/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Combining Ragdoll physics with Motion Capture animation | Rokoko Smartsuit 2 | Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py combining-ragdoll-physics-with-motion-capture-animation-rokoko-smartsuit-2-blend <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -172,30 +168,61 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:45] tutorials/frames/combining-ragdoll-physics-with-motion-capture-animation-rokoko-smartsuit-2-blend/frame_000.jpg
+- [1:35] tutorials/frames/combining-ragdoll-physics-with-motion-capture-animation-rokoko-smartsuit-2-blend/frame_001.jpg
+- [2:05] tutorials/frames/combining-ragdoll-physics-with-motion-capture-animation-rokoko-smartsuit-2-blend/frame_002.jpg
+- [3:20] tutorials/frames/combining-ragdoll-physics-with-motion-capture-animation-rokoko-smartsuit-2-blend/frame_003.jpg
+- [4:35] tutorials/frames/combining-ragdoll-physics-with-motion-capture-animation-rokoko-smartsuit-2-blend/frame_004.jpg
+- [5:05] tutorials/frames/combining-ragdoll-physics-with-motion-capture-animation-rokoko-smartsuit-2-blend/frame_005.jpg
+- [7:55] tutorials/frames/combining-ragdoll-physics-with-motion-capture-animation-rokoko-smartsuit-2-blend/frame_006.jpg
+- [10:50] tutorials/frames/combining-ragdoll-physics-with-motion-capture-animation-rokoko-smartsuit-2-blend/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Seamlessly blend Rigidbody ragdoll physics (for an impact/stunt/fall) with Rokoko motion-capture animation (for the walk-in and get-up), by treating the three phases as separate NLA-blended animation layers/actions rather than trying to force one unified rig to do everything — including an improvised "root bone" workaround for Mixamo rigs (which lack one) so the ragdoll's end position can be reconciled with the mocap's world-space starting point.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the ragdoll setup being physically tested in isolation: a falling cylinder about to strike a cube collider, with a small humanoid ragdoll already knocked down nearby — confirming the pre-built ragdoll (with rotation-constrained joints) the author distributes for download. Frame 001 shows the Mixamo Auto-Rigger comparison: "Original" vs. "Auto-rigged" T-pose side by side, illustrating why re-downloading in T-pose with Automatic Bone Rotation matters for clean retargeting. Frame 002 shows the Rokoko Retargeting add-on's UI mid-process: a mocap skeleton, a small ragdoll rig, and the target character all visible together, with Source/Target armature dropdowns and a "Build Bone List" / retarget panel open. Frame 003 shows a hitbox cube with "In Front" display revealing the character's stick-figure armature bones through it, plus the Rigidbody World panel (Steps Per Frame, Solver Iterations, Split Impulse) in the sidebar. Frame 004 shows the ragdoll mid-stunt: the character's real mesh (pink) next to its blue ragdoll hitbox proxy, captured mid-fall/kick with visible physics deformation. Frame 005 shows a further stage of the same stunt, the ragdoll now airborne/tumbling next to the character's posed mesh — this is the hand-posed "Stunt" animation layer being fit to match the ragdoll sim's silhouette. Frame 006 shows the Non-Linear Animation editor with a "Getting Up" action strip (orange, selected) above two other layers, positioned in the 3D viewport where the character (small figure) stands separate from the ragdoll's resting pose. Frame 007 shows the same NLA strip now highlighted green (active/selected) with its blend-in region visible as a small triangular fade at the strip's start — the final blend-tuning stage.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Prepare a constrained ragdoll:** use (or download the author's pre-built) ragdoll rig with rotation constraints on each joint so limbs can't bend into impossible angles; hitboxes must be set to start **deactivated** so physics only kicks in once something else collides with them; rigidbody Connection Empties must be parented to their hitboxes for the joint constraints to actually work (already handled in the provided file).
+2. **Record or source mocap:** capture motion with a Rokoko Smartsuit, or use Rokoko's motion library (including free entries) for actions you can't perform yourself.
+3. **Rig the target character (if needed):** use the free Mixamo Auto-Rigger; download in T-pose with Automatic Bone Rotation checked on import — this produces a cleaner T-pose than the source mesh's original pose and is important for accurate retargeting later. Set the armature's Viewport Display to In Front + Sticks for clarity while working.
+4. **Retarget mocap onto the character:** import the mocap FBX; rename both armatures beforehand to avoid confusion; use the free Rokoko Retargeting add-on — pick Source and Target armatures, click Build Bone List, review it for mistakes, then click Retarget Animation; delete the now-unneeded source armature afterward.
+5. **(Optional) Use the Animation Layers add-on** (commercial; free alternatives exist per the author's other videos) for easier iterative posing: enable a new layer, turn on Auto-Keying, add adjustment keys, then remember to turn Auto-Keying back off when done.
+6. **Set up the stunt/impact trigger:** append the ragdoll collection from the separate ragdoll file; go to the frame where the stunt should occur, move the ragdoll to roughly overlap the character. Snap the 3D cursor to the relevant bone (e.g. the foot that makes contact), add a small cube there (Shift+S or cursor-to-selected style workflow), scale it down, make it a Rigidbody set to Passive + Animated, then in Pose Mode select the cube then the armature and Ctrl+P → Bone to parent the cube to that bone — the passive rigidbody cube now follows the kicking foot and can trigger the ragdoll on contact. (Alternative: use a separately-animated passive rigidbody object instead of parenting to a bone, for more control over impact speed/timing.) The floor also needs to be a passive rigidbody collider.
+7. **Bake the physics:** once satisfied, select all hitboxes and Bake the Rigidbody simulation to keyframes — this locks the ragdoll animation in permanently so it can't be lost or accidentally re-simulated; the trigger cube can then be hidden or deleted. If the ragdoll's reaction starts too early, select all hitboxes in the Ragdoll Collection and press G to shift all their keyframes forward in time together.
+8. **Hand-pose a "Stunt" layer to bridge the mesh to the ragdoll:** unhide the real character, create a new animation layer named "Stunt"; in Pose Mode with Auto-Keying on, set a Location+Rotation keyframe on all bones just before impact, then step forward a few frames at a time, posing the character to roughly match the ragdoll's silhouette at each point (poses don't need to match exactly — "good enough" reads fine). Use Alt+click on In Front / Display As Wire toggles to apply the setting to all selected hitboxes at once for easier visual comparison; Alt+R resets a bone's rotation if it ends up in a broken pose. Fewer, well-chosen keyframes are often enough — density depends on how realistic vs. stylized the result should look.
+9. **Add the "getting up" mocap for after the fall:** import that mocap FBX into a fresh file containing just the character, retarget as before, delete unneeded keyframes, and fix any clipping (e.g. hands into torso, from body-proportion mismatch with the original mocap performer) via the Graph Editor — select the bone, press Home to frame all its keys, double-click a rotation channel, then G, Y to nudge keys up/down on that channel. Rename the resulting action clearly in the Dope Sheet's Action Editor, and save that file separately.
+10. **Blend the ragdoll end-pose into the "Getting Up" mocap via NLA:** back in the main file, open a Non-Linear Animation editor (optionally isolate to the selected object's tracks); append the "Getting Up" action from the other file; select the top NLA track, add a new track, Shift+A to add that action as a strip; trim its start with Y (split) and delete the unneeded portion; set a short Blend In value (e.g. 1 frame) and move the whole strip to roughly where it should start (e.g. ~frame 400).
+11. **Fix root-bone-less Mixamo rigs:** Mixamo rigs don't ship with a root bone, which makes it hard to reposition the character in world space for a clean handoff between the ragdoll end pose and the mocap's own starting location. Fix: in Edit Mode, extrude a new bone from the hips, name it "root," then parent the hips bone to it — this improvised root bone can now be keyframed for Location/Rotation to reposition the whole character.
+12. **Match the "Getting Up" clip's start position to the ragdoll's end position:** add a new animation layer; select the root bone in Pose Mode, set a Location+Rotation keyframe on the last frame of the ragdoll animation, then move forward a frame and reposition the armature to match visually (Auto-Keying on for fast iteration, toggling back and forth between the two frames to compare). Rename the layer clearly.
+13. **Smooth the pose transition at the exact handoff point:** add another new animation layer; on the ragdoll's last frame, select all bones except root and manually set a Location+Rotation keyframe; step forward, set another keyframe; copy the last ragdoll-frame pose (Ctrl+C), paste it one frame later (Ctrl+V), and key that too so the pose is properly recorded; then move the armature back to the correct location with Auto-Keying, fine-tuning by toggling between the two frames — don't forget to disable Auto-Keying afterward. Adjust the final keyframe's timing/position if the resulting blend feels too abrupt.
+14. **Troubleshooting tip:** if moving the ragdoll causes it to "explode" chaotically, temporarily remove the Rigidbody World, reposition the ragdoll, then re-add the Rigidbody World afterward.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Physics:** Rigidbody (Hitboxes: start Deactivated; Passive + Animated for trigger objects and the floor; Connection Empties parented to hitboxes for constraints), Rigidbody World (Steps Per Frame, Solver Iterations, Split Impulse), Bake to Keyframes.
+- **Rigging/Retargeting:** Mixamo Auto-Rigger (T-pose download, Automatic Bone Rotation), Rokoko Retargeting add-on (Source/Target armature, Build Bone List, Retarget Animation), Ctrl+P → Bone (parent object to a specific bone).
+- **Animation tools:** Animation Layers add-on (commercial; new layer, Auto-Keying, adjustment keys), Non-Linear Animation editor (tracks, strips, Y to split, Blend In value, isolate-selected-object toggle), Graph Editor (Home to frame keys, double-click channel, G+Y to nudge), Dope Sheet → Action Editor (renaming actions).
+- **Pose tools:** Ctrl+C / Ctrl+V (copy/paste pose), Alt+R (reset bone rotation), Alt-click toggles (apply a display setting to all selected bones/hitboxes at once), improvised root bone (extruded from hips, hips reparented to it) for Mixamo rigs lacking one natively.
+- **Viewport:** In Front display + Sticks (armature visibility through geometry).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Expert
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Rigidbody/NLA/Graph Editor workflow with the Rokoko Retargeting and (commercial) Animation Layers add-ons, consistent with modern Blender 2.9x-4.x.
 
 ### Tags
-[PENDING EXTRACTION]
+rigid-body, simulation, animation, rigging, expert
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender Tutorial - Control Physics Sims with Geometry Nodes (Beginner Friendly)](blender-tutorial-control-physics-sims-with-geometry-nodes-be.md) — shares rigid-body, simulation, animation; different domain (Geometry Nodes physics control) but directly relevant rigid-body-simulation fundamentals.
+- [Blender Secrets - In Depth Cloth Sculpting tricks with Pose Brush](blender-secrets---in-depth-cloth-sculpting-tricks-with-pose-brush.md) — shares simulation, rigging; same channel, complementary character-animation-plus-simulation technique.

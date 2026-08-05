@@ -1787,9 +1787,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=d16IOajUwIc
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Rigidbody/NLA/Rokoko/Mixamo workflow, 2.9x-4.x)
+- **Tags:** #rigid-body #simulation #animation #rigging #expert
+- **Summary:** Blends Rigidbody ragdoll physics (constrained-joint ragdoll, deactivated-until-hit hitboxes, bone-parented trigger cube, baked to keyframes) with Rokoko-retargeted motion capture (Mixamo T-pose auto-rig, Rokoko Retargeting add-on) across three separate animation-layer/NLA-blended phases: mocap walk-in → hand-posed "Stunt" layer bridging to the physics sim → baked ragdoll impact → NLA-blended "Getting Up" mocap. Includes an improvised root-bone fix for root-less Mixamo rigs (extrude from hips) to reconcile the ragdoll's end position with the mocap clip's own starting location.
 - **File:** tutorials/combining-ragdoll-physics-with-motion-capture-animation-rokoko-smartsuit-2-blend.md
 
 
