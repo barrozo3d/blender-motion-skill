@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=jcSDF917dBo
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (core modifier/Quad-View workflow, 2.8x-5.x)"
+tags: [modelling, procedural, intermediate, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---car-modeling-tips/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Secrets - Car Modeling Tips
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-secrets---car-modeling-tips <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -80,30 +76,54 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:55] tutorials/frames/blender-secrets---car-modeling-tips/frame_000.jpg
+- [1:20] tutorials/frames/blender-secrets---car-modeling-tips/frame_001.jpg
+- [1:55] tutorials/frames/blender-secrets---car-modeling-tips/frame_002.jpg
+- [2:20] tutorials/frames/blender-secrets---car-modeling-tips/frame_003.jpg
+- [2:35] tutorials/frames/blender-secrets---car-modeling-tips/frame_004.jpg
+- [3:00] tutorials/frames/blender-secrets---car-modeling-tips/frame_005.jpg
+- [3:45] tutorials/frames/blender-secrets---car-modeling-tips/frame_006.jpg
+- [4:15] tutorials/frames/blender-secrets---car-modeling-tips/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A full hard-surface car-body modeling pipeline: multi-view blueprint reference setup, box-modeling from a single vertex under a Mirror+Subdivision modifier stack in 4-way Quad View, matcap-based smoothness checking, and a Shrink Wrap technique for cutting clean holes into a duplicated high-detail shell without pinching geometry.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the reference setup: a red Ferrari 166mm Berlinetta blueprint loaded as a Right Orthographic background/reference Empty, with front/side/rear thumbnails visible in the top-left asset list and a real-world width dimension (2250) annotated. Frame 001 shows the front blueprint being moved into a new Collection (dialog open) to organize and later disable its selectability. Frame 002 shows the core rig: a Mirror modifier (X axis, Bisect enabled, arrow pointing at it) on a cube positioned at the car's centerline over the rear blueprint. Frame 003 shows the resulting smooth, rounded starting blob after adding a Subdivision Surface modifier (Catmull-Clark) on top of the Mirror modifier. Frame 004 shows Quad View (Alt+Ctrl+Q) active — Top, Front, User Perspective, and Right Orthographic panes simultaneously — with the blocked-out car roof/window pillar shape checked against all views at once. Frame 005 shows the same Quad View mid-edit, dragging (G) a row of vertices to shape the A-pillar/roof curve, matched precisely against the blueprint in each pane. Frame 006 shows the Viewport Shading Matcap picker open with the black-and-white sphere matcap selected — used specifically to check surface smoothness/continuity without color or texture distraction. Frame 007 shows the same black-and-white matcap applied to the blocked-out car body across all four Quad View panes, revealing the surface flow clearly against the blueprint.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Get reference blueprints:** thebluprints.com is a good source, or a plain Google Image search; align the different views (front/side/rear/top) precisely against each other in external image-editing software first, and save each as a separate, clearly named file.
+2. **Load references into Blender:** press Numpad1 for Front Orthographic (View → Viewport → Front if no numpad, or Alt-orbit until it snaps); drag the front reference image directly into the front viewport, Alt+G to reset its position to origin, then drag the side reference into the side viewport — more reference views = more accuracy. Enable transparency and lower opacity for easier tracing; uncheck "Display in Perspective" so references only show in orthographic views, not perspective.
+3. **Organize references:** select all reference images, press M → New Collection, so their selectability can be toggled off later to avoid accidentally clicking them while modeling.
+4. **Set up the base modifier rig:** Tab into Edit Mode on the default cube and Subdivide once, Tab back to Object Mode, add a Mirror modifier — enable Bisect (auto-removes the far half) and On Cage (see the mirrored result live in the viewport); enable X-Ray to select vertices through the mesh. Add a Subdivision Surface modifier with Smooth Shading enabled; always keep the Mirror modifier above Subdivision in the stack for correct results as more modifiers are added.
+5. **Enable Quad View** (Alt+Ctrl+Q) to check the model against all reference angles simultaneously while modeling.
+6. **Box-model the body from scratch:** in Edit Mode, select all and delete all faces (leaving nothing but the modifier setup); create new vertices with Ctrl+RMB — each new vertex still inherits the Mirror/Subdivision modifiers from the original cube — and build the body's control cage vertex by vertex, extruding/connecting to match the blueprint silhouette from every Quad View angle. Toggle On Cage on the Subdivision modifier to fine-tune the low-poly cage while watching the smoothed result live.
+7. **Check smoothness with matcaps:** switch Viewport Shading to Matcap and pick the black-and-white matcap specifically — its high-contrast, texture-free shading makes surface flow, pinches, and continuity errors immediately visible.
+8. **Cut clean holes (windows, grilles, etc.) without pinching:** in Object Mode, duplicate the finished smooth body; cut the actual holes into the duplicate. Increase the Subdivision level on the original (un-holed) part so it's extra-smooth, then hide it. Add a Shrink Wrap modifier to the holed duplicate targeting the hidden original — this makes the cut-open duplicate conform tightly to the original's smooth underlying surface, preventing the pinching artifacts that direct boolean/cut operations on a shared mesh would otherwise cause. The Shrink Wrap modifier must sit below the Subdivision modifier in the duplicate's stack.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Modifiers:** Mirror (Axis X, Bisect, On Cage, Clipping, Merge), Subdivision Surface (Catmull-Clark, Levels Viewport/Render, Smooth Shading), Shrink Wrap (target = hidden high-subdivision original, placed below Subdivision in the stack).
+- **Reference setup:** Image as background/reference Empty (Depth, Side, Opacity, Display in Orthographic/Perspective toggle), Collections (for selectability toggling).
+- **Viewport:** Quad View (Alt+Ctrl+Q), X-Ray toggle, Matcap shading (black-and-white matcap for smoothness checks).
+- **Edit-mode operators:** Ctrl+RMB (create new vertex, inherits modifiers), Alt+G (clear/reset location).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — core modifier/reference/Quad-View workflow, version-agnostic across modern Blender (2.8x-5.x).
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, procedural, intermediate, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [6 Panel Cut Tips - Blender Secrets](6-panel-cut-tips---blender-secrets.md) — shares procedural, intermediate, advanced; same channel, complementary hard-surface detailing once the car body shell exists.
+- [4 new retopology tips to discover! - Blender Secrets](4-new-retopology-tips-to-discover---blender-secrets.md) — shares modelling, intermediate; same channel, relevant to cleaning up the final car body topology.

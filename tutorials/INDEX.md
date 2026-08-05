@@ -1947,9 +1947,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=jcSDF917dBo
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (core modifier/Quad-View workflow, 2.8x-5.x)
+- **Tags:** #modelling #procedural #intermediate #advanced
+- **Summary:** Full hard-surface car-body pipeline: aligned multi-view blueprint reference setup (Collections for selectability toggling, opacity/perspective-display tuning); box-modeling from a single vertex under a Mirror(Bisect,On Cage)+Subdivision modifier stack in 4-way Quad View (Alt+Ctrl+Q); black-and-white matcap smoothness checking; and a Shrink Wrap technique (holed duplicate conforming to a hidden, extra-smooth original) for cutting clean windows/grilles without pinching geometry.
 - **File:** tutorials/blender-secrets---car-modeling-tips.md
 
 
