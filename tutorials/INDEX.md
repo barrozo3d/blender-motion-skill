@@ -2117,9 +2117,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=IcL7N335oCk
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (BlenderGIS + Gaffer add-on workflow, 2.8x-4.x)
+- **Tags:** #procedural #materials #lighting #hdri #rendering #cycles #advanced
+- **Summary:** Real-world terrain render using the BlenderGIS add-on: load/lock/zoom a real satellite basemap (e.g. the Matterhorn) and download its height map for accurate displaced terrain, subdivide for detail, fix the shiny default material (lower Specular, raise Roughness), light with Gaffer HDRIs, and handle the resulting massive real-world-scale mesh (increased Camera Clip End, Simple viewport display, DOF Empty target, 30mm lens). Includes a render-crash fix: scale up the camera, delete everything outside its frustum to cut memory usage before rendering.
 - **File:** tutorials/blender-secrets---blender-gis-extra-bonus-tutorial.md
 
 

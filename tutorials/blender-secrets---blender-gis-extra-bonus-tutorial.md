@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=IcL7N335oCk
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (BlenderGIS + Gaffer add-on workflow, 2.8x-4.x)"
+tags: [procedural, materials, lighting, hdri, rendering, cycles, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---blender-gis-extra-bonus-tutorial/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Secrets - Blender GIS (Extra Bonus Tutorial)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-secrets---blender-gis-extra-bonus-tutorial <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -141,30 +137,59 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:20] tutorials/frames/blender-secrets---blender-gis-extra-bonus-tutorial/frame_000.jpg
+- [1:45] tutorials/frames/blender-secrets---blender-gis-extra-bonus-tutorial/frame_001.jpg
+- [2:25] tutorials/frames/blender-secrets---blender-gis-extra-bonus-tutorial/frame_002.jpg
+- [2:54] tutorials/frames/blender-secrets---blender-gis-extra-bonus-tutorial/frame_003.jpg
+- [3:20] tutorials/frames/blender-secrets---blender-gis-extra-bonus-tutorial/frame_004.jpg
+- [4:15] tutorials/frames/blender-secrets---blender-gis-extra-bonus-tutorial/frame_005.jpg
+- [5:20] tutorials/frames/blender-secrets---blender-gis-extra-bonus-tutorial/frame_006.jpg
+- [6:30] tutorials/frames/blender-secrets---blender-gis-extra-bonus-tutorial/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Real-world terrain generation using the BlenderGIS add-on: import a real satellite basemap and height-map displacement for an actual mountain location (the Matterhorn), then dress it into a cinematic HDRI-lit render with camera framing, depth of field, and a memory-optimization trick for rendering a massive real-world-scale mesh.
 
 ### Summary
-[PENDING EXTRACTION]
+A screen-recorded walkthrough (looser, narrated "here's how I actually did it" style) recreating the author's Matterhorn render. Frame 000 shows the GIS add-on's basemap-loading dialog next to a live-updating satellite preview panel. Frame 001 shows zooming into the correct real-world location (Swiss Alps/Matterhorn area) within that satellite basemap viewer. Frame 002 shows the payoff of the locked, high-resolution basemap + downloaded height map: a 3D textured terrain plane matching the satellite image exactly, viewed side-by-side with the source imagery. Frame 003 shows the material fix in progress — a Shader Editor node graph (Base Color/Specular/Roughness sockets visible) being adjusted per the transcript's "reduce specularity, increase roughness" tip so the terrain doesn't read as shiny plastic. Frame 004 shows the object's right-click context menu open over the terrain (Shade Smooth/Subdivide-adjacent options), consistent with the "subdivide in Edit Mode for enough detail" step. Frame 005 shows Camera Perspective view with the camera's view-frustum bounds drawn directly over the mountain terrain, framing a dramatic angle before rendering. Frame 006 shows an Image-as-Planes background texture (dawn/dusk sky photo) lined up behind the terrain from the camera's point of view, with the World/Background node visible in the properties panel. Frame 007 shows the finished cinematic render: golden-hour lit jagged peaks with volumetric-looking atmosphere and shallow depth of field in the foreground.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Import real-world terrain via BlenderGIS:** open the GIS menu → load the basemap (loads the whole Earth as a live satellite viewer); zoom/pan to the target real-world location; press L to lock the selected region once framed correctly, then scroll the mouse wheel to increase resolution without changing the region (this download can take up to ~20 minutes at high resolution).
+2. Download the height map for that same locked region (a few to ten minutes) — this produces a textured, displaced terrain plane matching the real landscape.
+3. **Preserve the download:** embed the downloaded texture in the .blend file and save immediately — if Blender crashes, an un-embedded high-res height map/texture download is lost.
+4. **Add detail:** Subdivide the terrain plane in Edit Mode — the raw GIS mesh doesn't have enough resolution/detail on its own for a close-up cinematic render.
+5. **Fix the material:** reduce Specular and increase Roughness on the terrain's Principled BSDF — the default GIS-imported material reads unrealistically shiny/plastic-like otherwise.
+6. **HDRI lighting:** add an HDRI environment via the Gaffer add-on (fast HDRI browsing/downloading, sourced mostly from HDRI Haven / Poly Haven) for realistic outdoor lighting.
+7. **Handle the huge mesh:** enable Simple/Wireframe-style display for the terrain object in the viewport so Blender stays responsive with that many subdivisions; increase the Camera's Clip End distance since a real-world-scale mesh this large otherwise falls outside the default clipping range; Lock Camera to View to freely fly around and find a composition.
+8. **Cinematic camera setup:** pick a ~30mm focal length for a dramatic wide-angle look; add an Empty as the camera's Depth of Field focus target (note: at this real-world scale the DOF effect may barely read — try scaling the Empty/adjusting focus distance to get visible blur); increase mountain height via the Displace modifier's strength if the default relief looks too flat/boring.
+9. **Background sky:** import a sky/dusk photo via Images as Planes, line it up behind the terrain from the camera's POV (the author notes he should have parented this plane to the camera to avoid re-aligning it after every camera move, but didn't).
+10. **Animate:** rotate the HDRI and set up a simple camera move; keyframes can be scaled directly in the Timeline for quick timing adjustments.
+11. **Render-crash fix for massive meshes:** if Blender crashes on render due to the huge real-world-scale terrain, scale up the Camera object itself so its view frustum ("camera fulcrum") encompasses more of the scene at a coarser transform scale, select everything outside that frustum and delete it — this drastically cuts memory usage and makes the render actually completable.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Add-on:** BlenderGIS (basemap loading/locking/resolution, height-map download), Gaffer (HDRI browsing/auto-download), Images as Planes (background sky photo).
+- **Shading:** Principled BSDF (lowered Specular, raised Roughness for realistic terrain material).
+- **Modifiers:** Displace (mountain height/relief strength).
+- **Camera:** Clip End (increased for real-world-scale meshes), 30mm focal length, Depth of Field target Empty, Lock Camera to View.
+- **Viewport:** Simple/Wireframe display mode for large meshes to keep the viewport responsive.
+- **Workflow trick:** scale up camera + delete geometry outside its frustum to reduce render memory footprint on massive real-world-scale scenes.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — BlenderGIS + Gaffer add-on workflow, consistent with modern Blender 2.8x-4.x.
 
 ### Tags
-[PENDING EXTRACTION]
+procedural, materials, lighting, hdri, rendering, cycles, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender Secrets - 4 tips for Cinematic Lighting](blender-secrets---4-tips-for-cinematic-lighting.md) — shares lighting, hdri, materials, cycles; same channel, same Gaffer add-on referenced in both.
+- [Blender Secrets - 4 tips for Photoreal Lighting](blender-secrets---4-tips-for-photoreal-lighting.md) — shares lighting, hdri, cycles, materials, rendering; same channel, directly complementary (HDRI/photoreal outdoor lighting fundamentals applied here to a real terrain).
