@@ -2037,9 +2037,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=_S3D8djM5bE
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Boolean Fast/Exact solver + BoolTool add-on, 2.9x-5.x)
+- **Tags:** #procedural #modelling #materials #intermediate
+- **Summary:** Full non-destructive Boolean hard-surface workflow: modifier-based Boolean Difference with cutter objects hidden via Wire display or render-visibility toggle; the BoolTool add-on's Ctrl+Numpad− fast live/destructive cutting (cutter stays editable as a bounding box); layered Solidify+Bevel cutter objects for rounded slice cuts (stack multiple Solidify modifiers above the Bevel for multi-slice variation); Quick-Favorites/Modifier-Tools workflow speedups (Apply All); and cleanup for boolean-leftover geometry via manual merge, Auto-Merge+Edge-Slide, inset support loops, or the Weld modifier (On Cage, Vertex-Group-limited).
 - **File:** tutorials/blender-secrets---6-minutes-of-boolean-basics.md
 
 
