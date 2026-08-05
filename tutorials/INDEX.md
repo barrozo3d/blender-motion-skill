@@ -2077,9 +2077,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=IeLNfxeEqz0
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (core Annotate/Snapping/Shrinkwrap/Solidify workflow, 2.9x-5.x)
+- **Tags:** #modelling #procedural #sci-fi #intermediate
+- **Summary:** Sketches a sci-fi panel-line/greeble design directly onto a curved surface (dome/sphere) using the Annotate tool (Placement=Surface), then manually traces real edge geometry over the sketch (single-vertex merge + extrude, Face-snap + Project Individual Elements, "In Front" viewport display to see through the sphere), and finally conforms + thickens it with a Shrinkwrap modifier (target=sphere) followed by a Solidify modifier.
 - **File:** tutorials/blender-secrets---modeling-sci-fi-greebles-on-a-sphere-using-annotate-tool.md
 
 
