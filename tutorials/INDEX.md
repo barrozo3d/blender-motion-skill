@@ -1707,9 +1707,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=WKaQ_V-FHGA
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not applicable (Nomad Sculpt app content, not Blender)
+- **Tags:** #organic #beginner
+- **Summary:** Not a Blender tutorial — hardware review/vlog testing an XPPen Android tablet by sculpting a Totoro-like creature in Nomad Sculpt on a train to Tokyo's Ghibli Museum (Blender doesn't run on Android). Covers Nomad Sculpt's Blender-parallel workflow: base sphere, Symmetry/Mirror, Multires/VoxRemesh/Dyntopo-style modes, standard brush set (Drag, Move, Smooth, Flatten, Inflate, Mask), Add-primitive + Gizmo + Validate flow, and its Scene outliner. Exporting for use in Blender requires the paid version.
 - **File:** tutorials/3d-sculpting-on-the-go-with-xppen-magic-drawing-tablet-and-visiting-ghibli-museu.md
 
 

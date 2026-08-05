@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=WKaQ_V-FHGA
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not applicable (Nomad Sculpt app content, not Blender)"
+tags: [organic, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/3d-sculpting-on-the-go-with-xppen-magic-drawing-tablet-and-visiting-ghibli-museu/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 4
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # 3D Sculpting on the go with XPPen Magic Drawing Tablet and visiting Ghibli museum (Nomad Sculpt)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py 3d-sculpting-on-the-go-with-xppen-magic-drawing-tablet-and-visiting-ghibli-museu <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -86,30 +82,44 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:41] tutorials/frames/3d-sculpting-on-the-go-with-xppen-magic-drawing-tablet-and-visiting-ghibli-museu/frame_000.jpg
+- [1:04] tutorials/frames/3d-sculpting-on-the-go-with-xppen-magic-drawing-tablet-and-visiting-ghibli-museu/frame_001.jpg
+- [1:12] tutorials/frames/3d-sculpting-on-the-go-with-xppen-magic-drawing-tablet-and-visiting-ghibli-museu/frame_002.jpg
+- [1:24] tutorials/frames/3d-sculpting-on-the-go-with-xppen-magic-drawing-tablet-and-visiting-ghibli-museu/frame_003.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Not a Blender tutorial — a hardware review / travel vlog covering mobile sculpting in Nomad Sculpt (iOS/Android) on an XPPen "Magic Drawing Pad" standalone Android tablet, included here because Nomad Sculpt's brush/gizmo/outliner workflow closely parallels Blender's Sculpt Mode and is a useful mobile-companion reference for sculpt-first workflows.
 
 ### Summary
-[PENDING EXTRACTION]
+The author tests an XPPen Android tablet on a train trip to Tokyo's Ghibli Museum, sculpting a Totoro-like creature in Nomad Sculpt since Blender itself doesn't run on Android. Frame 000 shows the pen-on-tablet workflow in transit. Frames 001-003 show Nomad Sculpt's interface: a base sphere shaped into a rounded creature body with default Clay/Move/Smooth/Drag/Mask/Paint brushes down the right side (frame 001, mid-sculpt "never going to look good" stage per frame 002's on-screen annotation), a Scene outliner panel listing objects (body, Sphere, Mirror modifier, eyes) with Validate/Edit buttons standing in for Blender's Outliner + Edit Mode toggle (frame 002), and a transform Gizmo with primitive-shape snapping options (frame 003). Nomad Sculpt is free to sculpt in but requires a paid unlock to export files for further refinement/rendering in Blender.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Nomad Sculpt starts from a base sphere; toggle Symmetry on/off as needed (Mirror shows as its own modifier-like entry in the Scene outliner, e.g. for eyes).
+2. Choose a workflow mode comparable to Blender's Multires, VoxRemesh, or Dyntopo.
+3. Brush set mirrors standard sculpting packages (and Blender): Drag, Move, Smooth, Flatten, Inflate, Mask, Clay, Paint — all pen-only (no keyboard shortcuts like Blender's F-key brush-radius resize).
+4. Add additional objects via Add → choose a primitive, then use the on-screen Gizmo to transform it; enable Mirror for symmetrical parts like arms/legs.
+5. Click Validate to commit a primitive into the sculptable mesh; the Scene panel (analogous to Blender's Outliner) lets you pick which object to sculpt on before selecting a brush.
+6. Exporting the finished sculpt for use in Blender requires purchasing the full version of Nomad Sculpt — the free tier is sculpt-practice only.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+Not applicable — no Blender node graphs shown. Nomad Sculpt UI elements referenced: Scene outliner (body/Sphere/Mirror/eyes hierarchy), Validate/Edit toggle, transform Gizmo with primitive snap targets, brush panel (Clay, Brush, Move, Drag, Smooth, Mask, Paint).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not applicable (Nomad Sculpt app content, not Blender) — mentioned only as the destination app for exported/refined sculpts.
 
 ### Tags
-[PENDING EXTRACTION]
+organic, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+[No 2+ tag matches in INDEX.md — "organic, beginner" alone is too broad a pair to draw a meaningful cross-link, and this video's actual content is a non-Blender app, so it doesn't share deeper technique tags with any ingested Blender tutorial.]
