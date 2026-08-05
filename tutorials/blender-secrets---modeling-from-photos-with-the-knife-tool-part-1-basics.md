@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=VzsxFT3-Kmk
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (core Knife tool/Images-as-Planes/UV workflow, 2.9x-5.x)"
+tags: [modelling, materials, procedural, beginner, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---modeling-from-photos-with-the-knife-tool-part-1-basics/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 5
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Secrets - Modeling from Photos with the Knife Tool (part 1: basics)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-secrets---modeling-from-photos-with-the-knife-tool-part-1-basics <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -59,30 +55,49 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:20] tutorials/frames/blender-secrets---modeling-from-photos-with-the-knife-tool-part-1-basics/frame_000.jpg
+- [0:30] tutorials/frames/blender-secrets---modeling-from-photos-with-the-knife-tool-part-1-basics/frame_001.jpg
+- [0:40] tutorials/frames/blender-secrets---modeling-from-photos-with-the-knife-tool-part-1-basics/frame_002.jpg
+- [0:45] tutorials/frames/blender-secrets---modeling-from-photos-with-the-knife-tool-part-1-basics/frame_003.jpg
+- [0:53] tutorials/frames/blender-secrets---modeling-from-photos-with-the-knife-tool-part-1-basics/frame_004.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Part 1 (basics) of a photo-modeling series: use the Knife tool directly on an Images-as-Planes photo to trace and cut out a textured 3D shape (demoed on a European building facade photo), extruding selected cuts for depth and fixing UV stretching on extruded faces via Project From View.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the source material: a full-building facade photograph loaded via Images as Planes, viewed in Material Preview shading in Front Orthographic view — the caption confirms this exact setup step. Frame 001 shows the Knife tool (K) actively tracing an irregular decorative gable/roofline shape directly on the photo texture in Edit Mode, mid-cut with the loop not yet closed. Frame 002 shows the next step: the Delete menu open with "Faces" highlighted, removing the parts of the image plane that fall outside the traced cut. Frame 003 shows a further knife-cut selection around a row of windows, captioned "Use the Knife tool to cut out additional selections for extruding" — these will be pushed inward with E to add real depth (window reveals) rather than staying flat. Frame 004 shows the UV-fix step: the U (UV Mapping) menu open with "Project From View" highlighted — used to re-map UVs on extruded faces that would otherwise show visible texture stretching, since their new geometry no longer matches the original flat photo-plane UV layout.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Enable the Images as Planes add-on (built into Blender, enable in Preferences); Add → Image → Images as Planes to load a reference photo as a textured plane.
+2. Switch Viewport Shading to Material Preview and align the view to Front Orthographic for a 1:1 match with the photo.
+3. In Edit Mode, press K to activate the Knife tool; trace around the shape you want to keep (scroll to zoom in for precision on fine details), and press Enter once the cut loop is closed.
+4. Select the faces outside the traced shape that aren't needed and delete them (Delete → Faces).
+5. Use the Knife tool again to cut out additional sub-selections (e.g. individual window frames) that should be extruded for real depth rather than staying flat against the photo.
+6. Extrude those selections inward/outward (E) to add dimensional depth matching what the photo implies.
+7. **Fix UV stretching on extruded geometry:** select the newly extruded faces, switch to a side view matching their new orientation, press U → Project From View to re-project clean UVs for those faces (rather than inheriting the stretched UVs from the original flat projection); in the UV Editor, reposition the newly projected UV islands to a good spot on the texture.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Add-on:** Images as Planes (built-in).
+- **Viewport:** Material Preview shading, Front Orthographic view (for 1:1 photo tracing accuracy).
+- **Edit-mode operators:** K (Knife tool), Delete → Faces, E (Extrude).
+- **UV mapping:** U → Project From View (re-maps UVs for extruded geometry to avoid stretching), UV Editor for repositioning islands.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner to Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — core Knife tool / Images as Planes / UV workflow, version-agnostic across modern Blender (2.9x-5.x).
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, materials, procedural, beginner, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+[No existing INDEX.md entries share 2+ of these tags in a photo-to-3D Knife-tool context yet, and no "Part 2" of this series exists in the current tutorials folder — this "Part 1: basics" is the only Modeling-from-Photos-with-the-Knife-Tool entry ingested so far.]

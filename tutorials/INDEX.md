@@ -2097,9 +2097,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=VzsxFT3-Kmk
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (core Knife tool/Images-as-Planes/UV workflow, 2.9x-5.x)
+- **Tags:** #modelling #materials #procedural #beginner #intermediate
+- **Summary:** Uses the Knife tool (K) directly on an Images-as-Planes photo (Material Preview, Front Orthographic) to trace and cut a textured 3D shape from a building facade photo, deleting unneeded faces, extruding sub-selections for real depth, and fixing UV stretching on extruded faces via U → Project From View.
 - **File:** tutorials/blender-secrets---modeling-from-photos-with-the-knife-tool-part-1-basics.md
 
 
