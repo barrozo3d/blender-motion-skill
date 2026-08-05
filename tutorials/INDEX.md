@@ -1817,9 +1817,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=iNL98QwGEmQ
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Cycles displacement workflow, 2.9x-5.x)
+- **Tags:** #materials #shaders #displacement #rendering #cycles #intermediate
+- **Summary:** Builds a photoreal Moon from free NASA color/height textures on a UV Sphere (Subdivision+Displace modifier, UV coordinates, Non-Color height map), then fixes the classic equirectangular-on-UV-sphere pole-pinching artifact by switching to Generated+Sphere-projected texture coordinates (Smart Interpolation) and moving displacement from the mesh modifier into a shader-graph Displacement node (Material Settings = Displacement Only/Displacement and Bump) so color and height stay aligned under the new projection.
 - **File:** tutorials/create-a-photoreal-moon-in-minutes-3d-tutorial-blender-secrets.md
 
 
