@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=JvJ_Hoj82us
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (core mesh/modifier + Loop Tools workflow, 2.9x-5.x)"
+tags: [modelling, procedural, intermediate, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---making-holes-in-cylinders-with-decent-quad-topology/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Secrets - Making Holes in Cylinders with decent Quad Topology
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-secrets---making-holes-in-cylinders-with-decent-quad-topology <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -116,30 +112,74 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:35] tutorials/frames/blender-secrets---making-holes-in-cylinders-with-decent-quad-topology/frame_000.jpg
+- [1:05] tutorials/frames/blender-secrets---making-holes-in-cylinders-with-decent-quad-topology/frame_001.jpg
+- [1:40] tutorials/frames/blender-secrets---making-holes-in-cylinders-with-decent-quad-topology/frame_002.jpg
+- [2:20] tutorials/frames/blender-secrets---making-holes-in-cylinders-with-decent-quad-topology/frame_003.jpg
+- [3:05] tutorials/frames/blender-secrets---making-holes-in-cylinders-with-decent-quad-topology/frame_004.jpg
+- [3:50] tutorials/frames/blender-secrets---making-holes-in-cylinders-with-decent-quad-topology/frame_005.jpg
+- [4:45] tutorials/frames/blender-secrets---making-holes-in-cylinders-with-decent-quad-topology/frame_006.jpg
+- [5:55] tutorials/frames/blender-secrets---making-holes-in-cylinders-with-decent-quad-topology/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Four different ways to cut clean, all-quad holes into a cylinder (avoiding the messy n-gons/triangles a naive boolean cut leaves behind): snap-and-join a separate circle, duplicate-and-circularize existing faces, snap in pre-made reusable asset geometry, or build the hole pattern flat first and bend it into a cylinder afterward.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows Method 1's setup: a low-poly (12-vertex) Circle object positioned in front of a cylinder in Front Orthographic wireframe view, ready to be projected onto the surface. Frame 001 shows the circle's vertices selected and about to be snapped onto the cylinder's face grid (Snap to Face + Project Individual Elements enabled). Frame 002 shows the finished hole from Method 1: a clean octagon-shaped opening cut into the cylinder wall with all-quad surrounding topology, viewed from inside/behind. Frame 003 shows Method 2's key operator: the right-click Loop Tools submenu (Bridge, Circle, Curve, Flatten, GStretch, Loft, Relax, Space) about to run Circle on a duplicated patch of faces to round them out before snapping. Frame 004 shows the snapping step for a reusable asset piece: the Snap Target dropdown open (Face highlighted) with "Project Individual Elements" checked (arrow), aligning a pre-made "Pipe Detail" asset against the cylinder surface — confirming Method 3's asset-browser reuse workflow. Frame 005 shows that pipe-detail asset successfully snapped flush against the cylinder's curved surface, selected geometry highlighted orange/white. Frame 006 shows Method 4's core trick: a flat Plane with an Array modifier (Fixed Count, Relative Offset) generating a repeating grid of octagonal holes, top-down view, ready to be wrapped into a cylinder via a Simple Deform (Bend) modifier further down the stack.
 
 ### Key Steps
-[PENDING EXTRACTION]
+**Method 1 — Snap a separate circle onto the cylinder:**
+1. Add a Cylinder (Shift+A → Mesh → Cylinder); in Edit Mode, Ctrl+R and scroll to add horizontal edge loops for enough surrounding geometry.
+2. Add a Circle (Shift+A → Mesh → Circle) with modest vertex count (12 is plenty); move it away from the cylinder; enable Wireframe display to see through both objects.
+3. Enable Snapping (Snap to Face, Project Individual Elements); in Edit Mode select all circle vertices, move/scale to roughly line it up with the cylinder's geometry, then press G to snap it onto the cylinder's curved surface; disable snapping afterward.
+4. In Object Mode, Ctrl+J to join both objects; remove the cylinder faces underneath the snapped circle, then fill the resulting gap (F). If triangles appear, Alt+J converts them to quads; dissolve (Ctrl+X) any stubborn leftover edges. Use Ctrl+F → Grid Fill to control/clean the fill pattern (Offset value rotates the new faces if the grid doesn't align well).
+5. Finish with Inset + Extrude on the filled circle to actually create the hole depth; Ctrl+[1-5] to add a Subdivision level, Shade Smooth to finish.
+
+**Method 2 — Circularize existing cylinder faces:**
+1. Circle Select 6 or more faces directly on the cylinder; Shift+D to duplicate them, move the duplicate away and scale it down slightly.
+2. Right-click → Loop Tools → Circle to round the duplicated patch into a clean circular shape.
+3. Enable Wireframe/overlay display to see both pieces; enable Snapping (Face, Project Individual Elements) and press G to snap the circularized duplicate back onto the cylinder surface.
+4. Press H to temporarily hide the snapped selection; reselect the original 6+ faces on the cylinder and X to delete them; Alt+H to unhide the snapped geometry.
+5. Select the boundary edges and right-click → Bridge Edge Loops to connect the circle to the hole in the cylinder; Inset + Extrude as needed to finish the hole.
+
+**Method 3 — Reuse pre-made geometry from the Asset Browser:**
+1. Keep useful hole/detail geometry pieces saved in the Asset Browser for quick reuse; move/rotate/scale a saved piece roughly into position against the target surface (Wireframe display helps).
+2. Enable Snapping (Face, Project Individual Elements); in Edit Mode nudge the geometry so it snaps flush to the cylinder surface, then close any remaining gaps by moving boundary vertices with vertex snapping (move the cursor onto the exact target vertex to snap to it).
+3. Turn off snapping when done; H to hide the snapped selection, delete the cylinder faces it will replace, Alt+H to unhide.
+4. Ctrl+J to join both objects in Object Mode; select all and M → Merge by Distance to weld the seam; Shift+N to recalculate normals if needed. Extrude the circular part to finish the hole.
+
+**Method 4 — Build the hole pattern flat, then bend into a cylinder:**
+1. Ensure Loop Tools is enabled in Preferences. Add a Plane, Shade Smooth, Subdivide twice in Edit Mode.
+2. Select the four middle faces, right-click → Loop Tools → Circle; Inset those faces then delete them to punch a clean circular hole.
+3. Optionally duplicate and offset selected hole-faces for an uneven/randomized look.
+4. Add an Array modifier (increase Count) for repetition along one axis; duplicate that modifier, set its offset to the Y axis instead of X, and increase its count too — producing a full 2D grid of holes.
+5. Add an Empty, set its X rotation to -90°; add a Simple Deform modifier set to Bend 360° using the Empty as the origin — this wraps the flat, hole-patterned plane into a closed cylinder.
+6. Add a Weld modifier (closes the seam), a Solidify modifier (wall thickness), enable Auto Smooth, and finish with a Subdivision Surface modifier. Adjust the Array Count(s) to change hole density/spacing. Modifier order matters throughout this stack.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Snapping:** Snap Target = Face, Project Individual Elements (used in Methods 1-3 to conform geometry to the cylinder's curved surface).
+- **Mesh operators:** Ctrl+R (loop cut), Alt+J (Tris to Quads), Ctrl+X (Dissolve), Ctrl+F → Grid Fill, Inset, Extrude, H/Alt+H (hide/unhide selection), M → Merge by Distance, Shift+N (recalculate normals), Ctrl+J (join objects).
+- **Add-on:** Loop Tools (Circle operator — rounds a selected face patch into a clean circle; Bridge Edge Loops for connecting boundaries).
+- **Modifiers (Method 4):** Array (x2, one per axis, Fixed Count, Relative Offset), Simple Deform (Bend 360°, Origin = an Empty rotated -90° on X), Weld, Solidify, Subdivision Surface — with Auto Smooth enabled.
+- **Asset workflow:** Asset Browser for storing/reusing pre-made hole/detail geometry.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate to Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — core mesh/modifier workflow with Loop Tools, version-agnostic across modern Blender (2.9x-5.x).
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, procedural, intermediate, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender Secrets - 5 minutes of N-Gons to Quads tips](blender-secrets---5-minutes-of-n-gons-to-quads-tips.md) — shares modelling, procedural, intermediate; same channel, directly overlapping "Knife Project a helper shape onto a surface" philosophy applied here specifically to cylinders.
+- [Blender Secrets - Every Circular Array or Radial Array method](blender-secrets---every-circular-array-or-radial-array-method.md) — shares procedural, intermediate, advanced; same channel, its Curve+Array method for wrapping segments around a circle is closely related to this video's Method 4 (Array + Simple Deform Bend).

@@ -1987,9 +1987,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=JvJ_Hoj82us
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (core mesh/modifier + Loop Tools workflow, 2.9x-5.x)
+- **Tags:** #modelling #procedural #intermediate #advanced
+- **Summary:** Four all-quad hole-cutting methods for cylinders: (1) snap a separate low-poly Circle onto the surface (Face snap + Project Individual Elements), join, remove+Grid-Fill, Inset+Extrude; (2) circularize duplicated cylinder faces via Loop Tools Circle, snap, Bridge Edge Loops; (3) snap in reusable Asset-Browser detail geometry, Merge by Distance + recalc normals; (4) build the hole pattern flat on a Plane with a 2D Array grid of circular cutouts, then wrap it into a cylinder via a Simple Deform Bend 360° modifier (+Weld/Solidify/Subdivision).
 - **File:** tutorials/blender-secrets---making-holes-in-cylinders-with-decent-quad-topology.md
 
 
