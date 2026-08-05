@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=M-zUIL-DnRA
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.5 LTS (author notes no features newer than Blender 4.x are used)"
+tags: [modelling, organic, rigging, beginner, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/anime-girl-character-course-overview---blender-secrets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 4
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Anime Girl character course overview - Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py anime-girl-character-course-overview---blender-secrets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -106,30 +102,48 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:12] tutorials/frames/anime-girl-character-course-overview---blender-secrets/frame_000.jpg
+- [1:32] tutorials/frames/anime-girl-character-course-overview---blender-secrets/frame_001.jpg
+- [2:17] tutorials/frames/anime-girl-character-course-overview---blender-secrets/frame_002.jpg
+- [3:57] tutorials/frames/anime-girl-character-course-overview---blender-secrets/frame_003.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Not a hands-on tutorial — a promotional overview/curriculum walkthrough for the author's paid stylized-anime-character course. No step is demonstrated in full; instead it names the pipeline order and the specific technique categories covered lesson-by-lesson. Kept here as a reference outline of a full stylized-character production pipeline (box modeling → sculpt refinement → clothing → head topology-from-2D-projection → hair) since the sequence itself is a useful checklist even without the paid lesson detail.
 
 ### Summary
-[PENDING EXTRACTION]
+An overview video for a (still in-progress at time of recording) Blender 4.5 LTS anime-girl character course, aimed at beginners but with tips for intermediate users too. Frame 000 shows box-modeled leg/sock geometry built directly over a front/side character reference sheet (quad topology, Subdivision modifier). Frame 001 shows a fully wired head mesh mid-topology pass with an ear loop highlighted and a small panel of alternate head-topology thumbnail variants in the corner. Frame 002 shows the Preferences → Navigation panel (Orbit Method, Zoom, Fly & Walk settings) being adjusted as part of the course's initial Blender setup. Frame 003 shows the finished stylized head/hair result next to its original 2D character reference sketch, viewed with wireframe/topology overlay and a Shape Key ("Flex 2") panel open, confirming the course delivers a rigged, shape-keyed, blend-shape-ready head.
 
 ### Key Steps
-[PENDING EXTRACTION]
+The stated production pipeline (no operation-level detail given — this is a marketing overview, not a walkthrough):
+1. Set up supplied reference images and recommended Blender preferences (see frame 002 — Navigation settings).
+2. Box-model the shoes, then explore multiple sock-modeling methods.
+3. Box-model arms, legs, and body separately, then join them together (frame 000 shows this stage: leg over reference).
+4. Model and attach the hands.
+5. Clothing: prepare clean underlying geometry before sculpting, add cloth folds (multiple methods taught), progressively introduce more sculpt brushes for pocket/clothing detail, then finish with small details.
+6. Head (deliberately tackled last): block out the overall shape first, then rework topology for deformation/animation. Retopology is done in 2D and projected onto the 3D surface rather than retopologized directly in 3D (frame 001/003 show this topology work). Add mouth interior geometry and set up Shape Keys for facial expressions (frame 003 shows a "Flex 2" shape key).
+7. Hair (treated as the most important part of a stylized anime character): tips for hair strands/fringe first, then a hybrid workflow mixing mesh hair clumps, thickened curves, and sculpting — deliberately not pure curve-based hair, which the author considers tedious and lower quality.
+8. Texturing and rigging happen by course's end, producing a posable/animatable finished character.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+None demonstrated in operational detail (promotional overview only). Visible in frames: Subdivision Surface modifier (Catmull-Clark) on box-modeled limbs; Preferences → Navigation (Orbit Method, Zoom to Mouse Position, Fly & Walk); Shape Keys panel (relative, named keys e.g. "Flex 2").
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner (course is explicitly aimed at beginners, difficulty ramps gradually; author notes experienced users can still pick up tips)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.5 LTS (course explicitly made in 4.5 LTS but author notes no features newer than Blender 4.x are used, so other 4.x/5.x versions should work; no third-party add-ons required, only free Blender-extensions-platform add-ons)
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, organic, rigging, beginner, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [4 new retopology tips to discover! - Blender Secrets](4-new-retopology-tips-to-discover---blender-secrets.md) — shares organic, beginner, intermediate; same channel, directly relevant to this course's 2D-to-3D head retopology step.
+- [Create a Walk Cycle animation in Blender](create-a-walk-cycle-animation-in-blender.md) — shares rigging, organic, beginner, intermediate; complementary rigging/character-animation reference.

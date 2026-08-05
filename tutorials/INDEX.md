@@ -1567,9 +1567,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=M-zUIL-DnRA
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.5 LTS (author notes no features newer than Blender 4.x are used)
+- **Tags:** #modelling #organic #rigging #beginner #intermediate
+- **Summary:** Promotional overview (not a step-by-step tutorial) of the author's paid stylized-anime-character course, naming its full pipeline: box-modeling shoes/socks/limbs/body over reference, joining and adding hands, clothing built on clean geometry with sculpted folds/pockets, head done last via 2D-topology-projected retopology (block-out then deformation topology) plus mouth geometry and Shape Keys for expressions, and hair via a hybrid mesh-clumps + thickened-curves + sculpting workflow. Useful as a reference checklist for a full stylized-character pipeline even without the paid lesson detail.
 - **File:** tutorials/anime-girl-character-course-overview---blender-secrets.md
 
 
