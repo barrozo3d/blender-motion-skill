@@ -1977,9 +1977,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=Q6nq1HEA5Y8
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (core operators/modifiers, 2.8x-5.x)
+- **Tags:** #procedural #modelling #animation #intermediate #advanced
+- **Summary:** Six circular/radial array methods with different tradeoffs: Spin operator (Alt+E, edit-mode, fast); manual Duplicate+Rotate+Shift-R-repeat (precise angle=360/count control); Vertex-Parented Instancing on a Mesh Circle (non-destructive, animatable, Align to Vertex Normal); Screw modifier driven by a single displaced vertex (fully procedural); Curve modifier + stacked Array modifiers around a Bezier Circle (best for tapering/twisting tower-like structures, Ctrl+T twist, Constant Offset brick-coursing); and Array modifier with Object Offset driven by an interactively-rotated Empty (fully non-destructive).
 - **File:** tutorials/blender-secrets---every-circular-array-or-radial-array-method.md
 
 
