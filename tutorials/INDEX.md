@@ -2027,9 +2027,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=DwpajQ0oQPI
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (core mesh-editing/modifier workflow, 3.x-5.x)
+- **Tags:** #modelling #procedural #intermediate
+- **Summary:** Five n-gon/triangle-to-quad cleanup techniques: Knife Project a subdivided helper plane onto a traced organic outline for a clean bendable quad grid; Solidify (thin) + Remesh (Smooth, Octree Depth) + Convert to Mesh + Merge by Distance for flat n-gon shapes; Triangulate (Ctrl+T) then Tris to Quads (Alt+J) for boolean-created n-gon patches; Crease (Shift+E, 1) + apply Subdivision Surface to protect and quad-ify Knife-tool cuts; and a plain Alt+J pass for models that were originally quad-based before being triangulated (e.g. internet downloads).
 - **File:** tutorials/blender-secrets---5-minutes-of-n-gons-to-quads-tips.md
 
 
