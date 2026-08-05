@@ -1867,9 +1867,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=Ix-KT9a4PSo
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Cycles + modern Color Management, Blender 3.x-5.x compatible)
+- **Tags:** #materials #shaders #procedural #rendering #cycles #lighting #organic #intermediate
+- **Summary:** Bakes a 2D billboard tree impostor with dynamic lighting response: light a real 3D tree with a scaled-up Area Light, render a transparent-background PNG (F12) for the color/alpha texture, then switch to Matcap shading (Color=Object, "normal" matcap, Color Management View Transform=Standard) and use View→Viewport Render Image to capture a second bake as the normal map. Loading both textures on a flat billboard plane makes it shade and cast shadows correctly as scene/HDRI lighting rotates, instead of looking flat.
 - **File:** tutorials/better-billboards-using-normal-maps-low-poly-trees.md
 
 
