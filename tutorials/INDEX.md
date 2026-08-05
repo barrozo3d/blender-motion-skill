@@ -1967,9 +1967,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=jlh275ZKsLw
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (core transform-tool workflow, 2.9x-5.x)
+- **Tags:** #modelling #procedural #beginner #intermediate
+- **Summary:** Three scaling techniques: G,G shape-conforming scale for insets that should follow non-uniform surrounding edges; S+Shift+[axis] to exclude one axis when scaling an Alt+E-extruded face; the Scale Cage tool (Toolbar) for interactive multi-object/edit-mode scaling with opposite-handle pivot and numeric input; and Shrink/Fatten (Alt+S) with Proportional Editing's "Connected" option for thickness-only adjustments (e.g. fattening a cylinder without lengthening it) that don't drag along nearby-but-disconnected geometry.
 - **File:** tutorials/blender-secrets---scaling-tips-for-better-3d-modeling.md
 
 
