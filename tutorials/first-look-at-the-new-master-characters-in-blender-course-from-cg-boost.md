@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=QNckGYykCNc
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified — b-roll shows a modern Geometry Nodes UI consistent with Blender 4.x/5.x"
+tags: [geometry-nodes, organic, cloth, intermediate, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/first-look-at-the-new-master-characters-in-blender-course-from-cg-boost/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 5
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # First look at the new "Master Characters in Blender" course from CG Boost
@@ -22,13 +23,16 @@ frame_status: pending-selection
 
 ## Raw Data (for Claude Code extraction)
 
+## Ingest Safeguard Report
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py first-look-at-the-new-master-characters-in-blender-course-from-cg-boost <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+_Auto-generated at ingest/frame-capture time — explains why `extraction_status` may be `needs-review`. Safe to delete once reviewed._
+
+- WARNING: Partial frame capture: only 5/6 requested frames were captured.
+
+---
+
+
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -83,30 +87,45 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:40] tutorials/frames/first-look-at-the-new-master-characters-in-blender-course-from-cg-boost/frame_000.jpg
+- [1:06] tutorials/frames/first-look-at-the-new-master-characters-in-blender-course-from-cg-boost/frame_001.jpg
+- [1:45] tutorials/frames/first-look-at-the-new-master-characters-in-blender-course-from-cg-boost/frame_002.jpg
+- [2:10] tutorials/frames/first-look-at-the-new-master-characters-in-blender-course-from-cg-boost/frame_003.jpg
+- [2:35] tutorials/frames/first-look-at-the-new-master-characters-in-blender-course-from-cg-boost/frame_004.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Not a hands-on tutorial — an affiliate-linked review/first-look at a third-party paid course ("Master 3D Characters" by Jim Moran, published on CG Boost, a school founded by Zach Reinhardt). No technique is taught step-by-step; the video instead describes the course's scope and shows a handful of b-roll clips from inside it. Kept here as a reference pointer to the course's real content (visible in the b-roll: Geometry Nodes zippers/panel-bolt scattering and cloth-brush sculpting for clothing folds) since those b-roll clips are the only concrete technique evidence in the video.
 
 ### Summary
-[PENDING EXTRACTION]
+A spoken review with brief course-footage cutaways. Frame 000 shows the CG Boost course platform's lesson list (Geo Nodes - Panel Bolts, Modeling - Jetpack Thruster/Intake/Fuel Pods/Antenna and Lights, Bling Acts, Upper/Lower Wings, timelapse and detail-pass lessons), confirming the course structure is granular, per-part lessons. Frame 001 shows a "Clothes Sculpt | Zipper (Viewer)" Geometry Nodes setup — a zipper generator built from a curve input feeding a node tree, matching the transcript's claim about geometry-nodes-driven zippers and stitching. Frame 002 shows the clean modeled result of a strap/harness-and-buckle clothing accessory (front and top view), presumably one of the "clothing details" lessons. Frame 003 shows a "Jetpack Body Panels Curve" Geometry Nodes setup with a "Bolts on Curve" node group (Density, Scale, Built Object inputs) scattering bolts along a curve on a hard-surface jetpack model — matching the transcript's mention of hard-surface modeling for the character's jetpack. Frame 004 shows Sculpt Mode with a "Create Cloth" brush actively sculpting fabric folds into a shirt/torso clothing mesh, referencing turnaround thumbnails in the top-right — matching the transcript's description of sculpting convincing clothing folds.
 
 ### Key Steps
-[PENDING EXTRACTION]
+The stated course curriculum (no operation-level detail given — this is a review, not a walkthrough):
+1. Concept-art analysis stage, including exercises for reading and maximizing concept art, and use of ID maps (an unusual topic for Blender tutorials per the reviewer).
+2. Character body blockout and basic clothing design.
+3. Realistic clothing detail: sculpting convincing folds (frame 004), plus Geometry-Nodes-driven zippers and stitching along seams (frame 001) — called out as rarely covered elsewhere.
+4. Broader skill range: blockout, sculpting, clothing, and hard-surface modeling, e.g. the character's jetpack (frame 003's bolt-scattering Geometry Nodes setup).
+5. Course is in early access at recording time (over 21 hours so far); planned free updates include retopology, UV unwrapping, texturing, and hair grooming.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+Visible in the b-roll frames only (not explained in the review itself): a custom Geometry Nodes "Zipper" node tree driven by a curve input (frame 001); a custom "Bolts on Curve" Geometry Nodes group with Density, Scale, and Built Object inputs for scattering hardware along a curve (frame 003); the Cloth Sculpt brush ("Create Cloth") for hand-sculpting fabric folds (frame 004).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate to Advanced (per the reviewer, the course spans blockout through sculpting, clothing, and hard-surface modeling across 21+ hours)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified in the transcript — the b-roll's Geometry Nodes editor and modifier panel styling are consistent with a modern Blender 4.x/5.x UI.
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, organic, cloth, intermediate, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Anime Girl character course overview - Blender Secrets](anime-girl-character-course-overview---blender-secrets.md) — shares organic; both are promotional overviews of full character-creation courses (one third-party/CG Boost, one the author's own), useful to compare curriculum structure and scope.

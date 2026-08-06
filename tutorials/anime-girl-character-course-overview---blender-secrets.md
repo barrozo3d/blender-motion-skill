@@ -147,3 +147,4 @@ modelling, organic, rigging, beginner, intermediate
 ## Related Tutorials
 - [4 new retopology tips to discover! - Blender Secrets](4-new-retopology-tips-to-discover---blender-secrets.md) — shares organic, beginner, intermediate; same channel, directly relevant to this course's 2D-to-3D head retopology step.
 - [Create a Walk Cycle animation in Blender](create-a-walk-cycle-animation-in-blender.md) — shares rigging, organic, beginner, intermediate; complementary rigging/character-animation reference.
+- [First look at the new "Master Characters in Blender" course from CG Boost](first-look-at-the-new-master-characters-in-blender-course-from-cg-boost.md) — shares organic; both are promotional overviews of full character-creation courses (this author's own vs. a third-party CG Boost course), useful to compare curriculum structure and scope.

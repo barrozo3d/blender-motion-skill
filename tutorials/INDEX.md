@@ -1697,9 +1697,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=QNckGYykCNc
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (b-roll consistent with Blender 4.x/5.x)
+- **Tags:** #geometry-nodes #organic #cloth #intermediate #advanced
+- **Summary:** Affiliate review/first-look at Jim Moran's third-party "Master 3D Characters" course on CG Boost — not a walkthrough, but b-roll shows Geometry-Nodes-driven zippers and hardware-bolt scattering plus cloth-brush sculpting for clothing folds.
 - **File:** tutorials/first-look-at-the-new-master-characters-in-blender-course-from-cg-boost.md
 
 
