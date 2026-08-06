@@ -2597,9 +2597,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=WqxHOro0dV8
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Film Transparent, Denoising, and Alpha Over compositor node are version-agnostic core Blender features
+- **Tags:** rendering, compositing, workflow, intermediate
+- **Summary:** Renders static elements as a single frame and moving elements separately with Film > Transparent + Denoising, then recombines both in the Compositor via two Image nodes → Alpha Over → Composite, avoiding wasted re-renders of unchanging geometry.
 - **File:** tutorials/daily-blender-tip-64---faster-render-speeds-by-rendering-seperate-layers-re-uplo.md
 
 
