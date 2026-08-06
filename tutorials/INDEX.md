@@ -2327,9 +2327,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=t1v7lPbCipo
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Node Wrangler, version-agnostic)
+- **Tags:** #materials #shaders #cycles #beginner
+- **Summary:** Quick Node Wrangler PBR workflow: subdivide a test UV sphere (Ctrl+4), create a material, then Ctrl+Shift+T with the Principled BSDF selected to select a whole folder of PBR maps and auto-wire them all in one step.
 - **File:** tutorials/daily-blender-tip-119---super-easy-pbr-textures-with-node-wrangler.md
 
 

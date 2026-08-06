@@ -285,3 +285,4 @@ materials, shaders, displacement, cycles, eevee, intermediate
 
 ## Related Tutorials
 - [6 Panel Cut Tips - Blender Secrets](6-panel-cut-tips---blender-secrets.md) — shares materials, displacement, cycles; that tutorial bakes hand-sculpted/painted hard-surface detail to a normal map, this one sources and applies photo-real PBR texture sets with real geometric displacement instead.
+- [Daily Blender Tip 119 - Super Easy PBR Textures With Node Wrangler](daily-blender-tip-119---super-easy-pbr-textures-with-node-wrangler.md) — shares materials, shaders, cycles; the channel's earlier, quicker "Daily Tip" version of the same Ctrl+Shift+T Node Wrangler technique this video expands into a full pipeline.
