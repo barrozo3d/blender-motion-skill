@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=y7EuYx9CaTU
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified — Shift+Ctrl+R Offset Edge Slide is a long-standing core shortcut, version-agnostic"
+tags: [modelling, procedural, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/offset-edge-slide---blender-secrets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 4
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Offset Edge Slide - Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py offset-edge-slide---blender-secrets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -59,30 +55,44 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:08] tutorials/frames/offset-edge-slide---blender-secrets/frame_000.jpg
+- [0:33] tutorials/frames/offset-edge-slide---blender-secrets/frame_001.jpg
+- [0:56] tutorials/frames/offset-edge-slide---blender-secrets/frame_002.jpg
+- [1:05] tutorials/frames/offset-edge-slide---blender-secrets/frame_003.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Comparing three ways to add two symmetric edge loops on either side of an existing middle loop — manual Ctrl+R (imprecise), Bevel with profile correction (works but reshapes the surface unless tuned), and the dedicated Shift+Ctrl+R "Offset Edge Slide" shortcut (fastest, most precise, no shape distortion).
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the first (imprecise) method: two manually-placed Ctrl+R loop cuts flanking the center edge loop of a pentagon-roofed cube shape, with the Loop Cut and Slide redo panel open (Number of Cuts: 2, Smoothness, Falloff). Frame 001 shows the Bevel method's problem: beveling the selected middle edge loop (Ctrl+B, orange highlighted band) has added two new loops but visibly reshaped/rounded the surface compared to the original flat panel. Frame 002 shows the fix: the same Bevel operation with its Profile Shape set to 1 (redo panel: Width Type Offset, Segments, Profile 1.000, Loop Slide) — restoring the original flat shape while still keeping the two new loops. Frame 003 shows the recommended method's result: Shift+Ctrl+R (Offset Edge Slide, confirmed by the on-screen "Ctrl+Shift+R" shortcut badge) cleanly adding two evenly-spaced, undistorted loops around the selected middle edge loop in a single step.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Method 1 (manual, imprecise):** press Ctrl+R twice to add two separate loop cuts, then manually slide each one to sit next to the existing middle loop. Problem: without a numeric/precise placement, the two new edges end up different distances from center — verifiable by enabling the Edge Length overlay (Mesh Analysis / Item panel) and comparing the selected edges' lengths.
+2. **Method 2 (Bevel the middle loop):** Alt+click the middle edge loop to select it, then Ctrl+B to bevel; scroll the mouse wheel up once (or press Numpad+, or press S and nudge the mouse slightly) to add exactly one loop on each side of the selected one. Drawback: beveling can visibly reshape/round the surrounding surface. Fix: during the bevel, press P for Profile and adjust with the scroll wheel, or type 1 for Profile Shape 1 (or drag the mouse fully to one side) to restore the original flat shape while keeping the added loops.
+3. **Method 3 (recommended — Offset Edge Slide):** with the middle edge loop selected, press **Shift+Ctrl+R** — this adds two new evenly-offset loops around the selected one in a single, non-distorting operation. Open the operator's redo panel to adjust the Offset Factor numerically (hold Shift while dragging for finer precision). The redo panel also includes a "Correct UVs" option to protect the UV map during the operation — though in the demonstrated case, UVs were unaffected either way.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Loop Cut and Slide:** Ctrl+R (manual placement, Number of Cuts, Smoothness, Falloff).
+- **Bevel:** Ctrl+B (Segments via scroll wheel/Numpad+/S; Profile Shape via P or typing a value, e.g. 1 for flat).
+- **Offset Edge Slide:** Shift+Ctrl+R (Offset Factor, hold Shift for precision, Correct UVs option).
+- **Diagnostics:** Edge Length overlay/Mesh Analysis (comparing selected edge lengths for precision-checking).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Shift+Ctrl+R (Offset Edge Slide) is a long-standing core Blender shortcut, version-agnostic.
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, procedural, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+No other extracted BlenderSecrets tutorials in this library currently cover the Offset Edge Slide operator specifically.

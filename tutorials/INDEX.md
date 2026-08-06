@@ -1657,9 +1657,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=y7EuYx9CaTU
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (long-standing core shortcut)
+- **Tags:** #modelling #procedural #beginner
+- **Summary:** Compares three ways to add symmetric loops around a middle edge loop — manual Ctrl+R (imprecise), Bevel + Profile correction, and the recommended Shift+Ctrl+R Offset Edge Slide shortcut, which adds both loops precisely with no shape distortion.
 - **File:** tutorials/offset-edge-slide---blender-secrets.md
 
 
