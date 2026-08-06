@@ -2457,9 +2457,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=-QCqVZVwwvM
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Paste Pose Flipped (Ctrl+Shift+V) and standard Pose Mode keyframing are version-agnostic core Blender animation tools
+- **Tags:** rigging, character, animation, intermediate
+- **Summary:** Part 3: builds a basic walk cycle from 4 key poses (Contact, Down, Up, mirrored Contact), using Ctrl+C / Ctrl+Shift+V (Paste Pose Flipped) to mirror each pose onto the opposite leg instead of hand-posing both sides.
 - **File:** tutorials/daily-blender-tip-86---simple-character-walk-cycle.md
 
 

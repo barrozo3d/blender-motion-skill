@@ -88,3 +88,4 @@ rigging, character, animation, intermediate
 
 ## Related Tutorials
 - [Daily Blender Tip 84 - Rigging A Simple Character Part 1](daily-blender-tip-84---rigging-a-simple-character-part-1.md) — shares rigging, character, animation; this is the direct Part 2 continuation, cleaning up and isolating the control rig generated from Part 1's fitted Rigify meta-rig.
+- [Daily Blender Tip 86 - Simple Character Walk Cycle](daily-blender-tip-86---simple-character-walk-cycle.md) — shares rigging, character, animation; the direct Part 3 continuation, animating this tutorial's cleaned-up control rig with a basic walk cycle.
