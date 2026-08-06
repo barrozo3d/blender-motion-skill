@@ -497,4 +497,4 @@ procedural, organic, advanced
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [How do you model that? Wrench - Blender Secrets](how-do-you-model-that-wrench---blender-secrets.md) — shares procedural, advanced; same "How do you model that?" reference-to-model series, applying the same box-model-over-reference approach to a mechanical tool (pliers) instead of an organic fantasy weapon.

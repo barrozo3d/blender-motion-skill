@@ -571,3 +571,4 @@ modelling, procedural, organic, beginner, intermediate
 ## Related Tutorials
 - [Easy hole modeling for beginners - Blender Secrets](easy-hole-modeling-for-beginners---blender-secrets.md) — shares modelling, procedural; this video's circular-hole technique (Shift+Ctrl+B vertex bevel → J connect → inset/extrude) is the same fast method taught there in more depth.
 - [6 Panel Cut Tips - Blender Secrets](6-panel-cut-tips---blender-secrets.md) — shares procedural, materials; this video's Ctrl+B-loop-then-Alt+S panel-cut combo and alpha-brush sculpt detailing are two of that tutorial's six dedicated hard-surface detailing methods.
+- [How do you model that? Wrench - Blender Secrets](how-do-you-model-that-wrench---blender-secrets.md) — shares modelling, procedural; both use the double-Subdivision-modifier + On Cage blockout method, that video applies it to precise reference-image matching (a pair of pliers) rather than freeform sci-fi design.

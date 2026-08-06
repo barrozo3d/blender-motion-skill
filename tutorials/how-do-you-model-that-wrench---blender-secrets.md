@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=S9WVxHp1Sc0
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified — on-cage Subdivision editing, LoopTools, F2, Round Cube (Extra Objects) and Extra Objects add-ons, consistent with Blender 3.x-5.x"
+tags: [modelling, procedural, intermediate, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/how-do-you-model-that-wrench---blender-secrets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How do you model that? Wrench - Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-do-you-model-that-wrench---blender-secrets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -342,30 +338,59 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:40] tutorials/frames/how-do-you-model-that-wrench---blender-secrets/frame_000.jpg
+- [1:28] tutorials/frames/how-do-you-model-that-wrench---blender-secrets/frame_001.jpg
+- [2:05] tutorials/frames/how-do-you-model-that-wrench---blender-secrets/frame_002.jpg
+- [10:00] tutorials/frames/how-do-you-model-that-wrench---blender-secrets/frame_003.jpg
+- [10:36] tutorials/frames/how-do-you-model-that-wrench---blender-secrets/frame_004.jpg
+- [13:16] tutorials/frames/how-do-you-model-that-wrench---blender-secrets/frame_005.jpg
+- [18:35] tutorials/frames/how-do-you-model-that-wrench---blender-secrets/frame_006.jpg
+- [21:47] tutorials/frames/how-do-you-model-that-wrench---blender-secrets/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A full reference-image-to-model workflow (despite the title, the reference and result are a pair of pliers, not a wrench — flagged here for accuracy) demonstrating the double-subdivision "quad blockout" method applied to a real, messy hand tool: box-modeling over a reference image, sharp-to-round transitions via graduated LoopTools Circle percentages, a boolean cut for the tool's jaw notch, freeform topology cleanup ("the puzzle"), and small end-cap details built from a Round Cube primitive.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the setup: a reference photo of pliers dragged into the viewport behind a plane, in Top Orthographic view, ready for box-modeling on top of it. Frame 001 shows the payoff of that box-modeling pass — an orange-outlined mesh silhouette tracing the pliers' jaw and handle shape directly over the reference photo, viewed in Object Mode with 27 modifier-stack vertices reported top-left. Frame 002 is the same shape in Edit Mode, showing the raw low-poly cage (vertex dots, edge lines) tracing the reference's jaw curve, with the Subdivision modifier's Ctrl+2 shortcut noted in the corner. Frame 003 shows a right-click Vertex context menu open (Merge Vertices, Split, Separate, etc.) over a partially-cleaned handle/jaw junction — the "topology puzzle" cleanup phase after the boolean cut. Frame 004 shows the near-final shape rendered solid next to the reference photo split-screen for comparison — jaw, boolean-cut notch, and both handles present and closely matching the photo. Frame 005 shows a close, shaded 3D view of the handle-to-jaw transition, revealing the underlying quad topology and edge flow that creates the smooth curved surface. Frame 006 shows an extreme close-up of one such transition corner with a Vertex Slide operator panel open (Factor, Even, Flipped, Clamp, Correct UVs), matching the transcript's "double-G slide, press E for even" technique for keeping support loops evenly spaced. Frame 007 shows the far end of one handle — a perfectly round tube segment being edited, "Image ID: A3MB6R" watermark from the reference visible, illustrating the round-cube-based end-cap detail work.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Reference setup:** drag-and-drop a reference photo into the viewport, reposition/scale it, lower its opacity for mesh visibility, and disable its selectability so it doesn't interfere with clicking; add a plane (Shift+A), enter Edit Mode with X-Ray enabled.
+2. **Box-model the silhouette:** working from a mostly-orthographic reference (not a perfect ortho view — the goal is teaching shape transitions, not an exact replica), extrude and adjust vertices to trace the tool's outline, keeping vertex count low at first for speed; add Ctrl+R loop cuts for more detail as needed.
+3. **Double subdivision blockout:** press Ctrl+2 to add a Subdivision modifier at 2 levels; disable it temporarily in Edit Mode while adding more Ctrl+R loops at points that need sharper corners, then re-check the smoothed result in Object Mode; enable **On Cage** to fine-tune the *smoothed* shape directly against the top-orthographic reference.
+4. **Even support loops:** after adding a support loop near a corner (to control sharpness), press E (Even) while sliding it so its distance to the corner stays consistent along a curved edge, rather than drifting; add a second loop supporting the first if two very-close loops cause topology stretching; G,G (double-tap G) slides vertices along existing edges for fine adjustment.
+5. **Organic edge redistribution:** select a loop and Ctrl+B (bevel) with the "Percent" width type for a more organic, non-uniform spacing of new edges when a straight bevel doesn't read naturally.
+6. **Thickness:** add a Solidify modifier (or extrude manually) for material thickness, then Ctrl+A to apply it; a center support loop plus a corner bevel keeps the solidified edge from going too smooth/round.
+7. **Adding a center crease/ridge:** select the center loop and Alt+S (scale along normals) to push it outward for extra mid-section thickness and a sharper visual ridge, matching a reference detail; deselect end loops with Shift+click before scaling so the taper reads correctly, since Alt+S scales differently than a plain S.
+8. **Round-handle transitions (the "sharp-to-round" trick):** enable the LoopTools extension (Preferences); delete a rough end section and rebuild it via Grid Fill (select opposite edges and re-run if the first attempt isn't clean) then LoopTools Flatten to square it off; add loops with Ctrl+R; for a fully circular cross-section use LoopTools Circle set to 100% Influence; work down the handle applying Circle at decreasing influence values in graduated steps — e.g. 100% → 80% → 60% → 40% → 20% across five consecutive loops — to produce a smooth, gradual transition from sharp/angular to fully round rather than an abrupt jump; use Shift+R to repeat the last operator across further loops; open a second viewport with overlays off and a Matcap enabled (plus On Cage on the Subdivision modifier) to preview the shaded transition while tuning percentages, since it's easy to misjudge from wireframe alone.
+9. **Boolean jaw-cut:** duplicate the jaw shape (Shift+D), hide the original, rotate the duplicate 180° (R,180,Enter) and offset it to form the opposing jaw; model a cube as a cutter object, shape it (rotate, add loops, curve it to match the reference's jaw notch) — align the cutter to the reference image, nudging its position along each axis until the cut silhouette looks right; use Even (E) and Flip (F) on the cutter's own loops so its edges align well with the cylindrical jaw shape before cutting, since well-aligned cutter geometry makes for a much cleaner boolean result; select cutter + target, Ctrl+Numpad− to cut; disable the Subdivision modifier before applying the Boolean (to avoid a subdivided mess), and switch the Boolean modifier's solver to Exact if the default doesn't produce a clean result; delete the cutter afterward.
+10. **Post-boolean cleanup ("the puzzle"):** circle-select (C) and delete stray boolean-created faces; enable Auto Merge Vertices, then repeatedly double-G-slide loose vertices onto neighboring geometry to merge and simplify the mess (accepting some resulting triangles as fine for now); enable the F2 add-on (described as essential) so pressing F repeatedly fills faces intelligently; use the Knife tool (K, right-click to release) to manually cut a path through an awkward n-gon area when no clean automatic solution presents itself — treat messy post-boolean topology as an iterative puzzle: simplify by merging/dissolving first, then fill what's clearly needed, and only hand-solve the remaining ambiguous pocket last; a Ctrl+R loop plus J (connect two vertices) helps re-establish clean edge flow through the patched area.
+11. **Small end-cap details:** enable Statistics to count a loop's vertices (e.g. 20); snap the 3D cursor to that loop; add a **Round Cube** primitive (from the free Extra Objects add-on), scale it down, and right-click > Change Round Cube to adjust its Arc/segment count until its vertex ring matches the target loop count (e.g. 20); select a loop and V (Rip) plus L (select linked) to isolate and delete unwanted cap geometry; join the pieces (Ctrl+J) and Bridge Edge Loops to connect the round-cube knob to the handle end; use proportional editing sparingly (G, scroll wheel to adjust falloff radius) to blend the transition; for a second, more cylindrical/asymmetric end detail, use a capless Cylinder (8-12 sides) instead, hand-model a "Pacman"-like notch shape into it, fill gaps with F and Ctrl+R loops, and use a Mirror modifier (after first verifying Object > Apply > Rotation, since an un-applied rotation can make Symmetrize pick the wrong axis) to build it symmetrically before merging it onto the handle with Bridge Edge Loops, extra Knife-tool cuts for missing geometry density, and Apply Scale (Ctrl+A) if Loop Tools Circle produces a non-circular result due to non-uniform object scale.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Modifiers:** Subdivision Surface (Ctrl+2 shortcut, On Cage editing), Solidify (applied via Ctrl+A), Boolean (Difference via Ctrl+Numpad−, Exact solver fallback), Mirror (axis-specific, applied after symmetry verification).
+- **Add-ons/extensions:** LoopTools (Circle with adjustable Influence %, Flatten, Bridge), F2 (smart face-fill on F), Extra Objects (Round Cube primitive, adjustable Arc count via right-click > Change Round Cube).
+- **Core edit tools:** Grid Fill, Knife (K), Rip (V), Select Linked (L), Circle Select (C), Merge/Auto Merge Vertices, Connect Vertex Path (J), Vertex Slide with Even (G,G then E) and Flip (F) options, Inset+Outset (I then O), Fill (F), Dissolve Edges (Ctrl+X), Statistics overlay.
+- **Transform nuances:** Alt+S (scale along normals, for ridges/thickness), G then Shift+Z (move on X/Y only, excluding Z), Apply Scale/Rotation (Ctrl+A) before Mirror/Symmetrize or Loop Tools Circle.
+- **Viewport workflow:** second viewport window with Overlays off + Matcap + On Cage enabled, used specifically to preview shaded results while tuning LoopTools Circle percentages.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate to Advanced (assumes comfort with subdivision modeling fundamentals; the boolean-cleanup "puzzle" section is genuinely improvisational, open-ended topology problem-solving)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — relies on On Cage Subdivision editing, the LoopTools/F2/Extra Objects add-ons, and the Exact boolean solver, all consistent with Blender 3.x through 5.x.
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, procedural, intermediate, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [For Beginners: Easiest Modeling Technique (long version)](for-beginners-easiest-modeling-technique-long-version.md) — shares modelling, procedural; both use the double-Subdivision-modifier + On Cage blockout method, this video applies it to precise reference-matching rather than freeform sci-fi design.
+- [Blender Secrets - 6 Minutes of Boolean Basics](blender-secrets---6-minutes-of-boolean-basics.md) — shares modelling, procedural, intermediate; that tutorial's boolean-cleanup techniques (Weld modifier, Auto Merge, support loops) are the same category of fix applied here to the jaw's boolean cut.
+- [How do you model that? Kingdom Hearts Keyblade - Blender Secrets](how-do-you-model-that-kingdom-hearts-keyblade---blender-secrets.md) — shares procedural, advanced; same "How do you model that?" reference-to-model series, applying the same box-model-over-reference approach to an organic fantasy weapon instead of a mechanical tool.

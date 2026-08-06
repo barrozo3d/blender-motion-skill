@@ -1527,9 +1527,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=S9WVxHp1Sc0
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (On Cage editing, LoopTools, F2, Extra Objects; 3.x-5.x)
+- **Tags:** #modelling #procedural #intermediate #advanced
+- **Summary:** Reference-to-model workflow (title says Wrench, content is actually pliers) covering box-modeling over a photo reference, graduated LoopTools Circle percentages for sharp-to-round transitions, a boolean jaw cut, freeform post-boolean topology cleanup, and Round Cube end-cap details.
 - **File:** tutorials/how-do-you-model-that-wrench---blender-secrets.md
 
 
