@@ -1777,9 +1777,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=qjJ3kSCis4k
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Ocean modifier, EEVEE/Cycles compatible; 3.x-5.x)
+- **Tags:** #displacement #shaders #materials #rigging #procedural #intermediate
+- **Summary:** Modifier-only ocean (no fluid sim): the Ocean modifier drives wave displacement, a height-based ColorRamp fakes peak/valley coloring, Generate Foam + an Attribute/Power node mixes in white foam, and a Shrinkwrap-plane + Copy Transforms rig floats a boat naturally on the waves.
 - **File:** tutorials/making-an-ocean-with-foam-and-a-boat-blender-secrets.md
 
 
