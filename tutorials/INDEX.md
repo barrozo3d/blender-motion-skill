@@ -1577,9 +1577,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=gS8MHAXKFQE
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 4.5 LTS (explicitly named)
+- **Tags:** #modelling #procedural #intermediate
+- **Summary:** Grid Fill turns a boundary loop into a curvature-aware quad patch (with a "select two rails instead of the full boundary" trick); Blender 4.5 LTS adds running it on existing face selections to retopologize n-gons/triangles into quads.
 - **File:** tutorials/grid-fill-update-in-blender-45-lts---blender-secrets.md
 
 

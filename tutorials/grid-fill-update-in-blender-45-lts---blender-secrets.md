@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=gS8MHAXKFQE
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.5 LTS (explicitly named — the new retopologize-existing-faces feature is new in this release)"
+tags: [modelling, procedural, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/grid-fill-update-in-blender-45-lts---blender-secrets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Grid Fill update in Blender 4.5 LTS - Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py grid-fill-update-in-blender-45-lts---blender-secrets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -62,30 +58,49 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:15] tutorials/frames/grid-fill-update-in-blender-45-lts---blender-secrets/frame_000.jpg
+- [0:23] tutorials/frames/grid-fill-update-in-blender-45-lts---blender-secrets/frame_001.jpg
+- [0:42] tutorials/frames/grid-fill-update-in-blender-45-lts---blender-secrets/frame_002.jpg
+- [0:48] tutorials/frames/grid-fill-update-in-blender-45-lts---blender-secrets/frame_003.jpg
+- [1:02] tutorials/frames/grid-fill-update-in-blender-45-lts---blender-secrets/frame_004.jpg
+- [1:22] tutorials/frames/grid-fill-update-in-blender-45-lts---blender-secrets/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Grid Fill turns a closed boundary loop of vertices into a curvature-aware, all-quad surface patch; Blender 4.5 LTS adds the ability to run it on a selection of *existing* faces to retopologize messy n-gon/triangle geometry into clean quads.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows a curved four-sided panel outline (already extruded from a reference shape) selected via Alt-click on its boundary, mid-caption "You can press Ctrl+F and then press G" — the fill-hole shortcut about to run. Frame 001 shows the Grid Fill result: the same outline now a smooth, evenly-gridded quad surface that correctly follows the boundary's curvature rather than filling flat. Frame 002 compares two grid-fill results side by side — a clean rectangular-grid fill on the left versus a fan-triangulated-looking fill on the right, illustrating "same amount on opposite sides, although that's not a requirement" (uneven vertex distribution still works but looks different). Frame 003 shows a freeform outline of the Statistics overlay enabled (Vertices/Edges/Faces counts visible top-left) with only two "rails" of an edge loop selected in orange at the bottom-left, per the "select two rails instead of the full boundary" tip. Frame 004 is a direct before/after comparison: "Selecting only rails" (left) versus "Selecting boundary" (right) on the same curved strip shape, both producing a clean quad grid — demonstrating the rails method often works better than selecting the whole loop. Frame 005 shows the new 4.5 feature: an existing messy patch of triangles and n-gons (rainbow-colored face-orientation overlay) about to be retopologized in place via Grid Fill, captioned "With this new update."
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Fill a hole/boundary:** Alt+left-click a boundary edge loop to select it, then either press Ctrl+F then G, or go to Face > Grid Fill — the resulting surface follows the boundary's curvature rather than flat-filling it.
+2. **Build a curved patch from scratch:** extrude a set of vertices to trace the outline you want, then Grid Fill that outline — useful for matching reference images.
+3. **Vertex count requirement:** Grid Fill needs an *even* total number of boundary vertices; matching counts on opposite sides is ideal but not strictly required (enable the Statistics overlay to see live vertex/edge/face counts while working).
+4. **Rails trick:** instead of selecting the full boundary loop, just select two "rails" (the two edge loops running along the patch, not the full perimeter) — Grid Fill will infer the correct Span and Offset values, and this often produces a cleaner result than selecting the whole boundary.
+5. **Fixing an odd vertex count:** add or dissolve a single edge to change the count to even, then use the Edge Flow extension to redistribute vertices evenly along the loop, or use the LoopTools extension's Space feature to evenly space vertices.
+6. **Offset control:** the Grid Fill operator's Offset value rotates which vertices pair with which across the fill, useful when the automatic guess doesn't align correctly.
+7. **New in Blender 4.5 LTS — retopologize existing faces:** select a patch of existing faces (including messy n-gons and triangles) and run Grid Fill on the selection; it replaces that patch with clean quads, following the same curvature-aware logic — still requires an even vertex count around the selection boundary.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Operator:** Grid Fill (Face menu, or Ctrl+F > G shortcut) — parameters: Span, Offset, Simple Blending.
+- **Selection:** Alt+click (select boundary/edge loop), Statistics overlay (live vertex/edge/face counts).
+- **Extensions:** Edge Flow (redistribute vertices along a loop for an even count), LoopTools > Space (evenly space vertices).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.5 LTS — explicitly named; the "retopologize existing faces" capability is stated as new in this release.
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, procedural, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Easy hole modeling for beginners - Blender Secrets](easy-hole-modeling-for-beginners---blender-secrets.md) — shares modelling, procedural; complementary hole-related technique — that video builds circular holes via bevel/LoopTools, this one fills irregular curved boundaries via Grid Fill.
