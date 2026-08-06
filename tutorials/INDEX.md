@@ -2147,9 +2147,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=4AttSorvirM
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 2.82+ (Custom Bevel Profile stairs preset explicitly requires 2.82 or later)
+- **Tags:** #materials #modelling #procedural #simulation #cloth #rigid-body
+- **Summary:** 13-tip grab-bag: box/triplanar texture mapping, Auto Smooth, BoolTool cutting, LoopTools bridging/twisting and circular holes, bevel-profile stairs, vertex sliding, Cloth Pressure inflation, Subdivision shortcuts, PolyBuild retopology, and three bouncy-ball/ragdoll physics methods (keyframes, Rigid Body, Soft Body).
 - **File:** tutorials/daily-blender-secrets---15-tips-compilation-part-2.md
 
 

@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=4AttSorvirM
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "2.82+ (Custom Bevel Profile stairs preset explicitly requires 2.82 or later)"
+tags: [materials, modelling, procedural, simulation, cloth, rigid-body]
+extraction_status: complete
 frames_dir: tutorials/frames/daily-blender-secrets---15-tips-compilation-part-2/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Daily Blender Secrets - 15 Tips Compilation (Part 2)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py daily-blender-secrets---15-tips-compilation-part-2 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -268,30 +264,60 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:29] tutorials/frames/daily-blender-secrets---15-tips-compilation-part-2/frame_000.jpg
+- [2:19] tutorials/frames/daily-blender-secrets---15-tips-compilation-part-2/frame_001.jpg
+- [3:35] tutorials/frames/daily-blender-secrets---15-tips-compilation-part-2/frame_002.jpg
+- [4:20] tutorials/frames/daily-blender-secrets---15-tips-compilation-part-2/frame_003.jpg
+- [6:23] tutorials/frames/daily-blender-secrets---15-tips-compilation-part-2/frame_004.jpg
+- [7:12] tutorials/frames/daily-blender-secrets---15-tips-compilation-part-2/frame_005.jpg
+- [8:35] tutorials/frames/daily-blender-secrets---15-tips-compilation-part-2/frame_006.jpg
+- [12:41] tutorials/frames/daily-blender-secrets---15-tips-compilation-part-2/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A 13-tip grab-bag spanning triplanar/box texture mapping, non-destructive modeling (Auto Smooth, BoolTool cutting, LoopTools bridging/circles, bevel-based holes and stairs, PolyBuild retopology) and three physics categories (Cloth Pressure inflation, Rigid Body bouncing/ragdolls, Soft Body bouncing).
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the box-mapping setup from Tip 1: a Suzanne head material with the mapping/texture-coordinate node chain open in the Shader Editor, mid-way through "Choose a texture." Frame 001 shows Tip 3 (Cut Tool/BoolTool): a cube with a cylinder cutter positioned for a Ctrl+Numpad-1 boolean cut, the "hole" already visible as a live non-destructive preview. Frame 002 shows Tip 4 (LoopTools) applied to the twisting chair-wood piece: the Bridge/Loft operator panel (Segments 16, Cubic interpolation, Remove Faces, Strength 1.00) mid-adjustment while increasing Segments for a smoother twist. Frame 003 shows Tip 5 (Bevel Holes): the Bevel operator redo panel on a cube (Width Type Offset, Width 0.175m, Segments 5, Profile 0.100, Vertex Only) producing four small circular bevel "islands" that will become holes. Frame 004 shows Tip 6 (Round Holes / Quad Topology): the right-click context menu with the LoopTools submenu open and Circle highlighted, about to snap an inset face selection into a perfect circular quad ring. Frame 005 shows Tip 7 (Stairs): the Bevel operator's Custom Profile panel on an edge-beveled cube, with a stair-step profile curve drawn and a preset dropdown ready ("You can now choose several presets"), producing physical stair-step geometry along the bevel. Frame 006 shows Tip 9 (Pressure): a Cloth modifier's Physical Properties panel on a blob-like mesh, with Pressure set to a large positive value (≈37,300) and the caption noting the simulation is about to inflate the object after Spacebar. Frame 007 shows Tip 13 (Ragdoll): a cube-built stick-figure rig mid-simulation, all parts set to active Rigid Body and just released to fall ("they all fall down, so far so good") before Rigid Body Constraints connect the limbs.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Box/triplanar mapping (Tip 1):** select the material, press Ctrl+T to auto-generate mapping nodes; set Texture Coordinate to Generated, choose a texture, set the projection type to Box; raise the Blend value (≈0.25) to soften the seams between the projected sides; optionally drive the mapping's position/rotation/scale from an Empty via Object coordinates.
+2. **Auto Smooth (Tip 2):** enable Shade Smooth then Auto Smooth with an angle around 30° — angles under the threshold smooth, angles over stay sharp — avoiding a Subdivision modifier and support loops for low-poly, non-deforming hard-surface objects (Blender-only effect; use real subdivision + support loops if exporting elsewhere).
+3. **Cut Tool / BoolTool (Tip 3):** enable the BoolTool add-on (bundled with Blender) in Preferences; select the cutter object, Shift-select the target, press Ctrl+Numpad-1 to cut; the cutter becomes a movable/selectable bounding box ("Brush") and the Boolean updates live and non-destructively; apply Shade Smooth + Auto Smooth to both the target and the cutter; all BoolTool options also live in the N-panel Edit tab.
+4. **LoopTools twist (Tip 4):** select faces at both ends of a gap, right-click > LoopTools > Bridge (requires the LoopTools add-on) to connect them with new faces, removing the originals; add more edge loops via the Bridge/Loft panel's Segments field; set its Twist value (e.g. 3) for a spiral/twisted look; finish with an Angle-based Bevel modifier to catch material highlights along the twist.
+5. **Bevel Holes (Tip 5):** add edge loops with Ctrl+R (scroll to add more); select the vertices where holes should go and Shift+Ctrl+B to bevel them, raising Segments and setting Profile to 0.1 for a circular profile; set the Pivot Point to Individual Origins; extrude the beveled ring (E, then S to scale down, then G,Z or G,C to slide along the normal) for depth; enable Auto Smooth + smooth shading; clean up leftover boolean vertices via manual merge or Auto Merge Vertices + G,G sliding; add support loops by insetting (I, no mouse move) then Alt+S to scale inward, plus a Ctrl+R loop cut and Subdivide.
+6. **Round Holes with Quad Topology (Tip 6):** add 3 edge loops per side (Ctrl+R, type 3) to a cube; select 4 center faces and Inset (I); right-click > LoopTools > Circle to snap the inset ring into a perfect circle; inset again slightly and extrude down (E, Z) for support loops, repeating for more depth — yields a hole with clean all-quad topology and no N-gons or boolean artifacts.
+7. **Stairs via Custom Bevel Profile (Tip 7):** bevel an edge (Ctrl+B), open the Bevel panel, raise Segments/Profile, enable Custom Profile — choose the built-in Stairs or Molding presets (useful for archviz) or draw a fully custom profile curve; requires Blender 2.82 or later.
+8. **Vertex sliding off an edge (Tip 8):** press G,G to slide a vertex along an existing edge in one direction; to continue moving along that same angle past the edge's end, press C after G,G and move the mouse freely in that direction.
+9. **Cloth Pressure (Tip 9):** on an object with Cloth Physics, the Pressure setting (under Physical Properties) is a keyframeable value that inflates (positive) or deflates (negative) the mesh on simulation playback; a large negative starting value (e.g. −2) can suck a shape into itself, and animating it up to a large positive value (e.g. 70) makes it inflate/unsquash — combine with (invisible-in-render) collision objects to squash the shape as it's evolving, as seen in the referenced ZUGA Masta reference file.
+10. **Subdivision Modifier shortcut (Tip 10):** press Ctrl+0–5 (top-row number keys, not numpad) to instantly add/toggle a Subdivision Surface modifier at that level; Ctrl+0 removes it. Bonus: a subdivided cube alone won't make a perfect sphere — add a Cast modifier set to Sphere (Factor 1), or enable the Extra Objects add-on for a ready-made Round Cube primitive.
+11. **PolyBuild retopology (Tip 11):** enable the PolyBuild tool; in Edit Mode, hover an edge (it highlights) and drag to extrude a new face, or Ctrl-drag to extrude a triangle; repeat on a triangle's edge to build it into a quad face; Shift+click a face to delete it; Ctrl+click to add new vertices; select all (A) and press F to fill; Ctrl-drag a corner vertex to fill a face at that location; combine with a Shrinkwrap modifier or snapping for manual retopology over a reference mesh.
+12. **Bouncy Ball, 3 methods (Tip 12):** (1) Keyframe location with I/G, then in the Graph Editor select the keyframes, press T and choose the Bounce interpolation type; (2) set the ground to Rigid Body/Passive with low Friction and Bounciness 1, set the ball to Rigid Body/Active with low Friction and Bounciness 0.5; (3) enable Collision on the ground, Soft Body physics on the ball, turn off Soft Body Goal, set Bending to 10, and enable Stiffness.
+13. **Flag & Ragdoll (Tip 13):** *Flag:* build a subdivided flag-shaped plane, assign one edge's vertices to a Vertex Group, add a Cloth modifier and set that group as the Pinning group, play the sim, add a Force/Wind field with high strength (e.g. 5000), tune Vertex Mass and try different Cloth presets, and enable Self Collisions to stop the flag intersecting itself. *Ragdoll:* build body parts from cubes, add a passive Rigid Body floor and set every body cube to active Rigid Body; play to confirm they fall correctly; connect adjacent parts two at a time via Object > Rigid Body > Connect, set the constraint type to Point and Disable Collision to Off; parent everything except the floor to a new Empty for easy repositioning, hide relationship lines in Overlays, then play; optionally add a passive, "Animated"-checked Rigid Body object to interactively puppet the ragdoll in real time.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Shading:** Mapping + Texture Coordinate nodes (Ctrl+T auto-setup), Box projection with Blend ≈0.25, Object-driven coordinates via an Empty.
+- **Modifiers:** Bevel (Width Type, Segments, Profile, Vertex Only, Custom Profile with Stairs/Molding presets), Subdivision Surface (Ctrl+0–5 shortcut), Cast (Sphere Factor 1), Cloth (Pressure under Physical Properties, Pinning group, Self Collisions, presets), Rigid Body / Rigid Body Constraint (Connect > Point, Disable Collision), Soft Body (Goal off, Bending, Stiffness).
+- **Add-ons:** BoolTool (Ctrl+Numpad-1 live boolean cut), LoopTools (Bridge/Loft with Segments/Twist/Strength, Circle), PolyBuild, Extra Objects (Round Cube primitive).
+- **Editing:** Ctrl+R (loop cut), I (inset), Alt+S (scale along normals), G,G / G,C (vertex/edge slide), Shift+Ctrl+B (vertex bevel), Auto Merge Vertices.
+- **Animation/Physics fields:** Graph Editor interpolation type "Bounce" (T menu), Rigid Body Friction/Bounciness, Force Field Wind strength, Vertex Mass.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+2.82 or later — the video explicitly states the Custom Bevel Profile stairs preset "does not work in Blender builds before 2.82."
 
 ### Tags
-[PENDING EXTRACTION]
+materials, modelling, procedural, simulation, cloth, rigid-body
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Daily Blender Secrets - 10 ways to make Holes in Blender](daily-blender-secrets---10-ways-to-make-holes-in-blender.md) — shares modelling, procedural; Tips 5-6 here (Bevel Holes, Round Holes) cover the same bevel-vertex and LoopTools Circle hole-cutting methods in that dedicated video.
+- [Blender Secrets - 6 Minutes of Boolean Basics](blender-secrets---6-minutes-of-boolean-basics.md) — shares modelling, procedural, materials; Tip 3 here (Cut Tool/BoolTool) and its leftover-vertex cleanup echo that tutorial's deeper BoolTool walkthrough.
