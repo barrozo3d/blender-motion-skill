@@ -79,3 +79,8 @@ Not specified
 
 ### Tags
 #geometry-nodes #simulation #animation #motion-design #procedural #intermediate
+
+---
+
+## Related Tutorials
+- [Extra Nodes v4.0 | Powerful New Tools for Blender Geometry Nodes - Full Demo](extra-nodes-v40-powerful-new-tools-for-blender-geometry-nodes---full-demo.md) — shares geometry-nodes, simulation, animation, motion-design, procedural; that video's KS_Geometry_Roller and Plexus nodes are third-party-add-on shortcuts for effects this tutorial builds from scratch with stock Simulation Zone + Noise Texture nodes.

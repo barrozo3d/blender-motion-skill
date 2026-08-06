@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=mS27dSXDSuc
 author: 3D Singh VFX
 ingested: 2026-08-06
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified — Extra Nodes v4.0 add-on demo, uses standard EEVEE viewport rendering, consistent with Blender 4.x"
+tags: [geometry-nodes, procedural, simulation, animation, motion-design, abstract, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/extra-nodes-v40-powerful-new-tools-for-blender-geometry-nodes---full-demo/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Extra Nodes v4.0 | Powerful New Tools for Blender Geometry Nodes - Full Demo
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py extra-nodes-v40-powerful-new-tools-for-blender-geometry-nodes---full-demo <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -456,30 +452,60 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [3:00] tutorials/frames/extra-nodes-v40-powerful-new-tools-for-blender-geometry-nodes---full-demo/frame_000.jpg
+- [8:03] tutorials/frames/extra-nodes-v40-powerful-new-tools-for-blender-geometry-nodes---full-demo/frame_001.jpg
+- [9:53] tutorials/frames/extra-nodes-v40-powerful-new-tools-for-blender-geometry-nodes---full-demo/frame_002.jpg
+- [11:20] tutorials/frames/extra-nodes-v40-powerful-new-tools-for-blender-geometry-nodes---full-demo/frame_003.jpg
+- [14:57] tutorials/frames/extra-nodes-v40-powerful-new-tools-for-blender-geometry-nodes---full-demo/frame_004.jpg
+- [17:03] tutorials/frames/extra-nodes-v40-powerful-new-tools-for-blender-geometry-nodes---full-demo/frame_005.jpg
+- [19:37] tutorials/frames/extra-nodes-v40-powerful-new-tools-for-blender-geometry-nodes---full-demo/frame_006.jpg
+- [23:25] tutorials/frames/extra-nodes-v40-powerful-new-tools-for-blender-geometry-nodes---full-demo/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A feature-tour demo of "Extra Nodes" v4.0, a paid third-party Geometry Nodes node-pack add-on, covering nine new custom nodes for motion graphics: Curve Roller (physically-accurate curve/paper rolling), Recursive Topology (recursive face subdivision patterns), Mesh Cutter (simulated CNC-style progressive cutting), Geometry Roller (rolling instances/geometry along an axis or curve), Step Force (a particle-dynamics force for stepped/electric-looking motion), Plexus (point-network line generator with collision masking), Inflate Solver with Tear (cloth-like inflation simulation with tearable seams), Edge Tracer (mesh/curve motion-trail generator), and Animated Follow (keyframed follow-field driver).
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the Curve Roller node (KS_Curve_Roller) wired between a Curve Circle/Curve Line + Set Curve Radius chain and the Group Output, its parameters visible (Selection: Curve/Roll, Factor 1.700, Radius 0.43m, Circular, Spiral, Angle 0.17, Scale 0.000, Depth, Clip) — with a spiral curve shape shown top-left, demonstrating the node's physically-accurate rolling (no segment stretching). Frame 001 shows the Recursive Topology node (KS_Recursive_Topology) fed by a Grid, with Iterations, Seed, and Factor (0.494) fields, producing a rectangular recursive-subdivision pattern on a flat grid viewed from Top Orthographic. Frame 002 shows the same Recursive Topology node applied to a circular grid/disc shape, Iterations/Seed/Factor visible again (Factor 0.398), demonstrating the effect works on non-rectangular base topology too. Frame 003 shows the Mesh Cutter node (KS_Mesh_Cutter) — a Cube's Mesh and UV Map feeding into Cutter Frame/Cutter Mask/Cut Mask outputs, a rotating smaller cutter cube (Transform Geometry, Rotation/Scale 0.250) driving progressive simulated cutting into the larger cube's corner, joined via a Join Geometry node before Group Output. Frame 004 shows the Geometry Roller node (KS_Geometry_Roller) taking Instances from a Collection Info node and a Curve from an Object Info node (Bezier Curve, As Instance), with Group ID, Translation, Curve (Animate, Normal, Offset) inputs — rolling small cylinder instances along a curved path in the viewport. Frame 005 shows the Step Force node (KS_Step_Force) feeding into an XPBD Solver node (KS_XPBD_Solver) alongside a Distribute Points on Mesh Surface node — Force/Selection/Axis/Strength/Seed/Increment fields visible, driving jagged, stepped particle-trail motion from a scattered point cloud on a plane. Frame 006 shows the Plexus node (KS_Plexus) with Mesh/Surface/Distribution/Animation/Points inputs, Join Points enabled, Ico Sphere point-markers (Radius 0.01m, Subdivisions) — generating a sparse network of connecting lines between scattered points on two separate point clusters. Frame 007 shows the Inflate Solver node (KS_Inflate_Geometry) with Simulation/Inflate/Weight/Dynamic/Stiffness sections — Enable Shear, Enable Compression (0.350), Enable Tear (Split mode, Threshold 0.002, Static) all checked — inflating a flat subdivided plane (80×80 vertices) into a pillow-like puffed shape.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Curve Roller (KS_Curve_Roller):** feed a Curve into the node; it rolls the curve physically accurately — individual segments don't stretch or scale, only the overall roll angle/scale changes. Curve settings: sample by Count or Length, Tilt (roll relative to the curve's normal), Reverse. Roll settings: Roll Control via Factor (0-1) or Length; Size via Radius or Angle; a Circular toggle rolls the curve into a complete circle (when Spiral factor is 0); Spiral mode via Angle (physically accurate, affects only segment angle) or Scale (visually stretches segments, sometimes desirable for a different look); Depth offsets the rolled curve along its rolling axis (also works on circular curves); Clip trims the rolled result to a specific angle range, combinable with Tilt for creative partial-roll effects. All roll inputs are field-based, so they can be driven by multiple curves, Noise Textures, or Falloff nodes (e.g. an Object/Sphere falloff linked to an Empty) for interactive or procedural rolling animation.
+2. **Recursive Topology (KS_Recursive_Topology):** recursively subdivides a mesh's existing face topology (works on a Grid or other base mesh). Mode: Alternate (sequential per-face division) or Random (randomized per-face division with a Seed) for more organic patterns. Scale controls per-element shrink (Relative Scale or a fixed Width per segment). An Advanced option removes faces below an Area threshold. Ships with 7 useful output attributes including Random (per-face color/material variation), Face Scale, Local Axis, and Face Orientation — the latter two enable instancing new geometry onto each generated face (e.g. Mesh to Points → Instance on Points, aligned via the Local Axis/rotation outputs) to build things like architectural window grids or complex generative motion graphics; the driving Vector input is field-based and can be controlled by an Object Follow-Up node linked to an Empty for interactive control.
+3. **Mesh Cutter (KS_Mesh_Cutter):** simulates progressive CNC-style cutting of one mesh by another moving cutter object over a frame range. Simulation parameters include Start/End Frame and Sub Steps (raise for a fast-moving cutter). Cutting Mode: Manifold (fast, requires closed/manifold base and cutter meshes) or Exact (much more computationally expensive, more robust for non-manifold geometry). A Multi Mesh option removes artifacts when the cutter input contains multiple separate mesh islands. Triangulate Cuts reduces rendering artifacts at cut boundaries. The node can transfer the cutter's UV map onto the base geometry for material/texture variation at cut regions. Outputs include a Cutter Mask (where the cutter currently is), a Cutout Mask (the accumulated cut region), and a Cutter Frame output for building an animated mask of the cut area over time.
+4. **Geometry Roller (KS_Geometry_Roller):** rolls either Instances or raw Geometry along a translation axis, an Empty's location, or a Curve. For Instances, a Group ID (defaults to per-instance index) lets multiple instances be rolled together as one logical group; for raw Geometry (which may contain multiple mesh islands), a Group ID must be supplied per-island, along with a World Location method (Average, computed from the geometry's position field, or an exact location). The node preserves each input's original relative offset while rolling. Curve-based rolling supports multiple curves mapped per Group ID (individual paths per rolled group), rolling based on curve Length, with a Normal direction control (numeric angle or dropdown preset) to orient "upward," a Loop option for seamless looping animation, and an Offset for positioning instances along the specified normal.
+5. **Step Force (KS_Step_Force, under Dynamics):** a custom force node for particle/XPBD simulations that produces sharp, stepped, "electric"-looking motion rather than smooth motion — tune by lowering the Velocity Factor (how much previous-frame velocity carries over) and raising Strength; Axis can be World or Random per particle; Seed and Increment control the step pattern's variation and step-size progression over time (e.g. small steps early, larger steps later). Combinable with other forces on the same particle system (e.g. stacking a Gravity node) since it's built to compose with the newer solvers (XPBD Solver, Cloth dynamics, Hair dynamics) — the author notes using a similar Vertex Turbulence force node on cloth for a separate video's effect.
+6. **Plexus (KS_Plexus):** generates a network of connecting lines between a point cloud, either distributed procedurally from a Surface or fed Direct Points. Animation options: Offset, Speed, and configurable Noise Texture Type with independent X/Y/Z scale for varied per-particle motion. A Join Points option merges the original points into the plexus lines output. Point markers can be Ico Sphere, Cube, or a Custom mesh, with adjustable Radius/Subdivisions/Material. Plexus-specific settings: Connections per point (min/max), Minimum/Maximum Distance thresholds (points too close get no line; points too far apart also don't connect), line Radius/Profile (curve-based radius definition), Trim (shorten lines from the start and/or end), and a Collision option that restricts line formation to inside or outside a target collision object/selection — useful for revealing a hidden shape within the plexus pattern. Profile settings support a Circle or a Custom curve cross-section, plus Resolution, Fill Cap, and Material.
+7. **Inflate Solver (KS_Inflate_Geometry):** a cloth-like simulation node that inflates a mesh, with Shear and Compression stiffness limits — Compression specifically affects how much heavily-compressed faces resist further inflation (a low Compression value can effectively halt inflation in already-compressed regions, while a higher value allows it to continue, just more slowly). An Enable Tear option adds tearing: Mode is either Split (splits edges to introduce a tear) or Delete (removes points instead, giving a different visual result); a Threshold (Static or Dynamic, comparing rest length vs. current edge length) controls when tearing triggers — a low threshold tears early, and the threshold itself can be driven by a Noise texture for organic, non-uniform tear patterns/timing. Disabling Compression while Shear/Tear remain active visibly speeds up and changes the resulting motion.
+8. **Edge Tracer:** traces the motion of a mesh's edges or a curve across a frame range into new trailing geometry — define Start Frame, Step, and Flip Faces; useful for building motion trails behind any moving object, and the output can be assigned its own Trail material.
+9. **Animated Follow:** drives a Follow field (as used by many of the pack's other Follow-based nodes) via explicit keyframed Start/End frame animation rather than tying it to a moving object directly. Feed it any Follow source (an Empty-based Follow, a curve-based Follow, even a text object's Follow) and control Width/Range, Invert, Smooth, and an animatable Noise (with adjustable speed) added specifically within the follow's width region — useful for building generative reveal/wipe effects driven by any follow field.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **KS_Curve_Roller:** Selection (Curve/Roll), Factor, Radius, Circular, Spiral (Angle/Scale sub-modes), Depth, Clip, Tilt, Reverse — all field-based inputs.
+- **KS_Recursive_Topology:** Iterations, Seed, Mode (Alternate/Random), Scale (Relative/Width), Advanced (Area threshold), output attributes (Random, Face Scale, Local Axis, Face Orientation).
+- **KS_Mesh_Cutter:** Simulation (Start/End Frame, Sub Steps), Cutting Mode (Manifold/Exact), Multi Mesh, Triangulate Cuts, UV transfer, outputs (Cutter Mask, Cutout Mask, Cutter Frame).
+- **KS_Geometry_Roller:** Instances vs. Geometry mode, Group ID, World Location (Average/Exact), Translation, Curve (Animate/Normal/Offset, multi-curve-per-group support), Loop.
+- **KS_Step_Force:** Force, Selection, Axis (World/Random), Velocity Factor, Strength, Seed, Increment — composes with XPBD Solver, Cloth, Hair dynamics, and other force nodes (e.g. Gravity).
+- **KS_Plexus:** Mesh/Surface/Distribution/Animation (Offset, Speed, Noise Texture Type + XYZ scale)/Points (Join Points, marker geometry, Radius, Subdivisions), Connections per point (min/max), Min/Max Distance, Radius/Profile, Trim, Collision (selection or geometry-based, invertible).
+- **KS_Inflate_Geometry:** Simulation/Inflate/Weight/Dynamic/Stiffness, Enable Shear, Enable Compression, Enable Tear (Split/Delete, Threshold Static/Dynamic, noise-drivable), Self Collision, Collision.
+- **Edge Tracer:** Start Frame, Step, Flip Faces, Trail material.
+- **Animated Follow:** Start/End Frame, Follow input, Width/Range, Invert, Smooth, Noise (speed-animatable).
+- **Complementary stock nodes used throughout:** Set Curve Radius, Object Info (As Instance), Collection Info, Distribute Points on Faces/Mesh Surface, Mesh to Points, Instance on Points, Transform Geometry, Join Geometry, Object Follow-Up node, Falloff nodes (e.g. Object/Sphere Falloff).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced (assumes solid familiarity with the Geometry Nodes editor and simulation zones; this is an add-on feature tour, not a from-scratch beginner lesson)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — the Extra Nodes v4.0 add-on demo uses standard EEVEE viewport rendering and simulation-zone-based nodes (XPBD Solver, Cloth/Hair dynamics references), consistent with Blender 4.x.
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural, simulation, animation, motion-design, abstract, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Another Blender String Tutorial....But even Better This Time!](another-blender-string-tutorialbut-even-better-this-time.md) — shares geometry-nodes, simulation, animation, motion-design, procedural; builds a comparable string/curve-array effect from scratch with stock Simulation Zone + Noise Texture nodes, versus this add-on's KS_Geometry_Roller/Plexus shortcuts.

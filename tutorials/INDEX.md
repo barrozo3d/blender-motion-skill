@@ -2737,9 +2737,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=mS27dSXDSuc
 - **Author:** 3D Singh VFX
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (EEVEE + simulation zones; Blender 4.x)
+- **Tags:** #geometry-nodes #procedural #simulation #animation #motion-design #abstract #advanced
+- **Summary:** Feature tour of the paid "Extra Nodes" v4.0 add-on: Curve Roller (physically-accurate curve rolling), Recursive Topology, Mesh Cutter (simulated CNC-style cutting), Geometry Roller, Step Force, Plexus, Inflate Solver with Tear, Edge Tracer, and Animated Follow.
 - **File:** tutorials/extra-nodes-v40-powerful-new-tools-for-blender-geometry-nodes---full-demo.md
 
 ---
