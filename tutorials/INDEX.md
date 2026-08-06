@@ -2677,9 +2677,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=dQZ2RwpvFtM
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Ctrl+Alt+Space, version-agnostic)
+- **Tags:** #modelling #beginner
+- **Summary:** Ctrl+Alt+Space creates a Custom Transform Orientation from a selected face, letting Move/Rotate/Scale be constrained to that face's own local axes; saved orientations remain reusable afterward in the Transform Orientation dropdown.
 - **File:** tutorials/daily-blender-tip-47---custom-transform-orientation.md
 
 
