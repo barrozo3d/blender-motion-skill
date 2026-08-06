@@ -2427,9 +2427,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=9takya3FrtI
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — this is a modeling/rigging strategy discussion, not tied to specific Blender version features
+- **Tags:** rigging, character, modelling, intermediate
+- **Summary:** Conceptual comparison under a shared armature: a single connected mesh (skin+clothes fused) deforms without clipping during extreme poses, while separate clothing objects are more modular but risk visible overlap/clipping; references Junya Motomura's Guilty Gear -X- rigging talk (~400 bones).
 - **File:** tutorials/daily-blender-tip-89---riggin-with-seperate-objects-or-not.md
 
 

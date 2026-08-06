@@ -97,3 +97,4 @@ rigging, character, animation, intermediate
 ## Related Tutorials
 - [Daily Blender Tip 86 - Simple Character Walk Cycle](daily-blender-tip-86---simple-character-walk-cycle.md) — shares rigging, character, animation; this tutorial converts that walk cycle into an NLA Action and drives it along a path with a Follow Path constraint.
 - [Daily Blender Tip 87 - Adding Props To Your Character (like a stylish hat)](daily-blender-tip-87---adding-props-to-your-character-like-a-stylish-hat.md) — shares rigging, character, animation; continues the same character rig series with a bone-parented prop before this path-following step.
+- [Daily Blender Tip 89 - Riggin With Seperate Objects Or Not?](daily-blender-tip-89---riggin-with-seperate-objects-or-not.md) — shares rigging, character, intermediate; continues the same series with a conceptual comparison of single-mesh vs. separate-object clothing under a shared armature.
