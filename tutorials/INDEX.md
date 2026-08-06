@@ -2667,9 +2667,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=V1C0TxBfuw0
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Text object Font panel workflow is version-agnostic
+- **Tags:** text, workflow, beginner
+- **Summary:** Downloads free fonts from fonts.google.com, installs the .ttf files at the OS level, then selects the newly-installed font in a Blender Text object's Font panel (calendar icon shows recently-added fonts first) — with Extrude/Bevel for 3D styling and Alt+C to convert to mesh.
 - **File:** tutorials/daily-blender-tip-48---installing-custom-fonts-from-google-fonts.md
 
 
