@@ -2647,9 +2647,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=qj2yDtU2M_I
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 2.8+ (Viewport Display material color + Matcap/Cavity Viewport Shading popover)
+- **Tags:** workflow, viewport, materials, beginner
+- **Summary:** Two viewport-clarity tricks: per-material Viewport Display Color (independent of render color) to distinguish mechanical parts, and Matcap + Cavity/Ambient Occlusion (with tuned Strength/Samples) in the Viewport Shading popover for easier-to-read solid shading while modeling.
 - **File:** tutorials/daily-blender-tip-54---2-viewport-tips.md
 
 
