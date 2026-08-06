@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=96ppCrgb2JI
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.2+ for the Ucupaint/Auto Reload Extensions-tab install path (older versions need manual add-on install instead)"
+tags: [organic, materials, procedural, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-texture-paint-in-blender----using-xppen-artist-pro-22-gen-2-ucupaint-auto/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How to Texture Paint in Blender -- Using XPPen Artist Pro 22 (Gen 2) + Ucupaint, Auto Reload & Krita
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-to-texture-paint-in-blender----using-xppen-artist-pro-22-gen-2-ucupaint-auto <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### <Untitled Chapter 1> [0:00]
@@ -124,30 +120,50 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:10] tutorials/frames/how-to-texture-paint-in-blender----using-xppen-artist-pro-22-gen-2-ucupaint-auto/frame_000.jpg
+- [0:20] tutorials/frames/how-to-texture-paint-in-blender----using-xppen-artist-pro-22-gen-2-ucupaint-auto/frame_001.jpg
+- [1:59] tutorials/frames/how-to-texture-paint-in-blender----using-xppen-artist-pro-22-gen-2-ucupaint-auto/frame_002.jpg
+- [2:16] tutorials/frames/how-to-texture-paint-in-blender----using-xppen-artist-pro-22-gen-2-ucupaint-auto/frame_003.jpg
+- [2:33] tutorials/frames/how-to-texture-paint-in-blender----using-xppen-artist-pro-22-gen-2-ucupaint-auto/frame_004.jpg
+- [3:08] tutorials/frames/how-to-texture-paint-in-blender----using-xppen-artist-pro-22-gen-2-ucupaint-auto/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A fast hand-painted-prop pipeline: Dyntopo sculpting from a cylinder to a stump shape, retopology for clean UVs, then layer-based texture painting via the free Ucupaint extension (with an Emission-shader "what you paint is what you see" mode), and a Krita round-trip workflow via the free Auto Reload extension for painting in external software with near-live updates in Blender. Note: this video contains a sponsored segment (~1:02-1:37) for the XP-Pen Artist Pro 22 (Gen 2) display tablet, including a discount code — flagged here for transparency rather than treated as pure technique content.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the sculpted stump mid-process in Sculpt Mode: a cylinder already pulled into root-like protrusions with the sculpt brush palette visible along the bottom. Frame 001 shows a further-refined stump with a "R = Preview Voxel Size / Ctrl+R = Voxel Remesh" on-screen shortcut hint, confirming the Dyntopo/Remesh-based volume-building workflow. Frame 002 shows Ucupaint's "Quick Ucupaint Node Setup" dialog open on the retopologized stump object, Type set to Principled with Channel checkboxes (Ambient Occlusion, Metallic, Roughness, Normal) and "Use Linear Color Blending"/"Mute Stencil Mask Opacity" options. Frame 003 shows the layer-creation menu opened via Ucupaint's "+" button — options for New Image, Generated Layer types (Checker, Gradient, Magic, Noise, Gabor, Voronoi), Bake to Layer presets (Ambient Occlusion, Pointiness, Cavity, Dust, Bevel Normal, etc.), and Solid Color variants — the object shown with an Emission material glowing dark red-brown. Frame 004 shows the "Bake channels to Image" dialog (Resolution 2048, AA Level, Margin, Bake Device: CPU, UDIM Tiles, FXAA, Denoise options) mid-configuration, baking the painted layers down to a real image texture. Frame 005 shows the Auto Reload workflow in action: the stump now flat-white/untextured in the 3D viewport while its associated PSD-sourced color image is open and being edited in the Image Editor, with the Ucupaint node graph (Tree Retopo Color node group feeding an Emission shader) visible below.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Sculpt the base shape (Dyntopo/Remesh workflow):** add a Cylinder, enter Sculpt Mode, Ctrl+R to Voxel Remesh; use the Snake Hook brush to pull out root shapes; build volume with the Draw or Clay Strips brush; use Inflate where areas look too thin; re-run Voxel Remesh (or enable Dyntopo) whenever more geometry is needed — Detail Size ≈3 gives a good detail/performance balance; Clay Strips pairs well with Dyntopo; Draw Sharp carves deep grooves; Crease Sharp defines hard corners; Scrape flattens areas; the Line Project tool squares off the stump's flat bottom.
+2. **Retopologize before painting:** a clean retopologized mesh is needed for good UVs and paintable geometry — the author used the paid Quad Remesher add-on plus manual retopo, but notes this is achievable with free/manual retopology tools too (pointing to a separate video on that topic). Confirm the object has a proper UV unwrap before proceeding.
+3. **Install Ucupaint:** in Blender 4.2+, go to Preferences > Extensions (formerly Add-ons), search "Ucupaint," click Install; on older Blender versions, download and manually install the add-on instead.
+4. **Quick setup:** with the UV-unwrapped object selected, find Ucupaint's panel in the N-panel Option Panel and click "Quick Ucupaint Node Setup" — this creates a material and switches the viewport to Material Preview automatically. Choose a material Type: Principled for a realistic PBR look, or Emission for a flat "what-you-paint-is-what-you-see" hand-painted look with no lighting interference.
+5. **Paint in layers:** set a Base Color first, then use the "+" button to add a new layer (New Image) to paint on in Texture Paint mode; layers can be stacked with individually adjustable strength and blend modes for non-destructive buildup.
+6. **Bake to a real texture:** click the gear icon and choose "Bake Channels to Image," configure Resolution/AA/Margin/Bake Device, then save the result as an image file — needed to use the painted result outside Ucupaint's live node setup, or to hand off to external software.
+7. **Round-trip with external painting software (Krita, Clip Studio, etc.) via Auto Reload:** install the free Auto Reload extension from the Extensions tab; paint a rough base pass in Ucupaint, bake it to an image and save (optionally also exporting the UV layout as a painting reference); open that image in Krita, save it as a PSD, then load the PSD as the texture in Blender; in the Auto Reload panel, check the Images box and enable its Timer button — any time the PSD is re-saved in Krita, Blender's texture auto-updates a few seconds later, without manual re-import. This works with any external app capable of exporting/saving PSD files.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Sculpt Mode:** Voxel Remesh (Ctrl+R, R for voxel size preview), Dyntopo (Detail Size ≈3), brushes: Snake Hook, Draw, Clay Strips, Inflate, Draw Sharp, Crease, Scrape, Line Project tool.
+- **Ucupaint extension:** Quick Ucupaint Node Setup (Type: Principled or Emission; Channels: Color, AO, Metallic, Roughness, Normal), layer "+" menu (New Image, Generated Layer types, Bake-to-Layer presets, Solid Color variants), "Bake Channels to Image" (Resolution, AA Level, Margin, Bake Device, UDIM Tiles, FXAA, Denoise).
+- **Auto Reload extension:** Images checkbox + Timer button, for live-reloading an externally re-saved PSD texture.
+- **Add-ons mentioned but not required:** Quad Remesher (paid, used for retopology in this specific video, not essential to the technique).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.2 or later for installing Ucupaint/Auto Reload via the built-in Extensions tab (older versions require manually downloading and installing the add-ons instead).
 
 ### Tags
-[PENDING EXTRACTION]
+organic, materials, procedural, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+No other extracted BlenderSecrets tutorials in this library currently cover the Ucupaint or Auto Reload extensions.

@@ -1597,9 +1597,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=96ppCrgb2JI
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.2+ (for Extensions-tab install of Ucupaint/Auto Reload)
+- **Tags:** #organic #materials #procedural #intermediate
+- **Summary:** Dyntopo-sculpts a stump prop, retopologizes it, then paints layered textures via the free Ucupaint extension (Principled or flat-Emission mode) and round-trips painting through Krita via the free Auto Reload extension for near-live PSD updates. Contains a sponsored XP-Pen tablet segment, flagged in the notes.
 - **File:** tutorials/how-to-texture-paint-in-blender----using-xppen-artist-pro-22-gen-2-ucupaint-auto.md
 
 
