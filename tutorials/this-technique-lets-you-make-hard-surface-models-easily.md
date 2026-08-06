@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=_6uBdIsvm7c
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified — Extra Objects add-on, Multires sculpt workflow, consistent with Blender 3.x-5.x"
+tags: [displacement, procedural, materials, organic, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/this-technique-lets-you-make-hard-surface-models-easily/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # This technique lets you make Hard Surface models easily
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py this-technique-lets-you-make-hard-surface-models-easily <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Hard Surface Course update [0:00]
@@ -257,30 +253,62 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:56] tutorials/frames/this-technique-lets-you-make-hard-surface-models-easily/frame_000.jpg
+- [1:34] tutorials/frames/this-technique-lets-you-make-hard-surface-models-easily/frame_001.jpg
+- [2:18] tutorials/frames/this-technique-lets-you-make-hard-surface-models-easily/frame_002.jpg
+- [2:51] tutorials/frames/this-technique-lets-you-make-hard-surface-models-easily/frame_003.jpg
+- [4:32] tutorials/frames/this-technique-lets-you-make-hard-surface-models-easily/frame_004.jpg
+- [5:52] tutorials/frames/this-technique-lets-you-make-hard-surface-models-easily/frame_005.jpg
+- [7:06] tutorials/frames/this-technique-lets-you-make-hard-surface-models-easily/frame_006.jpg
+- [8:52] tutorials/frames/this-technique-lets-you-make-hard-surface-models-easily/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Building a custom **tiling hard-surface displacement map** from scratch: a subdivided grid is detailed with alpha brushes (using a Multiresolution modifier and the sculpt brush's "View Plane" mapping mode so strokes tile seamlessly across the camera's exact orthographic frame) combined with hand-modeled extruded/curve-based pipe details built with an X/Y Array modifier for guaranteed edge-to-edge tiling, then flat-shaded and baked into a real, tileable displacement texture usable on any hard-surface model. Framed as a preview lesson from the author's paid Hard Surface Sculpting course.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the base geometry setup: a Top Orthographic view of a subdivided square Grid with all vertices selected and a right-click Vertex context menu open (LoopTools, Extrude Vertices, Bevel Vertices, Merge Vertices, etc.) — the starting canvas before any detail work. Frame 001 shows the camera framing step: an orthographic camera view of the same square grid from directly above, matched exactly to its boundary, with render Output settings (File Format, Color Depth, resolution fields) visible in the sidebar — confirming the "bake target" framing setup. Frame 002 shows Sculpt Mode active on the now heavily-subdivided plane (Multires modifier, Levels Viewport/Render, Sculpt Base Mesh) with an alpha-brush thumbnail strip along the bottom — a plain pink/red canvas ready for stamping. Frame 003 shows the "View Plane" brush-texture-mapping fix being applied: the Texture Mapping panel (Offset, Size, Angle, Include/Vector Displacement fields) open with a faint square-tile boundary visible on the still-blank canvas. Frame 004 shows the payoff: a fully alpha-stamped tile densely packed with varied mechanical shapes (bolts, hex sockets, rounded plugs, angular brackets) symmetrically arranged and clearly tiling right up to all four edges, an Array modifier's Relative/Constant Offset (Constant X: 1.5) visible in the sidebar. Frame 005 shows the hand-modeled pipe network layer added on top: dark reddish tube/conduit shapes winding between the alpha-stamped bumps, a Bevel operator's Segments/Profile Shape/Miter settings visible (Shift+Ctrl+B shortcut badge shown) — the curve-based detail pass. Frame 006 shows the final baked displacement map result: a grayscale tiling normal/height map preview (top-left) next to the Shader Editor graph (Texture Coordinate → Mapping "Tiling Displaceme..." node, Vector output) — confirming the geometry successfully baked into a reusable tiling texture map. Frame 007 shows the finished panel applied at an angled close-up in Rendered view: crisp orange-lit pipes and bumps with sharp, well-defined edges (a "Blade Fill"/"Keep Sharp Edges" toggle visible bottom-left) — the payoff render demonstrating the baked map's quality.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Base grid setup:** add a Grid (pre-subdivided plane) sized so its Unit Scale and object Scale are both exactly 1 — avoids scale-related surprises later; subdivide it a few more times for enough starting geometry.
+2. **Camera framing for the bake:** add a Camera, set it to Orthographic, position it above the grid (exact height doesn't matter for an orthographic camera) and set its Orthographic Scale to a specific value (1.5 in this example) — this value becomes the reference "tile size" used throughout the rest of the workflow; set render resolution to a square format (e.g. 1080×1080); press Numpad 0 to view through the camera.
+3. **Sculpt setup:** apply a Matcap with Cavity enabled for easier depth perception while sculpting; add a Multiresolution modifier and Subdivide it several times (leveraging the grid's existing base subdivisions makes this far less heavy on the computer than subdividing a bare, ungeometried plane from scratch) — around 5 levels / ~1.5 million faces was needed here for the alpha stamps to read crisp rather than blurry; more geometry resolution is always the fix for blurry alpha results.
+4. **Enable seamless tiling for alpha brushes:** in the sculpt brush Texture settings, turn on X and Y **Tiling**, and set the Tile Offset X and Y to the *same value* as the camera's Orthographic Scale (1.5 in this example) — this makes the alpha tile exactly at the camera frame's borders. A radial-looking alpha may initially look wrong when tiling is enabled; the fix is a **brush setting**, not a texture setting: set the brush's texture Mapping to **View Plane** (must be re-set for every new brush the first time it's used) — after that, strokes dragged near one edge correctly reappear tiling on the opposite edge.
+5. **Adding alpha detail:** drag alpha brushes across the surface; hold Ctrl for a negative/subtractive brush where needed; Ctrl+F rotates the brush, F changes radius, Shift+F changes strength — but for alpha brushes specifically, keep Strength at 1 so the alpha's shape reads at its correct/undistorted form. After returning to Object Mode, sculpted detail may appear to vanish — this just means the Multiresolution modifier's **Viewport** level needs raising to preview the detail outside Sculpt Mode.
+6. **Hand-modeled geometry detail (pipes/conduits), built for guaranteed tiling:** install the free Extra Objects add-on (Preferences > Extensions) for its Single Vert primitive; add a single vertex exactly on the grid's surface and extrude repeatedly to trace a pipe/conduit path — ensure there's no undercut in the resulting curve shape. Add an Array modifier to the extruded vertex-chain, set to **Constant Offset**, and enter the same tile-size value (1.5) on the X axis; duplicate the modifier setup with a *negative* X offset (−1.5), then repeat both a positive and negative version on the Y axis — this produces a chain that automatically tiles across all four camera-frame edges, since any point continued past one edge reappears in the correct place on the opposite edge.
+7. **Editing a tiled chain across all its array copies at once:** set the base grid to Non-Selectable (to avoid accidentally selecting it) and enable **On Cage** on the Array-modified vertex chain, so any vertex can be selected/edited from any of its repeated instances; extend the pattern by Shift+D duplicating a vertex and continuing the path, making sure to continue it correctly across tile edges until it terminates inside another shape (e.g. an alpha-stamped bump) for a clean visual connection.
+8. **Give the pipe network thickness:** select corner vertices and Shift+Ctrl+B to bevel them for smoother, rounder corners (scroll the mouse wheel to add more bevel segments; the default Profile is usually fine) before converting to a curve — beveled corners read much better once curved. Convert the vertex chain to a Curve and set its Bevel Depth in the Curve Geometry settings for pipe-like thickness.
+9. **Post-conversion cleanup:** convert the curve to mesh, select all in Edit Mode, Merge by Distance to remove a large number of redundant overlapping vertices generated by the array+bevel+curve pipeline; use Proportional Editing afterward to adjust the shape further — but watch out, since Proportional Editing's soft falloff can unintentionally desync matching geometry on opposite tile edges (see the troubleshooting step below). To resize one specific pipe segment without proportional editing's side effects, hover and press **L** to select just that connected piece in Edit Mode, then **Alt+S** to scale it along its normals — critically, remember to apply the same scale change to its mirrored/tiled counterpart on the opposite edge, or the tiling will visibly break.
+10. **Test-bake and catch tiling mismatches:** bake a test displacement map and tile it repeated across a test surface — any place where the seam doesn't line up (a repeating visible seam artifact, or geometry that doesn't reach all the way to the tile edge) traces back to an asymmetric edit (usually from Proportional Editing) that wasn't mirrored to the opposite side.
+11. **Fixing a tiling mismatch:** switch to Wireframe + X-Ray, verify the correct/undamaged side of the tile reaches all the way to its edge, delete the mismatched geometry on the broken side, then select the correct (undamaged) geometry, Shift+D to duplicate, right-click to cancel the move (keeping it in place), and move the duplicate by exactly the tile-size value in the correct direction (Shift+C then the axis, or a numeric G-axis move — 1.5 in this example, the same Orthographic Scale value used throughout) so it lands exactly where the broken geometry used to be, restoring perfect tiling.
+12. **Pre-bake shading check (important, easy to miss):** before baking, check whether any part of the model still reads as faceted/segmented even under Shade Smooth — a displacement bake captures the *actual* underlying facets regardless of shading mode, so flat-looking segments will bake as visibly flat in the final map unless real smoothing geometry is added. Fix by adding a Subdivision Surface modifier (Ctrl+2 for two levels, in this case) to genuinely round out the geometry before baking, rather than relying on Shade Smooth alone.
+13. **Next steps (outside this video's scope):** baking the finished geometry using a simple gradient material, then applying the resulting tiling displacement map to other hard-surface models — covered in the full paid course.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Base setup:** Grid primitive, Camera (Orthographic, Orthographic Scale value used as the universal tile-size reference), square render resolution.
+- **Sculpt Mode:** Multiresolution modifier (Levels Viewport/Render, Subdivide), Matcap + Cavity overlay, brush Texture settings (Tiling X/Y, Tile Offset X/Y matching camera Orthographic Scale, Mapping: **View Plane**), Ctrl+F (rotate), F (radius), Shift+F (strength, keep at 1 for alpha brushes), Ctrl-hold (negative brush).
+- **Add-on:** Extra Objects (Single Vert primitive).
+- **Tiling geometry:** Array modifier (Constant Offset, ± tile-size value on X and Y, stacked/duplicated per axis/direction), On Cage (edit an array from any repeated instance).
+- **Curve pipeline:** Shift+Ctrl+B (bevel vertices, corner rounding pre-curve-conversion), Convert to Curve, Curve Geometry > Bevel Depth (thickness), Convert to Mesh, Merge by Distance, Proportional Editing (with tiling-desync caveat), L (select linked piece) + Alt+S (scale along normals, must mirror to the opposite tile edge).
+- **Finishing:** Subdivision Surface modifier (Ctrl+2) before baking, to avoid flat-faceted results in the bake regardless of Shade Smooth.
+- **Downstream (course-only):** baking with a gradient material into a usable tiling displacement texture map.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced (this is explicitly a paid-course preview lesson focused on building a reusable production tool, not a beginner walkthrough)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — relies on the Extra Objects add-on and a standard Multiresolution sculpt workflow, consistent with Blender 3.x through 5.x.
 
 ### Tags
-[PENDING EXTRACTION]
+displacement, procedural, materials, organic, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [6 Panel Cut Tips - Blender Secrets](6-panel-cut-tips---blender-secrets.md) — shares procedural, materials, advanced; that tutorial's normal-map-baking methods are downstream siblings of this video's tiling-displacement-map creation process.
+- [Image to 3D model workflow in Blender](image-to-3d-model-workflow-in-blender.md) — shares procedural, displacement, advanced; that flagship video's hard-surface detailing pass explicitly uses "tiling displacement maps" — this is the dedicated tutorial on how to build one from scratch.

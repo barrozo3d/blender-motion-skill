@@ -1467,9 +1467,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=_6uBdIsvm7c
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Extra Objects add-on, Multires workflow; 3.x-5.x)
+- **Tags:** #displacement #procedural #materials #organic #advanced
+- **Summary:** Builds a custom tiling hard-surface displacement map from scratch: alpha-brush sculpting with View-Plane texture mapping for seamless tiling, hand-modeled pipe details via a ±tile-size Array modifier for guaranteed edge match, tiling-mismatch troubleshooting, and pre-bake flat-shading checks.
 - **File:** tutorials/this-technique-lets-you-make-hard-surface-models-easily.md
 
 
