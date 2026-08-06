@@ -2697,9 +2697,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=cZlzzIBqYbY
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Hair Particle System with Vertex Group density masking and Particle Edit combing are version-agnostic core Blender features
+- **Tags:** particles, hair, weight-paint, intermediate
+- **Summary:** Paints a Weight Paint vertex group to mask where a Hair Particle System should emit (e.g. only a chin beard), assigns it to the particle system's Density field, then styles the fur directly with Particle Edit mode's Comb brush plus Length/Smooth adjustments.
 - **File:** tutorials/daily-blender-tip-number-45---quick-hair-fur-and-how-to-comb-and-weight-paint.md
 
 
