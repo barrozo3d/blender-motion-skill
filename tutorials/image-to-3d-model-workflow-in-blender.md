@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=DBuKtyPaIbw
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.3.2 (explicitly named — trace-to-mesh conversion improved significantly since 4.0.2, also explicitly demoed)"
+tags: [modelling, organic, procedural, displacement, intermediate, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/image-to-3d-model-workflow-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Image to 3D model workflow in Blender
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py image-to-3d-model-workflow-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -475,30 +471,77 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:04] tutorials/frames/image-to-3d-model-workflow-in-blender/frame_000.jpg
+- [2:06] tutorials/frames/image-to-3d-model-workflow-in-blender/frame_001.jpg
+- [4:06] tutorials/frames/image-to-3d-model-workflow-in-blender/frame_002.jpg
+- [8:53] tutorials/frames/image-to-3d-model-workflow-in-blender/frame_003.jpg
+- [13:00] tutorials/frames/image-to-3d-model-workflow-in-blender/frame_004.jpg
+- [24:22] tutorials/frames/image-to-3d-model-workflow-in-blender/frame_005.jpg
+- [34:10] tutorials/frames/image-to-3d-model-workflow-in-blender/frame_006.jpg
+- [37:10] tutorials/frames/image-to-3d-model-workflow-in-blender/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Two competing paths from a black-and-white concept sketch to a hard-surface (mech/robot) blockout — (1) Trace Image to Grease Pencil → Mesh, converting closed line-art islands directly into flat mesh shapes, cleaned up into quad topology and thickened with mirrored Solidify + double-Subdivision modifiers; (2) classic box-modeling a cube (same double-Subdivision technique) freehand, useful when the source sketch is too messy for clean auto-tracing — followed by a full hard-surface detailing pass (sculpting, multires, tiling displacement maps, greebles, alpha brushes).
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the very first step: an empty Front Orthographic viewport, about to receive the dropped-in black-and-white concept sketch. Frame 001 shows the payoff of Object > Convert > Trace Image to Grease Pencil: a symmetrical mech silhouette rendered as a dense orange Grease Pencil line-art outline, with every design island (torso, shoulders, arms) traced as closed shapes. Frame 002 shows the Mesh Cleanup submenu open (Limited Dissolve highlighted) over the same mech shape now converted to a solid tan-shaded mesh — the step that removes excess trace-generated vertices while preserving the silhouette. Frame 003 shows one shoulder/head piece isolated and selected, its Mirror modifier open in the sidebar (Axis X, Bisect, Flip, Merge, Clipping) — confirming the per-island Mirror modifier setup used throughout. Frame 004 shows the model after Solidify has been applied for thickness: a shaded, beveled-looking mech torso with the Solidify modifier's Even Thickness/Rim options visible in the sidebar, one arm piece selected and highlighted orange. Frame 005 shows the two-Subdivision-modifier stack applied to the whole model (Catmull-Clark listed twice in the modifier stack, "Optimal Display" toggled) with a dropdown menu open showing Subdivide Edges / Un-Subdivide / Adaptive options — the smoothing pass that turns the flat quad blockout into a rounded hard-surface shape. Frame 006 shows a later hard-surface-detailing stage: a smooth helmet/head shape with a Quad Remesher panel open (Quad Count, Quad Size Settings, Adapt Quad Count, Symmetrize) plus an Asset Browser strip of premade greeble objects along the bottom — the retopologize-after-sculpting and greeble-library workflow. Frame 007 shows an X-ray wireframe view of the full mech with one shoulder piece isolated and being reshaped (G to grab), the flat black silhouette pieces visible underneath — illustrating the "close remaining gaps between islands" cleanup pass late in blockout.
 
 ### Key Steps
-[PENDING EXTRACTION]
+**Path A — Trace Image to Grease Pencil (best when the sketch was drawn *for* this workflow, e.g. digitally with clean white gaps between shapes):**
+1. In Front Orthographic view, drop in a black-and-white concept sketch, Alt+G to center it; ensure every design region is a fully closed island separated by visible white gaps, since that's what lets Blender split it into separate mesh islands.
+2. Select the image, Object > Convert > Trace Image to Grease Pencil (default settings); hide the original image empty afterward.
+3. Object > Convert > Mesh — in Blender 4.3.2 this goes directly from Grease Pencil to mesh in one step (older versions required an intermediate Convert to Path first); note the object stays labeled with its Grease-Pencil-derived name in the Outliner even though it's now a real mesh.
+4. **Version matters a lot here:** the same source image converted much more cleanly (fewer vertices, all faces fillable with F) in Blender 4.3.2 than in Blender 4.0.2, where filling failed on most islands — always use the latest Blender release for this technique.
+5. Hover over an island and press L to select it (or A to select all islands at once), then F to fill each into a flat mesh face/plane.
+6. **Topology cleanup:** select all, Mesh Cleanup > Limited Dissolve (5° default works well) to remove most of the excess trace-vertices while keeping the silhouette; P > Separate by Loose Parts to split each island into its own object (do this *before* Merge by Distance so it only merges within, never across, islands); select all objects, Tab into Edit Mode (editing across multiple objects at once is supported), M > Merge by Distance (start conservative, increase gradually to simplify — author settled around 0.02m for this sketch); Mesh Cleanup > Delete Loose to remove stray unconnected vertices.
+7. **Force all-quad topology (critical before adding thickness):** use the Knife tool (K) to manually cut each remaining n-gon into quads — click vertex, right-click to reposition the knife without cutting, click again to continue, Enter to confirm; fix leftover triangles by cutting them off and double-G sliding a vertex to merge it away; dissolve (Ctrl+X) any vertex that isn't structurally needed, aiming for the simplest possible quad mesh — extra detail can always be added later, but a clean starting topology is much harder to fix after the fact. **Verify** with Select Similar (Shift+G) > Polygon Sides (Compare: Equal) on a known quad — any faces that stay unselected are hidden non-quads (often caused by an invisible extra vertex) and need further knife/dissolve work.
+8. **Center-line prep for mirroring:** select the vertices along the model's symmetry line, scale them to zero on X (S, X, 0, Enter) with the 3D cursor at world origin and Transform Pivot Point set to 3D Cursor (so they snap exactly to the centerline, not just visually close) — remember to set the pivot point back to Median afterward.
+9. **Thickness and mirroring at scale:** cut each island's flat mesh in half with the Knife tool and delete the unwanted half, add a Mirror modifier to one, then select all objects (Ctrl+I to invert selection after selecting the source, Shift-click to add it back) and Ctrl+L > Copy Modifiers to propagate the Mirror modifier to every object at once; add Solidify with Offset set to 0 (grows thickness from the center rather than only outward) — apply Solidify-only across all selected objects at once via Alt+click on the Apply button (or, if "Emulate 3 Button Mouse" is enabled in Preferences, use Ctrl+A > Visual Geometry to Mesh per-object and manually re-add the Mirror modifier afterward instead, since Alt+Apply won't work with that preference on).
+10. **Double-Subdivision smoothing (same technique as the "double subdivision modifier" beginner method):** add two Subdivision Surface modifiers — first set to Simple (adds edge loops without smoothing, letting you dial in how "square" vs. rounded the result is), second set to Catmull-Clark (smooths); raising the Simple modifier's levels keeps more of the blocky/sharp character, while relying more on Catmull-Clark alone gives a rounder result — combine them to balance shape-preservation against smoothness; propagate this modifier stack to all objects via the same Ctrl+I / Shift-click / Ctrl+L Copy Modifiers trick, then Shade Smooth all.
+11. **Fixing visible creases:** an ugly crease down the mirror seam usually means leftover interior faces are still present along the centerline — go to Front Orthographic + X-Ray, Face select mode, select and delete just those inner faces (X > Faces) to resolve it.
+12. **Reshaping with the two-modifier system:** since the topology is so simple, small edits move a lot of shape — use Face select + Ctrl-click to select a face range, S,Y or S,X to reshape, or enable Gizmos for click-drag scaling/moving; enable the **On Cage** button so Edit Mode previews the smoothed result directly instead of the blocky cage, making shape edits far more predictable; use Proportional Editing (O, adjustable falloff via scroll wheel, Linear or Smooth falloff type, "Connected Only" to avoid affecting unrelated overlapping objects) for organic tapering; lock an axis during a move with Shift+<axis> (e.g. Shift+X) to preserve mirror-plane alignment.
+13. **Origins and mirror pivots:** setting Object > Set Origin > Origin to Geometry breaks each object's own Mirror modifier (since Mirror uses the object's own origin by default unless a Mirror Object is set) — fix by adding an Empty at the world origin, sizing it down, and assigning it as every object's Mirror Object (again via Ctrl+L Copy Modifiers) so origins can move freely for posing/rotation without breaking symmetry; reset a moved 3D cursor with Shift+S > Cursor to World Origin; for local-axis scaling/rotation, switch Transform Orientation to Local so gizmo handles point the right way, then switch back to Global afterward.
+14. **Posing:** set Transform Pivot Point to 3D Cursor, Shift+right-click to place the cursor at a joint, then rotate connected geometry around that point — repeat per joint for a full pose; reset Pivot Point back to Median when done to avoid later confusion.
+15. **Adding small extra shapes:** Shift+right-click to place the cursor, add a Cube (or other primitive), scale it down, Ctrl+L > Copy Modifiers from an existing piece to inherit the Mirror/Solidify/Subdivision stack instantly (e.g. building a simple ball-joint socket this way).
+16. **Filling/patching gaps between separate island objects:** select the faces bordering a gap, Ctrl+Numpad+ to grow selection, X > Faces to delete, then Alt-click an edge loop and Ctrl+F > Grid Fill (or Face > Grid Fill) to patch it cleanly; alternatively Inset (I) + Extrude (E) inward to punch a deliberate hole instead of filling solid.
+17. **Rounding shapes further:** add a loop (Ctrl+R), Alt+S (scale along normal) to inflate it, invert the selection (Ctrl+I) and right-click > Smooth Vertices (Shift+R repeats the last action) for extra roundness — combine Smooth Vertices + Alt+S inflate iteratively for a more organic, less blocky result on specific parts (e.g. a rounded joint socket).
+
+**Hard-surface detailing pass (both paths converge here once a clean blockout exists):**
+18. From a simple base mesh, add detail via polygonal modeling, booleans, or sculpting — the author demonstrates sculpting: mainly the Grab brush (fast reshaping), Clay Strips (refine volume, Ctrl-invert to remove volume instead of add), Scrape (flatten areas — a "glitch" flattening artifact is usually caused by Auto Masking being accidentally enabled), Inflate (add volume to later carve away with Scrape), and Smooth (undo-via-smoothing when unhappy with a result) — objects carry a Multiresolution modifier so heavy shape changes stay non-destructive to the low-poly base.
+19. **Greebles and alpha brushes:** practice modeling small greeble objects and mark them as Assets so they can be dragged straight from the Asset Browser onto any model; alpha brushes help both add fine detail and visually integrate greebles into the sculpt.
+20. **Redoing a sculpted region as clean polygons:** the Polyline Face Set tool draws an arbitrary-shaped face set, which becomes a mask, which can separate that region into its own mesh for precise manual retopology when sculpted geometry is too imprecise to integrate cleanly.
+21. **Apply Base:** clicking "Apply Base" on the Multiresolution modifier bakes the sculpted high-res shape down into the low-poly base mesh's actual vertex positions.
+22. **Tiling displacement maps (the author's signature hard-surface technique from their paid course):** apply a lower-resolution Multiresolution level as a clean base, then drive additional surface detail via tiling displacement-map modifiers — once dialed in on one object, the whole modifier stack can be copied to other objects (Ctrl+L) for consistent detailing; displacement position/scale can be controlled live via Empties for fast experimentation; Blender's built-in Quad Remesh option is useful to flatten a sculpted region back into a clean quad base before applying more tiling displacement.
+23. **Finishing:** apply UV-less drag-and-drop mech materials (from the author's paid materials course) directly onto the messy sculpted/displaced geometry for a fast render, since these materials don't require UV unwrapping.
+
+**Path B — Box modeling from a cube (best for messy/napkin sketches too rough to auto-trace cleanly):**
+24. Start from a default cube with the same double-Subdivision-modifier stack (Simple below, Catmull-Clark above); Shift+D duplicate for a new part, enable X-Ray (Alt+Z) and On Cage to edit the smoothed result directly; this is standard box-modeling — Ctrl+R to add loops only where truly needed (too many loops makes the shape harder, not easier, to adjust), enable Optimal Display to avoid confusing extra subdivision-generated geometry in the viewport. The author states both this and the trace-based Path A take roughly the same total time — the deciding factor is simply how clean the source sketch is, and personal preference for hand-drawn paper sketches over digital ones.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Trace pipeline:** Object > Convert > Trace Image to Grease Pencil, Object > Convert > Mesh (single-step in Blender 4.3.2+), Mesh Cleanup (Limited Dissolve, Delete Loose, Merge by Distance), P > Separate by Loose Parts, Select Similar > Polygon Sides (Shift+G, quad verification).
+- **Modifiers:** Mirror (Axis, Mirror Object via Empty, Bisect/Merge/Clipping), Solidify (Offset = 0 for centered thickness), Subdivision Surface ×2 (Simple then Catmull-Clark, On Cage editing, Optimal Display), Multiresolution (sculpt-safe base), tiling-displacement modifier stack (author's signature technique), Quad Remesher (retopology after sculpting).
+- **Modeling tools:** Knife (K) for manual quad conversion, Ctrl+X (dissolve), Grid Fill (Ctrl+F or Face menu), Inset (I) + Extrude (E), Ctrl+R (loop cut), Alt+S (scale along normal), Proportional Editing (O, Connected Only, Linear/Smooth falloff), Ctrl+L (Copy Modifiers across selection), Object > Set Origin > Origin to Geometry, Shift+S (Cursor to World Origin / Cursor to Selected).
+- **Sculpt Mode:** Grab, Clay Strips (Ctrl to invert), Scrape, Inflate, Smooth brushes; Polyline Face Set tool; Apply Base (Multiresolution).
+- **Assets:** Asset Browser for greeble objects, drag-and-drop UV-less mech materials.
+- **UI/workflow:** Local Transform Orientation for correctly-aligned gizmo scaling/rotation, Transform Pivot Point (3D Cursor for posing, Median as default), regular manual saves + Auto Save configured every ~10 minutes.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate to Advanced (spans beginner-friendly image tracing through advanced sculpting/tiling-displacement hard-surface detailing)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.3.2 — explicitly named; the video explicitly compares trace-to-mesh behavior against Blender 4.0.2 and recommends always using the latest release for this workflow.
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, organic, procedural, displacement, intermediate, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [For Beginners: Easiest Modeling Technique (long version)](for-beginners-easiest-modeling-technique-long-version.md) — shares modelling, organic, procedural, intermediate; both use the identical double-Subdivision-modifier (Simple + Catmull-Clark, On Cage editing) blockout technique as their box-modeling path.
+- [6 Panel Cut Tips - Blender Secrets](6-panel-cut-tips---blender-secrets.md) — shares procedural, intermediate, advanced; that tutorial's Instances on Elements greeble-scattering and normal-map baking are close cousins of this video's greeble-library and Quad Remesh detailing steps.

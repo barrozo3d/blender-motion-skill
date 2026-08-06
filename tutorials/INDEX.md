@@ -1637,9 +1637,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=DBuKtyPaIbw
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 4.3.2 (explicitly named, compared against 4.0.2)
+- **Tags:** #modelling #organic #procedural #displacement #intermediate #advanced
+- **Summary:** Two paths from a B&W concept sketch to a mech blockout — Trace Image to Grease Pencil → Mesh with quad-topology cleanup and mirrored Solidify+double-Subdivision, or classic box-modeling from a cube — followed by a full hard-surface detailing pass (sculpting, multires, tiling displacement maps, greebles).
 - **File:** tutorials/image-to-3d-model-workflow-in-blender.md
 
 
