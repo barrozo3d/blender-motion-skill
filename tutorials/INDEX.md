@@ -1827,9 +1827,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=KACmuXsoc30
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Vector Displacement brush, standard since 2.8+)
+- **Tags:** #displacement #organic #advanced
+- **Summary:** Converts a ZBrush Vector Displacement Map (VDM) brush into a Blender-compatible sculpt stamp — export as OpenEXR, mirror the axis to fix the background color, swap/boost the Green and Blue channels in Photoshop, then load it as a Draw brush with Vector Displacement enabled.
 - **File:** tutorials/export-vdm-maps-from-zbrush-to-blender.md
 
 

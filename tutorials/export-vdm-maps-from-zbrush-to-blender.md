@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=KACmuXsoc30
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified — uses the Draw brush's Vector Displacement checkbox and Clamp toggle, standard since Blender 2.8+"
+tags: [displacement, organic, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/export-vdm-maps-from-zbrush-to-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Export VDM maps from Zbrush to Blender
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py export-vdm-maps-from-zbrush-to-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -72,30 +68,51 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:20] tutorials/frames/export-vdm-maps-from-zbrush-to-blender/frame_000.jpg
+- [0:41] tutorials/frames/export-vdm-maps-from-zbrush-to-blender/frame_001.jpg
+- [0:56] tutorials/frames/export-vdm-maps-from-zbrush-to-blender/frame_002.jpg
+- [1:09] tutorials/frames/export-vdm-maps-from-zbrush-to-blender/frame_003.jpg
+- [1:38] tutorials/frames/export-vdm-maps-from-zbrush-to-blender/frame_004.jpg
+- [1:52] tutorials/frames/export-vdm-maps-from-zbrush-to-blender/frame_005.jpg
+- [2:33] tutorials/frames/export-vdm-maps-from-zbrush-to-blender/frame_006.jpg
+- [2:50] tutorials/frames/export-vdm-maps-from-zbrush-to-blender/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A cross-application pipeline for converting ZBrush Vector Displacement Map (VDM) brushes into a format Blender's sculpt Draw brush can use as a Vector Displacement stamp — including a required color-channel remap in Photoshop, since ZBrush and Blender encode displacement-direction color channels differently.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows ZBrush's Load Tool dialog with a VDM brush thumbnail selected, the starting point for extracting a purchased or self-made VDM brush. Frame 001 shows a plain cube primitive loaded in ZBrush, the required blank canvas the VDM gets converted onto via Brush > To Mesh. Frame 002 shows the resulting VDM texture (Brush > Texture > From Mesh) displayed in ZBrush's texture palette — dominated by a reddish-pink background color, flagged in the transcript as the "problem" that needs fixing. Frame 003 is a near-duplicate of the texture-palette view, confirming the red cast is a real, verifiable state before mirroring. Frame 004 shows the texture palette's Deformation-adjacent import/export flyout open, the step where the corrected texture gets exported as an OpenEXR. Frame 005 shows the Photoshop payoff: the VDM's Green and Blue channels swapped and boosted to 200% via Channel Mixer, producing the blue/green/orange normal-map-like image Blender actually expects. Frame 006 shows the final Blender-side setup: a fresh cube in Sculpt Mode with the corrected VDM loaded as the active brush texture (visible in the tool settings thumbnail, top right). Frame 007 shows the applied result — the same cube now sculpted with the VDM stamp via the Draw brush, its top face deformed into the shape encoded in the vector displacement map.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Extract the VDM brush in ZBrush:** Brush > Load Brush, open the VDM .ZBP file; load a primitive object (e.g. a cube) into the canvas as the surface to stamp onto.
+2. **Convert the brush to a usable texture:** with the VDM brush selected, go to Brush > To Mesh to get the VDM as real mesh geometry, then Texture > From Mesh to bake that geometry back out as a VDM texture map.
+3. **Fix the background color (critical, ZBrush-specific):** a freshly-baked VDM texture often has a red (or blue) background where Blender expects pure black. If it's red, go to Deformation, select the X axis and click Mirror, then redo Texture > From Mesh; if the bottom reads blue instead, mirror along Y instead. This corrects the axis mismatch between ZBrush's and Blender's VDM conventions.
+4. **Export from ZBrush:** Export the corrected VDM texture as an OpenEXR file (required for the precision vector-displacement data needs).
+5. **Remap color channels in Photoshop (required step, not optional):** open the exported VDM in Photoshop; go to Image > Adjustments > Channel Mixer; in the Green output channel set Green to 0 and Blue to 200%; in the Blue output channel set Blue to 0 and Green to 200% — this swaps and boosts the Green/Blue channels to match Blender's Vector Displacement color convention; save the result.
+6. **Set up the brush in Blender:** duplicate the Draw brush; load the Photoshop-corrected texture as its brush texture; make sure Clamp is turned OFF on the texture; set Mapping to Area Plane; enable the brush's Vector Displacement option; set Stroke Method to Drag and Falloff to Constant; set Strength to 1.
+7. **Apply:** stamping this brush onto a mesh in Sculpt Mode now reproduces the original ZBrush VDM sculpt as real Blender displacement.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **ZBrush:** Brush > Load Brush, Brush > To Mesh, Texture > From Mesh, Deformation panel (Mirror X/Y), Export as OpenEXR.
+- **Photoshop:** Image > Adjustments > Channel Mixer (Green channel: Green=0/Blue=200%; Blue channel: Blue=0/Green=200%).
+- **Blender Sculpt Brush settings:** Texture (Clamp disabled), Mapping = Area Plane, Vector Displacement (enabled), Stroke Method = Drag, Falloff = Constant, Strength = 1.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — relies on the sculpt Draw brush's Vector Displacement checkbox and texture Clamp toggle, both standard since Blender 2.8+.
 
 ### Tags
-[PENDING EXTRACTION]
+displacement, organic, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+No other extracted BlenderSecrets tutorials in this library cover ZBrush interop or Vector Displacement Maps yet.
