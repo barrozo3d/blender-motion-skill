@@ -2407,9 +2407,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=FIYZk64PsWY
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Displacement modifier with Empty texture coordinates, Follow Path constraint, and Linear key interpolation are version-agnostic core Blender features
+- **Tags:** procedural, animation, materials, intermediate
+- **Summary:** Assigns an Empty as a Displacement modifier's texture coordinate source, then animates the Empty along a circular Follow Path curve so the sampled Clouds-texture region shifts continuously; Linear key interpolation in the Dope Sheet keeps the loop at constant speed.
 - **File:** tutorials/daily-blender-tip-95---using-empty-to-animate-displacement-modifier-in-a-loop.md
 
 
