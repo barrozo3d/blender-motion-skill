@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=oFg367w5Cpo
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (BoolTool + Carver + Box Cutter add-ons, native LoopTools; consistent with Blender 2.9x-5.x)"
+tags: [modelling, procedural, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/daily-blender-secrets---10-ways-to-make-holes-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 7
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Daily Blender Secrets - 10 ways to make Holes in Blender
@@ -22,13 +23,16 @@ frame_status: pending-selection
 
 ## Raw Data (for Claude Code extraction)
 
+## Ingest Safeguard Report
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py daily-blender-secrets---10-ways-to-make-holes-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+_Auto-generated at ingest/frame-capture time — explains why `extraction_status` may be `needs-review`. Safe to delete once reviewed._
+
+- WARNING: Partial frame capture: only 7/8 requested frames were captured.
+
+---
+
+
+Frames captured — see "Captured Frames" section below.
 
 
 ### <Untitled Chapter 1> [0:00]
@@ -108,30 +112,53 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:04] tutorials/frames/daily-blender-secrets---10-ways-to-make-holes-in-blender/frame_000.jpg
+- [0:25] tutorials/frames/daily-blender-secrets---10-ways-to-make-holes-in-blender/frame_001.jpg
+- [0:38] tutorials/frames/daily-blender-secrets---10-ways-to-make-holes-in-blender/frame_002.jpg
+- [1:00] tutorials/frames/daily-blender-secrets---10-ways-to-make-holes-in-blender/frame_003.jpg
+- [1:11] tutorials/frames/daily-blender-secrets---10-ways-to-make-holes-in-blender/frame_004.jpg
+- [1:35] tutorials/frames/daily-blender-secrets---10-ways-to-make-holes-in-blender/frame_005.jpg
+- [2:30] tutorials/frames/daily-blender-secrets---10-ways-to-make-holes-in-blender/frame_006.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A rapid-fire survey of 10 distinct ways to cut a hole into a mesh in Blender — from purely native tools (Knife Project, boolean cylinders, beveled vertices, LoopTools Circle/Bridge, curve-to-mesh, snap-and-project) to add-on-powered cutters (BoolTool, Carver, Box Cutter). The video overlays an on-screen numbered label ("1 - Knife Project", "2 - BoolTool", etc.) for each method as it demonstrates it.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 (labeled "1 - Knife Project") shows the Add menu open in the viewport with Mesh highlighted, illustrating the first step: adding a circle in front of/on top of the cube in orthographic view before running Knife Project. Frame 001 (labeled "2 - BoolTool") shows the payoff of the second method: a cube with a circular hole already cut where a cylinder was Boolean-subtracted via BoolTool's Ctrl+Numpad− shortcut, the cutter's orange bounding-box outline still visible and editable. Frame 002 (labeled "3 - Bevel vertex") shows a bare plane with a single vertex selected at its center — the setup before Shift+Ctrl+B beveling that vertex into a circular hole opening. Frame 003 (labeled "4 - LoopTools Circle") shows the bevel-vertex result taken further: a rounded cube with a clean circular hole and visible edge subdivision, produced by running LoopTools > Circle on the beveled ring and adding subdivision. Frame 004 (labeled "6 - Curves") shows the Add menu's Curve submenu open with Bezier highlighted, plus a diamond-shaped curve rectangle already in the viewport — the setup for creating a Curve Rectangle + Curve Circle pair, where the circle is scaled to punch a hole once converted to mesh. Frame 005 (labeled "7 - Project") shows Edit Mode on a cylindrical form with a circular ring of vertices selected mid-viewport, matching the "select all vertices of the Circle, press G to snap them to the surface" step of the snap-and-project method. Frame 006 (labeled "10 - Boxcutter add-on") shows a plain cube with the on-screen prompt to activate Box Cutter via Alt+W, the final and most add-on-dependent method in the list.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Knife Project:** create a circle, place it in front of or on top of the cube, switch to orthographic view; select the circle, then Shift-select the cube; in Edit Mode use Mesh > Knife Project to cut the circle's silhouette into the cube's surface; delete the now-unneeded circle and extrude the cut face inward/outward for the hole.
+2. **BoolTool (Boolean Difference):** create a cylinder sized to the depth the hole should go; select the cylinder, Shift-select the cube, press Ctrl+Numpad− to cut — the cutter stays visible as an adjustable wireframe until the Boolean modifier is applied.
+3. **Bevel vertex:** ensure there is a single vertex exactly where the hole should be; press Shift+Ctrl+B to bevel it into vertices, scroll the middle mouse button to add more vertices (rounding the hole), adjust the bevel Profile (≈0.085 worked well in the demo) for the right curvature, then extrude the resulting hole.
+4. **LoopTools Circle:** with an existing edge loop (as few as 4 faces is enough), select the faces and run LoopTools > Circle to snap them into a perfect circle, then add subdivision for smoother geometry.
+5. **LoopTools Bridge:** select faces on both opposing sides of the model and run LoopTools > Bridge to punch a hole straight through, connecting the two openings.
+6. **Curves to mesh:** add a Curve Rectangle and a Curve Circle; scale the circle to the desired hole size; Shift+D duplicate the circle to quickly create many holes at once; convert the whole curve setup to mesh, then extrude as needed.
+7. **Snap-and-project:** create a circle and move it away from the target mesh; enable snapping set to Face with "Project Individual Elements"; in Edit Mode select all the circle's vertices and press G to snap them onto the target surface; turn off snapping, join both objects with Ctrl+J, reposition the circle if needed, delete the faces underneath it, fill the resulting gap where needed, then extrude for depth.
+8. **Intersect (Boolean via Face menu):** create a second cutter object and join it to the target with Ctrl+J; select the faces to be cut (press L to select linked), then use the Face menu's Intersect (Boolean) option, choosing the appropriate settings from its menu for the desired result.
+9. **Carver add-on:** enable Carver in Preferences; switch to orthographic view; press Shift+Ctrl+X to activate the Carver tool; tap Spacebar repeatedly to cycle to the circle cut type; draw the circle, hold Alt to reposition it, release Alt and left-click to confirm the cut.
+10. **Box Cutter add-on (commercial):** activate Box Cutter with Alt+W; press D for its pie menu and choose the circle shape; left-click on the target object and drag to size the circle, release to confirm, move the mouse to extrude the cut, left-click again to finalize.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Native tools:** Mesh > Knife Project; Boolean modifier (manual Difference); Bevel (Shift+Ctrl+B, vertex bevel with adjustable segments/Profile); LoopTools add-on operators Circle and Bridge; Curve objects (Rectangle, Circle) converted to mesh; Snap settings (Face target, Project Individual Elements); Face menu > Intersect (Boolean).
+- **Add-ons:** BoolTool (Ctrl+Numpad− live Boolean Difference), Carver (Shift+Ctrl+X, Spacebar to cycle cut shapes), Box Cutter (Alt+W to activate, D for shape pie menu) — Box Cutter is explicitly noted as a paid/commercial add-on.
+- **Shortcuts:** Shift+D (duplicate), Ctrl+J (join objects), L (select linked under cursor), G (grab/snap-to-surface with snapping enabled).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified in transcript or frames — relies on BoolTool, Carver, and Box Cutter add-ons plus native LoopTools, consistent with Blender 2.9x through 5.x.
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, procedural, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender Secrets - 6 Minutes of Boolean Basics](blender-secrets---6-minutes-of-boolean-basics.md) — shares modelling, procedural, intermediate; that tutorial goes deep on the BoolTool/Boolean-modifier method (#2 here) plus cleanup, this one surveys 9 other hole-cutting alternatives.

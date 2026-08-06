@@ -148,3 +148,4 @@ procedural, modelling, materials, intermediate
 ## Related Tutorials
 - [6 Panel Cut Tips - Blender Secrets](6-panel-cut-tips---blender-secrets.md) — shares procedural, materials, intermediate; same channel, complementary hard-surface modifier-stack workflow.
 - [Blender Secrets - 5 minutes of N-Gons to Quads tips](blender-secrets---5-minutes-of-n-gons-to-quads-tips.md) — shares modelling, procedural, intermediate; directly relevant follow-up for cleaning up boolean-created n-gons.
+- [Daily Blender Secrets - 10 ways to make Holes in Blender](daily-blender-secrets---10-ways-to-make-holes-in-blender.md) — shares modelling, procedural, intermediate; that tutorial surveys 9 other hole-cutting alternatives (Knife Project, LoopTools, curves, Carver, Box Cutter) alongside the same BoolTool method covered here in depth.

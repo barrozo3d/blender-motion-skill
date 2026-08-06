@@ -2127,9 +2127,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=oFg367w5Cpo
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (BoolTool + Carver + Box Cutter add-ons, native LoopTools; 2.9x-5.x)
+- **Tags:** #modelling #procedural #intermediate
+- **Summary:** Rapid-fire survey of 10 distinct ways to cut a hole into a mesh — Knife Project, BoolTool boolean, beveled vertex, LoopTools Circle/Bridge, curve-to-mesh, snap-and-project, Face-menu Intersect, Carver, and Box Cutter — each labeled on-screen as it's demonstrated.
 - **File:** tutorials/daily-blender-secrets---10-ways-to-make-holes-in-blender.md
 
 
