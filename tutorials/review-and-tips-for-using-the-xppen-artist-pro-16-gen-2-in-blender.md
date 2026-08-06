@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=HV4pRb6XKAI
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified — pen/tablet button-mapping and display settings are OS/driver-level, not Blender-version-specific"
+tags: [organic, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/review-and-tips-for-using-the-xppen-artist-pro-16-gen-2-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Review and Tips for using the XPPen Artist Pro 16 Gen 2 in Blender
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py review-and-tips-for-using-the-xppen-artist-pro-16-gen-2-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -83,30 +79,49 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:05] tutorials/frames/review-and-tips-for-using-the-xppen-artist-pro-16-gen-2-in-blender/frame_000.jpg
+- [1:05] tutorials/frames/review-and-tips-for-using-the-xppen-artist-pro-16-gen-2-in-blender/frame_001.jpg
+- [1:45] tutorials/frames/review-and-tips-for-using-the-xppen-artist-pro-16-gen-2-in-blender/frame_002.jpg
+- [2:30] tutorials/frames/review-and-tips-for-using-the-xppen-artist-pro-16-gen-2-in-blender/frame_003.jpg
+- [3:10] tutorials/frames/review-and-tips-for-using-the-xppen-artist-pro-16-gen-2-in-blender/frame_004.jpg
+- [3:37] tutorials/frames/review-and-tips-for-using-the-xppen-artist-pro-16-gen-2-in-blender/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Not a Blender modeling/animation tutorial — a hardware review of the XP-Pen Artist Pro 16 (Gen 2) drawing display tablet (sent to the author for testing), covering unboxing, Mac/PC connection methods, and the display's physical qualities. Kept here because it also contains genuinely useful, actionable configuration tips for using a pen display specifically with Blender: mapping the pen's buttons to left-click/middle-click/right-click for 3D-viewport navigation, and the correct Windows display-mode setting for a second-screen tablet setup.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the unboxing: the tablet lifted out of its retail packaging box, protective wrap still on the screen. Frame 001 shows a close-up of the included stylus pen (branded "XPPen") with its nib being swapped, next to spare replacement nibs housed in the pen's barrel. Frame 002 shows the tablet propped on its stand on a desk, connected via USB-C, displaying a Blender Timeline/Dope Sheet and Viewport layout while the author's hand hovers the pen near the screen — a working desk setup shot. Frame 003 shows the XP-Pen driver software's "Shortcut key settings" dialog open on the Pen Settings tab, with Mouse Control radio options visible (Left Click, Left Double-click, Middle Click, Right Click, Scroll Up, Scroll Down) — the per-button mapping interface. Frame 004 shows Windows Display Settings' "Multiple Displays" dropdown open, with "Extend these displays" highlighted as the option being selected over "Duplicate these displays." Frame 005 shows the tablet in active use for sculpting: a red/pink sculpted organic blob shape open in Blender on the tablet screen, the author's pen hand pressing into the surface while the other hand rests on a connected keyboard.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Connecting the display:** on a MacBook, connect via USB-C using the laptop's first/primary USB-C port specifically, then download and install the XP-Pen software from their website; it then behaves as a second screen. On a PC without USB-C input, use the included combo cable (HDMI to the graphics card, plus a USB-A data connection to the PC and a separate USB-A connection to the power adapter) — all necessary cables ship in the box.
+2. **What's in the box:** the drawing display itself, the stylus pen (with several spare replacement nibs), and a small wireless remote pad (connects via USB-C cable or an included Bluetooth dongle) — everything feels solid, heavy, and metal-built.
+3. **Configure the remote pad for Blender workflow:** the remote's buttons can replace frequently-used keyboard shortcuts, reducing reliance on a physical keyboard while sculpting/painting — e.g. mapping its ring/dial to brush radius in Sculpt Mode, individual buttons to Alt/Ctrl/Shift modifiers, mode-switch shortcuts (Sculpt/Object/Edit Mode), and the Quick Favorites menu.
+4. **Map the pen's buttons for Blender navigation (the core Blender-specific tip):** open the XP-Pen software and add Blender to its per-app profile list (button mappings are configured per application). Recommended mapping: pen nib = Left Click (this is the default, even though the UI doesn't initially make that obvious); lower pen-side button = Middle Click, so holding it while hovering rotates the 3D viewport (add Ctrl to zoom, Shift to pan, matching Blender's standard middle-mouse navigation modifiers); second pen-side button = Right Click, for context menus. With this mapping, touching the nib to the screen performs a click/select, exactly like a mouse.
+5. **Windows display mode:** in Windows Display Settings, under Multiple Displays, choose **Extend these displays** rather than Duplicate — Duplicate forces both screens to share the same scaling, which usually isn't desirable for a tablet used as an extended canvas. With Extend selected, drag the Blender window from the main monitor onto the tablet, which then functions as a normal second monitor.
+6. **Hardware specs worth noting for 3D work:** 2560×1600 resolution on a physically large screen; approximately 16,000 pressure sensitivity levels (vs. roughly 8,000 on the author's older tablet) — most beneficial for organic/character sculpting and texture painting, where fine pressure control matters.
+7. **Known limitation:** screen reflections from ceiling windows or overhead lighting can make the display hard to see in some rooms/setups — mitigate by repositioning or turning off the offending lights.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **XP-Pen driver software:** per-application button profiles (must add Blender explicitly), Pen Settings > Shortcut Key Settings (Left Click, Middle Click, Right Click, Scroll Up/Down options per button), remote-pad button/dial mapping.
+- **Windows Display Settings:** Multiple Displays > Extend these displays (vs. Duplicate).
+- **Blender navigation mapped via pen buttons:** Middle Click (orbit), Middle Click + Ctrl (zoom), Middle Click + Shift (pan), Right Click (context menu), nib touch (left click / select).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner (hardware setup/configuration, not a modeling technique)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — the pen/tablet button-mapping and Windows display settings covered are OS- and driver-level configuration, not tied to a specific Blender version.
 
 ### Tags
-[PENDING EXTRACTION]
+organic, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+No other extracted BlenderSecrets tutorials in this library currently cover tablet/pen-display hardware configuration.

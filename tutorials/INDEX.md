@@ -1767,9 +1767,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=HV4pRb6XKAI
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (OS/driver-level configuration, version-agnostic)
+- **Tags:** #organic #beginner
+- **Summary:** Hardware review (not a modeling tutorial) of the XP-Pen Artist Pro 16 Gen 2 drawing display, with actionable Blender-specific tips: mapping pen buttons to left/middle/right-click for viewport navigation, and using Windows' "Extend" display mode for a tablet-as-second-monitor setup.
 - **File:** tutorials/review-and-tips-for-using-the-xppen-artist-pro-16-gen-2-in-blender.md
 
 
