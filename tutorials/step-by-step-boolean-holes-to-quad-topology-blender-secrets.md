@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=pe-8GiRCLmM
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified — Weld/Shrinkwrap/Decimate modifier workflow, standard since 2.8+"
+tags: [modelling, procedural, intermediate, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/step-by-step-boolean-holes-to-quad-topology-blender-secrets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Step by Step: Boolean Holes to Quad Topology | Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py step-by-step-boolean-holes-to-quad-topology-blender-secrets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -156,30 +152,64 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:52] tutorials/frames/step-by-step-boolean-holes-to-quad-topology-blender-secrets/frame_000.jpg
+- [2:58] tutorials/frames/step-by-step-boolean-holes-to-quad-topology-blender-secrets/frame_001.jpg
+- [3:46] tutorials/frames/step-by-step-boolean-holes-to-quad-topology-blender-secrets/frame_002.jpg
+- [4:27] tutorials/frames/step-by-step-boolean-holes-to-quad-topology-blender-secrets/frame_003.jpg
+- [5:31] tutorials/frames/step-by-step-boolean-holes-to-quad-topology-blender-secrets/frame_004.jpg
+- [6:55] tutorials/frames/step-by-step-boolean-holes-to-quad-topology-blender-secrets/frame_005.jpg
+- [8:54] tutorials/frames/step-by-step-boolean-holes-to-quad-topology-blender-secrets/frame_006.jpg
+- [9:31] tutorials/frames/step-by-step-boolean-holes-to-quad-topology-blender-secrets/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A repeatable, low-manual-effort workflow for cutting a complex (non-circular) shape into a mesh via Boolean, then retopologizing the resulting messy geometry into clean, subdivision-ready quad topology — using a Weld modifier for vertex cleanup, Bridge Edge Loops + Bevel to rebuild proper boundary loops around the hole, Grid Fill for flat caps, and a Shrinkwrap modifier (targeting a smooth duplicate of the original surface) to pull the retopologized area back onto the correct curved surface.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the setup: a cylinder with a heart-shaped cutter object positioned in front of it, mid-Boolean, with an on-screen tip "Enable LoopTools in Preferences > Add-ons" — confirming LoopTools is used later in the workflow. Frame 001 shows the raw post-Boolean result: a heart-shaped hole cut into the cylinder, dense and irregular vertex clusters visible around the heart's boundary (474 vertices reported) — the "too many vertices to retopologize" problem the video opens with. Frame 002 shows the Weld modifier's cleanup already applied and a right-click Edge menu open with "Bridge Edge Loops" highlighted — the step that fills remaining boundary gaps after welding. Frame 003 shows the Bevel operator's redo panel (Width Type, Segments: 2, Shape: 1) applied to the selected boundary edge loop around the heart — producing clean parallel edge loops on both sides of the original selection without altering the hole's silhouette. Frame 004 shows the Grid Fill result on the cylinder's flat top cap, with an Inset Faces redo panel open (Boundary, Offset Even, Offset Relative, Individual, Thickness, Depth) — the quad-friendly cap-filling technique. Frame 005 shows the topology after a Subdivision modifier has been applied around the heart hole — dense, evenly-flowing quad geometry with clean loops tightly following the heart's silhouette (6,144 faces reported). Frame 006 shows the critical diagnostic: a black-and-white striped Matcap revealing visible distortion/warping in the surface immediately around the heart hole where the retopologized geometry doesn't perfectly follow the cylinder's true curvature — the problem the Shrinkwrap modifier fixes next; the Shrinkwrap modifier's settings (Wrap Method: Nearest Surface Point, Target: Cylinder Duplicate, Vertex Group) are visible in the sidebar. Frame 007 shows the final low-poly result: a clean gold-shaded cylinder with a smooth heart-shaped hole, an Object menu open with "Visual Geometry to Mesh" highlighted — the step that bakes the Shrinkwrap (and Decimate) modifiers together into final geometry.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Prep the cutter object:** ensure it has no non-uniform scale (apply scale if needed — Boolean is less reliable otherwise) and isn't wildly more/less complex than the target mesh. Enable Wireframe overlay to see both objects' topology clearly while working.
+2. **Prep the target mesh:** if it lacks horizontal loops (e.g. a plain cylinder), add some with Ctrl+R (scroll to add several, right-click to cancel the slide) — this makes later cleanup much easier. Duplicate the un-holed mesh now and hide it, renamed clearly (e.g. "Cylinder Duplicate") — this clean copy becomes the Shrinkwrap target later.
+3. **Perform the Boolean cut:** select the cutter, Shift-select the target, press Ctrl+Numpad− (note: this must be the actual numpad minus, not the regular minus key, which just zooms out — enable "Emulate Numpad" in Preferences if there's no physical numpad) — or use the Boolean entry in the Object menu instead. If the operation fails, try the Fast solver, or nudge the cutter slightly to a different position. Apply the modifier, then delete or hide the cutter.
+4. **First cleanup pass — Weld modifier:** Boolean cuts typically leave far too many closely-spaced vertices for a clean Subdivision workflow. Add a Weld modifier, enable its "Display in Edit Mode" toggle to preview live, and raise the Merge Distance until the extra vertices visibly merge together; apply in Object Mode. Enable X-ray/Symmetry-adjacent Auto Merge Vertices, then use G,G (double-tap G) to slide remaining stray edges/vertices for further manual cleanup — carefully, so the hole's silhouette isn't altered.
+5. **Close remaining gaps:** delete leftover interior faces around the hole if needed, select all the boundary edges around the gap (Ctrl+click extends selection between edges), right-click > **Bridge Edge Loops** — make sure the entire boundary loop is actually selected, or the bridge result comes out wrong.
+6. **Rebuild proper boundary loops for subdivision:** select the edges around the hole (Ctrl-click to select spans between edges; mirroring is an option if applicable, but manual selection on both sides also works), press Ctrl+B to bevel, then in the redo panel set Segments to 2 and Shape (Profile) to 1 — this produces two clean parallel edge loops flanking the original boundary *without changing the hole's shape*; fine-tune the bevel Width afterward, and slide the new inner loops further in if needed for better spacing. Add further loop cuts (Ctrl+B again, scroll for more segments) across the bridged geometry as needed for uniform density — redo with more loops if the first pass looks uneven.
+7. **Handle remaining triangles/n-gons:** it's fine to leave some — they resolve into quads automatically once subdivided. To sharpen the hole's edges deliberately, select the relevant sharp edges (deselecting any that shouldn't be sharp) and Crease them (Shift+E, 1 on the numpad) so they stay crisp under a Subdivision modifier.
+8. **Flat caps:** Inset (I) works fine for a perfectly flat cap face; for all-quad caps instead, delete the cap face(s) and use **Grid Fill** (the Offset value in Grid Fill rotates the fill pattern — purely cosmetic/satisfying, not functionally necessary).
+9. **Test and fix "overhang":** add a Subdivision modifier and apply it to check for all-quads — watch for a topology artifact called "overhang" near sharp corners. Fix: verify there are no accidental doubled vertices (select and gently wiggle to check), Crease the relevant edge to preserve corner sharpness, and slide a nearby vertex to redistribute geometry more evenly around the trouble spot (a Mirror/Symmetry modifier would avoid doing this fix on both sides manually). Enable Shade Auto Smooth, then re-apply the Subdivision modifier to confirm a clean all-quads result. Note this process does increase mesh density — acceptable if starting from a reasonably low-poly base, but consider the model's actual end use. Remove any Crease values afterward once the added geometry itself is carrying the sharpness.
+10. **Fix curvature distortion around the hole (Shrinkwrap trick):** the retopologized area around the hole often doesn't perfectly follow the base shape's true curvature (very visible with a striped/grazing Matcap). Fix: select all the geometry inside/around the hole, create a Vertex Group, Remove that selection from it, then invert the selection and Assign the rest — verify in Weight Paint mode. Prepare the hidden duplicate cylinder saved in step 2 by creasing its own sharp edges and adding a Subdivision modifier with enough levels to be genuinely smooth. Add a Shrinkwrap modifier to the working mesh, set its Target to that smooth duplicate, and restrict its effect via the Vertex Group — toggling the modifier on/off under a Matcap makes the corrective difference obvious.
+11. **Finalize geometry density:** if happy with the current density, simply apply the Shrinkwrap modifier. For a lower-poly result instead, add a Decimate modifier set to **Un-Subdivide** with an even iteration count (2 was the practical limit here before visible distortion) — apply both Shrinkwrap and Decimate together via Ctrl+A > Visual Geometry to Mesh. The result won't be perfectly all-quad anymore, but works fine; select all and press **Alt+J** (Tris to Quads) to convert what can still be merged. For an even better result than this modifier-based approach, the video notes manual retopology or the paid Quadremesher plugin (by Exoside) as alternatives.
+12. **Optional manual refinement pass (shown briefly):** a Mirror modifier can save time if the hole shape is symmetric; dissolve (Ctrl+X) unnecessary edges to simplify; use the Knife tool to add a strategic edge then dissolve another to convert a problem area into a quad; in X-ray mode, select vertices through the whole model to reshape the hole further using the original cutter shape as a visual reference, with the Subdivision modifier's "on cage" preview enabled for accurate feedback. Note: not every triangle is worth eliminating — if converting one to a quad (e.g. via vertex bevel + slide-merge) would interrupt an otherwise-clean vertical edge flow, keeping the triangle can be the better choice.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Boolean modifier:** Ctrl+Numpad− shortcut, Fast vs. Exact solver, Apply Scale prerequisite on the cutter.
+- **Weld modifier:** Merge Distance, "Display in Edit Mode" for live preview.
+- **Edge tools:** Bridge Edge Loops (fills selected boundary gaps), Bevel (Ctrl+B: Segments 2 + Shape/Profile 1 for symmetric non-shape-altering loops), Crease (Shift+E, 1 for max), Loop Cut (Ctrl+B/Ctrl+R for extra uniform density).
+- **Face tools:** Inset (I, flat caps), Grid Fill (Offset value rotates the fill pattern), Alt+J (Tris to Quads).
+- **Modifiers:** Subdivision Surface (apply to test for all-quads / overhang issues), Shrinkwrap (Nearest Surface Point, Target: smooth duplicate original, Vertex Group-limited), Decimate (Un-Subdivide, even iteration counts), Mirror (optional, for symmetric holes).
+- **Vertex Groups:** used to restrict Shrinkwrap to just the retopologized hole area (Remove/Assign/Invert workflow), verified in Weight Paint mode.
+- **Diagnostics:** striped/grazing Matcap (reveals curvature distortion around the hole), wiggle-test for hidden doubled vertices.
+- **Finalizing:** Ctrl+A > Visual Geometry to Mesh (bakes Shrinkwrap + Decimate together).
+- **Add-on referenced:** LoopTools (enabled via Preferences, used in this workflow); Quadremesher (paid, Exoside) mentioned as a higher-quality alternative.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate to Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — the Weld/Shrinkwrap/Decimate modifier-based retopology workflow is standard and available since Blender 2.8+.
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, procedural, intermediate, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Perfect Holes with Quad Topology in Curved Surfaces](perfect-holes-with-quad-topology-in-curved-surfaces---step-by-step-blender-begin.md) — shares modelling, procedural; that video's beginner-focused circular-hole version of the same Shrinkwrap + vertex-group curvature-preservation trick used here for a complex (heart-shaped) hole.
+- [Daily Blender Secrets - 10 ways to make Holes in Blender](daily-blender-secrets---10-ways-to-make-holes-in-blender.md) — shares modelling, procedural; that survey's Boolean and Knife-Project methods (#1-2) are the entry point this tutorial picks up from, going deep on cleanup and retopology after the cut.
+- [Blender Secrets - 6 Minutes of Boolean Basics](blender-secrets---6-minutes-of-boolean-basics.md) — shares modelling, procedural, intermediate; shares the same boolean-cleanup philosophy (Weld modifier, Auto Merge, support loops) applied here specifically to prepare a hole for subdivision.

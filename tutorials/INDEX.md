@@ -1747,9 +1747,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=pe-8GiRCLmM
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Weld/Shrinkwrap/Decimate workflow; 2.8+)
+- **Tags:** #modelling #procedural #intermediate #advanced
+- **Summary:** Cuts a complex (heart-shaped) boolean hole then retopologizes it into clean quads: Weld modifier cleanup, Bridge Edge Loops + Bevel (2 segments, Profile 1) for proper boundary loops, Grid Fill caps, and a Shrinkwrap modifier (vertex-group-limited, targeting a smooth duplicate) to restore true surface curvature.
 - **File:** tutorials/step-by-step-boolean-holes-to-quad-topology-blender-secrets.md
 
 
