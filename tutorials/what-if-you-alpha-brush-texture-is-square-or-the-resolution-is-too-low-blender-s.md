@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=rtnsLjP1ebo
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified — Area Plane/Stencil brush mapping, Multiresolution viewport-level behavior, consistent with Blender 3.x-5.x"
+tags: [displacement, procedural, organic, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/what-if-you-alpha-brush-texture-is-square-or-the-resolution-is-too-low-blender-s/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # What if you Alpha Brush texture is square? Or the resolution is too low? Blender Sculpting tips
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py what-if-you-alpha-brush-texture-is-square-or-the-resolution-is-too-low-blender-s <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -141,30 +137,59 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:09] tutorials/frames/what-if-you-alpha-brush-texture-is-square-or-the-resolution-is-too-low-blender-s/frame_000.jpg
+- [1:44] tutorials/frames/what-if-you-alpha-brush-texture-is-square-or-the-resolution-is-too-low-blender-s/frame_001.jpg
+- [2:04] tutorials/frames/what-if-you-alpha-brush-texture-is-square-or-the-resolution-is-too-low-blender-s/frame_002.jpg
+- [2:41] tutorials/frames/what-if-you-alpha-brush-texture-is-square-or-the-resolution-is-too-low-blender-s/frame_003.jpg
+- [3:39] tutorials/frames/what-if-you-alpha-brush-texture-is-square-or-the-resolution-is-too-low-blender-s/frame_004.jpg
+- [4:36] tutorials/frames/what-if-you-alpha-brush-texture-is-square-or-the-resolution-is-too-low-blender-s/frame_005.jpg
+- [5:13] tutorials/frames/what-if-you-alpha-brush-texture-is-square-or-the-resolution-is-too-low-blender-s/frame_006.jpg
+- [6:08] tutorials/frames/what-if-you-alpha-brush-texture-is-square-or-the-resolution-is-too-low-blender-s/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A troubleshooting-focused sculpting tips video covering two common alpha-brush problems: (1) a square/rectangular alpha texture getting its corners clipped because sculpt brushes only sample within a circular radius — fixed by increasing the brush texture's Size X/Y slightly beyond 1.0, or alternatively using Stencil mapping for a freely movable/rotatable/scalable texture placement; and (2) alpha brushes rendering blurry/low-res — caused either by a Multiresolution modifier temporarily lowering an unselected object's preview resolution, insufficient underlying geometry, or missing Shade Smooth.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows a hard-surface robotic model close-up with a brush-radius circle overlay and an alpha texture thumbnail panel open in the sidebar — illustrating the brush-radius concept the whole "square alpha" problem is built on. Frame 001 shows the actual problem: a black-and-white striped alpha texture thumbnail in the Texture panel (Image Sequence, Color Space non-sRGB) applied to a smooth robot shoulder — the alpha's rectangular shape doesn't match the brush's circular sampling area. Frame 002 shows the brush's Texture Mapping settings open (Mapping: Area Plane, Angle, Offset X/Y/Z, Sample Bias) alongside Stroke settings (Draw Method: Drag Dot) — the core settings checklist for correct alpha behavior. Frame 003 shows the Size X field being edited in the Texture Mapping panel (value being typed, partially visible) with the alpha now stamped cleanly onto the surface without visible corner-cutting — the "increase Size X/Y to ~1.1" fix in action. Frame 004 shows Stencil mapping mode selected instead (Mapping: Stencil, with a wavy/striped thumbnail preview) — the alternate placement method that allows freely moving, rotating, and scaling a square texture over the surface before stamping. Frame 005 shows a Multiresolution modifier's panel (Level Viewport/Sculpt/Render, Optimal Display) on a robot torso, with the alpha detail visible sharp when this object is the active sculpt target — the "object must be selected/active to show full resolution" behavior. Frame 006 shows a lower-poly head/helmet piece (Vertices/Edges/Faces counts visible top-left) with a low-resolution Multiresolution setup, its alpha detail appearing comparatively blurry — the "not enough underlying geometry" problem. Frame 007 shows a right-click Object context menu open with "Shade Smooth" highlighted over the same head piece, a Multiresolution modifier (Subdivide, Unsubdivide options) visible in the sidebar — the final fix for blurry/faceted-looking alpha results.
 
 ### Key Steps
-[PENDING EXTRACTION]
+**Fixing a square/rectangular alpha that gets its corners cut off:**
+1. Understand why: a sculpt brush only samples texture within its circular radius — anything in a square/rectangular alpha texture that falls in the "corner" area outside that inscribed circle simply won't show up when stamped, even though the source texture file is intact and doesn't need to be re-baked or recreated.
+2. Correct baseline brush setup for alpha textures (duplicate the standard Draw brush first via right-click > Duplicate Asset, rename, optionally add a preview image): under Texture, click New to load the texture, then open the Texture tab and click New Texture, loading the actual alpha image file — make sure its Color Space is **not** set to sRGB, so the full 32-bit value range is used correctly as height data.
+3. Required brush tool-panel settings: Texture **Mapping = Area Plane** (prevents distortion based on current 3D-viewport view angle), Stroke Method = **Drag Dot** (lets you drag/place the alpha), Falloff = **Constant** (otherwise the alpha won't render at its full/correct intensity), and press **Escape** rather than Ctrl+Z to cancel an in-progress placement you don't like — much faster than waiting for undo.
+4. **The actual corner-clipping fix:** in the Texture Mapping settings, increase **Size X and Size Y** slightly above 1.0 — around 1.1 to 1.2 is usually enough to include the texture's corners within the brush's circular sample radius. Avoid going too high (e.g. 2) — that shrinks the effective texture down too much within the brush footprint.
+5. **Alternative — Stencil mapping (better suited to organic work):** set Texture Mapping to **Stencil** instead of Area Plane; this projects a movable overlay of the texture that can be repositioned (right-click drag), rotated (Ctrl+right-click drag), and scaled (Shift+right-click drag) freely before stamping — letting you place and orient a square texture exactly where and how you want on an organic surface. Recommended alongside Stencil mode: set brush Strength to 1 (for full height-map depth) and use Smooth falloff.
+
+**Fixing blurry/low-resolution alpha brush results:**
+6. **Cause 1 — inactive-object resolution saving:** a Multiresolution modifier automatically shows a lower-resolution preview on any object that isn't the currently active sculpt target, to save system resources; switch objects with **Alt+Q** and hover over the one you want to check — it sharpens back up once it becomes active/hovered.
+7. **Cause 2 — insufficient underlying geometry:** if an object simply doesn't have enough polygon density, the alpha will look blurry regardless of anything else. Fix: in Edit Mode, ensure the base mesh has enough subdivisions, then add a Multiresolution modifier and subdivide it a few times (subdividing from a low base to ~500K faces already sharpens results noticeably; going further to ~2M faces makes alphas look very sharp) — note that Multiresolution's own **Viewport** subdivision level (separate from Sculpt/Render levels) also caps how much detail is shown in the 3D viewport even while actively sculpting on that object, independent of the "active object" behavior in point 6 — raise it if the alpha still looks soft/blurry while working directly on that object.
+8. **Cause 3 — flat shading:** if an object is still using flat (non-smoothed) shading, alphas read noticeably worse. Right-click in Object Mode and choose **Shade Smooth** — this measurably improves how alpha detail reads, and is recommended as a standard step when sculpting with alphas.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Alpha texture baking reference (mentioned, not the video's main focus):** Geometry (Position) node → Separate XYZ (Z output only) → rendered as a black-and-white height map, baked using a reference-circle guide matching the intended brush radius so nothing important falls outside the brush's circular sample area.
+- **Brush Texture settings:** Color Space (must not be sRGB), Mapping (Area Plane vs. Stencil), Size X/Y (1.1-1.2 fix for square alphas), Angle/Offset (Stencil placement).
+- **Brush Stroke/Falloff:** Stroke Method: Drag Dot, Falloff: Constant (Area Plane) or Smooth (Stencil), Strength (1 recommended for full height-map depth).
+- **Stencil controls:** right-click-drag (move), Ctrl+right-click-drag (rotate), Shift+right-click-drag (scale).
+- **Resolution:** Multiresolution modifier (Levels: Viewport/Sculpt/Render, Subdivide), Alt+Q (switch active sculpt object), Shade Smooth (Object Mode right-click menu).
+- **Workflow:** Escape (fast-cancel a stamp vs. slow Ctrl+Z undo), Duplicate Asset (for creating a reusable alpha-brush variant of the Draw brush).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Area Plane/Stencil brush texture mapping and Multiresolution's per-object viewport-resolution behavior are consistent with Blender 3.x through 5.x.
 
 ### Tags
-[PENDING EXTRACTION]
+displacement, procedural, organic, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [This technique lets you make Hard Surface models easily](this-technique-lets-you-make-hard-surface-models-easily.md) — shares procedural, organic, intermediate; that video's alpha-brush "View Plane" mapping mode (for tiling) and this one's Area Plane/Stencil modes cover Blender's alpha-brush mapping options together.
+- [Monster Sculpting | Full Process | Blender Secrets | Stranger Things Vecna](monster-sculpting-full-process-blender-secrets-stranger-things-vecna.md) — shares organic, procedural; that video's purchased-alpha skin-detailing pass runs into the exact resolution/shading issues this tutorial explains how to fix.

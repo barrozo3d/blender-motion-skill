@@ -312,3 +312,4 @@ displacement, procedural, materials, organic, advanced
 ## Related Tutorials
 - [6 Panel Cut Tips - Blender Secrets](6-panel-cut-tips---blender-secrets.md) — shares procedural, materials, advanced; that tutorial's normal-map-baking methods are downstream siblings of this video's tiling-displacement-map creation process.
 - [Image to 3D model workflow in Blender](image-to-3d-model-workflow-in-blender.md) — shares procedural, displacement, advanced; that flagship video's hard-surface detailing pass explicitly uses "tiling displacement maps" — this is the dedicated tutorial on how to build one from scratch.
+- [What if you Alpha Brush texture is square? Or the resolution is too low? Blender Sculpting tips](what-if-you-alpha-brush-texture-is-square-or-the-resolution-is-too-low-blender-s.md) — shares procedural, organic, intermediate; that video's Area Plane/Stencil brush mapping troubleshooting complements this tutorial's "View Plane" mapping mode for tiling alphas.

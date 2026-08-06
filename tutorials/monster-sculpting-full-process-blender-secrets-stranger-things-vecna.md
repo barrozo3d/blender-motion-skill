@@ -304,5 +304,6 @@ organic, procedural, materials, advanced
 
 ## Related Tutorials
 - [Remeshing Tips for Beginners | Blender Secrets](remeshing-tips-for-beginners-blender-secrets.md) — shares organic, procedural; goes deeper on this video's Voxel Remesh troubleshooting (banding, holes, the Remesh-modifier fallback) and adds Quadriflow/Quad Remesher alternatives.
+- [What if you Alpha Brush texture is square? Or the resolution is too low? Blender Sculpting tips](what-if-you-alpha-brush-texture-is-square-or-the-resolution-is-too-low-blender-s.md) — shares organic, procedural; directly explains the resolution/shading fixes needed for the purchased-alpha skin-detailing pass used in this video.
 - [Blender Secrets - Hard Surface Sculpting Tips](blender-secrets---hard-surface-sculpting-tips.md) — shares organic, procedural, materials, advanced; complementary sculpting-detail toolkit (Dyntopo/Multires/Mask Extract) applied to a hard-surface rather than organic-creature context.
 - [Blender Secrets - Hard Surface Sculpting Tips Part 2](blender-secrets---hard-surface-sculpting-tips-part-2.md) — shares organic, procedural, materials, advanced; same relationship as Part 1, additional sculpting tricks from the same author.

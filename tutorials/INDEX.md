@@ -1627,9 +1627,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=rtnsLjP1ebo
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Area Plane/Stencil mapping, Multires; 3.x-5.x)
+- **Tags:** #displacement #procedural #organic #intermediate
+- **Summary:** Fixes for two alpha-brush problems: square textures getting corner-clipped by the brush's circular sample radius (fix: Size X/Y ≈1.1, or use Stencil mapping), and blurry alphas (caused by inactive-object Multires resolution saving, insufficient geometry, or missing Shade Smooth).
 - **File:** tutorials/what-if-you-alpha-brush-texture-is-square-or-the-resolution-is-too-low-blender-s.md
 
 
