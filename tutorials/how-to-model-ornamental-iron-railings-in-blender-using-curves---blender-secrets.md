@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=_1OLudY5qQY
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5 (explicitly named: \"the new array modifier from Blender 5 with the curve method\")"
+tags: [procedural, modelling, organic, intermediate, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-model-ornamental-iron-railings-in-blender-using-curves---blender-secrets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How to model ornamental iron railings in Blender using Curves - Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-to-model-ornamental-iron-railings-in-blender-using-curves---blender-secrets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -671,30 +667,61 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:41] tutorials/frames/how-to-model-ornamental-iron-railings-in-blender-using-curves---blender-secrets/frame_000.jpg
+- [7:00] tutorials/frames/how-to-model-ornamental-iron-railings-in-blender-using-curves---blender-secrets/frame_001.jpg
+- [9:50] tutorials/frames/how-to-model-ornamental-iron-railings-in-blender-using-curves---blender-secrets/frame_002.jpg
+- [15:00] tutorials/frames/how-to-model-ornamental-iron-railings-in-blender-using-curves---blender-secrets/frame_003.jpg
+- [22:15] tutorials/frames/how-to-model-ornamental-iron-railings-in-blender-using-curves---blender-secrets/frame_004.jpg
+- [24:10] tutorials/frames/how-to-model-ornamental-iron-railings-in-blender-using-curves---blender-secrets/frame_005.jpg
+- [30:40] tutorials/frames/how-to-model-ornamental-iron-railings-in-blender-using-curves---blender-secrets/frame_006.jpg
+- [36:55] tutorials/frames/how-to-model-ornamental-iron-railings-in-blender-using-curves---blender-secrets/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A full cast-iron ornamental railing built entirely from Curve objects: a custom beveled-square Bevel Object gives the curly main curve its metal-bar thickness, Blender 5's curve-mode Array modifier scatters straight/vertical spokes, a separate Array+Curve-modifier combo deforms decorative swirl elements to follow the main curve's shape, and hand-drawn Bezier curves (via the Curve Pen tool) become the side ornamentation.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the very first step: an empty Right Orthographic viewport with the Annotate tool (D) active, about to sketch a rough reference curl shape freehand since no photo reference was used. Frame 001 shows the custom Bevel Object being built: a small square mesh plane with a Subdivision modifier (Catmull-Clark, 2 viewport levels) open in the sidebar — before the beveled-corner treatment that keeps it "square with nice beveled edges" rather than fully round. Frame 002 shows the payoff: five identical S-shaped curly bars viewed with a chrome/metal Matcap enabled (Matcap picker open), each showing the custom bevel's faceted-but-softened cross-section and an Array modifier in the sidebar — the base repeating railing unit. Frame 003 is the two-cube comparison demo from the "ways to put objects along a curve" explainer: a flat pink/blue-shaded cube (rigid, undeformed, Array modifier set to Curve method) on the left versus a similarly shaded cube warping to follow a curve on the right (Array set to Line + separate Curve modifier) — same geometry, different placement method, with the Array modifier's Curve Object field visible in the sidebar. Frame 004 shows an "Interior Decoration" swirl element mid-placement inside the vertical/horizontal spoke grid, its Array and Curve modifiers open in the sidebar (Curve Object: GuideCurve, Deform Axis) being scaled and positioned to nest perfectly between the spokes. Frame 005 shows the finished swirl-filled panel: repeating interior decoration curls running vertically inside the spoke grid, viewed from a slight low angle to show depth. Frame 006 shows the side-ornamentation curve being hand-drawn with the dedicated Curve Pen tool (visible in the left toolbar, distinct from the Draw/Annotate tool) over a faint blue annotation guide, in Right Orthographic Edit Mode — the resulting Bezier curve's Resolution Preview U and Geometry (Taper Object, Radius) fields visible in the sidebar. Frame 007 shows the fully assembled railing section: main curly bars, horizontal/vertical spoke grid, nested interior swirl decorations, and the hand-drawn side scrollwork all combined and subdivision-smoothed into the final cast-iron look.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Reference/plan:** in Right Orthographic view, use the Annotate tool (D) to freehand-sketch the target curl shape (or use a photo reference if available) — this is just a rough visual guide, not exact geometry.
+2. **Build the main curl as a Curve:** Shift+A add a Bezier curve, rotate/flip its direction (minus key) to roughly match the sketch, then edit control points — move handles, Right-click > Subdivide to add more control points where more detail is needed, Ctrl+X to dissolve an accidentally-added point; lower the Annotation layer's opacity (View > Annotations) and lighten the viewport background (View > Background > Custom) for better contrast while tracing; optionally add a temporary Curve Circle as a roundness reference to check the curl reads as properly circular, then delete it once done.
+3. **Give the curve thickness via a custom Bevel Object (not the curve's own Geometry > Bevel Depth, which only produces round cross-sections):** add a mesh Plane sized to the desired bar thickness, in Edit Mode delete only its faces (X > Only Faces, keeping vertices/edges), select all and Shift+Ctrl+B bevel with 2 segments and Profile Shape 1 for sharp-but-softened corners (test with a temporary 2-level Subdivision modifier to preview roundness, then remove it), then in Object Mode right-click > Convert to Curve to make it a valid Bevel Object.
+4. **Apply the Bevel Object:** on the main curl curve, go to Curve Properties > Geometry > Bevel, set Object to your converted bevel mesh (careful: not the similarly-placed Taper Object field) — troubleshooting notes: if the result is flat instead of a solid bar, the bevel object may need a 90° X rotation (apply the rotation after); if it renders solid red, Face Orientation is showing flipped normals — rotate the bevel object 180° and apply rotation to fix; enable Fill Caps on the curve to close the open ends; reduce the curve's Resolution Preview U if it's needlessly dense, and add a Subdivision modifier (2 levels) + Shade Smooth for a polished result.
+5. **Repeat the curl with a straight Array modifier** (Shift+D duplicate + Shift+R repeat is mentioned but discouraged since edits to one copy won't propagate) — instead add an Array modifier, set Count and a negative X Factor/offset to space multiple curls evenly; a metal Matcap makes the in-progress result easier to judge visually.
+6. **Two ways to place objects along a curve (critical distinction):** (a) **Array modifier set to Curve method** with a Curve Object assigned — instances stay rigid/undeformed, following the curve's path positions only (used for the straight horizontal/vertical spokes); (b) **Array modifier set to Line + a separate Curve modifier** referencing the same guide curve — instances actually deform/bend to match the curve's curvature (used for elements that should visibly bow with the railing's shape). For method (b), both the instanced object and the guide curve must have their Origin at the same location (use Shift+S > Cursor to Selected, then Object > Set Origin > Origin to 3D Cursor, on a matching vertex on each) and have Rotation applied, or the deformation misaligns; a low-resolution guide curve produces visibly faceted, ugly deformation, so keep curve Resolution high for this method.
+7. **Guide curve requirement for curve-mode arrays:** the Curve Object picked by an Array modifier's Curve method must be a "pure" curve with no modifiers, Bevel Object, or Subdivision applied to it — Blender throws a "No curve selected / input geometry has unsupported type mesh" error otherwise, even though the object genuinely is a curve, because its own Bevel Object (originally a mesh-turned-curve) confuses the check. Fix: duplicate the working curve, strip its Array/Bevel Object/Subdivision modifiers entirely, and use that stripped copy purely as a path reference (renamed e.g. "Guide Curve").
+8. **Horizontal spokes:** take one flat/level vertex from the main curl, Shift+D duplicate, rotate it to point along the intended spoke direction, P > Separate by Selection to pull it into its own object; extrude (E) along the horizontal axis to the desired railing width; reduce its Bevel Object's Mean Radius so spokes read visibly thinner than the main curl bars; set its Array modifier to Curve mode referencing the (stripped) Guide Curve, adjusting the Array's "up axis"/orientation setting until the spokes' rotation follows the guide curve correctly rather than just its position.
+9. **Interior decorative swirls between spokes:** sketch a fresh small swirl shape with a single vertex extruded/duplicated into a curl, convert to Curve, apply the shared Bevel Object then override its own Radius since scale differs; align its Origin to a matching guide-curve vertex (same 3D-cursor technique as step 6); add Array (Curve method) + Curve modifier (Deform Axis = Z, matching the guide curve's own up-axis) referencing the Guide Curve; scale/position it in Edit Mode and Object Mode until the swirl nests exactly between the spokes and its ends touch the spoke bars; extrude/adjust individual points afterward so the tips visibly emerge from behind the spoke rather than floating.
+10. **Tapering and symmetry:** taper thin decorative tail-points down to a very small but non-zero scale (e.g. 0.001, never exactly 0 — a true-zero scale causes a rendering error) rather than deleting them, for a natural pointed end; use a Mirror modifier with a separate Empty as the Mirror Object (rather than the default local origin) so the mirror plane can be repositioned independently; alternatively, Shift+D duplicate a decorative element, flip it with R,Z,180,Enter, and manually reposition — faster for one-off placement than setting up a full mirror rig.
+11. **Separate Bevel Objects per element category:** once several curve types exist (main/vertical spokes, horizontal spokes, interior swirls), duplicate the shared Bevel Object into three named variants (e.g. "Bevel Object Vertical," "Bevel Object Horizontal," "Bevel Object Swirls") so each category's cross-section shape/flatness can be tuned independently (S,Y or S,X to squash the bevel mesh flatter or thinner) without affecting the others — hover over the Bevel Object picker to confirm which curve is currently using which bevel by name; temporarily disabling a busy Array modifier while adjusting its Bevel Object's Edit Mode geometry keeps the viewport responsive.
+12. **Organizing helper objects:** select all non-visible "control" objects (Bevel Objects, Empties, Guide Curves) and press M > New Collection (e.g. "Control Objects"), then disable that collection's viewport visibility to declutter the outliner/viewport once the rig is working.
+13. **Hand-drawn side scrollwork:** sketch the target shape first with the Annotate tool at low opacity as a tracing guide; add a curve object, in Edit Mode select-all + X delete all vertices to leave just an empty curve, then use the dedicated **Curve Pen** tool (distinct from Annotate, only available with a curve selected in Edit Mode) to draw new Bezier points directly — works well with a graphics tablet/pen display, but mouse-based extrude-per-vertex works too; watch for Blender occasionally creating undesired "Vector" handle types instead of smooth Bezier handles — fix by selecting the point and Ctrl+X (dissolve, then re-subdivide) or press V for the Handle Type pie menu and choose Aligned; balance handle lengths on both sides of a point (drag one end with G) rather than leaving one long/one short, for predictable control; Right-click > Subdivide adds more control points on tricky tight bends, trading more manual adjustment work for more shape control. Iteratively fine-tune all curve handles — the author notes this final fine-tuning pass, not the initial blockout, is where the result actually becomes good.
+14. **Finishing the side scrollwork:** duplicate one of its own control points to make a fourth dedicated Bevel Object for the side curves, scale it thin on both axes, enable Fill Caps, add Subdivision + Shade Smooth, then nudge individual curve points in X-Ray/front view so adjacent scroll loops lightly touch without overlapping; mirror or duplicate+flip to complete symmetric side panels.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Curve tools:** Bezier curve (Shift+A), Curve Pen tool (Edit Mode only), Handle Type pie menu (V: Aligned/Vector/Free/Automatic), Subdivide (Right-click), Extrude (E or Ctrl+RMB).
+- **Curve Properties > Geometry:** Bevel > Object (custom Bevel Object, not Taper Object), Fill Caps, Resolution Preview U.
+- **Modifiers:** Array (Count Method: Fixed/Fit Curve; Curve method with Curve Object field — Blender 5's new curve-mode array; classic Line method + separate Curve modifier for deforming instances; Relative/Constant Offset), Curve modifier (Deform Axis must match the guide curve's own up-axis), Subdivision Surface (Catmull-Clark, viewport levels), Mirror (custom Mirror Object via an Empty).
+- **Mesh-to-curve bevel-object recipe:** mesh Plane → Edit Mode delete Only Faces → Shift+Ctrl+B bevel (2 segments, Profile Shape 1) → Object Mode right-click > Convert to Curve.
+- **Alignment tools:** Shift+S (Cursor to Selected), Object > Set Origin > Origin to 3D Cursor — required to match origins between a deforming object and its guide curve.
+- **Other:** Annotate tool (D, View > Annotations opacity), View > Background > Custom (viewport contrast), Matcap shading, M (Move to Collection, for organizing control objects), R,Z,180,Enter (quick 180° flip).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate to Advanced (curve-based modeling, Array/Curve modifier interplay, and freehand Bezier drawing are all non-trivial skills combined here)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5 — explicitly named ("This is the new array modifier from Blender 5 with the curve method").
 
 ### Tags
-[PENDING EXTRACTION]
+procedural, modelling, organic, intermediate, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+No other extracted BlenderSecrets tutorials in this library currently cover curve-based Bevel Objects, the Array modifier's curve-mode, or the Curve Pen tool in similar depth.

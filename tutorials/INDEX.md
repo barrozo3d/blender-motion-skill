@@ -1477,9 +1477,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=_1OLudY5qQY
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5 (explicitly named for the new curve-mode Array modifier)
+- **Tags:** #procedural #modelling #organic #intermediate #advanced
+- **Summary:** Full cast-iron railing built from Curves: a custom mesh-to-curve Bevel Object for bar thickness, Blender 5's curve-mode Array modifier for rigid spokes, a separate Array+Curve-modifier combo for deforming swirl decorations, and the Curve Pen tool for hand-drawn scrollwork.
 - **File:** tutorials/how-to-model-ornamental-iron-railings-in-blender-using-curves---blender-secrets.md
 
 
