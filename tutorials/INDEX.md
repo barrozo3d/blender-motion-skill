@@ -2657,9 +2657,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=qZTR0HWZ1UE
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 2.7x (legacy 20-slot Layers system, pre-2.8 Collections)
+- **Tags:** add-on, workflow, organization, beginner
+- **Summary:** Enables the third-party "3D View: Layer Management" add-on for a readable, renamable list panel over Blender's legacy 20-slot layer system — replacing the tiny grid picker so layers can be named (e.g. "jaw," "shoulder," "Camera") for organizing a rigged character's parts; M+number still moves objects to layers.
 - **File:** tutorials/daily-blender-tip-51---layer-management.md
 
 
