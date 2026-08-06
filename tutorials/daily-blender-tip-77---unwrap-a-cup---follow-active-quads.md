@@ -88,4 +88,4 @@ uv, modelling, workflow, intermediate
 ---
 
 ## Related Tutorials
-No other extracted BlenderSecrets tutorials in this library currently cover Follow Active Quads or manual seam-marking specifically.
+- [Daily Blender Tip 78 - Export UV Layout](daily-blender-tip-78---export-uv-layout.md) — shares uv, workflow; the direct sequel, exporting this exact cup's clean UV layout to paint its texture externally in Krita.

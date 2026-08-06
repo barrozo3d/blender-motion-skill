@@ -2517,9 +2517,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=w-GVrw0FBXs
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Export UV Layout and Open Image workflow are version-agnostic core Blender UV/texturing tools
+- **Tags:** uv, workflow, materials, beginner
+- **Summary:** Exports the cup model's UV Layout (UVs > Export UV Layout, View mode) as a template image, paints the texture externally in Krita on a layer above it, then reloads the finished PNG in Blender's UV/Image Editor and switches to Texture shading to preview it.
 - **File:** tutorials/daily-blender-tip-78---export-uv-layout.md
 
 
