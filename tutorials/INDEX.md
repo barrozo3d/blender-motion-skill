@@ -2067,9 +2067,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=tHnKR8DB1gg
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Curve modifier + Knife Project, version-agnostic)
+- **Tags:** #modelling #procedural #intermediate
+- **Summary:** Bends a flat sci-fi panel (Boolean slice-cuts + Solidify, hand-detailed) into a circular band via a Curve modifier — fixing the initial faceted bend by transferring the pattern onto a denser plane first with Knife Project.
 - **File:** tutorials/blender-secrets---modeling-circular-hard-surface-details.md
 
 

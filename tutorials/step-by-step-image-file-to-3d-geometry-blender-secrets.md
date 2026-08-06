@@ -170,3 +170,4 @@ modelling, procedural, intermediate
 ## Related Tutorials
 - [Image to 3D model workflow in Blender](image-to-3d-model-workflow-in-blender.md) — shares modelling, procedural; that flagship video's "Path A" (Trace Image to Grease Pencil → Mesh) is the same image-tracing pipeline used here, applied there to a full silhouette blockout rather than a Knife Project engraving.
 - [Daily Blender Secrets - 10 ways to make Holes in Blender](daily-blender-secrets---10-ways-to-make-holes-in-blender.md) — shares modelling, procedural; that survey's Knife Project method (#1) is the same technique demonstrated here in full step-by-step depth on a curved surface.
+- [Blender Secrets - Modeling Circular Hard Surface Details](blender-secrets---modeling-circular-hard-surface-details.md) — shares modelling, procedural; both rely on Knife Project to transfer a flat shape onto denser target geometry, applied there for bend-resolution rather than engraving a logo.
