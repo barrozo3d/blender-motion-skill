@@ -2497,9 +2497,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=Z7JCMVygWoA
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Texture Paint mode, Sample Color (S), brush radius resize (F), and Save As Image are version-agnostic core Blender features
+- **Tags:** texture-painting, materials, workflow, beginner
+- **Summary:** A practical landscape-painting workflow in Texture Paint mode using Tip 79's custom sharp brush, with S to sample colors directly from the painting, F to resize the brush radius, and F3/Save As Image to export the finished texture.
 - **File:** tutorials/daily-blender-tip-80---my-painting-workflow-in-blender.md
 
 

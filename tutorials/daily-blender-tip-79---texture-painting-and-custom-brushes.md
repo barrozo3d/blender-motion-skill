@@ -89,4 +89,4 @@ texture-painting, materials, workflow, beginner
 ---
 
 ## Related Tutorials
-No other extracted BlenderSecrets tutorials in this library currently cover Texture Paint mode or custom brush Curve falloff editing specifically.
+- [Daily Blender Tip 80 - My Painting Workflow In Blender](daily-blender-tip-80---my-painting-workflow-in-blender.md) — shares texture-painting, materials, workflow; that tutorial explicitly reuses this tutorial's sharp-brush Curve technique as its primary painting tool.
