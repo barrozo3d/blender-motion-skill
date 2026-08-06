@@ -2447,9 +2447,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=eQTkprbLxfA
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Ctrl+P > Bone (Parent to Bone) is a version-agnostic core Blender rigging/parenting tool
+- **Tags:** rigging, character, animation, intermediate
+- **Summary:** Parents a prop (a top hat) directly to the rig's head bone via Ctrl+P > Bone (select prop, then Shift+select the bone), instead of parenting to the whole armature, so the prop follows head rotation correctly during animation.
 - **File:** tutorials/daily-blender-tip-87---adding-props-to-your-character-like-a-stylish-hat.md
 
 

@@ -92,3 +92,4 @@ rigging, character, animation, intermediate
 ## Related Tutorials
 - [Daily Blender Tip 85 - Rigging A Simple Character Part 2](daily-blender-tip-85---rigging-a-simple-character-part-2.md) — shares rigging, character, animation; this is the direct Part 3 continuation, animating the exact rig cleaned up in Part 2 with a basic walk cycle.
 - [Daily Blender Tip 84 - Rigging A Simple Character Part 1](daily-blender-tip-84---rigging-a-simple-character-part-1.md) — shares rigging, character, animation; Part 1 of the same series, providing the original Rigify meta-rig setup this walk cycle is built on.
+- [Daily Blender Tip 87 - Adding Props To Your Character (like a stylish hat)](daily-blender-tip-87---adding-props-to-your-character-like-a-stylish-hat.md) — shares rigging, character, animation; continues the same character rig, adding a bone-parented prop after this tutorial's walk cycle.
