@@ -1667,9 +1667,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=m7dccc-J9aQ
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Camera Shakify add-on, Skinify extension; recent 4.x/5.x)
+- **Tags:** #animation #rigging #camera #procedural #intermediate
+- **Summary:** A "topology reveal" animation made from a chain of objects (one Shape Key each) with synchronized visibility keyframes swapping between them to fake one continuously-evolving mesh, finished with a hand-animated camera and the Camera Shakify add-on.
 - **File:** tutorials/how-to-make-awesome-topology-animation-blender-secrets.md
 
 

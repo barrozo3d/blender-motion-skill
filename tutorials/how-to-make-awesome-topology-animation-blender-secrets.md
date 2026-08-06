@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=m7dccc-J9aQ
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified — Skinify extension noted as newly separate from Rigify; Camera Shakify add-on; consistent with recent 4.x/5.x"
+tags: [animation, rigging, camera, procedural, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-make-awesome-topology-animation-blender-secrets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How to make awesome Topology Animation | Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-to-make-awesome-topology-animation-blender-secrets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -272,30 +268,61 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:28] tutorials/frames/how-to-make-awesome-topology-animation-blender-secrets/frame_000.jpg
+- [1:23] tutorials/frames/how-to-make-awesome-topology-animation-blender-secrets/frame_001.jpg
+- [2:01] tutorials/frames/how-to-make-awesome-topology-animation-blender-secrets/frame_002.jpg
+- [7:22] tutorials/frames/how-to-make-awesome-topology-animation-blender-secrets/frame_003.jpg
+- [8:03] tutorials/frames/how-to-make-awesome-topology-animation-blender-secrets/frame_004.jpg
+- [10:43] tutorials/frames/how-to-make-awesome-topology-animation-blender-secrets/frame_005.jpg
+- [13:54] tutorials/frames/how-to-make-awesome-topology-animation-blender-secrets/frame_006.jpg
+- [18:00] tutorials/frames/how-to-make-awesome-topology-animation-blender-secrets/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A "topology reveal" animation built from a chain of separate objects (one per modeling stage), each holding a single Shape Key that morphs a hidden final-geometry detail into view; keyframing each object's viewport-visibility icon in lockstep with its Shape Key value creates a seamless illusion of one continuously-evolving mesh — finished off with a hand-animated, Camera Shakify-enhanced camera fly-through.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the technique's real-time payback: a simple ridged box shape mid-scrub in the Dope Sheet, with many objects listed in the Outliner (right) each carrying dense keyframe rows — confirming many separate objects drive the illusion. Frame 001 shows a later stage of the same sequence — a hand/glove-like shape with articulated finger-like extrusions, still using the same object-swap+shape-key system, Dope Sheet visible below with keyframes for camera and multiple cube objects. Frame 002 shows the starting point of the from-scratch demo: a plain selected cube with the Item panel open showing Vertices/Edges/Faces/Triangles counts. Frame 003 shows an Inset operation applied to the cube's top face (the small inset square highlighted), the first geometry change that will be "hidden" behind a shape key. Frame 004 shows the Shape Keys panel with a "Key 1" shape key added and set to Relative, Value field visible at the bottom-right — the mechanism for storing an geometry-reveal state per object. Frame 005 shows the object back at its base (un-keyed) cube shape with the Shape Keys panel still open and a Timeline below, right before extruding/inset work continues on the geometry. Frame 006 shows a further-along stage: a stepped cube-on-cube form with an inset recess on top, Dope Sheet showing accumulated keyframes and an "Enter" hint near Output settings, illustrating render-length/output setup partway through the tutorial. Frame 007 shows the finished camera setup: an isometric view of the stepped cube form with the Camera Shakify panel open in the sidebar (Style dropdown, Influence, Scale, Manual Timing fields) — the add-on used to give the hand-animated camera a natural, tracked-shot-like wobble.
 
 ### Key Steps
-[PENDING EXTRACTION]
+**Understanding the illusion (analysis of the original animation, ~0:00-6:50):**
+1. The animation is not one continuously-modeled mesh — it's a sequence of separate cube objects, one per "modeling stage," stacked in the same location. You cannot keyframe an object's viewport visibility (the eye icon) directly, but you *can* keyframe the "Globally disabled in viewports" icon: enable it, hover over the icon, press I to set a keyframe, toggle it, press I again — this is what makes each object appear/disappear at the right moment.
+2. Each object carries exactly one Shape Key that animates from a starting shape to a target shape (e.g. an edge sliding from the boundary to the middle, or a form flattening). Since Shape Keys can only *move* existing vertices, not add new geometry, the trick is to always start modeling with the *end* geometry already present, then hide the "future" detail by sliding its vertices (G,G — double-tap G to slide along the surface) very close to neighboring vertices so it's visually imperceptible until revealed.
+3. The full sequence is just many of these single-shape-key objects handed off to each other via synchronized visibility keyframes, right up to a final stage with a rigged hand (Rigify human metarig with unneeded bones deleted, or the separate Rigify-adjacent "Skinify" extension for skinning).
+4. The camera move was hand-animated by locking the camera to the viewport view, orbiting/panning with the middle mouse button between keyframes (I to key), then finished with the free **Camera Shakify** add-on (by Ian Hubert) for a naturalistic tracked-shot wobble — installed from GitHub, added via the "+" button in the camera's sidebar panel, with adjustable Influence/intensity per shake style.
+
+**Building one stage from scratch (~6:50 onward):**
+1. Enable Wireframe display (so geometry stays visible even in Object Mode) and start with a base cube.
+2. Model only as far as the *next* stage requires (e.g. Inset a face), add a Shape Key, set its Value to 1, then in Edit Mode use double-G to slide the newly-inset geometry back until it's hidden/flush with its neighbors again — this "shape key = 1" state now represents the un-revealed look, while returning the Shape Key's Value to 0 reveals the inset.
+3. Once satisfied, go back to Object Mode; the inset is now controllable purely via the Shape Key slider.
+4. Duplicate (Shift+D) this object for the *next* stage and hide the original — don't keep stacking more Shape Keys on one object, since that gets confusing fast. On the duplicate, apply the existing Shape Key permanently via Ctrl+A > Visual Geometry to Mesh (this also clears the Shape Key stack) before modeling the next detail (e.g. Extrude) and repeating the add-Shape-Key / double-G-hide / duplicate cycle.
+5. **Animating the sequence:** open a Dope Sheet, disable "Only Show Selected" and enable "Show Hidden" so every object's keyframes stay visible regardless of selection — critical for orchestrating many objects at once. For each stage: set a keyframe (I) on the current object's Shape Key Value at 0 on an early frame, then a keyframe at Value 1 roughly 30 frames later; at the frame where Value reaches 1, set a visibility keyframe (I over the "globally disabled" icon) making the current object invisible and the next object visible in the same frame, then advance one frame (right arrow — hover over the Timeline/Dope Sheet first, not other panels, to avoid corrupting the Outliner selection) and set the opposite visibility keyframes there for a clean cross-fade/swap; repeat down the whole chain of objects.
+6. **Timing/pacing:** set project frame rate to 60 fps for smoothness; if the whole sequence plays too fast, put the playhead at frame 0, select all keyframes in the Dope Sheet (A) and scale them (S, hold Shift for finer control) to stretch the timing uniformly — the author stretched a shorter take out to 240 frames this way.
+7. **Camera animation:** lock the camera to the current view (View menu), then Shift+middle-mouse to pan / middle-mouse to rotate between keyframes, pressing I on the camera to key each pose — expect wild/jerky results at first and plan to go back and manually clean up in-between frames. Add Camera Shakify afterward via "+" in its panel, tune Influence to taste, and try different shake style presets.
+8. **Looping the camera shake cleanly:** duplicate the starting camera keyframe at the very end of the timeline, and keyframe the Camera Shakify Influence value down to 0 at both the very start and very end of the loop, ramping up from 0 shortly after the start — otherwise the shake pattern will visibly jump/desync where the loop repeats.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Animation:** Shape Keys (Basis + one "Key 1" per object, Value 0-1 keyframed), Object visibility keyframing via the "Globally disabled in viewports" icon (not the standard eye-icon visibility, which can't be keyframed), Dope Sheet filters (Only Show Selected off, Show Hidden on).
+- **Rigging (final stage only):** Rigify metarig (Human preset, prune to just hand bones) or the separate Skinify extension for auto-skinning.
+- **Add-ons:** Camera Shakify (free, by Ian Hubert, GitHub-installed) — Style presets, Influence, Scale, Manual Timing.
+- **Modeling combo per stage:** Inset (I) / Extrude (E) on the target detail, double-G (G,G) vertex/edge slide to visually hide the new geometry, Ctrl+A > Visual Geometry to Mesh (bake/clear Shape Keys before the next duplicate).
+- **Timing:** 60 fps project setting, Dope Sheet select-all (A) + Scale (S, Shift for precision) to retime a whole keyframe range at once.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — the video notes Skinify is "an extension now" separate from Rigify, and uses the Camera Shakify add-on; consistent with a recent Blender 4.x/5.x release.
 
 ### Tags
-[PENDING EXTRACTION]
+animation, rigging, camera, procedural, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+No other extracted BlenderSecrets tutorials in this library cover shape-key-driven "topology reveal" object-swap animation or the Camera Shakify add-on yet.
