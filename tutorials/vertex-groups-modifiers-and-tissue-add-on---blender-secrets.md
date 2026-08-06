@@ -208,3 +208,4 @@ organic, procedural, abstract, intermediate
 
 ## Related Tutorials
 - [Daily Blender Tip 135 - Tissue Add-on: Experiment 1](daily-blender-tip-135---tissue-add-on-experiment-1.md) — shares organic, procedural, intermediate; the channel's earlier first pass with the same Tissue Tools > Dual Mesh operator used here, that time paired with procedural Displace + Decimate experimentation instead of vertex-group masking.
+- [Daily Blender Tip 136 - Tissue Add-on: Experiment 2](daily-blender-tip-136---tissue-add-on-experiment-2.md) — shares organic, procedural, intermediate; an earlier pass at exactly this weight-map-driven Displace/Dual-Mesh/Wireframe masking technique, which this later video revisits and refines on Blender 4.3.2.

@@ -136,3 +136,4 @@ organic, procedural, displacement, abstract, intermediate
 
 ## Related Tutorials
 - [Vertex Groups, Modifiers and Tissue Add-on - Blender Secrets](vertex-groups-modifiers-and-tissue-add-on---blender-secrets.md) — shares organic, procedural, intermediate; the channel's later, more refined revisit of the Tissue add-on's "Convert to Dual Mesh" operator (the same Tissue Tools > Dual Mesh step used here), adding vertex-group-driven control on top.
+- [Daily Blender Tip 136 - Tissue Add-on: Experiment 2](daily-blender-tip-136---tissue-add-on-experiment-2.md) — shares organic, procedural, displacement, abstract, intermediate; direct sequel in the same experiment series, adding a painted Weight Map to localize the Displace/Dual Mesh/Wireframe effects to specific regions instead of the whole sphere.

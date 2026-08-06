@@ -2257,9 +2257,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=HabMke3KDFc
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (earlier-era Tissue add-on workflow)
+- **Tags:** #organic #procedural #displacement #abstract #intermediate
+- **Summary:** Sequel to Experiment 1: a painted Weight Map restricts the Displace modifier to specific regions, and the same weight map continues masking later Decimate/Dual-Mesh/Wireframe steps — showing vertex-group masking survives topology-changing operations.
 - **File:** tutorials/daily-blender-tip-136---tissue-add-on-experiment-2.md
 
 
