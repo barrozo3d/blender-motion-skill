@@ -129,3 +129,4 @@ geometry-nodes, organic, cloth, intermediate, advanced
 
 ## Related Tutorials
 - [Anime Girl character course overview - Blender Secrets](anime-girl-character-course-overview---blender-secrets.md) — shares organic; both are promotional overviews of full character-creation courses (one third-party/CG Boost, one the author's own), useful to compare curriculum structure and scope.
+- [In-depth look at my new Hard Surface course - Blender Secrets](in-depth-look-at-my-new-hard-surface-course---blender-secrets.md) — shares intermediate; both are course-overview/review videos rather than hands-on tutorials, one reviewing a third-party course, the other promoting the channel's own course.

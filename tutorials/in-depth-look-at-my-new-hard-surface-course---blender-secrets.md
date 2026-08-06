@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=K6IEt4T91Jw
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.3 (explicitly named — the course was developed in it, though older versions are said to work)"
+tags: [modelling, procedural, beginner, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/in-depth-look-at-my-new-hard-surface-course---blender-secrets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 5
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # In-depth look at my new Hard Surface course - Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py in-depth-look-at-my-new-hard-surface-course---blender-secrets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -125,30 +121,47 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:10] tutorials/frames/in-depth-look-at-my-new-hard-surface-course---blender-secrets/frame_000.jpg
+- [0:40] tutorials/frames/in-depth-look-at-my-new-hard-surface-course---blender-secrets/frame_001.jpg
+- [2:10] tutorials/frames/in-depth-look-at-my-new-hard-surface-course---blender-secrets/frame_002.jpg
+- [3:20] tutorials/frames/in-depth-look-at-my-new-hard-surface-course---blender-secrets/frame_003.jpg
+- [4:00] tutorials/frames/in-depth-look-at-my-new-hard-surface-course---blender-secrets/frame_004.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Not a hands-on tutorial — a promotional overview of the author's own paid "Beginner Hard Surface Modeling" course (a "Spiderbot" reference-image-to-model project), pitched as the concept-art-faithful counterpart to their separate sculpt-and-design-simultaneously course. Kept here as a reference outline of the course's two-chapter structure, plus a handful of b-roll clips showing real modifier-based hard-surface results, since the video itself teaches no technique step-by-step.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows a b-roll clip of the reference-image workflow in action: a red-shaded mechanical panel piece being edited in Edit Mode over a blueprint-style orthographic reference image (visible faded in the corner), vertex/edge stats and a Knife tool hint ("K") in the corner. Frame 001 shows a YouTube channel grid of the author's existing free tutorial catalog (Hard Surface Sculpting Tips, Topology Secrets, N-Gons to Quads, Easy Holes with Beveled Vertices, ArchViz Modeling Tips, etc.) with the author's photo and name "Jan van den Hemel, 3D artist/teacher" overlaid — part of the "About Me" credibility segment. Frame 002 shows a clean, beveled, quad-topology hard-surface block (mirror modifier gizmo visible) shaded in Rendered/Material Preview — one of the course's polished example results, alongside a reference sketch panel in the top-right. Frame 003 shows a fully-shaded red mechanical claw/gripper piece with visible wireframe overlay (Vertices/Edges/Faces/Triangles stats top-left) — a further-along example of the Spiderbot project's hard-surface parts. Frame 004 is the closing promotional slide: a "Blender Secrets — Everything You Need For Your Blender Journey — Blender 4.3" book cover next to renders of a spider-like robot and a colorful mech, captioned "Beginner modeling (Spiderbot) course / Hard Surface sculpting in Blender course / Materials course and assets / Blender Secrets book (+100s of videos)" — the bundle offer.
 
 ### Key Steps
-[PENDING EXTRACTION]
+The stated course structure (no operation-level detail given — this is a sales pitch, not a walkthrough):
+1. **Premise:** for modelers who already have detailed concept art and want to model faithfully to it (as opposed to the author's other course, which teaches blocking-out-and-sculpting without concept art).
+2. **Chapter 1 (available at launch):** setting up reference images and creating the first iteration of the model using the best modeling technique for each part; 5 hours across 40 lessons; emphasizes non-destructive, modifier-based workflows for flexibility and consistency (e.g. uniform bevels across the whole model); includes unique tips such as placing objects along a curve without deformation, and lesser-known Bevel modifier options; multiple approaches are explained per task, with reasoning for the chosen technique.
+3. **Chapter 2 (launched January 2025, weekly lessons):** converts the Chapter 1 result into clean quad topology, prepares it for animation, and optimizes it for game-engine export (Unreal/Unity).
+4. **Format:** step-by-step with no skipped parts, blend files provided per stage, lessons kept short (roughly one per day), downloadable for offline use, comment-based student support under each lesson.
+5. **Requirements:** Blender only — no paid add-ons or other software needed; developed in Blender 4.3 but usable with older versions (expect some UI differences).
+6. **Pricing:** early-bird discount during development, all future updates free once purchased; a larger "Hard Surface Bundle" combines this course with the author's Hard Surface Sculpting course, Mac(Mech) Materials course, and the 2000-page Blender Secrets PDF + videos for a bigger discount than the early-bird alone.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+None demonstrated in operational detail (promotional overview only). Visible in b-roll: Knife tool (K) editing over a reference image; Bevel modifier + Mirror modifier on a hard-surface block; Edit Mode statistics overlay (Objects/Vertices/Edges/Faces/Triangles).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner (course is explicitly a "Beginner Hard Surface Modeling" course)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.3 — explicitly named as the version the course was developed in, though the author notes older Blender versions should still work with some UI differences.
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, procedural, beginner, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [First look at the new "Master Characters in Blender" course from CG Boost](first-look-at-the-new-master-characters-in-blender-course-from-cg-boost.md) — shares intermediate; both are course-overview/review videos rather than hands-on tutorials, one promoting the channel's own course, the other reviewing a third-party course.
+- [Anime Girl character course overview - Blender Secrets](anime-girl-character-course-overview---blender-secrets.md) — shares modelling, beginner, intermediate; same author's parallel promotional overview format for a different paid course (stylized character creation vs. hard-surface modeling).

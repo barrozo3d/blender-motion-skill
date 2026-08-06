@@ -1677,9 +1677,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=K6IEt4T91Jw
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 4.3 (explicitly named)
+- **Tags:** #modelling #procedural #beginner #intermediate
+- **Summary:** Promotional overview (not a walkthrough) of the author's paid "Beginner Hard Surface Modeling" (Spiderbot) course — reference-image-faithful modeling in Chapter 1, retopology/animation/export prep in Chapter 2.
 - **File:** tutorials/in-depth-look-at-my-new-hard-surface-course---blender-secrets.md
 
 
