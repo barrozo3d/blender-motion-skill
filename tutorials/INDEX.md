@@ -2417,9 +2417,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=RXTJshRSyjk
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Rigid Body physics (Active/Passive/Animated) and bone-parenting are version-agnostic core Blender features
+- **Tags:** rigging, character, simulation, rigid-body, advanced
+- **Summary:** Since bones can't directly drive Rigid Body physics, parents icosphere proxies to key bones and sets them as Active Rigid Body objects with the Animated flag enabled, letting the keyframed character physically knock through a Rigid Body wall simulation.
 - **File:** tutorials/daily-blender-tip-90---how-to-have-characters-interact-with-physics-simulations.md
 
 

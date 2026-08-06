@@ -86,3 +86,4 @@ rigging, character, modelling, intermediate
 
 ## Related Tutorials
 - [Daily Blender Tip 88 - How To Make A Character Follow A Path](daily-blender-tip-88---how-to-make-a-character-follow-a-path.md) — shares rigging, character, animation; part of the same character rigging series, continuing the discussion with a path-following animation setup.
+- [Daily Blender Tip 90 - How To Have Characters Interact With Physics Simulations](daily-blender-tip-90---how-to-have-characters-interact-with-physics-simulations.md) — shares rigging, character; the final Part 7 of this same 7-part character rigging series, covering physics-simulation interaction via bone-parented Animated Rigid Body proxies.
