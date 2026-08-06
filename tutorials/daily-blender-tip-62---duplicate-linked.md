@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=W3EtoiG99mo
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: needs-review
+blender_version: "Not specified — Alt+D (Duplicate Linked) and U (Make Single User) are version-agnostic core Blender shortcuts"
+tags: [workflow, modelling, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/daily-blender-tip-62---duplicate-linked/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Daily Blender Tip 62 - Duplicate Linked
@@ -32,12 +33,7 @@ _Auto-generated at ingest/frame-capture time — explains why `extraction_status
 ---
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py daily-blender-tip-62---duplicate-linked <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -48,30 +44,45 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:10] tutorials/frames/daily-blender-tip-62---duplicate-linked/frame_000.jpg
+- [0:30] tutorials/frames/daily-blender-tip-62---duplicate-linked/frame_001.jpg
+- [0:50] tutorials/frames/daily-blender-tip-62---duplicate-linked/frame_002.jpg
+- [1:10] tutorials/frames/daily-blender-tip-62---duplicate-linked/frame_003.jpg
+- [1:30] tutorials/frames/daily-blender-tip-62---duplicate-linked/frame_004.jpg
+- [1:40] tutorials/frames/daily-blender-tip-62---duplicate-linked/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Duplicating objects with **Alt+D** ("Duplicate Linked") instead of the default **Shift+D** — linked duplicates share the same mesh data, so editing one instance's geometry in Edit Mode updates every linked copy simultaneously; any copy that later needs unique geometry can be broken off into an independent "Single User" copy with **U > Object & Data**.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows three identical monkey-head models side by side, captioned "Instead of duplicating with SHIFT+D make it a habit to use ALT+D instead ... this has a big advantage." Frame 001 shows six duplicated toy-robot-style character heads in a two-row grid, all sharing the same mesh detail, captioned "The duplicates are 'linked', which means if I edit any of them the others will update as well." Frame 002 shows the same grid of models with a right-click context menu open ("Make Single User" > Object, Object & Data, Object & Data & Materials+Tex, Materials+Tex, Object Animation — "Object & Data" highlighted), captioned "If one still needs to have specific changes, you can still make it a 'single user' copy..." Frame 003 shows one of the six models now in wireframe/edit view separated from the still-linked others, captioned "Just select it and press 'u', then choose 'object and data'. Now that one can be edited individually." Frame 004 shows the finished grid with one model highlighted uniquely editable via a Bevel-like wireframe overlay, captioned "Thanks for following me! Feel free to ask questions in the comments section. I'll do my best to help." Frame 005 is the closing Mandala Motion channel card.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Instead of the default **Shift+D** (Duplicate, which creates fully independent mesh data), use **Alt+D** (Duplicate Linked) to create copies that all reference the **same underlying mesh data-block**.
+2. Editing the mesh geometry of any one linked duplicate in Edit Mode instantly updates every other linked copy — extremely useful for repeated/instanced props or characters that should iterate together.
+3. When one specific copy eventually needs unique geometry (a variant, damage, a pose-specific edit), select it and press **U** (Make Single User) > **Object & Data** — this breaks that one instance off with its own independent mesh copy, leaving the rest still linked to each other.
+4. The Make Single User menu also offers narrower/broader options (Object, Object & Data, Object & Data & Materials+Tex, Materials+Tex, Object Animation) depending on exactly what needs to become independent.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Shortcut:** Alt+D — Duplicate Linked (shares mesh data across copies).
+- **Shortcut:** U — Make Single User menu (Object / Object & Data / Object & Data & Materials+Tex / Materials+Tex / Object Animation).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Alt+D (Duplicate Linked) and U (Make Single User) are version-agnostic core Blender shortcuts.
 
 ### Tags
-[PENDING EXTRACTION]
+workflow, modelling, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+No other extracted BlenderSecrets tutorials in this library currently cover linked duplicates or Make Single User specifically.

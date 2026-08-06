@@ -2617,9 +2617,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=W3EtoiG99mo
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Alt+D (Duplicate Linked) and U (Make Single User) are version-agnostic core Blender shortcuts
+- **Tags:** workflow, modelling, beginner
+- **Summary:** Uses Alt+D (Duplicate Linked) instead of Shift+D so copies share mesh data and update together when any one is edited; breaks a specific copy free with U > Object & Data (Make Single User) when it needs unique geometry.
 - **File:** tutorials/daily-blender-tip-62---duplicate-linked.md
 
 
