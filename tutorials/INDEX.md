@@ -2227,9 +2227,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=6Tk22EdbbLc
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Custom "Fracture Modifier" build (third-party fork, not stock Blender)
+- **Tags:** #rigid-body #simulation #beginner
+- **Summary:** Quick start for the third-party Fracture Modifier Blender build: passive Rigid Body ground, a Fracture system (Voronoi + Boolean, 1000 shards) pre-shatters an object via Execute Fracture, then Alt+A plays the rigid body sim as it breaks apart realistically.
 - **File:** tutorials/daily-blender-tip-139---blender-fracture-modifier-build---quick-start.md
 
 
