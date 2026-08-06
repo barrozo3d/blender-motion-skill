@@ -1757,9 +1757,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=HUL9o27m11M
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Grease Pencil trace + Knife Project; 3.x-4.x)
+- **Tags:** #modelling #procedural #intermediate
+- **Summary:** Engraves a 2D logo image onto a curved surface via Knife Project: image traced to Grease Pencil then mesh, cleaned up with Merge by Distance/Checker Deselect/LoopTools Space, projected into a sphere from the current view, cleaned up via non-manifold Merge by Distance, and given depth with Extrude+Alt+S.
 - **File:** tutorials/step-by-step-image-file-to-3d-geometry-blender-secrets.md
 
 
