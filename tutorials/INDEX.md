@@ -2477,9 +2477,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=_OZVTOF1U_U
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Rigify Basic Human Meta-Rig and Armature Symmetrize are version-agnostic core/built-in Blender rigging tools
+- **Tags:** rigging, character, animation, intermediate
+- **Summary:** Part 1 of a 7-part rigging series: adds a Rigify Basic Human meta-rig, fits bones to one side of the character (using Shift+S Cursor to Selected for pivot placement), then mirrors them with Armature > Symmetrize instead of positioning both sides manually.
 - **File:** tutorials/daily-blender-tip-84---rigging-a-simple-character-part-1.md
 
 
