@@ -2367,9 +2367,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=OIXSc-DM4Pk
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 2.8 (Cycles Bevel shader, not EEVEE)
+- **Tags:** #shaders #cycles #materials #beginner
+- **Summary:** Fakes a rounded-edge look on sharp hard-surface geometry using Cycles' Bevel shader node (no real geometry change); joining two objects with Ctrl+J is required for the fake bevel to read continuously across their shared seam.
 - **File:** tutorials/daily-blender-tip-101---cycles-bevel-shader-in-blender-28.md
 
 
