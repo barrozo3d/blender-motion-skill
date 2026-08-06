@@ -2187,9 +2187,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=v6WFoVV3IhY
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Screw + Curve + Array modifiers, version-agnostic)
+- **Tags:** #modelling #procedural #intermediate
+- **Summary:** Procedural rope: a merged cloverleaf profile is twisted into a helical strand via the Screw modifier, bent along a target path with a Curve modifier, and extended/looped with an Array modifier for a longer coiled rope.
 - **File:** tutorials/daily-blender-tip-186---make-a-rope.md
 
 

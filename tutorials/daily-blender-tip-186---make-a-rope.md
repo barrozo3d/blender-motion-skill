@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=v6WFoVV3IhY
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: needs-review
+blender_version: "Not specified — Screw + Curve + Array modifier workflow, version-agnostic core tools"
+tags: [modelling, procedural, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/daily-blender-tip-186---make-a-rope/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Daily Blender Tip 186 - Make a rope
@@ -36,12 +37,7 @@ _Auto-generated at ingest/frame-capture time — explains why `extraction_status
 ---
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py daily-blender-tip-186---make-a-rope <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### <Untitled Chapter 1> [0:00]
@@ -60,30 +56,49 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:05] tutorials/frames/daily-blender-tip-186---make-a-rope/frame_000.jpg
+- [0:20] tutorials/frames/daily-blender-tip-186---make-a-rope/frame_001.jpg
+- [0:38] tutorials/frames/daily-blender-tip-186---make-a-rope/frame_002.jpg
+- [1:00] tutorials/frames/daily-blender-tip-186---make-a-rope/frame_003.jpg
+- [1:18] tutorials/frames/daily-blender-tip-186---make-a-rope/frame_004.jpg
+- [1:40] tutorials/frames/daily-blender-tip-186---make-a-rope/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A procedural rope: two overlapping circles are merged into a cloverleaf-like profile shape, which the **Screw** modifier twists into a helical, braided-looking rope strand; the strand is then bent along a target path with a **Curve** modifier and repeated/extended with an **Array** modifier to build a longer coiled rope.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the starting profile: a single Bezier/mesh Circle in the viewport, captioned "Create a circle, duplicate it with Shift+D." Frame 001 shows two overlapping circles merged into a cloverleaf/figure-eight-like outline (their inner intersecting vertices deleted and remaining ones merged), captioned "Delete inner verts, merge where needed (alt+m)." Frame 002 shows the same cloverleaf profile with a Screw modifier applied, its gizmo visible at the origin, captioned "Add a screw modifier, set a screw value, like 10 m" — the modifier about to twist the flat profile into a 3D helix. Frame 003 shows the resulting twisted, organic-looking braided rope strand (a tall, gnarled spiral column) next to the original flat circle reference, captioned "Add a circle, scale it and randomize/smooth it" — a bevel/profile circle used to add irregular, rope-like thickness variation to the strand. Frame 004 shows an Array modifier's settings (Object/Vertex Group, Deformation Axis, Fit Type: Fixed Count, Count, Relative Offset, Merge, Object Offset) applied to the rope object, captioned "...to the rope object. Add an array modifier as well." Frame 005 shows the finished coiled rope: a long, looped circular coil of rope resting flat, the Array modifier's Count raised to 21 and Merge/First Last/Object Offset options visible, captioned "Scale the rope, increase the array count."
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Create a Circle, duplicate it with Shift+D and offset the copy so the two circles overlap.
+2. Delete the inner/intersecting vertices where the two circles overlap and merge (Alt+M) the remaining vertices where needed — producing a cloverleaf/figure-eight-like closed profile shape instead of a plain circle.
+3. Add a **Screw** modifier to this profile and set a Screw (height/travel) value — e.g. 10m — twisting the flat cloverleaf profile into a tall, helical, rope-like 3D strand as it screws upward.
+4. Add a second Circle, scale it down, and use it (with some randomization/smoothing) to vary the rope strand's cross-sectional thickness along its length for a more natural, less mechanically-uniform look.
+5. Convert the target path to a curve with **Alt+C** (Convert to Curve), then add a **Curve** modifier to the rope object referencing that curve — bending the straight rope strand to follow any custom path shape.
+6. In the Curve modifier, check **Merge** and choose the correct Deformation Axis so the rope bends along the path correctly without twisting incorrectly.
+7. Add an **Array** modifier to extend/repeat the rope segment along its length (Fixed Count, adjustable Count, Relative Offset, Merge, Object Offset) — scale the whole rope and increase the Array Count to build up a longer coiled rope, such as the looped circular coil shown in the final result.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Modeling:** Circle duplication (Shift+D), Delete inner vertices, Merge (Alt+M) — building a cloverleaf profile shape.
+- **Modifiers:** Screw (Screw/height value, twists a 2D profile into a 3D helix), Curve (Deformation Axis, Merge option — bends the strand along a target curve), Array (Fit Type: Fixed Count, Count, Relative Offset, Merge, Object Offset — extends/repeats the rope).
+- **Curve conversion:** Alt+C (Convert mesh/circle to Curve, used as the Curve modifier's target path).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Screw, Curve, and Array modifiers are version-agnostic core Blender tools.
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, procedural, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+No other extracted BlenderSecrets tutorials in this library currently cover the Screw-modifier rope technique.
