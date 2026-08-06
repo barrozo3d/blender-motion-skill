@@ -2347,9 +2347,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=QO5a2rKhMtQ
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Grease Pencil layers, matured in 2.8x)
+- **Tags:** #animation #beginner
+- **Summary:** Photoshop-style sketch-to-lineart workflow: rough sketch on a low-opacity Grease Pencil layer, clean strokes traced on a layer above, Sculpt Mode to smooth lines, Edit Mode to select/duplicate stroke parts, then hide the sketch layer for the finished line art.
 - **File:** tutorials/daily-blender-tip-113---from-sketch-to-clean-lines-in-grease-pencil.md
 
 

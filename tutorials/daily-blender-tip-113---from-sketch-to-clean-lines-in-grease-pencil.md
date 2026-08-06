@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=QO5a2rKhMtQ
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: needs-review
+blender_version: "Not specified — Grease Pencil layers system, introduced/matured in Blender 2.8x"
+tags: [animation, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/daily-blender-tip-113---from-sketch-to-clean-lines-in-grease-pencil/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 5
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Daily Blender Tip 113 - From Sketch To Clean Lines in Grease Pencil
@@ -37,12 +38,7 @@ _Auto-generated at ingest/frame-capture time — explains why `extraction_status
 ---
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py daily-blender-tip-113---from-sketch-to-clean-lines-in-grease-pencil <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### <Untitled Chapter 1> [0:00]
@@ -63,30 +59,47 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:11] tutorials/frames/daily-blender-tip-113---from-sketch-to-clean-lines-in-grease-pencil/frame_000.jpg
+- [0:30] tutorials/frames/daily-blender-tip-113---from-sketch-to-clean-lines-in-grease-pencil/frame_001.jpg
+- [1:03] tutorials/frames/daily-blender-tip-113---from-sketch-to-clean-lines-in-grease-pencil/frame_002.jpg
+- [1:13] tutorials/frames/daily-blender-tip-113---from-sketch-to-clean-lines-in-grease-pencil/frame_003.jpg
+- [1:36] tutorials/frames/daily-blender-tip-113---from-sketch-to-clean-lines-in-grease-pencil/frame_004.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A Photoshop-style rough-sketch-to-clean-lineart workflow using Grease Pencil's layer system: a rough sketch lives on its own low-opacity layer, a new "Clean Line" layer is drawn on top by tracing over it, Sculpt Mode smooths/adjusts the resulting strokes, Edit Mode allows selecting and duplicating stroke parts (e.g. for symmetric features), and finally the sketch layer is hidden to reveal just the finished clean line art. Note: this video's audio track is silent/near-empty; this summary is built entirely from the captured on-screen text captions and frames.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the starting point: a rough circular/cross construction sketch on a gray canvas, with the Grease Pencil Layers panel open in the sidebar (a "Sketch" layer with Blend and Opacity sliders visible), captioned "Grease Pencil now has layers like Photoshop." Frame 001 shows a much more developed rough head sketch, the Sketch layer's Opacity slider being dragged down, captioned "Lower the opacity of the sketch layer" — fading the rough layer so it reads as a faint underlay guide. Frame 002 shows a "Clean line" layer now active above the faded sketch, with cleaner, more deliberate hair/face strokes drawn on top, captioned "You can use Sculpt mode to smooth out or change lines" — refining the traced clean strokes. Frame 003 shows the clean-line portrait further along (fuller hairline, both eyes, nose, mouth defined) with the Clean Line layer selected in the Layers panel, captioned "In Edit Mode you can select parts and duplicate them" — e.g. duplicating one drawn eye/eyebrow to quickly create its mirrored counterpart rather than redrawing it. Frame 004 shows the final result: the sketch layer's visibility toggled off (eye icon disabled in the Layers panel) so only the finished, clean black line-art portrait remains visible, captioned "Turn off the sketch layer."
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Draw a rough sketch on its own Grease Pencil layer (Grease Pencil's Layers panel works much like Photoshop's — each layer has its own Opacity/Blend settings and visibility toggle).
+2. Lower that sketch layer's Opacity so it reads as a faint, unobtrusive underlay guide rather than a fully-visible rough drawing.
+3. Add a new layer (e.g. named "Clean line") above the sketch layer, and trace clean, deliberate strokes over the faded rough sketch.
+4. Use **Sculpt Mode** on the Grease Pencil object to smooth out or reshape existing strokes on the clean-line layer without having to redraw them from scratch.
+5. In **Edit Mode**, select specific stroke parts and duplicate them — useful for quickly mirroring/reusing a drawn element (e.g. one eye or eyebrow) rather than manually re-drawing its counterpart.
+6. Once the clean line layer is finished, hide the sketch layer's visibility (its eye icon in the Layers panel) to reveal just the finished clean line art.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Grease Pencil Layers panel:** per-layer Opacity, Blend mode, visibility (eye icon) toggle — functions like Photoshop layers.
+- **Grease Pencil Sculpt Mode:** stroke smoothing/reshaping tools.
+- **Grease Pencil Edit Mode:** stroke/point selection and duplication.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — the Grease Pencil layers system referenced ("like Photoshop") matured through the Blender 2.8x series.
 
 ### Tags
-[PENDING EXTRACTION]
+animation, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+No other extracted BlenderSecrets tutorials in this library currently cover the Grease Pencil sketch-to-clean-line layer workflow.
