@@ -2307,9 +2307,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=1F-wFa-oExw
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Geometry Normal node shading, version-agnostic)
+- **Tags:** #shaders #materials #procedural #beginner
+- **Summary:** Fakes dust/snow on upward-facing surfaces: Geometry Normal → Separate RGB isolates the "faces up" channel, used as a Mix Shader Fac to blend a dust/snow material with a base material, shaped further with a ColorRamp for coverage/sharpness control.
 - **File:** tutorials/daily-blender-tip-128---material-basics-dustsnow.md
 
 
