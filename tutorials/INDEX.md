@@ -2177,9 +2177,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=qJgbhKcHKsY
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 2.7 and 2.8 (explicitly named)
+- **Tags:** #animation #organic #beginner
+- **Summary:** Animates a growing vine by keyframing a Bezier curve's Bevel Start value (with Taper/Bevel objects for thickness) from 1.0 to 0.0, while individual leaves along the path pop into view via Scale keyframes timed to the growing tip's position.
 - **File:** tutorials/daily-blender-tip-224---growing-plant-animation-part-2-blender-27-28.md
 
 
