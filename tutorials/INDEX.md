@@ -2547,9 +2547,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=gHx-hH5rrD8
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 2.8 (title explicitly references "Blender 2.8 Stuff")
+- **Tags:** modelling, animation, organic, beginner
+- **Summary:** Models symmetrical creature legs with a Mirror modifier and Proportional Editing (a jelly-like blob character), then applies a Wave modifier for a continuous jiggly ripple animation across the mesh.
 - **File:** tutorials/daily-blender-tip-72---wave-modifier-and-blender-28.md
 
 
