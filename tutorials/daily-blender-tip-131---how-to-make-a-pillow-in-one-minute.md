@@ -121,3 +121,4 @@ cloth, simulation, beginner
 ## Related Tutorials
 - [Ruffled Skirts | Virtual Fashion | Blender Tutorial | Blender Secrets](ruffled-skirts-virtual-fashion-blender-tutorial-blender-secrets.md) — shares cloth, simulation; both rely on Cloth Sewing Springs to pull fabric edges together, here to puff a pillow from the inside rather than pucker a ruffled hem.
 - [Interactive Cloth + new Cloth Brushes & more - Blender Secrets](interactive-cloth-new-cloth-brushes-more---blender-secrets.md) — shares cloth, simulation; complementary quick Cloth-modifier technique, Force-Field-driven inflation here vs. Hook-driven interactive posing there.
+- [Daily Blender Tip 138 - How To Make A Curtain In One Minute](daily-blender-tip-138---how-to-make-a-curtain-in-one-minute.md) — shares cloth, simulation; both are quick "in one minute" Cloth-modifier tricks using an auxiliary object (Force Field here vs. an animated Collision Torus there) to shape the fabric.

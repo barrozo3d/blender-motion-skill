@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=lYoeTliKX_4
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: needs-review
+blender_version: "Not specified — Cloth Pinning + animated Collision object, standard since 2.8+"
+tags: [cloth, simulation, animation, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/daily-blender-tip-138---how-to-make-a-curtain-in-one-minute/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Daily Blender Tip 138 - How To Make A Curtain In One Minute
@@ -43,12 +44,7 @@ _Auto-generated at ingest/frame-capture time — explains why `extraction_status
 ---
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py daily-blender-tip-138---how-to-make-a-curtain-in-one-minute <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### CURTAIN IN 1 MINUTE [0:00]
@@ -94,30 +90,60 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:04] tutorials/frames/daily-blender-tip-138---how-to-make-a-curtain-in-one-minute/frame_000.jpg
+- [0:12] tutorials/frames/daily-blender-tip-138---how-to-make-a-curtain-in-one-minute/frame_001.jpg
+- [0:26] tutorials/frames/daily-blender-tip-138---how-to-make-a-curtain-in-one-minute/frame_002.jpg
+- [0:51] tutorials/frames/daily-blender-tip-138---how-to-make-a-curtain-in-one-minute/frame_003.jpg
+- [1:04] tutorials/frames/daily-blender-tip-138---how-to-make-a-curtain-in-one-minute/frame_004.jpg
+- [1:11] tutorials/frames/daily-blender-tip-138---how-to-make-a-curtain-in-one-minute/frame_005.jpg
+- [1:25] tutorials/frames/daily-blender-tip-138---how-to-make-a-curtain-in-one-minute/frame_006.jpg
+- [1:38] tutorials/frames/daily-blender-tip-138---how-to-make-a-curtain-in-one-minute/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A curtain drape made from a pre-wrinkled plane, pinned at the top with Cloth physics (Silk preset), and pulled into a tied-back shape by an animated Torus "curtain ring" that scales from large to small around it, using Collision so the fabric visibly gets pulled together and clumps under the ring.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the starting shape: a bare subdivided plane, captioned "Create a plane, subdivide and rotate it." Frame 001 shows the plane scaled tall and vertical with a center edge loop added (dashed centerline visible), captioned "Scale it vertically and add an edge loop in the middle." Frame 002 shows the mesh after further subdivision with several vertical edge loops selected and offset slightly from each other (creating a pre-wrinkled, fluted starting silhouette rather than a flat sheet), captioned "Select some vertical edge loops and move them." Frame 003 shows the Cloth physics panel with a Vertex Group ("Group") assigned and Shape Keys/UV Maps/Vertex Colors sections visible, over the fluted curtain shape, captioned "Add a Cloth system with the Silk preset" — the pre-wrinkled geometry combined with a light Silk material preset. Frame 004 shows a Torus primitive scaled down to a thin ring, positioned partway down the curtain's length, captioned "Add a Torus primitive and scale it down" — this becomes the curtain tie/ring. Frame 005 shows a green keyframe marker (the curved dashed line) at the base of the curtain where the torus sits, captioned "Set a scale keyframe at frame 50 (press \"i\")" — keyframing the torus at its small/tied scale. Frame 006 shows the Physics properties tab open with Force Field/Collision/Cloth/Dynamic Paint/Soft Body/Rigid Body/Fluid icons visible on the torus object, captioned "Scale up the torus, go to frame 1, add a keyframe" — animating the ring from large (frame 1, not yet constricting) to small (frame 50, cinching the curtain). Frame 007 shows the finished simulated result: the curtain fabric visibly pulled together and bunched right where the torus ring sits, creating a natural tied-back curtain silhouette, captioned "Play the simulation!"
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Create a Plane, subdivide it, and rotate it into a vertical orientation.
+2. Scale it tall/vertical and add a center edge loop for extra structure.
+3. Subdivide the mesh further for enough resolution to simulate folds convincingly.
+4. Select some vertical edge loops and offset/move them slightly relative to each other — pre-wrinkling the flat plane into a fluted starting silhouette so the cloth sim has natural folds to work with from the start, rather than starting perfectly flat.
+5. Select the top edge row (the curtain's rod-mounted edge) and assign it to a new Vertex Group.
+6. Add a **Cloth** simulation using the **Silk** preset as a starting material.
+7. Enable **Pinning** on the Cloth modifier and assign the vertex group made in step 5 — this fixes the top edge in place (as if hung from a curtain rod) while the rest of the fabric simulates freely.
+8. Add a **Torus** primitive, scale it down into a thin ring shape, and position it partway down the curtain — this represents a decorative curtain tie/ring.
+9. Animate the tie: at frame 50, keyframe the torus scaled down small (press I to insert a Scale keyframe); go back to frame 1, scale the torus up large (so it doesn't initially constrict the fabric), and insert another Scale keyframe there.
+10. Add a **Collision** physics system to the torus so the simulated cloth reacts to and is physically stopped/pulled by it as it shrinks.
+11. Add a Subdivision modifier to the curtain mesh for a smoother final look.
+12. Play the simulation — as the torus scales down toward frame 50, it visibly cinches the cloth together at that point, producing a natural tied-back curtain drape.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Modeling:** Plane subdivision + rotation + vertical scale, pre-wrinkling via offset vertical edge loops, center edge loop.
+- **Vertex Groups:** top-edge Pin Group (assigned before adding Cloth).
+- **Cloth modifier:** Silk preset, Pinning (Vertex Group field).
+- **Animation:** Torus primitive (curtain ring/tie), Scale keyframes (I) at frame 1 (large) and frame 50 (small).
+- **Physics:** Collision (on the animated torus, so the cloth reacts to it).
+- **Finishing:** Subdivision Surface modifier on the curtain for smoothness.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Cloth Pinning and an animated Collision object are a standard workflow available since Blender 2.8+.
 
 ### Tags
-[PENDING EXTRACTION]
+cloth, simulation, animation, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Daily Blender Tip 131 - How To Make A Pillow In One Minute](daily-blender-tip-131---how-to-make-a-pillow-in-one-minute.md) — shares cloth, simulation; both are quick "in one minute" Cloth-modifier tricks using an auxiliary Force/Collision object to shape the fabric.
+- [Ruffled Skirts | Virtual Fashion | Blender Tutorial | Blender Secrets](ruffled-skirts-virtual-fashion-blender-tutorial-blender-secrets.md) — shares cloth, simulation; complementary Cloth Pinning technique, here pinning the top edge of a curtain rather than excluding parts of a garment from simulation.

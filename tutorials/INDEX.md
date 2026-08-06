@@ -2237,9 +2237,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=lYoeTliKX_4
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Cloth Pinning + animated Collision; 2.8+)
+- **Tags:** #cloth #simulation #animation #beginner
+- **Summary:** A pre-wrinkled plane with Cloth Pinning (Silk preset, top-edge Vertex Group) drapes as a curtain; an animated, scaling Torus with Collision cinches the fabric into a tied-back drape as it shrinks from frame 1 to 50.
 - **File:** tutorials/daily-blender-tip-138---how-to-make-a-curtain-in-one-minute.md
 
 
