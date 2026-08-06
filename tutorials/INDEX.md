@@ -2732,6 +2732,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/daily-blender-tip-40---how-to-make-pipes.md
 
+
+### Extra Nodes v4.0 | Powerful New Tools for Blender Geometry Nodes - Full Demo
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=mS27dSXDSuc
+- **Author:** 3D Singh VFX
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/extra-nodes-v40-powerful-new-tools-for-blender-geometry-nodes---full-demo.md
+
 ---
 
 ## Tag Reference
