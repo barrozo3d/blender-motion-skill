@@ -2557,9 +2557,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=DOfWm3GIh-k
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Import Images as Planes, Decimate modifier, and Hair Particle System are version-agnostic core Blender features
+- **Tags:** particles, procedural, organic, intermediate
+- **Summary:** Part 3 of the plant series: applies Part 2's twig particles to real geometry, Decimates the twig mesh, then adds a second Hair Particle System (Advanced, Number 50) scattering a leaf-texture plane across the twigs, tuned via Rotation/Size Randomness.
 - **File:** tutorials/daily-blender-tip-69---add-leaves-to-our-plant-make-a-plant-part-3.md
 
 

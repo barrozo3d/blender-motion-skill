@@ -98,4 +98,5 @@ particles, procedural, organic, intermediate
 ---
 
 ## Related Tutorials
-- [Daily Blender Tip 66 - Quick Tree Trunk With Skin Modifier](daily-blender-tip-66---quick-tree-trunk-with-skin-modifier.md) — shares modelling→particles workflow and organic tag; this is the direct Part 1 prerequisite, providing the base stump and twig-building technique that this tutorial scatters via Particles.
+- [Daily Blender Tip 66 - Quick Tree Trunk With Skin Modifier](daily-blender-tip-66---quick-tree-trunk-with-skin-modifier.md) — shares procedural, organic; this is the direct Part 1 prerequisite, providing the base stump and twig-building technique that this tutorial scatters via Particles.
+- [Daily Blender Tip 69 - Add Leaves To Our Plant (Make a Plant Part 3)](daily-blender-tip-69---add-leaves-to-our-plant-make-a-plant-part-3.md) — shares particles, procedural, organic; the direct Part 3 continuation, converting this tutorial's particle-instanced twigs to real geometry and adding a leaf-particle layer.

@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=DOfWm3GIh-k
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: needs-review
+blender_version: "Not specified — Import Images as Planes, Decimate modifier, and Hair Particle System are version-agnostic core Blender features"
+tags: [particles, procedural, organic, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/daily-blender-tip-69---add-leaves-to-our-plant-make-a-plant-part-3/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Daily Blender Tip 69 - Add Leaves To Our Plant (Make a Plant Part 3)
@@ -36,12 +37,7 @@ _Auto-generated at ingest/frame-capture time — explains why `extraction_status
 ---
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py daily-blender-tip-69---add-leaves-to-our-plant-make-a-plant-part-3 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### ADD LEAVES (MAKE A PLANT PART 3) [0:00]
@@ -63,30 +59,49 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:05] tutorials/frames/daily-blender-tip-69---add-leaves-to-our-plant-make-a-plant-part-3/frame_000.jpg
+- [0:20] tutorials/frames/daily-blender-tip-69---add-leaves-to-our-plant-make-a-plant-part-3/frame_001.jpg
+- [0:51] tutorials/frames/daily-blender-tip-69---add-leaves-to-our-plant-make-a-plant-part-3/frame_002.jpg
+- [1:09] tutorials/frames/daily-blender-tip-69---add-leaves-to-our-plant-make-a-plant-part-3/frame_003.jpg
+- [1:16] tutorials/frames/daily-blender-tip-69---add-leaves-to-our-plant-make-a-plant-part-3/frame_004.jpg
+- [1:45] tutorials/frames/daily-blender-tip-69---add-leaves-to-our-plant-make-a-plant-part-3/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Finishing the plant series (Part 3): converting the twig-covered trunk from [Tip 68](daily-blender-tip-68---plant-part-2-adding-twigs-with-particles.md) into a clean, decimated base mesh, then scattering a hand-shaped leaf texture plane (imported via **Import Images as Planes**) across the twigs with a second **Hair Particle System** (Advanced emission, Number: 50), tuning rotation/size randomness for a natural leafy silhouette.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 is a title card, captioned "Use the Import Images As Planes Add-on (comes default with Blender) to import a leaf texture." Frame 001 shows a single leaf-shaped plane (a compound leaf texture with an alpha cutout) subdivided once and vertex-shaped into a slightly curved, natural leaf silhouette, captioned "This one I bought from Poliigon, you can find free ones on Textures.com. I subdivide the plane once and give it some shape by moving vertices." Frame 002 shows the trunk-with-twig-particles from Tip 68, captioned "On layer one I have the trunk from Tip 68. Apply the Particle modifier and delete the Particle system" — converting the previous particle-instanced twigs into real, applied geometry so the twigs themselves can now be edited/decimated. Frame 003 shows the twig geometry with a **Decimate** modifier in the stack, captioned "Apply the skin modifier and add a decimate modifier to make the twigs less polygon-dense, then apply the modifier (0,1 works as a setting)" — reducing the twig mesh's polycount before adding a second particle layer for leaves. Frame 004 shows the now-white/unshaded twig structure with a new **Particle System** slot added, Emission set to **Hair** with **Advanced** and **Number: 50**, captioned "Add a particle system to the twigs, Hair / Advanced, Number: 50." Frame 005 shows the finished leafy plant with green leaf instances scattered across the twigs, a Rotation section visible in the sidebar, captioned "Play with the rotation and rotation randomness, as well as the size and size randomness."
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Import a leaf texture image (with alpha transparency for the leaf silhouette) using **Import Images as Planes**.
+2. Subdivide the leaf plane once and reshape it slightly with vertex moves for a more natural, less perfectly-flat leaf silhouette.
+3. Take the twig-covered trunk from Tip 68: **apply** the twigs' Particle system (converting instances to real geometry) and delete the now-redundant particle system.
+4. **Apply** the Skin modifier on the twig geometry, then add a **Decimate** modifier (around 0.1 ratio) to reduce the twig mesh's polygon density before it becomes the base for a second particle layer — keeps performance manageable when leaves are added.
+5. Add a new **Particle System** to the twig object, set to **Hair** emission with **Advanced** mode, and set **Number** to around 50 (a starting point, tuned to taste) — this scatters leaf-plane instances across the twig surface.
+6. Adjust **Rotation** and **Rotation Randomness**, plus **Size** and **Size Randomness**, until the leaf coverage looks natural rather than uniform/robotic.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Add-on:** Import Images as Planes (built-in) — for the leaf texture plane.
+- **Particle system workflow:** Apply Particle (twigs) → delete particle system → Apply Skin modifier → Decimate modifier (~0.1) → Apply → new Particle System (Hair, Advanced, Number ~50) for leaves.
+- **Particle System:** Rotation + Rotation Randomness, Size + Size Randomness.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Import Images as Planes, Decimate modifier, and Hair Particle System are version-agnostic core Blender features.
 
 ### Tags
-[PENDING EXTRACTION]
+particles, procedural, organic, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Daily Blender Tip 68 - Plant Part 2: Adding Twigs With Particles](daily-blender-tip-68---plant-part-2-adding-twigs-with-particles.md) — shares particles, procedural, organic; this is the direct Part 3 continuation, converting Part 2's particle-instanced twigs to real geometry and adding a second leaf-particle layer.
+- [Daily Blender Tip 66 - Quick Tree Trunk With Skin Modifier](daily-blender-tip-66---quick-tree-trunk-with-skin-modifier.md) — shares procedural, organic; Part 1 of this same 3-part plant-building series, providing the original trunk/branch base mesh.
