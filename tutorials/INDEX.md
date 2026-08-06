@@ -2397,9 +2397,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=QI5rEvu7r4I
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 2.8 (title explicitly references "Blender 2.8")
+- **Tags:** grease-pencil, animation, workflow, intermediate
+- **Summary:** Rotoscoping workflow: drags a rendered 3D character walk-cycle into the 2D Animation (Grease Pencil) workspace as a background reference, then hand-draws a rough sketch over it frame-by-frame with the Draw Pencil tool, drastically speeding up hand-drawn animation.
 - **File:** tutorials/daily-blender-tip-96---2d-animation-from-3d-animation-blender-28.md
 
 
