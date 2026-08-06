@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=3VNiWcO1QN8
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified — Voxel Remesh, Fix Poles/Preserve Volume, Quadriflow, and Remesh modifier options, consistent with Blender 3.x-5.x"
+tags: [organic, procedural, modelling, beginner, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/remeshing-tips-for-beginners-blender-secrets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Remeshing Tips for Beginners | Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py remeshing-tips-for-beginners-blender-secrets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### When to Remesh [0:00]
@@ -151,30 +147,64 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:34] tutorials/frames/remeshing-tips-for-beginners-blender-secrets/frame_000.jpg
+- [1:07] tutorials/frames/remeshing-tips-for-beginners-blender-secrets/frame_001.jpg
+- [1:44] tutorials/frames/remeshing-tips-for-beginners-blender-secrets/frame_002.jpg
+- [2:25] tutorials/frames/remeshing-tips-for-beginners-blender-secrets/frame_003.jpg
+- [3:21] tutorials/frames/remeshing-tips-for-beginners-blender-secrets/frame_004.jpg
+- [3:59] tutorials/frames/remeshing-tips-for-beginners-blender-secrets/frame_005.jpg
+- [4:14] tutorials/frames/remeshing-tips-for-beginners-blender-secrets/frame_006.jpg
+- [5:57] tutorials/frames/remeshing-tips-for-beginners-blender-secrets/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A beginner-focused survey of why and how to remesh in a sculpting workflow: fixing stretched/uneven geometry after brushes like Snake Hook, cleanly merging separate mesh islands after joining objects, and three escalating remesh methods (plain Voxel Remesh, Voxel Remesh with Fix Poles + Preserve Volume, and Quadriflow) — plus troubleshooting for holes, spiraling finger topology, and the paid Quad Remesher add-on as a one-click alternative. Explicitly distinguishes remeshing (sculpt-workflow mesh regeneration) from retopology (building final production-ready topology).
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows a dense, evenly-quaded mesh close-up on a hand-like appendage with the Extrude tool's options menu open in the left toolbar — illustrating the kind of clean, evenly-distributed quad geometry a remesh produces versus stretched pre-remesh geometry. Frame 001 shows the Grab brush actively reshaping a smooth organic swirl/limb form, its circular brush cursor visible mid-stroke — general sculpting on freshly-remeshed geometry. Frame 002 shows the first remesh-methods comparison: three identical stylized head models side by side, the left one shown in wireframe overlay (green) after a plain Voxel Remesh, the Remesh operator's redo panel open (Mode: Sharp, Octree Depth, Scale, Fill Holes, Smooth Shading options visible in the header dropdown). Frame 003 shows the same three-head comparison after adding the second head's Fix Poles + Preserve Volume options — the middle head now also shown in wireframe (purple) for a topology comparison against the first. Frame 004 shows all three heads now in wireframe simultaneously (green, purple, and a denser rose-colored third) — the direct three-way comparison of plain Voxel, Voxel+Fix-Poles, and Quadriflow results mentioned in the transcript. Frame 005 shows the post-processing fix for a Quadriflow-split head: a Mirror modifier applied (Bisect, Merge, Merge Distance visible in the sidebar) with the un-mirrored wireframe half next to the corrected symmetric result. Frame 006 shows the final shape-preservation fix: a Shrinkwrap modifier (Wrap Method: Nearest Surface Point, Target: a hidden duplicate original head, highlighted red) applied to the remeshed head, both versions shown in wireframe for comparison. Frame 007 shows the paid Quad Remesher add-on's panel open (Quad Count, Guide/Adapt options, Symmetry X enabled) mid-remesh-progress on a realistic hand model — the one-click professional alternative for avoiding finger-spiraling topology.
 
 ### Key Steps
-[PENDING EXTRACTION]
+**When to remesh:**
+1. Sculpting brushes like Snake Hook stretch existing geometry without adding new polygons — verify in Edit Mode that vertex count hasn't changed after such a stretch. Sculpting further on this stretched area works poorly since there isn't enough local resolution.
+2. Enable **Front Faces Only** so a sculpt brush doesn't accidentally push through and destroy backface geometry while working on thin/curved stretched areas.
+3. After Ctrl+J joining two separate objects, they remain two disconnected mesh islands even though they now share one object — a part of one may visibly poke through the other. A Voxel Remesh in Sculpt Mode fuses them into one continuous mesh, after which Clay Strips and Smooth brushes can blend a clean transition across the former seam.
+
+**Three remesh methods, from quick-and-rough to production-quality:**
+4. **Plain Voxel Remesh:** press R for the interactive Voxel Size preview (hold Shift for finer control), then Ctrl+R to commit. Fast, but can introduce visible "banding" artifacts in the resulting topology — usually not a real problem for further sculpting, but not ideal quad flow.
+5. **Voxel Remesh + Fix Poles + Preserve Volume:** in the Remesh options (accessible via Alt+Q's active-tool panel or the Remesh panel), enable Fix Poles and Preserve Volume before running R then Ctrl+R again — produces noticeably more consistent quad topology and better shape retention, at the cost of somewhat longer computation.
+6. **Quadriflow Remesh (best result, most setup required):** click Quad in the Remesh options to open the Quadriflow Remesh dialog. Quadriflow frequently fails if run on raw geometry without preparation — first do a Voxel Remesh (ideally still with Fix Poles + Preserve Volume enabled) using a smaller Voxel Size for better shape preservation (e.g. 0.002m in this example) before running Quadriflow (via Ctrl+R or the panel's Remesh button). This produces the best topology of the three methods, but can leave the mesh split into separate symmetric halves (e.g. left/right) that need fixing.
+
+**Post-Quadriflow cleanup:**
+7. **Merge split halves:** in Edit Mode, select all vertices, M > By Distance to weld overlapping seam vertices (removed-vertex count confirms how many were merged). This alone may leave small gaps in complex areas (e.g. mouth/nose) — add a Mirror modifier as a more reliable fix for perfect symmetry.
+8. **Preserve original shape:** keep a hidden duplicate of the pre-remesh mesh in the same location; add a Shrinkwrap modifier to the remeshed result targeting that hidden duplicate (Nearest Surface Point) — this pulls the new topology back toward the original silhouette, which Quadriflow/Voxel remeshing can otherwise soften or distort. Toggle the modifier to compare before/after. Ctrl+A > Visual Geometry to Mesh applies both the Mirror and Shrinkwrap modifiers together in the correct order.
+
+**Troubleshooting:**
+9. **Voxel Remesh producing holes:** if a Voxel Remesh result is riddled with holes, switch to a **Remesh modifier** instead (rather than the interactive sculpt-mode remesh), set its mode to Smooth (instead of the default Blocks/Sharp), and increase Octree Depth until the result looks correct, then apply the modifier — the result is quite dense, but a subsequent Voxel Remesh on top of it (now that the holes are gone) can bring the density back down.
+10. **Spiraling finger topology:** Quadriflow (and remeshing generally) often produces a "spiral" topology pattern around cylindrical extremities like fingers — cosmetically fine for further sculpting, but a real problem if the mesh is meant to feed into retopology for rigging/animation, since it doesn't deform well. The paid **Quad Remesher** add-on reliably avoids this: select the object, click Remesh, and it produces clean, spiral-free finger topology in one click — the video calls it well worth the cost for professional work.
+11. **Remeshing vs. Retopology (conceptual distinction):** remeshing regenerates the mesh in service of an ongoing sculpting workflow; retopology is the separate step of building a new, purpose-built mesh from a finished sculpt with topology suited for its final use (e.g. specific edge flow for character rigging/animation deformation). The video points to Zach Reinhardt's "Master 3D Sculpting in Blender" course and the channel's own retopology-tips playlist for going deeper on that separate topic.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Sculpt brushes:** Snake Hook (stretches without adding geometry), Inflate, Smooth (hold Shift), Clay Strips, Grab, Front Faces Only toggle.
+- **Remesh tools:** Voxel Remesh (R preview, Ctrl+R commit, Voxel Size), Remesh options (Fix Poles, Preserve Volume), Quadriflow Remesh (Quad button in Remesh panel; Quad Count, Symmetry options), Remesh modifier (Mode: Blocks/Smooth/Sharp, Octree Depth) as a holes-fallback.
+- **Cleanup after remesh:** Merge by Distance (M), Mirror modifier (Bisect/Merge), Shrinkwrap modifier (Nearest Surface Point, Target: hidden pre-remesh duplicate), Ctrl+A > Visual Geometry to Mesh (bake Mirror+Shrinkwrap together).
+- **Add-on:** Quad Remesher (paid) — one-click clean quad topology, avoids finger-spiraling.
+- **Object management:** Ctrl+J (join objects, creates separate mesh islands until remeshed), Alt+Q (switch active sculpt object).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner to Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Voxel Remesh, Fix Poles/Preserve Volume, Quadriflow, and the Remesh modifier are all consistent with Blender 3.x through 5.x.
 
 ### Tags
-[PENDING EXTRACTION]
+organic, procedural, modelling, beginner, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Monster Sculpting | Full Process | Blender Secrets | Stranger Things Vecna](monster-sculpting-full-process-blender-secrets-stranger-things-vecna.md) — shares organic, procedural; that video's blockout stage uses the same Voxel Remesh (and Remesh-modifier fallback) troubleshooting taught here in more focused detail.

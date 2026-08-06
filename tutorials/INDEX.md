@@ -1727,9 +1727,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=3VNiWcO1QN8
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Voxel/Quadriflow/Remesh modifier; 3.x-5.x)
+- **Tags:** #organic #procedural #modelling #beginner #intermediate
+- **Summary:** Three escalating remesh methods (plain Voxel, Voxel+Fix-Poles+Preserve-Volume, Quadriflow) with cleanup via Mirror+Shrinkwrap, troubleshooting Voxel-Remesh holes via a Remesh modifier fallback, avoiding finger-spiral topology with the paid Quad Remesher add-on, and the conceptual distinction between remeshing and retopology.
 - **File:** tutorials/remeshing-tips-for-beginners-blender-secrets.md
 
 
