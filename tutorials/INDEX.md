@@ -2627,9 +2627,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=4YF1p_odCwk
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Edge Crease (Shift+E) is a version-agnostic core Blender modeling tool
+- **Tags:** modelling, subdivision-surface, beginner
+- **Summary:** Uses Edge Crease (Shift+E, or Shift+E then 1/-1 for max/reset) to non-destructively sharpen selected edges on a Subdivision-Surface-smoothed mesh without adding support-loop geometry.
 - **File:** tutorials/daily-blender-tip-59---crease-edges.md
 
 

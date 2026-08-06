@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=4YF1p_odCwk
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: needs-review
+blender_version: "Not specified — Edge Crease (Shift+E) is a version-agnostic core Blender modeling tool"
+tags: [modelling, subdivision-surface, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/daily-blender-tip-59---crease-edges/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Daily Blender Tip 59 - Crease Edges
@@ -32,12 +33,7 @@ _Auto-generated at ingest/frame-capture time — explains why `extraction_status
 ---
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py daily-blender-tip-59---crease-edges <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -47,30 +43,47 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:10] tutorials/frames/daily-blender-tip-59---crease-edges/frame_000.jpg
+- [0:30] tutorials/frames/daily-blender-tip-59---crease-edges/frame_001.jpg
+- [0:50] tutorials/frames/daily-blender-tip-59---crease-edges/frame_002.jpg
+- [1:10] tutorials/frames/daily-blender-tip-59---crease-edges/frame_003.jpg
+- [1:30] tutorials/frames/daily-blender-tip-59---crease-edges/frame_004.jpg
+- [1:50] tutorials/frames/daily-blender-tip-59---crease-edges/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Using **Edge Crease** (Shift+E) to non-destructively sharpen selected edges on a Subdivision-Surface-smoothed mesh — pulling the subdivided surface back toward the sharp original cage edge without adding extra support-loop geometry, fully adjustable/reversible at any time.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows a smooth sphere (a subdivided cube cage visible around it), captioned "With a subdivided object like this, you can make edges sharp in a non-destructive way with the crease option." Frame 001 shows the same shape with its top rim edge now sharply creased (a flat-topped, rounded-bottom cup/bucket shape), captioned "Select the edge you want to sharpen and press SHIFT+E and then move the mouse to increase the creasing." Frame 002 shows a fully-hardened result — the shape now looks almost like an uncreased cube on top with a rounded bottom — captioned "If you just want the edge to be sharp you can also press SHIFT+E and 1. Oddly enough, to set it to zero, press SHIFT+E and -1." Frames 003–004 show further creased variants (a rounded box with a creased notch/groove, then a house-like creased shape) demonstrating creasing combined on multiple edges to build sharper architectural forms out of a subdivided mesh. Frame 005 is the closing card ("Check out the IG channel as well: Instagram.com/mandalamotion — Thanks for watching!").
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Start with a mesh that has a **Subdivision Surface** modifier applied (or a subdivided cage) so its faces are smoothly rounded.
+2. Select the edge(s) whose surrounding surface should read as sharp instead of rounded.
+3. Press **Shift+E** and move the mouse to interactively dial in the crease weight (0 = fully smooth/rounded, 1 = fully sharp) — increases the subdivision "pull" toward that edge's original position.
+4. For a fully sharp edge instantly, press **Shift+E** then type **1** (sets crease to maximum, 1.0).
+5. To reset an edge back to fully smooth, press **Shift+E** then type **-1** (an intentionally counter-intuitive shortcut — typing -1 zeroes out the crease rather than going negative).
+6. Because crease is a per-edge modifier-driving attribute (not manually-added geometry), it's fully non-destructive — adjustable, reversible, and stacks cleanly across multiple edges to sculpt sharp/rounded transitions on an otherwise smooth subdivided mesh.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Shortcut:** Shift+E — interactive Edge Crease; type a numeric value (1 = max sharp, -1 = reset to zero) for precise control.
+- Works in conjunction with a **Subdivision Surface** modifier on the mesh.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Edge Crease (Shift+E) is a version-agnostic core Blender modeling tool.
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, subdivision-surface, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+No other extracted BlenderSecrets tutorials in this library currently cover Edge Crease specifically.
