@@ -2637,9 +2637,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=5_Xa3HwVLRA
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — BoolTool has shipped as a built-in opt-in add-on since Blender 2.8x
+- **Tags:** modelling, boolean, add-on, beginner
+- **Summary:** Enables the built-in BoolTool add-on to turn an object into a movable, non-destructive boolean Brush; cleans up the cut with a Bevel modifier placed below the Boolean modifier, Auto Smooth at 30°, and Bevel Limit Method set to Angle if flat-shading artifacts persist.
 - **File:** tutorials/daily-blender-tip-56---how-to-use-the-booltool-add-on.md
 
 
