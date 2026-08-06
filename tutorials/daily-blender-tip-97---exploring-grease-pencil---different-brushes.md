@@ -85,3 +85,4 @@ grease-pencil, workflow, beginner
 
 ## Related Tutorials
 - [Daily Blender Tip 96 - 2D Animation From 3D Animation (Blender 2.8)](daily-blender-tip-96---2d-animation-from-3d-animation-blender-28.md) — shares grease-pencil, workflow; that tutorial uses the same 2D Animation workspace's Draw Pencil tool this one surveys, for a rotoscoped walk-cycle drawing.
+- [Grease Pencil in Blender 5 - New Pen tool and Sharp Corners](grease-pencil-in-blender-5---new-pen-tool-and-sharp-corners-and-some-common-grea.md) — shares grease-pencil, workflow; a much later (Blender 5) tutorial covering the more advanced vector-style Pen tool and sharp-corner editing, beyond this tutorial's basic brush preset survey.

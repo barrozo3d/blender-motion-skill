@@ -1547,9 +1547,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=tyPirJ_qWKs
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5 — Pen tool and Sharp corner point type are explicitly new features in this release
+- **Tags:** grease-pencil, workflow, intermediate
+- **Summary:** Full inking workflow using Blender 5's new Pen tool (click for straight points, click-drag for Bezier handles) and true Sharp corner points, plus common fixes: Dissolve to smooth strokes, Cyclic for closed loops, Fill Opacity=1, and Layers/Separate for stacking-order issues.
 - **File:** tutorials/grease-pencil-in-blender-5---new-pen-tool-and-sharp-corners-and-some-common-grea.md
 
 
