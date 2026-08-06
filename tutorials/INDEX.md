@@ -2527,9 +2527,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=ScRIlkmNTfw
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Mark Seam, Align Auto, and Follow Active Quads are version-agnostic core Blender UV tools
+- **Tags:** uv, modelling, workflow, intermediate
+- **Summary:** Manually marks UV seams on a cylindrical cup (thinking of it as unfolded paper), then uses W > Align Auto on a reference face followed by UV > Follow Active Quads to force an even, undistorted grid unwrap across the whole side-wall quad strip.
 - **File:** tutorials/daily-blender-tip-77---unwrap-a-cup---follow-active-quads.md
 
 
