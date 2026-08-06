@@ -2707,9 +2707,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=JBJ5dYjPieI
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Boolean + Wireframe draw type, version-agnostic)
+- **Tags:** #modelling #procedural #intermediate
+- **Summary:** Models a rounded L-bracket, then cuts non-destructive Boolean mounting holes using cutter cylinders with Maximum Draw Type set to Wire for real-time-visible positioning, finished with a Bevel modifier for realistic edge highlights.
 - **File:** tutorials/daily-blender-tip-44---non-destructive-boolean-workflow-round-edges-bevels.md
 
 
