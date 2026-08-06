@@ -88,4 +88,4 @@ rigging, character, animation, intermediate
 ---
 
 ## Related Tutorials
-No other extracted BlenderSecrets tutorials in this library currently cover Rigify meta-rig fitting or Armature Symmetrize — this is Part 1 of a 7-part character rigging series continuing through Tips 85–90.
+- [Daily Blender Tip 85 - Rigging A Simple Character Part 2](daily-blender-tip-85---rigging-a-simple-character-part-2.md) — shares rigging, character, animation; the direct Part 2 continuation, generating and cleaning up the final control rig from this tutorial's fitted meta-rig. This is Part 1 of a 7-part character rigging series continuing through Tips 85–90.

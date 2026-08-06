@@ -2467,9 +2467,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=I-OSWKJg0ss
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Rigify-generated control rig, Armature Layers, and Pose Mode hide/unhide are version-agnostic core/built-in Blender rigging tools
+- **Tags:** rigging, character, animation, intermediate
+- **Summary:** Part 2: cleans up the Rigify-generated control rig by hiding raw deform bones (A, H) and isolating the animator-facing control-shape layer (Armature Layers Shift+click, Alt+H to unhide), leaving a clean rig ready for Pose Mode animation.
 - **File:** tutorials/daily-blender-tip-85---rigging-a-simple-character-part-2.md
 
 
