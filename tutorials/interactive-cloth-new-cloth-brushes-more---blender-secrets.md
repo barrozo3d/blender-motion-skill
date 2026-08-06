@@ -216,5 +216,6 @@ cloth, simulation, rigging, intermediate
 ---
 
 ## Related Tutorials
+- [Ruffled Skirts | Virtual Fashion | Blender Tutorial | Blender Secrets](ruffled-skirts-virtual-fashion-blender-tutorial-blender-secrets.md) — shares cloth, simulation, intermediate; complementary cloth-sim technique — Sewing-Springs-based ruffle generation there vs. Hook-based interactive posing here.
 - [Blender Secrets - 5 mins of ArchViz Tips (Diamond Tufting, Pillow Edges, Pillows, Interactive Cloth)](blender-secrets---5-mins-of-archviz-tips-diamond-tufting-pillow-edges-pillows-in.md) — shares cloth, simulation, intermediate; that video's brief "Interactive Cloth" pillow-placement tip is expanded into the full Hook+Pin-Group rig and Blender 4.3 Cloth sculpt brushes taught here.
 - [Daily Blender Secrets - 15 Tips Compilation (Part 2)](daily-blender-secrets---15-tips-compilation-part-2.md) — shares cloth, simulation; that compilation's Tip 13 "Flag" segment covers a simpler Cloth+Pinning+Wind setup, this video goes deeper on interactive posing via Hooks and the newer sculpt brushes.

@@ -1837,9 +1837,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=hJ5zUTp9zCc
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Cloth Sewing Springs + Presets; 2.8+)
+- **Tags:** #cloth #simulation #materials #organic #intermediate
+- **Summary:** Ruffled fabric via Cloth Sewing Springs: an oversized flat extension is deleted down to just boundary edges, pinned/sewn to a smaller opening so it puckers into ruffles, tuned with material Presets (Denim/Rubber/Silk) and repeated in layers via Pin/Effects vertex groups for a multi-tier skirt.
 - **File:** tutorials/ruffled-skirts-virtual-fashion-blender-tutorial-blender-secrets.md
 
 
