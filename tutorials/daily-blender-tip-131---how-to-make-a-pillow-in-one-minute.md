@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=EAKd0g65fo8
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: needs-review
+blender_version: "Not specified — Cloth Sewing Springs + Force Field workflow, standard since 2.8+"
+tags: [cloth, simulation, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/daily-blender-tip-131---how-to-make-a-pillow-in-one-minute/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Daily Blender Tip 131 - How To Make A Pillow In One Minute
@@ -39,12 +40,7 @@ _Auto-generated at ingest/frame-capture time — explains why `extraction_status
 ---
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py daily-blender-tip-131---how-to-make-a-pillow-in-one-minute <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### PILLOW IN ONE MINUTE [0:00]
@@ -77,30 +73,51 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:07] tutorials/frames/daily-blender-tip-131---how-to-make-a-pillow-in-one-minute/frame_000.jpg
+- [0:30] tutorials/frames/daily-blender-tip-131---how-to-make-a-pillow-in-one-minute/frame_001.jpg
+- [0:57] tutorials/frames/daily-blender-tip-131---how-to-make-a-pillow-in-one-minute/frame_002.jpg
+- [1:16] tutorials/frames/daily-blender-tip-131---how-to-make-a-pillow-in-one-minute/frame_003.jpg
+- [1:25] tutorials/frames/daily-blender-tip-131---how-to-make-a-pillow-in-one-minute/frame_004.jpg
+- [1:44] tutorials/frames/daily-blender-tip-131---how-to-make-a-pillow-in-one-minute/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A very fast pillow-puffing technique: a flattened cube (two overlapping "fabric" faces) gets Cloth physics with **Sewing Springs** enabled and Gravity disabled, then a Force Field with high Strength blows the two faces apart from the inside — puffing the flattened cube into a naturally-creased pillow shape almost instantly. Note: this video's audio track is silent/near-empty; this summary is built entirely from the captured on-screen text captions and frames.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the base shape: a default cube scaled flat on Z (S, Z, 0.01) already displaying soft pillow-like creases in a preview render, captioned "Scale down the default cube: press S+Z+0.01." Frame 001 shows the flattened plane in Edit Mode with a dense grid of edge loops added in both directions (Loop Cut and Slide panel visible, Number of Cuts field), captioned "Add an edge loop in the other direction as well" — enough resolution for the cloth sim to fold and crease convincingly. Frame 002 shows the Cloth physics panel with **Cloth Sewing Springs** and **Cloth Self Collision** both checked, and Gravity fields visible, captioned "Turn on 'Cloth Sewing Springs' and Gravity: 0" — disabling gravity so the shape puffs purely from internal pressure rather than sagging downward. Frame 003 shows a Force Field object's settings (Type: Force, Shape: Point, Flow, Noise, Seed, Gravitation, Falloff: Sphere/Tube/Cone) with Strength being set, captioned "Strength: 200" — the force blowing the two cloth faces apart from the inside. Frame 004 shows the Force Field's Shading properties with Matcap enabled, captioned "Let's add a matcap for fun, and use smooth shading" — a purely cosmetic viewport preview improvement. Frame 005 shows the final result: a convincingly puffed, naturally creased golden pillow shape rendered under the matcap, captioned "Scroll on the timeline to find the best moment..." — since the simulation's look changes frame to frame, picking the best-looking frame is the last step.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Start with a default cube, scale it flat on Z (S, Z, 0.01) — this leaves two very close, nearly-overlapping large flat faces (top and bottom) that will act as the pillow's two fabric sides.
+2. In Edit Mode, add edge loops with Ctrl+R in both directions across the flattened faces — enough subdivision resolution for the cloth simulation to fold and crease believably.
+3. Add a Cloth physics simulation to the object using the "Cotton" preset as a starting point.
+4. Enable **Cloth Sewing Springs** (this pulls/holds the two nearly-overlapping flat faces together at their edges, like a pillow's stitched seam) and **Self Collision**; set Gravity to 0 so the shape puffs symmetrically instead of sagging under its own weight.
+5. Add a **Force Field** object (Type: Force) positioned inside/near the flattened cube, and set its Strength to a high value (200 in this example) — this pushes the cloth's two internal faces apart from the inside, inflating the sewn shape into a pillow.
+6. Play the simulation and **scroll through the timeline** to find the frame with the most naturally pillow-like creases and puffiness — the "best moment" is a manual pick rather than the simulation's final settled state.
+7. Purely cosmetic finishing: apply a Matcap and enable Smooth Shading for a nicer, more presentable preview render of the result.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Modeling:** flattened cube (S, Z, 0.01), Ctrl+R loop cuts in both directions for simulation resolution.
+- **Cloth modifier:** Cotton preset (starting point), Cloth Sewing Springs (enabled), Self Collision (enabled), Gravity = 0.
+- **Force Field object:** Type = Force, Strength ≈200 (positioned to blow the two internal faces apart).
+- **Finishing:** Matcap viewport shading, Smooth Shading, manual timeline scrubbing to pick the best simulation frame.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Cloth Sewing Springs and Force Fields are a standard workflow available since Blender 2.8+.
 
 ### Tags
-[PENDING EXTRACTION]
+cloth, simulation, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Ruffled Skirts | Virtual Fashion | Blender Tutorial | Blender Secrets](ruffled-skirts-virtual-fashion-blender-tutorial-blender-secrets.md) — shares cloth, simulation; both rely on Cloth Sewing Springs to pull fabric edges together, here to puff a pillow from the inside rather than pucker a ruffled hem.
+- [Interactive Cloth + new Cloth Brushes & more - Blender Secrets](interactive-cloth-new-cloth-brushes-more---blender-secrets.md) — shares cloth, simulation; complementary quick Cloth-modifier technique, Force-Field-driven inflation here vs. Hook-driven interactive posing there.

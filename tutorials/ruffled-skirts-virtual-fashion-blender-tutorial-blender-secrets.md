@@ -250,3 +250,4 @@ cloth, simulation, materials, organic, intermediate
 
 ## Related Tutorials
 - [Interactive Cloth + new Cloth Brushes & more - Blender Secrets](interactive-cloth-new-cloth-brushes-more---blender-secrets.md) — shares cloth, simulation, intermediate; complementary cloth-sim technique — Hook-based interactive posing there vs. Sewing-Springs-based ruffle generation here.
+- [Daily Blender Tip 131 - How To Make A Pillow In One Minute](daily-blender-tip-131---how-to-make-a-pillow-in-one-minute.md) — shares cloth, simulation; both rely on Cloth Sewing Springs to pull fabric edges together, there to puff a pillow from the inside via a Force Field rather than pucker a ruffled hem.

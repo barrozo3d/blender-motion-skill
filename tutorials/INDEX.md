@@ -2287,9 +2287,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=EAKd0g65fo8
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Cloth Sewing Springs + Force Field; 2.8+)
+- **Tags:** #cloth #simulation #beginner
+- **Summary:** Puffs a flattened cube into a pillow: Cloth Sewing Springs + zero Gravity hold two near-overlapping "fabric" faces together at the edges, while a high-Strength Force Field blows them apart from the inside for natural creases.
 - **File:** tutorials/daily-blender-tip-131---how-to-make-a-pillow-in-one-minute.md
 
 
