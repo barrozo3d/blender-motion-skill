@@ -2487,9 +2487,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=tUU0zFfMaEE
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Empty objects, Mirror modifier's Mirror Object field, and Make Links (Ctrl+L) are version-agnostic core Blender features
+- **Tags:** modelling, workflow, beginner
+- **Summary:** Uses an Empty as the Mirror modifier's Mirror Object so the mirror axis can be freely repositioned by moving the empty, then propagates that modifier setup to multiple objects at once via Ctrl+L > Modifiers (Make Links).
 - **File:** tutorials/daily-blender-tip-82---using-empties-for-transformations-and-mirroring.md
 
 
