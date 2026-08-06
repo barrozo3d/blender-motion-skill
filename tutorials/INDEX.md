@@ -2577,9 +2577,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=nfuk9ywJc44
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Skin modifier, Merge at Center, and Proportional Editing are version-agnostic core Blender modeling tools
+- **Tags:** modelling, procedural, organic, beginner
+- **Summary:** Collapses a mesh to one vertex (Alt+M > Merge at Center), extrudes a branching vertex skeleton, then applies a Skin modifier to instantly generate tapered tube geometry — a fast way to block out tree trunks/branches, refined with per-vertex Ctrl+A scaling and Proportional Editing.
 - **File:** tutorials/daily-blender-tip-66---quick-tree-trunk-with-skin-modifier.md
 
 
