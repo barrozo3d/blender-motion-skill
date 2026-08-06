@@ -2507,9 +2507,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=u1h3_0aOBe4
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Texture Paint mode and Brush Curve falloff editing are version-agnostic core Blender features
+- **Tags:** texture-painting, materials, workflow, beginner
+- **Summary:** Paints directly on a UV-unwrapped object in Texture Paint mode (via the 3D view or the UV/Image Editor's Paint mode), and builds custom sharp/soft brush presets by editing the brush's Curve falloff (Line type + Vector Handle for hard edges).
 - **File:** tutorials/daily-blender-tip-79---texture-painting-and-custom-brushes.md
 
 
