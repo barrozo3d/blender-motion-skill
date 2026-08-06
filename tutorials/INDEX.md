@@ -2357,9 +2357,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=3G0OxL2lfLs
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 2.8 (explicitly named)
+- **Tags:** #beginner
+- **Summary:** Viewport Shading > Color = Random gives every object a distinct color automatically; combined with the Cavity and viewport-only Shadow overlays for much more readable modeling than the flat default gray shading.
 - **File:** tutorials/daily-blender-tip-102---random-object-colors-in-blender-28.md
 
 
