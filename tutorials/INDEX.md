@@ -2317,9 +2317,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=7SXqr_HlYEg
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 2.8 Beta (explicitly noted as beta, not for production)
+- **Tags:** #animation #beginner
+- **Summary:** First look at Grease Pencil's then-new Curve tool: editable Bezier-like control points, E to extrude/continue a curve, a configurable Thickness Profile, and Shift for perfectly straight segments.
 - **File:** tutorials/daily-blender-tip-120---new-curve-tool-in-grease-pencil-blender-28.md
 
 

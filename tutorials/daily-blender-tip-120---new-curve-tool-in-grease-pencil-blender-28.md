@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=7SXqr_HlYEg
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: needs-review
+blender_version: "Blender 2.8 Beta (explicitly noted as a beta build feature at time of recording, \"not for production\")"
+tags: [animation, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/daily-blender-tip-120---new-curve-tool-in-grease-pencil-blender-28/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Daily Blender Tip 120 - NEW Curve Tool in Grease Pencil Blender 2.8
@@ -37,12 +38,7 @@ _Auto-generated at ingest/frame-capture time — explains why `extraction_status
 ---
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py daily-blender-tip-120---new-curve-tool-in-grease-pencil-blender-28 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### NEW CURVE TOOL IN GREASE PENCIL [0:00]
@@ -66,30 +62,46 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:11] tutorials/frames/daily-blender-tip-120---new-curve-tool-in-grease-pencil-blender-28/frame_000.jpg
+- [0:19] tutorials/frames/daily-blender-tip-120---new-curve-tool-in-grease-pencil-blender-28/frame_001.jpg
+- [0:31] tutorials/frames/daily-blender-tip-120---new-curve-tool-in-grease-pencil-blender-28/frame_002.jpg
+- [0:43] tutorials/frames/daily-blender-tip-120---new-curve-tool-in-grease-pencil-blender-28/frame_003.jpg
+- [0:55] tutorials/frames/daily-blender-tip-120---new-curve-tool-in-grease-pencil-blender-28/frame_004.jpg
+- [1:19] tutorials/frames/daily-blender-tip-120---new-curve-tool-in-grease-pencil-blender-28/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A first look at a then-new (Beta) Grease Pencil **Curve tool**, which draws editable Bezier-like curves directly as strokes — with adjustable control points, an Extrude shortcut for continuing a curve, a configurable Thickness Profile, and a Shift-modifier for perfectly straight segments. Note: this video's audio track is silent/near-empty; this summary is built entirely from the captured on-screen text captions and frames.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the Curve tool freshly selected in the Grease Pencil toolbar (draw/curve/line/box icons visible on the left) with just a single short diagonal stroke started, captioned "The latest build of Blender 2.8 has a new Curve tool." Frame 001 shows a smooth S-curve stroke with visible editable control points (colored dots along the curve, one highlighted), a black arrow pointing at the toolbar's curve tool icon, captioned "You can draw curves and use points to change them." Frame 002 shows the curve extended further with an additional straight-angled segment continuing from the original S-curve, an endpoint marker visible, captioned "Press E to extrude a new curve" — adding more curve length without starting a new stroke. Frame 003 shows the same multi-segment curve now tapering/varying in thickness along its length (thin at the tip, thicker through the body), captioned "You can use a Thickness Profile or turn it off." Frame 004 shows the Thickness Profile popover open (a curve-editing widget for shaping the thickness falloff along the stroke) over a partially-drawn shape, captioned "To draw straight lines just hold Shift while drawing." Frame 005 shows a more complex multi-segment shape combining curved and straight sections, captioned "Remember it's a Beta version, not for production" — a caveat that the feature wasn't yet considered stable/production-ready at time of recording.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Select the new **Curve** tool from the Grease Pencil drawing toolbar (alongside Draw, Line, Box, etc.).
+2. Draw a curve stroke — it comes with visible, editable control points along its length that can be dragged to reshape the curve after the fact, unlike a raw freehand Draw stroke.
+3. Press **E** to extrude/continue the curve with an additional new segment from its current endpoint, rather than starting an entirely separate stroke.
+4. Use the **Thickness Profile** control to shape how the stroke's thickness varies along its length (e.g. tapering thin-to-thick), or disable it for uniform thickness throughout.
+5. Hold **Shift** while drawing to constrain the curve tool to perfectly straight line segments — useful for mixing curved and straight sections in the same stroke.
+6. Caveat: at the time of this video, the Curve tool was only available in a Beta/latest development build of Blender 2.8 and was explicitly not considered production-ready.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Grease Pencil Curve tool** (Draw Mode toolbar): editable control points, E (extrude/continue curve), Thickness Profile (adjustable taper curve or disabled for uniform thickness), Shift (constrain to straight segments).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 2.8 Beta — explicitly noted as a beta-build feature at time of recording, "not for production."
 
 ### Tags
-[PENDING EXTRACTION]
+animation, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Daily Blender Tip 113 - From Sketch To Clean Lines in Grease Pencil](daily-blender-tip-113---from-sketch-to-clean-lines-in-grease-pencil.md) — shares animation, beginner; complementary Grease Pencil drawing tool, the Curve tool shown here is well suited to the "clean line" tracing pass that video's workflow relies on.

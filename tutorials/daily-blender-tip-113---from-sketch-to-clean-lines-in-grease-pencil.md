@@ -102,4 +102,4 @@ animation, beginner
 ---
 
 ## Related Tutorials
-No other extracted BlenderSecrets tutorials in this library currently cover the Grease Pencil sketch-to-clean-line layer workflow.
+- [Daily Blender Tip 120 - NEW Curve Tool in Grease Pencil Blender 2.8](daily-blender-tip-120---new-curve-tool-in-grease-pencil-blender-28.md) — shares animation, beginner; the Curve tool covered there (editable control points, Thickness Profile) is well suited to the "clean line" tracing pass used in this workflow.
