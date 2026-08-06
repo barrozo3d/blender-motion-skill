@@ -2687,9 +2687,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=eElKEBoKUG8
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Legacy Quick Fluid operator (2.8x-era)
+- **Tags:** #fluid #simulation #beginner
+- **Summary:** The Quick Fluid search operator sets up a full fluid rig instantly in two flavors: the object itself becomes a one-time falling/settling fluid mass, or (by switching its Fluid Type to Inflow) it becomes a continuous fluid source for an ongoing stream/pour effect.
 - **File:** tutorials/daily-blender-tip-46---2-types-of-quick-fluids.md
 
 
