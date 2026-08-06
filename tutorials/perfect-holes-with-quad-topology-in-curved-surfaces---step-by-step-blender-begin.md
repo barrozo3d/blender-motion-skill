@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=bfdI_-ymkas
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified — Shrinkwrap + vertex-group-exclusion technique, standard modifier workflow, 2.8+"
+tags: [modelling, procedural, beginner, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/perfect-holes-with-quad-topology-in-curved-surfaces---step-by-step-blender-begin/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Perfect Holes with Quad Topology in Curved Surfaces - Step by step Blender beginner version
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py perfect-holes-with-quad-topology-in-curved-surfaces---step-by-step-blender-begin <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -95,30 +91,55 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:47] tutorials/frames/perfect-holes-with-quad-topology-in-curved-surfaces---step-by-step-blender-begin/frame_000.jpg
+- [1:19] tutorials/frames/perfect-holes-with-quad-topology-in-curved-surfaces---step-by-step-blender-begin/frame_001.jpg
+- [1:51] tutorials/frames/perfect-holes-with-quad-topology-in-curved-surfaces---step-by-step-blender-begin/frame_002.jpg
+- [2:34] tutorials/frames/perfect-holes-with-quad-topology-in-curved-surfaces---step-by-step-blender-begin/frame_003.jpg
+- [3:08] tutorials/frames/perfect-holes-with-quad-topology-in-curved-surfaces---step-by-step-blender-begin/frame_004.jpg
+- [3:18] tutorials/frames/perfect-holes-with-quad-topology-in-curved-surfaces---step-by-step-blender-begin/frame_005.jpg
+- [3:39] tutorials/frames/perfect-holes-with-quad-topology-in-curved-surfaces---step-by-step-blender-begin/frame_006.jpg
+- [4:26] tutorials/frames/perfect-holes-with-quad-topology-in-curved-surfaces---step-by-step-blender-begin/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A quad-topology circular hole cut into a curved (cylindrical) surface using boundary-protection inset/extrude loops around the opening — plus a key trick to eliminate the "lumpy" distortion that a Subdivision modifier otherwise introduces near the hole: a Shrinkwrap modifier targeting an undisplaced duplicate of the surface, excluded from the hole area via a vertex group, then baked and optionally decimated back down for a lean final mesh.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the starting cylinder (Cap Fill Type: None, Shade Smooth, a Subdivision modifier in the sidebar) — the base curved surface the hole will be cut into. Frame 001 shows the hole location selected: a square patch of faces on the cylinder's side, right-click LoopTools menu open, about to run Circle to make the selection perfectly round. Frame 002 shows the result after inset/extrude boundary-protection loops and depth extrusion, viewed with the Subdivision modifier re-enabled and a matte/studio-lighting Material Preview setup — a clean circular recessed hole in the curved wall. Frame 003 shows the diagnostic step: Weight Paint mode with the whole surface colored solid red (Weight 1) except a distinct blue ring around the hole boundary (Weight 0) — the vertex group used to protect/exclude the hole area from the upcoming Shrinkwrap modifier. Frame 004 shows the fix applied: a Shrinkwrap modifier in the sidebar (Wrap Method: Nearest Surface Point, Target: the duplicate cylinder, Vertex Group: the hole-exclusion group highlighted in red) — the cylinder now reads as a perfectly smooth curved surface again, hole intact, under a chrome/reflective Matcap. Frame 005 shows the same result under a striped "lumpiness-revealing" Matcap — confirming the stripes run perfectly straight and even across the surface (no distortion), aside from a small tightening right at the hole. Frame 006 shows the Convert To Mesh dialog open (Target: Mesh, Keep Original, Merge UVs) — the "Ctrl+A > Visual Geometry to Mesh" step that bakes all modifiers (Subdivision + Shrinkwrap) into real geometry. Frame 007 shows the final, simplified result: the same perfectly smooth hole-in-cylinder shape after adding a Decimate modifier (visible as a fresh "Add Modifier" prompt in the sidebar, i.e. right after applying the decimation pass) — proving the surface stays smooth even at reduced polygon density.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Base shape:** Shift+A > Cylinder with Cap Fill Type set to None; move it into position (G, Z, 1, Enter); in Edit Mode add horizontal edge loops with Ctrl+R, scroll to add several, left-click to confirm placement then right-click to cancel the slide transform (keeping them evenly spaced); in Object Mode add a Subdivision modifier at 2 levels (Ctrl+2) for smoothness; Shade Smooth.
+2. **Create an undisplaced reference duplicate:** Shift+D to duplicate the cylinder, immediately right-click to cancel the move so it sits exactly on top of the original; disable this duplicate's viewport visibility — it will later serve as the Shrinkwrap target, i.e. the "ideal" smooth surface without a hole.
+3. **Cut the hole:** in Edit Mode, select a square patch of faces where the hole should go; right-click > LoopTools > Circle to make that selection perfectly round; temporarily disable the Subdivision modifier for a clearer view; Inset (I) to create a boundary-protection loop around the hole (protects the edge from distortion once subdivided); Extrude inward for a second protection loop; Extrude again for hole depth; Extrude + Inset once more for additional boundary protection near the bottom of the hole.
+4. **Diagnose the subdivision "lumpiness":** re-enable the Subdivision modifier; switch to a Matcap specifically designed to reveal surface imperfections (grazing/striped matcaps make uneven curvature obvious) — the area immediately around the hole will look lumpy/uneven compared to the perfectly straight lines elsewhere on the cylinder.
+5. **Build the hole-exclusion vertex group:** in Edit Mode, grow the current selection around the hole with Ctrl+Numpad+; create a new Vertex Group; with that (grown) selection active, click Remove to assign it a weight of 0; Ctrl+I to invert the selection, then click Assign to give the rest of the mesh a weight of 1. Weight Paint mode confirms this visually — red (weight 1) everywhere except a blue ring (weight 0) around the hole.
+6. **Apply the Shrinkwrap fix:** back in Edit Mode with the Subdivision modifier re-enabled, add a Shrinkwrap modifier to the cylinder targeting the hidden duplicate cylinder; because Shrinkwrap would otherwise "erase" the hole by snapping it back to the duplicate's unbroken surface, restrict its effect via the vertex group created in step 5 (weight-0 hole area excluded, weight-1 elsewhere included) — the result is a perfectly smooth, undistorted curved surface everywhere except exactly where the hole is meant to be. Toggling the modifier off and on (or comparing matcaps) makes the before/after difference obvious.
+7. **Bake correctly (important gotcha):** simply applying the Shrinkwrap modifier directly brings back the original lumpiness, since Apply re-evaluates the modifier stack in a way that reintroduces the distortion — undo that (Ctrl+Z) and instead use **Ctrl+A > Visual Geometry to Mesh**, which bakes the entire modifier stack (Subdivision + Shrinkwrap) at once and correctly preserves the smooth, fixed surface.
+8. **Reduce resulting density if needed:** this baking approach leaves heavily subdivided geometry, which may be more than necessary; add a Decimate modifier set to **Un-Subdivide** with an even number of iterations (try 2 first) and apply it — geometry becomes much less dense while the surface, once a Subdivision modifier is added back, remains perfectly smooth; repeat Un-Subdivide (again with an even iteration count) for an even lighter mesh if desired. How much to simplify depends on the use case — real-time/game assets favor low-poly with normal maps, while film/VFX assets can stay very high-poly (e.g. sculpted).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Modifiers:** Subdivision Surface (Catmull-Clark, 2 levels via Ctrl+2), Shrinkwrap (Wrap Method: Nearest Surface Point, Target: undisplaced duplicate, Vertex Group: hole-exclusion group), Decimate (Un-Subdivide mode, even iteration counts).
+- **Selection/weighting:** LoopTools > Circle (perfect circular selection), Ctrl+Numpad+ (grow selection), Vertex Group Remove/Assign (weights 0 and 1), Weight Paint mode (visual verification).
+- **Modeling:** Inset (I), Extrude (E) — boundary-protection loop pattern around the hole.
+- **Finalizing:** Ctrl+A > Visual Geometry to Mesh (correct way to bake Subdivision + Shrinkwrap together, vs. a plain Apply which reintroduces distortion).
+- **Diagnostics:** grazing/striped Matcaps designed to reveal surface lumpiness.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner to Intermediate (the video is explicitly labeled a "step by step Blender beginner version")
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — the Shrinkwrap + vertex-group-exclusion technique is a standard modifier workflow available since Blender 2.8+.
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, procedural, beginner, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Daily Blender Secrets - 10 ways to make Holes in Blender](daily-blender-secrets---10-ways-to-make-holes-in-blender.md) — shares modelling, procedural; that survey covers flat-surface hole techniques, this video solves the specific problem of keeping a hole's *surrounding curved surface* perfectly smooth.
+- [Easy hole modeling for beginners - Blender Secrets](easy-hole-modeling-for-beginners---blender-secrets.md) — shares modelling, procedural, beginner, intermediate; shares the same boundary-protection inset/extrude loop pattern around a circular hole, applied here specifically to a curved surface with the added Shrinkwrap fix.

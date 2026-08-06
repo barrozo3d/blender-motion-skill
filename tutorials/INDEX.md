@@ -1737,9 +1737,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=bfdI_-ymkas
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Shrinkwrap + vertex-group workflow; 2.8+)
+- **Tags:** #modelling #procedural #beginner #intermediate
+- **Summary:** Cuts a circular hole into a curved surface with boundary-protection inset/extrude loops, then fixes the "lumpy" Subdivision distortion around the hole via a Shrinkwrap modifier (targeting an undisplaced duplicate) restricted by a vertex group, baked via Visual Geometry to Mesh, and optionally Decimated back down.
 - **File:** tutorials/perfect-holes-with-quad-topology-in-curved-surfaces---step-by-step-blender-begin.md
 
 
