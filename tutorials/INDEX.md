@@ -2277,9 +2277,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=yEDi5SIqXxs
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Cast + Solidify + Subdivision, version-agnostic)
+- **Tags:** #modelling #procedural #intermediate
+- **Summary:** Companion "weird sphere" trick: select a deliberate maze/pattern of faces on a subdivided cube, delete the rest, then use a Cast modifier (Sphere, Factor 1) to bend the resulting lattice into a ball, finished with Solidify + Subdivision for a dimensional ornamental sphere.
 - **File:** tutorials/daily-blender-tip-133---cast-modifier-or-how-to-make-another-weird-sphere.md
 
 

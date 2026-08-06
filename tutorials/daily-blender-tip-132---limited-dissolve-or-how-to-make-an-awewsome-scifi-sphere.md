@@ -98,4 +98,4 @@ modelling, procedural, intermediate
 ---
 
 ## Related Tutorials
-No other extracted BlenderSecrets tutorials in this library currently cover the Limited Dissolve panelized-sphere technique.
+- [Daily Blender Tip 133 - Cast Modifier (Or How To Make Another Weird Sphere...)](daily-blender-tip-133---cast-modifier-or-how-to-make-another-weird-sphere.md) — shares modelling, procedural, intermediate; a direct companion "weird sphere" trick from the same channel, using a Cast modifier on a deliberately-patterned lattice instead of Limited Dissolve's randomized panels.

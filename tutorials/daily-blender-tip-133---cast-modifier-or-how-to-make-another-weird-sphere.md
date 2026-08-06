@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=yEDi5SIqXxs
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: needs-review
+blender_version: "Not specified — Cast modifier + Solidify/Subdivision workflow, version-agnostic core tools"
+tags: [modelling, procedural, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/daily-blender-tip-133---cast-modifier-or-how-to-make-another-weird-sphere/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Daily Blender Tip 133 - Cast Modifier (Or How To Make Another Weird Sphere...)
@@ -39,12 +40,7 @@ _Auto-generated at ingest/frame-capture time — explains why `extraction_status
 ---
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py daily-blender-tip-133---cast-modifier-or-how-to-make-another-weird-sphere <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### CAST MODIFIER (OR HOW TO MAKE ANOTHER WEIRD SPHERE..) [0:00]
@@ -76,30 +72,49 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:07] tutorials/frames/daily-blender-tip-133---cast-modifier-or-how-to-make-another-weird-sphere/frame_000.jpg
+- [0:20] tutorials/frames/daily-blender-tip-133---cast-modifier-or-how-to-make-another-weird-sphere/frame_001.jpg
+- [0:43] tutorials/frames/daily-blender-tip-133---cast-modifier-or-how-to-make-another-weird-sphere/frame_002.jpg
+- [0:56] tutorials/frames/daily-blender-tip-133---cast-modifier-or-how-to-make-another-weird-sphere/frame_003.jpg
+- [1:10] tutorials/frames/daily-blender-tip-133---cast-modifier-or-how-to-make-another-weird-sphere/frame_004.jpg
+- [1:30] tutorials/frames/daily-blender-tip-133---cast-modifier-or-how-to-make-another-weird-sphere/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A companion sci-fi-sphere trick to the Limited Dissolve technique: instead of dissolving faces into random panels, a subdivided cube has a deliberate maze-like pattern of faces selected and kept (the rest deleted), then a **Cast modifier** (Sphere type, Factor 1) bends the resulting open lattice into a spherical shape, with Solidify + Subdivision modifiers adding thickness and smoothness — producing an ornate, cage-like metallic sphere. Note: this video's audio track is silent/near-empty; this summary is built entirely from the captured on-screen text captions and frames.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the starting shape: a plain default cube, captioned "In Edit Mode subdivide a cube a few times..." Frame 001 shows the cube after heavy subdivision, its faces now covered in a fine repeating diamond/cross ornamental pattern (visible as a texture-like grid across all faces), captioned "Select an interesting pattern of faces..." Frame 002 shows the payoff of the selection step: the cube's faces reduced to just an interlocking maze/key-pattern of remaining faces (dark gaps where faces were deleted), captioned "Invert the selection and delete the other faces." Frame 003 shows the same maze-patterned cube now curved into a rounded, ball-like shape via a Cast modifier (Modifier panel: Cast Type Sphere, Factor 0.50 mid-adjustment, Radius, Size, From Radius, Vertex Group/Control Object fields visible), captioned "Add a Cast modifier, set it to Sphere and factor 1." Frame 004 shows the shape after Solidify and Subdivision modifiers are added (Particle Instance/Particle System/Smoke/Soft Body/Face Deform/Cloth modifier-add search list visible mid-search), now a smooth, golden, 3D maze-pattern lattice ball with real thickness and rounded edges. Frame 005 shows the polished final result: a golden ornamental spherical lattice with a raised jigsaw/maze surface pattern, rendered under studio-style lighting.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. In Edit Mode, subdivide a default cube several times to get enough face density for an interesting pattern.
+2. Select an "interesting pattern" of faces across the subdivided cube's surface — e.g. a repeating maze, key, or diamond-like pattern — leaving gaps between selected regions.
+3. Invert the selection (so the previously-unselected faces are now selected) and delete those faces, leaving only the chosen pattern of faces as an open, lattice-like mesh.
+4. Add a **Cast** modifier, set its Cast Type to **Sphere** and Factor to **1** — this bends/projects the flat, patterned cube faces onto a spherical shape while preserving the maze-like gaps as openings in the surface.
+5. Add a **Solidify** modifier (for real thickness on the thin lattice pattern) and a **Subdivision Surface** modifier (for smoothing) to turn the flat patterned shell into a rounded, dimensional lattice ball.
+6. Variation: add a second sphere and scale it up (implied to sit either inside or around the lattice shell, e.g. as a visible "core" glimpsed through the gaps, or as a bounding shape) — the exact placement isn't detailed on-screen.
+7. Variation: changing the order of the modifiers in the stack (e.g. Solidify before vs. after Cast, or Subdivision before vs. after Cast) produces a noticeably different final look, encouraging experimentation.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Modeling:** Cube subdivision (Edit Mode), face pattern selection, Invert Selection + Delete (pattern-cutting technique).
+- **Modifiers:** Cast (Cast Type: Sphere, Factor, Radius, Size, From Radius, optional Vertex Group/Control Object), Solidify (thickness), Subdivision Surface (smoothing) — modifier stack order is explicitly called out as affecting the final look.
+- **Variation:** a second, scaled-up sphere object added alongside the lattice shell.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — Cast, Solidify, and Subdivision Surface are version-agnostic core Blender modifiers.
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, procedural, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Daily Blender Tip 132 - Limited Dissolve (Or How To Make An Awewsome Scifi Sphere...)](daily-blender-tip-132---limited-dissolve-or-how-to-make-an-awewsome-scifi-sphere.md) — shares modelling, procedural, intermediate; a direct companion "weird sphere" trick from the same channel, using deliberate pattern-face-deletion + a Cast modifier instead of Limited Dissolve's randomized panel pattern.
