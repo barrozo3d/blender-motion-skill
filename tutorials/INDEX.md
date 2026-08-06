@@ -2107,9 +2107,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=rUh2cEWAIgk
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (KeenTools FaceBuilder 2021.2.0; 2.9x-3.x era)
+- **Tags:** #organic #modelling #materials #intermediate
+- **Summary:** Reconstructs a photorealistic 3D head from a handful of photos using the paid KeenTools FaceBuilder add-on: auto-align a generic head mesh per photo, refine with manually-dragged Pins on facial landmarks, then bake a texture from the aligned photo set.
 - **File:** tutorials/blender-secrets---reconstruct-a-face-head-from-just-a-few-photos-with-keen-tools.md
 
 
