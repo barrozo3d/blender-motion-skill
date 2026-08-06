@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=xLAakVcA1hc
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "2.8+ (Scatter Objects is described as a new default 2.8 add-on; Blue Noise Particles and Molecular are third-party add-ons)"
+tags: [rigging, animation, cloth, simulation, rendering, particles]
+extraction_status: complete
 frames_dir: tutorials/frames/daily-blender-secrets---15-tips-compilation-part-3/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Daily Blender Secrets - 15 Tips Compilation (part 3)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py daily-blender-secrets---15-tips-compilation-part-3 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -218,30 +214,65 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:26] tutorials/frames/daily-blender-secrets---15-tips-compilation-part-3/frame_000.jpg
+- [1:14] tutorials/frames/daily-blender-secrets---15-tips-compilation-part-3/frame_001.jpg
+- [2:05] tutorials/frames/daily-blender-secrets---15-tips-compilation-part-3/frame_002.jpg
+- [2:37] tutorials/frames/daily-blender-secrets---15-tips-compilation-part-3/frame_003.jpg
+- [3:30] tutorials/frames/daily-blender-secrets---15-tips-compilation-part-3/frame_004.jpg
+- [4:14] tutorials/frames/daily-blender-secrets---15-tips-compilation-part-3/frame_005.jpg
+- [4:54] tutorials/frames/daily-blender-secrets---15-tips-compilation-part-3/frame_006.jpg
+- [6:08] tutorials/frames/daily-blender-secrets---15-tips-compilation-part-3/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A direct continuation of Part 2's ragdoll build (finishing Rigid Body Constraint limits and parenting an Armature to the ragdoll hitboxes via Child Of bone constraints), followed by 13 more standalone tips spanning cloth (slow-motion sim, vacuum-pack pressure), rendering tricks (inverted-hull outline shader, baked normal maps), and four different particle/scatter techniques (Scatter Objects add-on, 3D-Print-Toolbox non-overlap cleanup, Blue Noise Particles add-on, self-repulsing fluid-physics particles), plus OpenVDB volumetrics, wireframe thickness, inset/outset, and viewport-isolation shortcuts.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 continues the Part 2 ragdoll build: a cube-built stick figure with the Rigid Body panel open, Animated checkbox highlighted in red, as instructed to temporarily freeze body parts that shouldn't move while tuning constraints. Frame 001 shows the next stage — switching to Pose Mode on an Armature overlaid on the ragdoll's colored hitbox cubes, about to add a Child Of bone constraint per bone so the armature follows the physics rig. Frame 002 shows the ultra-slow-motion cloth setup: a draped plane over a sphere with the Cloth modifier's Speed Multiplier field highlighted, being lowered to 0.05. Frame 003 shows the inverted-hull outline technique: a green cube's "Outline" material with Surface set to Toon BSDF-derived settings and "Backface Culling" highlighted in the Settings section. Frame 004 shows the payoff of the normal-map-baking tip: a colorful tangent-space normal map image, captioned "Now you've got a normal map!" — baked by viewport-rendering a mattecap-shaded plane from a locked top-down camera. Frame 005 shows the vacuum-pack effect: an organic blob-shaped cloth mesh wrapped tightly around a hidden object, with the Cloth Physical Properties panel open and Pressure just enabled. Frame 006 shows the Scatter Objects add-on's F3 search menu open with "Scatter" typed, about to invoke the operator. Frame 007 shows the Blue Noise Particles add-on's Mesh Add menu with "Blue Noise Particles" highlighted, for generating evenly-spaced, non-overlapping particle distributions on a landscape mesh.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Ragdoll finishing (continued from Part 2):** scale down Rigid Body Constraint empties for easier handling; move/rotate them to align with each body part; temporarily enable the Animated checkbox on parts you don't want moving while tuning; set each constraint's Type to Generic; enable and zero the Linear limit axes, then enable the Angular limits per joint (e.g. only X rotation for a simple hinge, with "lower" = one side / "upper" = the other), verifying limits visually via the passive Rigid Body box; repeat per joint (multi-axis joints like the neck need more than one enabled axis).
+2. **Parenting an Armature to a ragdoll:** in Edit Mode, clear each bone's parent; switch to Pose Mode, select a bone, add a Child Of bone constraint targeting the corresponding ragdoll hitbox part (not the armature itself — zoom in to avoid mis-picking); click Set Inverse if the bone jumps out of place; repeat for every bone so the armature now follows the ragdoll simulation.
+3. **Ultra-slow-motion cloth:** add a Cloth modifier to a subdivided plane and a Collision modifier to the object it drapes over; set enough keyframes in both the render range and the Cloth cache settings; lower the Cloth modifier's Speed Multiplier (e.g. to 0.05) and play the sim for extreme slow motion.
+4. **Inverted-hull outline shader (updated for the 2.8 UI):** create a base-color material; raise World brightness in Render view for visibility; create a second "outline" material using an Emission or Toon shader; enable Backface Culling on it; add a Solidify modifier to the object with Flip Normals checked, set the modifier's Material Index Offset to 1, and tune Thickness for outline width; disable overlays and use View > Viewport Render Image to render the stylized result.
+5. **Baking a normal map from sculpted detail without UVs:** sculpt detail on a subdivided plane, enable smooth shading, apply a colorful matcap; frame it exactly from the top (Numpad 7, then Ctrl+Alt+Numpad0 to snap the camera to that view); set render resolution (e.g. 1024×1024); lock the camera to the view and frame the plane to fill it; disable overlays; render via View > Viewport Render Image to capture a tangent-space normal map. Add a second single-face plane, create a material with an Image Texture (set to Non-Color data) piped into a Normal Map node, and the baked image reads correctly in Rendered view.
+6. **Vacuum-pack cloth effect:** build a well-subdivided wrapping mesh around the target object; select a rim of vertices into a Vertex Group; enable Collision on the target (e.g. a monkey) and Cloth on the wrapping mesh; raise Quality Steps (≈25) and Collision Quality (≈10); assign the rim group as the Pin Group; enable Self Collisions; disable Gravity; enable Pressure and keyframe it (0 at frame 0, then −100 to −200 at a later frame) so the cloth sucks inward and wraps the target; limit the cache size to what's needed and bake before playing.
+7. **Scatter Objects add-on (bundled since Blender 2.8, needs enabling in Preferences):** select the object to scatter, Shift-select the target surface, press F3 and search "Scatter," then click-drag across the surface to paint instances while live-tuning settings, Enter to confirm — much faster than particle-system tuning; the small object left at the scatter origin is the Instancer, used to move/scale the whole scatter without appearing in the render.
+8. **3D Print Toolbox for non-overlapping particles:** scatter particles on a surface, enable the 3D-Print-Toolbox add-on, apply the particle system as real mesh objects (via Convert modifier equivalent) and delete the particle system; select all resulting objects, make one active, Ctrl+J to join into a single object; open the N-panel's 3D-Print tab, run Intersections, click the resulting "Intersect" face-select button, Ctrl+L to select linked, then X > Delete Faces — leaving only the non-overlapping particle instances.
+9. **Blue Noise Particles add-on:** install the add-on's zip directly from Preferences (don't unzip first); select the target surface, Shift+A from the Mesh menu choose Blue Noise Particles; in its dialog pick the highest quality setting for evenly spaced results, set Noise Type to Even, generate vertices, OK; the resulting particle system's Render tab lets you pick Object as the render type and choose the instanced object (may need a size bump) for an organic, non-overlapping distribution — a Patchy option or a weight-painted Vertex Group can also drive density, at the cost of some overlap.
+10. **OpenVDB volumetrics:** obtain a build of Blender with volume support and an OpenVDB file; add a Sun light; Shift+A > Volume > Import OpenVDB, navigating to the file (may need to scale the resulting volume object down); enable Volumetric Shadows and lower Tile Size for more detail; create a volume material, raise Density, rename the shader's temperature attribute to match the name shown in the Volume grids panel, and raise Blackbody Intensity/Temperature for a fire-like look.
+11. **Self-repulsing fluid-physics particles:** duplicate the target surface into a "force" copy and an "emitter" copy; add a particle system to the emitter tuned so particles appear immediately and persist, with randomized rotation; set the particle Physics type to Fluid so particles don't fly apart, and enable settings that make particles repel each other; render them as objects with a chosen instance object, tuned size/randomness; disable Gravity; add a Force field to the force object; running the sim lets the particles self-arrange until none overlap (technique credit: Yigür Smirnov).
+12. **Wireframe thickness:** in Edit Mode, select the edges to thicken and press Ctrl+F > Wireframe, then adjust thickness and choose whether to replace the edges or add thickness on top; for a non-destructive version, add the Wireframe modifier instead, which also supports weight-painting to vary thickness.
+13. **Molecular add-on foam/bubble sim:** install the free Molecular add-on's zip from Preferences without unpacking; create a ground plane with Collision enabled and Damping 1; add a Metaball and move it aside; add another plane, scale it down in Edit Mode, and give it a particle system with reduced particle count and increased lifetime; under Physics > Deflection enable Size Deflect; set the Metaball as the particle's dupli-object, scaling as needed, and adjust Metaball resolution (lower value = more detail); scroll to the particle system's Molecular panel, activate it, enable Particle Linking (with a tuned search length) so particles stick together, then click Start Molecular Simulation.
+14. **Inset/Outset faces:** press I twice to toggle Individual Faces insetting; hold Ctrl while insetting to turn it into an extrude; press O during the operation for an Outset (extra edges created outside the selection instead of inside); press B to toggle whether the selection boundary is also inset; the same options are available from the Face > Inset Faces menu.
+15. **Isolating an object in the viewport:** select the object and press Shift+H to hide everything else (Alt+H restores, works in Edit Mode too); alternatively press `/` (forward slash) to locally isolate and zoom to the selection, press `/` again to restore the previous view; for a collection-based approach, right-click the object in the Outliner and choose Visibility > Isolate.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Rigid Body:** Rigid Body Constraint (Type: Generic, Linear/Angular limit checkboxes with lower/upper bounds), Animated checkbox for temporary locking.
+- **Armature:** Child Of bone constraint (Set Inverse), bone parent clearing in Edit Mode.
+- **Cloth:** Speed Multiplier (slow-motion), Pressure (keyframed, vacuum-pack), Pin Group, Quality Steps, Collision Quality, Self Collisions, Gravity toggle.
+- **Shading/Rendering:** Toon/Emission shader for outline material, Backface Culling, Solidify modifier (Flip Normals, Material Index Offset), Normal Map node + Image Texture set to Non-Color, matcap shading, Viewport Render Image.
+- **Particles/Scatter:** Scatter Objects add-on (F3 search), 3D Print Toolbox (Intersections/Select Intersect/Delete Faces), Blue Noise Particles add-on (Noise Type Even, Highest quality), particle Physics type Fluid + self-repulsion settings, Force field.
+- **Volume:** Volume object import (OpenVDB), Volumetric Shadows, Tile Size, Density, Blackbody Intensity/Temperature, custom grid attribute naming (e.g. temperature).
+- **Modeling:** Ctrl+F Wireframe / Wireframe modifier, Inset Faces (I, Ctrl for extrude, O for outset, B for boundary toggle).
+- **Viewport:** Shift+H / Alt+H (hide/unhide others), `/` (local view isolate toggle), Outliner right-click > Visibility > Isolate.
+- **Add-ons used:** BoolTool-adjacent Rigid Body/Armature tools (native), Scatter Objects (native since 2.8), 3D Print Toolbox (native), Blue Noise Particles (third-party, installed via zip), Molecular (third-party, free, installed via zip).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+2.8 or later — Scatter Objects is explicitly described as "a new default add-on in Blender 2.8," and the video separately notes updating its inverted-hull tip because "the interface of blender 2.[8]0 changed a lot."
 
 ### Tags
-[PENDING EXTRACTION]
+rigging, animation, cloth, simulation, rendering, particles
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Daily Blender Secrets - 15 Tips Compilation (Part 2)](daily-blender-secrets---15-tips-compilation-part-2.md) — shares simulation, cloth, rigid-body; this video opens mid-sentence continuing Part 2's ragdoll build (Rigid Body Constraints, then Armature parenting) before moving into 13 further standalone tips.

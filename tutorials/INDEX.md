@@ -2137,9 +2137,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=xLAakVcA1hc
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 2.8+ (Scatter Objects described as a new default 2.8 add-on)
+- **Tags:** #rigging #animation #cloth #simulation #rendering #particles
+- **Summary:** Continues Part 2's ragdoll build (Rigid Body Constraint limits, then Armature parented to the ragdoll via Child Of bone constraints), then covers 13 more tips: slow-motion cloth, inverted-hull outlines, baked normal maps, vacuum-pack cloth pressure, Scatter Objects, 3D-Print-Toolbox particle cleanup, Blue Noise Particles, OpenVDB volumetrics, self-repulsing particles, wireframe thickness, inset/outset, and view-isolation shortcuts.
 - **File:** tutorials/daily-blender-secrets---15-tips-compilation-part-3.md
 
 

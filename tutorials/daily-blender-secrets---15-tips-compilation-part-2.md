@@ -321,3 +321,4 @@ materials, modelling, procedural, simulation, cloth, rigid-body
 ## Related Tutorials
 - [Daily Blender Secrets - 10 ways to make Holes in Blender](daily-blender-secrets---10-ways-to-make-holes-in-blender.md) — shares modelling, procedural; Tips 5-6 here (Bevel Holes, Round Holes) cover the same bevel-vertex and LoopTools Circle hole-cutting methods in that dedicated video.
 - [Blender Secrets - 6 Minutes of Boolean Basics](blender-secrets---6-minutes-of-boolean-basics.md) — shares modelling, procedural, materials; Tip 3 here (Cut Tool/BoolTool) and its leftover-vertex cleanup echo that tutorial's deeper BoolTool walkthrough.
+- [Daily Blender Secrets - 15 Tips Compilation (part 3)](daily-blender-secrets---15-tips-compilation-part-3.md) — shares simulation, cloth, rigid-body; Part 3 opens mid-sentence continuing this video's Tip 13 ragdoll build (finishing the Rigid Body Constraints, then parenting an Armature to it) before covering 13 more standalone tips.
