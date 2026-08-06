@@ -2607,9 +2607,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=ZtrD7vxi6ik
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Shrinkwrap modifier + Cycles ray-visibility toggles are consistent across modern Blender versions
+- **Tags:** modelling, materials, workflow, beginner
+- **Summary:** Projects a logo/sticker image plane onto a curved surface using the Shrinkwrap modifier (Target = the object, Keep Above Surface + small Offset), with Cycles Shadow/Glossy ray visibility disabled on the sticker plane; adds Subdivision Surface to the target if the wrap looks distorted.
 - **File:** tutorials/daily-blender-tip-63---using-skinwrap-to-project-a-sticker-to-a-surface.md
 
 
