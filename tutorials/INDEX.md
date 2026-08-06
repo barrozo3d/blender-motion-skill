@@ -1557,9 +1557,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=YCd_tS_3BTU
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Multires + On Cage editing + Gaffer add-on; 3.x-5.x)
+- **Tags:** #modelling #procedural #organic #beginner #intermediate
+- **Summary:** Full 37-minute walkthrough of the "double-subdivision-modifier" (Simple + Catmull-Clark, edited On Cage) fast blockout technique, tools primer plus a complete sci-fi robot build through symmetry, panel cuts, hard-surface alpha-brush sculpting, and UV-less drag-and-drop materials.
 - **File:** tutorials/for-beginners-easiest-modeling-technique-long-version.md
 
 

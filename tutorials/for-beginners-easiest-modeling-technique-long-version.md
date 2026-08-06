@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=YCd_tS_3BTU
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified — Multires + on-cage editing + Gaffer add-on workflow, consistent with Blender 3.x-5.x"
+tags: [modelling, procedural, organic, beginner, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/for-beginners-easiest-modeling-technique-long-version/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # For Beginners: Easiest Modeling Technique (long version)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py for-beginners-easiest-modeling-technique-long-version <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -506,30 +502,72 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:06] tutorials/frames/for-beginners-easiest-modeling-technique-long-version/frame_000.jpg
+- [2:54] tutorials/frames/for-beginners-easiest-modeling-technique-long-version/frame_001.jpg
+- [5:04] tutorials/frames/for-beginners-easiest-modeling-technique-long-version/frame_002.jpg
+- [8:54] tutorials/frames/for-beginners-easiest-modeling-technique-long-version/frame_003.jpg
+- [14:00] tutorials/frames/for-beginners-easiest-modeling-technique-long-version/frame_004.jpg
+- [27:47] tutorials/frames/for-beginners-easiest-modeling-technique-long-version/frame_005.jpg
+- [30:20] tutorials/frames/for-beginners-easiest-modeling-technique-long-version/frame_006.jpg
+- [35:07] tutorials/frames/for-beginners-easiest-modeling-technique-long-version/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+The "double-subdivision-modifier" fast blockout technique: stack a Simple Subdivision modifier below a Catmull-Clark Subdivision modifier on a cube, edit it in Edit Mode with On Cage + Optimal Display enabled (so you sculpt the smoothed result directly), and repeatedly Extrude/Inset/loop-cut-and-slide to organically grow a shape — then finish with sharpening loops, panel-cut bevels, hard-surface alpha-brush sculpting, and drag-and-drop UV-less materials for a complete sci-fi robot build.
 
 ### Summary
-[PENDING EXTRACTION]
+An extended, fully-narrated version of a shorter viral video, split into a tools primer (~0:00-11:40) and a full robot-modeling walkthrough with voiceover (~11:40-37:41). Frame 000 shows the very first step: a bare default cube with the Add Modifier search populated by "subd," about to add the first Subdivision modifier. Frame 001 shows the payoff of stacking Simple (below) then Catmull-Clark (above) Subdivision modifiers on the cube — a smooth twelve-sided near-sphere, with the modifier stack and its Optimal Display checkbox visible in the sidebar. Frame 002 shows the early robot blockout: a cross-shaped cluster of four extruded/rounded lumps radiating from a center cube, the Extrude tool panel open in the T-panel on the left — illustrating how repeated extrude-and-round quickly builds an organic blob shape. Frame 003 shows a loop cut (Ctrl+R) mid-placement, its "Edge Slide" status label visible, adding a new edge loop across a rounded torso shape to gain more geometry to sculpt with. Frame 004 shows a two-viewport comparison: the left window (in Edit Mode) displaying the raw underlying cage geometry of a robot head/shoulder shape, the right window showing the same object's real-time smoothed result — demonstrating the value of running two viewports, one for the timelapse recording and one for actual work. Frame 005 shows the completed helmet-and-torso wireframe in Edit Mode next to its shaded result in a second viewport — the full quad-topology mesh cage is visible in high density after finishing the blockout. Frame 006 shows the same robot model, now fully sculpted in Sculpt Mode with hard-surface alpha-brush detail baked into the surface (rivets, panel textures) side-by-side with its shaded preview, the Brush Settings panel open on the right. Frame 007 shows the final materials stage: the robot model with a drag-and-drop UV-less procedural material browser open at the bottom (a grid of colorful sci-fi material thumbnails) and, in the right viewport, an isolated flat curve/silhouette outline — from the author's paid materials course, applied without any UV unwrapping.
 
 ### Key Steps
-[PENDING EXTRACTION]
+**Part 1 — Tool fundamentals (~0:00-11:40):**
+1. Add two Subdivision Surface modifiers to a cube: the lower one set to **Simple** (doubles geometry without smoothing), the upper one set to **Catmull-Clark** (doubles geometry and smooths) — order matters, Simple must be below Catmull-Clark, or the result looks wrong. Keep **Optimal Display** enabled on both so the extra geometry stays hidden from view.
+2. Object Mode: right-click > Shade Smooth, and optionally switch Viewport Shading to a Matcap for a more readable, non-material preview.
+3. Keep the Simple modifier's Levels at 1 and add sharp corners later via geometry rather than raising this level (which just makes things blockier).
+4. Add a **Mirror** modifier, drag it to the **top** of the stack, and enable **Bisect** (adds a hidden center loop and removes the redundant half so there's no overlapping geometry) — alternatively, Ctrl+R a manual loop cut and delete half the mesh yourself (in which case Bisect isn't needed).
+5. In Edit Mode, enable the **On Cage** button (the small triangular icon) plus Optimal Display so you see and edit the *smoothed* result directly instead of the raw blocky cage — this is the key ergonomic trick that makes the whole technique fast.
+6. Core toolkit drilled one at a time: **Extrude** (E, then move/scale/rotate the new face; right-click only cancels the *move*, not the extrude itself — press Ctrl+Z to fully undo an accidental extrude); **Inset** (I, then move/scale; Ctrl while insetting extrudes instead; pressing I again toggles inset-together vs. inset-individually for multi-face selections; F9 reopens the last operator's redo panel); **Loop Cut and Slide** (Ctrl+R, click to confirm the cut, move + click to place it — keep it at 1 cut per action in this workflow); **Edge/Vertex move** (G, or G+X/Y/Z to constrain to an axis); **Slide a loop** (Alt+click to select the loop, then G,G to slide it along the surface — moving loops closer together sharpens that area, since that's literally how Catmull-Clark subdivision reads density); **Dissolve a loop** (Alt+click to select, Ctrl+X, or Mesh > Delete > Dissolve Edges).
+7. Install the **LoopTools** extension (Preferences > Extensions) for right-click > Circle (perfect circles) and Flatten (or manually flatten with S, axis, then type 0 and Enter, e.g. S,Z,0).
+8. Shift+D duplicates a face selection (keeps all modifiers); Ctrl+Numpad+ grows a selection.
+9. Optional viewport polish: enable Cavity shading (purely visual, not a material) alongside the Matcap for extra surface readability.
+10. Alternative to the double-Subdivision stack: swap the Simple modifier for a **Bevel** modifier for more direct corner-sharpness control — trade-off is you lose On Cage editing, and it gets less reliable once you've extruded a lot of extra geometry, so the author recommends the double-Subdivision method as primary.
+11. Don't leave Wireframe display enabled on objects in Object Mode long-term — it's easy to mistake Object Mode for Edit Mode and press the wrong shortcut.
+
+**Part 2 — Full robot build (~11:40-37:41), an iterative loop of the above tools:**
+1. Blockout: repeatedly select faces/edges and Extrude (E) + Scale (S) + Rotate (R) + Grab-axis-constrained (G,X/Y/Z) to grow the shape outward from the cube into torso, arm, and leg lumps — Inset (I) followed by Extrude (E) is the recurring combo for carving intakes/vents into a surface.
+2. Use **Ctrl+R** loop cuts liberally for more geometry to manipulate, then **G,G** (double-tap G) to slide loops and sharpen nearby corners.
+3. **Separate objects:** select a face region, Shift+D to duplicate it (keeps the modifier stack), then P > Separate by Selection to split it into its own object — done for arms, legs, and the head, partly for viewport performance (especially before heavy sculpt-mode multires detail) and partly for organizational clarity.
+4. Because the Mirror modifier only mirrors *existing* geometry, once the mirror modifier is removed/applied partway through (to allow editing across the object's center seam), switch to manual **X symmetry** (toolbar toggle) for moving existing verts, but note symmetry does *not* propagate new extrudes/insets — for those, add the **Symmetrize** operator to Quick Favorites (Q menu) and run it explicitly (select all with A, then Symmetrize, picking the correct +X/-X direction) after each asymmetric edit.
+5. To free up editing at a mirrored seam, apply the Mirror modifier back on a duplicated piece, use **Ctrl+I** (invert selection) combined with **Ctrl+Numpad+** (grow selection) to isolate specific faces (e.g. only the back two of a set) for manipulation.
+6. Once blockout is finished across all separated objects: select everything, **Ctrl+A > Visual Geometry to Mesh** applies all modifiers at once, baking the smooth result into real dense geometry — needed before fine detail work.
+7. **Sharpening + panel cuts on the final geometry:** slide edge loops closer together with G,G for simple corner sharpening; for a "panel cut" groove, select a loop, **Ctrl+B** to bevel it (scroll to add segments), then select the new middle loop and **Alt+S** to shrink it inward along normals — repeatable with more surrounding loops for a crisper cut.
+8. **Circular holes:** select a single vertex, **Shift+Ctrl+B** to bevel it into a ring (2 segments is enough, adjust the profile shape for roundness or use LoopTools Circle for a perfect circle), connect vertices with **J**, then Inset (I) and Extrude (E) inward for a clean circular recess.
+9. **Hard-surface alpha-brush sculpting:** switch to Sculpt Mode; append pre-made alpha brushes (from the author's paid course, or free ones from Gumroad/ArtStation); add/subdivide a **Multiresolution** modifier heavily since alpha stamping needs a lot of resolution (the example object reaches 3M+ vertices); place alphas with the Draw brush — **F** to change radius, **Ctrl+F** to rotate the alpha, **Shift+F** to change intensity; remember **X symmetry is per-object** and must be re-enabled on each new object; **Alt+Q** switches which object you're sculpting on within the same session (multires detail on inactive objects is hidden for viewport efficiency but still renders); **Escape** cancels an in-progress stamp placement (fastest), **Ctrl+Z** undoes an already-placed one (slower); enabling **Smooth Shading** on a multires object reduces how many subdivision levels are needed to hide faceting.
+10. **Materials and render:** append drag-and-drop, UV-less "smart" procedural materials (from the author's paid materials course) that work on any topology (high-poly, low-poly, or heavy n-gons) with no UV unwrapping needed — just drag one onto an object to apply, drag another to replace it; these materials are built for **Cycles** specifically since some of their edge-detection shader tricks don't work in EEVEE; enable an HDRI via the free **Gaffer** add-on (Polyhaven) for one-click studio lighting; remember to enable GPU rendering in Preferences for speed.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Modifiers:** Subdivision Surface ×2 (lower: Simple; upper: Catmull-Clark; both Optimal Display on), Mirror (top of stack, Bisect enabled, Merge enabled), Bevel (alternative to the Simple-subdiv approach, trades On Cage support for more direct corner control), Multiresolution (for sculpt-mode alpha detail, subdivided heavily per-object as needed).
+- **Edit Mode tools:** Extrude (E), Inset (I, Ctrl to extrude-while-insetting, I again to toggle individual/together), Loop Cut and Slide (Ctrl+R), Edge/Vertex slide (G,G / Alt+click to select a loop), Dissolve Edges (Ctrl+X or D-menu), Grow/Shrink selection (Ctrl+Numpad+/−), Invert selection (Ctrl+I), Symmetrize (added to Quick Favorites/Q menu), Visual Geometry to Mesh (Ctrl+A, bakes modifiers).
+- **Add-ons:** LoopTools (Circle, Flatten), Gaffer (free, one-click HDRI via Polyhaven).
+- **Hole/panel-cut combo:** Bevel loop (Ctrl+B) → select middle loop → Alt+S scale-along-normals (panel cuts); Vertex Bevel (Shift+Ctrl+B) → Connect (J) → Inset (I) → Extrude (E) (circular holes).
+- **Sculpt Mode:** Draw brush with appended hard-surface alpha textures, F/Ctrl+F/Shift+F (radius/rotation/intensity), X symmetry (per-object), Alt+Q (switch active sculpt object).
+- **Shading/render:** Shade Smooth, Matcap viewport shading, Cavity overlay, Cycles render engine (materials are Cycles-only), GPU device.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner (Part 1 tool primer) through Intermediate (full robot build with symmetry/multires/alpha-sculpting workflow)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — relies on the Multiresolution modifier, On Cage editing, and the free Gaffer add-on, all consistent with Blender 3.x through 5.x.
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, procedural, organic, beginner, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Easy hole modeling for beginners - Blender Secrets](easy-hole-modeling-for-beginners---blender-secrets.md) — shares modelling, procedural; this video's circular-hole technique (Shift+Ctrl+B vertex bevel → J connect → inset/extrude) is the same fast method taught there in more depth.
+- [6 Panel Cut Tips - Blender Secrets](6-panel-cut-tips---blender-secrets.md) — shares procedural, materials; this video's Ctrl+B-loop-then-Alt+S panel-cut combo and alpha-brush sculpt detailing are two of that tutorial's six dedicated hard-surface detailing methods.

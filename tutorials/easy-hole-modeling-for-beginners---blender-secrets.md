@@ -140,3 +140,4 @@ modelling, procedural, beginner, intermediate
 ## Related Tutorials
 - [Daily Blender Secrets - 10 ways to make Holes in Blender](daily-blender-secrets---10-ways-to-make-holes-in-blender.md) — shares modelling, procedural; that survey's "Bevel vertex" and "LoopTools Circle" methods (#3-4) are the same fast technique taught here in more depth, alongside this video's added all-quad topology method.
 - [Daily Blender Secrets - 15 Tips Compilation (Part 2)](daily-blender-secrets---15-tips-compilation-part-2.md) — shares modelling, procedural; Tips 5-6 (Bevel Holes, Round Holes with Quad Topology) cover both the fast and all-quad hole methods taught here, as two of many shorter tips.
+- [For Beginners: Easiest Modeling Technique (long version)](for-beginners-easiest-modeling-technique-long-version.md) — shares modelling, procedural; that video's robot build applies this same fast vertex-bevel hole method as one step in a much larger blockout-to-detail workflow.
