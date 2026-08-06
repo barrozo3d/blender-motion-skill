@@ -1647,9 +1647,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=75inBBl39es
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 4.3.2 (explicitly named)
+- **Tags:** #organic #procedural #abstract #intermediate
+- **Summary:** A painted Vertex Group drives both a Decimate modifier's density and the free Tissue add-on's "Convert to Dual Mesh" honeycomb generation plus a Wireframe modifier's line thickness, on a free Blender Studio human base mesh — vertex groups as general-purpose modifier masks, not just deformation.
 - **File:** tutorials/vertex-groups-modifiers-and-tissue-add-on---blender-secrets.md
 
 

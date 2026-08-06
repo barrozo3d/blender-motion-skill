@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=75inBBl39es
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.3.2 (explicitly named — Tissue add-on confirmed still working the same way)"
+tags: [organic, procedural, abstract, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/vertex-groups-modifiers-and-tissue-add-on---blender-secrets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Vertex Groups, Modifiers and Tissue Add-on - Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py vertex-groups-modifiers-and-tissue-add-on---blender-secrets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -161,30 +157,54 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:40] tutorials/frames/vertex-groups-modifiers-and-tissue-add-on---blender-secrets/frame_000.jpg
+- [3:03] tutorials/frames/vertex-groups-modifiers-and-tissue-add-on---blender-secrets/frame_001.jpg
+- [4:26] tutorials/frames/vertex-groups-modifiers-and-tissue-add-on---blender-secrets/frame_002.jpg
+- [5:08] tutorials/frames/vertex-groups-modifiers-and-tissue-add-on---blender-secrets/frame_003.jpg
+- [6:12] tutorials/frames/vertex-groups-modifiers-and-tissue-add-on---blender-secrets/frame_004.jpg
+- [6:37] tutorials/frames/vertex-groups-modifiers-and-tissue-add-on---blender-secrets/frame_005.jpg
+- [6:59] tutorials/frames/vertex-groups-modifiers-and-tissue-add-on---blender-secrets/frame_006.jpg
+- [7:06] tutorials/frames/vertex-groups-modifiers-and-tissue-add-on---blender-secrets/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Using a hand-painted Vertex Group as a live input to drive both a Decimate modifier's density and the free Tissue add-on's honeycomb-style mesh generation — demonstrated on a free Blender Studio human base mesh, showing how vertex groups can act as general-purpose "masks" for modifiers beyond just deformation.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the source asset: the Asset Browser's "Human Base Meshes Bundle" (from Blender Studio's free demo-scenes page) open, showing body/head/hand/foot variants in both Realistic and Stylized styles as draggable assets. Frame 001 shows the base head mesh entirely painted solid blue in Weight Paint mode — the starting (all-zero) vertex group before any painting, brush Radius circle visible over the forehead. Frame 002 shows the vertex group mid-paint: a colorful red/yellow/green/blue heatmap pattern across the face and forehead (red = weight 1, blue = weight 0), the Brush Symmetry panel open in the sidebar with the X mirror axis enabled — confirming symmetric painting. Frame 003 shows the Decimate modifier applied without any vertex group influence: a uniformly dense triangulated mesh across the whole head/neck, Decimate settings (Ratio, Symmetry, Triangulate, Vertex Group field) visible in the sidebar. Frame 004 shows the Tissue add-on's "Convert to Dual Mesh" operator highlighted in the Tissue Tools panel (Template, Dual Mesh, Polyhedra Decomposition, Frame/Weathered Wireframe, Convert to Curve, Custom Contour options) on the base geometry. Frame 005 shows the resulting honeycomb/cellular structure after "Convert to Dual Mesh" — an organic pebbled cell pattern covering the entire face and neck. Frame 006 shows a Wireframe modifier applied on top of the dual-mesh result (Thickness, Offset, Boundary, Replace Original, Even Thickness, Crease Edges, Material Offset, Vertex Group field all visible in the sidebar) — a pink/blue/purple color-graded viewport shading, producing a fine wireframe lattice mask-like structure over the face. Frame 007 shows the same Wireframe-modifier result from a slightly different angle with the vertex group field populated ("Group") and a Factor value set — the vertex group now controlling the wireframe's line thickness variation across the face, thicker in some regions and thinner in others.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Source a free rigged-quality base mesh:** download the "Human Base Meshes" bundle from Blender Studio's free demo-scenes page (donation-supported); the extracted .blend already has objects pre-marked as Assets, so it doesn't need to be opened directly — just save it to a permanent location (not Desktop/Downloads) and add that folder as an Asset Library under Preferences > File Paths so it appears in the Asset Browser.
+2. **Bring an asset into the scene correctly:** drag-and-drop the desired asset from the Asset Browser (default Import Method should be Append, not Link); before interacting with it further, open the N-panel's Collection settings and **uncheck Instance** — otherwise the dragged-in object remains a non-editable instance; Alt+G to reset its location to the world origin afterward.
+3. **Install the Tissue add-on:** Preferences > Get Extensions, search "tissue," Install — it then also appears under Add-ons and adds a "Tissue" tab in the N-panel.
+4. **Prep the mesh for detail work:** add a Subdivision modifier (Ctrl+2 for two levels) and apply it via Ctrl+A > Visual Geometry to Mesh to bake in real geometry for the Tissue add-on to work with; apply Scale (Ctrl+A > Scale) if it isn't already 1; Shade Smooth and switch to a Matcap for clearer viewing.
+5. **Paint a Vertex Group in Weight Paint mode:** left-click-drag to paint weight (red = 1), Ctrl-drag to erase (back to 0) — the weight-paint color ramp runs red (1) → yellow/green/cyan (intermediate) → blue (0), and this visualization is the easiest way to judge a vertex group's values at a glance. In Edit Mode, selecting the vertex group selects every vertex with a weight *above* zero, not just weight-1 vertices. Enable **X Symmetry** in the brush's Symmetry panel to mirror strokes automatically across the X axis (the author notes needing to disable "Mirror Vertex Group" for symmetry to actually work correctly, despite the option's name suggesting the opposite — worth testing on your own version). Hold Shift while painting to soften/smooth the edges of the painted region, similar to sculpting.
+6. **Use the vertex group to drive a Decimate modifier:** add a Decimate modifier; enable the Viewport Wireframe overlay (visible even in Object Mode) to see the effect clearly; lowering the Ratio with no Vertex Group assigned does a uniform density reduction everywhere. Assigning the painted Vertex Group in the modifier's Vertex Group field instead concentrates decimation according to the painted weights, and the group's Invert toggle flips which areas are preserved vs. reduced — producing a striking, controllable "digital sculpture" look; a Factor/Influence value further tunes how strongly the group affects the result. Apply once satisfied.
+7. **Convert the geometry with the Tissue add-on:** with the object selected, in the Tissue panel click **Convert to Dual Mesh** — this takes a few seconds to compute and produces an organic, honeycomb/cellular tiled structure across the entire surface, following the underlying mesh's topology.
+8. **Add a Wireframe modifier for a lattice/mask look:** stack a Wireframe modifier on the dual-mesh result and significantly reduce its Thickness value; unchecking **Replace Original** keeps the wireframe as an additional layer on top of the base geometry rather than replacing it, producing a combined mask-like appearance under an appropriately eerie Matcap. The same painted Vertex Group can be assigned to the Wireframe modifier's own Vertex Group field to make line thickness vary across the surface — thicker in high-weight areas, thinner in low-weight ones (or the reverse, via Invert) — and the modifier's own Factor/vector-influence value can be raised to reduce how strongly the vertex group affects thickness if the lines read as too thin.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Asset Browser / Preferences:** File Paths > Asset Libraries (add a folder to surface .blend assets), Import Method (Append vs. Link), Collection "Instance" checkbox (must be unchecked to edit a dragged-in asset).
+- **Tissue add-on (Extensions):** Tissue Tools panel — Template, Dual Mesh, Convert to Dual Mesh (the operator used here), Polyhedra Decomposition, Frame/Weathered Wireframe, Convert to Curve, Custom Contour.
+- **Vertex Groups / Weight Paint:** paint (LMB) / erase (Ctrl+LMB), weight color ramp (red=1 → blue=0), Brush Symmetry (X axis), Shift-hold to soften, Select vertex group selects all weight > 0.
+- **Modifiers:** Decimate (Ratio, Symmetry, Triangulate, Vertex Group field + Invert), Wireframe (Thickness, Offset, Boundary, Replace Original, Even Thickness, Crease Edges, Material Offset, Vertex Group field), Subdivision Surface (Ctrl+2, prep step).
+- **Finalizing:** Ctrl+A > Visual Geometry to Mesh (bake modifiers), Ctrl+A > Scale (apply scale).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.3.2 — explicitly named; the author confirms the Tissue add-on still functions the same way in this version.
 
 ### Tags
-[PENDING EXTRACTION]
+organic, procedural, abstract, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+No other extracted BlenderSecrets tutorials in this library currently cover the Tissue add-on or vertex-group-driven modifier masking in this depth.
