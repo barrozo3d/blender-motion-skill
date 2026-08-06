@@ -200,3 +200,4 @@ organic, procedural, materials, advanced
 ## Related Tutorials
 - [Blender Secrets - Hard Surface Sculpting Tips Part 2](blender-secrets---hard-surface-sculpting-tips-part-2.md) — shares organic, procedural, materials, advanced; **direct sequel** from the same channel — this Part 1 covers panel cuts/masks/alphas, Part 2 covers base-mesh blocking, Mask Extract object-splitting, and Line Project.
 - [Blender Secrets - Auto Masking Cavities in Sculpt Mode](blender-secrets---auto-masking-cavities-in-sculpt-mode.md) — shares organic, procedural; same channel, complementary Sculpt Mode masking technique.
+- [Monster Sculpting | Full Process | Blender Secrets | Stranger Things Vecna](monster-sculpting-full-process-blender-secrets-stranger-things-vecna.md) — shares organic, procedural, materials, advanced; applies a complementary sculpting-detail toolkit (Clay Strips, curve-based tendrils, purchased alpha stamps) to an organic creature rather than a hard-surface context.

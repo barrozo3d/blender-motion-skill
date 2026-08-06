@@ -1807,9 +1807,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=s6GQv6eZVms
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Human Base Meshes add-on, Voxel/Multires workflow; 3.x-5.x)
+- **Tags:** #organic #procedural #materials #advanced
+- **Summary:** Full Vecna-inspired monster bust process: Boolean+Voxel-Remesh blockout from a base mesh, Clay Strips sculpting, a curve-based (non-sculpting) technique for tapered tendrils/veins, and purchased ArtStation alpha-texture stamping for skin detail.
 - **File:** tutorials/monster-sculpting-full-process-blender-secrets-stranger-things-vecna.md
 
 

@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=s6GQv6eZVms
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified — Human Base Meshes add-on, Voxel/Multires sculpt workflow, consistent with Blender 3.x-5.x"
+tags: [organic, procedural, materials, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/monster-sculpting-full-process-blender-secrets-stranger-things-vecna/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Monster Sculpting | Full Process | Blender Secrets | Stranger Things Vecna
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py monster-sculpting-full-process-blender-secrets-stranger-things-vecna <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -253,30 +249,59 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:47] tutorials/frames/monster-sculpting-full-process-blender-secrets-stranger-things-vecna/frame_000.jpg
+- [3:44] tutorials/frames/monster-sculpting-full-process-blender-secrets-stranger-things-vecna/frame_001.jpg
+- [6:49] tutorials/frames/monster-sculpting-full-process-blender-secrets-stranger-things-vecna/frame_002.jpg
+- [7:34] tutorials/frames/monster-sculpting-full-process-blender-secrets-stranger-things-vecna/frame_003.jpg
+- [10:44] tutorials/frames/monster-sculpting-full-process-blender-secrets-stranger-things-vecna/frame_004.jpg
+- [14:04] tutorials/frames/monster-sculpting-full-process-blender-secrets-stranger-things-vecna/frame_005.jpg
+- [17:26] tutorials/frames/monster-sculpting-full-process-blender-secrets-stranger-things-vecna/frame_006.jpg
+- [20:22] tutorials/frames/monster-sculpting-full-process-blender-secrets-stranger-things-vecna/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A full creature-sculpt process (a Stranger Things "Vecna"-inspired monster bust, used as loose inspiration rather than an exact recreation) combining a Human Base Meshes starter, Boolean + Voxel Remesh blockout, Clay Strips sculpting, a non-sculpting technique for tendrils/veins (Bezier curves with a Draw tool, tapered bevel depth, converted to mesh and merged into the sculpt), and purchased ArtStation alpha-texture stamps for skin detail — all narrated informally as a live, iterative process including several real mistakes and fixes.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the starting point: the free Human Base Meshes add-on's asset shelf open at the bottom (Stylized Male, Base_Mesh_Vecna, Basemesh Grip Bag, Eye, Manor Skull, Primitive Sprite, and several Realistic/Stylized part meshes), with a full humanoid base body selected in the viewport and a Vecna reference photo visible in the corner. Frame 001 shows the bust after Boolean-trimming to just the head/neck/shoulders and cleanup with the Clay Strips brush — a smooth, neutral human head/bust shape, brush palette on the left. Frame 002 shows the vein/tendril technique setup: a Bezier curve (Surface Draw mode, Curve Pen tool) already sculpted into an S-curve resting on the bust's chest, its Geometry panel (Radius, Extrude, Bevel Depth, Taper Object dropdown) open in the sidebar. Frame 003 shows the same curve mid-draw with the active Draw tool's settings open (Method: Surface, Detail/Error, Radius Taper, Fit Method, Corner Angle) — the "cursor and surface" projection mode used to trace tendrils directly onto the bust's geometry. Frame 004 shows the payoff: dozens of tapered, sausage-like curve-tendrils covering the chest and neck, converted to mesh and merged with the bust — reading convincingly as thick, organic veins/tentacles even before any further sculpting. Frame 005 shows the model reshaded in Sculpt Mode after another Voxel Remesh pass integrating the tendril mesh into the base sculpt, with the Draw brush's alpha-texture panel (a wispy tendril-shaped alpha) open on the right. Frame 006 shows the file browser open on a folder of purchased grayscale alpha textures from ArtStation (root-like veins, cracks, scars, elongated scratch shapes) being selected as a new Draw-brush stamp. Frame 007 shows the heavily-detailed final head/neck, dense alpha-stamped skin texture (bark-like ridges and vein networks) covering the face and neck, the active alpha texture's thumbnail and Mapping/Angle/Offset settings visible in the sidebar.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Reference and base mesh:** use a purchased miniature's reference photo as loose inspiration (not an exact recreation target); add a base human mesh from the free Human Base Meshes asset add-on, join its parts, set its Origin to the 3D cursor.
+2. **Blockout via Boolean + Remesh:** trim the base mesh down to just the desired bust region using Boolean operations (removing legs/lower body, optionally arms too); Symmetrize the result if needed for a clean starting symmetry.
+3. **Remesh troubleshooting:** in Sculpt Mode, the Voxel Size preview shortcut is R then Ctrl+R to commit — the video shows the author's own remesh attempt initially failing (holding Shift changes the value in smaller increments for finer control) and, when the interactive remesh got stuck, falling back to adding a **Remesh modifier** instead and applying it as a more reliable alternative.
+4. **General sculpt cleanup:** use Clay Strips and other brushes to smooth out problem areas before remeshing again — remeshing over unresolved messy geometry tends to bake the problem in, so smooth first, then remesh. Watch for remeshing accidentally destroying backface geometry — enabling **Front Faces Only** on the relevant brush/tool avoids this.
+5. **Build up base volume and details:** Clay Strips for adding volume, with Symmetry enabled for a mostly-symmetrical creature (remember to toggle Symmetry off deliberately for one-sided asymmetric details, and back on afterward — easy to forget either way); simple sculpted marks (e.g. removing/re-adding a mouth) via Crease and small Clay Strips brushes.
+6. **Non-destructive tendril/vein technique (the video's key trick — not sculpting):** add a Bezier curve; in Edit Mode select all and delete the vertices, leaving an empty curve; with the curve still selected in Edit Mode, use the **Draw tool** (Curve Pen) set to Surface projection mode ("cursor and surface") to trace new curve points directly onto the bust's mesh surface — it can visually clip into the surface since it's drawn so close. Increase the curve's Geometry > Bevel Depth for tube thickness; in the Draw tool's own options, set **Radius Taper Start/End** values to taper the ends to points, producing a tapered "sausage" shape matching the reference's tendrils. Draw many of these freely over the model — overlapping tendrils read as more organic and is fine/desirable. Individual curve points can be selected afterward and moved/rotated/scaled (Alt+S to change a point's local radius specifically) for further adjustment, including deliberately randomizing some thicker/thinner for a less uniform, more organic feel (e.g. select some at random, invert the selection, scale each group differently).
+7. **Merge tendrils into the sculpt:** once enough curve-tendrils are drawn, select them all, join them (Ctrl+J) into one curve object, then Object > Convert > Mesh to turn the whole curve network into one real mesh; join that with the base bust mesh (Ctrl+J); in Sculpt Mode run a Voxel Remesh again to fuse the tendril geometry seamlessly into the bust's surface, then clean up/blend the seam with more Clay Strips as needed.
+8. **Resolution for fine alpha detail:** add a Multiresolution modifier and Simplify/subdivide enough to reach a workable high vertex count (millions of vertices, e.g. ~5M in this example) — alpha-texture stamping needs real geometric resolution to read correctly, not just shading tricks; Shade Smooth if not already applied.
+9. **Alpha-texture skin detailing:** load a purchased grayscale alpha texture (the author uses TIFF-format alphas/brushes purchased from an ArtStation artist, chosen as TIFF specifically for easy browser thumbnail previewing) as a new Draw-brush Texture; set Mapping to Area Plane, Angle to Front Faces Only, Stroke Method to Drag Dot (drag-and-place one stamp at a time), and Falloff to Constant so the whole alpha image is used rather than fading at the edges; optionally randomize the stamp's Angle per-placement for variety, or press **Ctrl+F** mid-stroke to manually set a specific rotation angle for one placement (e.g. aligning a stamp along an eyebrow ridge). Adjust stamp size with F (Radius) and strength with Shift+F — full Strength (1.0) is usually far too strong; around 0.3 gave more controllable, subtle results in this case. Avoid overusing the exact same alpha repeatedly in visible ways — rotate it differently each placement, or swap between several different alpha textures, to avoid an obviously-repeating pattern; swapping alphas can be done by adding a brand-new texture slot or just replacing the current texture's image.
+10. **Iterative refinement and troubleshooting notes:** save frequently; Ctrl+Z can sometimes undo interface/setting changes (like Symmetry toggles) in addition to mesh edits, so re-check settings like Symmetry after undo chains; when a just-placed alpha stamp doesn't look right, press **Escape** instead of Ctrl+Z to cancel it — much faster than waiting for a full sculpt-undo to process; the author explicitly iterates through several alpha textures and placements that don't work (e.g. an early attempt at stamped eyes that wasn't successful) before settling on a final look, treating this as a normal, expected part of the process rather than a mistake to hide.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Base mesh:** Human Base Meshes add-on (free asset shelf: base bodies, eyes, skulls, hands, jaws in Realistic/Stylized variants).
+- **Blockout:** Boolean (trim to bust), Symmetrize, Voxel Remesh (R for size preview, Ctrl+R to commit, Shift for fine increments) or a Remesh modifier as a fallback.
+- **Sculpt brushes:** Clay Strips (primary volume-building brush), Crease, Draw (used both generally and specifically as the alpha-stamping brush), Front Faces Only toggle (prevents backface remesh corruption).
+- **Curve-based tendrils:** Bezier Curve, Curve Pen / Draw tool (Method: Surface for on-mesh tracing), Geometry > Bevel Depth (thickness), Radius Taper Start/End (tapered ends), Alt+S (per-point radius scaling), Ctrl+J (join curves, then join to mesh), Object > Convert > Mesh.
+- **Resolution:** Multiresolution modifier (Simplify/subdivide to millions of vertices for alpha-stamp detail), Shade Smooth.
+- **Alpha texture stamping:** purchased TIFF alpha textures (ArtStation), Draw brush Texture > New Texture, Mapping: Area Plane, Angle: Front Faces Only, Stroke Method: Drag Dot, Falloff: Constant, F (Radius), Shift+F (Strength/intensity), Ctrl+F mid-stroke (manual rotation angle), Escape (fast-cancel a bad stamp vs. slow Ctrl+Z).
+- **Symmetry:** per-object X-symmetry toggle (must be re-checked after undo chains and after any one-sided asymmetric edits).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced (assumes sculpting fundamentals; the curve-based tendril trick and alpha-stamping workflow are intermediate-to-advanced techniques used together in a full creature pipeline)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — relies on the Human Base Meshes add-on and standard Voxel/Multires sculpting workflow, consistent with Blender 3.x through 5.x.
 
 ### Tags
-[PENDING EXTRACTION]
+organic, procedural, materials, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender Secrets - Hard Surface Sculpting Tips](blender-secrets---hard-surface-sculpting-tips.md) — shares organic, procedural, materials, advanced; complementary sculpting-detail toolkit (Dyntopo/Multires/Mask Extract) applied to a hard-surface rather than organic-creature context.
+- [Blender Secrets - Hard Surface Sculpting Tips Part 2](blender-secrets---hard-surface-sculpting-tips-part-2.md) — shares organic, procedural, materials, advanced; same relationship as Part 1, additional sculpting tricks from the same author.
