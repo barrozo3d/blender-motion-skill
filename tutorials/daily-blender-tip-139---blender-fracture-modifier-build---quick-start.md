@@ -106,4 +106,4 @@ rigid-body, simulation, beginner
 ---
 
 ## Related Tutorials
-No other extracted BlenderSecrets tutorials in this library currently cover the Fracture Modifier build; see the "Fracture Modifier Use Constraints" and "Fracture Modifier Helper Add-on" tips for direct follow-ups once extracted.
+- [Daily Blender Tip 140 - Fracture Modifier: Use Constraints](daily-blender-tip-140---fracture-modifier-use-constraints.md) — shares rigid-body, simulation; direct sequel covering Fracture Constraint Settings (Use Constraints, breaking Angle) that build on top of this tip's base Fracture Settings.

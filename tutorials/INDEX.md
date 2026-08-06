@@ -2217,9 +2217,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=Lh1wtY2uRPE
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Custom "Fracture Modifier" build (third-party fork)
+- **Tags:** #rigid-body #simulation #intermediate
+- **Summary:** Fracture Constraint Settings keep pre-shattered shards glued together until stress exceeds a threshold; the key Angle value controls how much bending a joint tolerates before breaking — demoed with a cube crushed under a rolling cylinder at 4° vs 7°.
 - **File:** tutorials/daily-blender-tip-140---fracture-modifier-use-constraints.md
 
 

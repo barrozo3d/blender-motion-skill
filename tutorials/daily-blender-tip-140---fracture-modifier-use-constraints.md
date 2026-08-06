@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=Lh1wtY2uRPE
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: needs-review
+blender_version: "Custom \"Fracture Modifier\" build of Blender (third-party fork, not stock Blender), same as Tip 139"
+tags: [rigid-body, simulation, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/daily-blender-tip-140---fracture-modifier-use-constraints/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Daily Blender Tip 140 - Fracture Modifier: Use Constraints
@@ -34,12 +35,7 @@ _Auto-generated at ingest/frame-capture time — explains why `extraction_status
 ---
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py daily-blender-tip-140---fracture-modifier-use-constraints <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### FRACTURE MODIFIER USE CONSTRAINTS [0:00]
@@ -54,30 +50,47 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:10] tutorials/frames/daily-blender-tip-140---fracture-modifier-use-constraints/frame_000.jpg
+- [0:21] tutorials/frames/daily-blender-tip-140---fracture-modifier-use-constraints/frame_001.jpg
+- [0:29] tutorials/frames/daily-blender-tip-140---fracture-modifier-use-constraints/frame_002.jpg
+- [1:00] tutorials/frames/daily-blender-tip-140---fracture-modifier-use-constraints/frame_003.jpg
+- [1:30] tutorials/frames/daily-blender-tip-140---fracture-modifier-use-constraints/frame_004.jpg
+- [1:58] tutorials/frames/daily-blender-tip-140---fracture-modifier-use-constraints/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A direct follow-up to Tip 139: **Fracture Constraint Settings** in the Fracture Modifier build let pre-shattered shards stay glued together (rather than immediately flying apart as loose rigid bodies) until a physical stress threshold is exceeded — controlled mainly via an **Angle** value that determines how much bending/deformation a joint between shards can tolerate before it breaks. Demo footage/credit at the end points to "Mandala Motion" (Instagram.com/mandalamotion), suggesting this specific demonstration clip's source/inspiration.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the test setup: a green cube sitting in a dark blue-floored scene with a large blue cylinder positioned above it, about to roll down and crush it, captioned "Fracture Modifier Use Constraints." Frame 001 shows the **Fracture Constraint Settings** panel (Constraint Building Settings: Use Constraints checked, Breakable checked, Constrained Collision, Self Collision, Use Compounds, Activate Broken, Constraint Type: Fixed) below the earlier Fracture Settings (Splinter X/Y/Z, Splinter Length, Advanced Fracture Settings, Execute Fracture, Threaded), captioned "Turn on Use Constraints in Fracture Constraint Settings." Frame 002 shows the deeper constraint-breaking settings: Cluster Group/Type: Fixed, Constraint Breaking Settings (Threshold 10.00000, Cluster Breaking threshold 1000.00000), Constraint Special Breaking Settings (Percentage, Cluster Percentage, **Angle** highlighted red with the cursor on it, Cluster Angle, Distance, Cluster Distance, Solver/Cluster Solver Iterations Override, Weighted Angle/Percentage/Distance, Mass Dependent Thresholds), captioned "Then experiment with the Angle values." Frame 003 shows a low Angle value (4°) tested: the cylinder rests on the cube, which stays mostly intact — only a small, contained deformation, captioned "Angle: 4°" — the shards' constraints held because the angle of deformation stayed under the low threshold. Frame 004 shows a higher Angle value (7°) tested: the same setup now results in the cube's shell visibly peeling/breaking open like tinfoil under the cylinder's weight, captioned "Angle: 7°" — a higher allowed angle before breaking meant more visible deformation happened before the constraints gave way, producing a more dramatic destruction. Frame 005 is a credits/outro card for "Mandala Motion" (logo, Instagram.com/mandalamotion, "Thanks for watching!") — crediting the source of this specific demo setup/footage.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Continuing from a Fracture Modifier setup (per Tip 139), open **Fracture Constraint Settings** below the main Fracture Settings panel.
+2. Enable **Use Constraints** — this makes pre-fractured shards start out rigidly connected to their neighbors (like an intact object) instead of immediately behaving as separate loose rigid bodies.
+3. Also relevant/visible: **Breakable** (allows those constraints to eventually fail under enough stress), Constrained Collision, Self Collision, Use Compounds, Activate Broken, and a Constraint Type (Fixed shown).
+4. In the deeper **Constraint Breaking Settings** / **Constraint Special Breaking Settings**, the key value to experiment with is **Angle** — this sets how much a shard-to-shard joint can bend/deform before that constraint breaks and the shards separate. Related fields include Threshold, Cluster Breaking Threshold, Percentage/Cluster Percentage, Cluster Angle, Distance/Cluster Distance, and various Weighted/Mass-Dependent override options for fine-tuning per-shard-mass or per-connection break behavior.
+5. Test the effect: a low Angle value (4° in this demo) keeps the shattered object holding together under load, absorbing the impact with only minor visible give; a higher Angle value (7°) allows more bending before breaking, producing a more dramatic, tinfoil-like tearing/peeling failure once the threshold is finally exceeded.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Fracture Constraint Settings panel:** Use Constraints, Breakable, Constrained Collision, Self Collision, Use Compounds, Activate Broken, Constraint Type (Fixed).
+- **Constraint Breaking Settings:** Threshold, Cluster Breaking Threshold.
+- **Constraint Special Breaking Settings:** Percentage, Cluster Percentage, **Angle** (primary experiment variable), Cluster Angle, Distance, Cluster Distance, Solver/Cluster Solver Iterations Override, Weighted Angle/Percentage/Distance toggles, Mass Dependent Thresholds.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Custom "Fracture Modifier" build of Blender (third-party fork, not stock Blender) — same non-standard build referenced in Tip 139.
 
 ### Tags
-[PENDING EXTRACTION]
+rigid-body, simulation, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Daily Blender Tip 139 - Blender Fracture Modifier Build - Quick Start](daily-blender-tip-139---blender-fracture-modifier-build---quick-start.md) — shares rigid-body, simulation; direct predecessor covering the base Fracture Settings (Shard Count, Execute Fracture) that this tip's Constraint Settings build on top of.
