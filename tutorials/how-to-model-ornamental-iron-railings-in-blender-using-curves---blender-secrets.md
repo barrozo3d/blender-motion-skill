@@ -724,4 +724,4 @@ procedural, modelling, organic, intermediate, advanced
 ---
 
 ## Related Tutorials
-No other extracted BlenderSecrets tutorials in this library currently cover curve-based Bevel Objects, the Array modifier's curve-mode, or the Curve Pen tool in similar depth.
+- [Daily Blender Tip #40 - How To Make Pipes](daily-blender-tip-40---how-to-make-pipes.md) — shares modelling, procedural; a simpler earlier tip building the same mesh-to-curve-plus-Bevel-Object pipe technique, this video expanding it into a full ornamental railing with a custom beveled-square profile.

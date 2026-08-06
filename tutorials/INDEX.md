@@ -2727,9 +2727,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=v6mJ6XJatUI
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Curve conversion + Bevel Object, version-agnostic)
+- **Tags:** #modelling #procedural #beginner
+- **Summary:** Turns any object's edges into a pipe: merge all vertices to a skeleton path, bevel corners for rounded bends, convert to Curve, assign a Circle as Bevel Object for thickness, then edit/duplicate that circle profile for ridge/band detail along the pipe.
 - **File:** tutorials/daily-blender-tip-40---how-to-make-pipes.md
 
 
