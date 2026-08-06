@@ -175,3 +175,4 @@ procedural, materials, displacement, cycles, intermediate, advanced
 ## Related Tutorials
 - [How to Texture Realistic Buildings in Blender](how-to-texture-realistic-buildings-in-blender-b3d.md) — shares materials, procedural, displacement, intermediate; similar detail/wear-baking philosophy applied to a different surface domain.
 - [How to Make Cyberpunk Scenes in Blender](how-to-make-cyberpunk-scenes-in-blender.md) — shares materials, procedural, displacement, intermediate.
+- [Easy PBR Textures - Blender Secrets](easy-pbr-textures---blender-secrets.md) — shares materials, displacement, cycles; that tutorial sources and applies photo-real PBR texture sets with real geometric displacement, complementary to this one's hand-sculpted/painted normal-map baking.

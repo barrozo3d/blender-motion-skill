@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=qxxoDYGrvtw
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.2 (explicitly named for EEVEE displacement support)"
+tags: [materials, shaders, displacement, cycles, eevee, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/easy-pbr-textures---blender-secrets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Easy PBR Textures - Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py easy-pbr-textures---blender-secrets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -232,30 +228,60 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:21] tutorials/frames/easy-pbr-textures---blender-secrets/frame_000.jpg
+- [1:56] tutorials/frames/easy-pbr-textures---blender-secrets/frame_001.jpg
+- [2:09] tutorials/frames/easy-pbr-textures---blender-secrets/frame_002.jpg
+- [3:13] tutorials/frames/easy-pbr-textures---blender-secrets/frame_003.jpg
+- [4:21] tutorials/frames/easy-pbr-textures---blender-secrets/frame_004.jpg
+- [6:40] tutorials/frames/easy-pbr-textures---blender-secrets/frame_005.jpg
+- [7:37] tutorials/frames/easy-pbr-textures---blender-secrets/frame_006.jpg
+- [8:47] tutorials/frames/easy-pbr-textures---blender-secrets/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A complete PBR-texturing pipeline: sourcing free physically-based textures from Polyhaven, auto-wiring them with Node Wrangler's Principled Texture Setup, driving true geometric displacement (with adaptive subdivision for render efficiency), converting that displacement into real baked geometry, and handling edge cases like non-UV'd objects via triplanar/box mapping — covering both Cycles and EEVEE (4.2+).
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the sourcing step: Polyhaven's Textures > Brick browser with a red brick sphere thumbnail selected mid-hover, illustrating the free-texture search that starts the workflow. Frame 001 shows a bare UV sphere with a Principled BSDF material freshly created but no textures wired in yet — the state right before running Node Wrangler. Frame 002 shows the payoff of Shift+Ctrl+T (Principled Texture Setup): a full chain of Mapping/Image Texture nodes auto-connected into the Principled BSDF's Base Color, Roughness, Normal and other sockets. Frame 003 shows the shader graph fully wired with an interior-room HDRI background rendering behind a smooth (not-yet-displaced) brick sphere in Cycles Texture Preview. Frame 004 shows the Displacement node in the graph with the ambient-occlusion node chain visible alongside it, mid-render with the brick sphere now showing real surface relief. Frame 005 shows a side-by-side comparison render setup: a wireframe sphere silhouette next to a fully rendered, deeply-displaced brick sphere — illustrating the adaptive-subdivision dicing-scale comparison technique. Frame 006 shows the same brick sphere at a different dicing-scale render, filling the frame at high resolution to compare detail levels. Frame 007 shows the later "convert displacement to real geometry" step: the shader graph with a Displacement Texture node selected and its Texture Properties tab open (Mapping section), matching the material's mapping scale to the modifier's before running Convert to Mesh.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Setup:** enable the Node Wrangler add-on (Preferences > Add-ons, search "node," check the box).
+2. **Source textures:** on polyhaven.com, go to Assets > Textures, search/pick a texture (e.g. Castle Brick 02 Red), choose a resolution (4K is usually enough), then use the ZIP download picker to select exactly what's needed — a .blend file with the material pre-assembled, JPEG for Diffuse/color, EXR (not PNG) for Displacement since it's smaller and holds full precision, and OpenGL (not DirectX) normal maps since Blender uses OpenGL.
+3. **Wire the material:** open a Shader Editor, add a test object (UV sphere, Shade Smooth, a couple of subdivision levels), create a new material, select the Principled BSDF node and press Shift+Ctrl+T to open Node Wrangler's texture-setup dialog; select all the downloaded texture files and click "Principled Texture Setup" to auto-generate and wire the full node chain (mapping + all texture maps) — everything except the Ambient Occlusion node, which is wired manually later.
+4. **Preview correctly:** switch the viewport to Texture/Rendered shading, set the render engine to Cycles with GPU device enabled (Preferences > System) and denoising on; raise World strength or enable an HDRI (via the free Gaffer add-on, from Polyhaven's makers) since the default world is too dark.
+5. **Add real displacement:** with the object selected, go to Material Properties > Settings > Displacement and set it to "Displacement Only" (not the Displacement panel's own field, which does nothing on its own); open the Displacement node and set its Scale to roughly 0.1 to reveal real surface relief. "Displacement and Bump" pulls more apparent detail at low subdivision at the cost of longer render times — use "Displacement Only" for pure geometric height.
+6. **Mix in Ambient Occlusion (optional):** Shift+Ctrl+click each texture node to preview its output; add a Mix Color node set to Multiply; feed the Base Color texture into Input A and the AO node into Input B; feed the Mix result into the Principled BSDF's Base Color; the Mix Factor blends between 0 (no AO) and 1 (full AO) — keep it subtle rather than maxed out.
+7. **Frame with a camera:** Shift+A > Camera, Ctrl+Alt+Numpad0 to snap it to the current view, then enable "Lock Camera to View" in the viewport's N-panel View tab so orbiting the 3D view also moves the camera; disable the lock once framed.
+8. **Render and tune resolution vs. speed:** render with F12 (routed into the Image Editor if "Render into image editor" is set under Preferences > Interface > Temporary Editors); raise Subdivision modifier levels for more displaced detail; with a camera present, enable the Experimental feature set and check "Adaptive Subdivision" on the Subdivision modifier so more geometry is generated near the camera and less far away; tune the Dicing Scale — lower values = higher resolution/detail but longer render time and higher memory use (values around 1-2 risk running out of memory; 5 is much coarser).
+9. **EEVEE support (Blender 4.2+):** simply switching the render engine from Cycles to EEVEE preserves the same displacement setup with no extra steps.
+10. **Rescale the material:** select all Mapping-node Scale values and drag/type a higher number (e.g. 3) to shrink the visible texture tiling; remember to raise the render's subdivision levels too, or the final render will be lower-detail than the viewport preview.
+11. **Bake displacement into real geometry:** select and mute (M) or delete (X) the Displacement texture/node chain in the shader (so it stops driving shader-only displacement); add a Displacement modifier, click New, open its Texture Properties tab and pick the same displacement texture from the downloaded PBR set (usually named with a DISP suffix); set its Coordinates to UV and pick the UV map; set Strength to ≈0.1; critically, open the Displacement texture's own Mapping settings and match its scale to whatever value was set on the shader's Mapping node (e.g. 3) or the geometric and shaded displacement won't line up; finally select the object and use Ctrl+A > Visual Geometry to Mesh (applies all modifiers) to bake the displacement permanently into the mesh.
+12. **Objects without a UV map:** if there's no UV map, plug Generated (not UV) into the Mapping node's Vector input, and switch every texture node's Projection from Flat to Box; add a Blend value (~0.2) to soften the seams between the three projected axes — this triplanar/box mapping doesn't look as clean as true UVs on strongly directional textures like brick, but is usable when no UV map exists; unwrapping the object properly remains the better long-term fix.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Add-ons:** Node Wrangler (Shift+Ctrl+T Principled Texture Setup), Gaffer (free, Polyhaven-made, adds one-click HDRI to World).
+- **Shader nodes:** Principled BSDF, Mapping (+ Texture Coordinate: Generated for no-UV objects), Image Texture (per PBR channel: Diffuse/Color, Roughness, Normal — OpenGL variant, Displacement — EXR), Displacement node (Scale ≈0.1), Mix Color node (Multiply, for AO), Ambient Occlusion node, Normal Map node.
+- **Material Settings:** Displacement dropdown set to "Displacement Only" (vs. "Displacement and Bump").
+- **Modifiers:** Subdivision Surface (Levels Viewport/Render, Adaptive Subdivision under Experimental feature set, Dicing Scale), Displacement modifier (New texture, Texture Properties > Mapping scale matched to shader, Coordinates: UV, Strength ≈0.1).
+- **Render:** Cycles (GPU device, denoising), EEVEE (Blender 4.2+, same setup works unmodified), F12 / render-into-Image-Editor preference, Render Film > Transparent (hide HDRI background).
+- **Camera:** Ctrl+Alt+Numpad0 (snap to view), N-panel View tab "Lock Camera to View."
+- **Finalizing geometry:** Ctrl+A > Visual Geometry to Mesh (bakes Displacement modifier into real mesh data).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.2 — explicitly named for EEVEE's displacement support ("It's very easy as a Blender 4.2. You just have to switch to EEVEE").
 
 ### Tags
-[PENDING EXTRACTION]
+materials, shaders, displacement, cycles, eevee, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [6 Panel Cut Tips - Blender Secrets](6-panel-cut-tips---blender-secrets.md) — shares materials, displacement, cycles; that tutorial bakes hand-sculpted/painted hard-surface detail to a normal map, this one sources and applies photo-real PBR texture sets with real geometric displacement instead.

@@ -1607,9 +1607,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=qxxoDYGrvtw
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 4.2 (explicitly named for EEVEE displacement support)
+- **Tags:** #materials #shaders #displacement #cycles #eevee #intermediate
+- **Summary:** Full PBR pipeline: sourcing free textures from Polyhaven, Node Wrangler's Principled Texture Setup, real geometric displacement with adaptive subdivision, baking displacement into real geometry, and triplanar/box mapping for objects without UVs — for both Cycles and EEVEE.
 - **File:** tutorials/easy-pbr-textures---blender-secrets.md
 
 
