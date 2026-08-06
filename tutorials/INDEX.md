@@ -1877,9 +1877,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=mSdzwRcFJM0
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (EEVEE referenced generically; UI matches Blender 3.x/4.x)
+- **Tags:** #particles #camera #organic #beginner
+- **Summary:** Uses camera-facing billboard planes (Images as Planes + Track To constraint targeting the camera) instanced across a terrain via a Hair particle system to fake a dense background forest cheaply.
 - **File:** tutorials/creating-a-realistic-forest-in-blender-using-billboards-low-poly-planes-with-tre.md
 
 

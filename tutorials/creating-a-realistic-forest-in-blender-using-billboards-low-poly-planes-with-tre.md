@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=mSdzwRcFJM0
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (EEVEE referenced by name, not EEVEE Next; UI matches Blender 3.x/4.x particle system layout)"
+tags: [particles, camera, organic, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/creating-a-realistic-forest-in-blender-using-billboards-low-poly-planes-with-tre/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Creating a Realistic Forest in Blender using Billboards (low poly Planes with tree images)
@@ -31,12 +32,7 @@ _Auto-generated at ingest/frame-capture time — explains why `extraction_status
 ---
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py creating-a-realistic-forest-in-blender-using-billboards-low-poly-planes-with-tre <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -66,30 +62,56 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:00] tutorials/frames/creating-a-realistic-forest-in-blender-using-billboards-low-poly-planes-with-tre/frame_000.jpg
+- [0:19] tutorials/frames/creating-a-realistic-forest-in-blender-using-billboards-low-poly-planes-with-tre/frame_001.jpg
+- [0:29] tutorials/frames/creating-a-realistic-forest-in-blender-using-billboards-low-poly-planes-with-tre/frame_002.jpg
+- [0:54] tutorials/frames/creating-a-realistic-forest-in-blender-using-billboards-low-poly-planes-with-tre/frame_003.jpg
+- [1:12] tutorials/frames/creating-a-realistic-forest-in-blender-using-billboards-low-poly-planes-with-tre/frame_004.jpg
+- [1:22] tutorials/frames/creating-a-realistic-forest-in-blender-using-billboards-low-poly-planes-with-tre/frame_005.jpg
+- [1:29] tutorials/frames/creating-a-realistic-forest-in-blender-using-billboards-low-poly-planes-with-tre/frame_006.jpg
+- [1:40] tutorials/frames/creating-a-realistic-forest-in-blender-using-billboards-low-poly-planes-with-tre/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Camera-facing "billboard" image planes (Images as Planes + Track To constraint) instanced across a terrain via a Hair particle system, to fake a dense background forest cheaply.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the payoff: a misty mountain valley whose midground/background trees are entirely billboards, invisible as flat cards from the render camera. Frame 001 shows the setup step — importing tree PNGs (with alpha) via the Images as Planes add-on, using "Offset Planes" to place several at once. Frame 002 shows a single tree billboard selected with its Object Constraint panel open, ready for the Track To constraint. Frame 003 confirms the same valley payoff shot from a second angle. Frame 004 shows two billboards (a pine and a palm) grouped for the "Trees" collection, with Filmic color management visible in the sidebar. Frame 005 shows the ground plane in edit-mode-like wireframe with a Hair particle system's Emission/Advanced panel open (Number 30000, Hair Length 4m, Segments 5), Render As set to Path, still pre-collection. Frame 006 shows the same particle system reconfigured to Render As Collection, Instance Collection "Trees", with Scale Randomness enabled — viewport shows thousands of orange bounding boxes standing in for the not-yet-rendered billboards. Frame 007 shows the final result: a full instanced pine forest filling the ground plane in viewport shading.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Import each tree image (PNG with alpha) via `Shift+A > Image > Images as Planes`; enable "Offset Planes" to import multiple images as separate, spaced-out planes in one operation.
+2. In EEVEE, open the plane's Material Settings and set the Blend Mode (transparency mode) so the PNG's alpha channel renders correctly instead of showing a black/opaque quad.
+3. Add a `Track To` constraint to each billboard plane; set Target = Camera, To = Z, Up = Y, so the flat plane always rotates to face the render camera.
+4. Before finishing each billboard, make sure its object origin sits at the base/bottom of the image (not the center) so it "plants" correctly on the ground later.
+5. Select all finished billboard planes and group them into a new Collection with `M > New Collection` (named e.g. "Trees"); hide that collection from the viewport so the raw billboards aren't visible as loose objects.
+6. On the ground/terrain mesh, add a Particle System and set its type to `Hair`.
+7. Under the particle system's Render panel, set Render As = `Collection` and pick the billboard collection ("Trees") as the Instance Collection.
+8. Tune Scale and Scale Randomness for natural size variety, and enable Object Rotation (and Object Scale) so instanced billboards aren't all identical.
+9. Result: the particle system scatters camera-facing billboard trees across the whole terrain, producing a full background forest at a fraction of the cost of real 3D tree geometry.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Add menu: Image > Images as Planes (`Import Images as Planes` operator), option: Offset Planes (batch-import multiple images as separate planes)
+- Material Settings (EEVEE): Blend Mode set for alpha transparency on the PNG plane material
+- Object Constraint: Track To — Target: Camera, To: Z, Up: Y
+- Particle System (Hair type) Emission panel: Number ≈ 30000, Hair Length ≈ 4 m, Segments: 5 (seen mid-setup before switching Render As)
+- Particle System Render panel: Render As = Collection, Instance Collection = "Trees", Scale, Scale Randomness (enabled), Object Rotation (enabled), Object Scale (enabled)
+- Collection: "Trees" (holds the individually-constrained billboard planes, hidden from direct render)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified in transcript or frames — references "EEVEE" generically (not EEVEE Next) and the particle-system panel layout (Advanced Emission section, Hair Length/Segments fields) matches Blender 3.x/4.x.
 
 ### Tags
-[PENDING EXTRACTION]
+particles, camera, organic, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Procedural Grass in Blender Geometry Nodes](procedural-grass-in-blender-geometry-nodes-fast-viewport-se.md) — shares particles, organic, beginner; same "cheap background scatter that reads correctly from camera" goal, just via Geometry Nodes instancing instead of a legacy Hair particle system + billboard constraint.
