@@ -2437,9 +2437,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=k19Gg094jOA
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — NLA Editor Action strips and the Follow Path constraint are version-agnostic core Blender animation tools
+- **Tags:** rigging, character, animation, intermediate
+- **Summary:** Converts the walk-cycle keyframes into an NLA Action strip, then adds a Follow Path constraint (Ctrl+P > Path Constraint, Follow Curve + Animate Path) so the character walks in place while physically traveling along a drawn curve, with Frames controlling travel speed.
 - **File:** tutorials/daily-blender-tip-88---how-to-make-a-character-follow-a-path.md
 
 

@@ -89,3 +89,4 @@ rigging, character, animation, intermediate
 ## Related Tutorials
 - [Daily Blender Tip 86 - Simple Character Walk Cycle](daily-blender-tip-86---simple-character-walk-cycle.md) — shares rigging, character, animation; this uses the same character rig, continuing the series by adding a bone-parented prop after Part 3's walk cycle.
 - [Daily Blender Tip 84 - Rigging A Simple Character Part 1](daily-blender-tip-84---rigging-a-simple-character-part-1.md) — shares rigging, character, animation; Part 1 of the same series, providing the original Rigify rig this prop is parented to.
+- [Daily Blender Tip 88 - How To Make A Character Follow A Path](daily-blender-tip-88---how-to-make-a-character-follow-a-path.md) — shares rigging, character, animation; continues the same character rig series, making the (now hat-wearing) character follow a curve path via a Follow Path constraint.
