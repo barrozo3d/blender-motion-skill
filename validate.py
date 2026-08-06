@@ -96,8 +96,10 @@ def get_transcript_text(content):
     # The Ingest Safeguard Report box (inserted by ingest.py/select_frames.py for
     # needs-review files) ends with its own "\n---\n" divider that sits *before*
     # the real transcript — strip the whole box out first so the boundary check
-    # below doesn't mistake it for the end of the Raw Data section.
-    raw = re.sub(r"\n## Ingest Safeguard Report\n.*?\n---\n", "\n", raw, flags=re.DOTALL)
+    # below doesn't mistake it for the end of the Raw Data section. The heading
+    # itself sometimes carries a reviewer suffix (e.g. "-- Reviewed") when Claude
+    # Code has annotated it as checked, so match anything up to end-of-line there.
+    raw = re.sub(r"\n## Ingest Safeguard Report[^\n]*\n.*?\n---\n", "\n", raw, flags=re.DOTALL)
 
     boundary = re.search(r"\n---", raw)
     if boundary:
