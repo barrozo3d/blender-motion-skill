@@ -207,4 +207,4 @@ organic, procedural, abstract, intermediate
 ---
 
 ## Related Tutorials
-No other extracted BlenderSecrets tutorials in this library currently cover the Tissue add-on or vertex-group-driven modifier masking in this depth.
+- [Daily Blender Tip 135 - Tissue Add-on: Experiment 1](daily-blender-tip-135---tissue-add-on-experiment-1.md) — shares organic, procedural, intermediate; the channel's earlier first pass with the same Tissue Tools > Dual Mesh operator used here, that time paired with procedural Displace + Decimate experimentation instead of vertex-group masking.

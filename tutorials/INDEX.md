@@ -2267,9 +2267,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=aoZD_EwpWmo
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (earlier-era Tissue add-on workflow)
+- **Tags:** #organic #procedural #displacement #abstract #intermediate
+- **Summary:** Early exploratory pass: procedural Displace (Marble/Magic textures) bakes organic bumps into a sphere, Decimate simplifies it into low-poly facets, then Tissue's Dual Mesh operator + a Wireframe modifier transform it into a tangled cage-like structure. First of a 3-part experiment series.
 - **File:** tutorials/daily-blender-tip-135---tissue-add-on-experiment-1.md
 
 
