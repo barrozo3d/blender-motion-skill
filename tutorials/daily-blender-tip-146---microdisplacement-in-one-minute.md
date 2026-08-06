@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=i0c4uCa-WRQ
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: needs-review
+blender_version: "Not specified — true Cycles Adaptive Subdivision microdisplacement, Experimental feature set required, consistent with Blender 2.9x-5.x"
+tags: [displacement, shaders, cycles, materials, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/daily-blender-tip-146---microdisplacement-in-one-minute/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Daily Blender Tip 146 - Microdisplacement in one minute!
@@ -45,12 +46,7 @@ _Auto-generated at ingest/frame-capture time — explains why `extraction_status
 ---
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py daily-blender-tip-146---microdisplacement-in-one-minute <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### MICRODISPLACEMENT IN ONE MINUTE [0:00]
@@ -90,30 +86,57 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:09] tutorials/frames/daily-blender-tip-146---microdisplacement-in-one-minute/frame_000.jpg
+- [0:15] tutorials/frames/daily-blender-tip-146---microdisplacement-in-one-minute/frame_001.jpg
+- [0:22] tutorials/frames/daily-blender-tip-146---microdisplacement-in-one-minute/frame_002.jpg
+- [0:42] tutorials/frames/daily-blender-tip-146---microdisplacement-in-one-minute/frame_003.jpg
+- [0:51] tutorials/frames/daily-blender-tip-146---microdisplacement-in-one-minute/frame_004.jpg
+- [0:56] tutorials/frames/daily-blender-tip-146---microdisplacement-in-one-minute/frame_005.jpg
+- [1:08] tutorials/frames/daily-blender-tip-146---microdisplacement-in-one-minute/frame_006.jpg
+- [1:17] tutorials/frames/daily-blender-tip-146---microdisplacement-in-one-minute/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+True Cycles microdisplacement in a single minute: a Noise Texture's Fac output feeds a material's Displacement socket, Adaptive Subdivision is enabled via Cycles' Experimental feature set plus a Subdivision Surface modifier, and Material Displacement is set to True (real, not just Bump) — producing actual sculpted-looking geometric surface detail rather than a shading trick, with a Math (Multiply) node to control strength and the Dicing Scale controlling final render resolution.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the base object: the Add Mesh menu open with Round Cube highlighted, about to add a rounded primitive to subdivide smooth twice. Frame 001 shows a plain smooth gray sphere with a new material and a Noise Texture node added in the Shader Editor below. Frame 002 shows the Noise Texture's Fac output wired directly into the material's Displacement input socket (Displacement/Material Output nodes visible), the sphere still smooth since displacement isn't yet enabled at the render/material level. Frame 003 shows the payoff: the sphere now covered in a fine, sand-like bumpy surface, with Render Properties' Feature Set switched to **Experimental** in the sidebar — the setting that unlocks true adaptive-subdivision displacement in Cycles. Frame 004 shows the same sandy-textured sphere with a Subdivision Surface modifier added and its **Adaptive Subdivision** checkbox enabled (Cycles Dicing Rate settings visible below it). Frame 005 shows the Material Properties Settings panel with **Displacement** set to **Displacement** (labeled "True" in the caption, i.e. real geometric displacement rather than Bump/Bump+Displacement) alongside the Principled BSDF node graph. Frame 006 shows a Math node set to **Multiply** inserted between the Noise Texture and the Displacement socket, the sphere's surface bumps now visibly reduced in intensity — using the Multiply value to scale down displacement strength. Frame 007 shows the finished, richly-detailed rock/asteroid-like sphere with the Subdivision modifier's **Dicing Rate** area highlighted, captioned about the Dicing Scale controlling final surface resolution (lower = more detail, more render cost).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Add a **Round Cube** primitive and apply Subdivide Smooth twice for a good base sphere-like shape with real geometry to displace.
+2. Create a new Material and add a **Noise Texture** node in the Shader Editor.
+3. Connect the Noise Texture's **Fac** output directly to the material's **Displacement** socket (on the Material Output node).
+4. Use Node Wrangler (Ctrl+T or similar) to preview the node's output live in the viewport while adjusting settings.
+5. In Render Properties, switch the **Feature Set** to **Experimental** — this is required to unlock Cycles' true adaptive-subdivision displacement pipeline (regular Cycles only supports Bump-style fake displacement).
+6. Once Experimental is enabled, new **Geometry** settings appear in Render Properties for controlling subdivision/dicing behavior.
+7. Add a **Subdivision Surface** modifier to the object and enable its **Adaptive Subdivision** checkbox — this makes the mesh subdivide dynamically at render time based on camera distance, rather than using a fixed subdivision level.
+8. In Material Properties > Settings, set **Displacement** to **Displacement** (real geometric displacement, as opposed to Bump Only or Displacement and Bump) — labeled as setting "Displacement to True" in the video.
+9. Toggle in and out of Edit Mode to visually compare the object's cage geometry versus the actual displaced/subdivided render result.
+10. Add a **Math** node set to **Multiply**, insert it between the Noise Texture's Fac output and the Displacement socket, and use its Value input to scale the displacement strength up or down.
+11. Control final render detail via the Subdivision modifier's **Dicing Scale/Rate** — lower values produce more subdivision detail (and heavier render cost), higher values produce coarser, faster results.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Shader nodes:** Noise Texture (Fac output → Displacement), Math node (Multiply, for displacement strength control), Material Output (Displacement socket), Principled BSDF.
+- **Render Properties:** Feature Set = Experimental (required for true displacement), Geometry section (appears once Experimental is enabled), Dicing Rate/Scale (render resolution control).
+- **Material Settings:** Displacement = Displacement (real geometric displacement, not Bump Only).
+- **Modifiers:** Subdivision Surface with Adaptive Subdivision enabled.
+- **Base shape:** Round Cube primitive, Subdivide Smooth ×2.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — true Cycles Adaptive Subdivision microdisplacement requires the Experimental feature set, consistent with Blender 2.9x through 5.x.
 
 ### Tags
-[PENDING EXTRACTION]
+displacement, shaders, cycles, materials, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Easy PBR Textures - Blender Secrets](easy-pbr-textures---blender-secrets.md) — shares displacement, cycles, materials, intermediate; that fuller tutorial covers the same Experimental/Adaptive-Subdivision/Dicing-Scale displacement pipeline applied to real PBR texture sets rather than a procedural Noise Texture.

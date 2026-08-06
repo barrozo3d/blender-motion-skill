@@ -2197,9 +2197,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=i0c4uCa-WRQ
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Cycles Experimental Adaptive Subdivision; 2.9x-5.x)
+- **Tags:** #displacement #shaders #cycles #materials #intermediate
+- **Summary:** True Cycles microdisplacement: Noise Texture Fac → Displacement socket, Experimental feature set + Adaptive Subdivision modifier, Material Displacement set to real (not Bump), a Multiply node for strength control, and Dicing Scale for render detail.
 - **File:** tutorials/daily-blender-tip-146---microdisplacement-in-one-minute.md
 
 
