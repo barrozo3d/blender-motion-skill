@@ -2567,9 +2567,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=HqwpZutERRU
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Hair Particle System with Group render mode is a version-agnostic core Blender feature
+- **Tags:** particles, procedural, organic, intermediate
+- **Summary:** Scatters twig objects (built with Tip 66's Skin-modifier technique) across a tree trunk using a Hair Particle System set to Group render mode, Rotation = Normal for surface-aligned twigs, and tuned Amount/Size/Randomness for natural variation.
 - **File:** tutorials/daily-blender-tip-68---plant-part-2-adding-twigs-with-particles.md
 
 

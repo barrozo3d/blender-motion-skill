@@ -91,4 +91,4 @@ modelling, procedural, organic, beginner
 ---
 
 ## Related Tutorials
-No other extracted BlenderSecrets tutorials in this library currently cover the Skin modifier specifically.
+- [Daily Blender Tip 68 - Plant Part 2: Adding Twigs With Particles](daily-blender-tip-68---plant-part-2-adding-twigs-with-particles.md) — shares procedural, organic; that tutorial is the direct Part 2 follow-up, scattering smaller twig objects (built with this same technique) across the trunk via a Group Particle System.
