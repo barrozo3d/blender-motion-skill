@@ -108,3 +108,4 @@ rigid-body, simulation, beginner
 ## Related Tutorials
 - [Daily Blender Tip 140 - Fracture Modifier: Use Constraints](daily-blender-tip-140---fracture-modifier-use-constraints.md) — shares rigid-body, simulation; direct sequel covering Fracture Constraint Settings (Use Constraints, breaking Angle) that build on top of this tip's base Fracture Settings.
 - [Daily Blender Tip 141 - Fracture Modifier: Helper Add-on](daily-blender-tip-141---fracture-modifier-helper-add-on.md) — shares rigid-body, simulation; a third-party add-on that streamlines this tip's manual Fracture Settings workflow into one-click Add Fracture/Add RigidBody buttons.
+- [Daily Blender Tip 75 - More Fracture Stuff!](daily-blender-tip-75---more-fracture-stuff.md) — shares rigid-body, simulation; a simpler, stock-Blender alternative using the built-in Cell Fracture add-on + standard Rigid Body physics instead of this custom Fracture Modifier build.

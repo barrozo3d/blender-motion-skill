@@ -95,3 +95,4 @@ rigid-body, simulation, intermediate
 ## Related Tutorials
 - [Daily Blender Tip 139 - Blender Fracture Modifier Build - Quick Start](daily-blender-tip-139---blender-fracture-modifier-build---quick-start.md) — shares rigid-body, simulation; direct predecessor covering the base Fracture Settings (Shard Count, Execute Fracture) that this tip's Constraint Settings build on top of.
 - [Daily Blender Tip 141 - Fracture Modifier: Helper Add-on](daily-blender-tip-141---fracture-modifier-helper-add-on.md) — shares rigid-body, simulation, intermediate; complementary Fracture Modifier build tip, a workflow-speedup add-on there vs. constraint-breaking Angle tuning here.
+- [Daily Blender Tip 75 - More Fracture Stuff!](daily-blender-tip-75---more-fracture-stuff.md) — shares rigid-body, simulation; a simpler, stock-Blender alternative using the built-in Cell Fracture add-on + standard Rigid Body physics instead of the custom Fracture Modifier build.

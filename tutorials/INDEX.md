@@ -2537,9 +2537,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=ZDq2WOrqpRM
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — built-in Cell Fracture add-on + Rigid Body physics workflow is version-agnostic
+- **Tags:** simulation, rigid-body, procedural, beginner
+- **Summary:** Uses the built-in Cell Fracture add-on (distinct from the third-party Fracture Modifier build in Tips 139-141) to shatter a subdivided cube, then applies Rigid Body physics so the fragments explode/collapse realistically when played (Alt+A).
 - **File:** tutorials/daily-blender-tip-75---more-fracture-stuff.md
 
 
