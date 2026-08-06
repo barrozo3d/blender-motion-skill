@@ -2587,9 +2587,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=mOwgdioU1Pw
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Poliigon add-on + Material Settings Displacement dropdown is consistent with Cycles-based displacement across modern Blender versions
+- **Tags:** materials, workflow, add-on, beginner
+- **Summary:** Getting real geometric displacement working with Poliigon PBR materials: UV Unwrap the object, switch Material Settings > Displacement to True, Tab in/out of Edit Mode to refresh the mesh, and add a Subdivision Surface modifier for enough resolution to actually displace.
 - **File:** tutorials/daily-blender-tip-65---properly-use-poliigon-textures-and-add-on.md
 
 
