@@ -275,4 +275,5 @@ rigging, animation, cloth, simulation, rendering, particles
 ---
 
 ## Related Tutorials
+- [Making a new Logo Animation - Blender Secrets](making-a-new-logo-animation---blender-secrets.md) — shares rigid-body, animation; that video's stunt-cube-launched-through-hatch-doors sequence is a more elaborate application of this compilation's ragdoll Rigid Body Constraint technique.
 - [Daily Blender Secrets - 15 Tips Compilation (Part 2)](daily-blender-secrets---15-tips-compilation-part-2.md) — shares simulation, cloth, rigid-body; this video opens mid-sentence continuing Part 2's ragdoll build (Rigid Body Constraints, then Armature parenting) before moving into 13 further standalone tips.

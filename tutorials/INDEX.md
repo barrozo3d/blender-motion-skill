@@ -1587,9 +1587,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=7MIePxGcze0
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Cycles + GPU, Gaffer/Turbo Tools/Soundly add-ons; recent 4.x)
+- **Tags:** #rigid-body #animation #materials #lighting #rendering #compositing #brand-video #intermediate
+- **Summary:** Production-diary walkthrough (not a step-by-step lesson) of a logo animation: weighted-bevel hard-surface modeling, Rigid Body physics for a "stunt cube" launched through animated hatch doors, Cycles rendering with volume-lit gradient backdrops, Sequencer sound design via Soundly, and DaVinci Resolve grading.
 - **File:** tutorials/making-a-new-logo-animation---blender-secrets.md
 
 

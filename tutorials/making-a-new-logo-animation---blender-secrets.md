@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=7MIePxGcze0
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified — Cycles + GPU rendering, Gaffer/Turbo Tools/Soundly add-ons, consistent with recent 4.x"
+tags: [rigid-body, animation, materials, lighting, rendering, compositing, brand-video, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/making-a-new-logo-animation---blender-secrets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Making a new Logo Animation - Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py making-a-new-logo-animation---blender-secrets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -202,30 +198,79 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:58] tutorials/frames/making-a-new-logo-animation---blender-secrets/frame_000.jpg
+- [2:09] tutorials/frames/making-a-new-logo-animation---blender-secrets/frame_001.jpg
+- [3:41] tutorials/frames/making-a-new-logo-animation---blender-secrets/frame_002.jpg
+- [5:10] tutorials/frames/making-a-new-logo-animation---blender-secrets/frame_003.jpg
+- [6:52] tutorials/frames/making-a-new-logo-animation---blender-secrets/frame_004.jpg
+- [9:13] tutorials/frames/making-a-new-logo-animation---blender-secrets/frame_005.jpg
+- [10:22] tutorials/frames/making-a-new-logo-animation---blender-secrets/frame_006.jpg
+- [11:19] tutorials/frames/making-a-new-logo-animation---blender-secrets/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A "behind the scenes" production diary (explicitly not a step-by-step tutorial) walking through a full logo-animation pipeline: clean quad-topology hard-surface modeling of a box+keyhole logo, Rigid Body physics for text/prop animation (including a "stunt cube" launched through animated hatch doors), Cycles rendering with drag-and-drop PBR materials and volume-based gradient lighting, Blender-Sequencer sound design via the Soundly add-on, and final color grading in DaVinci Resolve.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the early modeling stage: a keyhole-shaped cutter object (all-quad, Mirror + Subdivision modifiers visible in the sidebar) about to be used as a Boolean cutter on the box shape. Frame 001 shows the post-boolean cleanup result in wireframe/X-ray: a clean quad-topology keyhole cut into the box face, with a Bevel modifier (Limit Method: Weight, Edge Weight: bevel_weight_edge) visible in the sidebar — the "convert creased edges to Bevel Weight 1, then use a weighted Bevel modifier" technique. Frame 002 shows the Quad Remesher add-on's panel open over freshly-converted "3D Secr..." text geometry, mid-remesh-progress, retopologizing the ugly default font extrusion into clean quads. Frame 003 shows the Object > Rigid Body > "Bake to Keyframes" menu item highlighted over the falling "Secrets" text letters, mid-simulation, next to the keyhole box model — the step that converts a satisfactory rigid-body sim into hand-editable keyframes. Frame 004 shows the "stunt cube" launch setup: a Top Orthographic view with a Timeline showing sparse keyframes, an orange cube (the visible logo prop) overlapping a transparent hatch-door cutout in a green floor plane, illustrating the hidden stunt-cube-drives-visible-logo-cube parenting rig. Frame 005 shows the fully rendered logo (keyhole box + "3D Secrets" text) in a two-pane layout — Rendered viewport on the left, an Asset Browser materials shelf (the paid Sanctus Material Library) open at the bottom with dozens of drag-and-drop metallic material thumbnails. Frame 006 shows the volumetric background-gradient lighting setup: a purple-to-pink glowing backdrop behind the rendered logo, with an Area Light's Shader node graph open in the sidebar and a materials shelf still visible at the bottom — the "colored Area Lights shining into a volume-material cube behind the scene" trick. Frame 007 shows the final color-grading pass in DaVinci Resolve: the rendered "3D Secrets" logo clip on the timeline with Color Wheels, a Curves panel, and Waveform/Parade scopes open — the finishing polish step (vignette, film emulation, slider tweaks).
 
 ### Key Steps
-[PENDING EXTRACTION]
+**Modeling:**
+1. Model the keyhole shape first and use it as a Boolean cutter on the box — kept intentionally all-quad even though not strictly required, as topology practice.
+2. Shape the box lid via a loop cut, beveled, with the geometry between the bevel loops removed; fill resulting holes on both objects; enable random per-object viewport colors (Overlays) to distinguish objects more easily while modeling, and Cavity + Shadow overlays for extra visual clarity.
+3. After using the keyhole as a cutter, apply the Boolean modifier, then clean up resulting n-gons back into quads in preparation for subdivision.
+4. Use Inset then Outset (I then O) to add a protective support loop around the keyhole opening.
+5. **Weighted-bevel technique for clean, subdivision-safe sharp edges:** crease the edges that should stay sharp and test with a Subdivision modifier; then, to allow beveling everything uniformly, convert those creased edges to Bevel Weight 1 (instead of relying on Crease alone) and add a Bevel modifier set to 2 Segments (giving 3 holding edges) with Limit Method set to Weight, so only the marked edges are affected — width around 0.002m (2mm) for a sharp look, or 0.02m (2cm) for a softer one.
+6. Duplicate the object into a backup collection before applying modifiers (standard non-destructive safety net), then apply the Bevel modifier to finalize geometry.
+7. Add a camera early — it helps plan shots/timing while the rest of the animation is built.
+8. Explore Simple Deform modifier for quick shape variation ideas (clean quad topology makes this look good) — ultimately not used in favor of rigid body physics.
+9. **Overhang fix for beveled subdivision surfaces:** if converging bevel edges create an overhang artifact, set the Bevel modifier's Outer Miter to Arc, then manually connect the converging vertices with an edge (select two verts, press J) to form two triangles — with 2 Bevel segments, Blender automatically resolves those triangles into quads and the overhang disappears.
+10. **Text:** install a font from Google Fonts into the OS, refresh Blender's font list to use it; tweak Curve thickness/bevel, convert to mesh; run the paid Quad Remesher add-on on the resulting ugly extruded-font geometry for a clean quad retopology (front/back faces may end up disconnected from the middle — fix by deleting the front cap and manually re-extruding); crease/bevel-weight the sharp edges the same way as the box, using the Outer-Miter-Arc + J-connect trick again where needed.
+
+**Rigid Body Animation:**
+11. Separate combined text into individual letter objects; add a ground plane. **Origin placement is critical for rigid body sims** — set the 3D cursor to each object's bottom, then Object > Set Origin > Origin to 3D Cursor, so objects don't immediately topple.
+12. Convert letters (and other props) to Active Rigid Bodies, run the simulation, and once satisfied, bake the result to keyframes (Object > Rigid Body > Bake to Keyframes) for hand-editable, reliable playback.
+13. Parent each rigid-body text object to an Empty to control scale/placement independently; animate Scale from 0 to 1 over a few frames for a "pop into existence and fall" intro effect. Tip: typing "scale" into the Timeline's search bar isolates just the Scale channel's keyframes for easier fine-tuning.
+14. **"Stunt cube" rig for a launched-prop shot:** build a separate invisible "stunt cube" to carry the rigid-body physics, then parent the actual visible logo cube to it — this keeps the logo's orientation clean regardless of how chaotically the stunt cube tumbles. Cut a hole in the floor with a Boolean cutter cube; animate the stunt cube's launch by keyframing its Z location plus toggling its "Animated" rigid-body property off in a single frame, giving it upward velocity before the simulation takes over; model animated hatch doors (a handful of simple keyframes) that open just before the cube launches through and close after, set as Passive Rigid Bodies marked Animated so the sim respects their motion; tune Bounciness and add a slight initial rotation for a more convincing, dynamic bounce; once happy, bake the stunt cube's motion to keyframes and parent the visible logo cube to it, hiding the stunt cube itself.
+15. General physics-animation notes: rigid body results are unpredictable — expect a lot of trial and error; when Blender throws a workflow-blocking error (in this case: "No suitable context info for active keying set" while adjusting the camera), sometimes the fastest fix is to open a fresh blend file and append everything from the old one rather than debugging the error directly.
+16. **Pacing matters:** once individual elements were each polished, the overall timing still felt cluttered because too many things moved at once — a viewer can only focus on one thing at a time, so deliberately stagger/simplify simultaneous motion.
+
+**Sound, Rendering, Lighting, Grading:**
+17. Add sound effects directly in Blender's Sequencer using the **Soundly** add-on (a sound browser pulling from free/paid libraries, including freesound.org via the free tier) — preview a clip, trim to the needed section, drag directly into the Sequencer, then sync and adjust volume against the visuals.
+18. Render in **Cycles** (chosen for a softer, more subtle look than EEVEE here) with GPU rendering enabled, plus the **Turbo Tools** add-on for render-speed optimization.
+19. Materials from the paid **Sanctus Material Library** (ships with an Asset Browser collection) — drag-and-drop directly onto objects; UV-unwrap first via Edit Mode > select all > U > Smart UV Project.
+20. Lighting: Area Lights only, controlled through the **Gaffer** add-on's UI; switched to a longer camera focal length to visually pull scene elements together into a more cohesive composition.
+21. **Uplight effect:** an Area Light pointing upward plus a cube with a low-density Volume material placed under the "launch hole," for a glow shining up through the floor.
+22. **Volumetric gradient backdrop:** a large cube with a Principled Volume material placed behind all objects, lit by colored Area Lights shining into it — creates a soft dreamy gradient background and makes the ground plane fade into fog; keep Volume Density low ("less is more").
+23. Rotated individual text-letter objects slightly in Edit Mode for added depth and better camera-facing angles.
+24. Added an Empty as the camera's Depth of Field target for a shallow-DOF look — used sparingly to avoid overdoing the effect.
+25. Ran a quick low-res test render before committing to a full render — standard sanity check before a long render.
+26. Final color grading and polish (vignette, film emulation, slider adjustments) done in **DaVinci Resolve** after rendering an image sequence out of Blender.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Modeling:** Boolean modifier (keyhole cutter), Bevel modifier (Limit Method: Weight, using Edge Bevel Weight instead of/alongside Crease; Outer Miter: Arc for overhang fixes), Simple Deform modifier (explored, not used), Mirror + Subdivision Surface stack, Inset+Outset (I then O), J (connect vertices to fix overhangs).
+- **Add-ons:** Quad Remesher (paid, text retopology), Soundly (sound effects browser/Sequencer integration), Turbo Tools (Cycles render speed), Gaffer (Area Light control UI), Sanctus Material Library (paid, drag-and-drop PBR materials with Asset Browser).
+- **Rigid Body:** Object > Set Origin > Origin to 3D Cursor (critical for stable sims), Active/Passive Rigid Body types, "Animated" property toggle (for scripted-motion passive bodies mid-sim), Bake to Keyframes, Bounciness tuning.
+- **Animation:** Empty parenting for independent scale/placement control, Timeline search-by-channel-name (e.g. "scale") to isolate keyframes.
+- **Rendering/Lighting:** Cycles + GPU, Area Lights, Principled Volume material (backdrop gradient + underlighting), camera Depth of Field with an Empty target, longer focal length for composition.
+- **UV:** Smart UV Project (U menu) for fast material-ready unwraps.
+- **Post:** DaVinci Resolve Color Wheels, Curves, vignette and film emulation effects.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate (the video is an overview/BTS diary rather than a guided lesson, and assumes comfort with modeling, rigid body physics, and rendering fundamentals)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — uses Cycles + GPU rendering and the Gaffer/Turbo Tools/Soundly/Quad Remesher/Sanctus add-ons, consistent with a recent Blender 4.x release.
 
 ### Tags
-[PENDING EXTRACTION]
+rigid-body, animation, materials, lighting, rendering, compositing, brand-video, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Daily Blender Secrets - 15 Tips Compilation (part 3)](daily-blender-secrets---15-tips-compilation-part-3.md) — shares rigid-body, animation; that compilation's ragdoll Rigid Body Constraint section is a more focused version of this video's stunt-cube/rigid-body prop animation technique.
