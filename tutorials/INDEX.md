@@ -2247,9 +2247,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=8wimWMzVA9M
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (earlier-era Tissue add-on Tesselate operator)
+- **Tags:** #organic #procedural #abstract #intermediate
+- **Summary:** Final Tissue experiment: a branching "unit" object grows itself fractally via Tissue's Tesselate + repeated Refresh, then a Remesh modifier set to Metaball fuses the resulting branch network into one smooth organic tree/coral surface.
 - **File:** tutorials/daily-blender-tip-137---tissue-add-on-experiment-3.md
 
 
