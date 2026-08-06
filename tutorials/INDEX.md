@@ -2717,9 +2717,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=d028uL7ZRXE
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (bundled add-on, disabled by default)
+- **Tags:** #materials #beginner
+- **Summary:** Enables the bundled-but-inactive Import Images as Planes add-on (Preferences search + Save User Settings); once active, Shift+A imports any image as a textured plane with shader nodes (including PNG alpha) auto-wired, demoed by compositing smoke into a photoreal interior render.
 - **File:** tutorials/daily-blender-tip-43---import-images-as-planes-add-on.md
 
 

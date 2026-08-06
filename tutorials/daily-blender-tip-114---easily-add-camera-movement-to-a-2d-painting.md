@@ -109,4 +109,5 @@ animation, camera, materials, motion-design, beginner
 ---
 
 ## Related Tutorials
+- [Daily Blender Tip #43 - Import Images As Planes Add-On](daily-blender-tip-43---import-images-as-planes-add-on.md) — shares materials, beginner; the introductory tutorial for the Import Images as Planes add-on this video's whole technique is built on.
 - [Creating a Realistic Forest in Blender using Billboards (low poly Planes with tree images)](creating-a-realistic-forest-in-blender-using-billboards-low-poly-planes-with-tre.md) — shares camera, beginner; both use the Images as Planes add-on to turn 2D artwork into camera-facing scene elements, here for depth animation rather than particle-scattered billboards.
