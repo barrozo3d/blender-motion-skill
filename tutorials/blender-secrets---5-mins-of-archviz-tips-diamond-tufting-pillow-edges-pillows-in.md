@@ -139,3 +139,4 @@ cloth, simulation, materials, procedural, intermediate
 ## Related Tutorials
 - [Realistic Cloth Physics in Blender – Full Tutorial](realistic-cloth-physics-in-blender-full-tutorial.md) — shares cloth, simulation, intermediate; direct complement (general cloth-sim fundamentals vs. these applied ArchViz recipes).
 - [15 Blender Secrets (Compilation of 15 Blender Tutorials in 11 minutes)](15-blender-secrets-compilation-of-15-blender-tutorials-in-11-minutes.md) — shares materials, cloth, simulation, intermediate; same channel, overlapping cloth-curtain-to-mesh technique.
+- [Interactive Cloth + new Cloth Brushes & more - Blender Secrets](interactive-cloth-new-cloth-brushes-more---blender-secrets.md) — shares cloth, simulation, intermediate; this video's "Interactive Cloth" pillow-placement tip is expanded into a full dedicated tutorial there, covering the Hook+Pin-Group rig and Blender 4.3's Cloth sculpt brushes in depth.

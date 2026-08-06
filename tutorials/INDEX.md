@@ -1617,9 +1617,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=bHmZfA07F0Y
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.3+ (Cloth sculpt brush split into several dedicated brushes)
+- **Tags:** #cloth #simulation #rigging #intermediate
+- **Summary:** Poses cloth interactively via a Hook+Pin-Group rig (drag a pinned vertex in Object Mode while the sim plays), refines with Blender 4.3's split-out Cloth sculpt brushes, and bakes efficiently by rehearsing motion via Auto-Keying before a full-quality bake.
 - **File:** tutorials/interactive-cloth-new-cloth-brushes-more---blender-secrets.md
 
 

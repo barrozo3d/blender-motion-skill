@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=bHmZfA07F0Y
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.3+ (the cloth sculpt brush was split into several dedicated brushes starting in this release)"
+tags: [cloth, simulation, rigging, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/interactive-cloth-new-cloth-brushes-more---blender-secrets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Interactive Cloth + new Cloth Brushes & more - Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py interactive-cloth-new-cloth-brushes-more---blender-secrets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -167,30 +163,58 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:32] tutorials/frames/interactive-cloth-new-cloth-brushes-more---blender-secrets/frame_000.jpg
+- [2:29] tutorials/frames/interactive-cloth-new-cloth-brushes-more---blender-secrets/frame_001.jpg
+- [3:56] tutorials/frames/interactive-cloth-new-cloth-brushes-more---blender-secrets/frame_002.jpg
+- [6:33] tutorials/frames/interactive-cloth-new-cloth-brushes-more---blender-secrets/frame_003.jpg
+- [7:14] tutorials/frames/interactive-cloth-new-cloth-brushes-more---blender-secrets/frame_004.jpg
+- [8:06] tutorials/frames/interactive-cloth-new-cloth-brushes-more---blender-secrets/frame_005.jpg
+- [8:28] tutorials/frames/interactive-cloth-new-cloth-brushes-more---blender-secrets/frame_006.jpg
+- [10:07] tutorials/frames/interactive-cloth-new-cloth-brushes-more---blender-secrets/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Placing and posing a cloth simulation interactively via a Hook + Pin Group (grabbing and dragging one pinned vertex in Object Mode while the sim plays), then refining the result with Blender 4.3's split-out Cloth sculpt brushes, and finally baking high-quality settings efficiently by first recording a low-quality "rehearsal" via keyframed Auto Keying before baking the real simulation at full quality.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the setup's collision object: a flattened, Z-scaled cube selected in Object Mode, the starting point before adding the cloth grid above it. Frame 001 shows the core rig: a blue subdivided Grid (the future cloth) hovering just above a green collision cube, an Empty's axis cross visible at the grid's center vertex — the Hook object created via Ctrl+H. Frame 002 shows the Cloth modifier's Hook settings panel open in the sidebar (Object: Empty, Vertex Group, Strength, Falloff) with the timeline scrubber near frame 0 — confirming the Hook-to-Empty setup on the pinned vertex. Frame 003 shows the simulation mid-play: the grid now draped over the collision cube's corner like real cloth, an Object menu open with "Visual Geometry to Mesh" highlighted — the step that bakes the live simulation into static geometry. Frame 004 shows the baked cloth mesh in Sculpt Mode, now shaded reddish and heavily creased/dragged into deep folds by the Drag Cloth brush, brush palette visible along the bottom. Frame 005 shows a further-refined result — finer, more numerous folds after reducing brush strength for more control, still using a drag-style cloth brush at higher mesh resolution (26,922 vertices reported top-left). Frame 006 shows the Cloth Brushes flyout menu open (Bend Planar, Bend Cloth, Drag Cloth, Expand/Contract Cloth, Grab Planar Cloth highlighted, Pinch/Perpendicular/Point/Multi Grab variants), illustrating Blender 4.3's split of the old single Cloth brush into many dedicated options. Frame 007 shows the Cloth modifier's Physical Properties/Damping panel open (Tension, Compression, Shear, Bending fields, plus a Self Collisions checkbox) on the un-deformed flat grid/collision setup — the tunable parameters used later for quality experiments.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Build the rig:** create a collision object (e.g. a Cube, scaled down on Z); Shift+right-click to place the 3D cursor on top of it, then add a Grid (a pre-subdivided plane) there; subdivide the grid a couple more times so it has enough geometry to fold realistically.
+2. **Create a pin point via a Hook:** select a single vertex on the grid (a middle one is convenient), create a Vertex Group ("+"), click Assign to add just that vertex to it (verify via Weight Paint mode); with the vertex still selected, Ctrl+H > Hook to New Object — this creates an Empty that can grab and move that vertex from Object Mode instead of requiring Edit Mode.
+3. **Set up collision and cloth physics:** select the cube, enable Collision (under Physics); select the grid, enable Cloth; under the Cloth modifier's Shape section, set Pin Group to the vertex group made in step 2 — pinned vertices stay fixed relative to the simulation but can still be moved via the Hook; enable Self Collisions to prevent the cloth intersecting itself.
+4. **Extend the timeline/cache:** the default timeline is short and loops; extend it (e.g. to 10,000 frames) for room to experiment, and separately extend the Cloth cache length (Physics > Cloth > Cache) to match, or the simulation stops calculating past the old cache length even with a longer timeline.
+5. **Play and pose interactively:** press Play, then click the Hook Empty and press G to drag it around in real time while the cloth simulates and drapes over the collision object — Shift+Z while moving locks movement to the X/Y plane only (useful for placing cloth like a tablecloth on a surface without lifting it). Pause and rewind as needed to re-try a placement; this is especially useful for archviz work like draping a towel realistically on a sofa or bed.
+6. **Bake the pose to real geometry:** once satisfied with a frame's drape, select the object in Object Mode, Ctrl+A > Visual Geometry to Mesh converts the live simulation result at that frame into static mesh geometry, ending the simulation dependency.
+7. **Refine with the new Cloth sculpt brushes (Blender 4.3+):** in Sculpt Mode, open the brush picker's Simulation category to find the split-out Cloth brushes (Drag Cloth, Bend Cloth, Bend Planar, Expand/Contract Cloth, Grab Planar Cloth, Pinch/Point/Perpendicular/Multi-Grab variants, etc.) — each isolates a specific behavior that used to be a buried option on one all-purpose brush. Low mesh resolution makes cloth brushes behave poorly; a Multiresolution modifier was found unreliable for this specific use, so the author prefers adding one Subdivision level in Object Mode and applying it directly for a denser, simpler mesh (25,600 faces in this example) that sculpts more predictably. Change brush radius with F; keep Strength low (≈0.1) for controllable, gradual fold-building rather than one strong stroke; hold Shift to smooth/blur an area back down if a brush pass goes too far.
+8. **Efficient high-quality baking via a "keyframed rehearsal":** very high Cloth Quality/Collision Quality settings (e.g. Quality 80, Collision Quality 20) make live playback far too slow to interactively pose. Workaround: temporarily disable the Collision modifier's viewport display, enable Auto Keying, select the Hook Empty, press Play, move the Empty to the desired path/position, Pause, then disable Auto Keying — this records the Empty's motion as keyframes at low simulation cost. Re-enable the Collision modifier, raise Cloth/Collision Quality to the real target values, and click Bake — the simulation now recalculates using the recorded Empty keyframes at full quality (slow, but only needs to run once); a blue line in the timeline indicates the cache is baked, after which scrubbing just plays back cached results instead of re-simulating. Delete existing bakes before re-baking with changed settings.
+9. **Tuning physical properties for the biggest visual impact:** of all the Cloth Physical Properties, **Vertex Mass** and **Air Viscosity** have by far the most visible effect on how the drape looks — the author recommends experimenting mainly with these two, since most other Physical Property values only produce very subtle differences. For the collision object, the **Friction** value strongly affects how easily the cloth slides across its surface (high friction = cloth "grips" and barely slides).
+10. **Geometry sizing gotchas:** cloth simulations need a "reasonable" polygon count for their real-world size — too few faces (or an object that's too small in world scale) causes the cloth to visibly shrivel/crunch up during simulation; too many faces (or too large a scale) causes different but also undesirable behavior. In this example, 1,600 faces was found to be a good balance; doubling that caused simulation problems. If cloth is shriveling, try scaling the object up in Object Mode as a first fix.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Rig objects:** Collision modifier (on the base object), Cloth modifier (Shape > Pin Group, Self Collisions), Hook modifier (created via Ctrl+H > Hook to New Object; Object, Vertex Group, Strength, Falloff fields).
+- **Vertex Groups:** used both for the Pin Group and (implicitly) for the Hook's vertex association.
+- **Cloth Physical Properties:** Vertex Mass (most impactful), Air Viscosity (most impactful), Friction (on the collision object), Tension/Compression/Shear/Bending (Damping section — subtle effects).
+- **Cache:** Physics > Cloth > Cache (must be extended to match a longer timeline), Bake button, cache-baked indicator (blue timeline bar), Delete Bake.
+- **Sculpt Mode Cloth brushes (4.3+):** Drag Cloth, Bend Cloth, Bend Planar, Expand/Contract Cloth, Grab Planar Cloth, Pinch/Point/Perpendicular/Multi-Grab variants; brush Radius (F), Strength, Shift-to-smooth.
+- **Other:** Ctrl+A > Visual Geometry to Mesh (bake simulation frame to static geometry), Auto Keying toggle (for recording Empty motion cheaply before a full-quality bake), Shift+Z (axis-lock movement while dragging with G), Shade Smooth + Subdivision Surface modifier (Ctrl+1) for a cleaner final look, per-object random Viewport Display colors (or Matcap shading) for easier visual debugging.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.3 or later — the video explicitly states the Cloth sculpt brush was split into several dedicated brushes with previously-obscure options exposed, starting around this release.
 
 ### Tags
-[PENDING EXTRACTION]
+cloth, simulation, rigging, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender Secrets - 5 mins of ArchViz Tips (Diamond Tufting, Pillow Edges, Pillows, Interactive Cloth)](blender-secrets---5-mins-of-archviz-tips-diamond-tufting-pillow-edges-pillows-in.md) — shares cloth, simulation, intermediate; that video's brief "Interactive Cloth" pillow-placement tip is expanded into the full Hook+Pin-Group rig and Blender 4.3 Cloth sculpt brushes taught here.
+- [Daily Blender Secrets - 15 Tips Compilation (Part 2)](daily-blender-secrets---15-tips-compilation-part-2.md) — shares cloth, simulation; that compilation's Tip 13 "Flag" segment covers a simpler Cloth+Pinning+Wind setup, this video goes deeper on interactive posing via Hooks and the newer sculpt brushes.
