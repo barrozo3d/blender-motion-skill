@@ -114,4 +114,5 @@ particles, camera, organic, beginner
 ---
 
 ## Related Tutorials
+- [Daily Blender Tip 114 - Easily Add Camera Movement To A 2D Painting](daily-blender-tip-114---easily-add-camera-movement-to-a-2d-painting.md) — shares camera, beginner; both use the Images as Planes add-on to bring 2D art into a scene, there for a faked-parallax depth animation rather than particle-scattered billboard trees.
 - [Procedural Grass in Blender Geometry Nodes](procedural-grass-in-blender-geometry-nodes-fast-viewport-se.md) — shares particles, organic, beginner; same "cheap background scatter that reads correctly from camera" goal, just via Geometry Nodes instancing instead of a legacy Hair particle system + billboard constraint.

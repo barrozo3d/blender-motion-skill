@@ -2337,9 +2337,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=KMcdkXGBTo8
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Images as Planes + Shape Keys, version-agnostic)
+- **Tags:** #animation #camera #materials #motion-design #beginner
+- **Summary:** Fakes camera-move parallax on a still 2D painting by splitting it into depth-offset image planes (Images as Planes add-on, foreground PNG with alpha) each skewed via an animated Shape Key.
 - **File:** tutorials/daily-blender-tip-114---easily-add-camera-movement-to-a-2d-painting.md
 
 
