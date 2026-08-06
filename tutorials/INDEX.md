@@ -1537,9 +1537,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=jrR1T-dIA8c
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5 (explicitly named)
+- **Tags:** #modelling #procedural #beginner #intermediate
+- **Summary:** Two hole-modeling approaches: a fast vertex-bevel/LoopTools-Circle method that leaves n-gons, and an all-quad subdivision-ready method using three intersecting edge loops plus edge-creasing to keep corners sharp under a Subdivision modifier.
 - **File:** tutorials/easy-hole-modeling-for-beginners---blender-secrets.md
 
 

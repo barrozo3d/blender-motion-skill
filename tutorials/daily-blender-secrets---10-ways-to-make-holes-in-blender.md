@@ -163,3 +163,4 @@ modelling, procedural, intermediate
 ## Related Tutorials
 - [Blender Secrets - 6 Minutes of Boolean Basics](blender-secrets---6-minutes-of-boolean-basics.md) — shares modelling, procedural, intermediate; that tutorial goes deep on the BoolTool/Boolean-modifier method (#2 here) plus cleanup, this one surveys 9 other hole-cutting alternatives.
 - [Daily Blender Secrets - 15 Tips Compilation (Part 2)](daily-blender-secrets---15-tips-compilation-part-2.md) — shares modelling, procedural; that compilation's Tips 5-6 (Bevel Holes, Round Holes) cover the same bevel-vertex and LoopTools Circle methods (#3 and #4 here) as standalone tips within a broader mix.
+- [Easy hole modeling for beginners - Blender Secrets](easy-hole-modeling-for-beginners---blender-secrets.md) — shares modelling, procedural; a deeper dive on this survey's "Bevel vertex" and "LoopTools Circle" methods (#3-4), plus an added all-quad subdivision-ready topology technique not covered here.

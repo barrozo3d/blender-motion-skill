@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=jrR1T-dIA8c
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5 (explicitly named: \"Blender 5 has really nice matcaps\")"
+tags: [modelling, procedural, beginner, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/easy-hole-modeling-for-beginners---blender-secrets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Easy hole modeling for beginners - Blender Secrets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py easy-hole-modeling-for-beginners---blender-secrets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -83,30 +79,64 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:03] tutorials/frames/easy-hole-modeling-for-beginners---blender-secrets/frame_000.jpg
+- [0:22] tutorials/frames/easy-hole-modeling-for-beginners---blender-secrets/frame_001.jpg
+- [0:28] tutorials/frames/easy-hole-modeling-for-beginners---blender-secrets/frame_002.jpg
+- [0:47] tutorials/frames/easy-hole-modeling-for-beginners---blender-secrets/frame_003.jpg
+- [1:06] tutorials/frames/easy-hole-modeling-for-beginners---blender-secrets/frame_004.jpg
+- [1:49] tutorials/frames/easy-hole-modeling-for-beginners---blender-secrets/frame_005.jpg
+- [2:04] tutorials/frames/easy-hole-modeling-for-beginners---blender-secrets/frame_006.jpg
+- [2:14] tutorials/frames/easy-hole-modeling-for-beginners---blender-secrets/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Two escalating approaches to modeling a round hole: (1) a fast vertex-bevel + boolean-style extrude workflow that's quick but leaves n-gons, and (2) an all-quad, subdivision-ready topology workflow using three intersecting edge loops, edge bevels, and vertex-connect (J) — plus edge creasing/support-loop techniques to keep corners sharp under a Subdivision modifier.
 
 ### Summary
-[PENDING EXTRACTION]
+Frame 000 shows the starting point: a bare 2×2-subdivided plane in a trapezoid-shaped perspective view, before any hole work. Frame 001 shows the fast method's payoff mid-bevel: the center vertex bevel operator panel open (Width Type Offset, Profile Shape ~0.089) with a dense orange circular fan of new vertices at the plane's center. Frame 002 shows the same setup with the right-click context menu open, "Vertices" submenu visible — the point where LoopTools > Circle would be chosen for a perfect circle instead of manually tuning the bevel profile. Frame 003 shows the fast method scaled up to production use: a cube whose faces are covered in the extruded circular holes (Alt+E "Extrude Faces Along Normals" prompt shown), demonstrating the technique working at scale despite the resulting n-gons. Frame 004 shows the start of the all-quad method: two intersecting orange edge loops crossing the plane's center, with a Bevel operator panel open (Width Type Offset, Width 0.32m, Loop Slide enabled) — beveling the two crossing edges to produce the three-intersecting-edge-loop pattern the quad topology needs. Frame 005 shows a close, wireframe-style view of the resulting octagon-like vertex ring at the intersection after the edge bevel and center vertex bevel are both applied — the geometry about to be connected pairwise with J. Frame 006 shows the completed all-quad hole: a clean octagonal hole extruded into the plane with a Subdivision modifier applied (Catmull-Clark, Levels Viewport 4, Optimal Display), rounding the opening smoothly. Frame 007 shows the same hole with the Subdivision modifier's "Display modifier in Edit Mode" icon being disabled (highlighted with a red arrow, tooltip "By disabling this icon, the modifier is disabled in Edit Mode, making it easier to work"), a workflow tip for editing underlying cage geometry without visual clutter.
 
 ### Key Steps
-[PENDING EXTRACTION]
+**Fast method (creates n-gons):**
+1. Select a single vertex where the hole should go and press Shift+Ctrl+B to bevel it into a circular vertex fan; scroll the mouse wheel (or use Numpad +/−, or the operator redo panel) to add more segments.
+2. Set the bevel's Profile Shape to ≈0.0865 for a rounded circular profile, or simply right-click and choose LoopTools > Circle (requires enabling the LoopTools add-on in Preferences) for a mathematically perfect circle instead of hand-tuning the profile.
+3. Select the resulting circular face(s) — this works for several holes selected at once — and press Alt+E > Extrude Faces Along Normals to punch the hole inward.
+4. Trade-off: this quick boolean-style workflow produces n-gons (faces with 5+ edges) at the hole boundary. N-gons are acceptable in many boolean or non-subdivided workflows, but must be avoided for a clean subdivision ("all-quad") workflow, e.g. hard-surface sculpting prep.
+
+**All-quad method (subdivision-ready, no n-gons):**
+1. In Edge Select mode, select two intersecting edges at the hole location and press Ctrl+B to bevel them together, needing 2 segments to produce three intersecting edge loops (adjust segment count via middle-mouse-drag, Numpad +, or the redo panel).
+2. Switch back to Vertex Select mode and bevel the now-present center vertex with Shift+Ctrl+B as before, adjusting the profile in the redo panel or using LoopTools > Circle.
+3. Select vertex pairs around the ring two at a time (Shift-click) and press J (Connect Vertex Path) to stitch them into all-quad faces.
+4. Switch to Face Select mode, select the resulting center faces, and press E to extrude them into the hole (or press X/Delete > Faces to just remove them for an open hole).
+5. A Subdivision Surface modifier now rounds the hole smoothly since there are no n-gons to distort — but it will also round off the mesh's outer corners unintentionally.
+6. To keep specific corners sharp under Subdivision: either select the corner edges and press Shift+E then type 1 on the numpad to set Edge Crease to maximum (crease only works inside Blender, not on export), or add extra support-loop geometry via Ctrl+B on those edges with Profile Shape 1 and 2 segments — the closer together the two loops, the sharper the corner stays; this geometry-based approach is required when exporting to other software since creasing doesn't survive export.
+7. Finish with Shade Auto Smooth (right-click menu) for a smoother viewport look; Blender 5's matcaps are called out as a nice way to preview hard-surface models like this in the viewport.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Vertex Bevel:** Shift+Ctrl+B, Width Type: Offset, adjustable Segments and Profile Shape (≈0.0865-0.089 for round).
+- **Edge Bevel:** Ctrl+B on two intersecting edges, 2 Segments needed for 3 resulting intersecting loops, Loop Slide enabled.
+- **LoopTools add-on:** Circle operator (enable in Preferences) for perfect circular vertex rings, used on both the vertex-bevel fan and the edge-bevel ring.
+- **Connect Vertex Path:** J, applied pairwise around the ring to build all-quad faces.
+- **Extrude:** E (faces), Alt+E > Extrude Faces Along Normals (multi-selection extrude for the fast method).
+- **Edge Crease:** Shift+E, then 1 on the numpad for max crease (Blender-only, doesn't survive export).
+- **Subdivision Surface modifier:** Catmull-Clark, Levels Viewport (seen at 4), Optimal Display, "Display modifier in Edit Mode" toggle for cleaner editing.
+- **Shading:** Shade Auto Smooth (right-click context menu).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner (fast method) to Intermediate (all-quad topology method)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5 — explicitly named in the transcript ("Blender 5 has really nice matcaps that you can use to make your models more visually appealing in the viewport").
 
 ### Tags
-[PENDING EXTRACTION]
+modelling, procedural, beginner, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Daily Blender Secrets - 10 ways to make Holes in Blender](daily-blender-secrets---10-ways-to-make-holes-in-blender.md) — shares modelling, procedural; that survey's "Bevel vertex" and "LoopTools Circle" methods (#3-4) are the same fast technique taught here in more depth, alongside this video's added all-quad topology method.
+- [Daily Blender Secrets - 15 Tips Compilation (Part 2)](daily-blender-secrets---15-tips-compilation-part-2.md) — shares modelling, procedural; Tips 5-6 (Bevel Holes, Round Holes with Quad Topology) cover both the fast and all-quad hole methods taught here, as two of many shorter tips.
