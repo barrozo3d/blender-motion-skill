@@ -2377,9 +2377,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=Fl8PXZWnxr4
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — Grease Pencil 3D drawing, Curve conversion, and Mesh from Curve are version-agnostic core Blender features
+- **Tags:** grease-pencil, modelling, procedural, intermediate
+- **Summary:** Sketches freeform tube-like shapes in 3D space with Grease Pencil, converts the stroke to a Curve (adding Bevel Depth/Resolution for thickness), then F3 > Convert To > Mesh from Curve to bake it into real editable mesh geometry — Decimate afterward to reduce density.
 - **File:** tutorials/daily-blender-tip-99---drawing-in-3d-with-grease-pencil-and-converting-to-mesh.md
 
 
