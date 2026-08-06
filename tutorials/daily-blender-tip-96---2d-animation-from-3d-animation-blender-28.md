@@ -89,4 +89,4 @@ grease-pencil, animation, workflow, intermediate
 ---
 
 ## Related Tutorials
-No other extracted BlenderSecrets tutorials in this library currently cover rotoscoping a 3D animation into Grease Pencil 2D drawing.
+- [Daily Blender Tip 97 - Exploring Grease Pencil - Different Brushes](daily-blender-tip-97---exploring-grease-pencil---different-brushes.md) — shares grease-pencil, workflow; that tutorial surveys the built-in brush presets (Pencil, Noise, Marker, Ink, Block) for the same Draw Pencil tool used here.

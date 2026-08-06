@@ -2387,9 +2387,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=j3M8DFFcysM
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 2.8 (explicitly referenced in the on-screen caption)
+- **Tags:** grease-pencil, workflow, beginner
+- **Summary:** Quick survey of the built-in Grease Pencil brush presets in the 2D Animation workspace (Pencil, Noise, Marker, Ink, Block), comparing each preset's default stroke character without manual settings adjustment.
 - **File:** tutorials/daily-blender-tip-97---exploring-grease-pencil---different-brushes.md
 
 
