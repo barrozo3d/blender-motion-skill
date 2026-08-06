@@ -2167,9 +2167,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=IgZqPjHr0eI
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified — silent screen recording, no version indicator visible
+- **Tags:** modelling, procedural, intermediate
+- **Summary:** A silent (non-narrated) ~8.5min speed-modeling timelapse of a chair: bent-tube legs, a rounded seat, and a dome-shaped backrest whose surface is refined via a dense quad wireframe grid before final smoothing. Explicitly flagged "not a tutorial" by its own title — no voiceover to transcribe.
 - **File:** tutorials/not-a-tutorial-modeling-a-chair-with-wireframe-backrest.md
 
 
