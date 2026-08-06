@@ -2297,9 +2297,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=HnbVAwIk0lk
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Limited Dissolve + Solidify + Bevel, version-agnostic)
+- **Tags:** #modelling #procedural #intermediate
+- **Summary:** "Death Star" panel-sphere trick: Limited Dissolve randomly merges a dense sphere's faces into jigsaw n-gon panels, invert-selection + a Solidify-style offset modifier stagger alternating panel heights, finished with a Bevel modifier for defined edges.
 - **File:** tutorials/daily-blender-tip-132---limited-dissolve-or-how-to-make-an-awewsome-scifi-sphere.md
 
 
