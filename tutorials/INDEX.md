@@ -1687,9 +1687,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=_-a8k2LaZbA
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (Surface Deform + Shrinkwrap workflow; 3.x-5.x)
+- **Tags:** #organic #procedural #modelling #intermediate
+- **Summary:** Builds swirl motifs via vertex-to-curve extrusion + mirroring, then uses a Surface Deform + Shrinkwrap combo (swirl bound to a wireframe plane, plane shrinkwrapped onto the base sphere) to conform each swirl to the sphere's curvature and tile a full "Devil Fruit."
 - **File:** tutorials/modeling-a-devil-fruit-from-one-piece---blender-secrets.md
 
 
