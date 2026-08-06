@@ -2207,9 +2207,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=Tc3Q_OzR628
 - **Author:** Blender Secrets
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Custom "Fracture Modifier" build (third-party fork)
+- **Tags:** #rigid-body #simulation #intermediate
+- **Summary:** A third-party helper add-on adds one-click Add Fracture/Add RigidBody buttons plus Debris/Dust scattering tools on top of the Fracture Modifier build; also covers Start Deactivated so a fractured object stays visually intact until disturbed.
 - **File:** tutorials/daily-blender-tip-141---fracture-modifier-helper-add-on.md
 
 
