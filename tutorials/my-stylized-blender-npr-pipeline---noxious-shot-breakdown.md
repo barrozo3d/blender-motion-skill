@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=51aK8POWKQA
 author: Kay Hilman
 ingested: 2026-08-07
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.1"
+tags: [grease-pencil, geometry-nodes, npr, non-photorealistic, line-art, uv-projection, texture-paint, shading, cycles, eevee, aov, compositing, render-passes, pipeline, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 19
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # My Stylized Blender NPR Pipeline - NOXIOUS Shot Breakdown
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py my-stylized-blender-npr-pipeline---noxious-shot-breakdown <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -609,30 +605,79 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:19] tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/frame_000.jpg
+- [1:12] tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/frame_001.jpg
+- [2:42] tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/frame_002.jpg
+- [3:34] tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/frame_003.jpg
+- [5:09] tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/frame_004.jpg
+- [6:12] tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/frame_005.jpg
+- [7:07] tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/frame_006.jpg
+- [8:38] tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/frame_007.jpg
+- [11:40] tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/frame_008.jpg
+- [12:24] tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/frame_009.jpg
+- [15:34] tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/frame_010.jpg
+- [16:45] tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/frame_011.jpg
+- [18:06] tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/frame_012.jpg
+- [20:02] tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/frame_013.jpg
+- [21:04] tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/frame_014.jpg
+- [23:13] tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/frame_015.jpg
+- [24:04] tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/frame_016.jpg
+- [30:02] tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/frame_017.jpg
+- [31:46] tutorials/frames/my-stylized-blender-npr-pipeline---noxious-shot-breakdown/frame_018.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A complete 2D-illustration-to-3D-render NPR (non-photorealistic rendering) pipeline used on the short film Noxious: hybrid 2D/3D layout, a Geometry Nodes trick that offsets hand-drawn Grease Pencil surface curves off the mesh to kill flickering, texel-density-aware UV/projection-mapping + texture-paint cleanup, a dual EEVEE/Cycles "uber shader" for fast preview + crisp final shadows, AOV-driven custom render passes, and a full compositing breakdown (mirrored in both After Effects and Blender 5.2's compositor) that reassembles color/shadow/AO/depth/line passes into the final stylized image.
 
 ### Summary
-[PENDING EXTRACTION]
+Kay Hilman (channel: Cy) breaks down one real shot from Noxious end-to-end, in Blender 4.1 (as used in 2023-2024 production). It starts from a hybrid 2D/3D layout process — alternate between illustrating and blocking out geometry until the whole shot's silhouettes exist in 3D, keeping colors/shadows/lines as separate illustration layers so they map cleanly to later steps (frames [0:19], [1:12]). Grease Pencil then draws line art on top of that geometry via a Collection Line Art modifier (set to Screen Space so line thickness stays consistent regardless of camera distance, plus forced backface culling — frame [3:34]), but drawing curves directly on the surface causes camera-motion flicker; a custom Geometry Nodes group ("Curve Offset") fixes this by resampling the curve, converting it to a mesh, sampling the nearest surface point/normal via Geometry Proximity against a duplicated+expanded copy of the target mesh, and snapping the curve to that offset surface instead of the literal mesh (frames [5:09]-[8:38]). Coloring uses a texel-density strategy: foreground objects get individual materials/textures for pixel budget, background objects share one. Every object gets two UV maps — a normal bake-target UV and a camera-projected UV driven by a UV Project modifier pointed at the animation camera — but projection alone breaks badly once the camera moves around geometry (frame [12:24]), so the fix is to join texel-density-matched objects, give each material a fresh 4K texture sampled from the projected color, then use Texture Paint's Clone Brush (Line stroke method) to "spray" the projection onto the real UV in one pass and hand-paint only the areas the camera actually sees (frames [15:34]-[16:45]). Shading uses one reused node group with parallel EEVEE and Cycles branches: EEVEE gets a Diffuse BSDF → Shader to RGB → Color Ramp "toon" trick for a hard shadow edge, tinted, plus fake AO and a Z-depth-driven mist/atmospheric-perspective effect for fast preview (frame [18:06]); Cycles uses the built-in Toon BSDF for the sharpest possible shadow edge and gets its color/AO fed back in via custom AOVs (`C_diffuse`, `C_AO`) since the Toon BSDF alone can't carry texture data (frame [20:02]). Render settings are deliberately starved (Cycles max samples = 1, total bounces = 0) so shadows stay crisp and cheap, contrasted directly against an unlimited-bounce Cycles render (frame [21:04]). Multiple View Layers render simultaneously — a Mesh layer carrying the AOVs and a Line Art layer that uses per-collection Holdout toggles so line art is correctly occluded by geometry — and a File Output node bundles everything into a multi-layer OpenEXR (Color/Shadow/AO/Depth/Lines, frame [23:13]) for external compositing. The compositing breakdown (mirrored into Blender 5.2's compositor, frames [24:04]-[31:46]) layers: anti-aliased shadow pass multiplied/inverted onto the AOV color pass, a similarly inverted+brightened AO pass, a warm "sunlit" tint in non-shadowed areas, Z-depth-driven mist via Map Range + Float Curve, a separately-rendered sky pass composited with Alpha Over, the line pass composited last (also anti-aliased) via Alpha Over, and a final Defocus node for background depth of field — using a dilated/eroded depth mask so the blur doesn't eat into foreground line art.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Hybrid 2D/3D layout** — start each shot with a rough 3D blockout (+ a sun light as a shadow/occlusion reference) to ground the illustration, then alternate between illustrating parts of the scene and blocking/modeling them in 3D until every silhouette in the final illustration exists as real geometry. Keep the illustration's colors, shadows, and line art as cleanly separated layers so later steps (Grease Pencil reference, projection color source) can read them independently.
+2. **Set up the Grease Pencil Collection Line Art modifier** — Shift+A → Grease Pencil → Collection Line Art, targeting a single top-level "Mesh" collection containing everything that should generate lines, with sub-collections for organizing individual curve sets. In the modifier: change Strokes space from World Space to **Screen Space** (so line thickness reads consistently near/far from camera) and set thickness (author used 3); under Geometry Processing, force **Backface Culling**. View with Material or Flat shading to see the resulting silhouette (frame [3:34]).
+3. **Draw surface lines with the Curve tool** — in the target curves collection, add a Bezier curve, delete its default points, open the sidebar's Draw tool with Surface mode enabled, and draw directly onto mesh surfaces. Raw surface-drawn curves clip through geometry and flicker under camera motion, motivating the offset trick below.
+4. **Build the "Curve Offset" Geometry Nodes group** (frames [5:09]-[7:07]): Resample Curve (mode: Evaluated, to drop Bezier handles and work on raw vertex positions) → Curve to Mesh (Grease Pencil in 4.1 only reads mesh, not curves directly) → feed in a **Collection Info** node (Instances output) pointed at the target surface collection → Realize Instances (needed since collection objects come in as instances) → take that mesh's Normal and **Set Position** to offset it outward along its own normals by a controllable Scale value (creates an invisible, inflated "shell" copy of the surface) → **Geometry Proximity** (Source Position: Faces) against that offset shell returns the closest-surface position for every point on the drawn curve → Set Position on the curve to snap it to that returned position. Expose the offset amount and the target collection as **Group Input** sockets so they're adjustable per-modifier instance without editing the node tree.
+5. **Draw the full surface line-art pass** — with the offset modifier live, keep drawing curves in Edit Mode; they now stick to the surface with a small, tunable standoff instead of clipping/flickering. Organize curves into sub-collections per asset (e.g. per prop) so surface detail can be toggled on/off independently — useful for isolating problem assets or checking the underlying 3D form (frame [8:38]).
+6. **Cluster objects by texel density before texturing** — group nearby/foreground objects that need high pixel resolution into their own material+texture; group distant/background objects to share a single material+texture. Objects in the same texture cluster must share one UV map, since they'll share one texture.
+7. **Set up dual UVs + camera projection** — give every object two UV maps: a standard bake-target UV (any regular unwrap) and a second **projection UV** created via the **UV Project** modifier (UV Map target, Aspect X/Y matching the render's aspect ratio e.g. 16:9, Projector = the shot's animation camera — frame [11:40]). Feed the flat 2D illustration (color-only, no line art/shading) into a material using the projection UV to preview the projected result; note that projection looks correct only from the camera's exact view — rotating around the object reveals heavy stretching/breaking (frame [12:24]), which is expected and handled in the next step.
+8. **"Spray-paint" the projection onto real UVs via Clone Brush** — Ctrl+J join the texel-density-clustered objects into one mesh (materials stay per-original-object). For each material, create a fresh image texture (author used 4K) sampled from that material's dominant color to save later fill time, and assign it as the active texture in Texture Paint mode with Flat viewport shading. Switch to the **Clone brush**, set Clone Source to "paint slot," pick the projected color texture as the clone source, and set Stroke Method to **Line** (single one-shot drag) to bake the camera-aligned projection onto the real UV in one pass per object (frame [15:34]). This reads as strictly better than baking-based projection mapping because the result is visible and paintable immediately.
+9. **Hand-paint the seams** — switch to regular Paint mode, Shift+X to sample a nearby color, and manually fix only the areas actually visible from the render camera; ignore stretching/artifacts on unseen backsides — don't spend time perfecting geometry the camera will never see (frame [16:45]).
+10. **Build the dual EEVEE/Cycles "uber" shader node group** (used identically across every material, ~13 instances in this shot): an EEVEE branch using **Diffuse BSDF → Shader to RGB → Color Ramp** for a hard toon shadow edge (tinted via a Mix Color node), a matching fake-AO pass (same Shader-to-RGB trick applied to a manually-baked-in AO approximation, not real ambient occlusion), and a Z-depth-driven mist effect (Map Range on the camera's Z-depth pass, e.g. 9m-47m mapped to a 0-0.1 mix factor) tinting distant areas slightly blue for atmospheric perspective (frame [18:06]). A separate Cycles branch uses the built-in **Toon BSDF** (Diffuse mode) directly, since it already produces the sharpest hard shadow available — but it doesn't carry texture color or AO, so those are exported separately via AOVs.
+11. **Export color/AO through custom AOVs** — since the Cycles Toon BSDF discards texture/AO info, add **AOV Output** nodes named e.g. `C_diffuse` (custom diffuse/albedo) and `C_AO` (custom AO), and define matching AOV entries as View Layer passes so they render out alongside the beauty pass (frame [20:02]).
+12. **Starve the render settings deliberately** — in Cycles sampling, set **Max Samples to 1** and **Total (light) Bounces to 0** so there's no bounce lighting and shadows stay perfectly sharp/cheap (compared directly against an unlimited-bounce Cycles render at frame [21:04]); on the EEVEE side (preview-only), just bump shadow map resolution a bit for a closer (not identical) preview match.
+13. **Split rendering across View Layers with Holdouts** — run a Mesh view layer (carries all the custom AOV passes, Grease Pencil hidden) and a separate Line Art view layer simultaneously. On the Line Art layer, use the Outliner's restriction-toggle column to mark occluding collections as **Holdout** so line art is correctly hidden behind geometry that should occlude it — holdout toggles are per-view-layer, so the same collection can be holdout on one layer and normal on another.
+14. **Bundle passes into multi-layer EXR** — a **File Output** node set to OpenEXR MultiLayer combines Color (AOV diffuse pass, alpha-masked by the black-and-white Mesh-layer image converted via RGB-to-BW), Shadow, AO (from the AOV), Depth, and Lines (Line Art layer's alpha only) into one image-sequence output for external compositing (frame [23:13]).
+15. **Composite the passes** (mirrored between After Effects and Blender 5.2's compositor, frames [24:04]-[31:46]): import the EXR sequence and pull out its named passes → anti-alias the shadow pass (smooths harsh pixel-art-like edges) → invert + multiply-down the shadow to use as a mix factor combining it with the AOV color pass → do the same invert/multiply/combine for the AO pass → invert the shadow mask again and warm/brighten the lit areas slightly for a "sunlit" feel → build mist from the Depth pass (multiply by image alpha first so background doesn't get mist, Map Range e.g. 5m-90m, then a Float Curve for a smoother falloff, mixed in as a light blue tint) → composite a separately-rendered sky pass behind everything with Alpha Over → composite the anti-aliased line-art pass on top with Alpha Over → finish with a **Defocus** node for background depth-of-field, driven by the depth pass but expanded slightly via **Dilate/Erode** so the blur radius doesn't eat into foreground line art edges (visibly wrong without this fix, frame [30:02]) → final color correction pass (frame [31:46]).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Grease Pencil → Collection Line Art modifier**: Strokes → Screen Space (not World Space), Line Thickness, Geometry Processing → Force Backface Culling.
+- **Custom "Curve Offset" Geometry Nodes group**: Resample Curve (Evaluated) → Curve to Mesh → [Collection Info (Instances) → Realize Instances → Set Position (offset along Normal, scale-controlled)] → Geometry Proximity (Faces) → Set Position (snap curve to proximity result); Group Input sockets for Offset amount and target Collection.
+- **UV Project modifier**: UV Map target, Aspect X/Y (match render aspect, e.g. 16:9), Projectors = animation camera.
+- **Texture Paint — Clone Brush**: Clone from paint slot, Stroke Method = Line, for one-shot projection-to-UV baking.
+- **Shader node group (dual-engine)**: EEVEE branch = Diffuse BSDF → Shader to RGB → Color Ramp (toon shadow) + Mix Color (tint) + fake-AO (same trick) + mist (camera Z-depth → Map Range → mix factor); Cycles branch = Toon BSDF (Diffuse mode); routed to separate Cycles/EEVEE sockets on a Group Output / Material Output.
+- **AOV Output nodes** (Cycles only): custom `C_diffuse`, `C_AO` passes, matched by View Layer Passes entries.
+- Cycles sampling: **Max Samples = 1**, **Total (light) Bounces = 0** for hard, cheap shadows.
+- **View Layers**: separate Mesh and Line Art layers rendered simultaneously; per-collection **Holdout** restriction toggle (per-view-layer) to occlude line art correctly.
+- **File Output node**: format = OpenEXR MultiLayer; inputs Color, Shadow, AO, Depth, Lines.
+- **Compositor**: Separate Color/Combine Color/RGB to BW (alpha prep), invert+multiply combine tricks for shadow/AO, Map Range + Float Curve (mist and depth-of-field masks), Alpha Over (sky pass, then line pass), **Defocus** node + **Dilate/Erode** (expand depth mask so blur doesn't eat into line art).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced (assumes comfort with Geometry Nodes, custom AOVs/View Layers, and node-based compositing; not a beginner Grease Pencil tutorial)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.1 (explicitly stated as the production version used in 2023-2024; the compositing section is demonstrated a second time in Blender 5.2's compositor, noted as having "some better compositing nodes" — author says a full 5.2+ pipeline modernization pass is a possible future video)
 
 ### Tags
-[PENDING EXTRACTION]
+grease-pencil, geometry-nodes, npr, non-photorealistic, line-art, uv-projection, texture-paint, shading, cycles, eevee, aov, compositing, render-passes, pipeline, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender Secrets - Draw Grease Pencil On Surfaces (without offset distance issue)](blender-secrets---draw-grease-pencil-on-surfaces-without-offset-distance-issue.md) — shares modelling, procedural; a shorter, more general take on the exact same problem (surface-drawn Grease Pencil clipping/flickering) that this video solves with its custom Curve Offset Geometry Nodes group — good side-by-side comparison of approaches.
+- [New Compositing Effects in Blender 5.2!](new-compositing-effects-in-blender-52.md) — shares compositing, procedural, rendering, cycles; covers the newer compositor nodes this video's author references when re-implementing their After-Effects-original compositing graph natively in Blender 5.2.
+- [Daily Blender Tip 99 - Drawing in 3D with Grease Pencil and Converting to Mesh](daily-blender-tip-99---drawing-in-3d-with-grease-pencil-and-converting-to-mesh.md) — shares the Grease-Pencil-to-mesh conversion concept underlying the Curve to Mesh step of this video's offset node group.

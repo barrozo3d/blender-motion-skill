@@ -2747,9 +2747,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=51aK8POWKQA
 - **Author:** Kay Hilman
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 4.1
+- **Tags:** grease-pencil, geometry-nodes, npr, non-photorealistic, line-art, uv-projection, texture-paint, shading, cycles, eevee, aov, compositing, render-passes, pipeline, advanced
+- **Summary:** Full 2D-illustration-to-3D-render NPR pipeline from the short film Noxious: hybrid 2D/3D layout, a custom Geometry Nodes group that offsets hand-drawn Grease Pencil surface curves to kill camera-motion flicker, texel-density-aware UV projection + Clone Brush texture-paint cleanup, a dual EEVEE/Cycles toon shader (Diffuse-BSDF-to-RGB trick for EEVEE, built-in Toon BSDF for Cycles) with starved render settings for crisp cheap shadows, AOV-driven custom render passes with Holdout-masked Line Art view layers, and a full compositing breakdown (After Effects, mirrored in Blender 5.2) combining color/shadow/AO/depth/line passes with mist and a dilated-mask Defocus for depth of field.
 - **File:** tutorials/my-stylized-blender-npr-pipeline---noxious-shot-breakdown.md
 
 ---
