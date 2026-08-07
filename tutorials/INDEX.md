@@ -2742,6 +2742,16 @@ Each entry format:
 - **Summary:** Feature tour of the paid "Extra Nodes" v4.0 add-on: Curve Roller (physically-accurate curve rolling), Recursive Topology, Mesh Cutter (simulated CNC-style cutting), Geometry Roller, Step Force, Plexus, Inflate Solver with Tear, Edge Tracer, and Animated Follow.
 - **File:** tutorials/extra-nodes-v40-powerful-new-tools-for-blender-geometry-nodes---full-demo.md
 
+
+### My Stylized Blender NPR Pipeline - NOXIOUS Shot Breakdown
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=51aK8POWKQA
+- **Author:** Kay Hilman
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/my-stylized-blender-npr-pipeline---noxious-shot-breakdown.md
+
 ---
 
 ## Tag Reference
