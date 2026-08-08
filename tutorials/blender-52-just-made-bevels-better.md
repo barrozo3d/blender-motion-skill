@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=PICzZINI0VM
 author: SouthernShotty
 ingested: 2026-08-08
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.2"
+tags: [geometry-nodes, mesh-bevel-node, bevel, hard-surface, procedural-modeling, panel-cut, sharp-edges, for-each-element, sci-fi]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-52-just-made-bevels-better/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 12
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender 5.2 Just Made Bevels Better
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-52-just-made-bevels-better <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### New Geometry Nodes Feature [0:00]
@@ -220,30 +216,80 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:45] tutorials/frames/blender-52-just-made-bevels-better/frame_000.jpg
+- [1:55] tutorials/frames/blender-52-just-made-bevels-better/frame_001.jpg
+- [2:22] tutorials/frames/blender-52-just-made-bevels-better/frame_002.jpg
+- [2:50] tutorials/frames/blender-52-just-made-bevels-better/frame_003.jpg
+- [5:10] tutorials/frames/blender-52-just-made-bevels-better/frame_004.jpg
+- [6:30] tutorials/frames/blender-52-just-made-bevels-better/frame_005.jpg
+- [8:25] tutorials/frames/blender-52-just-made-bevels-better/frame_006.jpg
+- [9:56] tutorials/frames/blender-52-just-made-bevels-better/frame_007.jpg
+- [11:25] tutorials/frames/blender-52-just-made-bevels-better/frame_008.jpg
+- [12:10] tutorials/frames/blender-52-just-made-bevels-better/frame_009.jpg
+- [13:05] tutorials/frames/blender-52-just-made-bevels-better/frame_010.jpg
+- [13:20] tutorials/frames/blender-52-just-made-bevels-better/frame_011.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Blender 5.2 added a native **Mesh Bevel node** inside Geometry Nodes — beveling was previously modifier-only. The video first tours the node's own sockets, then uses it as the final step of a fully procedural "hard-surface panel cut" generator that replaces a classic 3-modifier stack (Edge Split → Solidify → Bevel) with one reusable node group.
 
 ### Summary
-[PENDING EXTRACTION]
+Part 1 covers the Mesh Bevel node's UI: Selection input (drive it from a vertex group or attribute), independent Start/End Left/Right offsets (gang them into one socket for a modifier-like uniform bevel), Miter + spread for corner handling, Segments, a Shape slider (inset ↔ outset, 0.5 = neutral), a Profile curve input for custom bevel-edge shapes, and — new versus the modifier — exposed output selection sockets (e.g. `Miter Vertex`) that can drive masks for other nodes/shaders.
+
+Part 2 rebuilds a traditional hard-surface "panel cut" modifier stack (Edge Split with Sharp turned on → Solidify → Bevel) natively in geometry nodes so the whole rig lives in one portable node group instead of a large per-object modifier stack:
+1. Mark cut lines with `Mark Sharp` (Edge Select mode, right-click → Mark Sharp; bind to Q quick-favorites for speed).
+2. `Named Attribute` reads the built-in `sharp_edge` boolean attribute → feeds `Split to Instances` (mode: Face) as the Group ID, so the mesh splits into one instance per panel piece exactly where edges are sharp. `Edges to Face Groups` is chained in too, for later use.
+3. `Realize Instances`, then per-instance solidify: a `For Each Element` zone (Instance mode, wired through the geometry output/input sockets) wraps an `Extrude Mesh` node so each panel piece extrudes independently (this preserves the "separate object" edge topology a real Edge Split + Solidify stack would produce — a single `Split Edges` node does NOT).
+4. Extrude offset comes from an exposed group input run through a `Math → Multiply` by ‑1 (so positive user values extrude inward). `Individual Faces` is turned off on the Extrude Mesh so it acts per-object, not per-face.
+5. Face winding gets fixed with `Flip Faces` + `Join Geometry` (join the flipped copy with the original), then flipped back once more after the bevel stage so normals end up correct.
+6. `Mesh Bevel` node goes last, with Thickness/Bevel Amount and Segments duplicated up to the group input (rename sockets for a clean custom panel).
+7. Breakage/poking geometry at panel seams is fixed with `Merge By Distance` at a very small threshold (two extra zeros beyond default) — without it, each split-and-solidified piece isn't topologically merged so the bevel doesn't treat seams as continuous edges.
+8. Selective beveling by angle: `Edge Angle` node (Unsigned Angle output) → `Greater Than` (Float mode) → drives the Bevel node's Selection. The comparison's B input is exposed as a group input renamed "Bevel Angle" — its socket **subtype must be manually set to Angle** in the Group node sidebar, otherwise the raw value is interpreted as radians (a value of 30 reads as ~1700°) instead of degrees.
+9. Finish with the native `Shade Auto Smooth` operator (not a node) at ~60°, "Ignore Sharpness" enabled, for clean shading on the new bevels.
+Result: a single drag-and-drop geometry node group that converts any low-poly box with sharp-marked edges into a detailed sci-fi hard-surface panel-cut asset, with exposed Thickness, Bevel Amount, Segments, and Bevel Angle controls.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Search "Mesh Bevel" in a Geometry Nodes editor to add the node standalone; explore Selection / Offset / Miter / Segments / Shape / Profile / output-selection sockets first.
+2. Mark cut geometry with Mark Sharp (Edge mode → right-click → Mark Sharp, or Q favorite).
+3. `Named Attribute` (`sharp_edge`, Boolean) → `Split to Instances` (Face) Group ID, plus `Edges to Face Groups`.
+4. `Realize Instances` → `For Each Element` (Instance) wrapping `Extrude Mesh` for per-piece solidify; offset via exposed input × ‑1 (Math Multiply) for inward extrusion; disable Individual Faces.
+5. `Flip Faces` + `Join Geometry` to correct normals from the extrude; re-flip after beveling.
+6. `Mesh Bevel` node with Thickness/Bevel Amount/Segments exposed as renamed group inputs.
+7. `Merge By Distance` (very small distance) to weld split pieces so the bevel reads continuous edges instead of breaking at seams.
+8. `Edge Angle` (Unsigned Angle) → `Greater Than` (Float) → Bevel Selection; expose the threshold as a group input and set its subtype to **Angle** so entered degrees aren't misread as radians.
+9. Shade Auto Smooth (~60°, Ignore Sharpness on) to finish.
+10. Reuse: mark more sharp edges on the object at any time and the panel-cut effect regenerates automatically.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Mesh Bevel** (new in Blender 5.2's Geometry Nodes) — Selection, Start/End Left/Right Offset (gang into one socket for uniform behavior), Miter + spread, Segments, Shape (inset/outset, 0.5 neutral), Profile curve input, output selection sockets for masks
+- **Named Attribute** — reads built-in `sharp_edge` boolean
+- **Split to Instances** (mode: Face) — Group ID from the sharp-edge attribute
+- **Edges to Face Groups**
+- **Realize Instances**
+- **For Each Element** zone (Instance mode) wrapping **Extrude Mesh** — per-instance solidify; Individual Faces off
+- **Math → Multiply** (×‑1) — inverts extrude direction to inward
+- **Flip Faces** + **Join Geometry** — normal correction after extrude
+- **Merge By Distance** (small threshold) — welds split-instance seams so bevel reads them as continuous
+- **Edge Angle** (Unsigned Angle output) → **Compare / Greater Than** (Float) — angle-based bevel selection
+- Group input socket **subtype = Angle** — required for a "Bevel Angle" input to be interpreted in degrees, not radians
+- **Shade Auto Smooth** (native operator, ~60°, Ignore Sharpness) — finishing step, not a node
+- Viewport trick: Solid shading → MatCap + Cavity + Outline, to visually verify sharp-edge splits while building
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — requires comfort with Geometry Nodes zones (`For Each Element`), instances vs. realized geometry, and built-in mesh attributes (`sharp_edge`). The Mesh Bevel node itself (Part 1) is beginner-friendly.
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.2 (the Mesh Bevel node is new to Geometry Nodes in this release; prior versions only had bevel as a modifier/tool)
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, mesh-bevel-node, bevel, hard-surface, procedural-modeling, panel-cut, sharp-edges, for-each-element, sci-fi, blender-5.2
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+None yet in this library specifically on the Geometry Nodes Mesh Bevel node or procedural hard-surface panel cuts — first entry covering this feature.

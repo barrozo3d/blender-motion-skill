@@ -2757,9 +2757,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=PICzZINI0VM
 - **Author:** SouthernShotty
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.2
+- **Tags:** geometry-nodes, mesh-bevel-node, bevel, hard-surface, procedural-modeling, panel-cut, sharp-edges, for-each-element, sci-fi
+- **Summary:** Tours Blender 5.2's new Mesh Bevel node in Geometry Nodes (Selection, offsets, Miter, Segments, Shape, Profile, and new output-selection mask sockets), then rebuilds a classic hard-surface "panel cut" modifier stack (Edge Split + Solidify + Bevel) as one portable node group: Named Attribute reads `sharp_edge` into Split to Instances, a For Each Element zone solidifies each panel piece independently, Merge By Distance welds seams so the bevel reads continuous edges, and an Edge Angle → Greater Than comparison drives angle-limited beveling (with the angle-subtype gotcha for degrees vs. radians).
 - **File:** tutorials/blender-52-just-made-bevels-better.md
 
 ---
