@@ -2762,6 +2762,16 @@ Each entry format:
 - **Summary:** Tours Blender 5.2's new Mesh Bevel node in Geometry Nodes (Selection, offsets, Miter, Segments, Shape, Profile, and new output-selection mask sockets), then rebuilds a classic hard-surface "panel cut" modifier stack (Edge Split + Solidify + Bevel) as one portable node group: Named Attribute reads `sharp_edge` into Split to Instances, a For Each Element zone solidifies each panel piece independently, Merge By Distance welds seams so the bevel reads continuous edges, and an Edge Angle → Greater Than comparison drives angle-limited beveling (with the angle-subtype gotcha for degrees vs. radians).
 - **File:** tutorials/blender-52-just-made-bevels-better.md
 
+
+### Awesome Wire Generator with Geo Nodes | Blender Tutorial
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=SvOBxvRjQ8Q
+- **Author:** Max Hay
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/awesome-wire-generator-with-geo-nodes-blender-tutorial.md
+
 ---
 
 ## Tag Reference
