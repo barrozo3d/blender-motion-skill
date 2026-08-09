@@ -2807,9 +2807,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=c3FnWQTMo9s
 - **Author:** Max Hay
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** not specified on screen
+- **Tags:** lighting, environment-lighting, hdri, sun-light, spot-light, area-light, volume-scatter, golden-hour, overcast, world-shader, composition, beginner, intermediate
+- **Summary:** General environment-lighting methodology (not one fixed node setup): always start pitch black, add exactly one light at a time, and position each so it casts visible directional shadows rather than lighting from the camera's own direction. Demonstrated by relighting one static rock/tree/pagoda scene four ways: sunny day (rotated HDRI + low-density Volume Scatter), golden hour (angled warm Sun lamp + Anisotropy-biased volume + a background sky-photo plane, with a callout that the photo's light direction must match the scene's or it instantly reads as fake 3D), a dramatic/moody Spot+Area fill light setup (Radius softens Spot shadow edges from a literal zero-radius hard-shadow default), and an overcast look (denser volume + minimal Area fill). Also covers a controlled-ambient trick: a large fully-black-material cube placed outside camera view blocks/absorbs ambient light from that direction, turning a flat all-directional HDRI setup into something with more directional shadow control.
 - **File:** tutorials/how-to-get-good-lighting-in-blender.md
 
 ---

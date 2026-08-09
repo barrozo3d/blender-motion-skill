@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=c3FnWQTMo9s
 author: Max Hay
 ingested: 2026-08-09
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "not specified on screen"
+tags: [lighting, environment-lighting, hdri, sun-light, spot-light, area-light, volume-scatter, golden-hour, overcast, world-shader, composition, beginner, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-get-good-lighting-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 13
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How to get good lighting in blender
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-to-get-good-lighting-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -479,30 +475,61 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [4:38] tutorials/frames/how-to-get-good-lighting-in-blender/frame_000.jpg
+- [6:32] tutorials/frames/how-to-get-good-lighting-in-blender/frame_001.jpg
+- [7:55] tutorials/frames/how-to-get-good-lighting-in-blender/frame_002.jpg
+- [9:52] tutorials/frames/how-to-get-good-lighting-in-blender/frame_003.jpg
+- [10:35] tutorials/frames/how-to-get-good-lighting-in-blender/frame_004.jpg
+- [13:19] tutorials/frames/how-to-get-good-lighting-in-blender/frame_005.jpg
+- [16:46] tutorials/frames/how-to-get-good-lighting-in-blender/frame_006.jpg
+- [17:09] tutorials/frames/how-to-get-good-lighting-in-blender/frame_007.jpg
+- [18:29] tutorials/frames/how-to-get-good-lighting-in-blender/frame_008.jpg
+- [20:28] tutorials/frames/how-to-get-good-lighting-in-blender/frame_009.jpg
+- [23:08] tutorials/frames/how-to-get-good-lighting-in-blender/frame_010.jpg
+- [24:33] tutorials/frames/how-to-get-good-lighting-in-blender/frame_011.jpg
+- [25:16] tutorials/frames/how-to-get-good-lighting-in-blender/frame_012.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A general-purpose environment-lighting methodology (not tied to one node setup): always start pitch black by disabling every light, then add exactly one light source at a time, positioned so it casts *visible, directional* shadows rather than lighting from the camera's own direction (which flattens form and kills shadow visibility) — demonstrated by relighting one static rock/tree/pagoda scene four different ways (sunny day, golden hour, dramatic/moody spotlight, overcast).
 
 ### Summary
-[PENDING EXTRACTION]
+Opens by showing the default "no lighting" state (flat gray World background at strength 1) as a deliberately bad example — no shadow direction, no form definition. The recurring workflow for every subsequent setup: disable/hide all existing lights first (grouped into a Collection via `M → New Collection` so whole lighting rigs can be toggled and swapped without deleting work), then build up one light at a time, checking the result before adding the next. **Sunny day:** a single HDRI plugged into the World surface, rotated (via the rotation slider, or `Ctrl+T` on an Environment Texture node for the mapping/rotation inputs) until the sun sits off to one side of the camera rather than behind or in front of it — front/behind lighting flattens shadows into invisibility or creates unwanted silhouettes. A duplicated, render-hidden copy of scene geometry can be repositioned purely to cast an extra shadow into an overly bright foreground area, directing viewer attention without a real light. A large, low-density Volume Scatter cube (added over the whole scene, "Display As" set to Bounds to hide the box outline) adds atmospheric depth; kept very low for sunny scenes to avoid an unintended "wildfire smoke" look. **Golden hour:** disable the HDRI, add a Sun lamp at a low/steep angle with a warm orange-yellow tint and boosted strength; add volume (Volume Scatter, low density, Anisotropy raised to bias scattering toward the light source) and composite a real sky photo on a background plane (image → Emission, strength ~5-10, routed into Alpha instead of multiplying emission strength) as a backdrop when the HDRI sky doesn't read well. Critical gotcha: the photo's own light direction must match the scene's key light direction (flip the plane's X scale by -1 if needed) — a mismatched sky-photo light direction is called out as an instant, unmistakable giveaway that a shot is 3D. **Dramatic/moody spotlight (stylized, not realistic):** a Spot light with Radius at its literal-zero default produces perfectly hard-edged shadows (unrealistic — real lights are never a true point source); raising Radius softens shadow edges scene-wide, and Spot Size / Blend shape the cone's falloff. Once the key spotlight is positioned, an Area light is added purely as a fill to lift (not eliminate) the darkest shadow areas — enough to reveal detail without flattening the drama — optionally tinted (e.g. blue for a moonlight feel). The presenter frames this as "think about what real light source you're mimicking" (headlights, neon, moonlight) even when the actual light rig used is not physically plausible. **Overcast/moody sky:** background sky-plane photo (overcast reference) + denser Volume Scatter (raised Volume Bounces in Light Paths, Anisotropy raised for a moodier falloff) + a single soft Area light for minimal fill, since pure ambient-only lighting (light from literally every direction, e.g. straight HDRI/white-background) is technically closer to real overcast conditions but reads as flat and boring on camera. A notable control trick for any all-directional/HDRI-style setup: place a large, fully black-material cube just outside camera view (e.g. behind the camera) to physically block/absorb ambient light from that direction, which lets an otherwise shadowless ambient setup produce controlled, directional-feeling shadows and highlights — a technique the presenter attributes to common practice in "sweeper 3D"-style production work. Closing advice: build lighting incrementally (one light, get it right, only then add the next — simultaneous multi-light setups are called out as much harder to debug/manage) and always work from real photo/film reference rather than "from memory."
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Disable/remove every existing light in the scene (HDRI, point lights, anything) — start from pitch black every time you're testing a new lighting direction.
+2. **Sunny day:** plug an HDRI into the World shader's Background node → rotate it (rotation slider, or add/adjust the Mapping node feeding the Environment Texture, `Ctrl+T` shortcut to spawn one) until the sun key-lights the scene from one side, not from behind/in front of the camera.
+3. Optional: duplicate scene geometry, hide it from render, reposition purely to cast a shadow into an overly bright area to redirect attention.
+4. Add a large Volume Scatter cube over the whole scene (new material → delete Principled BSDF → add Volume Scatter → plug into Volume output; object's Viewport Display → "Display As: Bounds" to hide the box); keep density very low for sunny scenes.
+5. **Golden hour:** disable HDRI; add a Sun lamp; raise strength; rotate to a low, steep angle; tint the color warm orange/yellow; add the same low-density Volume Scatter setup but raise Anisotropy to bias scattering toward the sun.
+6. Add a background image plane: `Shift+A` plane → new Principled/Emission-based material → plug the sky photo into Emission Color, set Emission Strength low (5-10) and route the image into the Alpha socket (alternative: multiply emission strength via a Math node) → position behind/around the scene, extending slightly past the camera frustum.
+7. Verify the sky photo's light direction matches the scene's sun direction; if mismatched, scale the plane by -1 on X to flip it horizontally.
+8. **Dramatic/spotlight look:** disable prior lights (or move them to a hidden Collection via `M`); add a Spot light; raise Power; position/rotate off to one side; raise Radius from 0 to soften hard shadow edges; tune Spot Size and Blend for the cone falloff.
+9. Add an Area light as fill only, positioned toward the darkest shadow region, raised just enough to reveal shadow detail without eliminating contrast; optionally tint for mood (e.g. blue for moonlight).
+10. Optionally add the same background sky-plane technique, swapping in a moodier/more overcast reference photo.
+11. **Overcast/moody:** background sky-plane (overcast photo) + denser Volume Scatter (raise Light Paths → Volume Bounces, raise Anisotropy) + one soft Area light as minimal fill.
+12. Controlled-ambient trick: add a large cube just outside the camera's view, give it a fully black material, and use it to block ambient/HDRI light from that direction — turns an otherwise flat all-directional light setup into something with more controlled, directional shadows.
+13. Build every setup by adding exactly one light, dialing it in, then adding the next only if the scene still has an unsolved problem — never all lights simultaneously.
+14. Use real photo/film reference for the target mood (sunny, golden hour, overcast, dramatic) instead of working from memory.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+World Background (HDRI + rotation), Environment Texture + Mapping node (`Ctrl+T`), Sun light (strength, angle, color), Spot light (Power, Radius, Spot Size, Blend), Area light (as fill), Volume Scatter shader (Density, Anisotropy) on a bounding cube (Viewport Display → Display As: Bounds), background image plane (Emission Color/Strength routed to Alpha), Light Paths → Volume Bounces, Collections (`M`) for swappable/hideable lighting rigs, fully-black-material blocker geometry for controlled ambient occlusion of a light direction.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner-to-intermediate — no complex node graphs beyond a basic Volume Scatter/emission-plane setup; the real content is compositional/artistic judgment (light direction vs. camera direction, incremental light-by-light building, reference-driven decision making) rather than technical complexity.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not stated on screen or in narration.
 
 ### Tags
-[PENDING EXTRACTION]
+lighting, environment-lighting, hdri, sun-light, spot-light, area-light, volume-scatter, golden-hour, overcast, world-shader, composition, beginner, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+None yet — first general environment-lighting-methodology entry in this library. Cross-link future lighting-fundamentals or mood-lighting tutorials here.
