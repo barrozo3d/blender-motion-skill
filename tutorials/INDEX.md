@@ -2817,9 +2817,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=4cy1i9THUQg
 - **Author:** Nick Impson
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.1
+- **Tags:** mri-effect, x-ray, cross-section-reveal, ray-visibility, light-linking, wave-texture, gradient-texture, subsurface-scattering, compositor, color-correction, film-grain, product-visualization, cad, grabcad, blender-5.1
+- **Summary:** Studio-style MRI/X-ray cross-section reveal built with zero volumetrics: an animated slicer plane is hidden from camera-shadow interactions via per-object Ray Visibility toggles (object: Camera+Shadow off; plane: everything off except Camera), lit by an Area light Light-Linked exclusively to the sliced object so the plane only shows bounce light. Plane shader combines a Wave Texture (scan-line look) with a Gradient Texture-driven alpha falloff; object gets a black metal material plus optional Subsurface Scattering for colorful cross-section glow. Finishes with a Compositor pass (Color Correction via Waveform scope, film grain, Tune Image, Posterize, optional Glare/Bloom). Source geometry from grabcad.com.
 - **File:** tutorials/how-i-made-this-awesome-mri-effect-in-blender.md
 
 ---

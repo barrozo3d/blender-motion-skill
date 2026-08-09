@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=4cy1i9THUQg
 author: Nick Impson
 ingested: 2026-08-09
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.1"
+tags: [mri-effect, x-ray, cross-section-reveal, ray-visibility, light-linking, wave-texture, gradient-texture, subsurface-scattering, compositor, color-correction, film-grain, product-visualization, cad, grabcad, blender-5.1]
+extraction_status: complete
 frames_dir: tutorials/frames/how-i-made-this-awesome-mri-effect-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 9
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How I Made This Awesome MRI Effect In Blender
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-i-made-this-awesome-mri-effect-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -320,30 +316,76 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:07] tutorials/frames/how-i-made-this-awesome-mri-effect-in-blender/frame_000.jpg
+- [3:00] tutorials/frames/how-i-made-this-awesome-mri-effect-in-blender/frame_001.jpg
+- [6:15] tutorials/frames/how-i-made-this-awesome-mri-effect-in-blender/frame_002.jpg
+- [8:20] tutorials/frames/how-i-made-this-awesome-mri-effect-in-blender/frame_003.jpg
+- [10:10] tutorials/frames/how-i-made-this-awesome-mri-effect-in-blender/frame_004.jpg
+- [11:30] tutorials/frames/how-i-made-this-awesome-mri-effect-in-blender/frame_005.jpg
+- [12:33] tutorials/frames/how-i-made-this-awesome-mri-effect-in-blender/frame_006.jpg
+- [14:38] tutorials/frames/how-i-made-this-awesome-mri-effect-in-blender/frame_007.jpg
+- [15:45] tutorials/frames/how-i-made-this-awesome-mri-effect-in-blender/frame_008.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A studio-style "MRI/X-ray slice reveal" effect (used on real client work, e.g. a Kawasaki KPM project) built entirely from ray-visibility tricks and light linking on a slicing plane — no volumetrics, no simulation. A moving plane intersects a black-metal object; the plane itself is invisible to camera but shows only the bounce light being cast onto it by an animated light that is light-linked exclusively to the object. A wave-texture-driven emission shader on the plane produces the fine scan-line/MRI look, and subsurface scattering on the object adds colorful internal "cross-section" glow.
 
 ### Summary
-[PENDING EXTRACTION]
+Source geometry: complex mechanical models (engine block) downloaded from **grabcad.com** as OBJ — a good source of free, highly detailed CAD-derived meshes for this kind of reveal effect (author flags to check licensing before commercial use). Import via File > Import > Wavefront (.obj); these CAD exports come in enormous, so scale down (author guesses/tests factors like 0.001), Ctrl+A Apply Scale, recenter via right-click Set Origin to 3D Cursor, and use Individual Origins pivot point to freely rotate into place.
+
+**The slicer plane:** add a mesh Plane, rotate to face the intended camera axis, optionally extrude the single face back (E) to give it a bit of thickness (a thin-cube variant of this effect, common in Cinema 4D, uses subsurface scattering on that thickness). Animate the plane moving through the object on the X axis with two Location keyframes (I/K to insert) across the timeline (e.g. frame 1 to 150 at 30fps) — this alone already produces a rough "reveal" as it scrubs through the mesh.
+
+**Hiding the slicer plane from camera while keeping its lighting interaction (the core trick):** rather than faking transparency with a shader (author notes this looks worse), use the Object Properties > **Visibility > Ray Visibility** toggles per-object. On the object being sliced: turn off **Camera** ray visibility (frame_003) and also turn off **Shadow** ray visibility — shadow-off is called out as the single most important toggle, since it's what lets light convincingly bleed/pass through the object onto the plane behind it. On the slicer plane: the opposite — turn off everything except Camera, so the plane is camera-visible but doesn't cast/receive shadows or get lit directly by the scene light, and set its Diffuse/etc. bounce contribution low.
+
+**Lighting setup:** turn off the HDRI (World strength → 0) to fully author the lighting. Add an Area light, parent it to the slicer plane (Ctrl+P > Object (Keep Transform)) so it travels with the slice. Critically, use **Light Linking** (light's Object Data Properties > Light Linking > New, drag in the object's collection) so this light illuminates ONLY the sliced object, not the plane — the plane then only shows the object's bounce light hitting it, which is what produces the convincing "internal glow" look. Boost light power substantially (author used ~500W, later ~1500W with a thicker slice) since almost all direct light is being excluded from camera view.
+
+**Object shading:** strip GrabCAD's default materials (select all, minus-remove to bottom of material slots) and replace with a simple black metal (Metallic ≈ 1, Roughness ≈ 0, i.e. "reference all the way down").
+
+**Plane/slice shading (the MRI scan-line look):** on the slicer plane's material, add a **Wave Texture** node with Texture Coordinate set to Object (Ctrl+T generates the full coordinate node group automatically), Wave Type = Saw, Scale ≈ 300 for fine lines; plug into an Emission-style setup so the lines glow at the intersection (frame_004, frame_005). Layer in a **Gradient Texture** (Quadratic Sphere type, Object coordinates again via Ctrl+T) to control falloff — feed its Fac output through a Color Ramp into the shader's Alpha, shaping/squishing/scaling the gradient's empty texture space to control where the effect fades to black at the edges of the slice (turn off Film > Transparent in Render Properties so the background renders solid black instead of transparent, matching what "fading to black" should look like). A subtle Color Ramp position tweak softens the falloff so it isn't too harsh.
+
+**Cross-section color (optional variant):** cranking **Subsurface Scattering** on the object's material (with subsurface Radius values set to 1,1,1 to avoid unexpected tinting) pulls in extra internal color/ray-bounce complexity at the slice boundary, visible in frame_007's cyan cross-section render — an easy way to art-direct a more "medical scan" palette (author demos this as a separate cyan-tinted pass, frame_007/frame_008).
+
+**Art direction:** revisit slice thickness (thin vs. thick — thicker needs more light, e.g. 1500W, but author preferred the thin/no-thickness look and often switched the extra light back off entirely), reposition the light off-axis instead of straight-on for a more dramatic look, and try colored lights (e.g. blue) for a different final grade.
+
+**Post-processing (Compositor):** enable Backdrop/"Composite" viewport display; render one still frame (F12, ~500 samples) to iterate compositing live. Chain: Color Correction node (raise Master Gain until the Waveform/Parade scope shows values reaching full dynamic range near white), Film Grain-type noise node (Sensor Noise ≈0.6, Chroma Noise ≈0.1 for a gritty scan-like texture), Tune Image node (small Saturation/Color boost, ≈0.1), optional Posterize node for a stepped/graphic look (exact internal behavior not explained by the author, used purely for the visual result), and an optional Glare (Bloom) node in the final Compositor output group (muted in this pass since it didn't suit the palette, but toggled on/off live to compare).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Download a detailed OBJ mesh from grabcad.com (check license before commercial use).
+2. Import (File > Import > Wavefront OBJ), scale down (test small factors like S, 0.001), Ctrl+A Apply Scale, recenter (right-click > Set Origin to 3D Cursor), rotate into place using Individual Origins pivot.
+3. Add a mesh Plane as the slicer; optionally extrude for thickness; animate it through the object with two Location keyframes.
+4. On the sliced object: Ray Visibility → turn OFF Camera and OFF Shadow.
+5. On the slicer plane: Ray Visibility → turn everything OFF except Camera.
+6. Turn off the HDRI (World Strength = 0); add an Area light parented (Object, Keep Transform) to the slicer plane.
+7. Light-link that Area light exclusively to the sliced object's collection (Light Linking > New, drag in the object) so the light illuminates the object but not the plane directly — the plane only shows bounce light.
+8. Strip the imported object's default materials; assign a black metal material (Metallic ≈1, Roughness ≈0).
+9. On the slicer plane's material: Wave Texture (Object coords, Saw type, Scale ≈300) for the MRI scan-line pattern; Gradient Texture (Quadratic Sphere, Object coords) → Color Ramp → Alpha to fade the effect out at the slice edges; turn off Render > Film > Transparent so it fades to black.
+10. Optionally boost Subsurface Scattering on the object's material for extra internal cross-section color complexity.
+11. Art-direct: light power (~500-1500W depending on slice thickness), light angle (off-axis > front-lit), light color.
+12. Compositor pass: Color Correction (raise gain per Waveform scope), Film Grain/noise node (sensor + chroma noise), Tune Image (saturation), optional Posterize, optional Glare/Bloom.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Ray Visibility** (Object Properties > Visibility): the entire trick hinges on Camera and Shadow toggles being set oppositely on the sliced object vs. the slicer plane.
+- **Light Linking** (light's Object Data Properties): restricts a light to only affect a specific collection/object — used here to isolate bounce-only illumination on the slicer plane.
+- Shader nodes: **Wave Texture** (Object coordinates, Saw wave, high Scale ~300), **Gradient Texture** (Quadratic Sphere, Object coordinates), **Color Ramp** (drives Alpha from the gradient), **Subsurface Scattering** (Radius 1,1,1) on the base material.
+- Compositor nodes: **Color Correction** (Master Gain), a film-grain/sensor-noise node (Sensor Noise + Chroma Noise), **Tune Image** (Saturation), **Posterize**, **Glare** (Bloom).
+- Parenting: Ctrl+P > Object (Keep Transform) to link the light's motion to the slicer plane.
+- Render Properties > Film > Transparent: OFF, so background renders solid black to match the gradient falloff.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — no scripting or simulation, but relies on several non-obvious Blender-specific settings (per-object ray visibility, light linking) that aren't discoverable without already knowing they exist.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.1 (stated on screen at the start, default startup scene).
 
 ### Tags
-[PENDING EXTRACTION]
+mri-effect, x-ray, cross-section-reveal, ray-visibility, light-linking, wave-texture, gradient-texture, subsurface-scattering, compositor, color-correction, film-grain, product-visualization, cad, grabcad, blender-5.1
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+None yet cross-linked — this is the library's first ray-visibility/light-linking cross-section reveal entry. Cross-link future product-visualization, light-linking, or CAD-to-render (the author's teased follow-up video) tutorials here.
