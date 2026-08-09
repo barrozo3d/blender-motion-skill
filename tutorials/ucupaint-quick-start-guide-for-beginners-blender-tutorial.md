@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=KaB8FkBb5rQ
 author: Ryan King Art
 ingested: 2026-08-09
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.2"
+tags: [ucupaint, texture-painting, layers, blender-addon, roughness, normal-map, bump-map, metallic, baking, shading, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/ucupaint-quick-start-guide-for-beginners-blender-tutorial/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 11
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Ucupaint Quick Start Guide for Beginners 🖌️ (Blender Tutorial)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py ucupaint-quick-start-guide-for-beginners-blender-tutorial <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -169,30 +165,57 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:55] tutorials/frames/ucupaint-quick-start-guide-for-beginners-blender-tutorial/frame_000.jpg
+- [1:21] tutorials/frames/ucupaint-quick-start-guide-for-beginners-blender-tutorial/frame_001.jpg
+- [2:10] tutorials/frames/ucupaint-quick-start-guide-for-beginners-blender-tutorial/frame_002.jpg
+- [2:53] tutorials/frames/ucupaint-quick-start-guide-for-beginners-blender-tutorial/frame_003.jpg
+- [3:18] tutorials/frames/ucupaint-quick-start-guide-for-beginners-blender-tutorial/frame_004.jpg
+- [3:56] tutorials/frames/ucupaint-quick-start-guide-for-beginners-blender-tutorial/frame_005.jpg
+- [4:38] tutorials/frames/ucupaint-quick-start-guide-for-beginners-blender-tutorial/frame_006.jpg
+- [5:06] tutorials/frames/ucupaint-quick-start-guide-for-beginners-blender-tutorial/frame_007.jpg
+- [6:06] tutorials/frames/ucupaint-quick-start-guide-for-beginners-blender-tutorial/frame_008.jpg
+- [6:50] tutorials/frames/ucupaint-quick-start-guide-for-beginners-blender-tutorial/frame_009.jpg
+- [7:44] tutorials/frames/ucupaint-quick-start-guide-for-beginners-blender-tutorial/frame_010.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Quick-start walkthrough of **Ucupaint**, a free Blender extension that wraps texture painting in a Photoshop-style layer stack (per-channel layers with visibility/opacity/preview toggles) sitting on top of an auto-generated shader node network, so artists paint directly on the model without hand-wiring image-texture nodes.
 
 ### Summary
-[PENDING EXTRACTION]
+Covers install (Blender Extensions page drag-and-drop, or Edit → Preferences → Get Extensions → search "Ucupaint"), then the core workflow on a UV-unwrapped cube: open the N-panel Ucupaint tab → **Quick Ucupaint Node Setup** auto-creates a Principled-based material and lets you toggle which channels exist (Color, Metallic, Roughness, Normal, Alpha, AO). The add-on UI has two halves — Channels (Color/Metallic/Roughness/Normal) up top and a Photoshop-style Layers stack below. Each new paint layer is created via the **+ → New Image** (not the other menu entries, which the presenter says are rarely used), named, and assigned to exactly one channel (Color/Metallic/Roughness/Normal) plus a resolution (1K/2K/4K); painting a Roughness-channel layer in black makes that area shiny, white makes it rough, and a Normal-channel layer set to type "Bump Map" with **32-bit float** enabled reads white-paint as raised and black-paint as recessed. Layers can be reordered (up/down arrows), renamed, hidden, and have opacity dragged directly on the number field; a **pack icon** appears once a layer has painted content, confirming the image is packed into the .blend file rather than external (an asterisk/star in the title bar means unsaved changes — save clears it). **Preview Mode** on a layer only shows something once the matching Channel button above is also selected (e.g. must click the Color channel to preview a Color layer), and the same preview toggle works per-channel (Color/Metallic/Roughness/Normal) to isolate what a given map looks like in grayscale. Once all channels are painted (Color, Roughness, Normal/Bump, Metallic demoed independently on the cube), the gear icon's **Bake All Channels** flattens the whole layer stack into standard texture maps (resolution matched to what was painted, 32-bit float enabled specifically for the Normal bake for quality, GPU baking if available) — this also automatically bakes a Displacement map as a bonus. After baking, a **node icon** button wires the baked maps into the actual material's shader nodes (visible in the Shading workspace), and a **Save All** button in Texture Painting exports every baked map as image files to disk.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Install: Blender Extensions page → Get Add-on → drag-drop into Blender, OR Edit → Preferences → Get Extensions → search "Ucupaint" → install → Save Preferences.
+2. UV-unwrap the target object first (prerequisite, not covered in this video).
+3. Open N-panel → Ucupaint tab → **Quick Ucupaint Node Setup**: name the material, leave Type as Principled, toggle on the channels needed (Color, Roughness, Normal always useful; Metallic if the object should be metal; AO/Alpha optional) → OK — this auto-creates the material, no manual node setup required.
+4. Add a paint layer: click **+** → **New Image** → name it → choose which single Channel it affects (Color/Metallic/Roughness/Normal) → choose resolution (1K/2K/4K) → OK.
+5. Paint directly on the 3D model (Texture Paint workspace) with a normal Blender brush; drag a layer's opacity number to blend it; use the eye icon to hide/show; reorder with up/down arrows; double-click to rename.
+6. For Roughness layers: paint black = shiny/glossy, white = rough/matte.
+7. For Normal/Bump layers: create with Channel = Normal, Type = Bump Map, and enable **32-bit float** for quality; paint white = raised bump, black = recessed.
+8. For Metallic layers: paint white = metallic, black = non-metallic.
+9. Use **Preview Mode** (per-layer, combined with selecting the matching Channel button) to isolate and inspect any single map in isolation before baking.
+10. When done: gear icon → **Bake All Channels** → set resolution to match what was painted, enable 32-bit float specifically for Normal, enable GPU baking if available → OK (bake runs — Blender appears frozen but is just processing; a Displacement map is baked automatically alongside the requested channels).
+11. Click the **node icon** to auto-wire the freshly baked maps into the material's actual shader node graph (verify in the Shading workspace / Material Preview or Rendered viewport).
+12. Back in Texture Painting, scroll down to **Save All** → Save Baked Images to export every baked map to a folder on disk.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+Ucupaint N-panel tab, Quick Ucupaint Node Setup (Type: Principled; Channels: Color, Metallic, Roughness, Normal, Alpha, AO), Layers stack (+ → New Image; per-layer Channel assignment, resolution, opacity, visibility, Preview Mode), Channels row (Color/Metallic/Roughness/Normal preview toggles), Bump Map layer type (32-bit float), Bake All Channels (resolution, 32-bit float for Normal, GPU baking, auto Displacement bake), node-icon shader auto-wire, Save All / Save Baked Images.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner — explicitly framed as a "quick start" companion to the presenter's longer Ucupaint tutorial; no node-graph knowledge required since the add-on generates the shader network automatically.
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.2 (mentioned in passing during the save-image prompt; Ucupaint add-on itself shown as version 2.4.9 in a captured frame).
 
 ### Tags
-[PENDING EXTRACTION]
+ucupaint, texture-painting, layers, blender-addon, roughness, normal-map, bump-map, metallic, baking, shading, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+None yet — first Ucupaint / layer-based texture-painting entry in this library. Cross-link future Ucupaint or hand-painted-texture tutorials here.

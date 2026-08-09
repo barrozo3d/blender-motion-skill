@@ -2797,9 +2797,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=KaB8FkBb5rQ
 - **Author:** Ryan King Art
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.2
+- **Tags:** ucupaint, texture-painting, layers, blender-addon, roughness, normal-map, bump-map, metallic, baking, shading, beginner
+- **Summary:** Quick-start walkthrough of the free Ucupaint extension, which wraps texture painting in a Photoshop-style layer stack over an auto-generated shader network. Quick Ucupaint Node Setup creates a Principled material with toggleable channels (Color/Metallic/Roughness/Normal/Alpha/AO); each paint layer (+ → New Image) is assigned to one channel and resolution, with Preview Mode (paired with the matching Channel button) isolating any single map. Covers Roughness (black=shiny/white=rough), Normal/Bump layers (32-bit float, white=raised/black=recessed), and Metallic (white=metal) painting, then Bake All Channels flattens everything to standard texture maps (auto-baking a bonus Displacement map), a node-icon button auto-wires the baked maps into the real shader graph, and Save All exports them to disk.
 - **File:** tutorials/ucupaint-quick-start-guide-for-beginners-blender-tutorial.md
 
 
