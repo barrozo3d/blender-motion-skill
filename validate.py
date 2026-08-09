@@ -241,7 +241,7 @@ def main():
 # present on this machine, compare the shared helper functions and WARN on
 # differences. Never fails the run — per-skill divergence may be intentional,
 # but it should always be a conscious choice.
-SIBLING_SKILLS = ("blender-motion", "houdini-wand", "unreal-sidekick")
+SIBLING_SKILLS = ("blender-motion", "houdini-wand", "unreal-sidekick", "nuke-em-all")
 SHARED_FUNCS = ("slugify", "download_audio", "ytdlp_captions", "segment_by_chapters",
                 "_detect_hallucination", "append_safeguard_note", "find_duplicate_by_video_id")
 
