@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=ufaZPxkiwtM
 author: Cartesian Caramel
 ingested: 2026-08-09
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.3"
+tags: [geometry-nodes, simulation-zone, particles, procedural-modeling, curves, vfx, web-effect, sdf-collision, tension-force, blur-attribute, eevee-next, shading, alpha-blend, tri-planar, livestream, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/spoilers-spiderman-tornado-webs-test-blender-53/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 14
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # (Spoilers) Spiderman Tornado Webs Test (Blender 5.3)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py spoilers-spiderman-tornado-webs-test-blender-53 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -1506,30 +1502,61 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:44] tutorials/frames/spoilers-spiderman-tornado-webs-test-blender-53/frame_000.jpg
+- [6:02] tutorials/frames/spoilers-spiderman-tornado-webs-test-blender-53/frame_001.jpg
+- [8:35] tutorials/frames/spoilers-spiderman-tornado-webs-test-blender-53/frame_002.jpg
+- [9:57] tutorials/frames/spoilers-spiderman-tornado-webs-test-blender-53/frame_003.jpg
+- [14:26] tutorials/frames/spoilers-spiderman-tornado-webs-test-blender-53/frame_004.jpg
+- [21:43] tutorials/frames/spoilers-spiderman-tornado-webs-test-blender-53/frame_005.jpg
+- [24:13] tutorials/frames/spoilers-spiderman-tornado-webs-test-blender-53/frame_006.jpg
+- [32:06] tutorials/frames/spoilers-spiderman-tornado-webs-test-blender-53/frame_007.jpg
+- [34:04] tutorials/frames/spoilers-spiderman-tornado-webs-test-blender-53/frame_008.jpg
+- [48:49] tutorials/frames/spoilers-spiderman-tornado-webs-test-blender-53/frame_009.jpg
+- [62:14] tutorials/frames/spoilers-spiderman-tornado-webs-test-blender-53/frame_010.jpg
+- [82:00] tutorials/frames/spoilers-spiderman-tornado-webs-test-blender-53/frame_011.jpg
+- [89:00] tutorials/frames/spoilers-spiderman-tornado-webs-test-blender-53/frame_012.jpg
+- [106:13] tutorials/frames/spoilers-spiderman-tornado-webs-test-blender-53/frame_013.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A Geometry Nodes particle+attach simulation that fires web-strand instances outward from a spinning point, freezes them on collider contact, then procedurally shrinks/tensions the connecting strands to fake the "Spider-Man web tornado" VFX from *Spider-Man: Brand New Day*, entirely inside a GN Simulation Zone (no physics engine/cloth sim used).
 
 ### Summary
-[PENDING EXTRACTION]
+A ~113-minute live build (unscripted, heavily iterative — many dead ends shown and abandoned on camera) recreating a web-tornado attack effect: a rotating empty fires particle vertices with velocity into a room-shaped collider; on collision each particle freezes in place; particles are marked "start" or "end" so only the end sticks permanently while the start stays pinned to the spinner's current position, producing a strand between the two. Each strand is instanced with a separately-built procedural "web patch" mesh (grid → randomly deleted verts → blurred position → extruded/scaled frayed edges) converted to curves for rendering, shaded with an alpha-blended glass-like material, then tensioned by feeding a velocity force from the blurred rest-position offset so unattached/mid-flight sections visibly droop and pull taut. Iteration covers: fixing a "particles don't stay in a constant stream" problem (needed AND-gated freeze logic scoped to "end" points only, big attraction/tension force reduction, and a boolean web-on/off toggle so the emitter can be keyframed), duplicating the whole rig rotated 180° for a "double helix" look, adding random per-web IDs/radii/rotation for variation, converting to Cylinder-type curves for renderable thickness, building a stylized brick/plaster wall material (Tri-Planar mapping + bump map from a height texture), parenting a human rig to the spinner empty for a comedic "Spider-Man face-planting" camera shot, and a final lighting/compositing pass (world shader camera-ray trick for a separate background vs. reflection environment, RGB curves for a teal grade, glow/bloom). Ends with an unscripted Q&A about how the film's separate "psionic/shockwave" effect was probably done (simple RGB-offset lens-distortion compositing over a noise-driven sphere, not deeply simulated).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Driver:** add an Empty (arrows), scale it to represent the spin axis length (~6m), animate its rotation (~720°, i.e. two full spins) to drive the effect's "spinning web-slinger" look; later scaled up to 10m fall distance with a mostly-linear F-Curve for the "descent" timing.
+2. **Collider:** a room/octagon mesh set as the Simulation Zone's collider collection; normals inverted + backface culling enabled so the interior is visible and selectable from inside.
+3. **Particle emission (Simulation Zone):** spawn points with a Join Geometry feeding into the sim's Geometry input; initial velocity built from `Rotate Vector` (X-axis) on the empty's relative transform, scaled to ~100 m/s then reduced. Unique per-particle ID via a hash of the Scene Time "frame" (as float) + point index — good enough uniqueness despite theoretical hash collisions. New particles must be joined in *last* in the sim's geometry stream so they spawn at their origin on the frame they're born, not mid-simulated.
+4. **Collision + freeze:** custom pre-made node groups (`velocity step`, `SDF collision`, `SDF mesh` — the creator's own free Gumroad node groups) drive collision against the collider SDF; Bounciness set to 0, Friction to 1. An `is_hit` boolean is stored, gated with an AND against an `end` attribute (see step 5) so **only end-marked particles freeze** — freezing halts both the collision and the velocity-step nodes for that particle. Frozen state also needs to stop the velocity/tension force separately (a second `not frozen` gate later on).
+5. **Start/end marking:** each spawned strand instance is stored with two named float attributes, `start` and `end` (via `Separate XYZ` + `Less Than`/threshold on local X of the strand's transform) — the start vertex stays pinned to the spinner's current position every frame (`Set Position` fed by a `start`-gated switch), the end vertex is the one that actually freezes to the wall. This is what produces a taut strand between a moving origin and a fixed wall point instead of two independently-simulated ends.
+6. **Web-patch mesh (separate GN setup, later instanced per strand):** primitive Grid → `Delete Geometry` on random vertices (holes) → delete faces only (leaves a wire mesh) → `Set Position` blurred (Blur Attribute on the position, vector) for an organic non-grid look → `Triangulate` (Fixed/Fixed Alternate) for cleaner topology. Several recursive-subdivision approaches (separate-by-ID + selective subdivide + merge-by-previous-ID, repeat zones) were tried and abandoned as messy; the setup that stuck was **randomly deleting more geometry + `Extrude Mesh` + `Scale Elements` (Individual origins) + `Merge by Distance`** to fray the loose ends, which read as "web-like" once pushed far enough.
+7. **Attach + render conversion:** `Transform Geometry` places/scales/rotates each web-patch instance between its strand's start and end (very small initial scale, later corrected), then `Mesh to Curves` on a dedicated Curve object (added via the Curve menu's blank-curve option, not attached to another object) makes it renderable as strands; **Cylinder** curve profile chosen over Strip so it has real thickness/normal data (Strip renders flat and gave wrong-looking shading).
+8. **Tension/shrink force:** stores a `rest_position` (blurred, applied *after* the hit rather than before — applying it pre-hit caused the whole mesh to sag before attaching) and feeds `(rest_position − current_position)` as an added velocity/force term, scaled down heavily (roughly squared/halved iteratively) to avoid the "collapses before reaching its destination" failure mode; only applied `if not frozen`. A late fix stores the **old position before the blur pass** and diffs against the new one to recompute velocity properly, rather than blurring position directly (which silently broke the force once particles were already frozen).
+9. **Shading:** Alpha Blend material (not Alpha Hashed/Clip) so the glassy web strands composite correctly; backface culling handled in-shader via an `Is Camera Ray` / geometry-backfacing mix so the interior of the room reads correctly; metallic + low roughness + boosted Specular IOR for a "glistening" wet-silk look; curve radius set to a small random-per-ID value (`Set Curve Radius`) for thickness variation.
+10. **Web-density/variation fixes:** duplicate + `Join Geometry` + 180° rotation of the whole rig for a denser "double helix" spiral; a boolean `web on/off` Group Input keyframed to start/stop new spawns (frozen webs already stuck remain even with spawning off, letting an animated character "swing" convincingly per the reference).
+11. **Set dressing:** brick/plaster wall material — Tri-Planar mapping into a height texture → Bump node (small distance, e.g. 0.01–0.1) rather than full Displacement (which looked "atrocious"/too strong); non-color data flag on the height input; hue-shifted slightly to match the reference's warm tone.
+12. **Camera/animation gag:** a humanoid mesh parented (later switched to a **Copy Location constraint with offset**, since direct parenting fought the transform) to the spinning empty so it comedically "face-plants" at the bottom of the spin — purely a joke shot, not part of the core technique.
+13. **Lighting/comp:** World shader split via `Is Camera Ray` into separate background vs. reflection contribution; ACES-ish color management discussed; final RGB Curves pass to pull red down toward a teal grade; light setup iterated heavily (top light, side lights, a "skylight" opening in the roof) without a fully settled result by the end of stream.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+Geometry Nodes Simulation Zone, Join Geometry, Rotate Vector, Hash value (ID uniqueness), Scene Time (frame), custom node groups (velocity step / SDF collision / SDF mesh — creator's own Gumroad assets), Set Position, Separate XYZ, Compare (Less Than), Boolean AND gates, Store Named Attribute (start/end/rest_position/web ID), Delete Geometry (random value), Blur Attribute (vector, position and velocity), Triangulate, Extrude Mesh, Scale Elements (Individual), Merge by Distance, Transform Geometry, Curve object (blank, not object-attached) + Mesh to Curves, Set Curve Radius, Tri-Planar Mapping, Bump node, Copy Location constraint (offset), World shader Is Camera Ray mix, RGB Curves. Render: Eevee Next, ray tracing on, Order-Independent-Transparency-adjacent alpha blend workaround, motion blur (relies on consistent per-point IDs).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced/Expert — no single node is exotic, but the design requires holding a multi-stage Simulation Zone in your head (spawn → collide → freeze → tension-force → render-convert) and debugging emergent behavior (why particles collapse early, why velocity doesn't update, why the rest position needs to be captured post-hit) live, with several genuine dead-end approaches shown before the working one. Good case study in GN simulation debugging methodology, not a copy-paste beginner recipe.
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.3 (per title; presenter notes the core technique works in any recent Blender version, only the specific EEVEE Next / "wait for shader compile" behavior shown is 5.3-specific).
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, simulation-zone, particles, procedural-modeling, curves, vfx, web-effect, sdf-collision, tension-force, blur-attribute, eevee-next, shading, alpha-blend, tri-planar, livestream, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+None yet — first Simulation Zone / procedural-VFX-attachment entry in this library. Cross-link future GN particle-simulation or web/cable-effect tutorials here.
