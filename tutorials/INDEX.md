@@ -2782,6 +2782,16 @@ Each entry format:
 - **Summary:** Procedural-shading primer built on one core insight — a color is just a 3-value vector, so any single number (a Math node, a noise texture) can drive any color input, and crucially can be used as a black/white mask in a Mix Color node's Factor to blend two colors/values in a patchy pattern instead of a flat average. Covers the four core texture nodes (Noise, Voronoi, Wave, Gradient) plus Color Ramp, then applies masking to Roughness (wet/worn variation) and to a Bump node (fake surface detail without geometry). Builds a full scratched-metal shader from a reference photo: layered noise for a mottled base color, a clamped noise mask multiplied in for dark speckles, Metallic slider, scratches via two rotated Wave Textures (Ctrl+T to expose rotation) or an alternate Voronoi (F1 Distance to Edge) method for longer marks, each broken into discrete clumps by a noise mask, then applied as both a color overlay and an inverted Bump layer. Finishes with a Displacement modifier (Clouds) and node Frame/Group organization tips.
 - **File:** tutorials/how-to-make-better-materials-in-blender-52.md
 
+
+### (Spoilers) Spiderman Tornado Webs Test (Blender 5.3)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=ufaZPxkiwtM
+- **Author:** Cartesian Caramel
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/spoilers-spiderman-tornado-webs-test-blender-53.md
+
 ---
 
 ## Tag Reference
