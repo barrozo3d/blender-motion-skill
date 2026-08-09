@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=DhSJ8gD7iyo
 author: BlankFaceStudios
 ingested: 2026-08-09
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.2"
+tags: [shading, procedural-materials, shader-editor, masking, color-ramp, noise-texture, voronoi-texture, wave-texture, bump-mapping, metal-shader, node-wrangler, node-groups, texture-layering]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-make-better-materials-in-blender-52/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 13
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How To Make Better Materials In Blender 5.2
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-to-make-better-materials-in-blender-52 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -324,30 +320,59 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:25] tutorials/frames/how-to-make-better-materials-in-blender-52/frame_000.jpg
+- [1:40] tutorials/frames/how-to-make-better-materials-in-blender-52/frame_001.jpg
+- [2:19] tutorials/frames/how-to-make-better-materials-in-blender-52/frame_002.jpg
+- [3:20] tutorials/frames/how-to-make-better-materials-in-blender-52/frame_003.jpg
+- [5:17] tutorials/frames/how-to-make-better-materials-in-blender-52/frame_004.jpg
+- [6:19] tutorials/frames/how-to-make-better-materials-in-blender-52/frame_005.jpg
+- [8:10] tutorials/frames/how-to-make-better-materials-in-blender-52/frame_006.jpg
+- [9:15] tutorials/frames/how-to-make-better-materials-in-blender-52/frame_007.jpg
+- [9:39] tutorials/frames/how-to-make-better-materials-in-blender-52/frame_008.jpg
+- [10:14] tutorials/frames/how-to-make-better-materials-in-blender-52/frame_009.jpg
+- [11:40] tutorials/frames/how-to-make-better-materials-in-blender-52/frame_010.jpg
+- [13:00] tutorials/frames/how-to-make-better-materials-in-blender-52/frame_011.jpg
+- [14:20] tutorials/frames/how-to-make-better-materials-in-blender-52/frame_012.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A conceptual + practical procedural-materials primer built around one core insight — a color (RGB) is just a 3-component vector, and any single value (from a Math node, a noise texture, anything) can drive any input a color could, including used as a black/white **mask** to blend two other values together (`Mix Color`'s Factor input) — then applies that insight (texture layering, masking, bump-as-fake-geometry) to build a complete procedural scratched/speckled metal shader from scratch.
 
 ### Summary
-[PENDING EXTRACTION]
+Opens with the four core procedural texture nodes and what they're good for: **Noise Texture** (grunge/variation, controlled via Scale/Detail/Distortion), **Voronoi Texture** (cell-based — F1 "Distance to Edge" gives cracked-rock/reptile-scale looks; low Randomness + Euclidean→Chebychev distance metric gives tile patterns), **Wave Texture** (lines/grids; distorted + detailed can fake wood grain), and **Color Ramp** (remaps a texture's value range — dragging the black/white stops changes contrast, switching Linear→Constant gives pure black/white with no blending). Then demonstrates the color=vector equivalence directly: plugging a Math node's single 0 or 1 output into a Base Color input turns it fully black or white because Blender broadcasts the scalar to all three RGB channels; a Vector Math node exposes the three channels individually to prove the point (described purely as a teaching example, not a recommended workflow — actual color values should still be set with color nodes). This leads into masking: mixing two flat colors with a Mix Color node's Factor set to a noise+color-ramp chain (instead of a constant) produces spotted/patchy patterns instead of a flat blend of the two colors; the same masking idea generalizes to Roughness (texture-driven roughness variation looks wet/worn/fingerprinted) and to fake geometric detail via a **Bump** node (noise + color ramp → Bump height input → material Normal) that reads as surface detail without added polygons. The second half builds a full scratched-metal material live: start from a real-world reference photo dropped in as an image plane; layer 2-3 noise textures (different scales) through nested Mix Color nodes to build a mottled base color, add a high-frequency clamped noise mask multiplied in for dark speckles, flip on the Metallic slider; build scratches two ways — (a) two Wave Textures rotated to different angles (select node, `Ctrl+T` to expose a Vector rotate input, rotate on Y) and thinned via Color Ramp, each broken into discrete marks by masking with its own noise+color-ramp pair (offsetting the noise masks with a Mapping node's Location so they don't line up identically), or (b) a Voronoi Texture (F1 Distance to Edge, clamped thin, detail+roughness added for imperfection) as an alternative that gets longer scratch marks than the wave-based approach; the scratches drive both a color overlay (white lines mixed onto the base color) and a Bump node (height ≈0.01, inverted so scratches cut in rather than bulge out, combined with the earlier detail-noise bumps — note combined bumps can lose strength and need re-boosting). Finishes with a Displacement modifier using a Cloud texture for overall sphere imperfection, and groups dense node clusters (select all → `Ctrl+G`) to keep the graph manageable.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Enable the **Node Wrangler** add-on (Edit → Preferences → Add-ons) for shader-editor shortcuts used throughout (`Ctrl+Shift+click` on a node to preview it on the object; `Ctrl+T` to add a Mapping+Texture Coordinate pair with rotate/scale exposed).
+2. Learn the four core texture nodes (Noise, Voronoi, Wave, Gradient) and Color Ramp as the universal value-remapper/contrast tool.
+3. Prove colors are vectors: Math node output (a single value) plugged into a Base Color input broadcasts to R=G=B; a Color input hovered shows it's secretly 3 values; Vector Math exposes X/Y/Z independently to control R/G/B separately (illustrative only).
+4. Masking: plug a Noise Texture → Color Ramp chain into a Mix Color node's **Factor** (instead of a constant) to blend two colors/values in a patchy/spotted pattern instead of a flat average. Apply the same trick to Roughness (variation = wet/worn look) and to a **Bump** node's Height input (Bump output → material's Normal input) for fake surface detail.
+5. Build base color: reference image as an image plane; Noise Texture (higher-frequency, scale tuned to reference) → Color Ramp preview via `Ctrl+Shift+click`; feed into Mix Color's Factor to blend two picked colors (A/B) from the reference photo; duplicate with a second, lower-scale noise for extra variation; mix the two noise-driven colors together with a third noise as the top-level Factor for the base color.
+6. Add dark speckles: a separate noise mask with values clamped down hard (tight Color Ramp range) → Mix Color with a dark/gray color, blend mode set to **Multiply**, so speckles only darken (never lighten) the base.
+7. Enable **Metallic** on the Principled BSDF slider.
+8. Scratches (wave method): duplicate a Wave Texture node twice; select each and press `Ctrl+T` to expose rotation; rotate one's Y differently from the other so scratches cross at different angles; Color Ramp each down to thin lines; add Distortion + Detail on the Wave Texture until the lines look irregular rather than perfectly straight. Break each line set into discrete marks: Noise Texture → Color Ramp mask → Mix Color Factor, with Input A = the wave/scratch output and Input B = black — higher-frequency noise mask = more/smaller scratch clumps. Offset one noise mask via a Mapping node's Location so the two scratch layers' masks don't align identically (avoids a visibly repeating pattern when mixed).
+9. Scratches (Voronoi alternative, used for longer marks): Voronoi Texture, F1 set to **Distance to Edge**, Color Ramp clamped for thin lines, plus added Detail/Roughness for imperfection; make two variants, mask each with its own noise, mix together — same masking pattern as the wave method.
+10. Apply scratches to shading: Mix Color node, A = full base-color setup, B = white, Factor = scratch mask output → overlays scratches as bright lines on the base color. Separately, feed the scratch output into a **Bump** node (Distance ≈ 0.01), invert it so scratches recess rather than protrude, and combine with existing detail-noise bump layers (re-strengthen values since combined bumps can cancel/weaken each other).
+11. Add a **Displacement modifier** with a Clouds texture for coarse overall surface imperfection on the sphere (mentioned as doable inside the shader editor too, deferred to a future video).
+12. Housekeeping: select a finished node cluster → `F` to frame + label it, `N` to adjust label size/color; once a cluster gets too large, select it → `Ctrl+G` to collapse into a Node Group (still wired into the main graph, just tucked away).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+Noise Texture, Voronoi Texture (F1: Distance to Edge; Distance Metric: Euclidean vs. Chebychev), Wave Texture (Distortion, Detail), Color Ramp (Linear vs. Constant interpolation), Math node, Vector Math node, Mix Color (Factor-as-mask pattern; blend modes incl. Multiply), Mapping node (Location offset to de-sync noise masks), Bump node (Height/Distance, Invert), Principled BSDF (Metallic, Roughness, Normal inputs), Node Wrangler add-on, node Frame (`F`) and Node Group (`Ctrl+G`) organization, Displacement modifier (Clouds texture).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner-friendly conceptually (explicitly pitched as demystifying procedural shading for newcomers) but the full metal-shader build is dense — many nested noise/color-ramp/mix-color layers stacked quickly; following along requires pausing to replicate each masking chain rather than a few isolated node tricks.
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.2 (per title; on-screen UI/version string not independently confirmed in captured frames).
 
 ### Tags
-[PENDING EXTRACTION]
+shading, procedural-materials, shader-editor, masking, color-ramp, noise-texture, voronoi-texture, wave-texture, bump-mapping, metal-shader, node-wrangler, node-groups, texture-layering
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+None yet — first procedural-shading-fundamentals entry in this library. Cross-link future material/shader-node tutorials here.
