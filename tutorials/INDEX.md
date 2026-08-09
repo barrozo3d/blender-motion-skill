@@ -2772,6 +2772,16 @@ Each entry format:
 - **Summary:** A reusable Geometry Nodes modifier that instances pre-made wire meshes along a hand-drawn chain of extruded edges: Split Edges + Mesh to Curve turn each edge into its own spline, Instance on Points (via Collection Info/Pick Instance for variety) places the wires, an Endpoint Selection node (Start Size 1/End Size 0) fixes a double-instance-per-segment artifact, Spline Length through a Combine XYZ node auto-scales each instance's X to fit its segment, and Curve Tangent through two chained Align Rotation to Vector nodes (second one on Z axis/Pivot X — an empirically-found fix for random upside-down flips) keeps wires hanging naturally regardless of extrude direction. Z-scale and a random seed are exposed as Group Inputs so duplicated wire clusters can be varied independently; a fuller variant adds a Menu Switch to toggle between single-object and full-collection instancing.
 - **File:** tutorials/awesome-wire-generator-with-geo-nodes-blender-tutorial.md
 
+
+### How To Make Better Materials In Blender 5.2
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=DhSJ8gD7iyo
+- **Author:** BlankFaceStudios
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-make-better-materials-in-blender-52.md
+
 ---
 
 ## Tag Reference
