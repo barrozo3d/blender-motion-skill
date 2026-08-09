@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=SvOBxvRjQ8Q
 author: Max Hay
 ingested: 2026-08-09
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "not specified on screen"
+tags: [geometry-nodes, procedural-modeling, instancing, curves, hard-surface, wires, cables, split-edges, align-rotation-to-vector, endpoint-selection, group-input, menu-switch]
+extraction_status: complete
 frames_dir: tutorials/frames/awesome-wire-generator-with-geo-nodes-blender-tutorial/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 11
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Awesome Wire Generator with Geo Nodes | Blender Tutorial
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py awesome-wire-generator-with-geo-nodes-blender-tutorial <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -211,30 +207,54 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [3:31] tutorials/frames/awesome-wire-generator-with-geo-nodes-blender-tutorial/frame_000.jpg
+- [3:48] tutorials/frames/awesome-wire-generator-with-geo-nodes-blender-tutorial/frame_001.jpg
+- [4:04] tutorials/frames/awesome-wire-generator-with-geo-nodes-blender-tutorial/frame_002.jpg
+- [4:34] tutorials/frames/awesome-wire-generator-with-geo-nodes-blender-tutorial/frame_003.jpg
+- [5:32] tutorials/frames/awesome-wire-generator-with-geo-nodes-blender-tutorial/frame_004.jpg
+- [6:19] tutorials/frames/awesome-wire-generator-with-geo-nodes-blender-tutorial/frame_005.jpg
+- [7:33] tutorials/frames/awesome-wire-generator-with-geo-nodes-blender-tutorial/frame_006.jpg
+- [8:17] tutorials/frames/awesome-wire-generator-with-geo-nodes-blender-tutorial/frame_007.jpg
+- [9:13] tutorials/frames/awesome-wire-generator-with-geo-nodes-blender-tutorial/frame_008.jpg
+- [10:20] tutorials/frames/awesome-wire-generator-with-geo-nodes-blender-tutorial/frame_009.jpg
+- [11:15] tutorials/frames/awesome-wire-generator-with-geo-nodes-blender-tutorial/frame_010.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A reusable Geometry Nodes modifier that turns a simple edited mesh (a chain of extruded points) into a procedural cluster of hanging-wire instances: each straight-line segment (edge) becomes its own spline that instances a pre-made wire mesh, auto-scaled to fit its own length and auto-rotated to hang naturally, all controllable live by moving/extruding points in Edit Mode.
 
 ### Summary
-[PENDING EXTRACTION]
+First builds simple reference wire meshes by hand (Bezier curve → flatten on Y → shape into a hanging curve → increase bevel → duplicate/subdivide for variations → convert to mesh → join → set origin to the far-left end), grouped into a Collection with matching scale and origin placement. The real content is the Geometry Nodes setup: start from a cube, merge all vertices to one point, then in Edit Mode extrude that point freely to draw the wire path as a connected chain of edges. The modifier splits each edge into its own spline (**Split Edges → Mesh to Curve**), feeds each spline into **Instance on Points** using a **Collection Info** (Separate Children + Pick Instance, for random variety) or a single object, fixes the "extra instance at both ends of each segment" artifact with an **Endpoint Selection** node (Start Size 1 / End Size 0) wired into the Selection input, drives per-instance X-scale (stretch to fit) from **Spline Length** through a **Combine XYZ** node (so only X is affected), and drives rotation from **Curve Tangent → Align Rotation to Vector**. A single Align Rotation to Vector node flips upside-down unpredictably on some segment orientations, so the fix is to chain **two** Align Rotation to Vector nodes: the first left on default (X axis, Auto pivot), the second set to Z axis with Pivot on X — empirically found by experimentation, not derived from first principles. Finally exposes the Z-scale (named "Height") and a random-value seed as Group Inputs so each modifier instance (each duplicated wire cluster) can be independently varied without affecting the shared node group, and — in the presenter's fuller version — adds a **Menu Switch** to toggle the whole system between single-object and full-collection instancing modes, which also gates Pick Instance on/off via the switch's second output.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Build reference wire mesh(es): Bezier curve, `S Y 0` to flatten, shape into a hanging curve in front view, increase Bevel in curve settings for thickness, duplicate/subdivide to make variations, convert each to mesh (right-click → Convert to Mesh), `Ctrl+J` to join multi-part wires, then in Edit Mode move the mesh's origin to its far-left vertex (so scale/rotate pivots from that end). Keep all wires the same base length/scale so downstream length-driven math stays consistent. Group them into one Collection.
+2. New object: add a Cube, enter Edit Mode, select all verts, **Merge → At Center** to collapse to a single point — this becomes the path-drawing seed. Extrude that point repeatedly/freely to draw the wire's path as a chain of connected edges.
+3. Geometry Nodes modifier: **Split Edges** (so every edge becomes an independent segment) → **Mesh to Curve** → **Instance on Points**.
+4. Instancing source: either plug a single object directly into Instance, or use **Collection Info** (with the wires Collection assigned) → check **Separate Children** and **Reset Children** → check **Pick Instance** on the Instance on Points node for randomized per-segment variety.
+5. Fix duplicate-instance-per-segment-end artifact: add **Endpoint Selection**, set **Start Size = 1**, **End Size = 0**, plug into Instance on Points' Selection input — makes extruding a new point add exactly one new instance at the new segment as expected.
+6. Auto-scale to segment length: with the mesh-to-curve conversion in place, take **Spline Length** → plug into a **Combine XYZ** node's X input (leave Y/Z at 0/default) → plug the Combine XYZ result into Instance on Points' Scale input, so only X (the wire's long axis) stretches. Divide/multiply the raw spline length down with a **Math (Multiply)** node by a manually-tuned constant (presenter used ~0.215) since raw length is "way too big" — the right constant depends on how large the source wire mesh was modeled, hence the earlier "keep them all the same scale" requirement.
+7. Auto-rotate to follow the path: **Curve Tangent** → **Align Rotation to Vector** → Instance on Points' Rotation input. A single Align Rotation to Vector node rotates unpredictably/upside-down on some segment directions. Fix: duplicate the node so there are two in series — first instance: Vector = Curve Tangent output, axis = X, Pivot = Auto (left default); second instance: axis = Z, Pivot = X. This combination reliably keeps wires hanging downward regardless of which direction a segment was extruded.
+8. Expose per-cluster controls to the modifier panel: take the Z-scale value (from step 6's Combine XYZ, or a separate scale node) and drag it out to a new Group Input socket, renamed e.g. "Height" — now each duplicated instance of the whole system (each wire cluster in the outliner) can have its own droop/height independent of the shared node group. Similarly expose a **Random Value** node (dragged out from Instance Index → search "Random Value") as a Group Input "Seed" so each duplicate can get different random instance variation without editing the shared graph.
+9. (Fuller variant) Add a **Menu Switch** node exposed to the modifier with two options — single object vs. collection — wired so selecting "collection" both switches the Instance source and toggles **Pick Instance** on (and off for the single-object option).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+Split Edges, Mesh to Curve, Instance on Points (Pick Instance, Separate Children, Reset Children), Collection Info, Endpoint Selection (Start Size / End Size), Spline Length, Combine XYZ, Math (Multiply), Curve Tangent, Align Rotation to Vector (chained ×2, second on Z axis / Pivot X), Random Value (for seed), Menu Switch (object vs. collection toggle), Group Input/Output exposure for per-instance modifier controls (Height, Seed, object/collection menu).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner-to-intermediate Geometry Nodes — no complex math beyond one manually-tuned scale constant; the main "gotcha" (double Align Rotation to Vector to fix upside-down flips) is presented as an empirically-found fix rather than something to derive, so it's easy to copy even without fully understanding why it works.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not stated on screen or in narration (UI matches a recent 4.x/5.x Blender Geometry Nodes editor; no explicit version callout).
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural-modeling, instancing, curves, hard-surface, wires, cables, split-edges, align-rotation-to-vector, endpoint-selection, group-input, menu-switch
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+None yet — first Geometry-Nodes wire/cable-instancing entry in this library. Cross-link future procedural cable/wire or curve-instancing tutorials here.
