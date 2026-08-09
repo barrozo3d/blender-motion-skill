@@ -2792,6 +2792,16 @@ Each entry format:
 - **Summary:** 113-minute live build recreating the *Spider-Man: Brand New Day* "web tornado" VFX purely in Geometry Nodes (no cloth/physics sim). A Simulation Zone fires particles from a spinning empty into a room collider; on hit, only "end"-marked particles freeze while "start" stays pinned to the spinner, producing taut strands. Each strand instances a separately-built procedural web-patch mesh (grid → random deletion → blurred position → frayed extrude/scale) converted to Cylinder curves for rendering. A tension force built from blurred rest-position offset (captured post-hit, not pre-hit — a real gotcha) makes unattached sections droop realistically. Covers real debugging dead-ends (recursive-subdivision web-shape attempts abandoned, direct constraint-baking broken, velocity blur silently breaking after freeze), a 180°-duplicated "double helix" density trick, Tri-Planar brick/plaster set dressing, a Copy Location constraint gag shot, and a closing lighting/compositing pass. Good case study in GN Simulation Zone debugging methodology.
 - **File:** tutorials/spoilers-spiderman-tornado-webs-test-blender-53.md
 
+
+### Ucupaint Quick Start Guide for Beginners 🖌️ (Blender Tutorial)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=KaB8FkBb5rQ
+- **Author:** Ryan King Art
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ucupaint-quick-start-guide-for-beginners-blender-tutorial.md
+
 ---
 
 ## Tag Reference
