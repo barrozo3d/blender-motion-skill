@@ -2802,6 +2802,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/ucupaint-quick-start-guide-for-beginners-blender-tutorial.md
 
+
+### How to get good lighting in blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=c3FnWQTMo9s
+- **Author:** Max Hay
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-get-good-lighting-in-blender.md
+
 ---
 
 ## Tag Reference
