@@ -81,3 +81,8 @@ Intermediate
 
 ### Tags
 #geometry-nodes #simulation #animation #smoke-fire #volume #motion-design #blender-5x #intermediate
+
+---
+
+## Related Tutorials
+- `volume-editing---blender-geometry-nodes-tutorial.md` — shares smoke-fire/volume/blender-5x/geometry-nodes; deforms an already-cached volumetric sim (bend/twist/split via Rasterize Points) rather than driving a live Grid Nodes smoke sim from audio.

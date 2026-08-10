@@ -2827,10 +2827,11 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=VU_FhO4Jlpg
 - **Author:** CGMatter
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.3
+- **Tags:** #geometry-nodes #simulation #smoke-fire #volume #procedural #displacement #cycles #advanced #blender-5x
+- **Summary:** Deforms an already-baked OpenVDB smoke+fire simulation (bend, twist, split, noise-distort) without re-simulating, by converting volume grids to points with Grid to Points, transforming point positions with ordinary node math, and rebuilding the volume with Blender 5.3's new Rasterize Points node. Covers a divide-by-1 trick to recover lost density weighting and a Principled Volume fire material from the recombined density/flame grids.
 - **File:** tutorials/volume-editing---blender-geometry-nodes-tutorial.md
+- **Related:** Fluid sim testing in Blender 5.3! (Rasterize Points Node) (`fluid-sim-testing-in-blender-53-rasterize-points-node.md`) — same Rasterize Points node and Blender 5.3. Also shares tags with 3D Smoke (Blender Geometry Nodes) (geometry-nodes, simulation, smoke-fire, volume, blender-5x, advanced) and Blender 5.0's NEW Audio Visualisation is INSANE! (smoke-fire, volume, blender-5x).
 
 ---
 

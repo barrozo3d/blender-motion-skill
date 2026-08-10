@@ -1865,3 +1865,4 @@ geometry-nodes, simulation, particles, fluid, volume, procedural, materials, ren
 
 ## Related Tutorials
 - [How to Build After Effects-Style Motion Graphics in Blender](how-to-build-after-effects-style-motion-graphics-in-blender.md) — shares `geometry-nodes` and `procedural` tags; much simpler instancing/proximity setup vs. this stream's grid/volume-based simulation.
+- [Volume Editing - Blender Geometry Nodes Tutorial](volume-editing---blender-geometry-nodes-tutorial.md) — same `Rasterize Points` node and Blender 5.3; uses it to deform an already-cached VDB sim (bend/twist/split) instead of building a from-scratch pseudo-fluid sim.

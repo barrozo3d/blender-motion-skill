@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=VU_FhO4Jlpg
 author: CGMatter
 ingested: 2026-08-10
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.3"
+tags: [geometry-nodes, simulation, smoke-fire, volume, procedural, displacement, cycles, advanced, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/volume-editing---blender-geometry-nodes-tutorial/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Volume Editing - Blender Geometry Nodes Tutorial
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py volume-editing---blender-geometry-nodes-tutorial <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -237,30 +233,66 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:04] tutorials/frames/volume-editing---blender-geometry-nodes-tutorial/frame_000.jpg
+- [1:34] tutorials/frames/volume-editing---blender-geometry-nodes-tutorial/frame_001.jpg
+- [2:47] tutorials/frames/volume-editing---blender-geometry-nodes-tutorial/frame_002.jpg
+- [3:16] tutorials/frames/volume-editing---blender-geometry-nodes-tutorial/frame_003.jpg
+- [3:27] tutorials/frames/volume-editing---blender-geometry-nodes-tutorial/frame_004.jpg
+- [4:21] tutorials/frames/volume-editing---blender-geometry-nodes-tutorial/frame_005.jpg
+- [4:45] tutorials/frames/volume-editing---blender-geometry-nodes-tutorial/frame_006.jpg
+- [5:05] tutorials/frames/volume-editing---blender-geometry-nodes-tutorial/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Deform an already-baked volumetric simulation (bend, twist, split, distort) without re-simulating, by round-tripping the volume through a point cloud: **Grid to Points → transform point positions → Rasterize Points** (Blender 5.3's new volume-reconstruction node) back into a volume.
 
 ### Summary
-[PENDING EXTRACTION]
+CGMatter takes a cached OpenVDB smoke+fire simulation and shows how to bend, twist, split, and add noise distortion to it entirely in Geometry Nodes, with zero re-caching. The core trick: convert a volume grid (density or flame) to points with `Grid to Points` (each point carries the grid's value), transform the point *positions* with ordinary node math (Vector Rotate, Add, Noise Texture), then rebuild the volume with the new `Rasterize Points` node — exclusive to Blender 5.3. Because `Rasterize Points` doesn't account for density weighting, a "divide by 1" trick (rasterize a constant 1 alongside the real value, then divide) recovers the correct density strength. The same transform is applied to both the density and flame grids so smoke and fire deform together, then they're recombined via `Store Named Grid` for a Principled Volume fire material. The video closes on a sponsored segment using the Drop and Render farm to render a heavy 0.5GB VDB explosion (1.6 days locally → ~30 min on the farm).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Bake a Quick Smoke simulation: bring up domain resolution, set vorticity ~0.3, cache ~100 frames as an "All" cache (OpenVDB sequence) to a folder.
+2. Import the VDB sequence with an `Import VDB [CGM]` node (free custom node from the author's site): set Folder, File Name prefix (e.g. `fluid_data_`), 4-digit numbering, Offset.
+3. Pick a grid (Density or Flame) and feed it into `Grid to Points` — this bakes the grid's scalar value onto each generated point.
+4. Transform the *positions* of those points with normal node math — this is the whole trick, since the points still carry the original grid value.
+5. Rebuild the volume with `Rasterize Points` (Blender 5.3 only): set Voxel Size (start coarse ~0.1, refine to ~0.025 for detail), pick a higher-quality kernel/sampling method (e.g. Quadratic B-Spline) to remove banding, and wire in the transformed Position and the grid Value.
+6. Recover lost density: run a second `Rasterize Points` on a constant value of `1` (same positions), then `Divide` the real-value rasterize by that count-rasterize to get back correct density strength.
+7. **Bend:** `Vector Rotate` (Axis Angle), Center placed below the volume, Axis = X; drive the angle from `Position` → `Separate XYZ` → Z-component × a Multiply factor, so curvature increases with height.
+8. **Twist:** same Vector Rotate setup but Axis = Z and a larger multiply factor on the height-driven angle → tornado-like twist; recenter the rotate Center to the volume's actual XY origin.
+9. **Split:** `Separate XYZ` on Position → `Greater Than` on Z (threshold e.g. 0.5) → two different `Add` position offsets → `Mix` between them using the boolean/factor, splitting the volume into two chunks by height while preserving prior motion.
+10. **Noise distortion:** `Noise Texture` (Normalize OFF) added into the position for subtle blur/detail; turning Normalize ON instead projects all points onto a sphere.
+11. Apply the same transform node group to both the density and flame grids, then `Store Named Grid` both back into one volume.
+12. Fire material: `Principled Volume` — Density input = density grid; feed the flame grid into Blackbody/Temperature (temperature > 1000 for a hot look) for the fire color.
+13. For a heavy final render, offload to a render farm (Drop and Render, sponsor) instead of rendering 1000-sample motion-blurred volumetrics locally.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Import VDB [CGM]** — custom/free node (author's site): Folder, File Name, Time → 4 Digits, Offset; outputs VDB / Density / Velocity.
+- **Grid to Points** — Grid → Points (+ per-point Value carrying the grid's scalar).
+- **Rasterize Points** — Blender 5.3-exclusive. Voxel Size (0.025–0.1 m range shown) or Matrix mode; kernel/sampling type (raise to Quadratic B-Spline to remove banding); Position and Value inputs.
+- **Divide** — recovers true density: (value-rasterize) ÷ (ones-rasterize).
+- **Vector Rotate** — Type: Axis Angle; Center + Axis vary per effect (bend: Axis X, Center below volume; twist: Axis Z, Center at volume origin).
+- **Separate XYZ + Multiply** — derives a height-driven rotation angle from Position.Z.
+- **Greater Than + 2× Add + Mix** — splits the volume into two halves by a Z threshold.
+- **Noise Texture** (Normalize off for distortion; on for spherize).
+- **Principled Volume** — Density = density grid; Blackbody Intensity/Temperature (>1000) = flame grid, for the fire look.
+- **Store Named Grid** — recombines density + flame grids into a single output volume.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced — depends on a Blender-5.3-exclusive node (`Rasterize Points`) and a non-obvious point-cloud round-trip technique; not beginner-friendly, though each individual transform (Vector Rotate, Add, Mix) is simple once the core idea clicks.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.3 — required. The video states explicitly: "The Rasterize Point node only exists in 5.3."
 
 ### Tags
-[PENDING EXTRACTION]
+`#geometry-nodes` `#simulation` `#smoke-fire` `#volume` `#procedural` `#displacement` `#cycles` `#advanced` `#blender-5x`
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- **Fluid sim testing in Blender 5.3! (Rasterize Points Node)** (`tutorials/fluid-sim-testing-in-blender-53-rasterize-points-node.md`) — closest match: same `Rasterize Points` node, same Blender 5.3, also builds density/velocity grids from a point-cloud round-trip, just for a from-scratch pseudo-fluid sim instead of post-processing a cached one.
+- **3D Smoke (Blender Geometry Nodes)** (`tutorials/3d-smoke-blender-geometry-nodes.md`) — shares geometry-nodes/simulation/smoke-fire/volume/blender-5x/advanced; builds the underlying volumetric smoke sim from scratch with velocity/pressure/density fields, complementary to this video's "deform an existing bake" angle.
+- **Blender 5.0's NEW Audio Visualisation is INSANE!** (`tutorials/blender-50s-new-audio-visualisation-is-insane.md`) — shares smoke-fire/volume/blender-5x; another Geometry Nodes volumetric grid workflow, driven by audio instead of manual transforms.

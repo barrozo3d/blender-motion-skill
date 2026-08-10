@@ -78,3 +78,4 @@ Blender 5.0 (Volume Grid nodes; `Field to Grid`, `Store Named Grid`, `Volume Cub
 ## Related Tutorials
 - `ill-teach-you-geometry-nodes.md` — Geometry Nodes fundamentals that underpin the node network structure used here
 - `using-geometry-nodes-for-vfx-in-blender.md` — shares GeoNodes-for-VFX context and simulation-oriented workflow
+- `volume-editing---blender-geometry-nodes-tutorial.md` — shares geometry-nodes/simulation/smoke-fire/volume/blender-5x/advanced; deforms an already-baked VDB sim (bend/twist/split) rather than building the smoke sim from scratch.
