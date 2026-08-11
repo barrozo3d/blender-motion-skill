@@ -2833,6 +2833,16 @@ Each entry format:
 - **File:** tutorials/volume-editing---blender-geometry-nodes-tutorial.md
 - **Related:** Fluid sim testing in Blender 5.3! (Rasterize Points Node) (`fluid-sim-testing-in-blender-53-rasterize-points-node.md`) — same Rasterize Points node and Blender 5.3. Also shares tags with 3D Smoke (Blender Geometry Nodes) (geometry-nodes, simulation, smoke-fire, volume, blender-5x, advanced) and Blender 5.0's NEW Audio Visualisation is INSANE! (smoke-fire, volume, blender-5x).
 
+
+### Is This the Most Photorealistic Glass in Blender?
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=c95-5gg3kOs
+- **Author:** Blender Wizard
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/is-this-the-most-photorealistic-glass-in-blender.md
+
 ---
 
 ## Tag Reference
