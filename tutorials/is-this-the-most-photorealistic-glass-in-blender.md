@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=c95-5gg3kOs
 author: Blender Wizard
 ingested: 2026-08-10
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (4.x-era UI)"
+tags: [materials, shaders, procedural, glass, cycles, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/is-this-the-most-photorealistic-glass-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Is This the Most Photorealistic Glass in Blender?
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py is-this-the-most-photorealistic-glass-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -219,30 +215,86 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:55] tutorials/frames/is-this-the-most-photorealistic-glass-in-blender/frame_000.jpg
+- [1:44] tutorials/frames/is-this-the-most-photorealistic-glass-in-blender/frame_001.jpg
+- [2:12] tutorials/frames/is-this-the-most-photorealistic-glass-in-blender/frame_002.jpg
+- [4:33] tutorials/frames/is-this-the-most-photorealistic-glass-in-blender/frame_003.jpg
+- [7:06] tutorials/frames/is-this-the-most-photorealistic-glass-in-blender/frame_004.jpg
+- [8:03] tutorials/frames/is-this-the-most-photorealistic-glass-in-blender/frame_005.jpg
+- [10:31] tutorials/frames/is-this-the-most-photorealistic-glass-in-blender/frame_006.jpg
+- [13:14] tutorials/frames/is-this-the-most-photorealistic-glass-in-blender/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A layered Principled BSDF glass shader built from four stacked node groups — Refraction (surface micro-noise breaking up perfect refraction), Caustics (a Light Path shadow-ray-driven mix shader that fakes light bleeding through glass edges using Geometry Pointiness), Scratches (UV-mapped scratched-metal image textures blended with procedural noise masks), and a final fingerprint/smudge pass using Anisotropy + a UV-mapped Tangent) — none of which rely on an HDRI; the final render uses only two spotlights in an otherwise fully dark scene.
 
 ### Summary
-[PENDING EXTRACTION]
+A from-scratch Blender shader-node tutorial (Blender Wizard) building a photorealistic drinking-glass material entirely by hand-tuned Principled BSDF settings and layered procedural/image noise. Starts with base glass parameters (Transmission 1, low Roughness, Thin Film 65mm, Clear Coat 1/0.25 roughness, a barely-tinted green base color), then breaks up the "too perfect," water-like default refraction using multiple layered Noise Textures feeding a Bump node (also wired into the Clear Coat Normal) — with one noise driven by mesh-normal mapping so surface noise follows the geometry, and additional multiply/add-blended noise layers (including a Gradient Texture + Color Ramp pass) building rough, pitted detail specifically at the base of the glass. Groups this into a "Refraction" node group, then builds a separate "Caustics" group: two Principled BSDFs (one thin-walled, fully transparent) mixed via a Light Path node's Shadow Ray output, with a Geometry node's Pointiness output driving two Color Ramps (multiplied + inverted) that mask where light should visibly "leak" — brightest at edges, dimmer on flat faces — plus additional edge-following noise for organic caustic variation. A third "Scratches" group layers two UV-mapped scratched-metal image textures (sRGB color space required) with procedural pointiness-driven edge masks (Overlay blend) so scratches concentrate at edges but still show faintly across flat surfaces, feeding a Translucent+Metallic Add-shader mixed in via the mask. A final fingerprint pass uses a Fingerprints image texture through a Color Ramp piped into Roughness (on both the Clear Coat and base Principled BSDF) and Metallic — with the critical realism step being cranking Anisotropy to 1 with Anisotropy Rotation 0.25 and switching the shader's Tangent input from Radial to a UV Map-driven Tangent node, so fingerprint smudges catch and streak light directionally like real skin oil does, rather than reading as a flat roughness map.
 
 ### Key Steps
-[PENDING EXTRACTION]
+**Base glass parameters:**
+1. On a Principled BSDF: set base Color value to 1, Transmission to 1, Roughness low (not zero — "just barely"), Thin Film Thickness to 65mm, Clear Coat strength to 1 with Clear Coat Roughness 0.25, and a very subtle green tint (Saturation ~0.005) in the base color.
+
+**Refraction node group (breaking up "too perfect" refraction):**
+2. Add two Noise Textures (Scale 2 / Distortion 0.5, and Scale 3 / Distortion 0.5), mix with blend mode **Add**, feed the result into a Bump node's Height input, and plug the Bump output into both the shader's **Normal** and **Clear Coat Normal** inputs (Bump Distance 0.005, Strength 0.5).
+3. Add Mapping + Texture Coordinate nodes; plug Texture Coordinate's **Normal** output into the Mapping node's Vector input, and connect that Mapping node only to the top noise texture — makes the surface noise follow the mesh's actual geometry/curvature rather than looking like flat projected noise.
+4. Add a second Mapping node (Vector fed by Texture Coordinate's **Generated** output) driving a new Noise Texture (Scale 4, Distortion 0.5); set the Mapping node's Z-axis Scale to 45. Mix this into the existing noise stack with blend mode **Add**, Factor ~0.005 — a very low-opacity pass for microscopic "metal pressed against glass" mold-seam detail.
+5. Build rougher, more pitted detail specifically for the base of the glass: two Noise Textures (Scale 75/Distortion 0.15 and Scale 30/Roughness 0.75/Distortion 0.65) mixed with **Multiply**; duplicate the second, switch its noise type from FBM to **Hetero Terrain**, Scale 90/Detail 0.2/Distortion 0.45, mixed in again with **Multiply**. Add a Gradient Texture (through its own Mapping node, Generated coordinates, Y-rotation 90°) into a Color Ramp with flipped/inverted colors, mixed via **Multiply**, then combine with the earlier noise-add chain via **Add** at a very low factor (~0.05) to localize the rough/pitted look to the glass's base.
+6. Select all these nodes, group them (Ctrl+G) and rename the group **"Refraction."**
+
+**Caustics node group (faking light passing through edges):**
+7. Add a second Principled BSDF: enable **Thin Walled**, Roughness to 0, base Color value 1, Transmission 1. Mix the two Principled BSDFs with a **Mix Shader**.
+8. Add a **Light Path** node; plug its **Shadow Ray** output into the Mix Shader's Fac input — this is the key trick letting the shader behave differently under direct shadow-ray evaluation (visible caustic "leak") vs. normal camera rays.
+9. Add a **Geometry** node; take its **Pointiness** output into two separate Color Ramps (adjust values on each), multiply them together, then run through an **Invert Color** node — this pointiness-derived mask determines where light visibly bleeds through (bright white at sharp mesh edges, darker/gray on flat faces). Plug the inverted result into the base color of the transmissive Principled BSDF. Flip/reroute the two BSDFs' noodle order as needed so glass and caustics render correctly together.
+10. Tune both Color Ramps until edges read pure white and flat faces read medium gray in the preview; set the ramps' white-point value to 2 to maximize light transmission at edges.
+11. Add organic variation: a Noise Texture fed by the Geometry node's Normal, Scale 6.9/Roughness 0.75, mixed (Factor 0.65) with a duplicate at Scale 10, run through a Color Ramp, then mixed (**Darken**, Factor 0.35) with the earlier pointiness-multiply mask; fine-tune the ramp values (~0.75) for the final caustic-noise look.
+12. Group these nodes and rename **"Caustics."**
+
+**Scratches node group:**
+13. Add a second Pointiness-driven edge mask (Geometry → two Color Ramps, one fed Factor directly from Pointiness) tuned to highlight all mesh edges, mixed with **Add** so scratches also show faintly across flat surfaces, not just edges.
+14. Add two scratched-metal Image Textures (source: search "Scratched Metal" on Sketchfab per the tutorial), mixed with **Add**; model must be UV-unwrapped. Each image texture gets its own Mapping node (Vector type: **Texture** not Point) fed by Texture Coordinate's UV output — top mapping Scale 0.25, bottom 0.35. Set both image textures' color space to **sRGB** (Non-Color will blow out contrast). Rotate the mapping as needed so scratch direction reads as pointing "straight up." Feed through a duplicated Color Ramp (mostly dark gray, some black) to control contrast/visibility.
+15. Mix the scratch-image mask with the edge-pointiness mask using blend mode **Overlay**; adjust the bottom Color Ramp so scratches read across the whole mesh, not just edges. Run the combined result through an **Invert Color** node.
+16. Add a **Translucent BSDF** and a **Metallic BSDF** (Roughness 0.45, base color/edge tint value 1, saturation 0); combine with an **Add Shader**. Mix this combined shader with the Refraction+Caustics material, using the inverted scratches mask as the Mix Shader factor.
+17. Group and rename **"Scratches."**
+
+**Fingerprints / final realism pass:**
+18. Add a Fingerprints image texture (project file includes one; any smudge/fingerprint mask texture works) through a Color Ramp; plug the ramp output into **Roughness** on both the Clear Coat and the base Principled BSDF, and into **Metallic** — produces visible grimy smudges across the glass. Scale the texture's Mapping node up (~4) if smudges render too large.
+19. **Critical realism step**: on the glass shader, set **Anisotropy** to 1 (max) and **Anisotropy Rotation** to 0.25; add a **Tangent** node, plug it into the shader's Tangent input, and switch its mode from **Radial** to **UV Map** (selecting the model's UV map). This makes fingerprint smudges behave as directional streaks that catch/reflect light anisotropically — like real thumb-oil residue — rather than reading as a flat, physically-implausible roughness texture.
+20. Final result renders convincingly under just two spotlights in an otherwise fully dark scene — no HDRI used.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Principled BSDF** (×2, mixed) — key params: Transmission 1, low-not-zero Roughness, Thin Film Thickness 65mm, Clear Coat 1 / Clear Coat Roughness 0.25, subtle green base-color tint (Saturation ~0.005); second instance Thin Walled + Roughness 0 for the caustics pass
+- **Noise Texture** (many instances, varying Scale/Distortion/Roughness/type incl. FBM vs. **Hetero Terrain**) — primary surface-imperfection driver throughout all four node groups
+- **Mix Color / Mix Shader** nodes — blend modes used deliberately: **Add** (combining noise layers, subtle detail layers), **Multiply** (darkening/masking), **Darken**, **Overlay** (scratch mask + edge mask combination)
+- **Bump** node — Height fed by combined noise; Distance 0.005, Strength 0.5; output wired to both **Normal** and **Clear Coat Normal**
+- **Mapping** + **Texture Coordinate** — Normal output (surface-following noise) vs. Generated output (world-space noise) vs. UV output (image texture placement); Mapping node **Type: Point vs. Texture** distinction called out explicitly for image texture mapping
+- **Gradient Texture** + **Color Ramp** (flipped) — used for base-of-glass rough/pitted shaping
+- **Light Path** node — **Shadow Ray** output drives the Caustics Mix Shader factor, the core caustics-faking trick
+- **Geometry** node — **Pointiness** output (edge-detection mask, used repeatedly across Caustics and Scratches groups) and **Normal** output (noise-follows-geometry driver)
+- **Color Ramp** (many instances) — edge-mask shaping from Pointiness; white-point value pushed to 2 for max light transmission at edges in the Caustics group
+- **Invert Color** — inverts pointiness masks and the combined scratches mask before feeding shader inputs
+- **Image Texture** (scratched metal ×2, fingerprints ×1) — scratched-metal source noted as sourced from Sketchfab search "Scratched Metal"; color space must be **sRGB**, not Non-Color
+- **Translucent BSDF** + **Metallic BSDF** (Roughness 0.45, base color/edge tint 1, saturation 0) combined via **Add Shader** — mixed into the scratches layer
+- **Anisotropy** (Principled BSDF param, set to 1) + **Anisotropy Rotation** (0.25) + **Tangent** node (mode switched from Radial to **UV Map**) — the key anisotropic-smudge realism trick for the fingerprint pass
+- Node organization: four named Node Groups — **Refraction**, **Caustics**, **Scratches**, and the final ungrouped fingerprint/anisotropy pass — each built, tested in the material preview, then selected and grouped (Ctrl+G) for a clean final graph
+- Lighting: final scene lit with only two spotlights, no HDRI, in an otherwise fully dark scene
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified (UI/node set consistent with a recent 4.x-era Blender; no explicit version stated in audio or on-screen)
 
 ### Tags
-[PENDING EXTRACTION]
+materials, shaders, procedural, glass, cycles, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- Real time Caustics In Blender 5.1 (`real-time-caustics-in-blender-51.md`) — closest match, same core trick of using Light Path's Is Shadow Ray output through a Mix/Transparent Shader to fake caustics via shadow manipulation, here with a Voronoi-driven pattern instead of a Pointiness-driven edge mask. Shares tags: shaders, caustics, glass, cycles, light-path, procedural.
+- You Should Make Glass Animations in Blender 5.1 (`you-should-make-glass-animations-in-blender-51.md`) — general glass-shader design patterns in Cycles. Shares tags: glass, materials, shaders, cycles.

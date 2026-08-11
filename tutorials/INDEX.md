@@ -2838,10 +2838,11 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=c95-5gg3kOs
 - **Author:** Blender Wizard
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (4.x-era UI)
+- **Tags:** materials, shaders, procedural, glass, cycles, advanced
+- **Summary:** Four-node-group photorealistic glass shader with no HDRI (two spotlights only): a Refraction group breaks up perfect refraction with layered/mesh-following Noise Textures into a Bump node; a Caustics group uses Light Path's Shadow Ray output through a Mix Shader plus Geometry Pointiness-driven Color Ramps to fake light bleeding through edges; a Scratches group blends UV-mapped scratched-metal image textures with pointiness edge masks (Overlay) into a Translucent+Metallic Add Shader; and a final fingerprint pass pipes a Fingerprints texture into Roughness/Metallic, with the key realism trick being Anisotropy 1 + a UV Map-driven Tangent node so smudges streak light directionally instead of reading as flat roughness.
 - **File:** tutorials/is-this-the-most-photorealistic-glass-in-blender.md
+- **Related:** Real time Caustics In Blender 5.1 (`real-time-caustics-in-blender-51.md`) — same Light Path/Shadow Ray caustics-faking trick. Also shares tags with You Should Make Glass Animations in Blender 5.1 (glass, materials, shaders, cycles).
 
 ---
 
