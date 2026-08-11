@@ -2909,6 +2909,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/tut-different-instance-color-and-materials---p13-geometry-nodes-beginners.md
 
+
+### How I made this bridge destruction scene in blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=yV4zUZiDZW4
+- **Author:** FxForge
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-i-made-this-bridge-destruction-scene-in-blender.md
+
 ---
 
 ## Tag Reference
