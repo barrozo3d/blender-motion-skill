@@ -2866,6 +2866,16 @@ Each entry format:
 - **Full extraction:** `houdini-wand/tutorials/fire-fx-in-houdini-blender-and-nuke.md` (https://github.com/barrozo3d/houdini-wand/blob/master/tutorials/fire-fx-in-houdini-blender-and-nuke.md)
 - **⚠ Do not re-ingest this URL in blender-motion** — this stub exists only so this index surfaces the tutorial by search; ingesting it here would fork the content. If new Blender-specific detail is found, add it to the canonical file in houdini-wand instead.
 
+
+### Photorealistic Texturing In Blender 5.0
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=8HfKtaDx6tM
+- **Author:** Extra 3d
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/photorealistic-texturing-in-blender-50.md
+
 ---
 
 ## Tag Reference
