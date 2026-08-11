@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=8HfKtaDx6tM
 author: Extra 3d
 ingested: 2026-08-11
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.0"
+tags: [materials, shaders, texturing, pbr, procedural-texture, texture-painting, node-wrangler, uv, displacement, bump-map, normal-map, color-ramp, product-viz, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/photorealistic-texturing-in-blender-50/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 7
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Photorealistic Texturing In Blender 5.0
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py photorealistic-texturing-in-blender-50 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -277,30 +273,62 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:50] tutorials/frames/photorealistic-texturing-in-blender-50/frame_000.jpg
+- [4:34] tutorials/frames/photorealistic-texturing-in-blender-50/frame_001.jpg
+- [5:25] tutorials/frames/photorealistic-texturing-in-blender-50/frame_002.jpg
+- [8:55] tutorials/frames/photorealistic-texturing-in-blender-50/frame_003.jpg
+- [10:50] tutorials/frames/photorealistic-texturing-in-blender-50/frame_004.jpg
+- [12:25] tutorials/frames/photorealistic-texturing-in-blender-50/frame_005.jpg
+- [13:35] tutorials/frames/photorealistic-texturing-in-blender-50/frame_006.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Layering multiple PBR texture sets (base material + grunge/color-variation masks + dirt + hand-painted details) with mix nodes driven by procedural/grunge masks, instead of applying a single flat PBR material, to break up the repetition and uniformity that gives away a CG render.
 
 ### Summary
-[PENDING EXTRACTION]
+Extra 3D walks through photoreal texturing in Blender 5.0 using a wood side-table and a Hitem3D-generated statue as running examples. After a fast basics primer (UV/Object-coordinate projection, wiring an image into roughness via a Color Ramp and into the normal via a Bump node), the video's real content is the layering workflow: a base PBR wood texture (Node Wrangler's Ctrl+T auto-setup) gets color variation from a grunge-texture-driven Mix Color node, a second dirt material layered on top via Mix Shader with its own mask, an edge-wear mask built from Bevel + Geometry dot product, displacement/bump/normal maps combined per-layer (Add for displacement/bump, Overlay for normal), and finally hand-painted micro-detail (wood chipping) via Texture Paint with an image-texture stencil. The same layered approach is then reapplied to the statue (concrete base + RGB Curves color grade + color variation + moss layer with the edge-wear mask), and closes with a bonus glass shader technique (fingerprint/scratch texture piped into roughness via a Color Ramp).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **(Bonus tool) Generate a base mesh with Hitem3D**: upload 1–4 reference images, pick Model Version 2 (better reconstruction, good for complex models) vs. 1.5 (simpler objects), pick a resolution/PBR-texture-engine option that fills unseen structure and rebuilds detail, generate, then drag-and-drop the downloaded file into Blender to auto-import with textures assigned. Add a Decimate modifier (lower ratio) if the model will sit far from camera.
+2. **Basics — fix UV/projection for a single image texture**: enable the **Node Wrangler** add-on (Edit > Preferences > Add-ons) for shortcuts. New Material → Principled BSDF appears automatically; dragging an image in shows it projected wrong by default (mesh-generated/UV coordinates). Fast fix: Edit Mode → Select All → `U` → Cube Projection, then in the UV editor use Pack Islands. **Better fix for complex meshes:** switch the Texture Coordinate node's output from **UV to Object**, and on the Mapping/Image Texture node change projection from **Flat to Box**, Blend ≈ 0.2.
+3. **Wire single-image PBR-like behavior**: plug the image into Roughness through a **Color Ramp** (converts to black/white; drag the two handles to tune glossy-vs-rough regions) instead of direct connection; for surface detail, plug the image into a **Bump** node's Height input and the Bump output into the Principled BSDF's Normal socket (works because the Normal socket needs a vector, not a raw image).
+4. **Switch to real PBR texture sets** (Polyhaven, Ambient CG — free, scanned, and the maps sync perfectly at any scale unlike a single photo). Gather reference images first and mentally break the target material into layers (e.g. for the table: dark wood base + orange wood variant + chipped-wood detail).
+5. **Auto-wire a PBR set with Node Wrangler**: select the Principled BSDF node, `Ctrl+T`, browse to the extracted texture folder, select all maps, Enter — auto-connects color/roughness/normal/etc. Switch coordinates to Object, set all texture nodes' projection to Box (hold **Alt** while changing one to apply to all selected nodes), Blend ≈ 0.2, then scale the mapping to taste and **Ctrl+A → Apply Scale** on the mesh.
+6. **Tune roughness for a glossy look**: on the Color Ramp feeding Roughness, decrease the **white-point handle's value** (rather than sliding both handles) — since black = 0 roughness, pulling white down pushes more of the range toward glossy.
+7. **Add color tweaking**: a **Hue/Saturation/Value** node for basic hue/sat/value shifts, or an **RGB Curves** node for finer color grading.
+8. **Color variation trick (breaks PBR-tiling repetition)**: add a **Mix (Color)** node after the base color texture; factor = 0 shows input A, factor = 1 shows input B. Drive the factor with a black/white mask — start with a **Noise Texture** (through a Color Ramp, optionally desaturated via Hue/Saturation for subtlety), then upgrade to a **grunge texture** (unpredictable, non-repeating patterns look more natural than procedural noise) for the mask instead. For multiple variation layers, chain more Mix nodes but set them to **Add** instead of Mix, controlling the Add's contribution like an opacity factor.
+9. **Combine displacement/bump/normal across layers**: mix each layer's own detail maps with the same Mix Color approach used for the base color — **Add** mode for displacement and for bump, but **Overlay** mode specifically for normal maps (different blend math needed for tangent-space normals). For true displacement (mesh-deforming, not just bump), go to Material Settings → Displacement mode → **Displacement and Bump**, and uncheck **Bump Correction**.
+10. **Dirt layer**: build a second, simple shader (dark brown color, max roughness) and blend it on top of the whole stack with a **Mix Shader** (not Mix Color, since it's a full second material) using the same mask-driven-factor pattern as color variation.
+11. **Edge-wear mask**: the dot product of a **Bevel** node and a **Geometry** node's Normal — feed a grunge texture through a **Map Range** and a **Color Ramp** to control how much wear shows and where.
+12. **Organize**: select all nodes except Material Output, `Ctrl+G` to group them into a clean node group per material layer.
+13. **Hand-painted micro-detail (wood chipping)**: create a new Image Texture (e.g. 4K) to paint into, switch to **Texture Paint** mode — paint strokes get baked into that image texture, which then feeds back into the shader (e.g. multiplied into displacement's mid-level to push the surface down for a "chipped" look). Use an existing wood-grain image as a **Stencil** (Texture Mask tab → new texture → select image → mode = Stencil → enable **Image Aspect**) so painted strokes follow real wood-grain direction; `Alt+RMB`-drag to reposition the stencil, `Shift+Ctrl`-drag to scale/rotate it.
+14. **Reapply the same layered method to a different asset** (the statue): base concrete/displacement texture → RGB Curves color grade → color-variation layer → moss layer using the same Bevel/Geometry edge-wear mask from step 11.
+15. **Bonus — realistic glass**: unlike the opaque-material workflow above, plug a fingerprint or scratch texture into **Roughness** through a Color Ramp; that's the entire trick for a believable used-glass look.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Shader nodes:** Principled BSDF, Material Output, Texture Coordinate (Object output), Mapping / Image Texture (projection: Box, Blend ≈ 0.2), Color Ramp (roughness masking, mask thresholding), Bump (Height→Normal), Mix (Color) node (Mix / Add modes, factor driven by a mask), Mix Shader (for the dirt layer), Hue/Saturation/Value, RGB Curves, Noise Texture, Bevel node + Geometry node (dot product → edge-wear mask), Map Range
+- **Add-ons/tools:** Node Wrangler (`Ctrl+T` = Principled Texture Setup from a folder of PBR maps), Texture Paint mode + Texture Mask/Stencil (Image Aspect enabled)
+- **Material settings:** Displacement mode = **Displacement and Bump** for true mesh displacement, with **Bump Correction unchecked**
+- **External tools:** Hitem3D (image-to-3D generation, Model Version 2 for complex/1.5 for simple, integrated PBR texture engine); texture sources: Polyhaven, Ambient CG, author's own grunge-texture pack
+- **Key values:** Box-projection Blend ≈ 0.2; roughness Color Ramp white-handle pulled down for glossy; dirt shader = dark brown + max roughness; paint canvas resolution 4K
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — the basics section is beginner-friendly, but the core layering workflow (multiple mask-driven Mix nodes stacked across color/roughness/displacement/normal, edge-wear via Bevel/Geometry dot product, texture-paint stencil work) assumes comfort with the Shader Editor and node-based thinking.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.0 (per title; UI shown matches current node-editor layout).
 
 ### Tags
-[PENDING EXTRACTION]
+materials, shaders, texturing, pbr, procedural-texture, texture-painting, node-wrangler, uv, displacement, bump-map, normal-map, color-ramp, product-viz, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Easy PBR Textures - Blender Secrets](easy-pbr-textures---blender-secrets.md) — shares the Node Wrangler Principled Texture Setup + box/triplanar mapping fundamentals this tutorial builds its basics section on; that one goes deeper on real geometric displacement/baking, this one goes deeper on multi-layer masking.
+- [Daily Blender Tip 119 - Super Easy PBR Textures With Node Wrangler](daily-blender-tip-119---super-easy-pbr-textures-with-node-wrangler.md) — same `Ctrl+T` Node Wrangler auto-wire trick used in step 5 here, in isolation.
+- [Daily Blender Tip 79 - Texture Painting and Custom Brushes](daily-blender-tip-79---texture-painting-and-custom-brushes.md) — shares `texture-painting`; deeper dive on custom brush falloff curves for the hand-painting technique used in step 13 here.

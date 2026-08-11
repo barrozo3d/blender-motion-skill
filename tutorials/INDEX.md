@@ -2871,10 +2871,11 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=8HfKtaDx6tM
 - **Author:** Extra 3d
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.0
+- **Tags:** materials, shaders, texturing, pbr, procedural-texture, texture-painting, node-wrangler, uv, displacement, bump-map, normal-map, color-ramp, product-viz, intermediate
+- **Summary:** Layered photoreal texturing workflow on a wood side-table and a Hitem3D-generated statue: Node Wrangler PBR auto-setup, grunge-texture-masked color variation via Mix Color, a dirt layer via Mix Shader, edge wear from Bevel·Geometry dot product, per-layer displacement/bump/normal mixing (Add vs. Overlay), and hand-painted wood-chip detail via Texture Paint with an image stencil. Closes with a bonus fingerprint/scratch-driven glass roughness trick.
 - **File:** tutorials/photorealistic-texturing-in-blender-50.md
+- **Related:** Easy PBR Textures - Blender Secrets (`easy-pbr-textures---blender-secrets.md`) — shares Node Wrangler PBR setup + box mapping fundamentals. Also shares tags with Daily Blender Tip 119 - Super Easy PBR Textures With Node Wrangler (node-wrangler) and Daily Blender Tip 79 - Texture Painting and Custom Brushes (texture-painting).
 
 ---
 
