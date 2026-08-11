@@ -2893,10 +2893,11 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=VeW-3BWUtlM
 - **Author:** Dantti
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified
+- **Tags:** compositing, motion-blur, view-layers, holdout, render-layers, grease-pencil, workflow, intermediate
+- **Summary:** Fakes per-part motion blur in the Compositor with a Directional Blur node (independent Iterations/Distance/Angle/Spin/Zoom) applied to Holdout-masked, separately-rendered View Layers, then recombined with Add nodes — works even on object types like Grease Pencil that don't get good native render-time motion blur. Note: source video's ASR transcript is badly corrupted past ~1:24; extraction relies mainly on the captured frames' node graphs.
 - **File:** tutorials/improve-your-motion-blur-in-blender.md
+- **Related:** My Stylized Blender NPR Pipeline - NOXIOUS Shot Breakdown (`my-stylized-blender-npr-pipeline---noxious-shot-breakdown.md`) — shares grease-pencil, compositing, render-passes; same Holdout-masked View Layer → Compositor pattern.
 
 ---
 
