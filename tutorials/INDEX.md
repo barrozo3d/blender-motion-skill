@@ -2877,6 +2877,16 @@ Each entry format:
 - **File:** tutorials/photorealistic-texturing-in-blender-50.md
 - **Related:** Easy PBR Textures - Blender Secrets (`easy-pbr-textures---blender-secrets.md`) — shares Node Wrangler PBR setup + box mapping fundamentals. Also shares tags with Daily Blender Tip 119 - Super Easy PBR Textures With Node Wrangler (node-wrangler) and Daily Blender Tip 79 - Texture Painting and Custom Brushes (texture-painting).
 
+
+### Top Tip Tuesday - Liquid Fill
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=vglrHSL-uc4
+- **Author:** INSYDIUM LTD
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/top-tip-tuesday---liquid-fill.md
+
 ---
 
 ## Tag Reference
