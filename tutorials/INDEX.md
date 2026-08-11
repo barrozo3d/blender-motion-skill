@@ -2882,10 +2882,11 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=vglrHSL-uc4
 - **Author:** INSYDIUM LTD
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified (NeXus for Blender plugin by Insydium)
+- **Tags:** simulation, fluid-sim, flip, particles, foam, whitewater, third-party-plugin, nexus, motion-blur, procedural, intermediate
+- **Summary:** Insydium's one-click nxLiquid Fill sets up a full FLIP/APIC liquid rig (emitter, solver, mesher, foam) automatically; covers emitting into a custom object with an nxCollider, the auto-managed resolution/particle-count relationship, mesher Scale/Smoothing tuning to avoid holes vs. lost droplet detail, nxFoam whitewater with a separate dedicated foam emitter for clean output control, and render prep (Create Point Cloud, Transfer Velocity for motion blur).
 - **File:** tutorials/top-tip-tuesday---liquid-fill.md
+- **Related:** NeXus for Blender Official Training - Follow Curve (`nexus-for-blender-official-training---follow-curve.md`) — same NeXus plugin and emitter/mesher/motion-blur workflow. Also shares tags with Sand Simulation - Blender Tutorial (Nexus) (nexus, particles, third-party-plugin).
 
 
 ### Improve your Motion Blur in Blender

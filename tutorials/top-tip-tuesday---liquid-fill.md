@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=vglrHSL-uc4
 author: INSYDIUM LTD
 ingested: 2026-08-11
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified (NeXus for Blender plugin by Insydium)"
+tags: [simulation, fluid-sim, flip, particles, foam, whitewater, third-party-plugin, nexus, motion-blur, procedural, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/top-tip-tuesday---liquid-fill/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 7
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Top Tip Tuesday - Liquid Fill
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py top-tip-tuesday---liquid-fill <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -366,30 +362,59 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:25] tutorials/frames/top-tip-tuesday---liquid-fill/frame_000.jpg
+- [3:40] tutorials/frames/top-tip-tuesday---liquid-fill/frame_001.jpg
+- [4:05] tutorials/frames/top-tip-tuesday---liquid-fill/frame_002.jpg
+- [7:12] tutorials/frames/top-tip-tuesday---liquid-fill/frame_003.jpg
+- [9:12] tutorials/frames/top-tip-tuesday---liquid-fill/frame_004.jpg
+- [14:16] tutorials/frames/top-tip-tuesday---liquid-fill/frame_005.jpg
+- [19:08] tutorials/frames/top-tip-tuesday---liquid-fill/frame_006.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Using Insydium's **NeXus** plugin's one-click **nxLiquid Fill** shortcut to set up a voxel-based FLIP/APIC liquid simulation (fill a domain or a custom object, collide against it, mesh it, add whitewater foam) without manually wiring each solver object together.
 
 ### Summary
-[PENDING EXTRACTION]
+Bob (Insydium) shows the nxLiquid Fill tool, which auto-creates a full liquid rig — emitter, fluid solver, disabled mesher, and a disabled foam solver/foam group — in one step. He demonstrates the default domain-filling tank, adds an nxWind field for turbulence, then swaps the emission source from the domain to a custom UV sphere and adds an nxCollider (inside normals) so the fluid fills and splashes within the sphere instead of falling through it. He explains the critical relationship between the emitter's Resolution setting and its particles-per-voxel count (auto-managed by nxLiquid Fill — an inappropriate particle count for a given voxel resolution causes the sim to visibly collapse), switches the solver from FLIP to APIC, tunes the nxMesher's Polygon Size/Scale/Smoothing to wrap the liquid without holes or losing droplet detail, then sets up nxFoam whitewater — first via the auto-generated foam *group* (particles split off the same emitter), then via his preferred workflow of a fully separate, independent foam-only emitter (birth rate 0, referenced by the foam solver's Output Emitter) for cleaner control. Finishes with render prep: Create Point Cloud on the foam emitter for renderable foam geometry, and Transfer Velocity on the mesher's export tags so the liquid mesh renders correctly with motion blur.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **NeXus panel → nxLiquid Fill**: one click brings in a liquid domain (cube), an `nxGravity` field, and a `Liquid Fill` folder containing `nxEmitter`, `nxFluids` (solver), a disabled `nxMesher`, an `nxGroup_Foam` particle group, and a disabled `nxFoam` solver. Hitting play with zero further setup already gives a filling fluid tank.
+2. Add turbulence with an **nxWind** field in **Von Karman** mode (e.g. strength 2.5, high variation) and increase **Friction Velocity** under its turbulent settings for a stronger turbulent force.
+3. **Inspect the emitter (`nxEmitter`)**: Shape = Object, Object = the nxFluids domain, Emission = Volume, **Emission Type = Liquid Fill** (requires a `Fluid` solver reference — points at `nxFluids`), plus **Resolution** and **Fill Level** (with a **Show Fill Level** toggle to preview how high the volume fills).
+4. **Understand the voxel grid**: on `nxFluids` → Display, enable **Draw Grid: Back Only** to see a 2D cross-section of the 3D voxel grid. Smaller voxels = higher detail/realism but more VRAM and longer sim time.
+5. **Resolution auto-manages particle count**: raising the emitter's Resolution (e.g. 50 → 70) shrinks the voxels *and* automatically raises the particle count to keep an appropriate particles-per-voxel ratio — this auto-balancing is nxLiquid Fill's main value-add, since an inappropriate particle count for the voxel resolution makes the fluid visibly collapse.
+6. **Emit from a custom object instead of the domain**: add a UV sphere (hidden from render), point the emitter's Object field at it instead of the domain — the sphere now fills to the emitter's Fill % (e.g. 30%). Without a collider, particles just fall through and splash on the floor.
+7. **Contain the fluid**: add an **nxCollider**, assign the sphere, enable **Inside Normals** (traps fluid inside the sphere), and zero out Bounce/Friction — now the fluid fills and splashes *within* the sphere.
+8. **Solver mode**: the emitter's Fluid reference drives `nxFluids`; switching the emitter's solver mode from **FLIP** to **APIC** and hitting play automatically updates `nxFluids` to match.
+9. **Meshing**: leave the mesher disabled while iterating on the particle sim (avoids recalculating a mesh every change). When ready, hide the emitter's raw particle display and enable `nxMesher` — it's pre-linked to the liquid emitter automatically. Tune **Polygon Size** (auto-suggested value can still leave holes) and increase **Scale** (e.g. up to ~300) so each particle is properly wrapped into the surface. Add a **Smoothing** layer (Mean Curvature mode is the presenter's go-to for most liquids) and tune iteration count carefully — too many iterations (e.g. 10) can smooth away fine droplet detail; a lower value (e.g. 5) preserves it.
+10. **Whitewater/foam setup**: enable `nxFoam` and set its solver-type dropdown to match the liquid solver (APIC, matching step 8). It analyzes the liquid's density, movement, and vorticity to generate three whitewater types — **foam, spray, and bubble** particles — each with independent settings; this tutorial only sets up **surface foam** for simplicity.
+11. **Viewing foam separately from liquid**: switch the emitter's viewport Display mode from **Screen Space Fluid** to **Points** (size 1) so liquid and foam particles are visually distinguishable instead of both rendering as a meshed blob.
+12. **Control foam spawn delay**: the foam layer's **Spawn After Age** (default 30 frames) prevents an instant flood of foam particles on frame 1 for big tank scenes — lower it (e.g. to 4) for near-immediate foam.
+13. **Separate foam from liquid cleanly (preferred workflow)**: rather than relying on the auto-generated `nxGroup_Foam` output-group split, delete that group and instead add a **second, independent `nxEmitter`** dedicated to foam. On `nxFoam`, change **Output** from **Group** to **Emitter** and point it at this new foam emitter. Set the foam emitter's own **Birth Rate to 0** (so it only serves as a foam receptacle and doesn't spawn its own particles) and reduce its display size (e.g. to 1). This pattern scales to a separate emitter per whitewater type (foam/spray/bubble), each independently renderable — e.g. instancing real bubble geometry onto the bubble emitter's points.
+14. **Render prep**: on the foam emitter's **Export** tab, click **Create Point Cloud** to generate real geometry-node-based point-cloud geometry (not just a viewport particle display) so foam is actually renderable; hide the raw particle display once the point cloud exists.
+15. **Motion blur for the dynamic mesh**: on `nxMesher`'s **Export Tags**, enable **Transfer Velocity** (with Max Velocity X/Y and Smoothing settings) so the constantly-retopologizing liquid mesh renders correctly with motion blur. Point clouds get motion blur automatically with no extra setup.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **NeXus objects/modifiers:** `nxLiquid Fill` (one-click setup shortcut), `nxEmitter` (Emission Type = Liquid Fill, Resolution, Fill Level, Show Fill Level), `nxFluids` (fluid solver — FLIP/APIC modes, Display → Draw Grid Back Only for voxel visualization), `nxCollider` (Inside Normals, Bounce/Friction/Restitution), `nxMesher` (Polygon Size, Scale, Surface Type, Smoothing layer with Mean Curvature mode + iteration count, Export Tags → Transfer Velocity + Max Velocity X/Y + Smoothing), `nxFoam` (solver-type match dropdown, per-type settings for foam/spray/bubble, Spawn After Age, Output = Group or Emitter, Export → Create Point Cloud), `nxWind` (Von Karman mode, Friction Velocity), `nxGravity`, `nxGroup_Foam`
+- **Key values:** Resolution 50 (default test) → 70/75 (higher detail); Fill Level ~30%; mesher Scale up to ~300; Smoothing iterations 5 (10 loses fine detail); Spawn After Age default 30 → 4 (faster foam onset); foam emitter Birth Rate = 0
+- **Third-party plugin:** NeXus for Blender by Insydium (this is not a native Blender fluid system — analogous to X-Particles' fluid tools, ported to Blender)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — the nxLiquid Fill shortcut itself is beginner-friendly, but getting a clean result (voxel/particle-count relationship, mesher hole-vs-detail tradeoffs, splitting whitewater into independently renderable emitters) requires understanding what each auto-created piece is actually doing under the hood.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified — depends on the third-party NeXus for Blender plugin (Insydium) rather than a specific core Blender version.
 
 ### Tags
-[PENDING EXTRACTION]
+simulation, fluid-sim, flip, particles, foam, whitewater, third-party-plugin, nexus, motion-blur, procedural, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [NeXus for Blender Official Training - Follow Curve](nexus-for-blender-official-training---follow-curve.md) — same Insydium NeXus plugin and emitter/mesher/motion-blur workflow, applied to a curve-following liquid stream instead of a fill/foam setup.
+- [Sand Simulation - Blender Tutorial (Nexus)](sand-simulation---blender-tutorial-nexus.md) — same NeXus plugin and Point Cloud + cache-retiming render-prep pattern, using its granular SPH solver instead of FLIP/APIC liquid.
