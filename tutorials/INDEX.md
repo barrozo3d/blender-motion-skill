@@ -2844,6 +2844,16 @@ Each entry format:
 - **File:** tutorials/is-this-the-most-photorealistic-glass-in-blender.md
 - **Related:** Real time Caustics In Blender 5.1 (`real-time-caustics-in-blender-51.md`) — same Light Path/Shadow Ray caustics-faking trick. Also shares tags with You Should Make Glass Animations in Blender 5.1 (glass, materials, shaders, cycles).
 
+
+### How to Use Blender Emission Shaders Correctly
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=x1IpbtQ_jO8
+- **Author:** Blender Wizard
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-to-use-blender-emission-shaders-correctly.md
+
 ---
 
 ## Tag Reference
