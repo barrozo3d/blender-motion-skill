@@ -2887,6 +2887,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/top-tip-tuesday---liquid-fill.md
 
+
+### Improve your Motion Blur in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=VeW-3BWUtlM
+- **Author:** Dantti
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/improve-your-motion-blur-in-blender.md
+
 ---
 
 ## Tag Reference
