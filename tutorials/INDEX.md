@@ -2899,6 +2899,16 @@ Each entry format:
 - **File:** tutorials/improve-your-motion-blur-in-blender.md
 - **Related:** My Stylized Blender NPR Pipeline - NOXIOUS Shot Breakdown (`my-stylized-blender-npr-pipeline---noxious-shot-breakdown.md`) — shares grease-pencil, compositing, render-passes; same Holdout-masked View Layer → Compositor pattern.
 
+
+### [Tut] Different Instance Color and Materials - P13 Geometry Nodes Beginners
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=812uN8EFWVs
+- **Author:** Bradley Animation
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/tut-different-instance-color-and-materials---p13-geometry-nodes-beginners.md
+
 ---
 
 ## Tag Reference
