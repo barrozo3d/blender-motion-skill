@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=yV4zUZiDZW4
 author: FxForge
 ingested: 2026-08-11
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "~Blender 5.1 (visible in-frame title bar; uses the newer Array modifier and Simulation Nodes)"
+tags: [geometry-nodes, simulation-nodes, rigid-body, destruction, fracture, procedural, particles, smoke-fire, soft-body, lattice, dynamic-paint, vfx, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/how-i-made-this-bridge-destruction-scene-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How I made this bridge destruction scene in blender
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-i-made-this-bridge-destruction-scene-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -137,30 +133,63 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:52] tutorials/frames/how-i-made-this-bridge-destruction-scene-in-blender/frame_000.jpg
+- [1:18] tutorials/frames/how-i-made-this-bridge-destruction-scene-in-blender/frame_001.jpg
+- [1:50] tutorials/frames/how-i-made-this-bridge-destruction-scene-in-blender/frame_002.jpg
+- [3:00] tutorials/frames/how-i-made-this-bridge-destruction-scene-in-blender/frame_003.jpg
+- [3:55] tutorials/frames/how-i-made-this-bridge-destruction-scene-in-blender/frame_004.jpg
+- [4:40] tutorials/frames/how-i-made-this-bridge-destruction-scene-in-blender/frame_005.jpg
+- [6:00] tutorials/frames/how-i-made-this-bridge-destruction-scene-in-blender/frame_006.jpg
+- [7:10] tutorials/frames/how-i-made-this-bridge-destruction-scene-in-blender/frame_007.jpg
+
+---
+
 ## Structured Notes
 
+> **Format note:** this is a high-level breakdown/showcase video, not a step-by-step node-by-node tutorial — the author describes the approach in general terms without walking through every node. Several parameter names below are cross-verified directly against the captured frames' visible modifier panels and custom UI (a self-built "Destruction Tools" panel) rather than the narration alone.
+
 ### Core Technique
-[PENDING EXTRACTION]
+A from-scratch, no-paid-add-ons pipeline pushing Blender's native destruction toolset toward Houdini-level quality: a dual-mesh Geometry Nodes fracture cutter (straight sim-proxy + noisy render mesh), a custom auto-constraint-placement system for large-scale seams, Simulation-Nodes-driven wire continuity and procedural rebar generation, and Simulation-Nodes-based smoke/particle emission that only triggers at freshly-broken seams instead of the whole structure.
 
 ### Summary
-[PENDING EXTRACTION]
+FxForge breaks down a bridge-collapse VFX shot built entirely in Blender, deliberately avoiding Houdini or paid destruction add-ons. The core problem: Blender's native **Cell Fracture** add-on (confirmed in-frame: Point Source Own/Child Verts/Particles, Recursive Shatter, Sharp Edges) produces straight, simulation-friendly but visually unconvincing cracks. His fix is a custom Geometry Nodes **cutter** modifier (confirmed in-frame parameters: Interior material, cutter density, cutter thickness, Deep, noise scale) that cuts along controllable planes and outputs two parallel piece sets — a straight-edge proxy collection for cheap rigid body simulation and a noisy-edge collection for final render — auto-parented together by script so only the proxy needs to actually simulate. He models the bridge along a curve with the Array modifier, layers a metal under-structure for visual depth, and fractures the whole thing with this workflow. Constraining at bridge scale needed a custom **"Destruction Tools"** panel (confirmed in-frame: Add Cutter, Parent to Proxy, Join if Mutual Parent, Apply Fracture, Closest/Furthest Selection, Structural Constraints) where a Geometry Nodes tree calculates constraint positions and a script places/assigns them to the nearest pieces — split into 3 batches for performance since native Blender constraint creation can't handle seams this large. Suspension wires are simulated as a tube array with constraints, baked to Alembic, then run through a Simulation Nodes setup that tracks each vertex's closest neighbor and breaks the connection past a distance threshold, turning discrete tubes into one continuous, rigid-body-interacting wire mesh. A from-scratch procedural **rebar** system (confirmed in-frame modifier: collection/interior/rebar models/Density/break distance, described as needing 7 iterations to get working) stretches rebar across piece gaps and snaps/reparents segments to the nearest debris piece once overstretched. Smoke/particle realism — a known failure mode where the whole structure appears to emit smoke, illustrated by the author's own older house-destruction video — is solved with a Simulation Nodes setup that detects only the internal faces that just separated during the current frame and uses that shifting surface as the emitter (initial-velocity inheritance for the emission couldn't be solved and was disabled). Cars (Sketchfab models, randomized-color shader, Swedish plates) are crushed cheaply via a **lattice + soft body plastic deformation** trick instead of full rigid-body vehicle sim. The river splash is faked with Dynamic Paint plus white smoke rather than a real liquid sim (acknowledged as the weakest element). Closes with a general high-poly-scattering efficiency tip: swap to a low-poly viewport proxy via a node setup, scatter at full res only for render.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Reject native **Cell Fracture** (Point Source Own/Child Verts/Particles, Recursive Shatter, Sharp Edges) for straight, unconvincing-up-close crack edges.
+2. Build a custom Geometry Nodes **cutter** modifier instead — parameters: **Interior material, cutter density, cutter thickness, Deep** (recursion/iteration count), **noise scale** — cutting along controllable planes and producing two parallel outputs: a straight-edge proxy collection (for simulation) and a noisy-edge collection (for render).
+3. A script auto-parents each noisy render piece to its closest straight-edge proxy piece, so only the cheap proxy collection runs through rigid body simulation while the noisy pieces follow along for the final image.
+4. Model the bridge along a curve with the (newer) **Array modifier**, layering a metal under-structure beneath the concrete deck for a suspension-bridge design (referencing a real local bridge), textured with **Polyhaven** materials.
+5. Fracture the complete bridge model using the cutter workflow from steps 2–3.
+6. Build a custom **"Destruction Tools"** panel (in-frame buttons: Add Cutter, Parent to Proxy, Join if Mutual Parent, Apply Fracture [Straight/Apply/Apply and Parent], Selection [Closest/Furthest], Structural Constraints [Add, Closest Constraints, Remove Constraints]) — a Geometry Nodes tree calculates constraint positions, then a script places rigid body constraints and assigns them to the nearest pieces, with control over max constraints per piece and search radius. Constraining the full bridge required splitting into **3 batches** for performance — native Blender constraint creation can't keep up at this seam scale.
+7. Simulate suspension wires as an array of tubes joined by constraints, export/bake to **Alembic**, then run a Simulation Nodes setup that tracks each vertex's closest neighbor from frame 1 and keeps that connection alive until a distance threshold breaks it — converting discrete tubes into one continuous, smoothly-deforming wire that still collides/interacts with the rigid body pieces.
+8. Build a from-scratch procedural **rebar** system with Simulation Nodes (took **7 iterations** of the node tree to get working) — confirmed modifier parameters: **collection (noisy), interior, rebar models (rebar pieces), Density, break distance**. Logic: stretch rebar segments across gaps between adjacent pieces; once a segment exceeds a length threshold, snap it apart and have each half follow its own parent piece instead of stretching indefinitely.
+9. Solve realistic smoke/particle emission (contrasted against an earlier project where the whole structure emitted smoke constantly) with Simulation Nodes: load all pieces as a collection, check only internal/interior faces, and output only the faces that **just separated** from each other during the current simulation frame — yielding a moving "emitter object" that exists only where debris is actively being created. Initial-velocity inheritance for the emitted smoke/particles could not be solved and was disabled.
+10. Add cars (Sketchfab assets, randomized-color shader per car, Swedish number plates) and crush them cheaply via a **lattice deformation cheat**: scale a Lattice object as a bounding box around each car, Soft-Body-simulate the lattice with high stiffness and **Plastic Deformation enabled** (permanent, non-springy deformation mimicking crushed metal), then apply a **Lattice modifier** on the car mesh reading that deformed lattice.
+11. Fake the river-splash effect with a **Dynamic Paint** water-surface simulation plus white smoke standing in for splash spray, instead of a full liquid sim (acknowledged as not fully convincing, but sufficient for quick passing shots).
+12. Build a simple background (trees, water) and apply a general high-poly-scattering efficiency trick: a node setup that swaps scattered objects to a **low-poly proxy** in the viewport (full resolution only at render time), combined with a particle hair system or Geometry Nodes scatter — enabling millions of polygons to render efficiently.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Native:** Array modifier (curve-driven bridge modeling), Cell Fracture add-on (rejected baseline — Point Source, Recursive Shatter, Sharp Edges, Apply Split Edge)
+- **Custom "cutter" Geometry Nodes modifier:** Interior material, cutter density, cutter thickness, Deep, noise scale
+- **Custom "Destruction Tools" panel:** Add Cutter, Parent to Proxy, Join if Mutual Parent, Apply Fracture (Straight/Apply/Apply and Parent), Selection (Closest/Furthest), Structural Constraints (Add, Closest Constraints, Remove Constraints)
+- **Custom rebar Geometry Nodes modifier:** collection (noisy), interior, rebar models (rebar pieces), Density, break distance
+- **Simulation Nodes** (Blender's newer Simulation Zone system): wire continuity via closest-vertex tracking + break threshold on an Alembic-baked tube array; rebar stretch/snap logic; newly-separated-internal-face detection driving the smoke/particle emitter
+- **Physics:** Rigid Body (proxy collection only), Soft Body with Plastic Deformation (car-crush lattice trick), Lattice modifier, Dynamic Paint (fake water surface)
+- **Assets/materials:** Polyhaven (bridge materials), Sketchfab (car models)
+- **Version:** ~Blender 5.1 visible in-frame; relies on the newer Array modifier and Simulation Nodes
 
 ### Difficulty
-[PENDING EXTRACTION]
+Expert — a from-scratch R&D pipeline (7 iterations on the rebar system alone) built while explicitly learning Geometry/Simulation Nodes "from scratch... in 2026," reimplementing Houdini-territory features (procedural rebar, seam-only emission, wire continuity) with custom tools. This is a technique inventory for advanced riggers/TDs, not a copy-paste beginner tutorial — no full node trees are shown step by step.
 
 ### Blender Version
-[PENDING EXTRACTION]
+~Blender 5.1 (visible in the captured frames' viewport title bar); depends on the newer Array modifier and Simulation Nodes system.
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, simulation-nodes, rigid-body, destruction, fracture, procedural, particles, smoke-fire, soft-body, lattice, dynamic-paint, vfx, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Superhero Landing Tutorial 02 | Ground Destruction VFX in Blender](superhero-landing-tutorial-02-ground-destruction-vfx-in-blender.md) — shares `vfx`, `rigid-body`, `particles`, `destruction`; a more traditional (non-custom-tool) Cell Fracture + Rigid Body + Mantaflow smoke destruction pipeline, useful contrast against this video's from-scratch Simulation Nodes approach to the same emission-realism problem.

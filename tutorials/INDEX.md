@@ -755,6 +755,7 @@ Each entry format:
 - **Tags:** vfx, rigid-body, particles, fluid-sim, destruction, compositing, nuke, intermediate
 - **Summary:** Ground destruction VFX pipeline (Part 2 of superhero landing series) — Cell Fracture (OwnVerts, recursive 2) + Rigid Body sim with Force Field (10,000 strength, 2 frames, falloff 1) + speed ramp to 0.25x. Rock particles (2,000 per chunk, Brownian 0.1, inherited velocity, Bridge rock collection) baked and copied to all chunks. Mantaflow smoke domain (128-256 res, timescale 0.25) from chunk surfaces. Voronoid displacement + SubSurf on chunks. Nuke comp with Holdout pass + Disjoint Over + Chemix grain mask.
 - **File:** tutorials/superhero-landing-tutorial-02-ground-destruction-vfx-in-blender.md
+- **Related:** How I made this bridge destruction scene in blender (`how-i-made-this-bridge-destruction-scene-in-blender.md`) — shares vfx, rigid-body, particles, destruction; custom Simulation-Nodes-driven fracture/emission tooling vs. this tutorial's Cell Fracture + Mantaflow approach to the same problems.
 
 
 ### The COMPLETE BLENDER 3D Animation COURSE (5+ HOURS) #blender #b3d #animation
@@ -2916,10 +2917,11 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=yV4zUZiDZW4
 - **Author:** FxForge
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** ~Blender 5.1 (visible in-frame title bar; uses the newer Array modifier and Simulation Nodes)
+- **Tags:** geometry-nodes, simulation-nodes, rigid-body, destruction, fracture, procedural, particles, smoke-fire, soft-body, lattice, dynamic-paint, vfx, advanced
+- **Summary:** High-level breakdown (not step-by-step) of a from-scratch, no-paid-add-ons Blender destruction pipeline: a custom dual-mesh Geometry Nodes fracture cutter (straight sim-proxy + noisy render mesh), a custom "Destruction Tools" panel for large-scale auto-constraint placement, Simulation-Nodes wire continuity (closest-vertex tracking + break threshold) and a 7-iteration procedural rebar system, Simulation-Nodes seam-only smoke/particle emission, a lattice+soft-body-plastic-deformation car-crush cheat, Dynamic Paint water fake, and a low-poly-viewport-proxy scattering tip.
 - **File:** tutorials/how-i-made-this-bridge-destruction-scene-in-blender.md
+- **Related:** Superhero Landing Tutorial 02 | Ground Destruction VFX in Blender (`superhero-landing-tutorial-02-ground-destruction-vfx-in-blender.md`) — shares vfx, rigid-body, particles, destruction; traditional Cell Fracture + Mantaflow approach to contrast against this video's custom Simulation Nodes tooling.
 
 ---
 
