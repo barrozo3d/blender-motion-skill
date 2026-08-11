@@ -2855,6 +2855,17 @@ Each entry format:
 - **File:** tutorials/how-to-use-blender-emission-shaders-correctly.md
 - **Related:** Realistic Product Lighting In Blender (`realistic-product-lighting-in-blender.md`) — same Gradient Texture + Color Ramp emission-falloff technique. Shares tags: lighting, materials, product-viz.
 
+
+### [CROSS-REFERENCE ONLY] Fire FX in Houdini, Blender and Nuke
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=NRM-e4ECT7c
+- **Author:** Anton Dann
+- **Blender Version:** Not specified
+- **Tags:** camera-tracking, cross-platform-reference
+- **Summary:** Cross-platform VFX breakdown (Blender camera tracking → Houdini fire sim/render → Nuke comp). The Blender-side technique is just plate tracking in the Movie Clip Editor (auto Detect Features + manual markers, ~1.58px error, no lens/camera data). The bulk of the technical content is Houdini simulation/rendering, so the full extraction lives in the **houdini-wand** skill, not here.
+- **Full extraction:** `houdini-wand/tutorials/fire-fx-in-houdini-blender-and-nuke.md` (https://github.com/barrozo3d/houdini-wand/blob/master/tutorials/fire-fx-in-houdini-blender-and-nuke.md)
+- **⚠ Do not re-ingest this URL in blender-motion** — this stub exists only so this index surfaces the tutorial by search; ingesting it here would fork the content. If new Blender-specific detail is found, add it to the canonical file in houdini-wand instead.
+
 ---
 
 ## Tag Reference
