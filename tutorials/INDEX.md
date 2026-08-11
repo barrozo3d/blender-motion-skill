@@ -1297,6 +1297,7 @@ Each entry format:
 - **Tags:** #geometry-nodes #procedural #instancing #beginner
 - **Summary:** Beginner-series episode on faking instance variation in Geometry Nodes: recaps Object Info (Original/Relative transforms, the self-reference "geometry cannot be retrieved" error, and the As Instance toggle for perf + instancing lights/cameras), then covers the core recipe — Collection Info + Separate Children + Pick Instance on Instance on Points — to pick a different pre-made variant per point, with Instance Index + a Random Value node to randomize which variant lands where. Also covers Geometry to Instance for procedurally-generated variants.
 - **File:** tutorials/tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin.md
+- **Related:** [Tut] Different Instance Color and Materials - P13 Geometry Nodes Beginners (`tut-different-instance-color-and-materials---p13-geometry-nodes-beginners.md`) — direct successor in the same series; this episode's geometry variation vs. P13's color/shader variation.
 - **Related:** Easy Geometry Nodes - Low-poly Rocks Blender 5.1 (`easy-geometry-nodes---low-poly-rocks-blender-51.md`) — shares geometry-nodes/procedural/instancing/beginner tags, also uses Distribute Points + Instance on Points (Pick Instance) for per-point variety.
 
 
@@ -2904,10 +2905,11 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=812uN8EFWVs
 - **Author:** Bradley Animation
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.3+ referenced on-screen (Switch node in shader editor); techniques otherwise version-general
+- **Tags:** geometry-nodes, instancing, materials, shaders, procedural, attributes, eevee, cycles, motion-graphics, intermediate
+- **Summary:** Per-instance shading in Geometry Nodes without realizing instances: Store Named Attribute on the Instance domain + the shader Attribute node's Instancer domain toggle for per-instance color; Set Position's before/after-instancing behavior difference; UV vs. raw-position texture mapping surviving realize-instances; a dual-domain (per-polygon + per-instance) Mix-node color recipe; Cycles' inability to displace instances differently; EEVEE's 14-attribute-per-material cap; and a White Noise Texture ID/seed trick to fake shader-side randomness (with a Round-node fix for float-precision flicker).
 - **File:** tutorials/tut-different-instance-color-and-materials---p13-geometry-nodes-beginners.md
+- **Related:** [Tut] How Pick Instance is used for Instance Variations - P10 Geometry Nodes Beginners (`tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin.md`) — direct predecessor in the same series, explicitly referenced; geometry variation (P10) vs. color/shader variation (P13).
 
 
 ### How I made this bridge destruction scene in blender

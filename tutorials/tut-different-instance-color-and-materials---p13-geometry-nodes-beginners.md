@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=812uN8EFWVs
 author: Bradley Animation
 ingested: 2026-08-11
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.3+ referenced on-screen (Switch node in shader editor); techniques otherwise version-general"
+tags: [geometry-nodes, instancing, materials, shaders, procedural, attributes, eevee, cycles, motion-graphics, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/tut-different-instance-color-and-materials---p13-geometry-nodes-beginners/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # [Tut] Different Instance Color and Materials - P13 Geometry Nodes Beginners
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py tut-different-instance-color-and-materials---p13-geometry-nodes-beginners <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Random Rotation of Instances [0:00]
@@ -358,30 +354,57 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [5:10] tutorials/frames/tut-different-instance-color-and-materials---p13-geometry-nodes-beginners/frame_000.jpg
+- [7:05] tutorials/frames/tut-different-instance-color-and-materials---p13-geometry-nodes-beginners/frame_001.jpg
+- [10:20] tutorials/frames/tut-different-instance-color-and-materials---p13-geometry-nodes-beginners/frame_002.jpg
+- [12:45] tutorials/frames/tut-different-instance-color-and-materials---p13-geometry-nodes-beginners/frame_003.jpg
+- [17:00] tutorials/frames/tut-different-instance-color-and-materials---p13-geometry-nodes-beginners/frame_004.jpg
+- [21:55] tutorials/frames/tut-different-instance-color-and-materials---p13-geometry-nodes-beginners/frame_005.jpg
+- [23:10] tutorials/frames/tut-different-instance-color-and-materials---p13-geometry-nodes-beginners/frame_006.jpg
+- [25:10] tutorials/frames/tut-different-instance-color-and-materials---p13-geometry-nodes-beginners/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Giving each Geometry Nodes instance a unique color/material/shader parameter without realizing instances (which is expensive and collapses per-instance geometry variation) — by exporting instance-domain attributes into the Shader Editor via Store Named Attribute + the Attribute node's Instancer domain setting, plus generating extra per-instance randomness directly inside the shader with a White Noise Texture instead of storing more geometry-node attributes.
 
 ### Summary
-[PENDING EXTRACTION]
+Bradley Animation's Geometry Nodes beginner series episode 13 covers instance-level shading. After quick reminders on randomizing instance rotation/scale, the core lesson is the separation between **instance attributes** and **attributes of the geometry contained inside an instance** — two independent data flows into Instance on Points. To get a per-instance color into the shader, store a named Color attribute on the **Instance** domain, then in the Shader Editor's Attribute node switch its type from the default to **Instancer** (not Object/Geometry) — this is the standard trick that's easy to miss. Realizing instances collapses this: the instance attribute transfers down onto every point of the realized geometry, so the shader's Attribute node type must be switched from Instance to Geometry to keep working. The episode covers several gotchas: Set Position behaves differently before vs. after Instance on Points (point-level displacement vs. moving the whole instance) with a Store Named Attribute workaround to fake point-level displacement after instancing; UV maps and captured Position attributes survive realize-instances correctly while 3D-position-based texture mapping (e.g. a Checker Texture) becomes visually disorganized once instances are rotated into different orientations; the Spreadsheet/viewer's "Auto" domain-display mode is a common confusion point (it shows the Point domain for instances, not the Instance domain, so per-instance random colors look wrong until you manually switch the viewer domain); a worked example mixes attributes from *two* different domains (a per-polygon mask + a per-instance mask) inside the same shader via chained Mix (Color) nodes to control which polygon on which instance gets a highlight color — demonstrating Geometry Nodes' general preference for a **single shared material controlled by attributes**, over Blender's traditional multi-material-slot workflow. The back half covers renderer-specific limitations: Cycles cannot displace instances differently (a known Cycles limitation, since instance geometry is linked/shared — realizing instances is the only fix), EEVEE materials cap out at **14 simultaneous attributes** (Cycles has no such limit), and using a White Noise Texture fed an ID/index attribute as a fake "random value in the shader" function to reduce attribute count — with a caveat about float-precision-driven flickering artifacts (integer-looking indices become slightly-off floats like 1.0001 by the time they reach the shader) fixable with a Round node. Closes with two random-color-gradient recipes using a Color Ramp.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Per-instance color, the standard way:** on the Instance domain, use **Store Named Attribute** (type Color, name e.g. `C`) fed by a **Random Value** node (color = a Vector in range 0–1, since Random Value has no native color mode). In the Shader Editor, add an **Attribute** node with the name `C` — by default it won't work; open its domain dropdown and select **Instancer** to read instance-domain data instead of geometry-domain data.
+2. **Instance Attribute Interpolation:** instances have no Point domain of their own, but since **Instance on Points** assigns one instance per point, storing the attribute earlier on the **Point** domain (before Instance on Points) produces an identical result and skips the extra Instancer-domain menu step — this is the author's preferred shortcut. However, once you **Realize Instances**, the instance attribute is transferred onto every point of the now-realized geometry, so the shader's Attribute node domain must be switched from **Instance** to **Geometry** or it breaks.
+3. **Modifications before vs. after Instance on Points are generally equivalent** (setting a material on a face, extruding with randomness before instancing produces the same per-instance result as instancing first) — **except Set Position**, which is the one well-known exception: before Instance on Points, Set Position displaces individual points of the *source* geometry (affecting all instances identically); after Instance on Points, Set Position moves each *whole instance* as a rigid body (equivalent to Translate Instances without Local Space). To fake point-level displacement while still working on already-instanced geometry, use **Store Named Attribute** on `position`, adding the noise offset onto the existing position value — replicating what Set Position does internally, since Set Position is just a convenience wrapper around storing/updating the position attribute.
+4. **UV/Position attributes survive realize-instances correctly**; raw 3D-position-based texture mapping (e.g. a Checker Texture with no UV map) does not — once instances are tilted into different orientations, position-based mapping becomes visually disorganized per-instance. Fix: either give the source geometry a proper **UV Map** before instancing, or **Capture Attribute** the position before realizing instances and pass that captured value through to preserve consistent per-instance coordinates (important for animated rotation, so a texture effect doesn't visibly swim as instances rotate).
+5. **Spreadsheet/Viewer "Auto" domain gotcha:** the Viewer node's Auto mode displays the **Point** domain for un-realized instance geometry, not the Instance domain — so per-instance random colors will look wrong/uniform in the viewer until you manually switch its domain dropdown to **Instance**.
+6. **Multi-domain shader mixing (dual-mask coloring):** store a per-polygon boolean mask (`geo`, Face domain, via index comparison) and a per-instance boolean mask (`inns`, Point/Instance domain, same method) separately. In the shader, since there's no boolean socket/Switch node pre-5.3, use two chained **Mix (Color)** nodes instead: plug each mask into a Mix node's Factor (0 → input A, 1 → input B), assign different colors to A/B on each Mix, and chain the second Mix's output to replace the first's result — letting a single material show different colors on different polygons *and* different instances simultaneously. An on-screen caption notes the **Switch node** (mentioned in the previous episode) became available in the Shader Editor starting **Blender 5.3**, which can replace this Mix-node workaround going forward.
+7. **Random per-instance shader parameters beyond color** (e.g. UV offset): store a random Vector (`w`) on the instance/point domain and add it directly to a UV map's coordinates in the shader (or via a Mapping node — functionally identical to raw add/rotate/multiply math) before a Checker Texture, to get different texture offsets per instance without geometry-side variation.
+8. **Cycles cannot displace instances differently** — EEVEE will show per-instance bump/displacement correctly (Material Properties → Settings → Displacement mode = Bump and Displacement), but Cycles treats instance geometry as linked for performance, so all instances show identical displacement regardless of per-instance attribute data. **Fix:** Realize Instances (and switch the shader's attribute domain from Instance to Geometry accordingly).
+9. **EEVEE's 14-attribute-per-material limit:** EEVEE materials can read a maximum of **14 simultaneous named attributes**; a 15th/16th attribute in the same material causes visibly wrong (e.g. pink error-tinted) shading. Cycles has no such limit. Rare in practice, but worth knowing when debugging unexplained shading errors in complex attribute-driven materials.
+10. **White Noise Texture as a fake "random value" function in the shader:** store just an ID/index attribute in Geometry Nodes (minimizing attribute count for the EEVEE-14 limit) and generate randomness in the shader instead — feed the ID into one channel of a **Combine XYZ** driving a **White Noise Texture**'s Vector input (other channels act as additional seed/variation controls), producing a 0–1 random value or color per unique ID, in both EEVEE and Cycles. Couple the 0–1 output with Mix nodes to remap into other ranges, replicating Random Value's behavior shader-side.
+11. **Float-precision flickering artifact:** clean integer-looking indices from Geometry Nodes (0, 1, 2...) can arrive in the shader as slightly-off floats (e.g. `1.0001`), and White Noise Texture is sensitive enough to those tiny differences to produce per-pixel flicker/noise instead of a flat per-instance value. A **Round** node on the ID before it reaches White Noise Texture removes this inaccuracy — tested by the author with no issues found so far, though not exhaustively verified (float-precision bugs in Blender are described as "notorious").
+12. **Random color recipes:** (a) Vector→RGB conversion from a Random Value vector node (covered in an earlier episode); (b) a Random Value (Float) node feeding a **Color Ramp** for more visual control over the gradient, adjustable interpolation type and stop distribution for even color-selection odds — reusable with either the geometry-node-side random value or the shader-side White Noise ID method from step 10.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Geometry Nodes:** Store Named Attribute (Color/Vector/Float on Instance or Point domain), Random Value (Float/Vector), Instance on Points, Realize Instances, Capture Attribute, index-comparison boolean masks, Translate Instances (implicit equivalence with post-instance Set Position)
+- **Shader Editor:** Attribute node (domain dropdown: Instancer vs. Geometry — the key toggle), Mix (Color) node (Factor-driven A/B branching, used to fake Switch-node behavior pre-5.3), **Switch node** (native boolean branching in shader, Blender 5.3+), Combine XYZ, White Noise Texture (ID/seed channels), Round node (precision fix), Color Ramp, Bump/Displacement (Material Settings → Displacement mode)
+- **Renderer differences:** EEVEE = max 14 simultaneous shader attributes per material, supports per-instance Cycles-incompatible displacement; Cycles = unlimited attributes, cannot displace instances differently (must realize instances)
+- **UI gotcha:** Spreadsheet/Viewer node "Auto" domain mode shows Point domain for instances, not Instance domain — must manually switch to see per-instance attribute values correctly
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate — assumes the viewer has followed the earlier episodes in this series (instance rotation/scale randomization, Pick Instance, Object Info); the attribute-domain concepts (instance vs. point vs. geometry, and their interpolation across Instance on Points / Realize Instances) are the crux and take real practice to internalize, even though no single node used is advanced on its own.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not explicitly stated as a single version, but an on-screen caption notes the Shader Editor's **Switch node** — used as an alternative to the Mix-node dual-mask workaround in step 6 — is available starting **Blender 5.3**. Core techniques are otherwise version-general across recent Blender releases.
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, instancing, materials, shaders, procedural, attributes, eevee, cycles, motion-graphics, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[Tut] How Pick Instance is used for Instance Variations - P10 Geometry Nodes Beginners](tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin.md) — direct predecessor in the same series (explicitly referenced in this episode's closing summary); covers faking *geometry* variation between instances via Pick Instance, complementing this episode's *color/shader* variation techniques.
