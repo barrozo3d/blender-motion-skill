@@ -2849,10 +2849,11 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=x1IpbtQ_jO8
 - **Author:** Blender Wizard
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.1.2
+- **Tags:** materials, shaders, lighting, procedural, product-viz, blender-5x, intermediate
+- **Summary:** Turns a flat uniform Emission shader into a believable glowing-lampshade look: an Image Texture drives Emission Color, while a Gradient Texture (Quadratic Sphere) through a Color Ramp and Math Multiply drives Emission Strength for a fake internal-hotspot falloff. A Blackbody node warms the color (~3000K), kept warmer than any separate light-bulb object's own cooler temperature. For fabric shades, adds Translucency BSDF on modeled fold/wire-armature geometry plus a Layer Weight/Fresnel-driven rim-brightness Color Ramp so edges glow more than flat faces. Final version swaps Multiply for Multiply Add to decouple hotspot strength from rim contribution, finished with Brightness/Contrast.
 - **File:** tutorials/how-to-use-blender-emission-shaders-correctly.md
+- **Related:** Realistic Product Lighting In Blender (`realistic-product-lighting-in-blender.md`) — same Gradient Texture + Color Ramp emission-falloff technique. Shares tags: lighting, materials, product-viz.
 
 ---
 

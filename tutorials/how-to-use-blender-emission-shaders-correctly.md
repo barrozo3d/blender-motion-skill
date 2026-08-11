@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=x1IpbtQ_jO8
 author: Blender Wizard
 ingested: 2026-08-10
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.1.2"
+tags: [materials, shaders, lighting, procedural, product-viz, blender-5x, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-use-blender-emission-shaders-correctly/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How to Use Blender Emission Shaders Correctly
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-to-use-blender-emission-shaders-correctly <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -106,30 +102,73 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:48] tutorials/frames/how-to-use-blender-emission-shaders-correctly/frame_000.jpg
+- [2:38] tutorials/frames/how-to-use-blender-emission-shaders-correctly/frame_001.jpg
+- [3:15] tutorials/frames/how-to-use-blender-emission-shaders-correctly/frame_002.jpg
+- [4:34] tutorials/frames/how-to-use-blender-emission-shaders-correctly/frame_003.jpg
+- [5:55] tutorials/frames/how-to-use-blender-emission-shaders-correctly/frame_004.jpg
+- [6:58] tutorials/frames/how-to-use-blender-emission-shaders-correctly/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Turning a flat, uniformly-bright Emission shader into a believable "glowing lampshade from within" look by driving the Emission Strength with a radial gradient (a fake internal light-bulb hotspot), warming the color with a Blackbody node mixed against the base texture, and — for fabric shades specifically — adding a separate Translucent BSDF pass plus a Fresnel/Layer Weight-driven rim-brightness boost so edges glow appropriately more than flat, evenly-lit faces.
 
 ### Summary
-[PENDING EXTRACTION]
+A practical Blender Cycles/EEVEE lighting tutorial (Blender Wizard) building progressively more convincing "glowing lampshade" materials, starting from the flat/ugly baseline of a plain Emission node with no texture. Base setup: `Image Texture` (a layered stone/marble/granite photo sourced from Pinterest or similar) plugged into an `Emission` shader's Color input, Strength raised to ~3+ for an immediate improvement over solid flat color. The "secret sauce" for depth: branch off the Emission Strength into a `Math (Multiply)` node, feed its second value from a `Color Ramp` (Quadratic Sphere/Constant interpolation) driven by a `Gradient Texture` (radial-type, offset in its texture-coordinate mapping, e.g. -0.5 on one axis) — this fakes a bright hotspot near an implied internal light bulb, with brightness falling off radially outward, producing a much more convincing "there's a light inside" read than uniform emission. Warm color grading: mix a `Blackbody` node (Kelvin input, e.g. 3000K for a warm glow) with the image-texture color and feed that into both the Emission Color and (via the same node graph) the Multiply chain — the author's rule of thumb is to keep any separate "light bulb" object's color temperature cooler than the shade material's own warmer glow, mirroring how a real bulb reads cooler than the material it's illuminating (e.g. a salt lamp). For fabric/cloth lampshades: reuse the same node graph (texture → radial-gradient-driven emission strength → Blackbody-warmed color) on a linen/canvas-style texture, but recognize that a flat cranked-up Emission alone looks wrong on woven fabric — add visible geometric fold/wire "armature" detail to the mesh, assign a second material to those fold edge loops using a `Translucency` BSDF (image texture plugged into its Translucent Color) so the folds read as slightly shadowed/less-lit wire structure rather than uniformly glowing. Rim/edge brightness: duplicate the Multiply node, feed its second input from a `Color Ramp` driven by a `Layer Weight` node (Fresnel-style falloff, inverted), subtly raising edge brightness so woven fabric edges (where the weave reads thinner/more light-permeable) glow appropriately more than flat mid-shade faces — and separately invert a duplicated Color Ramp to correct the opposite problem where thicker parts of the weave were incorrectly emitting brighter than thin parts. Final refinement (applied to the marble/stone version): swap the single `Math Multiply` for a `Math Multiply Add`, wiring the Layer Weight-driven value into the Value slot and keeping the texture-driven radial multiply in its own socket — one multiplier now independently controls the fake-bulb hotspot strength while the add term controls overall rim/edge contribution, making stone-texture cracks read as if light is bursting through them at the correct angle; a final `Brightness/Contrast` node softens the overall result to taste.
 
 ### Key Steps
-[PENDING EXTRACTION]
+**Base emission setup:**
+1. Source a layered/detailed texture (stone, marble, granite, or fabric depending on the shade material) from a texture site (Pinterest used here, any source works) — look specifically for images with visible depth/layering that would plausibly let light pass through unevenly.
+2. In the Shader Editor, add an `Image Texture` node loaded with that texture, plug its Color output into an `Emission` shader's Color input, and raise Emission **Strength** to ~3 or higher as an immediate baseline improvement over a flat, textureless emission.
+
+**Radial gradient depth ("secret sauce"):**
+3. From the Emission node's **Strength** input, branch off a `Math` node set to **Multiply**.
+4. Feed the Multiply's second value from a `Color Ramp`, itself driven by a `Gradient Texture` set to **Quadratic Sphere** (radial-style falloff) type.
+5. Adjust the Gradient Texture's input coordinates/mapping (e.g. Vector Mapping node, offsetting a coordinate by roughly -0.5) and Color Ramp stops until the result reads as a bright hotspot fading outward — this fakes the presence of an internal light source rather than uniform surface emission.
+
+**Warm color grading:**
+6. Add a `Blackbody` node and mix its output with the image-texture color (e.g. via a `Mix` node); route that mixed color into both the Emission shader's Color input and further down the Multiply/gradient chain as needed.
+7. Set the Blackbody's Kelvin value for a warm glow (~3000K used here); when placing an actual light-bulb-representing object/light inside the shade, deliberately give it a **cooler** color temperature than the shade material itself — mirroring how, in reality, a bulb reads cooler than the warmer material it illuminates (the video's own analogy: a salt lamp).
+
+**Fabric/cloth lampshade variant:**
+8. Reuse the same base node graph (texture → Emission, radial-gradient-driven Strength, Blackbody-warmed color) on a linen/canvas-style fabric texture — copy/paste the working node group from the stone-shade material and reconnect sockets on the new material.
+9. Recognize a flat, simply-cranked Emission strength looks visibly wrong on woven fabric compared to the gradient-driven version.
+10. Model visible fold/wire "armature" detail into the shade's mesh (extra edge loops suggesting a wire frame under the fabric); select those fold edge loops specifically and assign a **second material** to them.
+11. Build that second material with a `Translucency` (Translucent BSDF) shader: plug the same fabric image texture's color into the Translucent Color input, and route it to the shader output — this makes the fold/armature areas read as less-lit, slightly shadowed structure rather than uniformly glowing like the rest of the shade.
+12. Add edge/rim brightness variation: duplicate the Multiply node; feed its new second input from a duplicated `Color Ramp` driven by a `Layer Weight` node (**Fresnel** input, **inverted**) so edges (where woven fabric is effectively thinner/more light-permeable) read subtly brighter than flat mid-shade areas — keep this effect subtle, and route the resulting value into the Blend/Mix stage combining with the base emission color.
+13. Fix an over-correction where thicker parts of the weave were emitting brighter than thin parts: duplicate the Color Ramp again and invert it, plugging it in to flip the brightness relationship back to the correct (thin = brighter) direction.
+
+**Final marble/stone refinement:**
+14. Replace the single `Math Multiply` node with a `Math Multiply Add`: keep the texture/radial-gradient-driven multiply term in its own socket (drives the fake-bulb hotspot strength), and feed the Layer Weight-driven rim value into the **Value** slot (drives edge/rim contribution) — this decouples hotspot strength from rim brightness so each can be tuned independently, making stone-texture cracks appear to catch and disperse light at the "correct" angle, roughly 10x brighter at those cracks.
+15. Add a `Brightness/Contrast` node at the end of the chain to soften (or, alternatively, sharpen) the overall look to taste — the tutorial's final pick favors a softer result over a higher-contrast alternative shown for comparison.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `Image Texture` — primary color/detail source, plugged into Emission Color (and reused for Translucency Color on fold-armature geometry)
+- `Emission` shader — Color input driven by the texture/Blackbody mix, **Strength** input driven by the Multiply/Multiply-Add chain rather than a flat constant
+- `Math` node, **Multiply** mode (later upgraded to **Multiply Add**) — combines the base emission strength with a radial-gradient hotspot term and, in the Multiply Add version, an independent rim-brightness Value term
+- `Color Ramp` (×multiple, including duplicated/inverted copies) — shapes both the radial hotspot falloff (driven by Gradient Texture) and the rim/edge brightness falloff (driven by Layer Weight)
+- `Gradient Texture` — **Quadratic Sphere** type for a radial falloff simulating an internal light-bulb hotspot; fed through a Mapping/Texture Coordinate offset (e.g. -0.5 on one axis) to position the fake hotspot
+- `Blackbody` node — Kelvin-driven warm color (e.g. 3000K), mixed with the image texture's color for the shade material; recommended to be set **warmer** than any separate light-bulb object's own color temperature
+- `Translucency` (Translucent BSDF) shader — assigned to fold/wire-armature edge-loop geometry on fabric shades, fed the same base texture's color, to make those areas read as less-lit structural detail rather than uniform glow
+- `Layer Weight` node (**Fresnel** input, inverted) — drives edge/rim brightness variation so thinner/edge-facing areas of woven fabric glow more than flat mid-shade faces
+- `Brightness/Contrast` node — final softening/sharpening pass on the composited emission result
+- Modeling detail: extra edge loops added to a lampshade mesh purely to represent a wire "armature" under fabric, selected and assigned a distinct material from the main shade surface
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.1.2 (visible in the on-screen title bar of captured frames; not stated in audio)
 
 ### Tags
-[PENDING EXTRACTION]
+materials, shaders, lighting, procedural, product-viz, blender-5x, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- Realistic Product Lighting In Blender (`realistic-product-lighting-in-blender.md`) — closest match, uses the same Gradient Texture + Color Ramp emission-falloff technique for glass product lighting. Shares tags: lighting, materials, product-viz, intermediate.
