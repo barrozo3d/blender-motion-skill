@@ -139,7 +139,7 @@ procedural, displacement, particles, organic, product-viz, beginner
 
 ## Related Tutorials
 Part of the **NS Rock Sculptor Guide** series (10 episodes, all uploaded 2026-07-30) covering the NS Rock Sculptor add-on tab by tab. This episode covers the Geometry and Scatter tabs specifically.
-- [NS Rock Sculptor Guide - Bump](ns-rock-sculptor-guide---bump.md) — same add-on/series, Bump tab.
+- [NS Rock Sculptor Guide - Bump](ns-rock-sculptor-guide-bump.md) — same add-on/series, Bump tab.
 - [NS Rock Sculptor Guide - Displacement](ns-rock-sculptor-guide---displacement.md) — same add-on/series, Displacement tab.
 - [NS Rock Sculptor Guide - Colour Ramps](ns-rock-sculptor-guide---colour-ramps.md) — same add-on/series, Colour Ramps tab (directly relevant to the Edge Wear color-ramp tip in this episode).
 - [NS Rock Sculptor Guide - Filters](ns-rock-sculptor-guide---filters.md) — same add-on/series, Filters tab.

@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=E9J_1VH2aPM
 author: Nick Sayce
 ingested: 2026-08-12
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.1.x (approximate, viewport title bar in captured frames; not stated verbally)"
+tags: [procedural, displacement, organic, product-viz, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/ns-rock-sculptor-guide-bump/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 5
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # NS Rock Sculptor Guide   Bump
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py ns-rock-sculptor-guide-bump <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -64,30 +60,60 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:26] tutorials/frames/ns-rock-sculptor-guide-bump/frame_000.jpg
+- [0:40] tutorials/frames/ns-rock-sculptor-guide-bump/frame_001.jpg
+- [1:05] tutorials/frames/ns-rock-sculptor-guide-bump/frame_002.jpg
+- [1:39] tutorials/frames/ns-rock-sculptor-guide-bump/frame_003.jpg
+- [2:41] tutorials/frames/ns-rock-sculptor-guide-bump/frame_004.jpg
+
+---
+
 ## Structured Notes
 
+> **Third-party add-on note:** This tutorial covers the **Bump** tab of **NS Rock Sculptor**, a paid third-party Blender add-on by Nick Sayce (NS), not a stock Blender feature or Blender's built-in Bump node. The "standard bump", "cracks bump", "cracks bump 2", and "dusty bump" layers are add-on-specific procedural bump layers with their own Colour Ramps and masks — do not confuse them with core Blender shader Bump-map nodes.
+
 ### Core Technique
-[PENDING EXTRACTION]
+Layering NS Rock Sculptor's four independent bump-detail channels — standard bump, cracks bump, cracks bump 2, and dusty bump — each with its own strength/distance sliders, an optional mask, and (for dusty bump) a Colour Ramp, to build up fine surface micro-detail on top of the rock's main sculpt/displacement.
 
 ### Summary
-[PENDING EXTRACTION]
+A short walkthrough of the add-on's Bump tab with main Displacement temporarily disabled so the bump layers are clearly visible. Frame 000/001 show the base "standard bump" — a fine all-over grain visible across the whole rock surface in the panel's Bump section (Strength, Distance, Cracks Bump Amount, Dusty Bump Amount fields visible). Frame 002/003 show "dusty bump" pushed up and its Colour Ramp being edited (a colored dusty/mottled patchiness with visible ramp swatch in the panel) to dial in contrast. Frame 004 shows a zoomed-out rock with visible dark crack lines threading across the dusty texture — the "cracks bump" layer — with the panel's Cracks Bump / Bump Mask fields visible. Video ends noting each bump layer supports its own mask (same masking concept as the Displacement tab) to localize where cracks/dust appear, and a "strength 2, sometimes 1.5-2" push-it-further tip for a more weathered look.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Temporarily disable the rock's main Displacement so the Bump layers alone are visible while tuning.
+2. **Standard bump** — the base fine-grain bump applied to the whole rock; adjust Strength/Distance.
+3. **Cracks bump** — adds chippy crack detail; at full strength (1.0) it overrides/hides the standard bump, so keep it below 1.0 if you want both visible simultaneously.
+4. **Dusty bump** — adds a mottled dust-like bump; tune via its own Colour Ramp (author found the default ramp positions didn't match his expectation and needed nudging — more contrast, ramp stops moved closer together for a subtler dusting).
+5. **Cracks bump 2** — adds a second, larger-scale crack pattern (bigger cracks than the first cracks layer); easier to judge with dusty bump temporarily switched off.
+6. All bump layers (cracks bump, cracks bump 2) support a **mask** input, same concept as the Displacement tab's mask — paint/control where cracks appear vs. stay smooth, for natural variation instead of uniform coverage across the whole rock.
+7. Pro tip: pushing Strength to ~1.5-2 (author says "I'll go 2 on the bump") gives a noticeably more weathered, detailed close-up look; note this mostly affects dusty bump and can push it toward solid black if overdone, so use selectively on hero/close-up rocks.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **NS Rock Sculptor Bump tab fields (confirmed in frame captures):** Strength, Distance, Cracks Bump Amount, Dusty Bump Amount, Cracks Bump 2 Amount, Dusty Bump Colour Ramp, Cracks Bump Mask Ramp.
+- **Layer stack (in order of coverage/dominance):** standard bump -> cracks bump (overrides standard at 1.0) -> cracks bump 2 (independent, bigger-scale cracks) -> dusty bump (own Colour Ramp for contrast).
+- **Masking:** same per-layer vertex-group/mask mechanism as the add-on's Displacement tab, reused here for cracks bump and cracks bump 2.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner (short overview; main prerequisite is owning the paid add-on and having a base sculpt/displacement already set up from earlier steps in the series).
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not stated verbally; viewport title bar in the captured frames is partially legible and appears consistent with the same Blender 5.1.x build seen in the Geometry & Scatter episode of this series.
 
 ### Tags
-[PENDING EXTRACTION]
+procedural, displacement, organic, product-viz, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+Part of the **NS Rock Sculptor Guide** series (10 episodes, all uploaded 2026-07-30) covering the NS Rock Sculptor add-on tab by tab. This episode covers the Bump tab; the author says Geometry comes next after this in his recording order.
+- [NS Rock Sculptor Guide - Geometry & Scatter](ns-rock-sculptor-guide---geometry-scatter.md) — same add-on/series, Geometry & Scatter tabs (next tab after Bump per the author's own sequencing in this video).
+- [NS Rock Sculptor Guide - Displacement](ns-rock-sculptor-guide---displacement.md) — same add-on/series, Displacement tab (shares the masking concept this episode references directly).
+- [NS Rock Sculptor Guide - Colour Ramps](ns-rock-sculptor-guide---colour-ramps.md) — same add-on/series, Colour Ramps tab (directly relevant — this episode tunes the Dusty Bump Colour Ramp).
+- [NS Rock Sculptor Guide - Filters](ns-rock-sculptor-guide---filters.md) — same add-on/series, Filters tab.
+- [NS Rock Sculptor Guide - Moss](ns-rock-sculptor-guide---moss.md) — same add-on/series, Moss tab.
+- [NS Rock Sculptor Guide - Colour](ns-rock-sculptor-guide---colour.md) — same add-on/series, Colour tab.
+- [NS Rock Sculptor Guide - Edge Crease](ns-rock-sculptor-guide---edge-crease.md) — same add-on/series, Edge Crease tab.
+- [NS Rock Sculptor Guide - Sculpt Settings](ns-rock-sculptor-guide---sculpt-settings.md) — same add-on/series, Sculpt Settings tab.
+- [NS Rock Sculptor Guide - Presets](ns-rock-sculptor-guide---presets.md) — same add-on/series, Presets tab.
+- [NS Infinite Rock Builder Guide - Main Controls](ns-infinite-rock-builder-guide---main-controls.md) — conceptual sibling add-on by the same author (Nick Sayce), same rock/procedural theme, different tool.

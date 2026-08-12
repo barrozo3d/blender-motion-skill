@@ -2984,13 +2984,13 @@ Each entry format:
 - **File:** tutorials/ns-infinite-rock-builder-guide---cliff-top-flatten-bump.md
 
 
-### NS Rock Sculptor Guide   Bump
+### NS Rock Sculptor Guide - Bump
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=E9J_1VH2aPM
 - **Author:** Nick Sayce
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.1.x (approximate, partially legible in frames)
+- **Tags:** #procedural #displacement #organic #product-viz #beginner
+- **Summary:** Third-party NS Rock Sculptor add-on (Nick Sayce): layering four bump-detail channels (standard bump, cracks bump, cracks bump 2, dusty bump) each with their own strength/distance and mask, plus dusty bump's dedicated Colour Ramp; cracks bump overrides standard bump at full strength; a strength ~1.5-2 tip for extra weathered detail.
 - **File:** tutorials/ns-rock-sculptor-guide-bump.md
 
 
