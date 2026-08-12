@@ -2933,6 +2933,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/ns-infinite-rock-builder-guide---main-controls.md
 
+
+### NS Infinite Rock Builder Guide - Colours
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=1ezIk-0qoDg
+- **Author:** Nick Sayce
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ns-infinite-rock-builder-guide---colours.md
+
 ---
 
 ## Tag Reference
