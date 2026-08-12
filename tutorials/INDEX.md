@@ -2923,6 +2923,16 @@ Each entry format:
 - **File:** tutorials/how-i-made-this-bridge-destruction-scene-in-blender.md
 - **Related:** Superhero Landing Tutorial 02 | Ground Destruction VFX in Blender (`superhero-landing-tutorial-02-ground-destruction-vfx-in-blender.md`) — shares vfx, rigid-body, particles, destruction; traditional Cell Fracture + Mantaflow approach to contrast against this video's custom Simulation Nodes tooling.
 
+
+### NS Infinite Rock Builder Guide - Main Controls
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=VkYNlPxOsUk
+- **Author:** Nick Sayce
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ns-infinite-rock-builder-guide---main-controls.md
+
 ---
 
 ## Tag Reference
