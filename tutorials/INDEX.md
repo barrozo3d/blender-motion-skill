@@ -2983,6 +2983,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/ns-infinite-rock-builder-guide---cliff-top-flatten-bump.md
 
+
+### NS Rock Sculptor Guide   Bump
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=E9J_1VH2aPM
+- **Author:** Nick Sayce
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ns-rock-sculptor-guide-bump.md
+
 ---
 
 ## Tag Reference
