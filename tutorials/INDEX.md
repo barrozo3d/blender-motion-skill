@@ -3003,6 +3003,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/ns-infinite-rock-builder-guide---water-level-roughness.md
 
+
+### NS Rock Sculptor Guide - Displacement
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=l174YngAFs8
+- **Author:** Nick Sayce
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ns-rock-sculptor-guide---displacement.md
+
 ---
 
 ## Tag Reference
