@@ -2973,6 +2973,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/ns-infinite-rock-builder-guide---moss-fresnel-dust.md
 
+
+### NS Infinite Rock Builder Guide - Cliff-top Flatten / Bump
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=VwaeyQtmgw8
+- **Author:** Nick Sayce
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ns-infinite-rock-builder-guide---cliff-top-flatten-bump.md
+
 ---
 
 ## Tag Reference
