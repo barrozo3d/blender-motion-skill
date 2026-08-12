@@ -2948,9 +2948,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=BePg_iEbaM4
 - **Author:** Nick Sayce
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.1.x (approximate, partially legible in frames)
+- **Tags:** #procedural #displacement #particles #organic #product-viz #beginner
+- **Summary:** Third-party NS Rock Sculptor add-on (Nick Sayce): decimating a sculpted rock (~0.1-0.2 ratio, repeatable) into a low-poly pebble for scattering, a warning that Edge Wear must be applied before decimating (it turns white/blotchy on mangled decimated topology), and the Scatter tab workflow — plane target, rock presets, vertex-group-painted density, Number/Scale/Length tuning to build a layered rock pile.
 - **File:** tutorials/ns-rock-sculptor-guide---geometry-scatter.md
 
 

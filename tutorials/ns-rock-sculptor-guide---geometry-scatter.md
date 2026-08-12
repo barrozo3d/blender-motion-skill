@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=BePg_iEbaM4
 author: Nick Sayce
 ingested: 2026-08-12
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.1.x (partially legible in viewport title bar in captured frames; not stated verbally)"
+tags: [procedural, displacement, particles, organic, product-viz, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/ns-rock-sculptor-guide---geometry-scatter/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 5
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # NS Rock Sculptor Guide - Geometry & Scatter
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py ns-rock-sculptor-guide---geometry-scatter <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -91,30 +87,65 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:53] tutorials/frames/ns-rock-sculptor-guide---geometry-scatter/frame_000.jpg
+- [1:36] tutorials/frames/ns-rock-sculptor-guide---geometry-scatter/frame_001.jpg
+- [2:19] tutorials/frames/ns-rock-sculptor-guide---geometry-scatter/frame_002.jpg
+- [3:18] tutorials/frames/ns-rock-sculptor-guide---geometry-scatter/frame_003.jpg
+- [4:21] tutorials/frames/ns-rock-sculptor-guide---geometry-scatter/frame_004.jpg
+
+---
+
 ## Structured Notes
 
+> **Third-party add-on note:** This tutorial covers **NS Rock Sculptor**, a paid third-party Blender add-on by Nick Sayce (NS), not a stock Blender feature. Its panel tabs (Sculpt Settings, Edge Crease, Colour, Moss, Filters, Colour Ramps, Displacement, Bump, Geometry, Scatter — visible in the frame captures) are custom add-on UI, not core Blender node groups or modifiers. Do not confuse its "Geometry" and "Scatter" controls with stock Blender Decimate/particle workflows when consulting this entry — the add-on wraps them in its own presets and vertex-group logic.
+
 ### Core Technique
-[PENDING EXTRACTION]
+Decimating a sculpted NS Rock Sculptor rock down to a low-poly "pebble" mesh, then using the add-on's built-in Scatter tab (a wrapped particle-system workflow) to instance that pebble across a target surface with vertex-group-painted density control.
 
 ### Summary
-[PENDING EXTRACTION]
+Short overview of the last two tabs in the NS Rock Sculptor panel: Geometry and Scatter. Frame 000 shows a smooth-shaded decimated rock with its "Rock Distance Mask" vertex group highlighted in orange in the panel's vertex group list. Frame 001 shows the same rock after repeated decimation passes — visibly mangled, faceted low-poly topology with an orange-highlighted band, illustrating the "horrific topology" the video warns will break loop cuts. Frame 002 shows the blotchy white/pink discoloration that results from applying the add-on's Edge Wear (Edge Crease) effect to already-decimated geometry — the add-on can't resolve real edges on mangled topology, so Edge Wear reads as broken white patches. Frame 003 shows the Scatter tab's initial result: a plane with barely-visible, tiny scattered pebble dots (default scatter scale is too small). Frame 004 shows the final payoff — a dense, properly scaled rock pile built by layering two pebble presets with increased Number and Scale values.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. In the **Geometry** tab, decimate a finished sculpted rock (already quad-remeshed with a target face count set during sculpting, e.g. ~1000 faces) using the Decimate operator at roughly 0.1–0.2 ratio.
+2. Click Decimate again (2-3 total passes) to progressively strip geometry for background/scatter use — the silhouette holds up reasonably well through 2-3 passes, but topology becomes unusable for further edits (no clean loop cuts, no texture painting).
+3. **Warning:** decimating loses displacement fidelity — fine for small scattered pebbles, not for hero/close-up rocks.
+4. **Warning:** apply the add-on's Edge Wear/Edge Crease effect *before* decimating, not after — on decimated geometry it can't find real edges and turns the surface white/blotchy (see Frame 002).
+5. Switch to the **Scatter** tab. Add a plane as the scatter target, apply its transforms (Ctrl+A), and scale it up to the working area size.
+6. Select a saved rock preset (e.g. "Pebbles 1" — the add-on only ships ~4 presets at time of recording; author says more will be added) and click Scatter to instance it via the add-on's particle-system wrapper on the plane.
+7. Increase the Scatter tab's Number and Scale fields at the bottom of the panel — the default scatter is too small/sparse to see.
+8. Paint a Vertex Group on the target plane (Weight Paint mode) to control where rocks scatter — e.g. leave a blank/low-weight area in the middle for a clear path.
+9. Add a second preset ("Pebbles 2") with its own vertex group, and tune Length, Scale (~0.6), and Number (~2000) to build up a dense, layered rock pile combining both pebble types.
+10. Pro tip mentioned: unexpected add-on results can become deliberate looks — e.g. swapping the black/white ends of the Edge Wear Colour Ramp on one rock ("Rock 31") inverted the wear pattern into a usable alternate look, discovered by accident.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **NS Rock Sculptor add-on panel tabs** (custom N-panel UI, confirmed in frame captures): Sculpt Settings, Edge Crease, Colour, Moss, Filters, Colour Ramps, Displacement, Bump, Geometry, Scatter.
+- **Geometry tab:** Decimate operator / ratio field (~0.1–0.2), repeatable.
+- **Scatter tab:** rock preset picker (e.g. Pebbles 1, Pebbles 2), Scatter button, Number field, Scale field, Length field, per-preset Vertex Group assignment.
+- **Vertex Groups referenced:** "Rock Distance Mask" (visible on the base rock in Frame 000/001) and separate Weight-Painted groups per scatter target used to mask scatter density.
+- **Edge Wear / Edge Crease:** driven by a Colour Ramp (black/white positions swappable for inverted wear look).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner (short, low-complexity overview — main prerequisite is owning the paid add-on and having a sculpted rock ready from earlier steps in the series).
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not stated verbally; viewport title bar in the captured frames is partially legible and appears to read Blender 5.1.x. Treat as approximate — cross-reference other NS Rock Sculptor Guide episodes from the same upload batch (2026-07-30) for corroboration.
 
 ### Tags
-[PENDING EXTRACTION]
+procedural, displacement, particles, organic, product-viz, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+Part of the **NS Rock Sculptor Guide** series (10 episodes, all uploaded 2026-07-30) covering the NS Rock Sculptor add-on tab by tab. This episode covers the Geometry and Scatter tabs specifically.
+- [NS Rock Sculptor Guide - Bump](ns-rock-sculptor-guide---bump.md) — same add-on/series, Bump tab.
+- [NS Rock Sculptor Guide - Displacement](ns-rock-sculptor-guide---displacement.md) — same add-on/series, Displacement tab.
+- [NS Rock Sculptor Guide - Colour Ramps](ns-rock-sculptor-guide---colour-ramps.md) — same add-on/series, Colour Ramps tab (directly relevant to the Edge Wear color-ramp tip in this episode).
+- [NS Rock Sculptor Guide - Filters](ns-rock-sculptor-guide---filters.md) — same add-on/series, Filters tab.
+- [NS Rock Sculptor Guide - Moss](ns-rock-sculptor-guide---moss.md) — same add-on/series, Moss tab.
+- [NS Rock Sculptor Guide - Colour](ns-rock-sculptor-guide---colour.md) — same add-on/series, Colour tab.
+- [NS Rock Sculptor Guide - Edge Crease](ns-rock-sculptor-guide---edge-crease.md) — same add-on/series, Edge Crease tab (directly relevant — this episode shows Edge Wear failing on decimated geometry).
+- [NS Rock Sculptor Guide - Sculpt Settings](ns-rock-sculptor-guide---sculpt-settings.md) — same add-on/series, Sculpt Settings tab (covers the quad-remesh target face count referenced in this episode).
+- [NS Rock Sculptor Guide - Presets](ns-rock-sculptor-guide---presets.md) — same add-on/series, Presets tab (relevant to the "only four presets" comment in this episode).
+- [NS Infinite Rock Builder Guide - Main Controls](ns-infinite-rock-builder-guide---main-controls.md) — conceptual sibling add-on by the same author (Nick Sayce), same rock/procedural theme, different tool (formation-chain rock builder vs. sculpt-based Rock Sculptor).
