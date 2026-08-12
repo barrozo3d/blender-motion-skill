@@ -2963,6 +2963,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/ns-infinite-rock-builder-guide---filters.md
 
+
+### NS Infinite Rock Builder Guide - Moss / Fresnel / Dust
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=thzYTUEyrKI
+- **Author:** Nick Sayce
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ns-infinite-rock-builder-guide---moss-fresnel-dust.md
+
 ---
 
 ## Tag Reference
