@@ -5,6 +5,14 @@ description: Analyze a photo, video frame, or render reference and generate step
 
 # Blender Motion — Reference Analysis, Tutorial & Direct Execution Skill
 
+## About
+
+Expert consultant for **Blender**, covering motion design, geometry nodes, simulation (fluid, pyro, rigid body, cloth, particles), materials/shaders, lighting & compositing, and ad/brand video production. Analyzes any visual reference (image, video frame, render) and either produces a step-by-step tutorial plan or builds the scene directly inside a running Blender session over the Blender MCP connection. Answers questions, writes Python/geometry-node setups, and grows its own knowledge base by ingesting tutorials — same architecture as this skill's siblings (`houdini-wand`, `unreal-sidekick`, `nuke-em-all`, `paint-me-like-your-french-substances`).
+
+**Not in scope:** other DCC tools (Houdini, Unreal Engine, Nuke, Substance Painter — see the sibling skills for those) and manual hand-painted texturing/sculpting workflows outside Blender's procedural/GeoNodes toolset.
+
+> **Live Blender connection.** Mode 2 drives a real, running Blender scene directly via the BlenderMCP addon (`get_scene_info`, `execute_blender_code`, `get_viewport_screenshot`, `create_object`, `set_material`) — see "Blender MCP — Connection Validation" below. It requires Blender open with the BlenderMCP addon connected before use; Mode 0 validates the connection first.
+
 Analyze any visual reference (image, video frame, render) and either produce a step-by-step tutorial plan **or build the scene directly inside Blender** using the Blender MCP connection.
 
 ## Modes

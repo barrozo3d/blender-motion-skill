@@ -235,13 +235,13 @@ def main():
 
 
 # ── Cross-skill script drift check (warn-only) ────────────────────────────────
-# The three skills (blender-motion / houdini-wand / unreal-sidekick) deliberately
-# carry copies of the same ingest pipeline. Copies have historically drifted
-# (missing UTF-8 fix, mismatched cookies flags), so when sibling skill dirs are
-# present on this machine, compare the shared helper functions and WARN on
-# differences. Never fails the run — per-skill divergence may be intentional,
-# but it should always be a conscious choice.
-SIBLING_SKILLS = ("blender-motion", "houdini-wand", "unreal-sidekick", "nuke-em-all")
+# The five skills (blender-motion / houdini-wand / unreal-sidekick / nuke-em-all /
+# paint-me-like-your-french-substances) deliberately carry copies of the same
+# ingest pipeline. Copies have historically drifted (missing UTF-8 fix, mismatched
+# cookies flags), so when sibling skill dirs are present on this machine, compare
+# the shared helper functions and WARN on differences. Never fails the run —
+# per-skill divergence may be intentional, but it should always be a conscious choice.
+SIBLING_SKILLS = ("blender-motion", "houdini-wand", "unreal-sidekick", "nuke-em-all", "paint-me-like-your-french-substances")
 SHARED_FUNCS = ("slugify", "download_audio", "ytdlp_captions", "segment_by_chapters",
                 "_detect_hallucination", "append_safeguard_note", "find_duplicate_by_video_id")
 

@@ -179,6 +179,7 @@ The first time Whisper runs it downloads the model (~150 MB for `base`, ~461 MB 
 ```
 blender-motion/
 ├── SKILL.md              ← main skill instructions Claude reads
+├── README.md              ← human-facing overview
 ├── SETUP.md              ← this file
 ├── setup.ps1             ← Windows automated installer
 ├── ingest.py             ← Step 1: transcript/metadata collection (no video/frames)
