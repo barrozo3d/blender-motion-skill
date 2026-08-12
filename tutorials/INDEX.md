@@ -2953,6 +2953,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/ns-rock-sculptor-guide---geometry-scatter.md
 
+
+### NS Infinite Rock Builder Guide - Filters
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=yLhymD__KvI
+- **Author:** Nick Sayce
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ns-infinite-rock-builder-guide---filters.md
+
 ---
 
 ## Tag Reference
