@@ -1,6 +1,6 @@
 # Blender Motion
 
-A Claude Code skill: an expert consultant for **Blender** — motion design, geometry nodes, simulation, materials/shaders, lighting/compositing, and ad/brand video production — that also builds its own knowledge base by ingesting tutorials, and can optionally drive a real, running Blender session over MCP.
+An expert consultant skill for **Blender** — motion design, geometry nodes, simulation, materials/shaders, lighting/compositing, and ad/brand video production — that also builds its own knowledge base by ingesting tutorials, and can optionally drive a real, running Blender session over MCP.
 
 ## What it does
 
@@ -18,7 +18,7 @@ Then just ask Claude Code a question — it reads `SKILL.md` automatically. Full
 
 ## The Ingest Pipeline, in full detail
 
-This is the part of the skill you'd actually touch to extend it — point it at a new source, tune its quality checks, or teach it a new safeguard. It's three scripts, run in a fixed order, each doing one job well rather than one script doing everything (plus `batch_ingest.py` as a thin wrapper for queueing several URLs through Step 1 at once).
+This is the part of the skill you'd actually touch to extend it: give it a video, an article, or any source of technical knowledge and the skill will trigger the steps to extract, read, organize, cross-reference and push it.
 
 ```
 ingest.py  ──►  select_frames.py  ──►  Claude Code (extraction)  ──►  validate.py
