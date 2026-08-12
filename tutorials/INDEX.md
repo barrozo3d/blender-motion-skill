@@ -2993,6 +2993,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/ns-rock-sculptor-guide-bump.md
 
+
+### NS Infinite Rock Builder Guide - Water Level Roughness
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=8ZX5DsV7eBc
+- **Author:** Nick Sayce
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ns-infinite-rock-builder-guide---water-level-roughness.md
+
 ---
 
 ## Tag Reference
