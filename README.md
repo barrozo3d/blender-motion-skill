@@ -65,4 +65,4 @@ Same ingest/validate/setup architecture as this skill's siblings — `houdini-wa
 
 ## Status
 
-Public personal project, no warranty. 283 tutorials ingested as of 2026-08-12.
+Public personal project, no warranty. **283 tutorials ingested** (count auto-updates on every `ingest.py` run — do not hand-edit this line).

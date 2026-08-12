@@ -511,6 +511,27 @@ def update_index_pending(info, slug, filename):
             content += entry
     INDEX_FILE.write_text(content, encoding="utf-8")
 
+def update_readme_tutorial_count():
+    """
+    Keep README.md's "N tutorials ingested" line in sync with the real count on
+    disk, so it can never silently go stale the way a hand-written number would.
+    No-op if README.md has no line matching the expected pattern (e.g. it was
+    reworded) — fails quiet rather than corrupting the file.
+    """
+    readme = SKILL_DIR / "README.md"
+    if not readme.exists():
+        return
+    count = len([f for f in TUTORIALS_DIR.glob("*.md") if f.name != "INDEX.md"])
+    content = readme.read_text(encoding="utf-8")
+    new_content = re.sub(
+        r"\*\*\d+\s*tutorials ingested\*\*",
+        f"**{count} tutorials ingested**",
+        content,
+        count=1,
+    )
+    if new_content != content:
+        readme.write_text(new_content, encoding="utf-8")
+
 def fetch_article(url):
     import urllib.request
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
@@ -649,11 +670,14 @@ def main():
             md = md.replace("extraction_status: pending", "extraction_status: needs-review", 1)
         out_md.write_text(md, encoding="utf-8")
         update_index_pending(info, slug, out_md.name)
+        update_readme_tutorial_count()
 
         print("      Committing raw data to GitHub...")
         os.chdir(SKILL_DIR)
-        subprocess.run(["git", "add", str(out_md.relative_to(SKILL_DIR)),
-                        str(INDEX_FILE.relative_to(SKILL_DIR))], check=True)
+        git_add = [str(out_md.relative_to(SKILL_DIR)), str(INDEX_FILE.relative_to(SKILL_DIR))]
+        if (SKILL_DIR / "README.md").exists():
+            git_add.append("README.md")
+        subprocess.run(["git", "add"] + git_add, check=True)
         subprocess.run(["git", "commit", "-m", f"collect: {title}"], check=True)
         subprocess.run(["git", "push"], check=True)
 
