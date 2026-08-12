@@ -4,7 +4,7 @@ An expert consultant skill for **Blender** — motion design, geometry nodes, si
 
 ## What it does
 
-Give it a reference image, video frame, or render and it deconstructs the geometry, materials, lighting, motion, and simulation type, then either hands back a phased step-by-step tutorial or — if the Blender MCP addon is connected — writes and executes the Python/geometry-node scripts directly in your open Blender scene, phase by phase, with screenshot verification. It can also just answer Blender questions directly. Its library currently holds 283 ingested tutorials spanning geometry nodes, simulation, materials, lighting, compositing, and motion-design/ad-video technique.
+Give it a reference image, video frame, or render and it deconstructs the geometry, materials, lighting, motion, and simulation type, then either hands back a phased step-by-step tutorial or — if the Blender MCP addon is connected — writes and executes the Python/geometry-node scripts directly in your open Blender scene, phase by phase, with screenshot verification. It can also just answer Blender questions directly.
 
 ## Quick start
 
