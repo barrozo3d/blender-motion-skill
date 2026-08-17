@@ -96,4 +96,4 @@ geometry-nodes, procedural, abstract, motion-design, animation, intermediate, bl
 ---
 
 ## Related Tutorials
-No directly related tutorials yet in the library for recursive/fractal Geometry Nodes patterns — flag for cross-linking if a similar Repeat-Zone-based generative pattern tutorial is ingested later.
+- [Create Plexus FX In Blender (Geometry Node)](create-plexus-fx-in-blender-geometry-node.md) — conceptual sibling: another silent, music-only abstract Geometry Nodes motion-design tutorial ingested in the same batch, similarly reliant on frame-only extraction.

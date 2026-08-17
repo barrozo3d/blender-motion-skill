@@ -3138,9 +3138,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=ZUiCC5iTUWs
 - **Author:** Manbo Studio
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x (Geometry Nodes UI matches 4.x-era layout; exact point release not stated or clearly legible)
+- **Tags:** geometry-nodes, procedural, abstract, motion-design, compositing, animation, intermediate, blender-4x
+- **Summary:** Animated glowing "Plexus" line network: Scene Time + Noise Texture-driven Set Position displaces a Grid into a faceted, flat-shaded terrain, its edges isolated into a line network, lit with strong Emission and finished with Compositor Glare/bloom for the neon look.
 - **File:** tutorials/create-plexus-fx-in-blender-geometry-node.md
 
 ---
