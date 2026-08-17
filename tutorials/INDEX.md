@@ -3198,9 +3198,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=GejnTuB2GNQ
 - **Author:** rileyb3d
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x (viewport title bar visible in captured frames, exact point release not fully legible)
+- **Tags:** materials, shaders, procedural, rendering, product-viz, motion-design, intermediate, advanced, blender-4x
+- **Summary:** Full low-poly game-asset pipeline (notebook prop): real-world-scale modeling with snapping/grid-fill, UV cleanup, deeply layered procedural+photo-reference shader work (Map Range as the workhorse node, physical-prop-photography texturing trick), then a high-to-low-poly PBR bake via the SimpleBake add-on into a clean Base Color/Roughness/Normal set.
 - **File:** tutorials/mastering-complex-textures-in-blender.md
 
 ---

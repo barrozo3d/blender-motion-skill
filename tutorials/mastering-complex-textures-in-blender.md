@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=GejnTuB2GNQ
 author: rileyb3d
 ingested: 2026-08-17
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x (viewport title bar visible in captured frames, exact point release not fully legible)"
+tags: [materials, shaders, procedural, rendering, product-viz, motion-design, intermediate, advanced, blender-4x]
+extraction_status: complete
 frames_dir: tutorials/frames/mastering-complex-textures-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 9
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Mastering Complex Textures in Blender
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py mastering-complex-textures-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Introduction [0:00]
@@ -662,30 +658,63 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:38] tutorials/frames/mastering-complex-textures-in-blender/frame_000.jpg
+- [3:44] tutorials/frames/mastering-complex-textures-in-blender/frame_001.jpg
+- [5:19] tutorials/frames/mastering-complex-textures-in-blender/frame_002.jpg
+- [8:19] tutorials/frames/mastering-complex-textures-in-blender/frame_003.jpg
+- [10:44] tutorials/frames/mastering-complex-textures-in-blender/frame_004.jpg
+- [14:26] tutorials/frames/mastering-complex-textures-in-blender/frame_005.jpg
+- [24:12] tutorials/frames/mastering-complex-textures-in-blender/frame_006.jpg
+- [27:01] tutorials/frames/mastering-complex-textures-in-blender/frame_007.jpg
+- [29:00] tutorials/frames/mastering-complex-textures-in-blender/frame_008.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A full low-poly game-asset pipeline for a composition notebook: real-world-scale modeling with snapping/grid-fill, clean UV unwrapping, layered procedural + scanned-image shader work (the video's central lesson — "layering" is the single most important texturing concept), then a high-to-low-poly PBR bake (via the SimpleBake add-on) to collapse the whole complex shader graph into a clean, game-engine-ready Base Color/Roughness/Normal map set.
 
 ### Summary
-[PENDING EXTRACTION]
+**Modeling:** A Plane is scaled to real-world notebook dimensions (7.5 × 9.75 in, typed directly into the N-panel Item tab, which auto-converts to meters) and extruded up. The rounded spine is built by snapping a 12-vertex Circle (rotated 90° on X, scaled down) to the model using Blender's snap menu (Vertex/Edge/Face targets all enabled, held with Ctrl while moving) rather than manual eyeballing, then joining the objects (Ctrl+J), Merge by Distance (tightened to 0.01m to actually catch nearby-but-not-coincident verts) to weld seams, and Grid Fill (Ctrl+F) to close the resulting curved edge loop cleanly. Pages are inset (I) and pushed in along their normals (Alt+E → Extrude Faces Along Normals) for a page-stack look. Shade Auto Smooth (right-click) adds a Smooth by Angle modifier — tuning its angle just above the spine's actual angle (e.g. 30.1° vs. default 30°) removes an unwanted hard-shaded seam. A small Bevel (Ctrl+B, one extra loop) softens the remaining hard corners. **UV unwrapping:** a manually-marked seam (U → Mark Seam) plus Unwrap (Conformal) gives a workable base UV layout, but the long, thin page-block UV island wastes space and blocks other islands from scaling up — manually rescaling/repositioning UV islands (accepting a deliberately different texel density between pages and cover, called out as fine for this use case) is presented as a legitimate, common practical fix over trying to get a "perfect" automatic unwrap. **Material assignment cleanup:** an 8-vertex n-gon left over from beveled corners (not a quad) is fixed by deleting the face and Grid-Fill-ing it back in; an extra edge loop (Ctrl+R) separates the spine from the covers so it can carry its own material. Three materials are assigned via edge-loop/face selection tricks (Ctrl+Shift-click to select everything between two picks; C for circle-select): Pages (left white), Cover (grayed), Spine (blackened). **Texturing — the core lesson (layering):** Pages get a Noise Texture mapped via the object's own UV map (Ctrl+T for a Mapping node, feeding UV instead of Generated) with non-uniform scale (X flattened to 0, Y scaled up for "more pages") driving both Base Color and, through a Bump node, surface Height. For the Cover, a Noise Texture (browsed live via the node's built-in noise-type dropdown, soloed with Ctrl+Shift-click) approximates a college-ruled "Mead composition notebook" marbled pattern, then a Map Range node (explicitly called the presenter's most-used node throughout the video) clamps the noise to crisp black/white rather than a smooth gradient by pulling in the min/max thresholds from both ends. On top of that procedural base, downloaded reference images (sourced from textures.com — book-cover photos and dedicated "edge wear" textures) are dragged in as Image Texture nodes, each with its own Mapping node (Ctrl+T) set to **Clip** (not Repeat, to avoid tiling artifacts on a single unique surface) and manually scaled/positioned per-axis (sometimes further nudged by scaling UV vertices in the UV Editor) to line up with the model's UV space. Each image layer is blended in with a Mix Color node, frequently reusing the SAME image (or a Map Range-processed version of it) as the mix Factor as well as input B — a compact trick for driving both the visual blend and its intensity mask from one texture — and desaturated via a Hue/Saturation/Value node (lowered Saturation) to avoid clashing color casts between layered photo sources. Roughness is built the same layered way: a base Noise Texture piped through Map Range (0 → non-zero minimum, since 0 is "totally glossy"), then further Mix Color nodes blend in roughness contribution from the same color-layer results (e.g. using the final color mix as a driving factor for a rougher/more-worn value), finished with one last Map Range pass to set the overall min/max roughness range. A Bevel input node is added before the Normal socket to physically round hard baked edges (high Samples, tiny Distance — barely visible but important for clean bakes); the same layered color/height information doubles as extra Normal detail through a Bump node chained after the Bevel. **Compound label/sticker technique:** a downloaded "composition notebook label" PNG (with alpha) drives a Mix Shader between the base notebook shader and a second full Principled BSDF (temporarily tinted red to visualize its extent while positioning), using the label image's own Alpha output as the mix Factor, with its Mapping node set to Clip and manually scaled/positioned (accounting for non-square source image distortion) to sit correctly on the cover; the same label image doubles as that second shader's Base Color. A second downloaded "worn paper" texture is layered on top via another Mix Color + Map Range chain (inverted so wear "eats into" the edges of the label rather than the middle, revealing the notebook material underneath at the torn/rubbed edges) for an authentically peeling-label look. **Physical-reference texturing trick:** the presenter physically tears a piece of real masking tape, hand-writes a note on it with charcoal (no pen on hand), photographs it, cleanly cuts it out in Photoshop (Quick Object Select), and re-exports it cropped to an exact 1:1 square aspect ratio specifically so it can be scaled/rotated in Blender without guessing at non-square distortion — brought in as yet another Mix Shader layer (Clip mapping, careful scale/position), with its own Roughness/Bump contribution mapped in via Map Range, described as a real technique the presenter uses on paid client work for authenticity. Pages are finished with a downloaded "grunge"/breakup-noise texture layered via Mix Color, driving a yellowing color tint (warm color mixed in via Map Range-controlled factor), a separate darker "Value" pass duplicating the same factor logic, and a Map Range-controlled Roughness contribution. The Spine reuses (duplicates) the Cover's core Noise-Texture-driven node chain but strips out all the label/tape/mix-shader layers specific to the cover, demonstrating how one procedural base texture chain can economically drive Base Color, Roughness, AND Bump/Normal simultaneously with minimal extra nodes — flagged as a favorite, highly reusable technique. **PBR baking for game engines:** the full node-graph-heavy shader is optional to keep at final delivery — it can instead be baked down to a compact, portable PBR map set. Mesh optimization first: duplicate the model into `_high` and `_low` versions; on the low-poly, dissolve only edge loops that don't affect the silhouette (demonstrated: one loop drastically changes the shape and must stay, another barely matters and can go) — in this case only a small triangle-count reduction (200→172 tris) since the source was already fairly low-poly, but the workflow is shown in full regardless. A Triangulate modifier is added to the low-poly (not applied until export) because game engines — and even Cycles internally — triangulate meshes before rendering, so pre-triangulating avoids shading-artifact mismatches between the mesh triangulated for baking vs. re-triangulated differently at runtime. Both objects are zeroed to the same location (so the high-poly geometry sits inside/matching the low-poly for accurate ray-cast baking) and the low-poly's existing UVs are reused (confirmed still valid, since it's a near-identical topology). The **SimpleBake** add-on (explicitly recommended as essential for this kind of object-to-object baking workflow) is configured with the high-poly as the Bake Object and the low-poly as the Bake Target/"Bake to Target," an auto-generated ray-cast Cage (with a manually tightened Cage Margin, since the auto value was too aggressive/unstable — "squirrely" — for two near-identical shapes), default Ray Distance, and a PBR Bake selection of Diffuse + Roughness + Normal (Metalness skipped, no metal in the asset). Texture Settings: bake at 3K, output at 2K, for slightly crisper downsampled results than baking straight at 2K; UDIMs left off since none are used; Export Settings enabled to write the maps to disk automatically during the bake. After baking, the low-poly's material is replaced with a single fresh material, and Blender's built-in **Ctrl+Shift+T** "Add Principled Texture Setup" shortcut is used to batch-select and auto-wire all three baked image files (Base Color, Roughness, Normal) into a clean, minimal Principled BSDF setup in one action — yielding a portable 2K map set ready for import into Godot, Unity, or Unreal.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Model to real-world scale by typing exact dimensions into the N-panel Item tab on a Plane (auto-converts units), then extrude/shape by hand.
+2. Build curved details (e.g. a spine) with snapping (enable Vertex+Edge+Face snap targets, hold Ctrl while moving) rather than eyeballing; join separate pieces with Ctrl+J, weld with Merge by Distance (tighten the distance threshold if 0 vertices are found initially), and close resulting n-gon loops with Grid Fill (Ctrl+F, sometimes needing an extra vertex added first).
+3. Inset (I) and Extrude Along Normals (Alt+E) to fake stacked-page depth; apply Shade Auto Smooth and nudge its angle threshold slightly above a problem edge's real angle to remove unwanted hard shading seams; add a light Bevel (Ctrl+B) with one extra loop to soften remaining hard corners.
+4. UV unwrap with a manually marked seam (U → Mark Seam) and Unwrap (Conformal); manually rescale/reposition individual UV islands afterward to make better use of UV space, accepting non-uniform texel density between different parts of the model where appropriate.
+5. Fix any leftover n-gons (e.g. from bevels) by deleting the face and Grid-Fill-ing it back to quads; add extra edge loops (Ctrl+R) to isolate regions (like a spine) that need their own material; assign materials via chained selection tricks (Ctrl+Shift-click between two picks, C for circle-select).
+6. Build each material as layered procedural + photo-reference textures: start with a Noise Texture mapped through the object's own UV (Ctrl+T Mapping node set to UV instead of Generated) with non-uniform scale per axis; clamp/crisp the result with a Map Range node (the single most-reused node in the whole workflow) instead of a Color Ramp.
+7. Layer in downloaded reference photos (textures.com or similar) as Image Texture nodes, each with an individual Mapping node set to Clip (never Repeat, for a one-off unique surface), scaled/positioned per axis to align with the UVs; blend each in via Mix Color, frequently reusing the same image (optionally through its own Map Range) as both the B input and the mix Factor; desaturate mismatched color casts with Hue/Saturation/Value nodes.
+8. Build Roughness the same layered way: base Noise Texture → Map Range (clamp the minimum above 0, since 0 = fully glossy) → further Mix Color layers driven by the same color-layer results, finished with one final Map Range for the overall min/max range.
+9. Add a Bevel input node before the material's Normal socket (high Samples, tiny Distance) to soften hard edges for a cleaner bake, and route the layered color/height information through a Bump node chained after it for extra surface detail.
+10. For a label/sticker: bring in a PNG with alpha, use its Alpha output as a Mix Shader factor between the base material and a second full Principled BSDF (temporarily tinted a bright color to see its placement while positioning), map with Clip and manually scale/position (correcting for non-square source aspect ratio); layer a second "worn/torn" texture on top via Mix Color + Map Range (invert if you want wear eating in from the edges rather than the center) to reveal the base material peeking through at torn spots.
+11. For extra realism, physically create and photograph a real-world reference (e.g. torn masking tape with handwriting), crop it in an external editor to an exact square aspect ratio before re-importing, so it can be freely scaled/rotated in Blender without unintended stretch — layer it in via another Mix Shader with Clip mapping, and drive its own Roughness/Bump contribution through Map Range.
+12. For a part that shares another part's core texture identity (e.g. spine vs. cover), duplicate that material's core Noise-Texture-driven node chain and strip out the parts-specific extra layers (labels, stickers, mix shaders) — one procedural texture chain can economically drive Base Color, Roughness, and Bump/Normal all at once.
+13. To prepare for baking: duplicate the model into `_high` and `_low` copies; on the low-poly, dissolve only edge loops that don't affect the object's silhouette (test each candidate loop individually before committing); add a (not-yet-applied) Triangulate modifier to the low-poly to lock in consistent triangulation ahead of the game engine's own runtime triangulation; zero both objects to the same location; confirm/reuse valid UVs on the low-poly.
+14. Use the SimpleBake add-on: set the high-poly as Bake Object and the low-poly as the Bake Target ("Bake to Target"); auto-generate a ray-cast Cage and manually tighten its Cage Margin if the auto value is unstable; select PBR passes to bake (Diffuse, Roughness, Normal — skip Metalness if nothing in the asset is metallic); set bake resolution higher than the output resolution (e.g. bake 3K, output 2K) for extra crispness; enable Export Settings to write maps to disk automatically; run the bake.
+15. On the low-poly, delete the old procedural material, add a fresh empty material, and use Ctrl+Shift+T ("Add Principled Texture Setup") to batch-select the baked image files and auto-wire them into a clean minimal Principled BSDF — producing a portable map set for any game engine.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Modeling: N-panel Item dimension entry, snap menu (Vertex/Edge/Face + Ctrl), Merge by Distance (tunable threshold), Grid Fill, Inset (I), Extrude Along Normals (Alt+E), Shade Auto Smooth (Smooth by Angle modifier, tunable angle), Bevel (Ctrl+B)
+- UV: Mark Seam (U), Unwrap (Conformal), manual per-island rescale/reposition
+- Shading core: Mapping node (Ctrl+T, Generated vs. UV, Clip vs. Repeat), Noise Texture (browsable noise-type dropdown), Map Range (clamping/remapping — the tutorial's single most-used node), Mix Color, Hue/Saturation/Value, Bump, Bevel (shader input node), Mix Shader (label/sticker/tape layering, Alpha-driven factors)
+- Baking prep: `_high`/`_low` duplicate naming convention, silhouette-preserving edge-loop dissolve, Triangulate modifier (unapplied until export), zeroed transforms between high/low pairs
+- Add-on: **SimpleBake** — Bake Objects (high) / Bake to Target (low), auto-generated Cage + Cage Margin, Ray Distance, PBR Bake selection (Diffuse/Roughness/Normal/Metalness), Texture Settings (bake vs. output resolution, UDIM toggle), Export Settings (auto-write to disk)
+- Shortcut: Ctrl+Shift+T "Add Principled Texture Setup" for batch-wiring baked textures
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced (a full production pipeline — modeling, UVs, deeply layered procedural+photo shader authoring, and a two-mesh high-to-low PBR bake with a specialized add-on — explicitly a long-form, non-beginner tutorial)
 
 ### Blender Version
-[PENDING EXTRACTION]
+4.x — Blender's UI in the captured frames (including the Cycles/EEVEE render properties layout and the SimpleBake add-on panel) is consistent with the 4.x era; exact point release not fully legible.
 
 ### Tags
-[PENDING EXTRACTION]
+materials, shaders, procedural, rendering, product-viz, motion-design, intermediate, advanced, blender-4x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+No directly related tutorials yet in the library for PBR game-asset texture baking or layered procedural+photo material authoring workflows — flag for cross-linking if another texture-baking, SimpleBake, or game-asset-pipeline tutorial is ingested later.
