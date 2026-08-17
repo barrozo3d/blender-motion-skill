@@ -134,4 +134,5 @@ Part of the **NS Rock Sculptor Guide** series (10 episodes, all uploaded 2026-07
 - [NS Rock Sculptor Guide - Displacement](ns-rock-sculptor-guide---displacement.md) — same add-on/series, Displacement tab (directly relevant — Ambient Occlusion set up here has no visible effect until real geometric displacement exists).
 - [NS Rock Sculptor Guide - Moss](ns-rock-sculptor-guide---moss.md) — same add-on/series, Moss tab (adjacent color-layering system in the same panel order).
 - [NS Rock Sculptor Guide - Edge Crease](ns-rock-sculptor-guide---edge-crease.md) — same add-on/series, Edge Crease tab (adjacent in panel order, precedes Colour).
+- [NS Rock Sculptor Guide - Presets](ns-rock-sculptor-guide---presets.md) — same add-on/series, Presets tab (directly relevant — the active-material-isolation concept demoed there with loaded presets is the same mechanism this episode demos with color edits).
 - [NS Infinite Rock Builder Guide - Colours](ns-infinite-rock-builder-guide---colours.md) — conceptual sibling: same author's other add-on, also layers multiple color inputs via Color Ramps and blend modes, different tool/UI.

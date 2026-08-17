@@ -143,6 +143,7 @@ procedural, geometry-nodes, displacement, organic, product-viz, intermediate
 
 ## Related Tutorials
 Part of the **NS Rock Sculptor Guide** series (10 episodes, all uploaded 2026-07-30) covering the NS Rock Sculptor add-on tab by tab. This is the foundational/core-algorithm episode — every other tab in the series operates on rocks generated here.
+- [NS Rock Sculptor Guide - Presets](ns-rock-sculptor-guide---presets.md) — same add-on/series, Presets tab (directly relevant — presenter's own forward-reference from that episode, the series' de facto intro, into this one).
 - [NS Rock Sculptor Guide - Geometry & Scatter](ns-rock-sculptor-guide---geometry-scatter.md) — same add-on/series, Geometry & Scatter tabs (directly relevant — decimation and scatter both consume the sculpted mesh produced here).
 - [NS Rock Sculptor Guide - Displacement](ns-rock-sculptor-guide---displacement.md) — same add-on/series, Displacement tab (directly relevant — this episode's Make-Single-ordering warning specifically concerns the Displace modifier covered there).
 - [NS Rock Sculptor Guide - Edge Crease](ns-rock-sculptor-guide---edge-crease.md) — same add-on/series, Edge Crease tab (directly relevant — operates on the same base-mesh facets this episode's cuts create).

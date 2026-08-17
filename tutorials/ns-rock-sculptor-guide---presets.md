@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=XbdMfva0fPA
 author: Nick Sayce
 ingested: 2026-08-17
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.1.x (approximate, viewport title bar in captured frames; not stated verbally)"
+tags: [procedural, displacement, organic, product-viz, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/ns-rock-sculptor-guide---presets/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 5
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # NS Rock Sculptor Guide - Presets
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py ns-rock-sculptor-guide---presets <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -63,30 +59,55 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:38] tutorials/frames/ns-rock-sculptor-guide---presets/frame_000.jpg
+- [0:49] tutorials/frames/ns-rock-sculptor-guide---presets/frame_001.jpg
+- [1:53] tutorials/frames/ns-rock-sculptor-guide---presets/frame_002.jpg
+- [2:10] tutorials/frames/ns-rock-sculptor-guide---presets/frame_003.jpg
+- [2:29] tutorials/frames/ns-rock-sculptor-guide---presets/frame_004.jpg
+
+---
+
+> **Third-party add-on note:** This tutorial covers the **Presets** tab of **NS Rock Sculptor**, a paid third-party Blender add-on by Nick Sayce (NS) — and doubles as the series' own intro video (the presenter explicitly opens the whole guide series here before working through the other tabs one by one). "Load Selected Preset" and the 32-thumbnail preset grid are add-on-provided, not stock Blender.
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A thumbnail grid of 32 (at time of recording) pre-authored rock presets — each bundling a specific Rock Sculptor mesh/material state plus any Displace modifier it was built with — that can be dropped into the scene via "Load Selected Preset" as a one-click starting point, then freely continued/edited using the rest of the add-on's tabs.
 
 ### Summary
-[PENDING EXTRACTION]
+This episode functions as the series' own introduction: the presenter explains NS Rock Sculptor procedurally sculpts rocks and ships a matching procedural material, then walks through starting with Presets specifically because "it'll make sense in a minute" — i.e. it's the natural entry point before the other, more granular tabs. Selecting a thumbnail from the 32-preset grid and clicking "Load Selected Preset" instantiates that preset's full saved state: mesh shape, material, and any Displace modifier it was authored with (confirmed in-frame via a "Rock Displace" modifier already present on the loaded object). Some presets are simple/easy starting shapes, others carry more built-in detail. The key conceptual point covered is **active material isolation**: loading two different presets (demoed as "Rock 17" and "Rock 21") into the same scene creates two independent Rock Sculptor material instances — each object keeps its own separate material data, so editing color/displacement/etc. on whichever object is currently selected/active only affects that one object, not the other, even though both originated from the same add-on. This sets up the rest of the series: presets are just starting shapes/styles, meant to be sculpted and refined further using the tabs covered next (starting with Sculpt Settings).
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Open the "Presets" section in the NS Rock Sculptor sidebar tab.
+2. Browse the thumbnail grid (32 presets shown, labeled "Rock 1" through "Rock 32"-ish, more may be added over time) — each thumbnail is a small rendered preview of that preset's rock.
+3. Click a thumbnail to select it, then click "Load Selected Preset" to instantiate it in the scene — this brings in the preset's mesh shape, its full material setup, and any Displace modifier it was originally built with.
+4. Load a second (different) preset into the same scene if desired — each loaded preset creates its own independent object with its own independent material data (not a shared/linked instance), even though all presets come from the same add-on.
+5. Understand "active material" scoping: whichever object is currently selected/active in the scene is the one that further edits (color, displacement, filters, etc. from other tabs) will apply to — switching selection to a different loaded preset switches which object's material you're now editing, and changes do not cross-contaminate between separately-loaded presets.
+6. Treat presets as a starting point, not a final result — continue refining a loaded preset's shape using the Sculpt Settings tab (covered next in the series) or any other tab (Colour, Filters, Displacement, etc.) exactly as if you'd built the rock from scratch.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Sidebar section "Presets" (referenced as the natural starting point of the whole add-on/series; sits alongside Sculpt Settings, Weight Paint, Edge Crease, Colour, Moss, Filters, Colour Ramps, Displacement, Bump, Geometry, Scatter)
+- 32-thumbnail preset grid (labeled Rock 1-32+) + "Load Selected Preset" button
+- Each preset bundles: mesh/sculpt state, full material (Colour/Filters/Colour Ramps setup), and (for at least some presets) a pre-configured "Rock Displace" modifier
+- Confirmed in outliner/modifier-stack frames: independently-named objects ("Rock 17," "Rock 21") each carrying their own separate material data-block after loading multiple presets
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner (browsing a thumbnail grid and clicking one button; the active-material concept requires understanding but no technical skill)
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.1.x (approximate, viewport title bar in captured frames; not stated verbally) — consistent with other NS Rock Sculptor Guide episodes from this same upload batch (2026-07-30/31).
 
 ### Tags
-[PENDING EXTRACTION]
+procedural, displacement, organic, product-viz, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+Part of the **NS Rock Sculptor Guide** series (10 episodes, all uploaded 2026-07-30) covering the NS Rock Sculptor add-on tab by tab. This episode doubles as the series intro and is the natural first stop; the presenter's own "next" topic is Sculpt Settings. **This completes all 10 episodes of the NS Rock Sculptor Guide series.**
+- [NS Rock Sculptor Guide - Sculpt Settings](ns-rock-sculptor-guide-sculpt-settings.md) — same add-on/series, Sculpt Settings tab (directly relevant — presenter's own forward-reference; this is how a loaded preset gets further sculpted/refined).
+- [NS Rock Sculptor Guide - Geometry & Scatter](ns-rock-sculptor-guide---geometry-scatter.md) — same add-on/series, Geometry & Scatter tabs.
+- [NS Rock Sculptor Guide - Colour](ns-rock-sculptor-guide---colour.md) — same add-on/series, Colour tab (directly relevant — the active-material-isolation concept demoed here with presets is the same mechanism covered there with color edits).
+- [NS Rock Sculptor Guide - Displacement](ns-rock-sculptor-guide---displacement.md) — same add-on/series, Displacement tab (directly relevant — some presets ship with a pre-built Rock Displace modifier, as covered there in depth).
+- [NS Infinite Rock Builder Guide - Main Controls](ns-infinite-rock-builder-guide---main-controls.md) — conceptual sibling: same author's other add-on, also built around numbered preset "formations" that can be loaded and further customized, different tool/UI.

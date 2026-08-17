@@ -3078,9 +3078,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=XbdMfva0fPA
 - **Author:** Nick Sayce
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.1.x (approximate, viewport title bar in captured frames; not stated verbally)
+- **Tags:** procedural, displacement, organic, product-viz, beginner
+- **Summary:** Third-party NS Rock Sculptor add-on (Nick Sayce), series intro/Presets tab: 32-thumbnail preset grid + "Load Selected Preset" one-click starting point (bundles mesh, material, and any Displace modifier); demos active-material isolation — separately loaded presets keep fully independent material data, so edits to one never affect the other.
 - **File:** tutorials/ns-rock-sculptor-guide---presets.md
 
 ---
