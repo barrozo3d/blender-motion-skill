@@ -3053,6 +3053,16 @@ Each entry format:
 - **Summary:** Third-party NS Rock Sculptor add-on (Nick Sayce): base Colour 1/2 plus Dirt (Multiply blend) and Dust (Screen blend) color passes routed through the Filters tab, and two independent Edge Wear swatches (bottom vs. top of the color-blend stack) that read differently depending on whether a later Dirt multiply breaks up the wear pattern beneath them.
 - **File:** tutorials/ns-rock-sculptor-guide---colour.md
 
+
+### NS Rock Sculptor Guide - Edge Crease
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=YEtwMhsKh1A
+- **Author:** Nick Sayce
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ns-rock-sculptor-guide---edge-crease.md
+
 ---
 
 ## Tag Reference
