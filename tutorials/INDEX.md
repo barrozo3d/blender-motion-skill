@@ -3023,6 +3023,16 @@ Each entry format:
 - **Summary:** Third-party NS Rock Sculptor add-on (Nick Sayce): fine-tuning the Dust and Main Colour Ramps in the sidebar's Colour Ramps tab — dragging stops closer/further apart resizes dust patch density, and extra ramp stops can be added via the color picker for multi-color variation; this ramp is reused as the Displacement Mask in the next tab.
 - **File:** tutorials/ns-rock-sculptor-guide---colour-ramps.md
 
+
+### NS Rock Sculptor Guide - Filters
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=9jrj0IG7Xe8
+- **Author:** Nick Sayce
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ns-rock-sculptor-guide---filters.md
+
 ---
 
 ## Tag Reference
