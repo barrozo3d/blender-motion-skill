@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=ErHZ6gbPl6g
 author: Nick Sayce
 ingested: 2026-08-17
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.1.x (approximate, viewport title bar in captured frames; not stated verbally)"
+tags: [procedural, geometry-nodes, displacement, organic, product-viz, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/ns-rock-sculptor-guide-sculpt-settings/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # NS Rock Sculptor Guide   Sculpt Settings
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py ns-rock-sculptor-guide-sculpt-settings <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -91,30 +87,64 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:21] tutorials/frames/ns-rock-sculptor-guide-sculpt-settings/frame_000.jpg
+- [1:20] tutorials/frames/ns-rock-sculptor-guide-sculpt-settings/frame_001.jpg
+- [2:24] tutorials/frames/ns-rock-sculptor-guide-sculpt-settings/frame_002.jpg
+- [3:17] tutorials/frames/ns-rock-sculptor-guide-sculpt-settings/frame_003.jpg
+- [4:25] tutorials/frames/ns-rock-sculptor-guide-sculpt-settings/frame_004.jpg
+- [5:08] tutorials/frames/ns-rock-sculptor-guide-sculpt-settings/frame_005.jpg
+- [6:32] tutorials/frames/ns-rock-sculptor-guide-sculpt-settings/frame_006.jpg
+- [7:03] tutorials/frames/ns-rock-sculptor-guide-sculpt-settings/frame_007.jpg
+
+---
+
+> **Third-party add-on note:** This is the core-algorithm episode of **NS Rock Sculptor**, a paid third-party Blender add-on by Nick Sayce (NS). "Sculpt Rock," "Number of Cuts," "Min/Max Offset," "Seed," "Randomize Rotation," and "Make Single" are the add-on's own operator/parameter set driving a knife-bisect-based procedural generator, not stock Blender geometry nodes.
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Starting from a plain cube (or one of the add-on's bundled base shapes), NS Rock Sculptor repeatedly knife-bisects the mesh a set number of times, with each cut's distance-from-center constrained between a Min Offset and Max Offset, to procedurally carve a cube into an irregular boulder silhouette — this is the underlying generator that produces every preset elsewhere in the series.
 
 ### Summary
-[PENDING EXTRACTION]
+The presenter explains this is literally how every other preset in the series was built. Starting from a base cube, "Number of Cuts" sets how many knife-bisect operations are automatically applied (each cut simulates manually selecting the knife tool and slicing across the mesh). The key, more subtle controls are Min Offset and Max Offset, both expressed as a fraction of the distance from the object's center to its outer edge (0.5 = halfway to the edge, i.e. the actual midpoint of that half — described in the video as effectively "a quarter" of the total width from center-to-center). Min Offset sets how close to the center a cut is allowed to reach (raising it keeps cuts away from the core, producing smaller edge-chip cuts instead of deep gouges); Max Offset sets how close to the outer surface a cut can land. A single cut with a low Min Offset (demoed at 0.3) allowed to run close to center produces one large, dramatic slice; raising Min Offset to 0.7 and Max Offset to 0.9 with several more cuts (demoed building up to 8 total) produces many small edge-chipping shaves that read as a much more convincing, natural boulder. Seed is left at -1 (random) by default and rarely needs changing. "Randomize Rotation" lets you cycle through orientations to find a pleasing angle without re-sculpting. "Make Single" detaches a duplicated rock's shared material/data so edits to one copy stop propagating to its sibling — critically, if a Displace modifier will be added later, it must be added *before* clicking Make Single, or the modifier itself stays shared/linked even though the material looks separated, silently corrupting both rocks' displacement when you think you're only editing one. Finally, a "Use Vertex Weight Mask" / paintable white mask (reached via a Weight Paint quick-menu shortcut in Edit Mode) lets you protect chosen areas from being cut at all — paint full white weight over regions you want preserved, then re-run Sculpt Rock; note the painted mask does not persist automatically and must be repainted before every subsequent sculpt pass if you keep re-rolling the shape.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Start from a plain cube (Add → Mesh → Cube) — or one of the add-on's bundled base shapes/blend file — as the input mesh for the sculptor.
+2. Set "Number of Cuts" — each unit automates one knife-bisect slice across the mesh; more cuts = more facets/detail, but every cut takes real generation time.
+3. Understand Min Offset / Max Offset as positions along the distance from the object's center (0) to its outer bound (1, though frames show it clamped/behaving like a 0.5 range in practice): Min Offset sets the closest a cut is allowed to approach the center; Max Offset sets the closest a cut is allowed to approach the outer surface.
+4. For one dramatic, deep single cut: set a low Min Offset (e.g. 0.3) with a wide-open Max Offset (e.g. 0.5-0.95) and a single Number of Cuts, then click "Sculpt Rock" — produces one large gouge/slice.
+5. For a natural boulder look: raise Min Offset well away from center (e.g. 0.7) and tighten Max Offset closer to the surface (e.g. 0.9), then increase Number of Cuts (demoed building to 8 total) — produces many small edge-chipping shaves rather than one dramatic cut.
+6. Leave "Seed" at -1 (random) unless you specifically need a reproducible result across re-sculpts.
+7. Use "Randomize Rotation" to spin through orientations after sculpting, without re-running the generator, until you find an angle you like.
+8. To duplicate a sculpted rock and vary it independently: duplicate the object, select the copy, and adjust its sculpt — but note both copies still share the same material/data at this point, so material edits (e.g. changing color) affect both simultaneously.
+9. Click "Make Single" on the copy to detach it into its own independent material instance (becomes a `.001` data-block) — only then do further material edits stay isolated to that one object.
+10. **Critical ordering rule:** if you plan to add a Displace modifier (Displacement tab, later episode), add it *before* clicking Make Single — otherwise the modifier itself remains linked/shared between the "separated" objects even though the material looks single, and editing what you think is one rock's displacement silently corrupts the other's too.
+11. To protect specific areas from future cuts: enter Edit Mode, open the quick-favorites menu (right-click) and choose Weight Paint (or the add-on's "Use Vertex Weight Mask" toggle), paint full white weight over the region(s) you want preserved, then run "Sculpt Rock" again — the sculptor avoids cutting into fully-white-masked geometry.
+12. Remember the mask does not persist automatically across repeated sculpt passes — repaint the white mask before every subsequent "Sculpt Rock" click if you're iterating and want to keep protecting the same area.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Sidebar section "Sculpt Settings" (first section in the panel order: Sculpt Settings, Weight Paint, Edge Crease, Colour, Moss, Filters, Colour Ramps, Displacement, Bump, Geometry, Scatter)
+- Operator/parameters: "Sculpt Rock" (generate button), Number of Cuts, Min Offset, Max Offset, Seed (default -1/random)
+- Utility buttons: "Randomize Rotation," "Make Single" (detaches shared material/data into an independent `.001` instance)
+- "Weight Paint" section: "Use Vertex Weight Mask" toggle + a Weight Paint mode shortcut (reachable via Blender's right-click quick-favorites menu) for painting a protect-from-cutting mask; does not persist across repeated Sculpt Rock runs
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate (the Min/Max Offset relationship and the modifier-before-Make-Single ordering trap both require real understanding, not just slider-dragging)
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.1.x (approximate, viewport title bar in captured frames; not stated verbally) — consistent with other NS Rock Sculptor Guide episodes from this same upload batch (2026-07-30/31).
 
 ### Tags
-[PENDING EXTRACTION]
+procedural, geometry-nodes, displacement, organic, product-viz, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+Part of the **NS Rock Sculptor Guide** series (10 episodes, all uploaded 2026-07-30) covering the NS Rock Sculptor add-on tab by tab. This is the foundational/core-algorithm episode — every other tab in the series operates on rocks generated here.
+- [NS Rock Sculptor Guide - Geometry & Scatter](ns-rock-sculptor-guide---geometry-scatter.md) — same add-on/series, Geometry & Scatter tabs (directly relevant — decimation and scatter both consume the sculpted mesh produced here).
+- [NS Rock Sculptor Guide - Displacement](ns-rock-sculptor-guide---displacement.md) — same add-on/series, Displacement tab (directly relevant — this episode's Make-Single-ordering warning specifically concerns the Displace modifier covered there).
+- [NS Rock Sculptor Guide - Edge Crease](ns-rock-sculptor-guide---edge-crease.md) — same add-on/series, Edge Crease tab (directly relevant — operates on the same base-mesh facets this episode's cuts create).
+- [NS Rock Sculptor Guide - Colour](ns-rock-sculptor-guide---colour.md) — same add-on/series, Colour tab (directly relevant — the shared-material-until-Make-Single behavior demoed here with color is the same mechanism, just for shape instead).
+- [NS Infinite Rock Builder Guide - Main Controls](ns-infinite-rock-builder-guide---main-controls.md) — conceptual sibling: same author's other add-on, also has its own "Make Single" detach mechanism, different tool/UI.

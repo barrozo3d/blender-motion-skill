@@ -114,6 +114,6 @@ Part of the **NS Rock Sculptor Guide** series (10 episodes, all uploaded 2026-07
 - [NS Rock Sculptor Guide - Moss](ns-rock-sculptor-guide---moss.md) — same add-on/series, Moss tab.
 - [NS Rock Sculptor Guide - Colour](ns-rock-sculptor-guide---colour.md) — same add-on/series, Colour tab.
 - [NS Rock Sculptor Guide - Edge Crease](ns-rock-sculptor-guide---edge-crease.md) — same add-on/series, Edge Crease tab.
-- [NS Rock Sculptor Guide - Sculpt Settings](ns-rock-sculptor-guide---sculpt-settings.md) — same add-on/series, Sculpt Settings tab.
+- [NS Rock Sculptor Guide - Sculpt Settings](ns-rock-sculptor-guide-sculpt-settings.md) — same add-on/series, Sculpt Settings tab.
 - [NS Rock Sculptor Guide - Presets](ns-rock-sculptor-guide---presets.md) — same add-on/series, Presets tab.
 - [NS Infinite Rock Builder Guide - Main Controls](ns-infinite-rock-builder-guide---main-controls.md) — conceptual sibling add-on by the same author (Nick Sayce), same rock/procedural theme, different tool.

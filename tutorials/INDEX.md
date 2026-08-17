@@ -3068,9 +3068,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=ErHZ6gbPl6g
 - **Author:** Nick Sayce
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.1.x (approximate, viewport title bar in captured frames; not stated verbally)
+- **Tags:** procedural, geometry-nodes, displacement, organic, product-viz, intermediate
+- **Summary:** Third-party NS Rock Sculptor add-on (Nick Sayce), core-algorithm episode: knife-bisects a base cube Number-of-Cuts times with each cut's center-distance constrained by Min/Max Offset to carve a boulder silhouette; covers Make Single (detaches shared material) with a critical warning to add any Displace modifier before clicking it, plus a paintable white mask to protect areas from cutting.
 - **File:** tutorials/ns-rock-sculptor-guide-sculpt-settings.md
 
 ---

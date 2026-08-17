@@ -99,7 +99,7 @@ procedural, geometry-nodes, organic, product-viz, intermediate
 
 ## Related Tutorials
 Part of the **NS Rock Sculptor Guide** series (10 episodes, all uploaded 2026-07-30) covering the NS Rock Sculptor add-on tab by tab. This episode covers the Edge Crease tab.
-- [NS Rock Sculptor Guide - Sculpt Settings](ns-rock-sculptor-guide---sculpt-settings.md) — same add-on/series, Sculpt Settings tab (adjacent in panel order — this episode's base mesh/Subdivision Surface level comes from there).
+- [NS Rock Sculptor Guide - Sculpt Settings](ns-rock-sculptor-guide-sculpt-settings.md) — same add-on/series, Sculpt Settings tab (adjacent in panel order — this episode's base mesh/Subdivision Surface level comes from there).
 - [NS Rock Sculptor Guide - Geometry & Scatter](ns-rock-sculptor-guide---geometry-scatter.md) — same add-on/series, Geometry & Scatter tabs (directly relevant — that episode's decimation step explicitly warns Edge Wear/crease-adjacent detail must be applied before decimating).
 - [NS Rock Sculptor Guide - Displacement](ns-rock-sculptor-guide---displacement.md) — same add-on/series, Displacement tab (its Subdivision Surface viewport-level guidance directly affects how visible edge creases read, per that episode's own notes).
 - [NS Rock Sculptor Guide - Colour](ns-rock-sculptor-guide---colour.md) — same add-on/series, Colour tab.
