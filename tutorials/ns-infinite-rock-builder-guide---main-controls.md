@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=VkYNlPxOsUk
 author: Nick Sayce
 ingested: 2026-08-12
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x (exact point release not legible in captured frames)"
+tags: [geometry-nodes, procedural, displacement, organic, intermediate, blender-4x]
+extraction_status: complete
 frames_dir: tutorials/frames/ns-infinite-rock-builder-guide---main-controls/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # NS Infinite Rock Builder Guide - Main Controls
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py ns-infinite-rock-builder-guide---main-controls <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -150,30 +146,66 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:10] tutorials/frames/ns-infinite-rock-builder-guide---main-controls/frame_000.jpg
+- [1:41] tutorials/frames/ns-infinite-rock-builder-guide---main-controls/frame_001.jpg
+- [2:44] tutorials/frames/ns-infinite-rock-builder-guide---main-controls/frame_002.jpg
+- [3:18] tutorials/frames/ns-infinite-rock-builder-guide---main-controls/frame_003.jpg
+- [6:03] tutorials/frames/ns-infinite-rock-builder-guide---main-controls/frame_004.jpg
+- [8:41] tutorials/frames/ns-infinite-rock-builder-guide---main-controls/frame_005.jpg
+- [10:00] tutorials/frames/ns-infinite-rock-builder-guide---main-controls/frame_006.jpg
+- [11:04] tutorials/frames/ns-infinite-rock-builder-guide---main-controls/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Building procedural rock faces with the **Infinite Rock Builder** — a third-party Geometry Nodes add-on by Nick Sayce (NS) — by stacking numbered "formations" on a subdivided plane and blending them with Mix/Strength and Blend Mode controls.
+
+**Add-on disclosure:** This entire tutorial (and the rest of this series) documents a paid third-party add-on's custom node-group UI, not stock Blender geometry nodes. Panel names like "Add Formation", "Make Single", the 25 numbered formation thumbnails, and the Mix/Blend/Strength rows are add-on-specific — they will not exist in a vanilla Blender install and should not be confused with core GeoNodes primitives when giving general Blender advice.
 
 ### Summary
-[PENDING EXTRACTION]
+Part of the NS Infinite Rock Builder Guide series — this is the overview/foundation video covering Main Controls; see also Colours, Filters, Moss/Fresnel/Dust, Water Level Roughness, Cliff-top Flatten/Bump. The viewer learns the base workflow: install the add-on, apply it to a subdivided plane, add one of 25 preset "formations" from the sidebar panel, and stack additional formations on top using Mix Strength or a Blend Mode (Add, Difference, Exclusion, Subtract, Divide) to combine their displacement patterns. Formations are chained in numeric order (formation 2 sits above 1, 3 above 2, etc.), and adjusting a formation's Strength pushes more or less of the formation below it through. The end result is a unique, non-repeating rock-face shape that can then be mapped onto a custom hand-sculpted mesh (instead of the default flat plane) via Object-based mapping, and made independent of other rock instances with "Make Single" so each rock can be edited separately.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Install the add-on: Edit → Preferences → Add-ons → Install from Disk → select the add-on zip (to uninstall on newer Blender, use Get Extensions instead of the Add-ons list).
+2. Create a base mesh: Add a Plane, Subdivide it ~5 times (transcript uses 2-3 while working for speed, renders at 5 for smoothness).
+3. With the plane selected, open the N-panel "NS Infinite Rock Builder" tab and click "Add Formation 1" — this is always the base/first layer in the chain.
+4. Browse the 25 preset formation thumbnails in the panel; click any thumbnail (e.g. Formation 16) and press "Add Formation X" to stack it on top of the chain.
+5. For each added formation, expand its row to reveal Blend Mode, Mix, and Strength — use Mix for a simple 0–1 blend, or a Blend Mode (Add, Exclusion, Subtract, Divide) for more dramatic non-linear combinations; Strength scales how much of that formation shows through.
+6. Note the chain order matters: a formation added between two others (e.g. adding Formation 8 after 1 and 16) inserts itself into the stack and can visually replace whichever formation is beneath it if its Mix is at 100% ("Mix" effectively behaves like "Replace" at full strength).
+7. Adjust "Subdivisions" (viewport-friendly value while iterating, e.g. 2-3; higher, e.g. 5, for final render) and "Overall Scale" on the modifier.
+8. To use a custom (non-plane) base shape: Add a Plane → Tab into Edit Mode → M (Merge at Center) to collapse to one vertex → E (Extrude) repeatedly to sculpt a rough rock silhouette → exit Edit Mode.
+9. Copy the rock-builder material/node-group across via Select → Select Linked → Linked Material, then add a Subdivision Surface modifier (2 levels, applied, plus one more unapplied ring set to 4) to smooth the custom shape.
+10. Because the custom shape uses Object-based mapping (not UV), the formation Scale will look "way off" versus the flat plane — reduce Overall Scale (e.g. to ~0.5) and Strength (e.g. ~0.3–0.6) to compensate and dial in a natural look.
+11. Click "Make Single" on an object to detach its rock-builder node group into its own independent copy (data becomes a `.001` instance) so edits to one rock no longer propagate to duplicates from the same source.
+12. Favorite formations mentioned by the presenter: 16, 24, 1, 9, 8, and 25.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Add-on panel: "NS Infinite Rock Builder" (N-panel sidebar tab)
+- Panel controls seen: Toggle Material, Make Single, formation thumbnail grid, "Add Formation X" button, per-formation Blend Mode / Mix / Strength rows, Subdivisions slider, Overall Scale field
+- Panel section headers visible below the formation list (covered in the other videos of this series): Filters, Water Level Roughness, Moss / Fresnel / Dust, Cliff Top Flatten, Bump
+- 25 numbered preset "formations" (procedural displacement patterns), chained/stacked in numeric order
+- Blend Modes referenced: Mix (Replace-like at 100%), Add, Exclusion, Subtract, Divide
+- Standard Blender ops used alongside the add-on: Subdivide, Merge at Center (M), Extrude (E), Select Linked → Linked Material, Subdivision Surface modifier
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate (no geometry-nodes authoring required, but understanding the formation chain/blend-mode interaction takes a bit of experimentation)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not stated explicitly by the narrator. The captured frames' title bar reads "Blender 4.x" but the exact point release is not legible at the video's source resolution — do not assume a specific 4.x/5.x minor version from this video alone.
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural, displacement, organic, intermediate, blender-4x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+Part of the **NS Infinite Rock Builder Guide** series (Nick Sayce / NS add-on) — all 6 parts cross-link regardless of tag overlap since they form one continuous guide:
+- [Colours](ns-infinite-rock-builder-guide---colours.md)
+- [Filters](ns-infinite-rock-builder-guide---filters.md)
+- [Moss / Fresnel / Dust](ns-infinite-rock-builder-guide---moss-fresnel-dust.md)
+- [Water Level Roughness](ns-infinite-rock-builder-guide---water-level-roughness.md)
+- [Cliff-top Flatten / Bump](ns-infinite-rock-builder-guide---cliff-top-flatten-bump.md)

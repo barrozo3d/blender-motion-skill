@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=1ezIk-0qoDg
 author: Nick Sayce
 ingested: 2026-08-12
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x (see Main Controls video for title-bar reading; not independently confirmed here)"
+tags: [materials, shaders, procedural, organic, beginner, blender-4x]
+extraction_status: complete
 frames_dir: tutorials/frames/ns-infinite-rock-builder-guide---colours/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # NS Infinite Rock Builder Guide - Colours
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py ns-infinite-rock-builder-guide---colours <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -61,30 +57,58 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:16] tutorials/frames/ns-infinite-rock-builder-guide---colours/frame_000.jpg
+- [0:57] tutorials/frames/ns-infinite-rock-builder-guide---colours/frame_001.jpg
+- [1:24] tutorials/frames/ns-infinite-rock-builder-guide---colours/frame_002.jpg
+- [1:47] tutorials/frames/ns-infinite-rock-builder-guide---colours/frame_003.jpg
+- [2:31] tutorials/frames/ns-infinite-rock-builder-guide---colours/frame_004.jpg
+- [3:26] tutorials/frames/ns-infinite-rock-builder-guide---colours/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Coloring a rock built with the **Infinite Rock Builder** add-on (Nick Sayce / NS) using the add-on's pre-wired Shader Editor node group inputs — two main colors (each with its own color ramp + noise filter) mixed together, plus a displacement-following color and a moss/snow mask — without ever needing to build shader nodes from scratch.
+
+**Add-on disclosure:** All group inputs referenced here (Colour 1, Colour 2, Colour 1-2 Mix, Disp Colour, Moss/Snow, Dust Shape, Main Out) belong to the add-on's custom "NS Infinite Rock Builder" node group in the Shading workspace, not stock Blender shader nodes. Treat this as add-on-specific UI, distinct from a hand-built Principled BSDF graph.
 
 ### Summary
-[PENDING EXTRACTION]
+Part of the NS Infinite Rock Builder Guide series — covers Colours; see also Main Controls, Filters, Moss/Fresnel/Dust, Water Level Roughness, Cliff-top Flatten/Bump. With the rock's material node group selected in the Shading workspace (must pick the correct numbered material instance, e.g. "Rock Builder 2", since each rock/plane can carry its own), the viewer is shown the "Colour 1" and "Colour 2" group inputs, each driven by a Color Ramp and each with its own noise-based Filter controlling how bitty/dusty the color patches look. Ctrl+Shift-click (Node Wrangler) on any node previews just that node's output in the viewport. Colour 1 and Colour 2 are combined via a "Colour 1-2 Mix" node set to Screen blending (so black areas are ignored/transparent), letting Colour 2 appear as small tinted patches over the Colour 1 base. A separate "Disp Colour" mix follows the geometry's displacement/AO-like intensity, darkening recesses for a weathered, dirtied look at the rock's inner crevices. "Moss/Snow" and "Dust Shape" inputs exist but are only briefly acknowledged as further optional color layers, not deep-dived in this video.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Reduce viewport Subdivisions temporarily (e.g. to 2) for faster live updates while tweaking colors.
+2. Switch to the Shading workspace and select the rock object; confirm the correct material is targeted in the shader editor header (e.g. "NS Infinite Rock Builder 0.002" / "Rock Builder 2") — an easy mistake is editing the wrong numbered instance when multiple rocks/materials exist in the scene.
+3. Locate the add-on's node group inputs: "Main Colour 1" and "Main Colour 2," each wired through its own Color Ramp — these do not need to be touched/rewired, just their ramp colors edited.
+4. With Node Wrangler installed, Ctrl+Shift-click any node to preview that node's output alone in the viewport; Ctrl+Shift-click "Main Out" again to return to the full shaded result.
+5. Each main color also has a "Filter" input (a noise-driven mask) that controls how large/small and how bitty/dusty that color's patches appear on the surface.
+6. The two colors are combined by a "Colour 1-2 Mix" node — set to Screen blend mode so black in the mask is ignored, letting only the masked (non-black) areas of Colour 2 tint over Colour 1; drag the mix factor in to reveal small patches of the second color.
+7. Set Colour 2 to a contrasting color (e.g. yellow) to clearly see the Screen-mix patches appear as the mix slider increases.
+8. Use "Disp Colour" to blend in a color that follows the rock's own displacement pattern — functions like a built-in ambient-occlusion/dirt pass, darkening the inward/recessed areas of the rock as the mix increases, adding a naturally weathered, grimier look to inner crevices vs. outer (presumably more exposed/eroded) edges.
+9. Repeat the same Ctrl+Shift-click node-preview trick to check any individual color/filter/mix stage in isolation before committing to a final blend.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Add-on's Shading workspace node group inputs: Main Colour 1, Main Colour 2 (each with a Color Ramp + Filter/noise input), Colour 1-2 Mix (Screen blend mode), Disp Colour, Moss/Snow, Dust Shape, Main Out
+- N-panel sidebar sections visible alongside Colours: Filters, Moss / Fresnel / Dust, Water Level Roughness, Cliff Top Flatten, Bump
+- Workflow tool: Node Wrangler add-on, Ctrl+Shift+Click for single-node viewport preview
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner (purely adjusting pre-built color ramps/mix factors/filters — no node authoring)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not stated explicitly by the narrator; not independently confirmed from these frames (see Main Controls video for the title-bar reading of "Blender 4.x").
 
 ### Tags
-[PENDING EXTRACTION]
+materials, shaders, procedural, organic, beginner, blender-4x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+Part of the **NS Infinite Rock Builder Guide** series (Nick Sayce / NS add-on) — all 6 parts cross-link regardless of tag overlap since they form one continuous guide:
+- [Main Controls](ns-infinite-rock-builder-guide---main-controls.md)
+- [Filters](ns-infinite-rock-builder-guide---filters.md)
+- [Moss / Fresnel / Dust](ns-infinite-rock-builder-guide---moss-fresnel-dust.md)
+- [Water Level Roughness](ns-infinite-rock-builder-guide---water-level-roughness.md)
+- [Cliff-top Flatten / Bump](ns-infinite-rock-builder-guide---cliff-top-flatten-bump.md)

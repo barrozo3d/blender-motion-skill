@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=VwaeyQtmgw8
 author: Nick Sayce
 ingested: 2026-08-12
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x (see Main Controls video for title-bar reading; not independently confirmed here)"
+tags: [geometry-nodes, procedural, displacement, organic, intermediate, blender-4x]
+extraction_status: complete
 frames_dir: tutorials/frames/ns-infinite-rock-builder-guide---cliff-top-flatten-bump/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # NS Infinite Rock Builder Guide - Cliff-top Flatten / Bump
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py ns-infinite-rock-builder-guide---cliff-top-flatten-bump <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -62,30 +58,58 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:30] tutorials/frames/ns-infinite-rock-builder-guide---cliff-top-flatten-bump/frame_000.jpg
+- [1:14] tutorials/frames/ns-infinite-rock-builder-guide---cliff-top-flatten-bump/frame_001.jpg
+- [1:49] tutorials/frames/ns-infinite-rock-builder-guide---cliff-top-flatten-bump/frame_002.jpg
+- [1:58] tutorials/frames/ns-infinite-rock-builder-guide---cliff-top-flatten-bump/frame_003.jpg
+- [2:16] tutorials/frames/ns-infinite-rock-builder-guide---cliff-top-flatten-bump/frame_004.jpg
+- [3:44] tutorials/frames/ns-infinite-rock-builder-guide---cliff-top-flatten-bump/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Flattening the top of a rock built with the **Infinite Rock Builder** add-on (Nick Sayce / NS) so it can hold set-dressing (grass, props) via Shift-click rounding controls, plus layering up to three independent fine-detail Bump passes on top of the base displacement — the final video in the series, closing with general build-order advice.
+
+**Add-on disclosure:** "Cliff Top Flatten" and the "Bump 1/2/3" + "Flatten Height Check"/"Bump Out" nodes are part of the add-on's custom node group (visible directly in the Shading workspace node graph in the captured frames), not stock Blender geometry/shader nodes.
 
 ### Summary
-[PENDING EXTRACTION]
+Part of the NS Infinite Rock Builder Guide series — covers Cliff-top Flatten / Bump; see also Main Controls, Colours, Filters, Moss/Fresnel/Dust, Water Level Roughness. Cliff Top Flatten levels off the upper surface of the rock (useful for placing grass/props with Object-based UV mapping) — Shift-clicking left vs. right on its control raises or lowers the flatten height, and a separate slider sets how rounded-off the transition edge is. The video then covers Bump, a set of up to three independent fine-surface-detail bump layers (Bump 1, 2, 3) that can each be mixed in individually or stacked together; the presenter demonstrates isolating each with Ctrl+Shift-click node preview (Node Wrangler) on the "Bump Out" node to prove the detail is there even when it's subtle on the full-shaded rock, plus a Strength/Distance pair (shown at ~2) that controls how pronounced the bump is (warns it can go very dark/black if pushed too far). The video — and the series — closes with general workflow advice: always build and dial in formations, colors, and bump on the flat plane first, then transfer the setup to a custom sculpted shape; remember that switching from the default UV-based plane mapping to Object-based mapping on a custom shape requires re-lowering both Scale (e.g. to ~0.3) and Strength (e.g. ~0.4) to compensate, matching the same object-mapping scale caveat raised in the Main Controls video.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Open "Cliff Top Flatten" in the sidebar; Shift-click the control — left raises the flatten height, right lowers it.
+2. Use the accompanying rounding slider to set how soft/rounded the transition edge between the flattened top and the rest of the rock is.
+3. Use a flattened top surface as a base for set-dressing (e.g. placing grass) when using Object-based UV mapping.
+4. Open the "Bump" section: three independent bump layers (Bump 1, Bump 2, Bump 3) can each be mixed in on their own or combined together for compounded fine detail.
+5. To verify bump detail that's hard to see on the fully shaded rock, Ctrl+Shift-click (Node Wrangler) the "Bump Out" node in the Shading workspace to preview it in isolation (shows as a grayscale "Flatten Height Check"/bump map texture).
+6. Adjust Strength and Distance together to control how pronounced the bump appears on the surface; pushing Strength up (e.g. to 2) can blow out the shading to near-black — use with care.
+7. Series-closing workflow advice: always build on the default flat plane first — dial in formation mix, colors, and bump there — before transferring the setup onto a custom sculpted rock shape, since it's far easier to judge and adjust all parameters on a simple, undistorted plane.
+8. When moving the setup to a custom shape (Object-based mapping instead of the plane's default UV mapping), immediately re-lower both the Overall Scale (e.g. ~0.3) and Strength (e.g. ~0.4) to compensate for the mapping change, echoing the same scale/strength correction shown in the Main Controls video.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Sidebar section: "Cliff Top Flatten" (Shift-click direction control + rounding amount)
+- Sidebar section: "Bump" — Bump 1 / Bump 2 / Bump 3 mix-in layers, plus Strength and Distance
+- Shading-workspace node group internals visible in frames: "Flatten Height Check" and "Bump Out" outputs, previewed via Node Wrangler (Ctrl+Shift+Click), feeding into "Main Out"
+- General object-mapping caveat: UV (plane default) vs. Object mapping (custom shapes) requires re-scaling Overall Scale and Strength
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate (mostly slider adjustments, but the flatten/rounding interaction and the object-mapping scale correction require understanding the underlying mapping mode)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not stated explicitly by the narrator; not independently confirmed from these frames (see Main Controls video for the title-bar reading of "Blender 4.x").
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural, displacement, organic, intermediate, blender-4x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+Part of the **NS Infinite Rock Builder Guide** series (Nick Sayce / NS add-on) — all 6 parts cross-link regardless of tag overlap since they form one continuous guide:
+- [Main Controls](ns-infinite-rock-builder-guide---main-controls.md)
+- [Colours](ns-infinite-rock-builder-guide---colours.md)
+- [Filters](ns-infinite-rock-builder-guide---filters.md)
+- [Moss / Fresnel / Dust](ns-infinite-rock-builder-guide---moss-fresnel-dust.md)
+- [Water Level Roughness](ns-infinite-rock-builder-guide---water-level-roughness.md)

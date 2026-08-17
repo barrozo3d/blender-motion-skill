@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=yLhymD__KvI
 author: Nick Sayce
 ingested: 2026-08-12
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "4.x (see Main Controls video for title-bar reading; not independently confirmed here)"
+tags: [geometry-nodes, procedural, displacement, organic, intermediate, blender-4x]
+extraction_status: complete
 frames_dir: tutorials/frames/ns-infinite-rock-builder-guide---filters/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # NS Infinite Rock Builder Guide - Filters
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py ns-infinite-rock-builder-guide---filters <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -59,30 +55,58 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:13] tutorials/frames/ns-infinite-rock-builder-guide---filters/frame_000.jpg
+- [1:07] tutorials/frames/ns-infinite-rock-builder-guide---filters/frame_001.jpg
+- [1:32] tutorials/frames/ns-infinite-rock-builder-guide---filters/frame_002.jpg
+- [2:10] tutorials/frames/ns-infinite-rock-builder-guide---filters/frame_003.jpg
+- [2:50] tutorials/frames/ns-infinite-rock-builder-guide---filters/frame_004.jpg
+- [3:13] tutorials/frames/ns-infinite-rock-builder-guide---filters/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Reshaping each individual rock "formation" inside the **Infinite Rock Builder** add-on (Nick Sayce / NS) using its per-formation Filters — a Displacement Control, Shape Ramp (color ramp), and Shape Filter (noise) — that appear dynamically in a Filters list for every formation currently added to the chain.
+
+**Add-on disclosure:** "Displacement Control," "Shape Ramp," and "Shape Filter" are custom exposed inputs of the add-on's internal per-formation node groups (25 of them, bundled inside the main node group), not generic Blender geometry-node primitives — this video is teaching add-on UI, not stock GeoNodes.
 
 ### Summary
-[PENDING EXTRACTION]
+Part of the NS Infinite Rock Builder Guide series — covers Filters; see also Main Controls, Colours, Moss/Fresnel/Dust, Water Level Roughness, Cliff-top Flatten/Bump. Unlike the color filters (covered in the Colours video), these Filters apply to the shape/displacement of each formation. Any formation currently added to the object automatically appears as its own entry in the sidebar's Filters list; each entry exposes Displacement Control, a Shape Ramp (black-and-white color ramp controlling the displacement gradient), and a Shape Filter (a noise-based mask controlling where/how much of that displacement shows). The presenter demonstrates on Formation 1 (base) and Formation 24, editing scale/detail values to wildly distort the rock shape, then dialing values back to a restrained, natural-looking cliff-face silhouette — stressing that these controls are powerful but should be used with light, subtle adjustments rather than extreme values, and that it's easy to accidentally edit the wrong formation's filter (recommends Shift-click to select formations deliberately) when several are stacked.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Understand the two filter types are separate: color filters (from the Colours video) control tint/patchiness of Main Colour 1/2; shape filters (this video) control the displacement/geometry of each formation.
+2. Add or remove formations as needed (e.g. delete Formation 1, re-add "Add Formation 1") — whichever formations are present automatically populate the Filters list below in the sidebar.
+3. Select a formation carefully: with multiple formations stacked, be deliberate (Shift-click) about which formation's filter row you're editing, since editing the wrong one produces confusing/unexpected results.
+4. Open a formation's Filters row to reveal: Displacement Control, Shape Ramp (a black/white color ramp — presenter notes it could be converted to full color for finer control), and Shape Filter (a noise texture driving where displacement is stronger/weaker).
+5. Lower viewport Subdivisions (e.g. to 3) while iterating for faster feedback.
+6. Adjust Shape Filter scale/detail values to reshape the formation's displacement pattern — pushing values far produces chaotic, "messy" results; the presenter recommends keeping adjustments slight/subtle unless an extreme look is intentional.
+7. Combine a tuned formation (e.g. Formation 24) back with the base (Formation 1) via Add Formation to get a refined, natural cliff-face-like silhouette.
+8. Remember: every formation added to the chain gets its own Filters entry — the more formations stacked, the more filter rows appear to manage.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Sidebar "Filters" list — one entry auto-generated per active formation
+- Per-formation filter inputs: Displacement Control, Shape Ramp (Color Ramp, black/white), Shape Filter (noise texture: Scale, Detail, Roughness-style parameters)
+- Distinct from the Colours video's color-specific filters (Main Colour 1/2 Filter)
+- 25 total formation groups bundled inside the main "NS Infinite Rock Builder" node group, each with independent filter controls
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate (easy to select the wrong formation or push values too far; requires restraint and formation-management awareness)
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not stated explicitly by the narrator; not independently confirmed from these frames (see Main Controls video for the title-bar reading of "Blender 4.x").
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural, displacement, organic, intermediate, blender-4x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+Part of the **NS Infinite Rock Builder Guide** series (Nick Sayce / NS add-on) — all 6 parts cross-link regardless of tag overlap since they form one continuous guide:
+- [Main Controls](ns-infinite-rock-builder-guide---main-controls.md)
+- [Colours](ns-infinite-rock-builder-guide---colours.md)
+- [Moss / Fresnel / Dust](ns-infinite-rock-builder-guide---moss-fresnel-dust.md)
+- [Water Level Roughness](ns-infinite-rock-builder-guide---water-level-roughness.md)
+- [Cliff-top Flatten / Bump](ns-infinite-rock-builder-guide---cliff-top-flatten-bump.md)

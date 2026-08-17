@@ -2928,9 +2928,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=VkYNlPxOsUk
 - **Author:** Nick Sayce
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x (title-bar visible in frames but exact point release not legible)
+- **Tags:** geometry-nodes, procedural, displacement, organic, intermediate, blender-4x
+- **Summary:** Foundation/overview video of the third-party "Infinite Rock Builder" add-on (Nick Sayce/NS): install the add-on, apply it to a subdivided plane, add 1 of 25 preset procedural "formations," and stack more on top via Mix Strength or a Blend Mode (Add/Exclusion/Subtract/Divide), noting formations chain in numeric order and can be transferred from the default plane onto a custom hand-sculpted shape (Object mapping requires re-scaling Overall Scale/Strength). "Make Single" detaches a rock's node group so duplicates stop sharing edits.
 - **File:** tutorials/ns-infinite-rock-builder-guide---main-controls.md
 
 
@@ -2938,9 +2938,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=1ezIk-0qoDg
 - **Author:** Nick Sayce
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x (see Main Controls video for title-bar reading; not independently confirmed here)
+- **Tags:** materials, shaders, procedural, organic, beginner, blender-4x
+- **Summary:** Third-party NS Infinite Rock Builder add-on (Nick Sayce): coloring a rock via the add-on's pre-wired Shader Editor node group — Main Colour 1/2 (each with a Color Ramp + noise Filter) combined with a Screen-mode Colour 1-2 Mix, plus a Disp Colour that follows displacement for a built-in AO/weathering effect; Node Wrangler Ctrl+Shift-click used throughout to preview individual nodes.
 - **File:** tutorials/ns-infinite-rock-builder-guide---colours.md
 
 
@@ -2958,9 +2958,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=yLhymD__KvI
 - **Author:** Nick Sayce
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x (see Main Controls video for title-bar reading; not independently confirmed here)
+- **Tags:** geometry-nodes, procedural, displacement, organic, intermediate, blender-4x
+- **Summary:** Third-party NS Infinite Rock Builder add-on (Nick Sayce): each active formation auto-populates its own Filters entry (Displacement Control, Shape Ramp, Shape Filter) controlling that formation's displacement shape, distinct from the color filters; demonstrated on Formation 1 and 24, stressing that filter selection must be deliberate (Shift-click) and adjustments should stay subtle to avoid a messy result.
 - **File:** tutorials/ns-infinite-rock-builder-guide---filters.md
 
 
@@ -2968,9 +2968,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=thzYTUEyrKI
 - **Author:** Nick Sayce
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x (see Main Controls video for title-bar reading; not independently confirmed here)
+- **Tags:** materials, shaders, organic, procedural, beginner, blender-4x
+- **Summary:** Third-party NS Infinite Rock Builder add-on (Nick Sayce): three quick finishing sliders — Ambient Dust (AO-style crevice darkening), Fresnel (~0.6 for glancing-angle shine), and Moss (Z-axis/height-masked green tint that favors upper surfaces, formation-dependent).
 - **File:** tutorials/ns-infinite-rock-builder-guide---moss-fresnel-dust.md
 
 
@@ -2978,9 +2978,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=VwaeyQtmgw8
 - **Author:** Nick Sayce
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x (see Main Controls video for title-bar reading; not independently confirmed here)
+- **Tags:** geometry-nodes, procedural, displacement, organic, intermediate, blender-4x
+- **Summary:** Third-party NS Infinite Rock Builder add-on (Nick Sayce), series finale: Cliff Top Flatten levels the rock's upper surface for set-dressing (Shift-click to raise/lower height, plus a rounding slider); Bump 1/2/3 layer independent fine-detail passes (verified via Node Wrangler on "Bump Out"); closes with build-order advice — dial in everything on the flat plane first, then re-lower Scale/Strength when transferring to a custom Object-mapped shape.
 - **File:** tutorials/ns-infinite-rock-builder-guide---cliff-top-flatten-bump.md
 
 
@@ -2998,9 +2998,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=8ZX5DsV7eBc
 - **Author:** Nick Sayce
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x (see Main Controls video for title-bar reading; not independently confirmed here)
+- **Tags:** materials, shaders, procedural, organic, beginner, blender-4x
+- **Summary:** Third-party NS Infinite Rock Builder add-on (Nick Sayce): "Water Level / Roughness" section sets a height (UV-space or 3D-space, with an Object/UV toggle) below which the rock is tinted by two color swatches (Water Level, Coral Ring), and a roughness/softness value controls how hard vs. blended the waterline transition reads. Thin transcript (flagged needs-review by ingest safeguard) — extraction leans on captured frames.
 - **File:** tutorials/ns-infinite-rock-builder-guide---water-level-roughness.md
 
 
@@ -3008,9 +3008,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=l174YngAFs8
 - **Author:** Nick Sayce
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.1.x (approximate, viewport title bar in captured frames; not stated verbally)
+- **Tags:** procedural, displacement, organic, product-viz, intermediate
+- **Summary:** Third-party NS Rock Sculptor add-on (Nick Sayce): two complementary displacement paths — material/shader displacement gated by a noise-driven Displacement Mask Colour Ramp, and a genuine Blender Displace modifier ("Rock Displace", Clouds texture) with a hand-paintable Vertex Group mask; warns that stacking too much of both mangles geometry, and shows Weight-Paint mask editing to localize/blur where displacement reads.
 - **File:** tutorials/ns-rock-sculptor-guide---displacement.md
 
 ---
