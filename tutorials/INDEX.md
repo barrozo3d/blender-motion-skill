@@ -3173,6 +3173,16 @@ Each entry format:
 - **Summary:** Mantaflow liquid domain with a keyframed Ico Sphere effector crashing through a flow layer for a "crown splash," deliberately simulated at low resolution/large scale then sold as macro water via a ~200mm focal length, Glass BSDF (IOR 1.333) in Cycles, and a 3-light glass product-photography rig with DoF.
 - **File:** tutorials/blender-tutorial---creating-a-crown-splash-simulation.md
 
+
+### [Tut] Align Rotation to Vector & Axes to Rotation - P11 Geometry Nodes Beginners 5.0+
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=bZXZNEiKlNg
+- **Author:** Bradley Animation
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/tut-align-rotation-to-vector-axes-to-rotation---p11-geometry-nodes-beginners-50.md
+
 ---
 
 ## Tag Reference
