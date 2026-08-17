@@ -3028,9 +3028,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=9jrj0IG7Xe8
 - **Author:** Nick Sayce
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.1.x (approximate, viewport title bar in captured frames; not stated verbally)
+- **Tags:** procedural, displacement, organic, product-viz, beginner
+- **Summary:** Third-party NS Rock Sculptor add-on (Nick Sayce): a centralized "Choose a Filter to Edit" dropdown exposes parameters for every effect layer (Roll, Main Colour, Grain/Cracks/Cracks 2/Dusty Bump, Displacement, Displacement Mask) instead of hunting across separate panels; demoed on Dusty Bump Filter (Scale/Seed/Weight/Distortion) plus adjacent Displacement group fields.
 - **File:** tutorials/ns-rock-sculptor-guide---filters.md
 
 ---

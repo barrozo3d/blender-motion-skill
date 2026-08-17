@@ -95,6 +95,7 @@ materials, procedural, organic, product-viz, beginner
 ## Related Tutorials
 Part of the **NS Rock Sculptor Guide** series (10 episodes, all uploaded 2026-07-30) covering the NS Rock Sculptor add-on tab by tab. This episode covers the Colour Ramps tab; the presenter's own "next" topic is Displacement, which directly reuses this episode's Dust Colour Ramp as its Displacement Mask.
 - [NS Rock Sculptor Guide - Displacement](ns-rock-sculptor-guide---displacement.md) — same add-on/series, Displacement tab (directly relevant — its Displacement Mask is built from a Colour Ramps-tab ramp, i.e. this episode's content).
+- [NS Rock Sculptor Guide - Filters](ns-rock-sculptor-guide---filters.md) — same add-on/series, Filters tab (directly relevant — the presenter's own forward-reference from that episode into this one).
 - [NS Rock Sculptor Guide - Geometry & Scatter](ns-rock-sculptor-guide---geometry-scatter.md) — same add-on/series, Geometry & Scatter tabs.
 - [NS Rock Sculptor Guide - Bump](ns-rock-sculptor-guide-bump.md) — same add-on/series, Bump tab.
 - [NS Infinite Rock Builder Guide - Colours](ns-infinite-rock-builder-guide---colours.md) — conceptual sibling: same author's other add-on, also uses Color Ramp-driven color masking, different tool/UI.
