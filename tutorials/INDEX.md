@@ -3143,6 +3143,16 @@ Each entry format:
 - **Summary:** Animated glowing "Plexus" line network: Scene Time + Noise Texture-driven Set Position displaces a Grid into a faceted, flat-shaded terrain, its edges isolated into a line network, lit with strong Emission and finished with Compositor Glare/bloom for the neon look.
 - **File:** tutorials/create-plexus-fx-in-blender-geometry-node.md
 
+
+### Blender 3.0 Tutorial - Creating a Glowing River
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=YwDj4bs4bSY
+- **Author:** Blender Made Easy
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-30-tutorial---creating-a-glowing-river.md
+
 ---
 
 ## Tag Reference
