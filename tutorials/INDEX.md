@@ -3123,6 +3123,16 @@ Each entry format:
 - **Summary:** Third-party NS Brick Wall Builder add-on (Nick Sayce), Part 2 of the silent real-wall-matching tip: continues into color (Brick/Mortar Colour via HSV picker, Colour Variation, Dirt Colour) and Bump strength (Pattern/Coin/Mortar) matching against the reference photo.
 - **File:** tutorials/ns-brick-wall-builder-mimicking-a-real-wall-2.md
 
+
+### Abstract Animated Geometric Pattern | Squares | Geometry Nodes Tutorial
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=7I4k8iaF7D8
+- **Author:** Artemiy Galutskiy
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/abstract-animated-geometric-pattern-squares-geometry-nodes-tutorial.md
+
 ---
 
 ## Tag Reference
