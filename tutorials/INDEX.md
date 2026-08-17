@@ -3148,9 +3148,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=YwDj4bs4bSY
 - **Author:** Blender Made Easy
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 3.0 (stated in title; Mantaflow fluid domain UI confirmed in frames)
+- **Tags:** simulation, fluid, particles, materials, shaders, compositing, cycles, volume, glass, emission, motion-design, intermediate, blender-3x
+- **Summary:** Mantaflow liquid domain flowing through an A.N.T. Landscape "River" preset mesh, foam particles instanced onto low-poly cones with an Emission shader for the glow, a Glass+Volume water material, and compositor Vector Blur (fed by Z/Vector passes) for motion blur on the particles.
 - **File:** tutorials/blender-30-tutorial---creating-a-glowing-river.md
 
 ---

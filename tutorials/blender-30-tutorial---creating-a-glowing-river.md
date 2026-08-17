@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=YwDj4bs4bSY
 author: Blender Made Easy
 ingested: 2026-08-17
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "3.0 (stated in title; Mantaflow fluid domain UI confirmed in frames)"
+tags: [simulation, fluid, particles, materials, shaders, compositing, cycles, volume, glass, emission, motion-design, intermediate, blender-3x]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-30-tutorial---creating-a-glowing-river/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 10
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender 3.0 Tutorial - Creating a Glowing River
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-30-tutorial---creating-a-glowing-river <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Creating the River [0:00]
@@ -216,30 +212,71 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:24] tutorials/frames/blender-30-tutorial---creating-a-glowing-river/frame_000.jpg
+- [1:47] tutorials/frames/blender-30-tutorial---creating-a-glowing-river/frame_001.jpg
+- [3:11] tutorials/frames/blender-30-tutorial---creating-a-glowing-river/frame_002.jpg
+- [4:21] tutorials/frames/blender-30-tutorial---creating-a-glowing-river/frame_003.jpg
+- [6:23] tutorials/frames/blender-30-tutorial---creating-a-glowing-river/frame_004.jpg
+- [8:16] tutorials/frames/blender-30-tutorial---creating-a-glowing-river/frame_005.jpg
+- [9:26] tutorials/frames/blender-30-tutorial---creating-a-glowing-river/frame_006.jpg
+- [10:25] tutorials/frames/blender-30-tutorial---creating-a-glowing-river/frame_007.jpg
+- [11:44] tutorials/frames/blender-30-tutorial---creating-a-glowing-river/frame_008.jpg
+- [13:47] tutorials/frames/blender-30-tutorial---creating-a-glowing-river/frame_009.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A Mantaflow liquid domain flowing through a Landscape-add-on river mesh, with foam particles instanced onto low-poly cone geometry and lit via an Emission shader for the glow, composited against a glass+volume river material and finished with vector-based motion blur.
 
 ### Summary
-[PENDING EXTRACTION]
+The river bed itself comes from Blender's built-in Landscape add-on (Preferences → enable Add Mesh: A.N.T. Landscape) using its "River" preset, then hand-tuned via Mesh Size, texture Size, X/Y offset, Distortion, Depth (texture resolution), Height, Offset (river width), and Amount (repeating layers) to shape a usable, non-repeating riverbed with raised banks (via Max Height). A Cube domain (rotated/scaled to fit a slightly downward-tilted river) and a Plane flow object (rotated 90° on X, placed upstream) drive a Mantaflow liquid simulation: domain settings include Cache Type = Modular, End Frame extended well past where the fluid visually reaches the end (to leave headroom for rendering the "settled" state rather than the initial fill), Resumable baking, Mesh Format = Uni Cache (required for Speed Vectors, unlike OpenVDB), Resolution Divisions 256, Time Scale 0.5 (slows the sim), Border Collisions with Front/Bottom disabled (so fluid exits rather than pooling), Narrow Band Width raised to ~6 for a thicker/denser fluid read, and Fractional Obstacles enabled to reduce sticking to the river-bed collider. Foam particles (not spray/bubbles, chosen as best-looking here) are tuned by lowering Potential Radius and Particle Update Radius (~4) to reduce Mantaflow's known particle-flicker glitching, keeping Time Steps modest (min 1/max 4) as a time-cost tradeoff, and boosting particles along the wave crest (~300) for denser foam at the water's edge. Mesh generation uses Upres Factor 2 and a lowered Particle Radius (~1.2) for a sharper (less blobby) surface, with Speed Vectors enabled for later motion blur. The flow plane is set to Flow Type Liquid, Behavior Inflow, Is Planar enabled, with initial velocity added along -Y so the fluid shoots downstream; its rotation must be applied (Ctrl+A) since Mantaflow inflow uses the object's local orientation. The river mesh itself becomes an Effector (Is Planar enabled) so the fluid collides with the riverbed correctly. After baking (particles first, then mesh), a low-poly 3-vertex Cone (minimal geometry to avoid lag at high particle counts) is set as the Foam particle system's Instance Object, with viewport display temporarily dropped to 1% while positioning/scaling it (since viewport % also limits the render unless reset to 100% with viewport display disabled) — a system-scoped foam particle count/size workflow, not a geometry-nodes one. The glow comes from a simple Emission shader on the cone material (blue color, Strength ~4-5 tuned inversely to particle count/density) — the "glowing" of the title is literally just emissive foam particles, not a compositor effect. The river's own domain material is a Glass BSDF (IOR 1.333, matching real water) plus a layered Principled Volume shader (Density 0.5, blue-tinted) inside the same material to suggest murky/non-clear river water, rendered in Cycles. Final polish: particle Scale brought down (~0.03) once seen too large in render, Vector and Z render passes enabled, and in the Compositor a Vector Blur node (Filter category) fed by the Z pass (into Z) and Vector pass (into Speed) applied at a toned-down factor (~0.4, Samples 16) for motion blur on the moving particles — an alternative to Cycles' native motion blur, matching the presenter's separate "motion blur fluid" tutorial technique.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Enable the "Add Mesh: A.N.T. Landscape" add-on in Preferences; delete the default cube; Add → Mesh → Landscape, then switch its Presets dropdown to "River."
+2. Disable Water Plane (not needed since a real fluid sim will fill the channel). Set Mesh Size X/Y (e.g. 5/5), then tune the (separate) texture Size X/Y offset to align the channel with the mesh edges, Distortion (lower = straighter river), Depth (texture resolution/poly detail — capped by Subdivisions), Height (overall relief), Offset (negative value narrows the channel), and Amount (repeating layers — set to 1 to avoid visible repetition). Raise Max Height so the riverbank isn't clamped flat at the top.
+3. Add a Cube as the Mantaflow domain, scale/position it to enclose the river, and rotate the river mesh itself very slightly (via side view, R) so the channel tilts downhill, driving fluid flow direction.
+4. Add a Plane as the flow object: rotate 90° on X, place it upstream inside the domain with a small gap from the domain edge (too close breaks flow behavior), scale to roughly channel width (oversized = too much water).
+5. Domain setup: Physics → Fluid → Type: Domain, Domain Type: Liquid. In Cache: Type = Modular, End Frame well beyond the fluid's visual arrival time (avoids baking/rendering the initial fill-up), Is Resumable on, Mesh Format = Uni Cache (required to enable Speed Vectors — OpenVDB doesn't support them). Set Resolution Divisions (256 used here) and Time Scale (0.5) at the top. Under Border Collisions, disable Front and Bottom so fluid exits the domain instead of pooling/filling it.
+6. Under Liquid settings: raise Narrow Band Width (~6) for a thicker fluid read, enable Fractional Obstacles to reduce sticking to the collider.
+7. Under Particles: enable Foam (tested against Spray/Bubbles, foam looked best). Lower Potential Radius and Particle Update Radius (~4) to reduce Mantaflow's characteristic particle flicker (no full fix exists, per the presenter's own testing); optionally raise Time Steps min/max as a partial, costlier alternative. Raise "Particles from Wave Crest Amount" (~300) for denser foam at wave edges.
+8. Under Mesh: enable Mesh, set Upres Factor (2) and lower Particle Radius (~1.2) for a sharper, less blobby surface; enable Speed Vectors for later motion blur.
+9. Flow object: Physics → Fluid → Type: Flow, Flow Type: Liquid, Flow Behavior: Inflow, enable Is Planar (since it's a plane), enable initial velocity with Y ≈ -0.5 to push fluid downstream, then apply the object's rotation (Ctrl+A) since it was rotated earlier.
+10. River mesh: Physics → Fluid → Type: Effector, enable Is Planar.
+11. Save the project, select the domain, and bake — particles first, then mesh.
+12. After baking, note the frame where the fluid visually reaches the river's end and set the timeline Start Frame there (170 in this case) so renders/playback show the "settled," fully-flowing state rather than the initial fill sequence.
+13. Add a low-poly Cone (3 vertices) scaled down as the foam particle instance object. On the domain's Particle System tab, disable the (unneeded) liquid particle system in viewport, select the Foam system, drop viewport display % low (e.g. 1%) temporarily while positioning/scaling the cone comfortably, then set Render As: Object with the cone as Instance Object.
+14. Important gotcha: viewport display % also caps the render count unless you disable viewport display and set the percentage back to 100% — otherwise the render silently uses the same reduced percentage as the viewport.
+15. Material for the foam cone: delete the default Principled BSDF, add an Emission shader, set a blue color, and tune Strength (~4-5, inversely related to particle count/density) for the glow look.
+16. Material for the domain (the water itself): delete Principled BSDF, add a Glass BSDF (IOR 1.333 for water) with a very slight blue tint, plus a Principled Volume shader plugged into the material's Volume output (Density ~0.5, blue tint) for murky/non-clear water — render in Cycles.
+17. Iterate on particle Scale (down to ~0.03) after a test render shows particles reading too large; enable Vector and Z passes in the View Layer/Render Layers panel (required since Speed Vectors were enabled on the domain).
+18. In the Compositor: enable Use Nodes, add a Filter → Vector Blur node between Render Layers and Composite, feed the Z pass into its Z input and the Vector (Speed) pass into its Speed input, then tune the blur Factor down (~0.4) and Samples down (~16, trading a slight quality drop for faster renders) to avoid excessive blur.
+19. Optional finishing touch (left as an exercise): add compositor Glare for an additional soft bloom on top of the emissive particles.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Add-on: A.N.T. Landscape (Preset: River) — Mesh Size, texture Size/Offset X-Y, Distortion, Depth, Height, Offset, Amount, Max Height
+- Mantaflow Domain (Liquid): Cache Type Modular, End Frame, Is Resumable, Mesh Format Uni Cache, Resolution Divisions 256, Time Scale 0.5, Border Collisions (Front/Bottom off), Narrow Band Width ~6, Fractional Obstacles on
+- Particles: Foam enabled (vs. Spray/Bubbles), Potential Radius / Particle Update Radius ~4, Time Steps min 1 / max 4, Particles from Wave Crest Amount ~300
+- Mesh: Upres Factor 2, Particle Radius ~1.2, Speed Vectors on
+- Flow object (Plane): Flow Type Liquid, Behavior Inflow, Is Planar, Initial Velocity Y ≈ -0.5, rotation applied via Ctrl+A
+- Effector object (river mesh): Is Planar
+- Foam instance object: 3-vertex Cone, Particle System Render As Object, viewport display % vs. render % gotcha
+- Materials: Emission shader (blue, Strength ~4-5) on foam cone; Glass BSDF (IOR 1.333) + Principled Volume (Density 0.5, blue) on the domain/water material, rendered in Cycles
+- Compositor: Filter → Vector Blur node (Z input ← Z pass, Speed input ← Vector pass), Factor ~0.4, Samples ~16; View Layer Vector + Z passes enabled
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate to Advanced (stacks Mantaflow liquid simulation, particle-instance foam, multi-shader (Emission/Glass/Volume) material work, and compositor motion blur — several distinct systems chained together)
 
 ### Blender Version
-[PENDING EXTRACTION]
+3.0, stated explicitly in the title; the Mantaflow domain panel layout in the captured frames is consistent with Blender 3.x.
 
 ### Tags
-[PENDING EXTRACTION]
+simulation, fluid, particles, materials, shaders, compositing, cycles, volume, glass, emission, motion-design, intermediate, blender-3x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+No directly related fluid-simulation tutorials yet in the library — flag for cross-linking if another Mantaflow liquid, foam-particle, or vector-blur compositing tutorial is ingested later (the presenter references a separate "motion blur fluid" tutorial of theirs not yet in this library).
