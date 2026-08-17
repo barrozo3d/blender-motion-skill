@@ -3088,9 +3088,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=VZ7MObyyCJk
 - **Author:** Nick Sayce
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.1.x (approximate, viewport title bar in captured frames; not stated verbally)
+- **Tags:** procedural, geometry-nodes, displacement, organic, product-viz, intermediate, blender-5x
+- **Summary:** Third-party NS Brick Wall Builder v4.0 add-on (Nick Sayce), full guide: curve-driven wall generator (strict even-number/positive-direction curve rules), 11+11 presets, Make Single for branching independent walls, and the full Base Shape/Colour/Mortar/Jitter/Displacement/Filters/Colour Ramps/Bevel/Bump control stack.
 - **File:** tutorials/ns-brick-wall-builder-v4-0-guide.md
 
 ---
