@@ -103,4 +103,5 @@ Part of the **NS Rock Sculptor Guide** series (10 episodes, all uploaded 2026-07
 - [NS Rock Sculptor Guide - Displacement](ns-rock-sculptor-guide---displacement.md) — same add-on/series, Displacement tab (directly relevant — Moss Height/Distortion/Thickness are explicitly described here as compounding with Displacement, not yet covered at this point in the series).
 - [NS Rock Sculptor Guide - Geometry & Scatter](ns-rock-sculptor-guide---geometry-scatter.md) — same add-on/series, Geometry & Scatter tabs (directly relevant — the random-rotation-needs-Apply gotcha traces back to that episode's Scatter step).
 - [NS Rock Sculptor Guide - Colour Ramps](ns-rock-sculptor-guide---colour-ramps.md) — same add-on/series, Colour Ramps tab.
+- [NS Rock Sculptor Guide - Colour](ns-rock-sculptor-guide---colour.md) — same add-on/series, Colour tab (adjacent color-layering system in the same panel order).
 - [NS Infinite Rock Builder Guide - Moss / Fresnel / Dust](ns-infinite-rock-builder-guide---moss-fresnel-dust.md) — conceptual sibling: same author's other add-on, also has a Z-axis/height-masked Moss control, different tool/UI.

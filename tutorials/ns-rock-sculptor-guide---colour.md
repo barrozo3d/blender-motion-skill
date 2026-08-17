@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=NaimTlxwn2Q
 author: Nick Sayce
 ingested: 2026-08-17
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.1.x (approximate, viewport title bar in captured frames; not stated verbally)"
+tags: [materials, procedural, organic, product-viz, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/ns-rock-sculptor-guide---colour/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 7
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # NS Rock Sculptor Guide - Colour
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py ns-rock-sculptor-guide---colour <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -80,30 +76,61 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:39] tutorials/frames/ns-rock-sculptor-guide---colour/frame_000.jpg
+- [1:09] tutorials/frames/ns-rock-sculptor-guide---colour/frame_001.jpg
+- [1:59] tutorials/frames/ns-rock-sculptor-guide---colour/frame_002.jpg
+- [3:15] tutorials/frames/ns-rock-sculptor-guide---colour/frame_003.jpg
+- [4:06] tutorials/frames/ns-rock-sculptor-guide---colour/frame_004.jpg
+- [4:39] tutorials/frames/ns-rock-sculptor-guide---colour/frame_005.jpg
+- [4:52] tutorials/frames/ns-rock-sculptor-guide---colour/frame_006.jpg
+
+---
+
+> **Third-party add-on note:** This tutorial covers the **Colour** tab of **NS Rock Sculptor**, a paid third-party Blender add-on by Nick Sayce (NS). Every swatch/slider named here (Colour 1/2, Dirt Colour, Dust Colour, Edge Wear Colour, Ambient Occlusion Colour, Edge Wear, Edge Wear Top, Roughness, Ambient Occlusion Distance) is the add-on's own exposed input, not a from-scratch manual Blender shader graph — and this tab is explicitly wired into both the Filters and Colour Ramps tabs, so this episode treats all three together.
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+The base two-color rock (Colour 1/Colour 2) is layered with Dirt and Dust color passes that route through the Filters tab (Dirt = Multiply blend, Dust = Screen blend, hence "dark colors for dirt, light colors for dust"), plus a separate Edge Wear system with two independent swatches — one at the bottom of the color stack, one at the top — that read differently depending on whether Dirt is breaking up the wear pattern beneath them.
 
 ### Summary
-[PENDING EXTRACTION]
+The densest and most interconnected episode in the series: the presenter explicitly says color is tied to both Filters and Colour Ramps, so this covers all three together. Colour 1 and Colour 2 form the base rock gradient (demoed in garish blue/orange for visibility). Dirt Colour and Dust Colour are separate swatches that only become visible once their corresponding filter (Dirt Filter, Dust Filter) is added from the Filters tab and dialed in with Amount/Scale/Roughness controls — dust reads via a Screen blend (so light colors show best) while dirt reads via a Multiply blend (so dark colors show best), and their apparent size/shape is additionally shaped by the Colour Ramps tab (a visibly wrong ramp state produces a broken/ugly result the presenter has to fix live). Edge Wear Colour and a related Ambient Occlusion Colour swatch tint the add-on's automatic edge-highlighting; there are two separate Edge Wear controls — "Edge Wear" (bottom of the color-blend chain) and "Edge Wear Top" (top of the chain) — because their position in the stack changes how later multiply-based effects (like Dirt) interact with them: Edge Wear at the bottom gets broken up/interrupted by a subsequently-added Dirt multiply, while Edge Wear Top sits above that interaction and stays a clean, unbroken highlight. Roughness and Ambient Occlusion Distance close out the tab; Ambient Occlusion won't be visually meaningful until the (later) Displacement tab adds real geometric detail for it to occlude.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Open the "Colour" tab; note upfront that color, filters, and colour ramps are all interconnected in this add-on — expect to bounce between tabs.
+2. Set the base "Colour 1" and "Colour 2" swatches — these are the primary two-tone gradient across the whole rock.
+3. To use Dirt or Dust: first set their color swatches ("Dirt Colour", "Dust Colour") here in the Colour tab, then switch to the Filters tab and add/select the corresponding filter (Dirt Filter or Dust Filter) to actually make them visible — each filter exposes its own Amount, Scale, and Roughness (noise) controls.
+4. Remember the blend-mode rule: Dust uses a Screen blend (light/white colors read best, dark colors vanish), Dirt uses a Multiply blend (dark colors read best, light colors vanish) — pick swatch colors accordingly.
+5. If a dirt/dust pass looks visually "broken" or wrong, check the corresponding Colour Ramp (Colour Ramps tab) — an unintended ramp-stop position is a common cause and is directly responsible for how patchy/bitty the color reads.
+6. Set "Edge Wear Colour" and "Ambient Occlusion Colour" swatches; use bright/contrasting test colors first (e.g. yellow) to confirm they're working, then dial in a final subtle color (e.g. white) once positioning is confirmed.
+7. Understand the two Edge Wear slots: "Edge Wear" sits at the very bottom of the color-blend stack, so later multiply-based passes (like Dirt) will visibly break up/interrupt its pattern once added — this reads as more natural, weathered wear. "Edge Wear Top" sits above that interaction point, so it stays clean and unbroken regardless of what's added beneath it — use this one when you want guaranteed crisp edge highlights.
+8. "Roughness" sets overall shininess (self-explanatory per the presenter); "Ambient Occlusion Distance" sets how far into cracks/crevices the AO effect reaches — but AO's visual impact is minimal until real displacement geometry exists (Displacement tab, later episode).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Sidebar section "Colour" (positioned after Edge Crease and before Moss/Filters per the panel order seen across this series: Sculpt Settings, Weight Paint, Edge Crease, Colour, Moss, Filters, Colour Ramps, Displacement, Bump, Geometry, Scatter)
+- Base swatches: Colour 1, Colour 2
+- Dirt Colour, Dust Colour (each requires its matching filter — Dirt Filter / Dust Filter — enabled in the Filters tab to become visible; Dirt = Multiply blend, Dust = Screen blend)
+- Edge Wear Colour, Ambient Occlusion Colour
+- Sliders: Edge Wear, Edge Wear Top (two independent positions in the color-blend stack — bottom vs. top), Roughness, Ambient Occlusion Distance
+- Cross-referenced tabs: Filters (Dirt/Dust filter Amount/Scale/Roughness), Colour Ramps (shapes dirt/dust patch distribution)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate (requires understanding blend-mode interaction — Multiply vs. Screen — and stack order/position effects between Edge Wear and Dirt, not just slider values)
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.1.x (approximate, viewport title bar in captured frames; not stated verbally) — consistent with other NS Rock Sculptor Guide episodes from this same upload batch (2026-07-30/31).
 
 ### Tags
-[PENDING EXTRACTION]
+materials, procedural, organic, product-viz, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+Part of the **NS Rock Sculptor Guide** series (10 episodes, all uploaded 2026-07-30) covering the NS Rock Sculptor add-on tab by tab. This episode is the most cross-referenced in the series — it explicitly ties Colour to both Filters and Colour Ramps.
+- [NS Rock Sculptor Guide - Filters](ns-rock-sculptor-guide---filters.md) — same add-on/series, Filters tab (directly relevant — Dirt/Dust colors set here only become visible once their filter is enabled there).
+- [NS Rock Sculptor Guide - Colour Ramps](ns-rock-sculptor-guide---colour-ramps.md) — same add-on/series, Colour Ramps tab (directly relevant — shapes the size/distribution of the dirt/dust color passes set here).
+- [NS Rock Sculptor Guide - Displacement](ns-rock-sculptor-guide---displacement.md) — same add-on/series, Displacement tab (directly relevant — Ambient Occlusion set up here has no visible effect until real geometric displacement exists).
+- [NS Rock Sculptor Guide - Moss](ns-rock-sculptor-guide---moss.md) — same add-on/series, Moss tab (adjacent color-layering system in the same panel order).
+- [NS Infinite Rock Builder Guide - Colours](ns-infinite-rock-builder-guide---colours.md) — conceptual sibling: same author's other add-on, also layers multiple color inputs via Color Ramps and blend modes, different tool/UI.
