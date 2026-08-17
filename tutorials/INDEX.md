@@ -3203,6 +3203,16 @@ Each entry format:
 - **Summary:** Full low-poly game-asset pipeline (notebook prop): real-world-scale modeling with snapping/grid-fill, UV cleanup, deeply layered procedural+photo-reference shader work (Map Range as the workhorse node, physical-prop-photography texturing trick), then a high-to-low-poly PBR bake via the SimpleBake add-on into a clean Base Color/Roughness/Normal set.
 - **File:** tutorials/mastering-complex-textures-in-blender.md
 
+
+### NPR Light Accumulation (Blender 5.3 Branch Testing)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=GFGIjeI539k
+- **Author:** Cartesian Caramel
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/npr-light-accumulation-blender-53-branch-testing.md
+
 ---
 
 ## Tag Reference
