@@ -3063,6 +3063,16 @@ Each entry format:
 - **Summary:** Third-party NS Rock Sculptor add-on (Nick Sayce): "Enter Edit Mode"/"Clear All Creases" sidebar shortcuts wrap Blender's native Edge Crease so manually-selected edges stay sharp/faceted under the Subdivision Surface modifier instead of the whole rock rounding into a uniform blob. Whisper transcript was a degenerate repeating loop (unusable) — extraction leans entirely on captured frames.
 - **File:** tutorials/ns-rock-sculptor-guide---edge-crease.md
 
+
+### NS Rock Sculptor Guide   Sculpt Settings
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=ErHZ6gbPl6g
+- **Author:** Nick Sayce
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ns-rock-sculptor-guide-sculpt-settings.md
+
 ---
 
 ## Tag Reference
