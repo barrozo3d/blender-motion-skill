@@ -3163,6 +3163,16 @@ Each entry format:
 - **Summary:** Broad reference survey of every water technique in Blender: shader-only murky/pool water (volume nodes, caustics via Voronoi), Ocean modifier foam/spray, Dynamic Paint waves, underwater volumetrics + bubbles, rain add-ons, fake/cheat simulations (displaced cylinder tap water, video-texture streams/beach), and a critical take on native Mantaflow fluid sim reliability.
 - **File:** tutorials/creating-realistic-3d-water-in-blender-the-ultimate-guide.md
 
+
+### Blender Tutorial - Creating a Crown Splash Simulation
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=KbAUrN0ExjM
+- **Author:** Blender Made Easy
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/blender-tutorial---creating-a-crown-splash-simulation.md
+
 ---
 
 ## Tag Reference
