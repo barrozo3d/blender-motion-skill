@@ -3183,6 +3183,16 @@ Each entry format:
 - **Summary:** Deep dive on instance/point rotation: Align Rotation to Vector's single-axis limitation vs. the modern two-axis Axis to Rotation node, building target-tracking direction vectors via subtraction, UV Tangent/Curve Tangent/Normal as direction sources, and Rotate Rotation + Axis Angle to Rotation + Cross Product for bending curves (gravity/tree-branch effect) rather than constructing rotation from scratch.
 - **File:** tutorials/tut-align-rotation-to-vector-axes-to-rotation---p11-geometry-nodes-beginners-50.md
 
+
+### How I Model Ancient Ruins in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=lT1UBQwtZ1g
+- **Author:** hbitproject
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/how-i-model-ancient-ruins-in-blender.md
+
 ---
 
 ## Tag Reference
