@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=GFGIjeI539k
 author: Cartesian Caramel
 ingested: 2026-08-17
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.3 experimental/unmerged branch build (self-compiled by presenter from a pull request, not a public release; not in main 5.2/5.3 as of recording)"
+tags: [shaders, materials, lighting, rendering, eevee, compositing, motion-design, abstract, advanced, expert, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/npr-light-accumulation-blender-53-branch-testing/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 11
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # NPR Light Accumulation (Blender 5.3 Branch Testing)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py npr-light-accumulation-blender-53-branch-testing <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -1190,30 +1186,67 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:16] tutorials/frames/npr-light-accumulation-blender-53-branch-testing/frame_000.jpg
+- [3:06] tutorials/frames/npr-light-accumulation-blender-53-branch-testing/frame_001.jpg
+- [5:05] tutorials/frames/npr-light-accumulation-blender-53-branch-testing/frame_002.jpg
+- [8:07] tutorials/frames/npr-light-accumulation-blender-53-branch-testing/frame_003.jpg
+- [10:45] tutorials/frames/npr-light-accumulation-blender-53-branch-testing/frame_004.jpg
+- [13:09] tutorials/frames/npr-light-accumulation-blender-53-branch-testing/frame_005.jpg
+- [15:24] tutorials/frames/npr-light-accumulation-blender-53-branch-testing/frame_006.jpg
+- [27:28] tutorials/frames/npr-light-accumulation-blender-53-branch-testing/frame_007.jpg
+- [44:04] tutorials/frames/npr-light-accumulation-blender-53-branch-testing/frame_008.jpg
+- [65:07] tutorials/frames/npr-light-accumulation-blender-53-branch-testing/frame_009.jpg
+- [70:11] tutorials/frames/npr-light-accumulation-blender-53-branch-testing/frame_010.jpg
+
+---
+
+> **Experimental/unreleased feature warning:** This entire video is a live exploration of an **unmerged, experimental EEVEE branch** of Blender (self-compiled by the presenter, a Blender developer, from a work-in-progress pull request) that is NOT in any public Blender release as of recording. None of the nodes described here (Light Info, Shadow Raycast, Light Accumulation) exist in a normal Blender install — do not expect to find them without building the branch yourself. The presenter explicitly flags known bugs (softness/radius positioning issues, blended/transparent materials not working yet, transmission issues) and open unknowns (no light rotation/direction-of-light access, no way to manipulate actual light position, unclear caustics feasibility) throughout. Treat this as a forward-looking research/inspiration reference on where EEVEE's shading customization may be headed, not as a reproducible current-Blender workflow.
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Three new experimental EEVEE-only shader nodes — **Light Info**, **Shadow Raycast**, and **Light Accumulation** — expose per-light data (color, power, position, direction, distance, shadow mask) directly inside the Shader Editor, letting an artist manually rebuild lighting/shadowing from scratch per-material (rather than relying on EEVEE's built-in automatic shading) and freely distort the shadow ray's sampling **position** with arbitrary vectors/textures for stylized (NPR, pixelated, "subsurface-scattering-fake," glitch/trippy) looks.
 
 ### Summary
-[PENDING EXTRACTION]
+**The three core nodes:** **Light Accumulation** (a shader-output node, one instance per light, stacks/accumulates across however many lights exist in the scene) has input sockets Diffuse Light, Diffuse Color, Glossy Light, Glossy Color — setting Diffuse Light/Color to a flat value of 1 does nothing useful (turns everything white) since it isn't using real light data yet; only once real Light Info/Shadow Raycast data is plugged in does it do anything meaningful. **Light Info** outputs Color, Power, Position, Direction, Distance, Cutoff Distance, Mask, and Is Sun for the current light being accumulated. **Shadow Raycast** takes a Position input (defaulting to the real surface position) and a Softness input, and outputs a Color that is the shadow mask (not screen-space — it's a real raycast) — multiplying the light's Color by the Shadow Raycast output combines light color and correct shadowing. Basic diffuse-with-shadow lighting is rebuilt by hand: Light Info Position minus the shading point's own position, normalized, dot-producted with the surface Normal, multiplied by the light Color and by the Shadow Raycast mask — confirmed that Light Info's Direction output is literally identical to doing that subtract-and-normalize manually, so it can replace the whole calculation directly. Softness/Radius on point lights was found buggy at the time of testing (positioning artifacts), attributed to the branch being actively developed. **The key creative discovery — position offsetting:** Shadow Raycast's Position input isn't just "pass through the real surface position" — feeding it an arbitrarily offset vector (surface position + any custom vector/texture) makes the raycast originate from a different point while still shading the real surface, unlocking a huge space of stylized effects. Naively offsetting causes rays to dip below the surface, causing severe artifacting; the fix (dubbed the **"clip fix"**, and turned into a small reusable node group) is: take the offset vector, use Vector Math **Project** to project it onto the surface Normal, then subtract that projected component back out — this keeps any offset strictly parallel to the surface tangent plane, never allowing it to point into/below the surface (a form of vector rejection). **Demonstrated variants of position-offsetting, all discovered live:** (1) Noise Texture-driven offset → soft, blobby, glass-fracture-like broken shading; (2) Voronoi Texture color-driven offset → crisp, "snapped"/faceted fractured-glass look, tunable via Voronoi detail/roughness; (3) White Noise Texture-driven offset with no snapping → soft, blurry pseudo-subsurface-scattering look (very noisy per-sample, needs high sample counts since it's literally per-pixel white noise); (4) White Noise offset restricted to a single axis (e.g. Z only, via Separate/Combine XYZ) → axis-limited SSS-style softening; (5) White-noise offset used to modulate hue/color of the shadow area (mixing a warm/red tint into shadow regions via a Color Ramp on the noise) for a stylized "colored shadow" NPR look; (6) snapping the offset to a coarse grid (dividing then flooring/rounding) → chunky pixel-aligned shadows reminiscent of Minecraft shaders' block-aligned lighting, with an optional small dithering offset layered back in for anti-aliasing at the pixel boundaries (pure snapping with zero dithering looks best on axis-aligned geometry but is visibly wrong on curved/off-grid surfaces — fixed for a specific object by transforming the offset vector from World space into Object space before snapping, then back to World space afterward). **Motion blur compatibility:** confirmed to work correctly with EEVEE's "Step" motion blur method — moving lights produce genuinely blurred/dithered-between-two-positions shadow trails, not broken artifacts. **Spotlights, area lights, and textures:** spotlights expose an Angle/cone cutoff and Blend/soft-falloff, but there's no way (yet) to access the light's rotation/orientation, so a texture (e.g. Checker Texture) plugged in via the ray Direction reads as a texture "stuck to the geometry" rather than properly gobo-projected from the light's actual facing — meaning true gobo/IES-texture projection isn't achievable yet without a light-rotation input. Area lights are not yet supported by these nodes at all. Jittered shadows (EEVEE's existing jitter/soft-shadow sampling) still work underneath this system and are recommended whenever accurate soft shadows are wanted, separate from the position-offset trickery. **Negative lights work** — a light with negative power/color subtracts light through this system, opening up "light-subtraction" compositing-like effects directly in 3D. **Passes/AOV behavior:** Light Accumulation's Diffuse/Glossy Color and Light sockets write directly into the corresponding render passes (Diffuse Color pass, Specular/Glossy pass, etc.) — confirmed live by plugging a flat color into Diffuse Color and watching another (unlit, pass-viewing) object's Diffuse Color pass change, i.e. this can be (ab)used as an unconventional way to smuggle arbitrary custom data into standard render passes/AOVs without a dedicated AOV output node, at the cost of "torturing your compositing artist" (a direct quote) since it genuinely changes where light rays interact rather than being a pure post-process. **Explored but inconclusive/unresolved in this session:** whether caustics are achievable (leaning "probably not," since caustics need actual accumulation across multiple bounces/rays which this system may not provide); whether IES light textures work in EEVEE with this (untested); whether colored-fringe/chromatic-shadow-edge effects are possible (blocked by lack of a direction-manipulation input); radiance cascades (blocked, same reason); custom volume/participating-media interaction (does not work, as expected — the nodes are surface-only). The presenter also floats (not implemented) the idea of exposing a per-sample index (like Cycles' Light Path "sample count," which he separately confirmed working in Cycles but chose not to upstream due to render-region/adaptive-sampling inconsistencies) as a future EEVEE addition specifically to drive per-sample jittered stylized effects. **Tangential dev-culture notes** (not the nodes themselves, but useful context on where Blender shader/compositor tooling is heading): ongoing work to make more shader-editor nodes "node group compatible" (needing String input sockets, e.g. for Attribute/Tangent/UV Map nodes) so they survive being wrapped in reusable node groups/assets, mirroring a shift already done in Geometry Nodes; the Image Texture / Image Sequence nodes are called out as badly needing a from-scratch rework (UDIM support, node-group compatibility, string-driven frame/path selection) but are described as "five updates away" due to complexity; the Compositor's 5.2/5.3 overhaul (new Transform nodes, Separate/Combine Transform, 3D-to-screen-space nodes for camera-aware effects like sun-beam/light-ray direction, the "Tune Image" node group for quick saturation/color-boost grading compatible with AgX/ACES) is praised as dramatically improved and production-ready; a practical unrelated tip is dropped about setting a Multilayer EXR output's channel name to blank so it's read as the generic default RGBA layer by other software, and to always enable EXR compression to avoid multi-gigabyte single-frame files.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Add a **Light Accumulation** shader node (used as/near the material output) — by itself it does nothing until fed real per-light data.
+2. Add a **Light Info** node for per-light Color/Power/Position/Direction/etc., and a **Shadow Raycast** node for the shadow mask (Position input, Softness input, Color output).
+3. Rebuild basic lit+shadowed diffuse shading manually: (Light Info Position − shading point Position), Normalize, Dot Product with surface Normal, multiply by Light Info Color, multiply by Shadow Raycast Color (the shadow mask) — or substitute Light Info's Direction output directly for the subtract-normalize step, since they're equivalent.
+4. To art-direct shadow shape/character: feed Shadow Raycast's Position input a modified vector (surface position plus any offset from a texture, noise, or custom vector math) instead of the raw surface position.
+5. Always pair a custom position offset with the **clip fix**: Vector Math Project (project the offset vector onto the surface Normal) then Subtract that projected component back out of the offset — prevents the offset ray from dipping below the surface and causing severe shading artifacts. Package this as a reusable node group.
+6. For a fractured-glass/broken look: drive the offset with a Noise Texture (soft/blobby) or a Voronoi Texture's color output (crisp/snapped, tune via Voronoi Detail/Roughness).
+7. For a pseudo-subsurface-scattering look: drive the offset with a White Noise Texture (expect heavy per-pixel noise requiring high sample counts); restrict to one axis via Separate/Combine XYZ for a more controlled, axis-limited softening.
+8. For colored/stylized shadows: use the same offset-driving noise (or a separate one) to blend a tint color into the shadow region via a Color Ramp and a Mix Color node, rather than leaving shadows neutral gray/black.
+9. For pixel-aligned "Minecraft shader" style shadows: divide the offset/position by a grid-cell-size value, floor/round it, multiply back — snaps the shadow raycast origin to a coarse grid; layer a small amount of dithering (unsnapped noise mixed back in lightly) for anti-aliasing at grid boundaries; for off-axis geometry, transform the position from World space into Object space before snapping, then back to World space afterward, to keep the grid aligned to the object rather than the world.
+10. Confirm motion blur compatibility by setting the Render Properties Motion Blur method to "Step" (not the default) before testing moving lights with this system.
+11. For spotlight/gobo-style texturing: plug a texture (e.g. Checker Texture) into a chain fed by the ray Direction — understand this currently reads as texture-mapped-to-geometry rather than a true light-relative gobo projection, since there is no light-rotation input yet.
+12. To use negative lights for light-subtraction effects, just set a light's Power/Color to negative values as normal — this system respects and accumulates them correctly.
+13. To redirect custom shader data into standard render passes/AOVs (e.g. for a compositing pipeline), plug arbitrary values into Light Accumulation's Diffuse Color / Glossy Color sockets — they write directly into the corresponding Diffuse/Specular passes.
+14. (Unrelated compositor tip mentioned mid-stream) When outputting Multilayer EXR, leave the output node's channel/layer name blank so external software reads it as the generic default RGBA layer; always enable EXR compression to avoid excessive file sizes.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Light Accumulation** (shader node, EEVEE-only, experimental): Diffuse Light, Diffuse Color, Glossy Light, Glossy Color inputs → Shader output; one node instance accumulates per light in the scene
+- **Light Info** (experimental): Color, Power, Position, Direction, Distance, Cutoff Distance, Mask, Is Sun outputs
+- **Shadow Raycast** (experimental): Position, Softness inputs → Color (shadow mask) output; not screen-space, a real raycast
+- Standard nodes used heavily alongside them: Vector Math (Subtract, Normalize, Dot Product, Project — the last being the core of the "clip fix"), Noise Texture, Voronoi Texture, White Noise Texture, Color Ramp, Mix Color, Separate/Combine XYZ, Checker Texture
+- "clip fix" node group: Position/Normal inputs → Add/Project/Subtract chain → clipped offset Vector output
+- Render setting relevant to testing: Motion Blur method = Step (for verified motion-blur compatibility)
+- Compositor tangent references: 3D-to-2D / Screen Space node, Camera Info node, Transform / Separate-Combine Transform nodes, "Tune Image" node group, Multilayer EXR output node (blank name = default RGBA layer), EXR compression setting
 
 ### Difficulty
-[PENDING EXTRACTION]
+Expert (live R&D on an unreleased Blender branch by the feature's own tester/developer — assumes deep existing familiarity with the Shader Editor, vector math, and EEVEE's rendering model; not reproducible without building the experimental branch yourself)
 
 ### Blender Version
-[PENDING EXTRACTION]
+An experimental, self-compiled Blender **5.3 branch build** from an unmerged pull request — explicitly NOT part of any public Blender 5.2/5.3 release as of recording; may or may not eventually merge into a stable Blender version.
 
 ### Tags
-[PENDING EXTRACTION]
+shaders, materials, lighting, rendering, eevee, compositing, motion-design, abstract, advanced, expert, blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+No directly related tutorials yet in the library covering experimental/NPR shading branches or manual per-light shadow-ray manipulation — flag for cross-linking if another EEVEE NPR, toon-shading, or experimental-branch tutorial is ingested later.

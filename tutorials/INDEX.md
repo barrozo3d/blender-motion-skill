@@ -3208,9 +3208,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=GFGIjeI539k
 - **Author:** Cartesian Caramel
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.3 experimental/unmerged branch build (self-compiled by presenter from a pull request, not a public release; not in main 5.2/5.3 as of recording)
+- **Tags:** shaders, materials, lighting, rendering, eevee, compositing, motion-design, abstract, advanced, expert, blender-5x
+- **Summary:** EXPERIMENTAL/UNRELEASED feature exploration: three new EEVEE-only shader nodes (Light Info, Shadow Raycast, Light Accumulation) expose per-light data for hand-built lighting, plus a "clip fix" (Vector Math Project+Subtract) technique for freely offsetting the shadow ray's sampling position — enabling stylized fractured-glass, pixel-aligned "Minecraft," and pseudo-SSS shadow looks.
 - **File:** tutorials/npr-light-accumulation-blender-53-branch-testing.md
 
 ---
