@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=KbAUrN0ExjM
 author: Blender Made Easy
 ingested: 2026-08-17
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "3.x (Mantaflow domain/Modular cache UI matches 3.x era; exact point release not stated)"
+tags: [simulation, fluid, materials, shaders, camera, lighting, rendering, cycles, glass, compositing, product-viz, intermediate, blender-3x]
+extraction_status: complete
 frames_dir: tutorials/frames/blender-tutorial---creating-a-crown-splash-simulation/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Tutorial - Creating a Crown Splash Simulation
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py blender-tutorial---creating-a-crown-splash-simulation <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Introduction [0:00]
@@ -210,30 +206,72 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:41] tutorials/frames/blender-tutorial---creating-a-crown-splash-simulation/frame_000.jpg
+- [1:35] tutorials/frames/blender-tutorial---creating-a-crown-splash-simulation/frame_001.jpg
+- [3:45] tutorials/frames/blender-tutorial---creating-a-crown-splash-simulation/frame_002.jpg
+- [5:46] tutorials/frames/blender-tutorial---creating-a-crown-splash-simulation/frame_003.jpg
+- [7:31] tutorials/frames/blender-tutorial---creating-a-crown-splash-simulation/frame_004.jpg
+- [7:47] tutorials/frames/blender-tutorial---creating-a-crown-splash-simulation/frame_005.jpg
+- [9:09] tutorials/frames/blender-tutorial---creating-a-crown-splash-simulation/frame_006.jpg
+- [10:33] tutorials/frames/blender-tutorial---creating-a-crown-splash-simulation/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A Mantaflow liquid domain where a keyframed, linearly-interpolated Ico Sphere effector crashes through a flat liquid-flow layer to generate a classic "crown splash," deliberately simulated at a large physical scale (since Mantaflow can't resolve a true few-centimeter-wide splash), then sold as photorealistic macro water via a very long camera focal length, a glass shader, and careful product-style three-point lighting.
 
 ### Summary
-[PENDING EXTRACTION]
+Reuses the default Cube as the fluid domain (Z scale reduced to ~1.7 to shorten it) rather than deleting it. A duplicated, Z-flattened copy of the cube becomes the flow object — dragged to the bottom of the domain and scaled slightly wider than the domain footprint. A 5-subdivision Ico Sphere (smooth) becomes the impacting object, scaled down (~0.35) and keyframed with only two Location keyframes 5 frames apart (frame 5: above the domain; frame 10: below the domain, having crashed through) with Linear interpolation for a constant-speed impact — deliberately leaving frames 1-5 as simulation settle time before the real impact. Domain physics: Type Domain, Domain Type Liquid; Cache Type Modular with Resumable on (so the mesh can be baked separately/later); End Frame only ~20 (short sim). Resolution Divisions is intentionally kept lower (115) rather than cranked high, specifically because a low-res simulation baked at a large physical scale reads as a convincingly small/macro splash — an inversion of the usual "higher resolution = better" assumption. Time Scale 0.5 slows the sim; because the effector moves fast over just 5 frames, Time Steps Min/Max are raised (4/8) to keep the sim accurate at that speed. FLIP Ratio raised to 0.99 for extra splashiness; Particle Sampling raised to 3 for more particles; Randomness raised to 2 for a more natural-looking particle scatter on impact; Fractional Obstacles must be enabled — the video calls this out as make-or-break, since without it the crown-splash collision effectively won't work. In the Mesh sub-panel: Upres Factor left at 2, Particle Radius raised to 3 (a deliberately larger mesh-per-particle radius that, combined with the low sim resolution, reinforces the "small-scale" read), Smoothing Positive raised to 5. Flow object: Type Flow, Flow Type Liquid, Flow Behavior left at Geometry (a static liquid source, not an inflow stream). Effector (Ico Sphere): Type Effector, Sampling Substeps raised to 5 to keep the fast-moving collider simulating accurately. Before baking, select all objects and Ctrl+A → Apply Scale (Mantaflow is scale-sensitive). Bake data first, then bake the Mesh separately afterward (enabled by the earlier Modular+Resumable cache settings) — frame 12 is called out as a particularly good-looking result, with later frames reading as more chaotic. Post-bake, a Smooth modifier (Factor 1, Repeat ~8) plus Shade Smooth cleans up the baked mesh's surface noise. For the render: hide the flow object from both viewport and render (it's just a source, not meant to be seen); snap the camera to the current view (Ctrl+Alt+Numpad0, or View → Align View → Align Active Camera to View) after framing manually, then push the camera's focal length very high (~200mm) and pull the camera back — this "long lens macro" trick is what sells the large-scale sim as a tiny, intimate splash. Two material paths are shown: (1) **Glass look** — Glass BSDF, Roughness 0, IOR 1.333 (water), rendered in Cycles (glass renders poorly in EEVEE); since glass alone shows nothing without objects to reflect/refract, add a large rotated backdrop plane (~7m back) with a near-black, fully-rough material, a colored (blue) area light placed directly behind the glass for a glow-through-glass look, a strong white light above (~10,000 W, desaturated) for highlights, and a thin plane in front/below to catch and reflect light so the glass has something visible to refract — finished with Color Management "Very High Contrast" look and Depth of Field (a scaled-down Empty as Focus Object, low f-stop for a shallow, dreamy blur) — sample count can be dropped substantially (from Blender's default down to ~500) once noise is checked against the Cycles viewport denoiser. (2) **Solid colored liquid look** (the video's cold-open shot) — swap the material back to a Principled BSDF, Roughness 0, and drastically reduce light power (~500W instead of 10,000W, since it's no longer relying on glass refraction) — extending a second, lower/larger plane behind the splash with the same material erases the harsh mesh-edge cutoff and lets the color (blue, red, orange, etc.) blend seamlessly into the background for a stylized macro-liquid look.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Keep the default Cube as the fluid domain; reduce only its Z scale (~1.7) to shorten it.
+2. Shift+D duplicate the cube, scale it flat along Z, drag to the bottom of the domain and slightly wider — this becomes the flow object (the static liquid pool the splash erupts from).
+3. Add an Ico Sphere (Subdivisions 5 for smoothness), scale down (~0.35) — this is the impacting collider.
+4. Keyframe the Ico Sphere's Location only twice: frame 5 (starting position, above the domain) and frame 10 (5 frames later, dragged below/through the domain) — select both keyframes in the timeline, press T, and switch interpolation to Linear for constant-speed impact.
+5. Domain (the Cube): Physics → Fluid → Type Domain, Domain Type Liquid. In Cache: Type Modular, Resumable on, End Frame ~20.
+6. Set Resolution Divisions deliberately low (~115, not maxed) — this is what makes a large-scale sim read as a small/macro splash. Time Scale 0.5; Time Steps Min 4 / Max 8 (compensates for the fast 5-frame impact).
+7. Raise FLIP Ratio to ~0.99 for extra splashiness, Particle Sampling to 3, and Randomness to 2 for natural-looking scattered particles.
+8. Enable Fractional Obstacles — critical, the crown-splash collision will most likely not work correctly without it.
+9. In the Mesh sub-panel: Upres Factor 2, Particle Radius ~3 (deliberately large, reinforcing the small-scale look), Smoothing Positive ~5.
+10. Flow object: Physics → Fluid → Type Flow, Flow Type Liquid, Flow Behavior Geometry (default, static source).
+11. Ico Sphere: Physics → Fluid → Type Effector, Sampling Substeps ~5 (keeps the fast-moving collider accurate).
+12. Select all 3 objects and Ctrl+A → Apply Scale before baking.
+13. Save the project, select the domain, Bake Data, then separately Bake the Mesh (Modular cache allows this two-stage bake). Scrub the timeline to find a good frame (frame 12 called out as a strong result; later frames = more chaotic).
+14. Add a Smooth modifier (Deform → Smooth, Factor 1, Repeat ~8) on the baked mesh, then Shade Smooth, for a cleaner surface.
+15. Hide the flow object from viewport and render (Outliner toggle icons) since it shouldn't appear in the final image.
+16. Frame the shot manually in a viewport, then snap the camera to it (Ctrl+Alt+Numpad0, or View → Align View → Align Active Camera to View); push Focal Length very high (~200mm) and pull the camera back — the long-lens trick that sells scale.
+17. For a glass look: Glass BSDF, Roughness 0, IOR 1.333, render engine Cycles. Add a large rotated backdrop plane (~7m back, near-black, Roughness 1) so the glass has something to refract; add a blue area/point light directly behind the glass for a glow-through effect; add a strong (~10,000W, desaturated) light above for highlights; add a thin plane in front/below to catch and reflect additional light into the glass.
+18. Enable Depth of Field on the camera: Shift+Right-Click to place the 3D cursor at the focus point, add a small Empty there, set it as the camera's DoF Focus Object, and lower the f-stop for a shallower, more dreamy blur.
+19. Set Color Management Look to "Very High Contrast" for a punchier glass render; drop render Samples substantially (e.g. ~500) once the viewport denoiser shows it's clean enough.
+20. Alternate "solid colored liquid" look: swap the material to Principled BSDF (Roughness 0), drastically lower the overhead light power (~500W vs. 10,000W since there's no glass refraction to power through), and add a second, larger, lower backdrop plane sharing the same material to blend the color seamlessly into the background instead of a harsh mesh-edge cutoff.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Domain (Cube): Fluid → Domain, Domain Type Liquid; Cache Type Modular, Resumable on, End Frame ~20; Resolution Divisions ~115 (deliberately low), Time Scale 0.5, Time Steps Min 4 / Max 8, FLIP Ratio 0.99, Particle Sampling 3, Randomness 2, Fractional Obstacles ON (critical)
+- Mesh sub-panel: Upres Factor 2, Particle Radius ~3, Smoothing Positive ~5
+- Flow object: Fluid → Flow, Flow Type Liquid, Flow Behavior Geometry
+- Effector (Ico Sphere, 5 subdivisions): Fluid → Effector, Sampling Substeps ~5
+- Post-bake: Smooth modifier (Factor 1, Repeat ~8) + Shade Smooth
+- Camera: very high Focal Length (~200mm), pulled back; Depth of Field with an Empty as Focus Object, low f-stop
+- Glass material: Glass BSDF, Roughness 0, IOR 1.333, Cycles render engine
+- Lighting rig: near-black/full-rough backdrop plane (~7m back), blue light directly behind the glass, strong (~10,000W) desaturated light above, thin reflector plane in front/below
+- Color Management: "Very High Contrast" look; render Samples reduced to ~500
+- Alternate material: Principled BSDF (Roughness 0) with much lower light power (~500W) for a solid-colored-liquid look, plus a second blended backdrop plane sharing the material
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate (Mantaflow domain/effector/flow setup with keyframed collision is approachable, but the counter-intuitive low-resolution-for-macro-scale trick and the glass lighting rig require real judgment, not just following sliders)
 
 ### Blender Version
-[PENDING EXTRACTION]
+3.x — the Mantaflow domain panel (Modular cache, Resolution Divisions, FLIP Ratio, Fractional Obstacles) and general UI in the captured frames match the Blender 3.x era; exact point release not stated.
 
 ### Tags
-[PENDING EXTRACTION]
+simulation, fluid, materials, shaders, camera, lighting, rendering, cycles, glass, compositing, product-viz, intermediate, blender-3x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender 3.0 Tutorial - Creating a Glowing River](blender-30-tutorial---creating-a-glowing-river.md) — same channel (Blender Made Easy), same underlying Mantaflow liquid domain toolset (Cache Type Modular, Resumable baking, Resolution Divisions, particle mesh settings) applied to a very different large-scale flowing scene rather than a single macro impact.
+- [Creating Realistic 3D Water in Blender: The Ultimate Guide](creating-realistic-3d-water-in-blender-the-ultimate-guide.md) — directly relevant: covers the same Glass BSDF (IOR 1.333) + Cycles water-material approach and critiques native Mantaflow reliability more broadly.

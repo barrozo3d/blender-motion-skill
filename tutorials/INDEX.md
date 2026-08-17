@@ -3168,9 +3168,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=KbAUrN0ExjM
 - **Author:** Blender Made Easy
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 3.x (Mantaflow domain/Modular cache UI matches 3.x era; exact point release not stated)
+- **Tags:** simulation, fluid, materials, shaders, camera, lighting, rendering, cycles, glass, product-viz, intermediate, blender-3x
+- **Summary:** Mantaflow liquid domain with a keyframed Ico Sphere effector crashing through a flow layer for a "crown splash," deliberately simulated at low resolution/large scale then sold as macro water via a ~200mm focal length, Glass BSDF (IOR 1.333) in Cycles, and a 3-light glass product-photography rig with DoF.
 - **File:** tutorials/blender-tutorial---creating-a-crown-splash-simulation.md
 
 ---

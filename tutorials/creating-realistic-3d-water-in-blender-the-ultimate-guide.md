@@ -536,3 +536,4 @@ materials, shaders, procedural, simulation, fluid, particles, animation, composi
 
 ## Related Tutorials
 - [Blender 3.0 Tutorial - Creating a Glowing River](blender-30-tutorial---creating-a-glowing-river.md) — directly relevant: a full hands-on Mantaflow liquid + foam-particle build, complementing this video's higher-level critique of the native fluid sim and its shader-only alternatives.
+- [Blender Tutorial - Creating a Crown Splash Simulation](blender-tutorial---creating-a-crown-splash-simulation.md) — directly relevant: another hands-on Mantaflow liquid build, plus the same Glass BSDF (IOR 1.333) + Cycles water-material approach covered here.

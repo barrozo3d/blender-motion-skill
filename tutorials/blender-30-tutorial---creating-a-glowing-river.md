@@ -280,3 +280,4 @@ simulation, fluid, particles, materials, shaders, compositing, cycles, volume, g
 
 ## Related Tutorials
 - [Creating Realistic 3D Water in Blender: The Ultimate Guide](creating-realistic-3d-water-in-blender-the-ultimate-guide.md) — directly relevant: a broad survey of water techniques including a higher-level critique of the native Mantaflow fluid sim this tutorial uses hands-on.
+- [Blender Tutorial - Creating a Crown Splash Simulation](blender-tutorial---creating-a-crown-splash-simulation.md) — same channel (Blender Made Easy), same Mantaflow liquid domain toolset applied to a macro single-impact splash instead of a flowing river.
