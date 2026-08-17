@@ -3043,6 +3043,16 @@ Each entry format:
 - **Summary:** Third-party NS Rock Sculptor add-on (Nick Sayce): two-color Moss layer gated by Moss Height (world-space "up" threshold) with Distortion/Thickness edge-shaping controls; flags a gotcha where a randomly-rotated rock needs Ctrl+A Apply Rotation before the moss mask aligns with its visual top.
 - **File:** tutorials/ns-rock-sculptor-guide---moss.md
 
+
+### NS Rock Sculptor Guide - Colour
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=NaimTlxwn2Q
+- **Author:** Nick Sayce
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ns-rock-sculptor-guide---colour.md
+
 ---
 
 ## Tag Reference
