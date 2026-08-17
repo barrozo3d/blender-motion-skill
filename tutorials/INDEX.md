@@ -3083,6 +3083,16 @@ Each entry format:
 - **Summary:** Third-party NS Rock Sculptor add-on (Nick Sayce), series intro/Presets tab: 32-thumbnail preset grid + "Load Selected Preset" one-click starting point (bundles mesh, material, and any Displace modifier); demos active-material isolation — separately loaded presets keep fully independent material data, so edits to one never affect the other.
 - **File:** tutorials/ns-rock-sculptor-guide---presets.md
 
+
+### NS Brick Wall Builder v4 0 Guide
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=VZ7MObyyCJk
+- **Author:** Nick Sayce
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ns-brick-wall-builder-v4-0-guide.md
+
 ---
 
 ## Tag Reference
