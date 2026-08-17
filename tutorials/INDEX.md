@@ -3133,6 +3133,16 @@ Each entry format:
 - **Summary:** Recursive quad-subdivision "fractal squares" pattern using a Repeat Zone: each pass tests a per-cell Noise Texture value against a threshold to decide subdivide-vs-keep, then a second noise+Color Ramp pass selects a scattered highlight-color subset over the resulting grid, finished with an animated wipe/reveal.
 - **File:** tutorials/abstract-animated-geometric-pattern-squares-geometry-nodes-tutorial.md
 
+
+### Create Plexus FX In Blender ( Geometry Node )
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=ZUiCC5iTUWs
+- **Author:** Manbo Studio
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/create-plexus-fx-in-blender-geometry-node.md
+
 ---
 
 ## Tag Reference
