@@ -3103,6 +3103,16 @@ Each entry format:
 - **Summary:** Third-party NS Brick Wall Builder add-on (Nick Sayce), earlier full guide (predates v4.0): requires 3 specific materials appended into the scene, same curve-driven generator concept, Cracked/Damage Bricks Amount sliders (no separate Colour Ramps tab yet), Make Single to branch independent walls.
 - **File:** tutorials/ns-brick-wall-builder-guide.md
 
+
+### NS Brick Wall Builder   Mimicking a Real Wall
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=jl2Q-86o0JE
+- **Author:** Nick Sayce
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ns-brick-wall-builder-mimicking-a-real-wall.md
+
 ---
 
 ## Tag Reference
