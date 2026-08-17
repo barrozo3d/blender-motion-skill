@@ -279,4 +279,4 @@ simulation, fluid, particles, materials, shaders, compositing, cycles, volume, g
 ---
 
 ## Related Tutorials
-No directly related fluid-simulation tutorials yet in the library — flag for cross-linking if another Mantaflow liquid, foam-particle, or vector-blur compositing tutorial is ingested later (the presenter references a separate "motion blur fluid" tutorial of theirs not yet in this library).
+- [Creating Realistic 3D Water in Blender: The Ultimate Guide](creating-realistic-3d-water-in-blender-the-ultimate-guide.md) — directly relevant: a broad survey of water techniques including a higher-level critique of the native Mantaflow fluid sim this tutorial uses hands-on.

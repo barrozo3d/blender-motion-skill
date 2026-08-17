@@ -3158,9 +3158,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=vr7mkSiKRLM
 - **Author:** stache
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 3.6 (stated in transcript: "the advent of simulation nodes now in Blender 3.6")
+- **Tags:** materials, shaders, procedural, simulation, fluid, particles, animation, compositing, rendering, product-viz, motion-design, intermediate, advanced, blender-3x
+- **Summary:** Broad reference survey of every water technique in Blender: shader-only murky/pool water (volume nodes, caustics via Voronoi), Ocean modifier foam/spray, Dynamic Paint waves, underwater volumetrics + bubbles, rain add-ons, fake/cheat simulations (displaced cylinder tap water, video-texture streams/beach), and a critical take on native Mantaflow fluid sim reliability.
 - **File:** tutorials/creating-realistic-3d-water-in-blender-the-ultimate-guide.md
 
 ---

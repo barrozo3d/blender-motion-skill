@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=vr7mkSiKRLM
 author: stache
 ingested: 2026-08-17
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "3.6 (stated in transcript: 'the advent of simulation nodes now in Blender 3.6')"
+tags: [materials, shaders, procedural, simulation, fluid, particles, animation, compositing, rendering, product-viz, motion-design, intermediate, advanced, blender-3x]
+extraction_status: complete
 frames_dir: tutorials/frames/creating-realistic-3d-water-in-blender-the-ultimate-guide/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 10
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Creating Realistic 3D Water in Blender : The Ultimate Guide
@@ -31,12 +32,7 @@ _Auto-generated at ingest/frame-capture time — explains why `extraction_status
 ---
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py creating-realistic-3d-water-in-blender-the-ultimate-guide <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Water - The Short Film [0:00]
@@ -472,30 +468,71 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:34] tutorials/frames/creating-realistic-3d-water-in-blender-the-ultimate-guide/frame_000.jpg
+- [3:39] tutorials/frames/creating-realistic-3d-water-in-blender-the-ultimate-guide/frame_001.jpg
+- [5:14] tutorials/frames/creating-realistic-3d-water-in-blender-the-ultimate-guide/frame_002.jpg
+- [6:21] tutorials/frames/creating-realistic-3d-water-in-blender-the-ultimate-guide/frame_003.jpg
+- [8:57] tutorials/frames/creating-realistic-3d-water-in-blender-the-ultimate-guide/frame_004.jpg
+- [12:02] tutorials/frames/creating-realistic-3d-water-in-blender-the-ultimate-guide/frame_005.jpg
+- [13:25] tutorials/frames/creating-realistic-3d-water-in-blender-the-ultimate-guide/frame_006.jpg
+- [14:35] tutorials/frames/creating-realistic-3d-water-in-blender-the-ultimate-guide/frame_007.jpg
+- [16:17] tutorials/frames/creating-realistic-3d-water-in-blender-the-ultimate-guide/frame_008.jpg
+- [18:04] tutorials/frames/creating-realistic-3d-water-in-blender-the-ultimate-guide/frame_009.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A broad reference survey (not a single build) of every practical way to make water in Blender: shader-only murky/pool water, the Ocean modifier, Dynamic Paint waves, underwater volumetrics, rain, several "fake"/cheat simulation tricks, and a critical assessment of the native Mantaflow fluid sim — organized as a mini-reference to jump to whichever technique fits a given shot.
 
 ### Summary
-[PENDING EXTRACTION]
+**Murky/natural water (shader-only, no sim):** A plane (positioned so its edges stay off-camera) with a Musgrave texture (or Noise/Wave texture, or a downloaded normal map) driving Bump, plus a little Roughness and Transmission on the Principled BSDF, IOR set to 1.33 (water's real IOR — matters more under certain lighting than it looks). To hide the plane's visible edge/underside, switch to a Cube instead and use the shader's Volume slot: a Principled Volume node at low Density gives a murky, sediment-like look (try a dark brownish tint); layering an Add Shader with Volume Absorption underneath darkens it further and is the more physically-correct way to add absorption color (blueish/greenish). The Principled Volume's own Emission Strength/Color sliders are the presenter's preferred way to force a water color, working better than tinting Density or the BSDF's base color directly. For non-uniform realism: a Noise Texture through a Color Ramp (dial the ramp toward dark gray, not full white, to stay subtle) driving Roughness, and a second copy of the same setup driving Bump Strength, replicates how real large water bodies have patchy regions of more/less bump and reflectivity. An extra detail layer: mix a Diffuse shader into the main Principled shader with the Factor driven by another (very large-scale) Noise Texture pushed through a Color Ramp until only small specks remain — reads as scattered foam flecks. **Foam (contact-based):** mix a second Principled BSDF, drive the mix Factor with an Ambient Occlusion node (masks anywhere two objects touch), and build the foam texture itself from two Noise Textures at very different scales (~1000 and ~100-200) mixed with Linear Light blend mode, plugged into Emission (more prominent than Base Color) and optionally into Alpha via the same Color Ramp for transparency control. A free alternative: a foam texture downloaded from ambientCG. For foam at choppy water peaks specifically (not just contact points): the same Geometry input node in the shader editor, using its Pointiness or Normal output instead of AO, to mask foam onto wave crests. Finish still renders by scattering leaves/twigs/grass/moss/lily pads manually on the surface. **Animating the shader-only water:** make the Musgrave texture 4D and drive its W value with a driver (`#frame`, divided by ~5000 to slow it down) for wobble; additionally animate the texture's Mapping node X/Y location the same way to add directional drift and mask the "proceduralness." Tip: raise Roughness (via Color Ramp) on nearby shoreline objects too, to sell a "wet" look. **Clear/pool water:** strip the volume nodes for full clarity, then build caustics from a Voronoi texture — F1 minus Smooth F1 gives a more realistic look than Distance to Edge; layering two caustic setups (one larger-scale, one smaller-scale, mixed and plugged into Emission, dialed down) adds depth; pair with a caustic gobo light (from a Polyfjord tutorial) to light the surroundings realistically. **General tip:** water's visible color mostly comes from its environment/HDRI reflection, not the shader's own color values — changing the HDRI visibly changes the water's apparent color. **Resources:** a color-palette reference for natural water tones; the paid "Real Water" add-on for one-click realistic water materials; the free BlenderKit add-on's searchable water material library (frozen/river/pool/procedural). **Ocean modifier (fast, beginner-friendly):** add a plane, apply an Ocean modifier — sliders for size, resolution, wave size/choppiness are literal and straightforward. Its Foam and Spray options are the standout features: enable Foam with a named attribute, then in the shader editor read that attribute via an Attribute node into a Color Ramp into Emission for instant foam. Spray requires a Geometry Nodes setup (sourced from a Stack Exchange post, linked in the video description) and looks mediocre by default but is fully extensible for GN-literate users. Raise resolution for final renders; check the Spectrum panel's presets. **Animating waves via Dynamic Paint:** Physics tab → Dynamic Paint → mark the water plane as Canvas with Surface Type "Waves"; mark the interacting object (e.g. something dipping into the water) as Brush. More subdivisions on the water plane = more defined waves. Key Canvas tuning: Speed ≈ 0.15 (slows/realistic pace); key Brush tuning: Waves panel Factor ≈ 0.5 (reduces impact force) — produces automatic ripples/splashes on contact with zero manual keyframing. **Underwater scenes:** the same Principled Volume + Volume Absorption combo from the murky-water section, applied either to a cube surrounding the subject or directly on the World shader; combine with the pool caustic gobo light for underwater light rays; add a low-lifetime, low-gravity-influence particle system emitting simple transparent bubbles from the submerged subject to sell the "floating underwater" read. **Rain:** experiments with plain particle-system droplets and Dynamic Paint ripple planes were outperformed by the paid Geometry-Nodes-based "Rain Generator" add-on (by the maker of the "Bagel" add-on line) — includes automatic splashes, a floor material for procedural ripples, and dedicated droplet/splash/wind controls; pair with a separately-downloaded rain-droplet-on-glass overlay generator for a compounded realistic look. **Fake/cheat simulations:** (1) Running tap water: a Displace modifier with a Cloud texture on a Cylinder, texture Coordinates set to Object pointing at an Empty, then move the Empty continuously downward for motion — layer in an animated Musgrave-driven displacement in the shader editor for extra randomness, and rotate the cylinder every few frames for more motion; top off with a high-speed particle system emitting small droplets; Metaball-based particles are suggested as an alternative since metaballs naturally merge/stick like water droplets. Both rain and fake tap water benefit heavily from motion blur to sell speed. (2) Video-texture water streams: knife out the water region from stock footage, drive Alpha via a Color Ramp so only the stream shows, add a droplet particle system, and optionally drive Dynamic Paint from a hidden cube for extra realism. (3) Beach waves: project a top-down beach video texture into the Displacement of a well-subdivided plane for believable wave motion with zero fluid simulation. **Native Mantaflow fluid sim:** default settings are largely fine out of the box (mainly raise Resolution for realism); Simulation Method choice is APIC (stable) vs. FLIP (splashier); Spray and Foam checkboxes generate their own separate particle systems. The presenter's core critique: not hard to use, but unreliable/finicky — small changes can break a previously-working sim, with inconsistent results — and does not recommend it as a default choice; hasn't tried the paid FLIP Fluids add-on. **Forward-looking:** as of Blender 3.6, Simulation Nodes (the geometry-nodes-based simulation system) are flagged as a promising community-driven direction for better future fluid tools, with example projects linked in the video description rather than demonstrated in depth here.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Murky water base:** Plane (or Cube for a volume-capable body) → Shader Editor → Musgrave (or Noise/Wave) texture → Bump → Principled BSDF; add Roughness + Transmission; set IOR 1.33.
+2. **Add volume depth (Cube only):** Principled Volume into the Volume socket, low Density for a murky/sediment look; layer Add Shader + Volume Absorption underneath for physically-correct darkening/tinting; use Principled Volume's Emission Strength/Color to force an overall water color.
+3. **Break up uniformity:** Noise Texture → Color Ramp (dark-gray-biased) → Roughness; duplicate the ramp → Bump Strength, for patchy real-world-like variation.
+4. **Speck foam layer:** Diffuse shader mixed into the main BSDF, Factor driven by a large-scale Noise Texture → Color Ramp pushed until only small specks remain.
+5. **Contact foam:** second Principled BSDF mixed in, Factor driven by an Ambient Occlusion node; build the foam pattern from two Noise Textures (scale ~1000 and ~100-200) mixed with Linear Light, into Emission (and Alpha via the same ramp).
+6. **Choppy-peak foam:** same foam texture setup, but drive its mix factor from the shader editor's Geometry node's Pointiness or Normal output instead of AO.
+7. **Animate shader-only water:** switch Musgrave to 4D, drive W with a `#frame`-based driver (divide by ~5000), and animate the texture's Mapping node X/Y with the same driver technique for directional drift.
+8. **Clear/pool water:** remove volume nodes; build caustics from Voronoi F1 minus Smooth F1 (more realistic than Distance to Edge); optionally layer a second larger/smaller-scale copy, mix, and feed into Emission (dialed down); light the scene with a caustic gobo light.
+9. **Fast ocean:** Plane → Ocean modifier; tune size/resolution/wave-size/choppiness sliders directly; enable Foam/Spray layers with named attributes, read Foam via an Attribute node → Color Ramp → Emission in the shader; Spray needs an external Geometry Nodes setup (linked in video description).
+10. **Animated waves without a sim:** Physics → Dynamic Paint → Canvas (Surface Type: Waves) on the water plane (well-subdivided), Brush on the interacting object; tune Canvas Speed (~0.15) and Brush Waves Factor (~0.5).
+11. **Underwater scene:** apply the Principled Volume + Volume Absorption combo to a surrounding cube or the World shader; add caustic gobo lighting; emit low-lifetime, low-gravity transparent bubble particles from the submerged subject.
+12. **Rain:** consider the paid Geometry-Nodes "Rain Generator" add-on for droplets/splashes/wind + a procedural-ripple floor material, paired with a separate rain-on-glass overlay generator.
+13. **Fake tap water:** Cylinder + Displace modifier (Cloud texture, Coordinates: Object → an Empty moved continuously downward for motion); add an animated Musgrave-driven shader displacement and periodic cylinder rotation for extra randomness; add a high-speed droplet particle system (or Metaball particles) on top; use motion blur.
+14. **Fake video-texture streams/beach:** knife out water regions from stock footage, drive Alpha via Color Ramp, add droplet particles and optional Dynamic-Paint-from-hidden-cube; for beaches, project a top-down beach video into a well-subdivided plane's Displacement.
+15. **Native fluid sim:** if using Mantaflow directly, mainly raise Resolution; choose APIC (stable) vs. FLIP (splashy) Simulation Method; enable Spray/Foam checkboxes for their own particle systems — but budget time for instability/inconsistency between bakes.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Shader: Musgrave/Noise/Wave Texture → Bump; Principled BSDF (Roughness, Transmission, IOR 1.33); Principled Volume (Density, Emission Strength/Color) + Add Shader + Volume Absorption for volumetric water body color
+- Roughness/Bump variation: Noise Texture → Color Ramp (dark-gray biased) → Roughness, duplicated → Bump Strength
+- Speck foam: Diffuse BSDF mixed via large-scale Noise Texture → Color Ramp Factor
+- Contact foam: second Principled BSDF mixed via Ambient Occlusion Factor; foam pattern = two Noise Textures (scale ~1000 / ~100-200) mixed with Linear Light → Emission/Alpha
+- Choppy foam: Geometry node's Pointiness or Normal output as the mix factor instead of AO
+- Animation drivers: `#frame` on a 4D Musgrave's W value (÷5000) and on a Mapping node's X/Y location
+- Caustics: Voronoi Texture, F1 minus Smooth F1 (sharper alt: Distance to Edge); optional dual-scale layered version → Emission
+- Ocean modifier: size/resolution/wave size/choppiness sliders, Foam/Spray layers with named attributes; Attribute node → Color Ramp → Emission for foam; Spectrum panel presets
+- Dynamic Paint: Canvas (Surface Type: Waves, Speed ~0.15) + Brush (Waves Factor ~0.5)
+- Underwater: Principled Volume + Volume Absorption on a cube or World shader; low-lifetime/low-gravity bubble particle system
+- Fake tap water: Displace modifier (Cloud texture, Coordinates: Object → Empty), animated Musgrave shader displacement, periodic rotation, high-speed droplet particle system or Metaball particles
+- Native fluid: Mantaflow Resolution, Simulation Method (APIC/FLIP), Spray/Foam checkboxes
+- Add-ons referenced (not demonstrated in depth): Real Water, BlenderKit, Rain Generator (Geometry Nodes-based), FLIP Fluids (mentioned, not tested by presenter)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate to Advanced (explicitly stated by the presenter as "not too beginner friendly" — assumes comfort with the Shader Editor, Physics tabs, drivers, and at least conceptual familiarity with Geometry Nodes for the Ocean modifier's Spray effect)
 
 ### Blender Version
-[PENDING EXTRACTION]
+3.6, stated explicitly in the transcript ("the advent of simulation nodes now in Blender 3.6").
 
 ### Tags
-[PENDING EXTRACTION]
+materials, shaders, procedural, simulation, fluid, particles, animation, compositing, rendering, product-viz, motion-design, intermediate, advanced, blender-3x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Blender 3.0 Tutorial - Creating a Glowing River](blender-30-tutorial---creating-a-glowing-river.md) — directly relevant: a full hands-on Mantaflow liquid + foam-particle build, complementing this video's higher-level critique of the native fluid sim and its shader-only alternatives.
