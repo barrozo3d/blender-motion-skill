@@ -102,6 +102,7 @@ procedural, displacement, organic, product-viz, beginner
 
 ## Related Tutorials
 Part of the **NS Rock Sculptor Guide** series (10 episodes, all uploaded 2026-07-30) covering the NS Rock Sculptor add-on tab by tab. This episode is a navigational overview of the Filters dropdown; the presenter's own "next" topic is Colour Ramps.
+- [NS Rock Sculptor Guide - Moss](ns-rock-sculptor-guide---moss.md) — same add-on/series, Moss tab (directly relevant — presenter's own forward-reference from that episode into this one).
 - [NS Rock Sculptor Guide - Colour Ramps](ns-rock-sculptor-guide---colour-ramps.md) — same add-on/series, Colour Ramps tab (directly relevant — presenter's own forward-reference; ramps referenced here are edited there).
 - [NS Rock Sculptor Guide - Displacement](ns-rock-sculptor-guide---displacement.md) — same add-on/series, Displacement tab (directly relevant — this episode's "Displacement Filter"/"Displacement Mask" entries and Cracks Bump Amount fields are the same controls covered in depth there).
 - [NS Rock Sculptor Guide - Bump](ns-rock-sculptor-guide-bump.md) — same add-on/series, Bump tab (directly relevant — the Dusty Bump/Cracks Bump filters demoed here are the same bump channels covered in depth there).

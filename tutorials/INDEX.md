@@ -3038,9 +3038,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=Acp5-LuffVA
 - **Author:** Nick Sayce
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.1.x (approximate, viewport title bar in captured frames; not stated verbally)
+- **Tags:** materials, procedural, organic, product-viz, beginner
+- **Summary:** Third-party NS Rock Sculptor add-on (Nick Sayce): two-color Moss layer gated by Moss Height (world-space "up" threshold) with Distortion/Thickness edge-shaping controls; flags a gotcha where a randomly-rotated rock needs Ctrl+A Apply Rotation before the moss mask aligns with its visual top.
 - **File:** tutorials/ns-rock-sculptor-guide---moss.md
 
 ---
