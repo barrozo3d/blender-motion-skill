@@ -3113,6 +3113,16 @@ Each entry format:
 - **Summary:** Third-party NS Brick Wall Builder add-on (Nick Sayce), silent tip video: side-by-side visual matching against a real brick-wall reference photo, tuning Rotation Variation/Distorted Bricks/Damaged Bricks Amount by eye until the procedural wall's irregularity matches the reference.
 - **File:** tutorials/ns-brick-wall-builder-mimicking-a-real-wall.md
 
+
+### NS Brick Wall Builder   Mimicking a Real Wall 2
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=v3rbV49UVwo
+- **Author:** Nick Sayce
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ns-brick-wall-builder-mimicking-a-real-wall-2.md
+
 ---
 
 ## Tag Reference
