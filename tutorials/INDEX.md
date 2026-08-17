@@ -3193,6 +3193,16 @@ Each entry format:
 - **Summary:** Full ruined-architecture production breakdown: a reusable asset-ized procedural damage system (Mesh to Volume/back, noise-driven normal displacement, Boolean Intersect), Pick Instance for hand-cut mesh variants, damage-aware material masking via Capture Attribute + boolean NOT, Geoscatter foliage, and HDRI+Sun light-group/mist-pass compositing.
 - **File:** tutorials/how-i-model-ancient-ruins-in-blender.md
 
+
+### Mastering Complex Textures in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=GejnTuB2GNQ
+- **Author:** rileyb3d
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/mastering-complex-textures-in-blender.md
+
 ---
 
 ## Tag Reference
