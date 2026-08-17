@@ -3093,6 +3093,16 @@ Each entry format:
 - **Summary:** Third-party NS Brick Wall Builder v4.0 add-on (Nick Sayce), full guide: curve-driven wall generator (strict even-number/positive-direction curve rules), 11+11 presets, Make Single for branching independent walls, and the full Base Shape/Colour/Mortar/Jitter/Displacement/Filters/Colour Ramps/Bevel/Bump control stack.
 - **File:** tutorials/ns-brick-wall-builder-v4-0-guide.md
 
+
+### NS Brick Wall Builder Guide
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=zcuefJcZdUY
+- **Author:** Nick Sayce
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ns-brick-wall-builder-guide.md
+
 ---
 
 ## Tag Reference
