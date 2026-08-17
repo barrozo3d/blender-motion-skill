@@ -3128,9 +3128,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=7I4k8iaF7D8
 - **Author:** Artemiy Galutskiy
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 4.x (Repeat Zone node present, feature introduced in Blender 4.0; exact point release not stated)
+- **Tags:** geometry-nodes, procedural, abstract, motion-design, animation, intermediate, blender-4x
+- **Summary:** Recursive quad-subdivision "fractal squares" pattern using a Repeat Zone: each pass tests a per-cell Noise Texture value against a threshold to decide subdivide-vs-keep, then a second noise+Color Ramp pass selects a scattered highlight-color subset over the resulting grid, finished with an animated wipe/reveal.
 - **File:** tutorials/abstract-animated-geometric-pattern-squares-geometry-nodes-tutorial.md
 
 ---
