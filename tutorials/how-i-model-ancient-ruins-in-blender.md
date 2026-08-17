@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=lT1UBQwtZ1g
 author: hbitproject
 ingested: 2026-08-17
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.2 (visible in viewport title bar in captured frames)"
+tags: [geometry-nodes, procedural, displacement, materials, shaders, procedural, compositing, rendering, lighting, hdri, product-viz, advanced, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/how-i-model-ancient-ruins-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How I Model Ancient Ruins in Blender
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-i-model-ancient-ruins-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -176,30 +172,65 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:05] tutorials/frames/how-i-model-ancient-ruins-in-blender/frame_000.jpg
+- [1:29] tutorials/frames/how-i-model-ancient-ruins-in-blender/frame_001.jpg
+- [2:15] tutorials/frames/how-i-model-ancient-ruins-in-blender/frame_002.jpg
+- [2:51] tutorials/frames/how-i-model-ancient-ruins-in-blender/frame_003.jpg
+- [5:00] tutorials/frames/how-i-model-ancient-ruins-in-blender/frame_004.jpg
+- [5:44] tutorials/frames/how-i-model-ancient-ruins-in-blender/frame_005.jpg
+- [7:23] tutorials/frames/how-i-model-ancient-ruins-in-blender/frame_006.jpg
+- [8:45] tutorials/frames/how-i-model-ancient-ruins-in-blender/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A reusable, asset-ized Geometry Nodes "procedural damage" system (Mesh to Volume → Volume to Mesh to loosen topology, then noise-driven normal displacement combined with the original mesh via a Boolean Intersect) applied piece-by-piece across a full ruined-architecture production pipeline — hand-cut variant meshes, Pick Instance for capital/corbel variation, damage-aware procedural material masking, Geoscatter foliage, and light-group/mist-pass compositing.
 
 ### Summary
-[PENDING EXTRACTION]
+Inspired by an 1891 oil painting (Karl Maul) of the fake "Ruin of Carthage" garden folly at Schönbrunn Palace, Vienna (built 1778 purely as ornamental ruins). **Damage system:** any target mesh is run through Mesh to Volume then Volume to Mesh to loosen/re-tessellate its topology (visible in frames as a "Mesh Boolean" cluster with Face Group Boundary, Is Edge Boundary, Face Neighbors, Mesh Bevel, Cluster on Connected, Subdivide Mesh, Subdivision Surface operations), then vertices are displaced along their own Normal by a value pulled from a Noise Texture (routed through a Map Range node to control intensity) fed into Set Position's Offset socket; the final broken look comes from a Mesh Boolean node set to **Intersect** between the original mesh and the displaced/loosened version. This whole chain was refined, given exposed parameters (Pattern, Density, Scale, Sharpness, Sharpness Offset, Diffuse, visible in the captured node group), and saved as a reusable Blender **asset** ("HBIT_procedural_damage") for repeated use across the whole scene. **Modeling workflow:** damage alone isn't enough for convincing ruins — each element (e.g. acanthus leaves on a capital) first gets several hand-modeled variant meshes with parts manually cut away at the extremities, THEN the procedural damage system is applied on top of each variant. Variants are grouped into a Collection and fed into a small Geometry Nodes setup using **Instance on Points** with **Pick Instance** enabled and the Collection's **Separate Children** option enabled, so multiple distinct variants display simultaneously across the instanced points (repeated for capitals, corbels, and other repeating elements). A hard technical requirement: for the damage system's Boolean Intersect to read correctly, every individual architectural element must be its OWN separate mesh (e.g. each drum of a column shaft is a distinct mesh object) — this demands disciplined, cleanly-organized Outliner structure. To apply the same modifier stack to many separate meshes at once: select all target meshes, select the "source" mesh with the modifiers last (making it active), then Ctrl+L → Copy Modifiers. Because each piece stays a separate mesh/modifier stack even after copying, damage amount/pattern parameters can still be tuned per-piece. The entablature, dentils (some manually deleted/resized for a mood-consistent irregular look), frieze, and architrave were modeled the same variant+damage way; the main arch's crumbling was achieved by manually deleting geometry chunks (including some missing rosettes) rather than procedurally. **Damage-aware material masking (procedural):** inside the same Geometry Nodes tree, a **Capture Attribute** node (domain: Face) placed BEFORE the Boolean Intersect stores which faces belonged to the original, undamaged geometry. After the boolean, that captured boolean attribute is TRUE on original (undamaged) faces and FALSE on the new faces the boolean operation created (i.e. the damaged/broken surfaces) — inverting it with a Boolean **NOT** node and feeding that into a **Set Material** node's Selection targets the damaged material only to break-surface faces; inverting again (another NOT) targets the remaining (undamaged) faces with a second Set Material node. For an arbitrary custom face selection needing yet another material (e.g. matching displacement-mapped ornament detail to the damage pattern dynamically): enter Edit Mode, hand-select the target faces, in the Mesh Object Data Properties → Attributes panel add a new attribute (domain Face, type Boolean), name it, then with the same faces still selected use Mesh → Set Attribute to write true into the new attribute for that selection — back in the node tree, a **Named Attribute** node reads it back out and feeds a third Set Material node. **Texturing:** procedural marble base materials (the creator's own pack) with a consistent add-on node combo layered on top of nearly every material: the Object Info node's Random output overlaid on Albedo for per-mesh-instance color variation; the Dot Product of Normals from Bevel and Geometry nodes to expose/darken mesh contours/edges; an Ambient Occlusion output multiplied in for separation between adjacent pieces; and layered grunge maps for dirt/muddiness. **Foliage:** the paid Geoscatter add-on distributed grass/flowers (foreground), lily pads (pond surface), and grass/bushes/trees (background) — noted as achievable natively with vanilla Geometry Nodes too, just with more setup effort. **Rendering/Compositing:** a Poly Haven HDRI provides neutral diffuse ambient light, plus a directional Sun light angled to emphasize the structure's silhouette/outlines; two View Layer Light Groups separate "ambient" (assigned to the HDRI via World settings → Light Group) from "directional" (assigned to the sun via its Object Properties → Shading → Light Group) so their relative mix/tint can still be adjusted in post/compositing. Film → Transparent is enabled so a chosen sky image can be composited in later via an Alpha Over node. For foreground/background depth separation, the Mist Pass is enabled in the View Layer tab (must be set before rendering) plus Mist enabled in the camera's Data Properties → Viewport Display, then Start/Depth values in the World tab control where the pass begins/ends, using Quadratic falloff for a smoother fade; in the Compositor, the mist pass is mixed on top with **Screen** blend mode, with the mix Factor controlling fog density — noted as much cheaper on hardware than an equivalent volumetric cube+Volume Shader approach for achieving the same depth-fog look. Finished with a Denoise node at the end of the compositing chain. Final renders are saved as OpenEXR (full per-pixel value range) and finished/graded in DaVinci Resolve, though the same color-space-transform-then-grade workflow could be done inside Blender's own compositor instead.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Build the reusable damage system: target mesh → Mesh to Volume → Volume to Mesh (loosens/re-tessellates topology).
+2. Displace: Normal × (Noise Texture output routed through Map Range for intensity control) → Set Position's Offset socket, producing a chaotically-displaced duplicate of the mesh.
+3. Combine original and displaced versions with a Mesh Boolean node set to **Intersect** — this is what actually produces the broken/chipped-away look.
+4. Expose key parameters (pattern/density/scale/sharpness/etc.) and save the whole node group as a Blender Asset for reuse across every element in the scene.
+5. For each architectural element (e.g. acanthus leaf), hand-model several variant meshes first, deliberately cutting away parts at extremities, THEN apply the procedural damage system on top of each variant — damage alone isn't convincing without pre-broken source variation.
+6. Group variants into a Collection; build a small Geometry Nodes setup using Instance on Points with Pick Instance enabled and the Collection input's Separate Children option enabled, so different variants appear simultaneously across instanced points (used for capitals, corbels, etc.).
+7. Keep every individual architectural piece (each column drum, each capital element) as its own separate mesh object with clean Outliner organization — required for the damage system's Boolean Intersect to work correctly per-piece.
+8. To copy a modifier stack to many separate meshes at once: select all target meshes, select the source (modifier-holding) mesh last to make it active, Ctrl+L → Copy Modifiers.
+9. For crumbling that doesn't fit the procedural pattern (e.g. the main arch), manually delete geometry chunks by hand, including leaving some ornamental details (rosettes) missing entirely.
+10. Set up damage-aware material masking: add a Capture Attribute node (Face domain) before the Boolean Intersect to record which faces are original/undamaged; after the boolean, invert that captured selection with a Boolean NOT node and feed it into a Set Material node's Selection to target only damage-created (broken) faces; invert again for a second Set Material node targeting the remaining undamaged faces.
+11. For an arbitrary custom face selection needing its own material: hand-select faces in Edit Mode, add a new Face-domain Boolean attribute via Object Data Properties → Attributes, use Mesh → Set Attribute to write true for the selected faces, then read it back with a Named Attribute node feeding a third Set Material node — useful for coupling extra detail (e.g. displacement-mapped ornament) dynamically to the damage pattern.
+12. Layer the standard texture-variation node combo onto materials: Object Info Random output → Albedo color variation; Dot Product of Bevel/Geometry Normals → contour/edge darkening; Ambient Occlusion → multiplied-in separation between pieces; grunge maps for dirt.
+13. Scatter foliage (grass, flowers, lily pads, bushes, trees) with the Geoscatter add-on (or an equivalent native Geometry Nodes distribution setup).
+14. Light the scene with a Poly Haven HDRI (ambient) + a directional Sun (silhouette emphasis); create two View Layer Light Groups (ambient → HDRI via World settings; directional → Sun via its Shading Light Group) to retain independent post-processing control over each.
+15. Enable Film → Transparent for later sky compositing via Alpha Over.
+16. Enable the Mist Pass (View Layer tab, before rendering) and Mist in the camera's Viewport Display; tune Start/Depth in the World tab with Quadratic falloff; composite by mixing the mist pass over the render with Screen blend mode, tuning Factor for fog density (cheaper than a volumetric cube+Volume Shader for the same effect).
+17. Finish the compositing chain with a Denoise node; export renders as OpenEXR for full dynamic range in downstream grading (DaVinci Resolve in this case, though Blender's own compositor can do the color-space-transform + grading too).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Damage system (asset): Mesh to Volume → Volume to Mesh, Set Position (Offset = Normal × Noise Texture routed through Map Range), Mesh Boolean (Intersect) between original and displaced geometry; exposed params: Pattern, Density, Scale, Sharpness, Sharpness Offset, Diffuse
+- Instance on Points: Pick Instance enabled, Collection input with Separate Children enabled (multi-variant display)
+- Damage-aware masking: Capture Attribute (Face domain, before the boolean) → Boolean NOT (invert selection) → Set Material (×2, for damaged vs. undamaged faces)
+- Custom face selection: Object Data Properties → Attributes (new Face/Boolean attribute) + Mesh → Set Attribute (Edit Mode) → Named Attribute node → Set Material
+- Material node combo: Object Info (Random → Albedo variation), Dot Product (Bevel Normal, Geometry Normal → contour darkening), Ambient Occlusion (multiply, separation), layered grunge maps
+- Foliage: Geoscatter add-on (or native GN distribution)
+- Lighting/compositing: Poly Haven HDRI + Sun light, View Layer Light Groups (ambient/directional), Film Transparent + Alpha Over (sky comp), Mist Pass (View Layer + camera Viewport Display, World tab Start/Depth, Quadratic falloff) mixed via Screen blend mode, Denoise node, OpenEXR export
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced (combines custom Geometry Nodes asset authoring, multi-variant instancing, procedural material masking driven by boolean-operation history, and a full lighting/compositing pipeline — a real production breakdown, not a beginner walkthrough)
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.2, visible in the viewport title bar across the captured frames.
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural, displacement, materials, shaders, compositing, rendering, lighting, hdri, product-viz, advanced, blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+No directly related tutorials yet in the library for procedural-damage Geometry Nodes systems or damage-aware material masking — flag for cross-linking if another architectural-ruin, weathering, or boolean-driven procedural damage tutorial is ingested later.

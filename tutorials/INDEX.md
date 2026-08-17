@@ -3188,9 +3188,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=lT1UBQwtZ1g
 - **Author:** hbitproject
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.2 (visible in viewport title bar in captured frames)
+- **Tags:** geometry-nodes, procedural, displacement, materials, shaders, compositing, rendering, lighting, hdri, product-viz, advanced, blender-5x
+- **Summary:** Full ruined-architecture production breakdown: a reusable asset-ized procedural damage system (Mesh to Volume/back, noise-driven normal displacement, Boolean Intersect), Pick Instance for hand-cut mesh variants, damage-aware material masking via Capture Attribute + boolean NOT, Geoscatter foliage, and HDRI+Sun light-group/mist-pass compositing.
 - **File:** tutorials/how-i-model-ancient-ruins-in-blender.md
 
 ---
