@@ -3153,6 +3153,16 @@ Each entry format:
 - **Summary:** Mantaflow liquid domain flowing through an A.N.T. Landscape "River" preset mesh, foam particles instanced onto low-poly cones with an Emission shader for the glow, a Glass+Volume water material, and compositor Vector Blur (fed by Z/Vector passes) for motion blur on the particles.
 - **File:** tutorials/blender-30-tutorial---creating-a-glowing-river.md
 
+
+### Creating Realistic 3D Water in Blender : The Ultimate Guide
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=vr7mkSiKRLM
+- **Author:** stache
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/creating-realistic-3d-water-in-blender-the-ultimate-guide.md
+
 ---
 
 ## Tag Reference
