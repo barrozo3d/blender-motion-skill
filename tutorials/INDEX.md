@@ -3108,9 +3108,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=jl2Q-86o0JE
 - **Author:** Nick Sayce
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.1.x (approximate, viewport title bar in captured frames; not stated verbally)
+- **Tags:** procedural, geometry-nodes, organic, product-viz, beginner
+- **Summary:** Third-party NS Brick Wall Builder add-on (Nick Sayce), silent tip video: side-by-side visual matching against a real brick-wall reference photo, tuning Rotation Variation/Distorted Bricks/Damaged Bricks Amount by eye until the procedural wall's irregularity matches the reference.
 - **File:** tutorials/ns-brick-wall-builder-mimicking-a-real-wall.md
 
 ---
