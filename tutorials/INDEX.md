@@ -3033,6 +3033,16 @@ Each entry format:
 - **Summary:** Third-party NS Rock Sculptor add-on (Nick Sayce): a centralized "Choose a Filter to Edit" dropdown exposes parameters for every effect layer (Roll, Main Colour, Grain/Cracks/Cracks 2/Dusty Bump, Displacement, Displacement Mask) instead of hunting across separate panels; demoed on Dusty Bump Filter (Scale/Seed/Weight/Distortion) plus adjacent Displacement group fields.
 - **File:** tutorials/ns-rock-sculptor-guide---filters.md
 
+
+### NS Rock Sculptor Guide - Moss
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=Acp5-LuffVA
+- **Author:** Nick Sayce
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ns-rock-sculptor-guide---moss.md
+
 ---
 
 ## Tag Reference
