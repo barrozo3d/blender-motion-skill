@@ -3013,6 +3013,16 @@ Each entry format:
 - **Summary:** Third-party NS Rock Sculptor add-on (Nick Sayce): two complementary displacement paths — material/shader displacement gated by a noise-driven Displacement Mask Colour Ramp, and a genuine Blender Displace modifier ("Rock Displace", Clouds texture) with a hand-paintable Vertex Group mask; warns that stacking too much of both mangles geometry, and shows Weight-Paint mask editing to localize/blur where displacement reads.
 - **File:** tutorials/ns-rock-sculptor-guide---displacement.md
 
+
+### NS Rock Sculptor Guide - Colour Ramps
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=vm4QsOascts
+- **Author:** Nick Sayce
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/ns-rock-sculptor-guide---colour-ramps.md
+
 ---
 
 ## Tag Reference
