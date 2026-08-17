@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=bZXZNEiKlNg
 author: Bradley Animation
 ingested: 2026-08-17
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.0+ (stated in title; UV Tangent node specifically called out as new in 5.1)"
+tags: [geometry-nodes, procedural, animation, motion-design, intermediate, advanced, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/tut-align-rotation-to-vector-axes-to-rotation---p11-geometry-nodes-beginners-50/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 9
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # [Tut] Align Rotation to Vector & Axes to Rotation - P11 Geometry Nodes Beginners 5.0+
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py tut-align-rotation-to-vector-axes-to-rotation---p11-geometry-nodes-beginners-50 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Recap of Pick Instance [0:00]
@@ -393,30 +389,67 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:16] tutorials/frames/tut-align-rotation-to-vector-axes-to-rotation---p11-geometry-nodes-beginners-50/frame_000.jpg
+- [3:14] tutorials/frames/tut-align-rotation-to-vector-axes-to-rotation---p11-geometry-nodes-beginners-50/frame_001.jpg
+- [4:48] tutorials/frames/tut-align-rotation-to-vector-axes-to-rotation---p11-geometry-nodes-beginners-50/frame_002.jpg
+- [7:10] tutorials/frames/tut-align-rotation-to-vector-axes-to-rotation---p11-geometry-nodes-beginners-50/frame_003.jpg
+- [10:57] tutorials/frames/tut-align-rotation-to-vector-axes-to-rotation---p11-geometry-nodes-beginners-50/frame_004.jpg
+- [14:36] tutorials/frames/tut-align-rotation-to-vector-axes-to-rotation---p11-geometry-nodes-beginners-50/frame_005.jpg
+- [18:10] tutorials/frames/tut-align-rotation-to-vector-axes-to-rotation---p11-geometry-nodes-beginners-50/frame_006.jpg
+- [21:03] tutorials/frames/tut-align-rotation-to-vector-axes-to-rotation---p11-geometry-nodes-beginners-50/frame_007.jpg
+- [24:07] tutorials/frames/tut-align-rotation-to-vector-axes-to-rotation---p11-geometry-nodes-beginners-50/frame_008.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A deep theory pass on orienting instances/points in Geometry Nodes: **Align Rotation to Vector** (single-axis alignment, with a conceptual limitation on the other two axes), the newer **Axis to Rotation** node (accurate two-axis alignment replacing the old "second Align Rotation to Vector with a pivot" workaround), building custom direction vectors via simple subtraction (target-tracking/billboarding), Normal/Tangent as ready-made direction sources (mesh UV Tangent, curve Tangent/Normal), and **Rotate Rotation** / **Axis Angle to Rotation** + **Cross Product** for modifying an existing orientation (e.g. gravity-bent tree branches) rather than constructing one from scratch.
 
 ### Summary
-[PENDING EXTRACTION]
+Part 11 of a structured Geometry Nodes beginner series (follows on directly from Episode 10's Pick Instance topic). Starts with cones instanced on a UV Sphere via Instance on Points, fed through **Align Rotation to Vector**: its Direction input is a directional vector relative to the world origin (as taught in Episode 6), and its Axis input picks which local axis of the instance gets pointed at that direction — with the default 0,0,1 direction and Z axis, nothing visibly changes since cones already point up. Feeding it the Normal of the surface (mesh point Normal, or captured via Capture Attribute when instancing on Mesh to Points face centers, since raw Points have no normal) makes cones correctly point outward from any surface — but Capture Attribute must be captured on the **Face** domain, not Points domain, or subdivision increases will visibly tilt corner instances. Swapping the cone for a Suzanne head (which has a strong "forward-facing" identity, unlike a cone) exposes Align Rotation to Vector's core limitation: it only constrains ONE axis (the one you specify); the remaining two axes are resolved by Blender's internal logic and are "not extremely reliable." Demonstrated with an Empty's 3-axis gizmo: rotating the empty around Z while keeping Z pointing up still leaves X/Y facing arbitrary directions — exactly Suzanne's problem. **Fix option A:** chain a second Align Rotation to Vector (feeding the first's output Rotation back in as input Rotation) to also constrain a second axis (X or Y) — but the previously-fixed Z axis must be set as the new node's **Pivot** input, or the second alignment disrupts the first. **Fix option B (preferred/modern):** the single **Axis to Rotation** node, which takes a Primary Axis+Vector and Secondary Axis+Vector directly (no manual pivot chaining needed) and produces the same accurate two-axis-constrained result. The presenter's own practical take: Axis to Rotation is more accurate, but Align Rotation to Vector remains useful for simple single-axis cases (cones, eyeballs, a "comb" example) and specifically for *modifying* an already-existing rotation (e.g. from an Object Info node, which only outputs one rotation value) rather than building one from nothing. **Building a custom direction vector (target-tracking):** the core insight is that positions/locations ARE vectors relative to world origin, so "point instance A toward point B" reduces to elementary subtraction: `target_location − instance_position` gives the arrow from instance to target (demonstrated with a simple 1D number-line proof: instance at 3, target at 5, gap = 5−3 = 2). Feeding that difference vector into Align Rotation to Vector's Direction (with the target axis, e.g. Z or X) makes every instance track an Empty target object as it moves — same principle used for attraction/repulsion effects and billboarding in stylized art, though the presenter notes real billboarding setups don't use exactly this same node chain despite sharing the same subtraction principle. Reversing the subtraction order flips instances to face away from the target instead of toward it; if simple axis alignment causes an upside-down flip when the target crosses over, Axis to Rotation (forcing a second axis, e.g. Z, to stay "up") fixes it where a single Align Rotation to Vector can't. **Better direction sources than raw normals for the secondary axis:** a flat vector like 0,1,0 is often "too simple" for complex secondary-axis alignment. For meshes, the **UV Tangent** node (new in Blender 5.1 — previously required a much more complex manual node setup that the presenter says nobody actually used from his provided assets) reads directly from a mesh's UV map (`UV` input socket; use Named Attribute to fetch UVs from an Object Info-sourced mesh) and outputs a tangent vector well-suited as the secondary axis. It has two Mode options: **Exact** (the accurate/"gold standard" method, matching other DCC software, called MikkTSpace under the hood but exposed simply as "Exact") and a ~4x faster but slightly less accurate alternative — switching between them is visibly detectable as a tiny jitter/shake on the instances. For curves, the **Curve Tangent** node gives the direction of curve flow (simpler to use — just plug it straight in) and **Curve Normal** gives an arbitrary-but-continuous perpendicular direction (not related to lighting, unlike mesh Normal) that stays roughly consistent point-to-point rather than flipping randomly. In practice, curve instancing commonly uses Tangent as the primary axis and Normal as the secondary. **Normal nuance:** mesh geometry has both **True Normal** (the real geometric normal) and **Custom Normal** (editable via Set Mesh Normal with Sharpness Mode set to "Free," used to fake different light behavior for stylized shading, or to visually blend an object with the ground without changing its actual geometry) — Curve Normal is a completely separate, unrelated concept from mesh Normal despite the shared node name in some contexts, and curves have no custom-normal equivalent (both curve normal sockets are always identical). **Modifying an already-existing rotation** (rather than building one from scratch) is done with **Rotate Rotation**, offering Global (world-axis) or Local (relative to the current rotation) modes — the presenter defaults to Local, e.g. rotating locally around Z when Z is already aligned to a curve tangent effectively "spins the object around the pivot line itself" (compared to rotating a barbecue skewer). **Cross Product** (vector math) takes two axis vectors and returns a third perpendicular to both, following the **right-hand rule** (index finger = first input, middle finger = second input, thumb = result direction; swapping input order flips the result). Though Axis to Rotation only exposes two axis inputs, the implicit third axis is exactly this cross product, and it becomes essential for a different rotation problem: **bending a curve like gravity** (e.g. a tree branch) using **Set Position** + **Rotate Vector**, where **Axis Angle to Rotation** (Axis = a directional pivot vector, Angle = increasing per point, e.g. via point Index × a Math Multiply node) rotates each point progressively around a chosen pivot line to create a bending/spiral effect. Finding the correct pivot Axis for a diagonal branch is worked out by reasoning about a simpler straight-along-X case: if the branch runs along X and gravity pulls along -Z, the correct bend pivot is the Cross Product of those two vectors (X × -Z = Y), and using the branch's own Curve Tangent as one cross-product input generalizes this correctly to any branch direction. Axis Angle to Rotation's single-scalar-angle control is highlighted as much easier to drive with motion graphics logic than manipulating a full 3-value rotation directly — flagged as the subject of the next episode. Finally, **Rotate Vector** (a lower-level vector rotation used with Axis Angle to Rotation in this episode) is compared to the older, technically-not-yet-deprecated **Vector Rotate** node (referenced from Episode 7): Vector Rotate is recommended for real-world use because it has a built-in Center input (a pivot point offset from world origin), which Rotate Vector lacks and would require manually reimplementing — left as a "homework" exercise for viewers rather than demonstrated.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Instance geometry (e.g. cones) onto points/faces via Instance on Points.
+2. Feed a directional Vector (e.g. the surface Normal) and an Axis choice (e.g. Z) into **Align Rotation to Vector**, and plug its output into the Instance on Points' Rotation socket, to point one axis of every instance toward that direction.
+3. When instancing on face centers instead of raw points (via Mesh to Points, Face mode), the mesh's Normal attribute is lost on plain Points — use **Capture Attribute** on the original mesh (captured on the **Face** domain, not Points, to avoid corner-tilting artifacts at higher subdivisions) to carry the Normal through to the point cloud.
+4. To recognize when Align Rotation to Vector is insufficient: swap in an asymmetric object (e.g. Suzanne) — if it looks randomly tilted despite one axis being correctly aligned, the other two axes are being resolved unreliably by Blender's internal logic.
+5. Fix by either (a) chaining a second Align Rotation to Vector on a different axis, feeding the first Rotation output back in as the second's input Rotation, AND setting the first-fixed axis as the second node's **Pivot** — or (b) replacing both with a single **Axis to Rotation** node (Primary Axis+Vector, Secondary Axis+Vector) for the same result without manual pivot chaining.
+6. To make instances track a moving target object: subtract the instance's own position from the target object's world-space Location (`target_location - instance_position`) to build a direction vector; feed that into Align Rotation to Vector's Direction. Reverse the subtraction to face away from the target instead. If flipping occurs as the target crosses over, use Axis to Rotation with a second axis forced "up" instead of a single-axis alignment.
+7. For a UV-mapped mesh's secondary axis (e.g. matching Suzanne's "forward" orientation precisely), use the **UV Tangent** node (`UV` input connected to the mesh's UV map, or via Named Attribute when the geometry comes through Object Info) instead of a flat constant vector — choose Mode "Exact" (accurate, default) or the faster/less-precise alternative depending on whether performance or precision matters more.
+8. For curve instancing, use **Curve Tangent** as the primary axis (direction of curve flow) and **Curve Normal** as the secondary axis (arbitrary but continuous perpendicular direction) — commonly Tangent-primary/Normal-secondary in practice.
+9. For stylized shading or fixing visual ground-contact issues without altering real geometry, edit **Custom Normal** via the **Set Mesh Normal** node with Sharpness Mode "Free" — leave alone to default to True Normal otherwise; note curves have no custom-normal equivalent.
+10. To rotate an object that already has a rotation (rather than building one from scratch), use **Rotate Rotation** with Local mode (rotate relative to the object's current orientation, e.g. spinning around an axis already aligned to a curve tangent) rather than Global (world-axis) mode.
+11. For gravity-bend/spiral effects on a curve: use **Set Position** combined with **Rotate Vector**, driven by **Axis Angle to Rotation** — set Angle from the point Index multiplied by a scalar (Math Multiply) so later points rotate further, and set Axis to the correct pivot direction.
+12. Determine the correct pivot Axis for Axis Angle to Rotation by reasoning through a simplified straight-line case first (e.g. branch along X, gravity along -Z ⇒ pivot = Cross Product of X and -Z), then generalize using the branch's own **Curve Tangent** as one Cross Product input so the technique works for any branch direction, not just axis-aligned ones.
+13. Recall Cross Product follows the right-hand rule (index = first input, middle = second input, thumb = output direction) — swap input order to flip the result if it comes out backwards.
+14. For real production use requiring a rotation pivot offset from world origin, prefer the older **Vector Rotate** node (has a built-in Center input) over the newer **Rotate Vector** node (lacks Center, would need to be manually reimplemented).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Align Rotation to Vector: Rotation (input, for chaining/pivoting), Vector (Direction), Axis, Pivot Axis, Factor (blend amount, rarely used per the presenter)
+- Axis to Rotation: Primary Axis + Vector, Secondary Axis + Vector — modern replacement for chained Align Rotation to Vector setups
+- Instance on Points (Rotation socket), Mesh to Points (Face mode), Capture Attribute (domain: Face vs. Points — Face avoids corner-tilt artifacts)
+- UV Tangent (mesh, Blender 5.1+): UV input, Mode (Exact / faster-approximate), used as secondary axis
+- Curve Tangent, Curve Normal: direction-of-flow and continuous-perpendicular vectors for curve instancing
+- Set Mesh Normal: True Normal vs. Custom Normal, Sharpness Mode "Free" for manual custom-normal authoring
+- Rotate Rotation: Global vs. Local mode (Local = relative to existing/current rotation)
+- Axis Angle to Rotation: Axis (pivot direction vector), Angle (often driven by point Index × Math Multiply)
+- Cross Product (Vector Math): two axis vectors in, perpendicular vector out, right-hand rule, input order matters
+- Set Position + Rotate Vector (older/lower-level) vs. Vector Rotate (has Center/pivot-offset input, recommended for production over Rotate Vector)
+- Object Info node (source of a single existing rotation value, relevant to when Align Rotation to Vector is preferred over Axis to Rotation)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced (this is explicitly theory-dense — vector math, right-hand-rule cross products, and the conceptual distinction between "constructing" vs. "modifying" a rotation — aimed at viewers who've followed the full beginner series through Episode 10, not a standalone quick-tip)
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.0+, stated in the title; the UV Tangent node is specifically called out as new in Blender 5.1, giving a firmer lower bound for that portion of the tutorial.
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural, animation, motion-design, intermediate, advanced, blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+No directly related tutorials yet in the library for this Geometry Nodes Beginners series (episodes 1-10 not yet ingested) or for rotation/vector-math-focused GN content specifically — flag for cross-linking if earlier/later episodes of this same "Bradley Animation" beginner series are ingested.
