@@ -3118,9 +3118,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=v3rbV49UVwo
 - **Author:** Nick Sayce
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.1.x (approximate, viewport title bar in captured frames; not stated verbally)
+- **Tags:** procedural, geometry-nodes, materials, organic, product-viz, beginner
+- **Summary:** Third-party NS Brick Wall Builder add-on (Nick Sayce), Part 2 of the silent real-wall-matching tip: continues into color (Brick/Mortar Colour via HSV picker, Colour Variation, Dirt Colour) and Bump strength (Pattern/Coin/Mortar) matching against the reference photo.
 - **File:** tutorials/ns-brick-wall-builder-mimicking-a-real-wall-2.md
 
 ---
