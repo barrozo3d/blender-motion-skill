@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=zcuefJcZdUY
 author: Nick Sayce
 ingested: 2026-08-17
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.1.x (approximate, viewport title bar in captured frames; not stated verbally)"
+tags: [procedural, geometry-nodes, displacement, organic, product-viz, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/ns-brick-wall-builder-guide/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 9
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # NS Brick Wall Builder Guide
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py ns-brick-wall-builder-guide <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -234,30 +230,69 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:37] tutorials/frames/ns-brick-wall-builder-guide/frame_000.jpg
+- [1:40] tutorials/frames/ns-brick-wall-builder-guide/frame_001.jpg
+- [2:50] tutorials/frames/ns-brick-wall-builder-guide/frame_002.jpg
+- [4:19] tutorials/frames/ns-brick-wall-builder-guide/frame_003.jpg
+- [5:54] tutorials/frames/ns-brick-wall-builder-guide/frame_004.jpg
+- [9:52] tutorials/frames/ns-brick-wall-builder-guide/frame_005.jpg
+- [12:02] tutorials/frames/ns-brick-wall-builder-guide/frame_006.jpg
+- [14:32] tutorials/frames/ns-brick-wall-builder-guide/frame_007.jpg
+- [17:27] tutorials/frames/ns-brick-wall-builder-guide/frame_008.jpg
+
+---
+
+> **Third-party add-on note + version note:** This is the earlier full guide (2026-07-13) for **NS Brick Wall Builder**, by Nick Sayce (NS) — predates the v4.0 guide covered separately. Panel layout differs from v4.0: this version uses a "Cell Size" field and a flatter Dimensions/Bricks/Mortar/Jitter & Variation/Displacement/Filters/Bevel/Bump structure with no dedicated Colour Ramps section, whereas v4.0 reorganizes into Base Shape/Brick Colour/Mortar/Jitter & Variation/Displacement/Filters/Colour Ramps/Bevel/Bump and adds a Colour Ramps tab. Treat this as documenting an older add-on version — check the v4.0 guide for the current control set.
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Same curve-driven generator concept as v4.0: a curve object (built from a merged-vertex plane, extruded in segments, then Object → Convert → Curve) drives procedural brick tiling when dropped into the add-on's Wall Curve slot and generated, with materials (NS Brick Wall, NS Mortar, NS Coin) that must be present in the scene (via the provided .blend file or appended) before the add-on will render correctly.
 
 ### Summary
-[PENDING EXTRACTION]
+Requires three specific materials (NS Brick Wall, NS Mortar, NS Coin) to be present in the scene — either open the provided .blend file directly or append them from it — before the add-on's shading works. The wall curve is built the same way as in the newer guide (Plane → Merge at Center → extrude in segments → Convert to Curve), with the same even-number-length recommendation for reliable corner behavior in Straight mode (curved mode is unaffected by segment length). A separate Straight/Curved toggle switches between two independent generator scripts, same as v4.0. Once a curve is generated, switching between pattern presets (Standard, Basket Weave, Coin, etc.) keeps most existing settings and just regenerates the tiling — Coin pattern adds separate coin bricks at ends/corners with their own NS Coin material. **Dimensions:** Rows (height), Cell Size (overall grid scale, built around a 2m base unit — going far from default distorts brick shape), Brick Gap, Brick Depth (also affects corner behavior, kept low ~0.1-0.2), Seed, Wall Flip (only needed if the curve was built in the negative direction — corner math is unreliable then, so the presenter recommends always building positive and never needing this button). **Bricks:** brick/coin color, brick color variation (per-brick shade darkening), mortar color, and a "dirt"/dust amount slider. **Jitter & Variation:** per-brick rotation on Y (and less commonly X), high Z rotation values for strong random variation (visible from top view), plus "Cracked Bricks Amount" and "Damage Bricks Amount" — Cracked Bricks Amount at maximum isolates only the crack-bump pattern (each brick reads an independent region of the crack noise texture, so cracks don't visibly continue from brick to brick); Damage Bricks Amount feeds into Displacement. **Displacement:** Material Displacement (needs Subdivision level 3+ to read properly) plus the Damage Bricks Amount-driven displacement — both puff bricks outward, requiring Brick Gap to be widened afterward (demoed going to 0.05) to compensate. **Filters:** the dirt/dust filter and the crack-bump filter each have their own Scale Width/Height/noise controls, directly linked to how the corresponding Jitter & Variation slider reads. **Bevel & Bump:** a Bevel modifier (paired with a Subdivision Surface modifier later in the stack — bevel keeps brick shape, subdiv adds resolution for displacement) plus a brick bump slider and a separate coin bump strength (so coin bricks can have clean/no bump independent of the main bricks). Finishes with the same **Make Single** workflow as v4.0: building a second wall in the same scene without clicking Make Single on the first will keep both linked to the same live add-on state (editing one snaps the other back); Make Single fully detaches a wall so further edits are independent.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Ensure the three required materials (NS Brick Wall, NS Mortar, NS Coin) exist in the scene — open the provided .blend file directly, or append them from it into your working scene.
+2. Install the add-on via Preferences → Add-ons → Install, pointing to the NS Wall Builder zip.
+3. Build the wall curve: Add a Plane → Tab into Edit Mode → select all → Merge at Center (M) → collapse to one vertex → extrude in segments (e.g. 4m on X, 2m on Y, 6m on X) → exit Edit Mode → Object → Convert → Curve. Even-numbered segment lengths are recommended for reliable corner behavior in Straight mode (irrelevant in Curved mode).
+4. Drop the curve into the add-on's Wall Curve slot — a wall generates immediately using whichever pattern preset is selected.
+5. Switch between pattern presets freely; most settings persist across a pattern change (Basket Weave takes noticeably longer to generate than simpler patterns).
+6. Tune Dimensions: Rows for height, Cell Size for overall grid scale (built around a ~2m base unit — pushing it far from default starts distorting brick shape), Brick Gap, Brick Depth (also influences corner behavior — keep it low, ~0.1-0.2), Seed for variation reshuffling.
+7. Only use Wall Flip if the curve had to be built in the negative direction (corner behavior is unreliable there regardless) — the recommended practice is to always build curves in the positive direction and never need this button.
+8. Tune Bricks: brick/coin color, brick color variation, mortar color, and the dirt/dust amount.
+9. Tune Jitter & Variation: Y (and lightly X) rotation jitter, high Z rotation for strong randomness, Cracked Bricks Amount (isolates/blends the crack-bump pattern — each brick samples an independent region of the noise texture so cracks don't chain between bricks), and Damage Bricks Amount (feeds Displacement).
+10. Enable Displacement (Material Displacement needs Subdivision level 3+ to show properly) and dial in Damage Bricks Amount-driven strength — widen Brick Gap afterward (e.g. to ~0.05) to compensate for the puffed-out silhouette displacement causes.
+11. Fine-tune the Filters section (Scale Width/Height/noise) for both the dirt/dust filter and the crack-bump filter — these are directly linked to their respective Jitter & Variation sliders.
+12. Add Bevel (paired with a Subdivision Surface modifier later in the stack) to keep crisp brick edges, then dial in brick Bump strength and, separately, coin Bump strength if using the Coin pattern.
+13. Click "Make Single" once satisfied with a wall before starting a second, independent wall in the same scene — without it, both walls stay linked to the same live add-on state and editing one will snap the other back to match.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Add-on panel "NS Wall Builder": Straight/Curved toggle, Pattern preset dropdown, Build Wall / Make Single buttons
+- Dimensions: Rows, Cell Size, Brick Gap, Brick Depth, Seed, Wall Flip
+- Bricks: brick color, coin color, brick color variation, mortar color, dirt/dust amount
+- Jitter & Variation: Y/X/Z rotation jitter, Cracked Bricks Amount, Damage Bricks Amount
+- Displacement: Material Displacement (needs Subdivision 3+), Damage Bricks Amount-driven displacement, Mid Level, Strength
+- Filters: dirt/dust filter (Scale Width/Height/noise), crack-bump filter (Scale Width/Height/noise) — linked to their Jitter & Variation sliders
+- Bevel modifier + Subdivision Surface modifier (later in stack); Bump: brick bump strength, separate coin bump strength
+- No dedicated Colour Ramps section in this version (added later in v4.0)
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate (requires understanding the material-dependency setup before anything works, plus the same curve-construction and Displacement/Brick-Gap interaction as the newer version)
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.1.x (approximate, viewport title bar in captured frames; not stated verbally).
 
 ### Tags
-[PENDING EXTRACTION]
+procedural, geometry-nodes, displacement, organic, product-viz, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+Part of the **NS Brick Wall Builder** guide set (Nick Sayce / NS add-on). This is the earlier full guide (2026-07-13); a newer, more complete v4.0 guide supersedes it with a reorganized panel and an added Colour Ramps tab.
+- [NS Brick Wall Builder v4.0 Guide](ns-brick-wall-builder-v4-0-guide.md) — current/most complete guide, same add-on, later version — compare panel layouts (Colour Ramps section, Base Shape naming) before assuming controls match exactly.
+- [NS Brick Wall Builder - Mimicking a Real Wall](ns-brick-wall-builder---mimicking-a-real-wall.md) — short real-world-reference technique tip, builds on this guide's base controls.
+- [NS Brick Wall Builder - Mimicking a Real Wall 2](ns-brick-wall-builder---mimicking-a-real-wall-2.md) — part 2 of the above tip.
+- [NS Rock Sculptor Guide - Sculpt Settings](ns-rock-sculptor-guide-sculpt-settings.md) — conceptual sibling: same author's other add-on family, also uses a "Make Single" detach mechanism.

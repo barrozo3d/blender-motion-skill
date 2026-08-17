@@ -3098,9 +3098,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=zcuefJcZdUY
 - **Author:** Nick Sayce
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.1.x (approximate, viewport title bar in captured frames; not stated verbally)
+- **Tags:** procedural, geometry-nodes, displacement, organic, product-viz, intermediate
+- **Summary:** Third-party NS Brick Wall Builder add-on (Nick Sayce), earlier full guide (predates v4.0): requires 3 specific materials appended into the scene, same curve-driven generator concept, Cracked/Damage Bricks Amount sliders (no separate Colour Ramps tab yet), Make Single to branch independent walls.
 - **File:** tutorials/ns-brick-wall-builder-guide.md
 
 ---
