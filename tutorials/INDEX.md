@@ -3058,9 +3058,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=YEtwMhsKh1A
 - **Author:** Nick Sayce
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.1.x (approximate, viewport title bar in captured frames; not stated verbally)
+- **Tags:** procedural, geometry-nodes, organic, product-viz, intermediate
+- **Summary:** Third-party NS Rock Sculptor add-on (Nick Sayce): "Enter Edit Mode"/"Clear All Creases" sidebar shortcuts wrap Blender's native Edge Crease so manually-selected edges stay sharp/faceted under the Subdivision Surface modifier instead of the whole rock rounding into a uniform blob. Whisper transcript was a degenerate repeating loop (unusable) — extraction leans entirely on captured frames.
 - **File:** tutorials/ns-rock-sculptor-guide---edge-crease.md
 
 ---
