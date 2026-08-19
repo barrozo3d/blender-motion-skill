@@ -155,6 +155,29 @@ def context_stem(term):
     return stem if len(stem) >= 3 and is_specific(stem) else None
 
 
+UI_PATH_SEP = re.compile(r"\s*(?:→|->|>|»|\|)\s*")
+
+
+def ui_path_parts(term):
+    """
+    Split a UI navigation path into its components.
+
+    Reference files describe settings as paths -- "Bloom → Intensity",
+    "Exposure → Exposure Compensation" -- a notation tutorials never use
+    verbatim, so exact matching scores every one as fabricated. Measured in
+    unreal-sidekick's color-pipeline.md: "Bloom → Intensity" appears in 0 files
+    while "Bloom" appears in 25 and "Intensity" in 83. All eight of that file's
+    flagged table rows were this artifact.
+
+    Returns the parts only when there are 2+ meaningful ones, so ordinary names
+    are unaffected.
+    """
+    if not UI_PATH_SEP.search(term):
+        return None
+    parts = [p.strip() for p in UI_PATH_SEP.split(term) if len(p.strip()) >= 3]
+    return parts if len(parts) >= 2 else None
+
+
 def count_files(needle, docs):
     """
     Word-boundary count of files containing `needle`.
@@ -347,6 +370,14 @@ def audit_file(path, corpus, notes):
         if hits == 0 and stem:
             s = stem.lower()
             stem_hits = count_files(s, corpus)
+        if hits == 0 and stem_hits == 0:
+            # UI path like "Bloom -> Intensity": corroborated when EVERY
+            # component is. Reported in the review bucket, not as a hit.
+            parts = ui_path_parts(term)
+            if parts:
+                counts = [count_files(x, corpus) for x in parts]
+                if all(c > 0 for c in counts):
+                    stem_hits = min(counts)
         # vendor release notes corroborate too -- see load_release_notes()
         if hits == 0:
             hits = -count_files(needle, notes)
