@@ -57,6 +57,7 @@ it, add the doc URL to `sources:`), CUT (unverifiable), or KEEP (real, cite it).
 """
 
 import argparse
+import functools
 import os
 import re
 import subprocess
@@ -152,6 +153,74 @@ def context_stem(term):
         return None
     stem = m.group(1).strip()
     return stem if len(stem) >= 3 and is_specific(stem) else None
+
+
+def count_files(needle, docs):
+    """
+    Word-boundary count of files containing `needle`.
+
+    Raw substring matching over-corroborates, and that error runs in the
+    DANGEROUS direction: a term that falsely appears corroborated is a
+    fabrication the audit stops reporting. Measured on the real corpora,
+    "aces" matches 168 files as a substring but 13 as a word -- "surfaces"
+    contains it. "Deep" 19 vs 12.
+    """
+    n = needle.lower()
+    pat = _boundary_pat(n)
+    # Cheap substring test first: regex over ~550 large documents per term is
+    # ~100x slower and times out. Most documents fail the substring test, so the
+    # regex only runs on the few that could actually match.
+    return sum(1 for d in docs if n in d and pat.search(d))
+
+
+@functools.lru_cache(maxsize=4096)
+def _boundary_pat(n):
+    return re.compile(r"(?<![a-z0-9])" + re.escape(n) + r"(?![a-z0-9])")
+
+
+# Filename words too generic to identify a topic.
+TOPIC_NOISE = {"reference", "nodes", "node", "pipeline", "guide", "overview",
+               "library", "catalog", "changes", "versions", "release", "notes",
+               "scripting", "theory", "tracker", "and", "vs", "for", "the"}
+
+
+def topic_coverage(filename, corpus):
+    """
+    How many corpus files talk about this reference file's SUBJECT at all.
+
+    Without this the ratio is uninterpretable. A file scores high either because
+    it is fabricated or because the library simply never covers its topic, and
+    those demand opposite responses. Measured: unreal-sidekick's
+    sequencer-cinematics.md scores 0% against 155 files mentioning "sequencer",
+    while lip-sync.md scores 50% against 7 mentioning "lip sync". The second
+    number is not evidence of fabrication -- it is evidence of a blind spot.
+
+    copernicus.md was catchable precisely BECAUSE coverage was high: 69 files
+    discuss Copernicus, and the names were still absent.
+    """
+    stem = os.path.basename(filename)[:-3]
+    words = [w for w in stem.split("-") if w and w.lower() not in TOPIC_NOISE]
+    if not words:
+        return None      # topic undeterminable from the filename -- NOT "thin"
+    # A token matching most of the corpus identifies no topic -- it is the app's
+    # own name. "houdini-workflow.md" matched "houdini" and reported coverage of
+    # the entire 546-file library; "nuke-compositing-nodes.md" likewise. Such a
+    # number silently reads as "richly covered" and would excuse a real problem.
+    ceiling = max(1, int(len(corpus) * 0.8))
+    best = 0
+    for w in words:
+        if len(w) < 3:
+            continue
+        c = count_files(w, corpus)
+        if c <= ceiling:
+            best = max(best, c)
+    joined = " ".join(words)
+    if len(words) > 1:
+        c = count_files(joined, corpus)
+        if c <= ceiling:
+            best = max(best, c)
+    # every token was app-generic: undeterminable, not thin
+    return best if best > 0 else None
 
 
 def load_corpus():
@@ -272,22 +341,22 @@ def audit_file(path, corpus, notes):
     results = []
     for term, ctx in terms.items():
         needle = term.lower()
-        hits = sum(1 for d in corpus if needle in d)
+        hits = count_files(needle, corpus)
         stem_hits = 0
         stem = context_stem(term)
         if hits == 0 and stem:
             s = stem.lower()
-            stem_hits = sum(1 for d in corpus if s in d)
+            stem_hits = count_files(s, corpus)
         # vendor release notes corroborate too -- see load_release_notes()
         if hits == 0:
-            hits = -sum(1 for d in notes if needle in d)
+            hits = -count_files(needle, notes)
         results.append((hits, ctx, term, stem_hits))
     results.sort(key=lambda r: (r[0] + r[3], r[0],
                                 {"table": 0, "code": 1, "prose": 2}[r[1]], r[2].lower()))
     return meta, results
 
 
-def render(path, meta, results, verbose):
+def render(path, meta, results, verbose, coverage=None):
     name = os.path.basename(path)
     total = len(results)
     # A term is only "uncorroborated" if BOTH the exact name and its stem
@@ -329,6 +398,9 @@ def render(path, meta, results, verbose):
         f"   ASSERTED (table/code): {len(strong_zeros)}/{len(strong)} uncorroborated "
         f"({ratio:.0f}%)   [multi-word/CamelCase only: {len(spec_zeros)}/{len(spec)} "
         f"= {spec_ratio:.0f}%]",
+        f"   topic coverage: "
+        f"{'undetermined' if coverage is None else str(coverage) + ' corpus files'}"
+        f"{'  <-- TOO THIN to judge by corroboration' if (coverage is not None and coverage < 15) else ''}",
         f"   all terms: {len(zeros)}/{total} ({all_ratio:.0f}%)"
         f"   |   weak (1-2 files): {len(weak)}"
         f"   |   stem-only: {len(stem_only)}"
@@ -371,7 +443,8 @@ def self_test(corpus, notes):
     open(tmp, "w", encoding="utf-8").write(blob)
     try:
         meta, results = audit_file(tmp, corpus, notes)
-        report, ratio, zeros, total = render(tmp, meta, results, verbose=False)
+        report, ratio, zeros, total = render(tmp, meta, results, False,
+                                             topic_coverage('copernicus.md', corpus))
         print(report)
         # A fabrication counts as caught if it lands in EITHER review bucket.
         # "Karma Render COP" deliberately lands in stem-only: its stem "Karma
@@ -433,9 +506,10 @@ def main():
         cls = meta.get("class", "topic-reference")
         if not args.all and not args.file and cls != "topic-reference":
             continue
-        report, ratio, zeros, total = render(path, meta, results, args.verbose)
+        cov = topic_coverage(path, corpus)
+        report, ratio, zeros, total = render(path, meta, results, args.verbose, cov)
         out.append(report)
-        ranking.append((ratio, zeros, total, os.path.basename(path)))  # zeros,total are strong
+        ranking.append((ratio, zeros, total, os.path.basename(path), cov))
 
     ranking.sort(reverse=True)
     summary = ["\n" + "=" * 70,
@@ -444,14 +518,19 @@ def main():
                "=" * 70]
     scored = [r for r in ranking if r[2] >= MIN_SAMPLE]
     thin = [r for r in ranking if r[2] < MIN_SAMPLE]
-    for ratio, zeros, total, name in scored:
-        flag = "!!" if ratio >= 40 else ("! " if ratio >= 20 else "  ")
-        summary.append(f" {flag} {ratio:5.1f}%  {zeros:4d}/{total:<4d}  {name}")
+    for ratio, zeros, total, name, cov in scored:
+        thin = cov is not None and cov < 15
+        flag = "??" if thin else ("!!" if ratio >= 40 else ("! " if ratio >= 20 else "  "))
+        note = "  (thin coverage -- unmeasurable, verify vs docs)" if thin else (
+               "  (topic undetermined from filename)" if cov is None else "")
+        covs = "n/a " if cov is None else f"{cov:<4d}"
+        summary.append(f" {flag} {ratio:5.1f}%  {zeros:4d}/{total:<4d}  cov={covs} {name}{note}")
     if thin:
         summary.append(f"\n  too few asserted terms to score (<{MIN_SAMPLE}) "
                        f"-- review by hand, the ratio would be noise:")
-        for ratio, zeros, total, name in thin:
-            summary.append(f" ??        {zeros:4d}/{total:<4d}  {name}")
+        for ratio, zeros, total, name, cov in thin:
+            covs = "n/a " if cov is None else f"{cov:<4d}"
+            summary.append(f" ??        {zeros:4d}/{total:<4d}  cov={covs} {name}")
 
     text = "\n".join(out + summary)
     print(text)

@@ -1,16 +1,20 @@
 
    === ad-video-patterns.md (class: topic-reference, verified: no) ===
-   ASSERTED (table/code): 5/47 uncorroborated (11%)   [multi-word/CamelCase only: 2/9 = 22%]
-   all terms: 5/49 (10%)   |   weak (1-2 files): 2   |   stem-only: 0   |   release-notes-only: 0
+   ASSERTED (table/code): 6/47 uncorroborated (13%)   [multi-word/CamelCase only: 3/9 = 33%]
+   topic coverage: 224 corpus files
+   all terms: 6/49 (12%)   |   weak (1-2 files): 2   |   stem-only: 0   |   release-notes-only: 0
      [code ] Carousel
      [code ] GeoNodes Simulation Zone
      [code ] IWC Schaffhausen
      [code ] Lerp
+     [code ] Place N
      [code ] Widescreen
 
-   === albin-merle-techniques.md (class: topic-reference, verified: no) ===
-   ASSERTED (table/code): 12/68 uncorroborated (18%)   [multi-word/CamelCase only: 9/22 = 41%]
-   all terms: 12/71 (17%)   |   weak (1-2 files): 6   |   stem-only: 0   |   release-notes-only: 0
+!  === albin-merle-techniques.md (class: topic-reference, verified: no) ===
+   ASSERTED (table/code): 14/68 uncorroborated (21%)   [multi-word/CamelCase only: 10/22 = 45%]
+   topic coverage: 74 corpus files
+   all terms: 14/71 (20%)   |   weak (1-2 files): 6   |   stem-only: 0   |   release-notes-only: 0
+     [code ] Animate N
      [code ] Caramel Cartesian
      [code ] Cycles X
      [code ] Cyril Muller
@@ -23,15 +27,18 @@
      [code ] Sample Volume
      [code ] Sean Terelle
      [code ] Surreal
+     [code ] WIP
 
    === blender-versions.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 1/28 uncorroborated (4%)   [multi-word/CamelCase only: 1/11 = 9%]
+   topic coverage: undetermined
    all terms: 1/28 (4%)   |   weak (1-2 files): 5   |   stem-only: 0   |   release-notes-only: 0
      [code ] Cycles X
 
    === geometry-nodes-library.md (class: topic-reference, verified: no) ===
-   ASSERTED (table/code): 10/110 uncorroborated (9%)   [multi-word/CamelCase only: 9/48 = 19%]
-   all terms: 10/111 (9%)   |   weak (1-2 files): 13   |   stem-only: 0   |   release-notes-only: 0
+   ASSERTED (table/code): 11/110 uncorroborated (10%)   [multi-word/CamelCase only: 10/48 = 21%]
+   topic coverage: undetermined
+   all terms: 11/111 (10%)   |   weak (1-2 files): 12   |   stem-only: 0   |   release-notes-only: 0
      [code ] Add Mesh Boolean
      [code ] Add Set Curve Radius
      [code ] Animate End
@@ -42,9 +49,11 @@
      [code ] Pyro Solver
      [code ] Sample Volume
      [code ] Smoothstep
+     [code ] Use Mantaflow
 
    === lighting-composition.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 4/57 uncorroborated (7%)   [multi-word/CamelCase only: 4/17 = 24%]
+   topic coverage: 101 corpus files
    all terms: 4/59 (7%)   |   weak (1-2 files): 3   |   stem-only: 0   |   release-notes-only: 0
      [code ] Animate Empty
      [code ] Assign Principled Volume
@@ -53,6 +62,7 @@
 
    === materials-shaders.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 9/75 uncorroborated (12%)   [multi-word/CamelCase only: 8/30 = 27%]
+   topic coverage: 155 corpus files
    all terms: 9/75 (12%)   |   weak (1-2 files): 7   |   stem-only: 0   |   release-notes-only: 0
      [code ] Anisotropic Rotation
      [code ] EXtractoR
@@ -65,18 +75,21 @@
      [code ] Specular Tint
 
    === motion-design-patterns.md (class: topic-reference, verified: no) ===
-   ASSERTED (table/code): 6/78 uncorroborated (8%)   [multi-word/CamelCase only: 5/21 = 24%]
-   all terms: 6/78 (8%)   |   weak (1-2 files): 4   |   stem-only: 0   |   release-notes-only: 0
+   ASSERTED (table/code): 7/78 uncorroborated (9%)   [multi-word/CamelCase only: 6/21 = 29%]
+   topic coverage: 101 corpus files
+   all terms: 7/78 (9%)   |   weak (1-2 files): 5   |   stem-only: 0   |   release-notes-only: 0
      [code ] Add Simple Deform
      [code ] Animate Value
      [code ] AV Sync
      [code ] Blender Video Sequence Editor
+     [code ] Empty Y
      [code ] Extrapolation
      [code ] GeoNodes Wireframe
 
    === render-pipeline.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 22/118 uncorroborated (19%)   [multi-word/CamelCase only: 21/46 = 46%]
-   all terms: 22/118 (19%)   |   weak (1-2 files): 15   |   stem-only: 0   |   release-notes-only: 0
+   topic coverage: 168 corpus files
+   all terms: 22/118 (19%)   |   weak (1-2 files): 18   |   stem-only: 0   |   release-notes-only: 0
      [code ] Adaptive Sampling
      [code ] Blender VSE
      [code ] Channel Blur
@@ -102,6 +115,7 @@
 
    === simulation-catalog.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 7/104 uncorroborated (7%)   [multi-word/CamelCase only: 5/25 = 20%]
+   topic coverage: 69 corpus files
    all terms: 7/104 (7%)   |   weak (1-2 files): 9   |   stem-only: 0   |   release-notes-only: 0
      [code ] Baking Data
      [code ] Chrome Ball
@@ -113,6 +127,7 @@
 
 ?? === visual-deconstruction.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 3/5 uncorroborated (60%)   [multi-word/CamelCase only: 0/0 = 0%]
+   topic coverage: 76 corpus files
    all terms: 3/5 (60%)   |   weak (1-2 files): 0   |   stem-only: 0   |   release-notes-only: 0
      [table] Bioluminescence
      [table] Pull-out
@@ -122,15 +137,12 @@
 RANKED BY ZERO-CORROBORATION RATIO (most suspect first)
   calibration: fabricated copernicus.md scores 31% strict-zero (23/74)
 ======================================================================
-     18.6%    22/118   render-pipeline.md
-     17.6%    12/68    albin-merle-techniques.md
-     12.0%     9/75    materials-shaders.md
-     10.6%     5/47    ad-video-patterns.md
-      9.1%    10/110   geometry-nodes-library.md
-      7.7%     6/78    motion-design-patterns.md
-      7.0%     4/57    lighting-composition.md
-      6.7%     7/104   simulation-catalog.md
-      3.6%     1/28    blender-versions.md
-
-  too few asserted terms to score (<8) -- review by hand, the ratio would be noise:
- ??           3/5     visual-deconstruction.md
+ !   20.6%    14/68    cov=74   albin-merle-techniques.md
+     18.6%    22/118   cov=168  render-pipeline.md
+     12.8%     6/47    cov=224  ad-video-patterns.md
+     12.0%     9/75    cov=155  materials-shaders.md
+     10.0%    11/110   cov=n/a  geometry-nodes-library.md  (topic undetermined from filename)
+      9.0%     7/78    cov=101  motion-design-patterns.md
+      7.0%     4/57    cov=101  lighting-composition.md
+      6.7%     7/104   cov=69   simulation-catalog.md
+      3.6%     1/28    cov=n/a  blender-versions.md  (topic undetermined from filename)
