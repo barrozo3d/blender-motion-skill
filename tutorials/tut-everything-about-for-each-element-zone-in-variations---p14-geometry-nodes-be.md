@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=Mm1Oxz6sGAg
 author: Bradley Animation
 ingested: 2026-08-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "5.0+"
+tags: [geometry-nodes, procedural, instancing, animation, motion-design, intermediate, advanced, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # [Tut] Everything about For Each Element Zone in Variations - P14 Geometry Nodes Beginners 5.0+
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Recap & Intro [0:00]
@@ -446,30 +442,54 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:20] tutorials/frames/tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be/frame_000.jpg
+- [4:54] tutorials/frames/tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be/frame_001.jpg
+- [7:36] tutorials/frames/tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be/frame_002.jpg
+- [8:41] tutorials/frames/tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be/frame_003.jpg
+- [10:12] tutorials/frames/tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be/frame_004.jpg
+- [12:31] tutorials/frames/tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be/frame_005.jpg
+- [18:37] tutorials/frames/tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be/frame_006.jpg
+- [23:22] tutorials/frames/tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Using the **For Each Element** zone (FEEZ) in Geometry Nodes to create genuine per-element/per-instance variation — as an alternative to (and trade-off against) Realize Instances — for both modifying existing instances and procedurally generating geometry per-element.
 
 ### Summary
-[PENDING EXTRACTION]
+Part 14 of Bradley Animation's Geometry Nodes beginner series. Explains the For Each Element zone's mechanics (zone input/output structure, the inspection index, how a field becomes a single per-element constant once passed through the zone boundary), then uses it two ways: (1) modifying existing instances individually (e.g. per-instance Extrude Mesh variation) by running the zone on the Instance domain, which temporarily breaks instance linkage; and (2) procedurally generating geometry where per-element parameters (e.g. a Cube's vertex count) can be randomized — something only possible *inside* a zone, never after instancing/realizing. Roughly half the video is a detailed performance benchmark: FEEZ is markedly *slower* than Realize Instances for large counts of geometrically-simple elements (2x-10x slower), but *faster* once element geometry is complex enough (roughly 2x faster past a complexity threshold, demonstrated with subdivision count). Also covers two practical pitfalls — instance Rotation/Scale "relative influence" breaking modifier offsets (fixed with Invert Rotation + division), and Geometry-to-Instance-after-Realize collapsing all instance origins to the model's median point — and closes with the classic "same ID/seed" correlated-randomness bug (multiple Random Value nodes sharing one seed produce visually linked results) fixed via per-node seed offsets or a Hash Value-based "index seed" node group for true decorrelation, plus a hybrid FEEZ+Pick Instance workflow to keep the zone's per-element cost low while still benefiting from instancing performance.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Feed geometry into a **For Each Element** zone; set its domain (Point / Instance / Face) to match what you want to iterate.
+2. The zone Output node has two panels: the upper panel passes through the original/untouched geometry (hard-coded, not editable); the lower panel joins the per-element results from inside the zone — this is what you actually plug into for a modified result.
+3. Select a zone-input node, open the N-panel, and use **Inspection Index** to step through elements (0, 1, 2...) and preview each one's values in the viewport/Spreadsheet.
+4. For real per-element randomness: route the zone's **Index** (loop index) or an ID overridden via the zone input into a Random Value node's ID/Seed socket. A field becomes a single per-element constant once it crosses the zone boundary — the node link visibly changes from dashed to solid.
+5. To vary existing **Instances** individually (not just points): set the zone domain to Instance, put the modifier (e.g. Extrude Mesh) inside the zone with per-element Index feeding its Seed (not ID, to keep ID usable elsewhere) — separating instances into individual zone elements temporarily breaks their shared linkage, so each gets a different result while the output stays instanced.
+6. Fix the **rotation/scale relative-influence pitfall**: bring Instance Rotation and Instance Scale into the zone, apply Invert Rotation and divide the offset vector by scale before feeding a modifier's vector input (e.g. Extrude Mesh's offset) — otherwise a rotated/scaled instance extrudes in the wrong direction or distance.
+7. For **procedural generation**: inside the zone, drive a primitive node's exposed parameters (e.g. Cube's Vertices X) with Random Value seeded by the loop Index — this only works inside FEEZ, since such parameters can't be changed after instancing or realizing.
+8. **Hybrid performance pattern**: generate only a small pool of unique variants (e.g. 5) inside FEEZ via Geometry to Instance, then scatter/repeat them outside the zone with Pick Instance — keeps the expensive per-element zone cost low while retaining instancing's performance benefit; layer Random Value for picking index/rotation/scale/color on top.
+9. Fix the **same-ID/seed correlated-randomness bug**: when several Random Value nodes (driving brightness, scale, rotation, etc.) share the same ID and seed, their outputs stay visually linked (e.g. "darker = always smaller and rotated one way"). Give each node its own seed offset, or better, route the element Index through one or more **Hash Value** nodes (an "index seed" node group pattern) to generate several fully decorrelated per-element seeds — a plain Seed + Addition scheme just shifts the same sequence and doesn't fix correlation.
+10. Benchmark methodology shown: two equivalent setups (FEEZ vs. Realize-Instances-then-modify) side by side with node execution-time overlays (e.g. "+0.1 ms" / "+0.5 ms"), varying Count Control and Subdivision Control to find the crossover point where FEEZ becomes faster than realizing.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+For Each Element (zone Input/Output pair, Face/Point/Instance domain), Mesh to Points (Radius), Random Value (Min/Max, ID, Seed), Extrude Mesh (Offset Scale, Individual toggle), Instance on Points, Realize Instances, Capture Attribute (Index), Set Position, Combine XYZ, Invert Rotation, Rotate Instances, Scale Instances, Geometry to Instance, Pick Instance, Store Named Attribute, Hash Value, Axis Angle to Rotation, Cube (with Vertices X/Y/Z exposed to zone), Group Input/Output exposing a global Seed and an animation-factor (0-1) parameter for the explosion-effect node group example.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate/Advanced — explicitly episode 14 of a beginner series and assumes the viewer has watched prior episodes (references episodes 4, 7, 10, and 12 by number for prerequisite concepts: instance realization, division vs. relative influence, ID vs. index, and delay/animation offset respectively).
 
 ### Blender Version
-[PENDING EXTRACTION]
+5.0+ (stated in the video title, "Geometry Nodes Beginners 5.0+"; confirmed by frame captures showing the modern zone UI). For Each Element zones require Blender 4.x+; this tutorial targets 5.0+ specifically.
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural, instancing, animation, motion-design, intermediate, advanced, blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Tut] How Pick Instance is used for Instance Variations - P10 Geometry Nodes Beginners (`tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin.md`) — earlier episode in the same series covering the "fake variation" (Pick Instance / Collection Info) approach that this episode (P14) explicitly contrasts against FEEZ's "real variation" approach.
+- [Tut] Different Instance Color and Materials - P13 Geometry Nodes Beginners (`tut-different-instance-color-and-materials---p13-geometry-nodes-beginners.md`) — immediately preceding episode in the series; also covers a White Noise Texture ID/seed randomness trick, directly comparable to this episode's Hash Value "index seed" fix for the same class of correlated-randomness bug.
+- [Tut] Align Rotation to Vector - Axis to Rotation - P11 Geometry Nodes Beginners 5.0+ (`tut-align-rotation-to-vector-axes-to-rotation---p11-geometry-nodes-beginners-50.md`) — same series, same author, same Blender 5.0+ target; complementary instance-rotation deep dive.

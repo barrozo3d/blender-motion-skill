@@ -1300,6 +1300,7 @@ Each entry format:
 - **File:** tutorials/tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin.md
 - **Related:** [Tut] Different Instance Color and Materials - P13 Geometry Nodes Beginners (`tut-different-instance-color-and-materials---p13-geometry-nodes-beginners.md`) — direct successor in the same series; this episode's geometry variation vs. P13's color/shader variation.
 - **Related:** Easy Geometry Nodes - Low-poly Rocks Blender 5.1 (`easy-geometry-nodes---low-poly-rocks-blender-51.md`) — shares geometry-nodes/procedural/instancing/beginner tags, also uses Distribute Points + Instance on Points (Pick Instance) for per-point variety.
+- **Related:** [Tut] Everything about For Each Element Zone in Variations - P14 Geometry Nodes Beginners 5.0+ (`tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be.md`) — later episode that explicitly contrasts this episode's "fake variation" (Pick Instance) with FEEZ's "real variation" approach.
 
 
 ### Blender Finally Did It!!
@@ -2911,6 +2912,7 @@ Each entry format:
 - **Summary:** Per-instance shading in Geometry Nodes without realizing instances: Store Named Attribute on the Instance domain + the shader Attribute node's Instancer domain toggle for per-instance color; Set Position's before/after-instancing behavior difference; UV vs. raw-position texture mapping surviving realize-instances; a dual-domain (per-polygon + per-instance) Mix-node color recipe; Cycles' inability to displace instances differently; EEVEE's 14-attribute-per-material cap; and a White Noise Texture ID/seed trick to fake shader-side randomness (with a Round-node fix for float-precision flicker).
 - **File:** tutorials/tut-different-instance-color-and-materials---p13-geometry-nodes-beginners.md
 - **Related:** [Tut] How Pick Instance is used for Instance Variations - P10 Geometry Nodes Beginners (`tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin.md`) — direct predecessor in the same series, explicitly referenced; geometry variation (P10) vs. color/shader variation (P13).
+- **Related:** [Tut] Everything about For Each Element Zone in Variations - P14 Geometry Nodes Beginners 5.0+ (`tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be.md`) — direct successor in the same series; its Hash Value "index seed" fix parallels this episode's White Noise Texture ID/seed trick for the same correlated-randomness problem.
 
 
 ### How I made this bridge destruction scene in blender
@@ -2921,6 +2923,7 @@ Each entry format:
 - **Tags:** geometry-nodes, simulation-nodes, rigid-body, destruction, fracture, procedural, particles, smoke-fire, soft-body, lattice, dynamic-paint, vfx, advanced
 - **Summary:** High-level breakdown (not step-by-step) of a from-scratch, no-paid-add-ons Blender destruction pipeline: a custom dual-mesh Geometry Nodes fracture cutter (straight sim-proxy + noisy render mesh), a custom "Destruction Tools" panel for large-scale auto-constraint placement, Simulation-Nodes wire continuity (closest-vertex tracking + break threshold) and a 7-iteration procedural rebar system, Simulation-Nodes seam-only smoke/particle emission, a lattice+soft-body-plastic-deformation car-crush cheat, Dynamic Paint water fake, and a low-poly-viewport-proxy scattering tip.
 - **File:** tutorials/how-i-made-this-bridge-destruction-scene-in-blender.md
+- **Related:** Faster Alembic Playback in Blender (MDD Workflow) (`faster-alembic-playback-in-blender-mdd-workflow.md`) — contrasting approach: simulating destruction natively in Blender (this tutorial) vs. simulating elsewhere (Houdini RBD) and importing fast via Alembic+MDD (that tutorial).
 - **Related:** Superhero Landing Tutorial 02 | Ground Destruction VFX in Blender (`superhero-landing-tutorial-02-ground-destruction-vfx-in-blender.md`) — shares vfx, rigid-body, particles, destruction; traditional Cell Fracture + Mantaflow approach to contrast against this video's custom Simulation Nodes tooling.
 
 
@@ -3182,6 +3185,7 @@ Each entry format:
 - **Tags:** geometry-nodes, procedural, animation, motion-design, intermediate, advanced, blender-5x
 - **Summary:** Deep dive on instance/point rotation: Align Rotation to Vector's single-axis limitation vs. the modern two-axis Axis to Rotation node, building target-tracking direction vectors via subtraction, UV Tangent/Curve Tangent/Normal as direction sources, and Rotate Rotation + Axis Angle to Rotation + Cross Product for bending curves (gravity/tree-branch effect) rather than constructing rotation from scratch.
 - **File:** tutorials/tut-align-rotation-to-vector-axes-to-rotation---p11-geometry-nodes-beginners-50.md
+- **Related:** [Tut] Everything about For Each Element Zone in Variations - P14 Geometry Nodes Beginners 5.0+ (`tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be.md`) — same series/author/version target, complementary instance-modification deep dive.
 
 
 ### How I Model Ancient Ruins in Blender
@@ -3218,20 +3222,25 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=Mm1Oxz6sGAg
 - **Author:** Bradley Animation
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 5.0+ (stated in title)
+- **Tags:** geometry-nodes, procedural, instancing, animation, motion-design, intermediate, advanced, blender-5x
+- **Summary:** Deep dive on the For Each Element zone (FEEZ) as a real alternative to Realize Instances: zone input/output structure and the Inspection Index, using loop Index/ID to seed per-element Random Value, modifying existing instances individually on the Instance domain (Extrude Mesh per-instance), correcting the rotation/scale "relative influence" pitfall, and using FEEZ for procedural generation (per-element primitive parameters like Cube vertex count) impossible after instancing. Extensive benchmarking shows FEEZ is 2x-10x slower than Realize Instances for simple/high-count elements but ~2x faster once element complexity crosses a threshold. Closes with the same-ID/seed correlated-randomness bug fixed via per-node seeds or a Hash Value "index seed" node group, plus a hybrid FEEZ+Pick Instance pattern for performance.
 - **File:** tutorials/tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be.md
+- **Related:** [Tut] How Pick Instance is used for Instance Variations - P10 Geometry Nodes Beginners (`tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin.md`) — earlier "fake variation" (Pick Instance) approach this episode explicitly contrasts against FEEZ's "real variation".
+- **Related:** [Tut] Different Instance Color and Materials - P13 Geometry Nodes Beginners (`tut-different-instance-color-and-materials---p13-geometry-nodes-beginners.md`) — immediately preceding episode; its White Noise Texture ID/seed trick parallels this episode's Hash Value "index seed" fix for correlated randomness.
+- **Related:** [Tut] Align Rotation to Vector - Axis to Rotation - P11 Geometry Nodes Beginners 5.0+ (`tut-align-rotation-to-vector-axes-to-rotation---p11-geometry-nodes-beginners-50.md`) — same series/author/version target, complementary instance-rotation deep dive.
 
 
 ### Faster Alembic Playback in Blender (MDD Workflow)
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=H0_hfNoEv_I
 - **Author:** DAMIDIGITAL
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Not specified
+- **Tags:** alembic, rigid-body, destruction, animation, rendering, cycles, intermediate, houdini-crossover
+- **Summary:** Workflow tip for viewport-fast playback of external point-count-stable simulations (example: a Houdini RBD/Bullet destruction sim): export both a standard Alembic sequence and an MDD point cache from the source DCC, import the Alembic once (static, first frame only) for topology, then drive it in Blender with a Mesh Cache modifier pointed at the .mdd file (with corrected axis mapping). Side-by-side comparison shows Alembic-sequence playback at ~10-13 fps vs. a smooth, consistent 25 fps via the MDD/Mesh Cache route. Roughly two-thirds of the video is Houdini-side scene/sim/export setup rather than Blender; only works for sims with a constant point count (not applicable to fluids that add/remove points).
 - **File:** tutorials/faster-alembic-playback-in-blender-mdd-workflow.md
+- **Related:** How I made this bridge destruction scene in blender (`how-i-made-this-bridge-destruction-scene-in-blender.md`) — Blender-native destruction/fracture tooling, contrasted with this tutorial's import-a-Houdini-sim workflow.
+- **Note:** A significant portion of this video (Houdini RBD sim build + MDD export setup) is Houdini-specific; a lightweight cross-reference stub pointing back to this canonical entry was added to `houdini-wand/tutorials/INDEX.md`.
 
 ---
 
