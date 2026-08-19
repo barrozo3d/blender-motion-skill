@@ -1,7 +1,7 @@
 
    === ad-video-patterns.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 5/47 uncorroborated (11%)   [multi-word/CamelCase only: 2/9 = 22%]
-   all terms: 5/49 (10%)   |   weak (1-2 files): 2   |   stem-only (suffix artifact? review): 0
+   all terms: 5/49 (10%)   |   weak (1-2 files): 2   |   stem-only: 0   |   release-notes-only: 0
      [code ] Carousel
      [code ] GeoNodes Simulation Zone
      [code ] IWC Schaffhausen
@@ -10,7 +10,7 @@
 
    === albin-merle-techniques.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 12/68 uncorroborated (18%)   [multi-word/CamelCase only: 9/22 = 41%]
-   all terms: 13/75 (17%)   |   weak (1-2 files): 6   |   stem-only (suffix artifact? review): 0
+   all terms: 12/71 (17%)   |   weak (1-2 files): 6   |   stem-only: 0   |   release-notes-only: 0
      [code ] Caramel Cartesian
      [code ] Cycles X
      [code ] Cyril Muller
@@ -23,19 +23,15 @@
      [code ] Sample Volume
      [code ] Sean Terelle
      [code ] Surreal
-     [prose] Key addon
 
    === blender-versions.md (class: topic-reference, verified: no) ===
-   ASSERTED (table/code): 3/30 uncorroborated (10%)   [multi-word/CamelCase only: 3/13 = 23%]
-   all terms: 4/31 (13%)   |   weak (1-2 files): 5   |   stem-only (suffix artifact? review): 0
-     [table] Use for new projects
-     [table] Use for stability
+   ASSERTED (table/code): 1/28 uncorroborated (4%)   [multi-word/CamelCase only: 1/11 = 9%]
+   all terms: 1/28 (4%)   |   weak (1-2 files): 5   |   stem-only: 0   |   release-notes-only: 0
      [code ] Cycles X
-     [prose] For production stability
 
    === geometry-nodes-library.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 10/110 uncorroborated (9%)   [multi-word/CamelCase only: 9/48 = 19%]
-   all terms: 11/112 (10%)   |   weak (1-2 files): 13   |   stem-only (suffix artifact? review): 0
+   all terms: 10/111 (9%)   |   weak (1-2 files): 13   |   stem-only: 0   |   release-notes-only: 0
      [code ] Add Mesh Boolean
      [code ] Add Set Curve Radius
      [code ] Animate End
@@ -46,20 +42,18 @@
      [code ] Pyro Solver
      [code ] Sample Volume
      [code ] Smoothstep
-     [prose] What it makes
 
    === lighting-composition.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 4/57 uncorroborated (7%)   [multi-word/CamelCase only: 4/17 = 24%]
-   all terms: 5/60 (8%)   |   weak (1-2 files): 3   |   stem-only (suffix artifact? review): 0
+   all terms: 4/59 (7%)   |   weak (1-2 files): 3   |   stem-only: 0   |   release-notes-only: 0
      [code ] Animate Empty
      [code ] Assign Principled Volume
      [code ] Place Empty
      [code ] Rotate HDRI
-     [prose] Blender camera setup
 
    === materials-shaders.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 9/75 uncorroborated (12%)   [multi-word/CamelCase only: 8/30 = 27%]
-   all terms: 9/75 (12%)   |   weak (1-2 files): 7   |   stem-only (suffix artifact? review): 0
+   all terms: 9/75 (12%)   |   weak (1-2 files): 7   |   stem-only: 0   |   release-notes-only: 0
      [code ] Anisotropic Rotation
      [code ] EXtractoR
      [code ] In AE
@@ -72,7 +66,7 @@
 
    === motion-design-patterns.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 6/78 uncorroborated (8%)   [multi-word/CamelCase only: 5/21 = 24%]
-   all terms: 6/78 (8%)   |   weak (1-2 files): 4   |   stem-only (suffix artifact? review): 0
+   all terms: 6/78 (8%)   |   weak (1-2 files): 4   |   stem-only: 0   |   release-notes-only: 0
      [code ] Add Simple Deform
      [code ] Animate Value
      [code ] AV Sync
@@ -82,7 +76,7 @@
 
    === render-pipeline.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 22/118 uncorroborated (19%)   [multi-word/CamelCase only: 21/46 = 46%]
-   all terms: 22/118 (19%)   |   weak (1-2 files): 15   |   stem-only (suffix artifact? review): 0
+   all terms: 22/118 (19%)   |   weak (1-2 files): 15   |   stem-only: 0   |   release-notes-only: 0
      [code ] Adaptive Sampling
      [code ] Blender VSE
      [code ] Channel Blur
@@ -108,7 +102,7 @@
 
    === simulation-catalog.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 7/104 uncorroborated (7%)   [multi-word/CamelCase only: 5/25 = 20%]
-   all terms: 7/104 (7%)   |   weak (1-2 files): 9   |   stem-only (suffix artifact? review): 0
+   all terms: 7/104 (7%)   |   weak (1-2 files): 9   |   stem-only: 0   |   release-notes-only: 0
      [code ] Baking Data
      [code ] Chrome Ball
      [code ] Disadvantage
@@ -117,45 +111,26 @@
      [code ] Quick Fracture
      [code ] Volume Sampling
 
-!! === visual-deconstruction.md (class: topic-reference, verified: no) ===
-   ASSERTED (table/code): 24/32 uncorroborated (75%)   [multi-word/CamelCase only: 21/27 = 78%]
-   all terms: 24/32 (75%)   |   weak (1-2 files): 1   |   stem-only (suffix artifact? review): 0
+?? === visual-deconstruction.md (class: topic-reference, verified: no) ===
+   ASSERTED (table/code): 3/5 uncorroborated (60%)   [multi-word/CamelCase only: 0/0 = 0%]
+   all terms: 3/5 (60%)   |   weak (1-2 files): 0   |   stem-only: 0   |   release-notes-only: 0
      [table] Bioluminescence
-     [table] Bird's eye
-     [table] Brushed metal
-     [table] Caustics visible
-     [table] Central symmetry
-     [table] Clear glass
-     [table] Color grade on top
-     [table] Dutch angle
-     [table] Full scene blur
-     [table] Glowing elements
-     [table] Gold dust
-     [table] Lens flares
-     [table] Liquid in glass
-     [table] Liquid mercury
-     [table] No blur, just fast
-     [table] Orbiting camera
-     [table] Per-object blur
-     [table] Plant material
      [table] Pull-out
      [table] Push-in
-     [table] Rule of thirds
-     [table] Smoke-like diffuse
-     [table] Speed ramps
-     [table] Static camera, moving subject
 
 ======================================================================
 RANKED BY ZERO-CORROBORATION RATIO (most suspect first)
   calibration: fabricated copernicus.md scores 31% strict-zero (23/74)
 ======================================================================
- !!  75.0%    24/32    visual-deconstruction.md
      18.6%    22/118   render-pipeline.md
      17.6%    12/68    albin-merle-techniques.md
      12.0%     9/75    materials-shaders.md
      10.6%     5/47    ad-video-patterns.md
-     10.0%     3/30    blender-versions.md
       9.1%    10/110   geometry-nodes-library.md
       7.7%     6/78    motion-design-patterns.md
       7.0%     4/57    lighting-composition.md
       6.7%     7/104   simulation-catalog.md
+      3.6%     1/28    blender-versions.md
+
+  too few asserted terms to score (<8) -- review by hand, the ratio would be noise:
+ ??           3/5     visual-deconstruction.md

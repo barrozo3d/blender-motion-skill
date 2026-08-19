@@ -102,6 +102,37 @@ def is_specific(term):
     return bool(re.search(r"[a-z][A-Z]", term))  # CamelCase
 
 
+# Lowercase words allowed inside a product name ("RBD Constraints from Rules").
+NAME_CONNECTORS = {"of", "the", "a", "an", "and", "or", "to", "from", "in", "on",
+                   "for", "with", "by", "per", "vs", "as", "at"}
+
+
+def is_prose_fragment(term):
+    """
+    True if the term is a sentence fragment rather than a name.
+
+    Reference files use **bold** for emphasis as well as for node names, so the
+    extractor pulls phrases like "formally deprecated the legacy non-sparse DOP
+    nodes" and "no single dedicated built-in SOP". Those can never corroborate,
+    so they inflate the uncorroborated ratio with pure noise -- they were most of
+    why houdini-18-vs-21-22-changes.md scored 43%.
+
+    Heuristic: real product names are Title Case or CamelCase throughout, apart
+    from small connectors. A lowercase word that is not a connector means prose.
+    Also caps length -- names are short.
+    """
+    words = term.split()
+    if len(words) > 5:
+        return True
+    for w in words[1:]:                      # first word may be legitimately odd
+        stripped = w.strip("(),.:;-")
+        if not stripped:
+            continue
+        if stripped.islower() and stripped not in NAME_CONNECTORS:
+            return True
+    return False
+
+
 def context_stem(term):
     """
     Reference files write formal names with a context suffix ("Rig Doctor SOP");
@@ -134,6 +165,33 @@ def load_corpus():
         path = os.path.join(TUT_DIR, name)
         try:
             docs.append(open(path, encoding="utf-8-sig", errors="replace").read().lower())
+        except OSError:
+            continue
+    return docs
+
+
+def load_release_notes():
+    """
+    Secondary corroboration source: the release-notes references.
+
+    Those files are `verified: partial` and cite official vendor changelog URLs,
+    so a term appearing there IS corroborated -- by the vendor, not by a tutorial.
+    This matters for version-delta and new-feature files, whose content comes
+    from release notes and which the tutorial corpus therefore cannot confirm.
+    Concretely: houdini-18-vs-21-22-changes.md asserts shelf tools like
+    "Aerial Barrage" and "Ground Shockwave" that appear in ZERO tutorials but ARE
+    in the H2x release notes -- scoring them as fabrication was simply the wrong
+    yardstick.
+    """
+    docs = []
+    if not os.path.isdir(REF_DIR):
+        return docs
+    for name in sorted(os.listdir(REF_DIR)):
+        if not name.startswith("release-notes-") or not name.endswith(".md"):
+            continue
+        try:
+            docs.append(open(os.path.join(REF_DIR, name),
+                             encoding="utf-8-sig", errors="replace").read().lower())
         except OSError:
             continue
     return docs
@@ -193,13 +251,15 @@ def extract_terms(text):
                 continue
             if term.isdigit():
                 continue
+            if is_prose_fragment(term):
+                continue
             prev = found.get(term)
             if prev is None or rank[ctx] > rank[prev]:
                 found[term] = ctx
     return found
 
 
-def audit_file(path, corpus):
+def audit_file(path, corpus, notes):
     text = open(path, encoding="utf-8-sig", errors="replace").read()
     meta = parse_frontmatter(text)
     body = text
@@ -218,6 +278,9 @@ def audit_file(path, corpus):
         if hits == 0 and stem:
             s = stem.lower()
             stem_hits = sum(1 for d in corpus if s in d)
+        # vendor release notes corroborate too -- see load_release_notes()
+        if hits == 0:
+            hits = -sum(1 for d in notes if needle in d)
         results.append((hits, ctx, term, stem_hits))
     results.sort(key=lambda r: (r[0] + r[3], r[0],
                                 {"table": 0, "code": 1, "prose": 2}[r[1]], r[2].lower()))
@@ -230,6 +293,7 @@ def render(path, meta, results, verbose):
     # A term is only "uncorroborated" if BOTH the exact name and its stem
     # are absent. Stem-only hits are surfaced separately for hand review.
     zeros = [r for r in results if r[0] == 0 and r[3] == 0]
+    rn_only = [r for r in results if r[0] < 0]
     stem_only = [r for r in results if r[0] == 0 and r[3] > 0]
     weak = [r for r in results if 1 <= r[0] <= 2]
 
@@ -267,7 +331,8 @@ def render(path, meta, results, verbose):
         f"= {spec_ratio:.0f}%]",
         f"   all terms: {len(zeros)}/{total} ({all_ratio:.0f}%)"
         f"   |   weak (1-2 files): {len(weak)}"
-        f"   |   stem-only (suffix artifact? review): {len(stem_only)}",
+        f"   |   stem-only: {len(stem_only)}"
+        f"   |   release-notes-only: {len(rn_only)}",
     ]
     show = zeros if verbose else zeros[:25]
     for hits, ctx, term, _sh in show:
@@ -284,7 +349,7 @@ def render(path, meta, results, verbose):
     return "\n".join(lines), ratio, len(strong_zeros), len(strong)
 
 
-def self_test(corpus):
+def self_test(corpus, notes):
     """
     Recover the pre-quarantine copernicus.md and prove the tool flags it.
 
@@ -305,7 +370,7 @@ def self_test(corpus):
     tmp = os.path.join(HERE, "_selftest_copernicus.md")
     open(tmp, "w", encoding="utf-8").write(blob)
     try:
-        meta, results = audit_file(tmp, corpus)
+        meta, results = audit_file(tmp, corpus, notes)
         report, ratio, zeros, total = render(tmp, meta, results, verbose=False)
         print(report)
         # A fabrication counts as caught if it lands in EITHER review bucket.
@@ -347,13 +412,14 @@ def main():
 
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     corpus = load_corpus()
+    notes = load_release_notes()
     if not corpus:
         print("ERROR: no tutorials found — run from the skill directory.")
         return 1
-    print(f"corpus: {len(corpus)} ingested tutorial files\n")
+    print(f"corpus: {len(corpus)} tutorial files + {len(notes)} release-notes refs\n")
 
     if args.self_test:
-        return self_test(corpus)
+        return self_test(corpus, notes)
 
     if args.file:
         paths = [os.path.join(REF_DIR, os.path.basename(args.file))]
@@ -363,7 +429,7 @@ def main():
 
     out, ranking = [], []
     for path in paths:
-        meta, results = audit_file(path, corpus)
+        meta, results = audit_file(path, corpus, notes)
         cls = meta.get("class", "topic-reference")
         if not args.all and not args.file and cls != "topic-reference":
             continue
