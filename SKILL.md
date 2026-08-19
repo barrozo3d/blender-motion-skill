@@ -179,6 +179,41 @@ Cross-reference the deconstruction against:
 > wrong answers to a simple question. Audit status is tracked in
 > `houdini-wand/PROMO_ENTRY_CLEANUP_PLAN.md` (workstream B).
 
+> ### ⚠️ Attribute every claim — "never invent" is not enough on its own
+>
+> Key Rule #2 ("never invent ... names") has been in this file from the start and
+> did **not** prevent the 2026-08-19 incident. Fabrication entered at *authoring*
+> time: once wrong names were written into `references/copernicus.md`, citing them
+> *satisfied* the rule. **A rule that can be satisfied by a corrupted source
+> protects nothing.**
+>
+> It also cannot work by introspection. Generating a plausible name feels
+> identical to recalling a real one — there is no internal signal to check
+> against. So do not ask yourself *"am I sure?"*. Ask **"which file does this come
+> from?"** and write the answer down:
+>
+> | Tag | Meaning |
+> |---|---|
+> | `[tutorials/<file>.md]` | confirmed in an ingested tutorial — grep-able, so the reader can check you |
+> | `[docs: <url>]` | official vendor documentation |
+> | `[unverified]` | your own knowledge; no source in this skill |
+>
+> **`[unverified]` is a correct and expected tag, not a failure.** Use it rather
+> than dropping the claim. **Never invent a citation to avoid it** — a fabricated
+> filename is far worse than an honest `[unverified]`, because it destroys the
+> reader's ability to check anything. Cite only files you actually opened.
+>
+> ### "Not covered" is a correct answer
+>
+> If the library and references do not cover the question, **say so and stop.**
+> State what *is* covered, what is missing, and offer to ingest a source.
+>
+> **The answer format is a guide, not a quota.** It asks for exact names and
+> parameter values; when you do not have them, write
+> `[unverified — exact name not confirmed]` instead of a plausible guess. That
+> demand for exact names is itself a fabrication pressure: three sourced steps
+> with an honest gap beat six steps where two are invented.
+
 
 ### Step 4 — Tutorial Output
 
@@ -314,7 +349,7 @@ blender-3x, blender-4x, blender-5x
 ## Key Rules
 
 1. **Always validate before building** — call `get_scene_info` before any Mode 2 work; report the result; stop if the connection is not live
-2. **Never invent node names** — only use nodes confirmed to exist in the target Blender version
+2. **Never invent node names** — only use nodes confirmed to exist in the target Blender version. **And attribute them** — "confirmed" means you can name the file it came from (see *Attribute every claim*)
 3. **Version-check everything** — simulation zones, certain GeoNodes, and rendering features are version-specific
 4. **Always check INDEX.md first** — the tutorial library grows with every ingest
 5. **Cite the reference files** — tell the user which technique library entry you're drawing from
