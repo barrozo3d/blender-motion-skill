@@ -79,3 +79,8 @@ Advanced
 
 ### Tags
 #geometry-nodes #procedural #particles #animation #motion-design #abstract #blender-3x #advanced
+
+---
+
+## Related Tutorials
+- [Create Plexus FX In Blender ( Geometry Node )](create-plexus-fx-in-blender-geometry-node.md) — directly relevant: a different route to the same "Plexus" glowing line-network look, via displaced-terrain-to-edge-network + Emission/Glare instead of this tutorial's Distribute Points in Volume + pairwise-distance serialized loop.

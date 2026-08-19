@@ -122,6 +122,7 @@ Blender 5.0 (For Each Element Zone, Bake node, pre-built node groups updated to 
 ---
 
 ## Related Tutorials
+- `abstract-animated-geometric-pattern-squares-geometry-nodes-tutorial.md` — directly relevant: recursive quad-subdivision "fractal squares" pattern using the same Repeat Zone + per-iteration Math/Compare logic as this Apollonian Gasket's recursive circle-fitting.
 - `ill-teach-you-geometry-nodes.md` — GeoNodes fundamentals (Menger Sponge fractal, same fractal-via-nodes concept)
 - `fractals-in-blender---geometry-nodes-extrude-node.md` — simpler GeoNodes fractal reference
 - `geode-nodes-i-am-so-clever-blender-tutorial.md` — advanced GeoNodes pipeline with point attributes

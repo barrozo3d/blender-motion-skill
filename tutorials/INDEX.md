@@ -3063,7 +3063,7 @@ Each entry format:
 - **Author:** Nick Sayce
 - **Blender Version:** 5.1.x (approximate, viewport title bar in captured frames; not stated verbally)
 - **Tags:** procedural, geometry-nodes, organic, product-viz, intermediate
-- **Summary:** Third-party NS Rock Sculptor add-on (Nick Sayce): "Enter Edit Mode"/"Clear All Creases" sidebar shortcuts wrap Blender's native Edge Crease so manually-selected edges stay sharp/faceted under the Subdivision Surface modifier instead of the whole rock rounding into a uniform blob. Whisper transcript was a degenerate repeating loop (unusable) — extraction leans entirely on captured frames.
+- **Summary:** Third-party NS Rock Sculptor add-on (Nick Sayce): a weighted Edge Crease panel (weight ~0.3 + Apply Crease button) plus a fully manual G-G vertex-nudge fallback for corners the remesh/crease combo can't reach cleanly, so selected edges stay sharp/faceted under the Subdivision Surface modifier instead of the whole rock rounding into a uniform blob. Also references the add-on's separate Edge Wear feature for previewing crease results.
 - **File:** tutorials/ns-rock-sculptor-guide---edge-crease.md
 
 

@@ -23,22 +23,17 @@ frame_selection: content-anchored (manual timestamps chosen from transcript, not
 
 ## Raw Data (for Claude Code extraction)
 
-## Ingest Safeguard Report
-
-_Auto-generated at ingest/frame-capture time — explains why `extraction_status` may be `needs-review`. Safe to delete once reviewed._
-
-- **CRITICAL:** Total transcript only 2 chars (min 500). Captions unavailable or audio silent — extraction will be poor.
-- WARNING: Very short transcript (2 chars) in 'Full Content'
-
----
-
-
 Frames captured — see "Captured Frames" section below.
 
+**Re-transcription verification (2026-08-19):** Audio was re-downloaded fresh and re-transcribed with three different Whisper model sizes to rule out a one-off download/decode failure. None produced coherent narration:
+- `small` (original + repeat): `Mantel,` (8 chars)
+- `medium`: `Did you recognize our original Layout? Please comment to let us know! Let's go to the first...` then degrades into unintelligible fragments (121 chars total)
+- `large`: `Adjustment layer каким? Nicely selected Thank you.` repeated ~12x — the classic Whisper hallucination-on-silence pattern
+The `medium` result's opening phrase (a generic "did you recognize our layout, comment below" channel-engagement line) is the only fragment consistent across attempts, suggesting the video has at most a few seconds of spoken intro/outro over otherwise music-only, non-narrated content — not an ingest failure. Transcript was not captured beyond that fragment on any attempt; this extraction is based entirely on the 8 captured Geometry Nodes editor frames.
 
 ### Full Content [0:00]
 **Transcript (timestamped):**
-[0:01] 格.
+[0:01] Did you recognize our original Layout? Please comment to let us know! Let's go to the first...
 
 
 
@@ -60,6 +55,8 @@ Frames captured — see "Captured Frames" section below.
 **Transcription note:** Music-only video, no spoken narration (Whisper returned effectively empty output, flagged by the ingest safeguard). This extraction is based entirely on reading the 8 captured Geometry Nodes editor frames.
 
 ## Structured Notes
+
+> **Note on transcript:** A full spoken-narration transcript was not captured for this video — confirmed across three independent Whisper re-transcription attempts (small/medium/large models, see the Raw Data section above) on freshly re-downloaded audio. The video is effectively music-only with at most a few seconds of generic intro speech; quality degrades into hallucinated filler on every model size when Whisper is fed the silent/musical remainder. All notes below come from the 8 captured Geometry Nodes editor frames.
 
 ### Core Technique
 A recursive quad-subdivision ("fractal squares") pattern built with a **Repeat Zone**: starting from a single Grid face, each iteration tests a Noise Texture value against a threshold (Greater Than or Equal) to decide whether that cell subdivides into 4 smaller cells or stays as-is, producing an organic, non-uniform grid of nested squares — then a second noise pass drives a color/selection mask over the result for a stylized reveal look.
@@ -97,3 +94,4 @@ geometry-nodes, procedural, abstract, motion-design, animation, intermediate, bl
 
 ## Related Tutorials
 - [Create Plexus FX In Blender (Geometry Node)](create-plexus-fx-in-blender-geometry-node.md) — conceptual sibling: another silent, music-only abstract Geometry Nodes motion-design tutorial ingested in the same batch, similarly reliant on frame-only extraction.
+- [Math X Blender 5.0 - Unlimited Power](math-x-blender-50-unlimited-power.md) — directly relevant Repeat Zone technique: builds an Apollonian Gasket fractal via the same recursive-iteration pattern (Repeat Zone + per-iteration Math/Compare logic) this tutorial uses for its recursive quad-subdivision squares.

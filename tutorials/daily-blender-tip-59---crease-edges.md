@@ -87,3 +87,4 @@ modelling, subdivision-surface, beginner
 
 ## Related Tutorials
 No other extracted BlenderSecrets tutorials in this library currently cover Edge Crease specifically.
+- [NS Rock Sculptor Guide - Edge Crease](ns-rock-sculptor-guide---edge-crease.md) — applies this exact native Shift+E crease mechanism inside the NS Rock Sculptor add-on's own weighted panel (weight field + Apply Crease button), plus a manual vertex-nudge fallback for corners the crease/remesh combo can't reach cleanly.

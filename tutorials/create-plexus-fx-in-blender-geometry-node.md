@@ -23,22 +23,17 @@ frame_selection: content-anchored (manual timestamps chosen from transcript, not
 
 ## Raw Data (for Claude Code extraction)
 
-## Ingest Safeguard Report
-
-_Auto-generated at ingest/frame-capture time — explains why `extraction_status` may be `needs-review`. Safe to delete once reviewed._
-
-- **CRITICAL:** Total transcript only 8 chars (min 500). Captions unavailable or audio silent — extraction will be poor.
-- WARNING: Very short transcript (8 chars) in 'Full Content'
-
----
-
-
 Frames captured — see "Captured Frames" section below.
 
+**Re-transcription verification (2026-08-19):** Audio was re-downloaded fresh and re-transcribed with three different Whisper model sizes to rule out a one-off download/decode failure. None produced coherent narration:
+- `small` (original + repeat): `Build rendering` (16 chars)
+- `medium`: `aja Die losses conversation Ignition Distance Montage Shading` (61 chars) — random unrelated words, not a sentence
+- `large`: `Provide separate L religio web Terima kasih telah menonton!` (Indonesian for "Thank you for watching!") repeated ~20x — a textbook Whisper hallucination-on-silence loop, same failure pattern as the sibling "Abstract Animated Geometric Pattern" ingest
+Larger models hallucinate progressively longer but still non-substantive filler as the audio has essentially nothing to decode — confirms this is a music-only, non-narrated video rather than an ingest/download failure. Transcript was not captured on any of the three attempts; this extraction is based entirely on the 10 captured Geometry Nodes / Shading / Compositor frames.
 
 ### Full Content [0:00]
 **Transcript (timestamped):**
-[0:00] Ideal老二,
+[0:00] (no usable speech decoded — see re-transcription verification note above)
 
 
 
@@ -62,6 +57,8 @@ Frames captured — see "Captured Frames" section below.
 **Transcription note:** Music-only video, no spoken narration (Whisper returned effectively empty output, flagged by the ingest safeguard). This extraction is based entirely on reading the 10 captured Geometry Nodes / Shading / Compositor frames, and some node-level detail (exact node names in later frames) could not be fully confirmed without narration — treat step-level specifics as a plausible reconstruction, not a verbatim transcript.
 
 ## Structured Notes
+
+> **Note on transcript:** A spoken-narration transcript was not captured for this video — confirmed across three independent Whisper re-transcription attempts (small/medium/large models, see the Raw Data section above) on freshly re-downloaded audio, each producing only noise words or a hallucinated repeating-phrase loop. The video is effectively music-only with no usable narration; quality degrades into hallucinated filler on every model size. All notes below come from the 10 captured Geometry Nodes / Shading / Compositor frames.
 
 ### Core Technique
 An animated "Plexus"-style glowing line network — the classic look of scattered points connected by thin triangulated edges — built by displacing a subdivided Grid into low-poly faceted terrain (flat-shaded, noise-driven, animated via Scene Time), then isolating that terrain's edge wireframe and rendering it with an Emission shader plus compositor Glare/Bloom for the neon look.
@@ -98,3 +95,4 @@ geometry-nodes, procedural, abstract, motion-design, compositing, animation, int
 
 ## Related Tutorials
 - [Abstract Animated Geometric Pattern | Squares | Geometry Nodes Tutorial](abstract-animated-geometric-pattern-squares-geometry-nodes-tutorial.md) — conceptual sibling: another silent, music-only abstract Geometry Nodes motion-design tutorial ingested in the same batch, similarly reliant on frame-only extraction.
+- [Blender Tutorial: Connect The Dots with Geometry Nodes, The "Plexus" Effect](blender-tutorial-connect-the-dots-with-geometry-nodes-the-pl.md) — directly relevant: Entagma's take on the same "Plexus" effect, using Distribute Points in Volume + a serialized pairwise-distance loop instead of this tutorial's displaced-terrain-to-line-network approach. Good alternate technique for the same visual result.
