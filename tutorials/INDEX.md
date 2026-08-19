@@ -3223,6 +3223,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be.md
 
+
+### Faster Alembic Playback in Blender (MDD Workflow)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=H0_hfNoEv_I
+- **Author:** DAMIDIGITAL
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/faster-alembic-playback-in-blender-mdd-workflow.md
+
 ---
 
 ## Tag Reference
