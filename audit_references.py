@@ -25,8 +25,8 @@ READING THE OUTPUT
     table row or a workflow code block, which is where a reference file makes its
     confident claims. Prose mentions are counted separately because generic
     phrasing dilutes the signal. For calibration, the fabricated copernicus.md
-    scores 45% asserted (33/74). Treat >=40% as alarming and >=20% as worth a
-    look -- but RANK, don't threshold: the point is which file is worst here.
+    scores 31% strict-zero (23/74) plus a stem-only review list. Treat >=30% as
+    alarming -- but RANK, do not threshold: the point is which file is worst here.
 
     Context tags rank how confidently the file asserts a term:
       [table] a node-catalog row      -- the most damning place to be wrong
@@ -100,6 +100,27 @@ def is_specific(term):
     if " " in term:
         return True
     return bool(re.search(r"[a-z][A-Z]", term))  # CamelCase
+
+
+def context_stem(term):
+    """
+    Reference files write formal names with a context suffix ("Rig Doctor SOP");
+    tutorials usually say the bare name ("Rig Doctor"). Exact matching therefore
+    scores real nodes as zero -- `Rig Doctor SOP` finds 0 files while `Rig Doctor`
+    finds 11. Return the stem so that gap is visible.
+
+    The remainder must still be SPECIFIC, which is what stops this from hiding
+    real fabrications: "Noise COP" stems to the generic single word "Noise", so
+    no stem is returned and it stays at zero, exactly as it should. A stem hit is
+    reported SEPARATELY and never counted as corroboration -- "Karma Render COP"
+    stems to the real phrase "Karma Render" while the node itself is invented.
+    Judge stem-only matches by hand.
+    """
+    m = re.match(r"^(.*?)\s+(SOP|DOP|LOP|VOP|COP|ROP|CHOP|TOP|node|Node)$", term)
+    if not m:
+        return None
+    stem = m.group(1).strip()
+    return stem if len(stem) >= 3 and is_specific(stem) else None
 
 
 def load_corpus():
@@ -192,15 +213,24 @@ def audit_file(path, corpus):
     for term, ctx in terms.items():
         needle = term.lower()
         hits = sum(1 for d in corpus if needle in d)
-        results.append((hits, ctx, term))
-    results.sort(key=lambda r: (r[0], {"table": 0, "code": 1, "prose": 2}[r[1]], r[2].lower()))
+        stem_hits = 0
+        stem = context_stem(term)
+        if hits == 0 and stem:
+            s = stem.lower()
+            stem_hits = sum(1 for d in corpus if s in d)
+        results.append((hits, ctx, term, stem_hits))
+    results.sort(key=lambda r: (r[0] + r[3], r[0],
+                                {"table": 0, "code": 1, "prose": 2}[r[1]], r[2].lower()))
     return meta, results
 
 
 def render(path, meta, results, verbose):
     name = os.path.basename(path)
     total = len(results)
-    zeros = [r for r in results if r[0] == 0]
+    # A term is only "uncorroborated" if BOTH the exact name and its stem
+    # are absent. Stem-only hits are surfaced separately for hand review.
+    zeros = [r for r in results if r[0] == 0 and r[3] == 0]
+    stem_only = [r for r in results if r[0] == 0 and r[3] > 0]
     weak = [r for r in results if 1 <= r[0] <= 2]
 
     # HEADLINE = terms asserted in a node-catalog table row or a workflow code
@@ -214,7 +244,7 @@ def render(path, meta, results, verbose):
     # the metric entirely in those skills and every file scored a meaningless
     # 0.0%. The specific-only ratio is still reported as a secondary signal.
     strong = [r for r in results if r[1] in ("table", "code")]
-    strong_zeros = [r for r in strong if r[0] == 0]
+    strong_zeros = [r for r in strong if r[0] == 0 and r[3] == 0]
     ratio = (len(strong_zeros) / len(strong) * 100) if strong else 0.0
 
     spec = [r for r in strong if is_specific(r[2])]
@@ -236,13 +266,21 @@ def render(path, meta, results, verbose):
         f"({ratio:.0f}%)   [multi-word/CamelCase only: {len(spec_zeros)}/{len(spec)} "
         f"= {spec_ratio:.0f}%]",
         f"   all terms: {len(zeros)}/{total} ({all_ratio:.0f}%)"
-        f"   |   weak (1-2 files): {len(weak)}",
+        f"   |   weak (1-2 files): {len(weak)}"
+        f"   |   stem-only (suffix artifact? review): {len(stem_only)}",
     ]
     show = zeros if verbose else zeros[:25]
-    for hits, ctx, term in show:
+    for hits, ctx, term, _sh in show:
         lines.append(f"     [{ctx:5s}] {term}")
     if len(zeros) > len(show):
         lines.append(f"     ... and {len(zeros) - len(show)} more (use --verbose)")
+    if stem_only:
+        lines.append("   -- stem matches only (likely the formal-suffix"
+                     " convention, verify before cutting):")
+        for hits, ctx, term, sh in (stem_only if verbose else stem_only[:12]):
+            lines.append(f"     [{ctx:5s}] {term}  -> stem in {sh} files")
+        if len(stem_only) > 12 and not verbose:
+            lines.append(f"     ... and {len(stem_only) - 12} more")
     return "\n".join(lines), ratio, len(strong_zeros), len(strong)
 
 
@@ -270,16 +308,29 @@ def self_test(corpus):
         meta, results = audit_file(tmp, corpus)
         report, ratio, zeros, total = render(tmp, meta, results, verbose=False)
         print(report)
-        found = {t.lower() for h, _, t in results if h == 0}
+        # A fabrication counts as caught if it lands in EITHER review bucket.
+        # "Karma Render COP" deliberately lands in stem-only: its stem "Karma
+        # Render" is a real phrase that does occur in the corpus, so strict
+        # zero-matching cannot see it. That is the documented cost of stem
+        # matching, and the reason stem-only is surfaced rather than silently
+        # treated as corroborated.
+        zero_set = {t.lower() for h, _c, t, sh in results if h == 0 and sh == 0}
+        stem_set = {t.lower() for h, _c, t, sh in results if h == 0 and sh > 0}
+        found = zero_set | stem_set
         expect = ["noise cop", "ramp cop", "pattern cop", "karma render cop"]
         missing = [e for e in expect if e not in found]
+        print(f"\n  in zero-corroboration: "
+              f"{', '.join(e for e in expect if e in zero_set) or 'none'}")
+        print(f"  in stem-only review:   "
+              f"{', '.join(e for e in expect if e in stem_set) or 'none'}")
         print("\n  known fabrications flagged:",
               ", ".join(e for e in expect if e in found) or "NONE")
         if missing:
             print("  MISSED:", ", ".join(missing))
-        ok = not missing and ratio >= 40
+        ok = not missing and ratio >= 30
         print(f"\n  RESULT: {'PASS' if ok else 'FAIL'} "
-              f"(ratio {ratio:.0f}%, expected >=40% and all known names flagged)")
+              f"(ratio {ratio:.0f}%, expected >=30% and all known names in one "
+              f"of the two review buckets)")
         return 0 if ok else 1
     finally:
         os.remove(tmp)
@@ -323,7 +374,7 @@ def main():
     ranking.sort(reverse=True)
     summary = ["\n" + "=" * 70,
                "RANKED BY ZERO-CORROBORATION RATIO (most suspect first)",
-               "  calibration: fabricated copernicus.md scores 45% asserted (33/74)",
+               "  calibration: fabricated copernicus.md scores 31% strict-zero (23/74)",
                "=" * 70]
     scored = [r for r in ranking if r[2] >= MIN_SAMPLE]
     thin = [r for r in ranking if r[2] < MIN_SAMPLE]

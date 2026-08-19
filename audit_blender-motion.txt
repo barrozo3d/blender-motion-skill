@@ -1,7 +1,7 @@
 
    === ad-video-patterns.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 5/47 uncorroborated (11%)   [multi-word/CamelCase only: 2/9 = 22%]
-   all terms: 5/49 (10%)   |   weak (1-2 files): 2
+   all terms: 5/49 (10%)   |   weak (1-2 files): 2   |   stem-only (suffix artifact? review): 0
      [code ] Carousel
      [code ] GeoNodes Simulation Zone
      [code ] IWC Schaffhausen
@@ -10,7 +10,7 @@
 
    === albin-merle-techniques.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 12/68 uncorroborated (18%)   [multi-word/CamelCase only: 9/22 = 41%]
-   all terms: 13/75 (17%)   |   weak (1-2 files): 6
+   all terms: 13/75 (17%)   |   weak (1-2 files): 6   |   stem-only (suffix artifact? review): 0
      [code ] Caramel Cartesian
      [code ] Cycles X
      [code ] Cyril Muller
@@ -27,7 +27,7 @@
 
    === blender-versions.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 3/30 uncorroborated (10%)   [multi-word/CamelCase only: 3/13 = 23%]
-   all terms: 4/31 (13%)   |   weak (1-2 files): 5
+   all terms: 4/31 (13%)   |   weak (1-2 files): 5   |   stem-only (suffix artifact? review): 0
      [table] Use for new projects
      [table] Use for stability
      [code ] Cycles X
@@ -35,7 +35,7 @@
 
    === geometry-nodes-library.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 10/110 uncorroborated (9%)   [multi-word/CamelCase only: 9/48 = 19%]
-   all terms: 11/112 (10%)   |   weak (1-2 files): 13
+   all terms: 11/112 (10%)   |   weak (1-2 files): 13   |   stem-only (suffix artifact? review): 0
      [code ] Add Mesh Boolean
      [code ] Add Set Curve Radius
      [code ] Animate End
@@ -50,7 +50,7 @@
 
    === lighting-composition.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 4/57 uncorroborated (7%)   [multi-word/CamelCase only: 4/17 = 24%]
-   all terms: 5/60 (8%)   |   weak (1-2 files): 3
+   all terms: 5/60 (8%)   |   weak (1-2 files): 3   |   stem-only (suffix artifact? review): 0
      [code ] Animate Empty
      [code ] Assign Principled Volume
      [code ] Place Empty
@@ -59,7 +59,7 @@
 
    === materials-shaders.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 9/75 uncorroborated (12%)   [multi-word/CamelCase only: 8/30 = 27%]
-   all terms: 9/75 (12%)   |   weak (1-2 files): 7
+   all terms: 9/75 (12%)   |   weak (1-2 files): 7   |   stem-only (suffix artifact? review): 0
      [code ] Anisotropic Rotation
      [code ] EXtractoR
      [code ] In AE
@@ -72,7 +72,7 @@
 
    === motion-design-patterns.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 6/78 uncorroborated (8%)   [multi-word/CamelCase only: 5/21 = 24%]
-   all terms: 6/78 (8%)   |   weak (1-2 files): 4
+   all terms: 6/78 (8%)   |   weak (1-2 files): 4   |   stem-only (suffix artifact? review): 0
      [code ] Add Simple Deform
      [code ] Animate Value
      [code ] AV Sync
@@ -82,7 +82,7 @@
 
    === render-pipeline.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 22/118 uncorroborated (19%)   [multi-word/CamelCase only: 21/46 = 46%]
-   all terms: 22/118 (19%)   |   weak (1-2 files): 15
+   all terms: 22/118 (19%)   |   weak (1-2 files): 15   |   stem-only (suffix artifact? review): 0
      [code ] Adaptive Sampling
      [code ] Blender VSE
      [code ] Channel Blur
@@ -108,7 +108,7 @@
 
    === simulation-catalog.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 7/104 uncorroborated (7%)   [multi-word/CamelCase only: 5/25 = 20%]
-   all terms: 7/104 (7%)   |   weak (1-2 files): 9
+   all terms: 7/104 (7%)   |   weak (1-2 files): 9   |   stem-only (suffix artifact? review): 0
      [code ] Baking Data
      [code ] Chrome Ball
      [code ] Disadvantage
@@ -119,7 +119,7 @@
 
 !! === visual-deconstruction.md (class: topic-reference, verified: no) ===
    ASSERTED (table/code): 24/32 uncorroborated (75%)   [multi-word/CamelCase only: 21/27 = 78%]
-   all terms: 24/32 (75%)   |   weak (1-2 files): 1
+   all terms: 24/32 (75%)   |   weak (1-2 files): 1   |   stem-only (suffix artifact? review): 0
      [table] Bioluminescence
      [table] Bird's eye
      [table] Brushed metal
@@ -147,7 +147,7 @@
 
 ======================================================================
 RANKED BY ZERO-CORROBORATION RATIO (most suspect first)
-  calibration: fabricated copernicus.md scores 45% asserted (33/74)
+  calibration: fabricated copernicus.md scores 31% strict-zero (23/74)
 ======================================================================
  !!  75.0%    24/32    visual-deconstruction.md
      18.6%    22/118   render-pipeline.md
