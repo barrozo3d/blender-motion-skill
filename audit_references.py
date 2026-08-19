@@ -230,20 +230,25 @@ def topic_coverage(filename, corpus):
     # the entire 546-file library; "nuke-compositing-nodes.md" likewise. Such a
     # number silently reads as "richly covered" and would excuse a real problem.
     ceiling = max(1, int(len(corpus) * 0.8))
-    best = 0
-    for w in words:
-        if len(w) < 3:
-            continue
-        c = count_files(w, corpus)
-        if c <= ceiling:
-            best = max(best, c)
-    joined = " ".join(words)
-    if len(words) > 1:
-        c = count_files(joined, corpus)
-        if c <= ceiling:
-            best = max(best, c)
-    # every token was app-generic: undeterminable, not thin
-    return best if best > 0 else None
+    usable = [w for w in words if len(w) >= 3]
+    if not usable:
+        return None
+
+    # Use the LEAST-common filename token, never the most and never the literal
+    # joined phrase. Both alternatives were tried and both mislead:
+    #   max()  -- a generic token inflates it. lip-sync.md read 58, which was the
+    #             everyday word "sync"; that promotes a blind spot into a
+    #             "fabrication signature", the most dangerous direction.
+    #   joined -- a filename means "topic A AND topic B", not a literal phrase.
+    #             sequencer-cinematics.md read 2 for the exact phrase while
+    #             "sequencer" alone appears in 155 files, which would excuse a
+    #             genuinely bad file as merely uncovered.
+    # The rarest token bounds how much the corpus can say about the narrower of
+    # the file's two subjects, which is the honest estimate.
+    counts = [c for c in (count_files(w, corpus) for w in usable) if c <= ceiling]
+    if not counts:
+        return None                      # every token app-generic: undeterminable
+    return min(counts)
 
 
 def load_corpus():
@@ -550,9 +555,10 @@ def main():
     scored = [r for r in ranking if r[2] >= MIN_SAMPLE]
     thin = [r for r in ranking if r[2] < MIN_SAMPLE]
     for ratio, zeros, total, name, cov in scored:
-        thin = cov is not None and cov < 15
-        flag = "??" if thin else ("!!" if ratio >= 40 else ("! " if ratio >= 20 else "  "))
-        note = "  (thin coverage -- unmeasurable, verify vs docs)" if thin else (
+        # NB: not `thin` -- that name holds the low-sample file list below.
+        thin_cov = cov is not None and cov < 15
+        flag = "??" if thin_cov else ("!!" if ratio >= 40 else ("! " if ratio >= 20 else "  "))
+        note = "  (thin coverage -- unmeasurable, verify vs docs)" if thin_cov else (
                "  (topic undetermined from filename)" if cov is None else "")
         covs = "n/a " if cov is None else f"{cov:<4d}"
         summary.append(f" {flag} {ratio:5.1f}%  {zeros:4d}/{total:<4d}  cov={covs} {name}{note}")
