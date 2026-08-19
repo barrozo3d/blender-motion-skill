@@ -157,6 +157,29 @@ Cross-reference the deconstruction against:
 - `references/ad-video-patterns.md` — for brand/commercial context
 - `references/albin-merle-techniques.md` — if the style resembles his work
 
+> ### ⚠️ Reference files are not all trustworthy
+>
+> Every `references/*.md` carries a provenance header. **Check `class:` and
+> `verified:` before citing:**
+>
+> | `class:` | Means |
+> |---|---|
+> | `release-notes` | Condensed from the vendor's official release notes (URL in `sources:`). Comparatively trustworthy. |
+> | `topic-reference` | ⚠️ **Written from model memory, not ingested from any source** (`verified: no`). Do not cite as authority. |
+> | `operational` | Internal state file, not knowledge. |
+>
+> - **When a reference file and an ingested tutorial disagree, the tutorial
+>   wins** — tutorials are transcript- and frame-verified against real footage.
+> - Expect `topic-reference` files to be *least* reliable on the *newest*
+>   subsystems — that is where invented detail is most likely and hardest to spot.
+>
+> **Precedent:** on 2026-08-19 `houdini-wand`'s `references/copernicus.md` was
+> found to be fabricated — 26 of its 33 asserted node names had **zero**
+> corroboration across 545 ingested tutorials — after it caused four consecutive
+> wrong answers to a simple question. Audit status is tracked in
+> `houdini-wand/PROMO_ENTRY_CLEANUP_PLAN.md` (workstream B).
+
+
 ### Step 4 — Tutorial Output
 
 Structure the response as:

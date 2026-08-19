@@ -1,3 +1,12 @@
+---
+class: topic-reference
+verified: no
+sources: []
+last_verified: never
+version_basis: "unknown"
+# WARNING: written from model memory, not ingested from a source.
+# Do not cite as authority. If a tutorial disagrees, the tutorial wins.
+---
 # Blender Version Reference
 
 When recommending workflows, always identify which version introduced each feature. Suggest the newest LTS unless the user specifies otherwise.

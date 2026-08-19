@@ -1,3 +1,12 @@
+---
+class: operational
+verified: n/a
+sources:
+  - https://developer.blender.org/docs/release_notes/
+  - https://developer.blender.org/docs/release_notes/<X.Y
+last_verified: never
+version_basis: "unknown"
+---
 # Version Tracker — Blender Releases
 
 **Purpose:** Track which Blender versions are covered and when the release channel was last checked.

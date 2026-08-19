@@ -1,3 +1,12 @@
+---
+class: topic-reference
+verified: no
+sources: []
+last_verified: never
+version_basis: "unknown"
+# WARNING: written from model memory, not ingested from a source.
+# Do not cite as authority. If a tutorial disagrees, the tutorial wins.
+---
 # Albin Merle Techniques
 
 Quick reference for Albin Merle's specific setups. Full analysis: see memory file `albin_merle_analysis.md`.

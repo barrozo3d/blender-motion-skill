@@ -1,3 +1,12 @@
+---
+class: topic-reference
+verified: no
+sources: []
+last_verified: never
+version_basis: "unknown"
+# WARNING: written from model memory, not ingested from a source.
+# Do not cite as authority. If a tutorial disagrees, the tutorial wins.
+---
 # Geometry Nodes Library
 
 Core GeoNodes techniques for motion design. Each entry includes: what it produces, key nodes used, and a recipe.
