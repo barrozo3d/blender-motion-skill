@@ -4,12 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=H0_hfNoEv_I
 author: DAMIDIGITAL
 ingested: 2026-08-19
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Not specified"
+tags: [alembic, rigid-body, destruction, animation, rendering, cycles, intermediate, houdini-crossover]
+extraction_status: complete
 frames_dir: tutorials/frames/faster-alembic-playback-in-blender-mdd-workflow/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 5
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Faster Alembic Playback in Blender (MDD Workflow)
@@ -23,12 +24,7 @@ frame_status: pending-selection
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py faster-alembic-playback-in-blender-mdd-workflow <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -287,30 +283,51 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:17] tutorials/frames/faster-alembic-playback-in-blender-mdd-workflow/frame_000.jpg
+- [4:33] tutorials/frames/faster-alembic-playback-in-blender-mdd-workflow/frame_001.jpg
+- [8:52] tutorials/frames/faster-alembic-playback-in-blender-mdd-workflow/frame_002.jpg
+- [9:14] tutorials/frames/faster-alembic-playback-in-blender-mdd-workflow/frame_003.jpg
+- [9:35] tutorials/frames/faster-alembic-playback-in-blender-mdd-workflow/frame_004.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Speeding up point-cache mesh playback in Blender by exporting an **MDD point cache** (in addition to the Alembic geometry) from the DCC that ran the simulation, then driving the static Blender mesh with a **Mesh Cache** modifier instead of relying on Alembic's own (slow-to-play-back-in-viewport) sequence import — applicable only to sims with a constant point/vertex count (e.g. rigid-body destruction), not to sims that add/remove points (e.g. fluid).
 
 ### Summary
-[PENDING EXTRACTION]
+A short workflow tip video (DAMIDIGITAL) for anyone bringing external point-count-stable simulations (the example is a Houdini RBD/Bullet destruction sim) into Blender for Cycles/EEVEE rendering. About two-thirds of the runtime (roughly 0:00-8:38 of 11:04) is spent in **Houdini**, not Blender: building a deliberately viewport-heavy example scene (high-res spheres via Copy to Points on a grid, Mountain node displacement, stacked via Copy and Transform), configuring an RBD Bullet destruction sim (RBD Configure with Convex Hull collision shape, RBD Bullet Solver, a ground-plane collider), caching it with File Cache, exporting the result as an Alembic (.abc) sequence, then separately exporting the same geometry as an **MDD point cache** (via the MDD point-cache ROP at the object level, keeping a clearly-named/color-coded "OUT" null so downstream node changes don't require re-pointing the export). The **Blender-specific payoff** (the video's actual title/purpose) is short but is the real technique: import the Alembic once (first frame only, static, no animation) to get correct topology into Blender, then add a **Mesh Cache** modifier pointed at the .mdd file, correct the axis mapping for the Houdini→Blender coordinate difference (Forward/Up set to +Z/+X in the example), and press play. The side-by-side comparison shown is decisive: the Alembic-sequence version plays back around 10-13 fps in the Blender viewport, while the identical geometry driven by the MDD/Mesh Cache modifier plays a smooth, consistent 25 fps — with the gap growing worse the more objects/detail are in the scene.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **(Houdini, for context/repro)** Build or already have a simulation whose point/vertex count never changes across the frame range — a hard requirement; sims that add or remove points (flowing water, most fluid sims) cannot use this workflow.
+2. **(Houdini)** Cache the simulation (File Cache SOP) so playback is deterministic, then export the animated result as a standard **Alembic (.abc)** sequence via a Rock/Alembic Output node set to the full render frame range (Unpack the geometry first if it's still packed, to avoid a fragmented multi-piece import).
+3. **(Houdini)** Separately, at the object/OUT level, add an **MDD point cache** ROP node, point its output at a clearly-named `.mdd` file, and set it to render over the full frame range too — this produces a second, lightweight per-vertex-position cache alongside the Alembic.
+4. **(Blender)** Import the Alembic via File > Import > Alembic (or drag-and-drop); untick "Set Frame Range" so it doesn't force the scene to the cache's frame count, and leave Relative Path on — this brings in the correct static topology only (no animation yet).
+5. **(Blender)** On that imported mesh, add a **Mesh Cache** modifier (search "Mesh Cache" in Add Modifier — not "Mesh Sequence Cache", which is the Alembic-driven variant). Set its file path to the `.mdd` file exported in step 3; format is auto-detected as MDD.
+6. **(Blender)** Correct the **Axis Mapping** (Forward/Up) on the Mesh Cache modifier to account for Houdini's different up-axis convention — the video sets it to Forward +Z / Up +X to fix an initially "flipped" result.
+7. Press play: the mesh now animates driven by the MDD cache, decoupled from Alembic's per-frame geometry-sequence overhead, at a dramatically higher and more consistent viewport frame rate.
+8. This technique targets viewport playback speed specifically for Cycles/EEVEE workflows where you're evaluating a Houdini-sourced (or any external) point-stable simulation inside Blender rather than re-simulating it natively.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+**Houdini side:** Copy to Points, Mountain, Copy and Transform, RBD Configure (Collision Shape: Convex Hull), RBD Bullet Solver, ground-plane collider, File Cache, Alembic Output (Rock Alembic Output), Unpack, MDD point cache ROP, Null ("OUT", output/all-caps naming convention). **Blender side:** File > Import > Alembic (Set Frame Range unticked, Relative Path on), Mesh Cache modifier (File Format: MDD, Axis Mapping Forward +Z / Up +X in this example).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner-to-Intermediate on the Blender side (a single modifier + import settings); the Houdini portion assumes existing familiarity with RBD/Bullet destruction setup and is shown at an intermediate pace without deep explanation.
 
 ### Blender Version
-[PENDING EXTRACTION]
+Not specified on screen or in the transcript; Mesh Cache is a long-standing core modifier, so this workflow is version-agnostic across recent Blender releases.
 
 ### Tags
-[PENDING EXTRACTION]
+alembic, rigid-body, destruction, animation, rendering, cycles, intermediate, houdini-crossover
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+No direct match in the current blender-motion library — no other ingested tutorial covers Alembic/MDD import optimization or the Mesh Cache modifier. Readers interested in the Blender-native side of destruction simulation (as opposed to this video's import-a-Houdini-sim workflow) may want:
+- How I made this bridge destruction scene in blender (`how-i-made-this-bridge-destruction-scene-in-blender.md`) — Blender-native Simulation-Nodes-driven fracture/destruction tooling, contrasted with this tutorial's "simulate elsewhere, import fast" approach.
+- Superhero Landing Tutorial 02 | Ground Destruction VFX in Blender (`superhero-landing-tutorial-02-ground-destruction-vfx-in-blender.md`) — Cell Fracture + Mantaflow, another Blender-native destruction/rigid-body pipeline.
+
+A significant chunk of this video's runtime (the Houdini RBD sim build and the MDD export node setup, roughly 0:52-8:38) is Houdini-specific rather than Blender-specific; per this skill's cross-referencing convention, a stub pointing back to this canonical file was added to `houdini-wand/tutorials/INDEX.md`.
