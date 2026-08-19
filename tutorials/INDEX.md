@@ -3213,6 +3213,16 @@ Each entry format:
 - **Summary:** EXPERIMENTAL/UNRELEASED feature exploration: three new EEVEE-only shader nodes (Light Info, Shadow Raycast, Light Accumulation) expose per-light data for hand-built lighting, plus a "clip fix" (Vector Math Project+Subtract) technique for freely offsetting the shadow ray's sampling position — enabling stylized fractured-glass, pixel-aligned "Minecraft," and pseudo-SSS shadow looks.
 - **File:** tutorials/npr-light-accumulation-blender-53-branch-testing.md
 
+
+### [Tut] Everything about For Each Element Zone in Variations - P14 Geometry Nodes Beginners 5.0+
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=Mm1Oxz6sGAg
+- **Author:** Bradley Animation
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be.md
+
 ---
 
 ## Tag Reference
