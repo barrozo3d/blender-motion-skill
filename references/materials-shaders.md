@@ -1,12 +1,26 @@
 ---
 class: topic-reference
-verified: no
-sources: []
-last_verified: never
+verified: partial
+sources:
+  - tutorials/  (corroboration audit, batch B5 -- see note)
+last_verified: 2026-08-19
 version_basis: "unknown"
-# WARNING: written from model memory, not ingested from a source.
-# Do not cite as authority. If a tutorial disagrees, the tutorial wins.
+# Origin: model memory. Audited 2026-08-19 (batch B5) -- see note below.
+# Parameters/API symbols remain unverified. Tutorial beats reference.
 ---
+> ## Audit note — batch B5, 2026-08-19
+>
+> 12% uncorroborated against coverage of 84 files. No fabrication signature. Remaining flags are parameter/settings names, which a spoken-narration corpus cannot check.
+>
+> **Method and its ceiling.** Terms were checked against this skill's ingested
+> tutorials (and its vendor release-notes references) with `audit_references.py`.
+> That corpus is spoken narration, so it corroborates what presenters **say** —
+> node and tool names — and structurally cannot corroborate what they only
+> **show or type**: parameter names, defaults, console variables, API symbols.
+> **Corroboration finds fabricated names, not wrong values.**
+>
+> Full detail: `houdini-wand/PROMO_ENTRY_CLEANUP_PLAN.md` (workstream B).
+
 # Materials & Shaders
 
 Cycle-ready material recipes for motion design. All use Principled BSDF unless noted.

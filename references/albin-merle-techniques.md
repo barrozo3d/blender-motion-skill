@@ -1,12 +1,26 @@
 ---
 class: topic-reference
-verified: no
-sources: []
-last_verified: never
+verified: partial
+sources:
+  - tutorials/  (corroboration audit, batch B5 -- see note)
+last_verified: 2026-08-19
 version_basis: "unknown"
-# WARNING: written from model memory, not ingested from a source.
-# Do not cite as authority. If a tutorial disagrees, the tutorial wins.
+# Origin: model memory. Audited 2026-08-19 (batch B5) -- see note below.
+# Parameters/API symbols remain unverified. Tutorial beats reference.
 ---
+> ## Audit note — batch B5, 2026-08-19
+>
+> UNMEASURABLE — coverage 2. This documents one artist's techniques, so thin corpus overlap is inherent, not suspicious.
+>
+> **Method and its ceiling.** Terms were checked against this skill's ingested
+> tutorials (and its vendor release-notes references) with `audit_references.py`.
+> That corpus is spoken narration, so it corroborates what presenters **say** —
+> node and tool names — and structurally cannot corroborate what they only
+> **show or type**: parameter names, defaults, console variables, API symbols.
+> **Corroboration finds fabricated names, not wrong values.**
+>
+> Full detail: `houdini-wand/PROMO_ENTRY_CLEANUP_PLAN.md` (workstream B).
+
 # Albin Merle Techniques
 
 Quick reference for Albin Merle's specific setups. Full analysis: see memory file `albin_merle_analysis.md`.
