@@ -210,8 +210,27 @@ def segment_by_chapters(transcript, chapters):
 # ── Step 3: Frame extraction ───────────────────────────────────────────────────
 
 def download_video_low(url, tmp):
+    """
+    Download the video for frame extraction, at a resolution frames can be READ at.
+
+    This used to request `worst[ext=mp4]/worst` -- literally the lowest stream
+    available -- which produced 256x144 frames. Measured 2026-08-19 across the
+    ingested libraries: unreal-sidekick's frames are 256x144 (avg 11KB) and
+    nuke-em-all's are 256x144/426x240, resolutions at which node names and
+    parameter values in a screencast are simply not legible. Frame grounding
+    cannot work when the frame cannot be read, so the whole point of Step 2 was
+    being lost.
+
+    Capped at 720p rather than uncapped: frames are only sampled at a handful of
+    timestamps, but yt-dlp still downloads the whole file, and these run in
+    batches of hundreds. Set INGEST_FRAME_HEIGHT to raise it (1080 helps for
+    dense UI like Nuke's node graph or Houdini's parameter pane).
+    """
+    h = os.environ.get("INGEST_FRAME_HEIGHT", "720")
+    fmt = (f"bestvideo[height<={h}][ext=mp4]/bestvideo[height<={h}]/"
+           f"best[height<={h}][ext=mp4]/best[height<={h}]/best")
     out = str(tmp / "video.%(ext)s")
-    cmd = _ytdlp_cmd() + ["-f", "worst[ext=mp4]/worst", "--no-playlist", "-o", out, url]
+    cmd = _ytdlp_cmd() + ["-f", fmt, "--no-playlist", "-o", out, url]
     # Same one-off YouTube throttling failures as the audio download in Step 1;
     # a single retry usually recovers (select_frames.py depends on this helper).
     for attempt in (1, 2):

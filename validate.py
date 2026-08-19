@@ -243,7 +243,10 @@ def main():
 # per-skill divergence may be intentional, but it should always be a conscious choice.
 SIBLING_SKILLS = ("blender-motion", "houdini-wand", "unreal-sidekick", "nuke-em-all", "paint-me-like-your-french-substances")
 SHARED_FUNCS = ("slugify", "download_audio", "ytdlp_captions", "segment_by_chapters",
-                "_detect_hallucination", "append_safeguard_note", "find_duplicate_by_video_id")
+                "_detect_hallucination", "append_safeguard_note", "find_duplicate_by_video_id",
+                # added 2026-08-19: the frame-resolution fix must not drift, and
+                # this function was silently uncovered while it mattered most.
+                "download_video_low", "extract_frames")
 
 
 def check_script_drift():
