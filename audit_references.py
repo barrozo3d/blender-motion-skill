@@ -44,6 +44,18 @@ KNOWN FALSE-POSITIVE CLASSES -- check these before cutting anything
        product node names. Judge them on usefulness, not corroboration.
     3. GENUINELY NEW features documented from official docs with no tutorial yet
        -- resolve via the `sources:` field rather than by deleting.
+    4. PARAMETER / SETTINGS catalogs. The corpus is built from spoken narration,
+       so it can corroborate node and tool names (which presenters SAY) but not
+       parameter names or default values (which they merely SHOW on screen).
+       Measured in unreal-sidekick/chaos-physics.md: the workflow layer
+       corroborates -- chaos 30 files, cluster 24, destruction 16 -- while the
+       parameter layer does not: "sleep threshold" 0, "differential" 0,
+       "substep" 2. Corroboration is simply the wrong instrument for a settings
+       table; check those against vendor docs.
+
+    The unifying point behind 1 and 4: a transcript-derived corpus systematically
+    lacks anything TYPED or DISPLAYED rather than SPOKEN -- API symbols,
+    parameter names, UI labels. Expect those files to score high forever.
 
 KNOWN LIMITATION
     Code-heavy files under-report. CODE_HINT filters out anything containing
