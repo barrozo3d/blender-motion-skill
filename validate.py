@@ -21,6 +21,8 @@ Checks performed:
      (catches failed/truncated ingest where yt-dlp or Whisper returned nothing)
   10. No PLACEHOLDER url: values in frontmatter
   11. No un-triaged promotional / no-content entries (scan_promo.py, allowlisted)
+  12. INDEX block integrity — no block describing a different tutorial, no
+      leftover [PENDING] fields, no mojibake
 """
 
 import os
@@ -181,6 +183,84 @@ def check_tutorials():
     print(f"  Checked {len(files)} files.")
 
 
+INDEX_MOJIBAKE = re.compile(r"â€|â†|Ã[\x80-\xbf©¢­±]|Â[\xa0-\xbf]")
+
+INDEX_BLOCK_RE = (r"### ([^\n]*)\n((?:- \*\*[^\n]*\n)*?)"
+                  r"- \*\*File:\*\* tutorials/([^\s]+\.md)")
+
+
+def check_index_integrity():
+    """Check #12 -- the INDEX block must actually describe its own file.
+
+    Check #2 verifies that every **File:** path exists on disk. It never asks
+    whether the block DESCRIBES that file, and that gap hid real corruption:
+
+      - tutorials/liquid-sops.md (SOP-based liquid effects, no solvers) was
+        indexed with a molecular-visualisation course's tags AND summary --
+        scientific-visualization, pdb, molecular, biology. SKILL.md prescribes
+        grep-over-INDEX, so "surface tension" led straight to a file about
+        Houdini Digital Assets. Two more entries in blender-motion shared one
+        summary three ways.
+      - nuke-em-all had a fully extracted tutorial whose INDEX block was still
+        App/Version/Tags/Summary = [PENDING]. Check #1 only looks for PENDING
+        markers inside tutorial FILES, so an unextracted index entry -- the
+        actual retrieval surface -- passed silently.
+      - 95 INDEX lines across two skills carried mojibake (UTF-8 decoded as
+        cp1252). The tutorial files were clean in every skill, so the damage
+        came from whatever wrote INDEX.md.
+
+    All three are retrieval poisoning, the same harm as a promo entry: a
+    question routed to the wrong file. All three are cheap to detect exactly.
+
+    NOT checked: INDEX title vs file title. Those differ constantly for
+    cosmetic reasons (double spaces, dash style, casing) and flagging them
+    would be noise, not signal.
+    """
+    print("\n[4] Checking INDEX block integrity (identity, PENDING, encoding)...")
+    with open(INDEX_PATH, "r", encoding="utf-8-sig") as fh:
+        idx = fh.read()
+
+    blocks = re.findall(INDEX_BLOCK_RE, idx)
+
+    # 1. two blocks carrying the same summary -- at most one can be right
+    by_summary = {}
+    for _title, body, fname in blocks:
+        m = re.search(r"- \*\*Summary:\*\*\s*(.+)", body)
+        if m:
+            by_summary.setdefault(m.group(1).strip(), []).append(fname)
+    for summary, files in by_summary.items():
+        if len(files) > 1:
+            fail(
+                f"INDEX.md: {len(files)} entries share one summary, so at most one "
+                f"describes its own file ({', '.join(sorted(files))}). Rewrite the "
+                f"wrong one(s) FROM THE FILE's own '### Summary' -- never compose "
+                f"a summary from memory. Shared text: \"{summary[:70]}...\""
+            )
+
+    # 2. leftover placeholders in the retrieval surface
+    for _title, body, fname in blocks:
+        if "[PENDING" in body:
+            fail(
+                f"INDEX.md: entry for '{fname}' still has [PENDING] fields. If the "
+                f"tutorial file is extracted, its INDEX entry was never updated "
+                f"(extraction step 6) -- copy tags/summary across from the file."
+            )
+
+    # 3. mojibake
+    bad = [i + 1 for i, line in enumerate(idx.split("\n")) if INDEX_MOJIBAKE.search(line)]
+    if bad:
+        preview = ", ".join(str(n) for n in bad[:6])
+        fail(
+            f"INDEX.md: {len(bad)} line(s) contain mojibake (UTF-8 read as cp1252, "
+            f"e.g. an em-dash as 'a-hat-euro-quote'); first at line {preview}. Repair by "
+            f"re-encoding each affected line cp1252 -> utf-8, and verify the "
+            f"round-trip rather than guessing."
+        )
+
+    print(f"  {len(blocks)} blocks | {len(by_summary)} distinct summaries | "
+          f"{len(bad)} mojibake line(s).")
+
+
 def check_promo():
     """Check #11 -- no un-triaged promotional / no-content entries.
 
@@ -278,6 +358,7 @@ def main():
     check_tutorials()
     check_index()
     check_promo()
+    check_index_integrity()
 
     print("\n[drift] Checking shared-script sync with sibling skills...")
     check_script_drift()

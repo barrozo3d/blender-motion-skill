@@ -63,7 +63,7 @@ Each entry format:
 - **Author:** RADIUM
 - **Blender Version:** Blender 4.5
 - **Tags:** #geometry-nodes #procedural #blender-4x #beginner #intermediate #advanced
-- **Summary:** One-hour reference video covering all 275+ Geometry Nodes in Blender 4.3 â€” each node's purpose, socket types, and use cases. Deep dives into Fields vs. single values, field context (domain adaptation), and attributes in the Spreadsheet Editor.
+- **Summary:** One-hour reference video covering all 275+ Geometry Nodes in Blender 4.3 — each node's purpose, socket types, and use cases. Deep dives into Fields vs. single values, field context (domain adaptation), and attributes in the Spreadsheet Editor.
 - **File:** tutorials/all-300-geometry-nodes-in-blender.md
 
 
@@ -134,7 +134,7 @@ Each entry format:
 
 
 
-### Blender Geometry Nodes â€“ Sci-Fi Cube Creation (Step-by-Step Tutorial)
+### Blender Geometry Nodes – Sci-Fi Cube Creation (Step-by-Step Tutorial)
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=ZmoL0Wa5n0Y
 - **Author:** NextFrameSaga
@@ -162,7 +162,7 @@ Each entry format:
 - **Author:** Skramble
 - **Blender Version:** 4.5
 - **Tags:** #geometry-nodes #rigid-body #simulation #animation #procedural #blender-4x #intermediate
-- **Summary:** Builds a non-destructive Geometry Nodes system in Blender 4.5 for flexible non-linear playback control of baked rigid body simulations â€” control start frame, end frame, speed, direction, and spatial proximity triggering without rebaking. Uses Cell Fracture, two identical collections (static/physics), and a Map Range node.
+- **Summary:** Builds a non-destructive Geometry Nodes system in Blender 4.5 for flexible non-linear playback control of baked rigid body simulations — control start frame, end frame, speed, direction, and spatial proximity triggering without rebaking. Uses Cell Fracture, two identical collections (static/physics), and a Map Range node.
 - **File:** tutorials/blender-tutorial-control-physics-sims-with-geometry-nodes-be.md
 
 
@@ -181,7 +181,7 @@ Each entry format:
 ### Blender Tutorial - Procedural Rope in Geometry Nodes
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/live/z-fKQtlQPw0
-- **Author:** CG Cookie â€“ Learn Blender
+- **Author:** CG Cookie – Learn Blender
 - **Blender Version:** 5.0
 - **Tags:** #geometry-nodes #procedural #organic #animation #blender-5x #intermediate #advanced
 - **Summary:** Builds a fully procedural, customizable rope generator in Blender 5.0 Geometry Nodes using a hierarchy of instanced Curve Circles to create interlocking spiral strands along a Bezier curve path, with fine surface hairs. Also covers maze generation and organic leaf scattering.
@@ -211,7 +211,7 @@ Each entry format:
 
 
 
-### Credit Card Texture and Animation SaaS FinTech [ PART â€“ 1 ]
+### Credit Card Texture and Animation SaaS FinTech [ PART – 1 ]
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=DvMyxyMG0Mk
 - **Author:** The Visual Vibe
@@ -250,7 +250,7 @@ Each entry format:
 - **Author:** CGMatter
 - **Blender Version:** Blender 4.5
 - **Tags:** #geometry-nodes #procedural #displacement #materials #shaders #organic #abstract #blender-4x #advanced
-- **Summary:** Procedurally generates an amethyst geode in Blender 4.5 Geometry Nodes: noise-distorted Icosphere exterior, Boolean cut (new Manifold mode), boundary isolation via Geometry Proximity, variable-height crystal extrusion via Noiseâ†’Map Range, and instanced spike geometry. Full amethyst and rock material setup.
+- **Summary:** Procedurally generates an amethyst geode in Blender 4.5 Geometry Nodes: noise-distorted Icosphere exterior, Boolean cut (new Manifold mode), boundary isolation via Geometry Proximity, variable-height crystal extrusion via Noise→Map Range, and instanced spike geometry. Full amethyst and rock material setup.
 - **File:** tutorials/geode-nodes-i-am-so-clever-blender-tutorial.md
 
 
@@ -261,7 +261,7 @@ Each entry format:
 - **Author:** Ducky 3D
 - **Blender Version:** Blender 5.0
 - **Tags:** #geometry-nodes #simulation #glass #materials #shaders #animation #motion-design #abstract #blender-5x #intermediate
-- **Summary:** Creates a metaball-style cell division animation in Blender 5.0 using the new Points to SDF Grid and Grid to Mesh nodes for efficient organic blob geometry from animated point clouds â€” far more efficient than the old instancesâ†’volume method. Topped with an RGB glass dispersion material in Cycles.
+- **Summary:** Creates a metaball-style cell division animation in Blender 5.0 using the new Points to SDF Grid and Grid to Mesh nodes for efficient organic blob geometry from animated point clouds — far more efficient than the old instances→volume method. Topped with an RGB glass dispersion material in Cycles.
 - **File:** tutorials/glass-cell-division-effect-in-blender-50-tutorial.md
 
 
@@ -294,7 +294,7 @@ Each entry format:
 - **Author:** c g s l a v
 - **Blender Version:** Blender 4.x
 - **Tags:** #geometry-nodes #volume #rendering #cycles #lighting #hdri #organic #intermediate #advanced
-- **Summary:** Creates realistic storm clouds using a multi-pass Geometry Nodes pipeline: meshâ†’volumeâ†’distribute pointsâ†’set position with Noise Textureâ†’points to volumeâ†’meshâ†’volume. The cycling between representations adds fine organic detail. Also covers god rays using a Volume Scatter cube with an interior Spotlight.
+- **Summary:** Creates realistic storm clouds using a multi-pass Geometry Nodes pipeline: mesh→volume→distribute points→set position with Noise Texture→points to volume→mesh→volume. The cycling between representations adds fine organic detail. Also covers god rays using a Volume Scatter cube with an interior Spotlight.
 - **File:** tutorials/how-i-made-realistic-storm-clouds-in-blender.md
 
 
@@ -404,7 +404,7 @@ Each entry format:
 - **Author:** Ducky 3D
 - **Blender Version:** Blender 4.x
 - **Tags:** #geometry-nodes #particles #particles-reveal #animation #logo-animation #typography #materials #shaders #motion-design #intermediate
-- **Summary:** Converts text or logos into a dusty particle flow effect using Distribute Points on Faces (density 10,000+, tiny radius) with selective displacement via two Noise Textures and a Mix Vector node â€” some areas stay readable while others disperse. Particles are colored procedurally with Noise Texture + Color Ramp in an Emission shader.
+- **Summary:** Converts text or logos into a dusty particle flow effect using Distribute Points on Faces (density 10,000+, tiny radius) with selective displacement via two Noise Textures and a Mix Vector node — some areas stay readable while others disperse. Particles are colored procedurally with Noise Texture + Color Ramp in an Emission shader.
 - **File:** tutorials/powerful-logo-particle-flow-effect-in-blender.md
 
 
@@ -420,7 +420,7 @@ Each entry format:
 
 
 
-### Realistic Cloth Physics in Blender â€“ Full Tutorial
+### Realistic Cloth Physics in Blender – Full Tutorial
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=KnYGp58REUk
 - **Author:** Ahad Animates
@@ -461,7 +461,7 @@ Each entry format:
 - **Author:** Ducky 3D
 - **Blender Version:** Blender 5.1
 - **Tags:** #glass #animation #materials #shaders #motion-design #abstract #rendering #cycles #blender-5x #intermediate
-- **Summary:** Six glass animation design patterns using transparent glass objects as magnifying lenses over animated emissive texture planes â€” with no scene lights. Covers interlocking sphere arrays, ribbed glass panels, and proper emissive plane distance for optimal refraction spots. Key insight: Wave Texture at scale ~0.7 with animated Distortion looks best.
+- **Summary:** Six glass animation design patterns using transparent glass objects as magnifying lenses over animated emissive texture planes — with no scene lights. Covers interlocking sphere arrays, ribbed glass panels, and proper emissive plane distance for optimal refraction spots. Key insight: Wave Texture at scale ~0.7 with animated Distortion looks best.
 - **File:** tutorials/you-should-make-glass-animations-in-blender-51.md
 
 
@@ -472,7 +472,7 @@ Each entry format:
 - **Author:** Ducky 3D
 - **Blender Version:** Blender 4.x/5.x
 - **Tags:** #materials #shaders #glass #animation #motion-design #procedural #geometry-nodes #eevee #intermediate
-- **Summary:** Teaches a color distribution technique where a first Noise Texture drives highlight/dark patterns and a second Noise Texture provides color â€” connected via Mix Color with the first texture as Factor, so color distributes naturally within the pattern's highlights rather than being limited to center-to-edge gradients. Demonstrated with glass brick wall geometry nodes setup.
+- **Summary:** Teaches a color distribution technique where a first Noise Texture drives highlight/dark patterns and a second Noise Texture provides color — connected via Mix Color with the first texture as Factor, so color distributes naturally within the pattern's highlights rather than being limited to center-to-edge gradients. Demonstrated with glass brick wall geometry nodes setup.
 - **File:** tutorials/you-should-try-this-blender-color-hack.md
 
 
@@ -483,7 +483,7 @@ Each entry format:
 - **Author:** Kaizen
 - **Blender Version:** Blender 3.x/4.x
 - **Tags:** #realism #photorealism #3dscanning #lighting #camera #workflow #beginner
-- **Summary:** Introduces the "Triforce of 3D Realism" â€” Subject, Lighting, Camera â€” as the three pillars that together produce convincing photorealism. Covers using KIRI Engine for free mobile 3D scanning to generate realistic subjects without years of modeling skill, optimal scanning conditions (overcast outdoor vs. controlled indoor lighting), and how all three forces compound.
+- **Summary:** Introduces the "Triforce of 3D Realism" — Subject, Lighting, Camera — as the three pillars that together produce convincing photorealism. Covers using KIRI Engine for free mobile 3D scanning to generate realistic subjects without years of modeling skill, optimal scanning conditions (overcast outdoor vs. controlled indoor lighting), and how all three forces compound.
 - **File:** tutorials/the-key-to-realism-in-blender-or-3d.md
 
 
@@ -508,18 +508,18 @@ Each entry format:
 - **Author:** Extra 3d
 - **Blender Version:** Blender 4.x
 - **Tags:** #realism #photorealism #materials #textures #lighting #workflow #intermediate #3dscanning #imperfections
-- **Summary:** Comprehensive photorealism pipeline: reference gathering in PureRef â†’ camera focal length/height decision early â†’ high-res stacked textures with imperfections (Polyhaven, Ambient CG, Megascans) â†’ photoscanned or AI-generated assets (Tripo3D: 1-4 photo input â†’ 4K PBR output) â†’ bevel all edges â†’ scale verification with Rigify rig.
+- **Summary:** Comprehensive photorealism pipeline: reference gathering in PureRef → camera focal length/height decision early → high-res stacked textures with imperfections (Polyhaven, Ambient CG, Megascans) → photoscanned or AI-generated assets (Tripo3D: 1-4 photo input → 4K PBR output) → bevel all edges → scale verification with Rigify rig.
 - **File:** tutorials/photorealistic-renders-in-blender.md
 
 
 
-### Frozen Motion Blur Bridge â€” Geo Nodes Breakdown (Albin Merle)
+### Frozen Motion Blur Bridge — Geo Nodes Breakdown (Albin Merle)
 - **Source:** Direct file analysis
 - **URL:** https://www.youtube.com/watch?v=675BOBWbTt4
 - **Author:** Albin Merle
 - **Blender Version:** 4.x / 5.x
 - **Tags:** #geometry-nodes #motion-blur #procedural #animation #scene-time #glass #displacement #intermediate #advanced #albin-merle
-- **Summary:** Full breakdown of the `Frozen_MotionBlur` node group from file `061_AM_Frozen_motion_Blur_Bridge`. Two Scene Time nodes oscillate X/Z displacement vectors at different speeds (Ã·24 and Ã·45), masked by Z height via Map Range. Geometry source is a Collection (not the modifier input). Includes Python snippet to add a Strength input for animating the effect on/off.
+- **Summary:** Full breakdown of the `Frozen_MotionBlur` node group from file `061_AM_Frozen_motion_Blur_Bridge`. Two Scene Time nodes oscillate X/Z displacement vectors at different speeds (÷24 and ÷45), masked by Z height via Map Range. Geometry source is a Collection (not the modifier input). Includes Python snippet to add a Strength input for animating the effect on/off.
 - **File:** tutorials/frozen-motion-blur-bridge-geo-nodes-breakdown.md
 
 
@@ -873,9 +873,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=oAKrQboXo78
 - **Author:** Bad Normals
-- **Blender Version:** N/A — cross-renderer conceptual video (Vray/Cycles/Arnold)
-- **Tags:** shading-theory, material-layering, roughness, surface-imperfections, blend-shader, cross-renderer, principled-bsdf, dirt-and-grime, intermediate
-- **Summary:** This is not a Blender screen-recording — it is a cross-renderer shading-theory video (demoed live in 3ds Max with Chaos Corona / V-Ray-style material editor UI, with Cycles and Arnold discussed conceptually) about how to correctly author "surface imperfections" like fingerprints, dust, dirt, stains, and grease. The core argument: roughness-map-driv...
+- **Blender Version:** 5.x (viewport/UI style, exact point release not stated)
+- **Tags:** shaders, materials, gradients, color-ramp, node-groups, evaluate-closure, generated-coordinates, glass, emission, light-path, capsule-shader, intermediate
+- **Summary:** A style-replication tutorial (Bad Normals recreating art by Taiwanese artist Damon Zhang/Damong) that turns a flat piece of 2D concept art into a procedural Blender material technique. It covers building rounded "capsule" primitives cheaply (Bevel modifier instead of a Metaball or heavily-subdivided mesh), placing many of them precisely using snapping/x-ray/box-select instead of manual duplicate-and-nudge,...
 - **File:** tutorials/how-to-make-this-style-in-blender.md
 
 
@@ -883,9 +883,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=1eQp-H73zeI
 - **Author:** Vlabs
-- **Blender Version:** N/A — cross-renderer conceptual video (Vray/Cycles/Arnold)
-- **Tags:** shading-theory, material-layering, roughness, surface-imperfections, blend-shader, cross-renderer, principled-bsdf, dirt-and-grime, intermediate
-- **Summary:** This is not a Blender screen-recording — it is a cross-renderer shading-theory video (demoed live in 3ds Max with Chaos Corona / V-Ray-style material editor UI, with Cycles and Arnold discussed conceptually) about how to correctly author "surface imperfections" like fingerprints, dust, dirt, stains, and grease. The core argument: roughness-map-driv...
+- **Blender Version:** not stated on screen (Gabor Texture + Principled Volume node — Blender 4.x/5.x compatible)
+- **Tags:** materials, shaders, ocean, water, procedural-texture, gabor-texture, displacement, volume-scattering, light-path, eevee-cycles, beginner
+- **Summary:** A fast (under 6 minutes), plugin-free walkthrough for building a stylized/cinematic ocean using only built-in Blender nodes and modifiers — no Ocean modifier, no Flip Fluids, no third-party add-ons. It layers four independent techniques: (1) a Displacement modifier over a subdivided plane, driven by a Voronoi texture, to sculpt rocky terrain without manual sculpting; (2) a Gabor Texture → Bump node combo for a...
 - **File:** tutorials/realistic-ocean-in-blender-from-scratch-no-plugins.md
 
 
