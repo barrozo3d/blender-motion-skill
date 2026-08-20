@@ -1,33 +1,28 @@
 ========================================================================
 scan_promo.py -- promotional / no-content candidates (READ-ONLY)
 ========================================================================
-scanned 314 tutorials in C:\Users\KABUM\.claude\skills\blender-motion\tutorials
-threshold 50 | 4 candidate(s) (0 allowlisted) | 12 structural-only
-score distribution: max 123 | p95 45 | median 0 | zero-score 175
+scanned 313 tutorials in C:\Users\KABUM\.claude\skills\blender-motion\tutorials
+threshold 50 | 3 candidate(s) (3 allowlisted) | 12 structural-only
+score distribution: max 72 | p95 43 | median 0 | zero-score 175
 
- 123  create-game-ready-characters-blender-secrets.md
-        - notes: calls it promotional/advertising (+30)
-        - notes: says it is not a real tutorial (+20)
-        - YouTube, 173s -- under the 180s floor where check #9 never runs (+18)
-        - Key Steps has only 0 item(s) (+20)
-        - only 0 distinct node/tool names in the node section (+25)
-        - call to action in the closing 15% of transcript: 1 phrase(s) (+10)
-
-  72  in-depth-look-at-my-new-hard-surface-course---blender-secrets.md
+  72  in-depth-look-at-my-new-hard-surface-course---blender-secrets.md  [ALLOWLISTED]
         - notes: calls it promotional/advertising (+30)
         - notes: calls it a course overview/preview (+20)
         - notes: says overview only (+20)
         - (self-declared subtotal 70 capped at 60)
         - only 6 distinct node/tool names in the node section (+12)
+        REASON: DEMOTED in A6. 4m27s, 10 sections: the two-chapter structure of a paid 'Beginner Hard Surface Modeling' (Spiderbot) course. Outline, not a walkthrough -- and labelled that way since A6.
 
-  68  first-look-at-the-new-master-characters-in-blender-course-from-cg-boost.md
+  68  first-look-at-the-new-master-characters-in-blender-course-from-cg-boost.md  [ALLOWLISTED]
         - notes: calls it promotional/advertising (+30)
         - notes: calls it a course overview/preview (+20)
         - YouTube, 175s -- under the 180s floor where check #9 never runs (+18)
+        REASON: DEMOTED in A6. 2m55s affiliate review of Jim Moran's third-party 'Master 3D Characters' course; b-roll shows real Geometry-Nodes and cloth-brush work. Curriculum reference, not a walkthrough.
 
-  50  anime-girl-character-course-overview---blender-secrets.md
+  50  anime-girl-character-course-overview---blender-secrets.md  [ALLOWLISTED]
         - notes: calls it promotional/advertising (+30)
         - notes: says overview only (+20)
+        REASON: DEMOTED in A6. 4m41s; names the full stylized-character pipeline lesson by lesson and is frame-grounded (cites frame 002). Useful as a pipeline checklist, not as a procedure.
 
 ========================================================================
 STRUCTURAL-ONLY -- scored at or above threshold but the extraction
@@ -60,14 +55,11 @@ tags) / KEEP (false positive or deliberate gap-filler). Record the
 decisions in PROMO_ENTRY_CLEANUP_PLAN.md Findings -- batches A4/A5.
 
 ========================================================================
-NEAR-MISS BAND (score 40-49) -- below threshold, listed for A4/A5 context
+NEAR-MISS BAND (score 40-49) -- below threshold, context only
 ========================================================================
-The threshold has a soft edge: in houdini-wand, week-01-01-intro scores 45
-while its sibling week-02-01-intro scores 70 -- same series, same kind of
-file, 25 points apart. The gap is extraction honesty, not content.
-TRIAGE RULE: once ONE member of a series or product family is flagged,
-triage the WHOLE family. Do not triage by threshold alone -- that rule is
-what surfaced two paid-course announcements the scanner had scored 0.
+The threshold has a soft edge. TRIAGE RULE: once ONE member of a series or
+product family is flagged, triage the WHOLE family -- that rule found three
+mis-scored files in A4 that the ranked list alone never would have.
 
   45  this-technique-lets-you-make-hard-surface-models-easily.md
   43  daily-blender-secrets---10-ways-to-make-holes-in-blender.md [series: 2 siblings] [structural-only]
