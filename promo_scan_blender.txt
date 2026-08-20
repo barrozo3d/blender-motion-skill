@@ -2,8 +2,8 @@
 scan_promo.py -- promotional / no-content candidates (READ-ONLY)
 ========================================================================
 scanned 314 tutorials in C:\Users\KABUM\.claude\skills\blender-motion\tutorials
-threshold 50 | 4 candidate(s) (0 allowlisted) | 1 structural-only
-score distribution: max 123 | p95 37 | median 0 | zero-score 175
+threshold 50 | 4 candidate(s) (0 allowlisted) | 12 structural-only
+score distribution: max 123 | p95 45 | median 0 | zero-score 175
 
  123  create-game-ready-characters-blender-secrets.md
         - notes: calls it promotional/advertising (+30)
@@ -40,7 +40,18 @@ concrete steps -- which is how most plugin and add-on documentation
 is published. Default KEEP. Look here only for an entry that is BOTH
 structurally empty AND teaches nothing.
 
+  50  daily-blender-tip-113---from-sketch-to-clean-lines-in-grease-pencil.md  (key steps 6, named terms 0)
+  50  daily-blender-tip-119---super-easy-pbr-textures-with-node-wrangler.md  (key steps 6, named terms 0)
+  50  daily-blender-tip-120---new-curve-tool-in-grease-pencil-blender-28.md  (key steps 6, named terms 0)
+  50  daily-blender-tip-135---tissue-add-on-experiment-1.md  (key steps 8, named terms 0)
+  50  daily-blender-tip-138---how-to-make-a-curtain-in-one-minute.md  (key steps 12, named terms 0)
+  50  daily-blender-tip-139---blender-fracture-modifier-build---quick-start.md  (key steps 6, named terms 0)
+  50  daily-blender-tip-140---fracture-modifier-use-constraints.md  (key steps 5, named terms 0)
+  50  daily-blender-tip-146---microdisplacement-in-one-minute.md  (key steps 11, named terms 0)
+  50  daily-blender-tip-68---plant-part-2-adding-twigs-with-particles.md  (key steps 6, named terms 0)
+  50  daily-blender-tip-69---add-leaves-to-our-plant-make-a-plant-part-3.md  (key steps 6, named terms 0)
   50  daily-blender-tip-89---riggin-with-seperate-objects-or-not.md  (key steps 4, named terms 0)
+  50  daily-blender-tip-99---drawing-in-3d-with-grease-pencil-and-converting-to-mesh.md  (key steps 6, named terms 0)
 
 ------------------------------------------------------------------------
 This tool WRITES NOTHING and DECIDES NOTHING. Every candidate above
@@ -54,9 +65,12 @@ NEAR-MISS BAND (score 40-49) -- below threshold, listed for A4/A5 context
 The threshold has a soft edge: in houdini-wand, week-01-01-intro scores 45
 while its sibling week-02-01-intro scores 70 -- same series, same kind of
 file, 25 points apart. The gap is extraction honesty, not content.
-TRIAGE RULE: once ONE member of a series is flagged, triage the WHOLE
-series. Do not triage by threshold alone.
+TRIAGE RULE: once ONE member of a series or product family is flagged,
+triage the WHOLE family. Do not triage by threshold alone -- that rule is
+what surfaced two paid-course announcements the scanner had scored 0.
 
   45  this-technique-lets-you-make-hard-surface-models-easily.md
   43  daily-blender-secrets---10-ways-to-make-holes-in-blender.md [series: 2 siblings] [structural-only]
+  43  daily-blender-tip-137---tissue-add-on-experiment-3.md [structural-only]
+  43  daily-blender-tip-65---properly-use-poliigon-textures-and-add-on.md [series: 55 siblings] [structural-only]
   43  daily-blender-tip-88---how-to-make-a-character-follow-a-path.md [series: 55 siblings] [structural-only]

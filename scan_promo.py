@@ -150,7 +150,15 @@ def get_transcript(content):
 # signal available: a direct statement about the source, not an inference.
 # (weight, label, pattern)
 SELF_DECLARED = [
-    (30, "calls it a trailer", r"\btrailer\b"),
+    # "trailer" must be SELF-referential. A bare \btrailer\b matched entries that
+    # ANALYSE someone else's trailer -- a 32-minute Dune cinematography
+    # breakdown and an Unrecord game-trailer breakdown, both genuinely valuable,
+    # were scored as ads for containing the word.
+    (30, "calls it a trailer",
+         r"\b(?:course|promotional|promo|marketing|overview|teaser|brand|release)"
+         r"[\s*_/-]+trailer\b"
+         r"|\btrailer[\s*_]+(?:only|episode)\b"
+         r"|\bis\s+a[\s*_]*(?:\w+[\s*_]+){0,2}trailer\b"),
     (30, "calls it promotional/advertising", r"\bpromotional\b|\bpromo\b|\badvertis\w+"),
     (30, "says there is no technical content", r"\bno (?:technical|instructional) content\b"),
     (25, "says there is no step-by-step", r"\bno step[- ]by[- ]step\b|\bno step by step\b"),
@@ -165,6 +173,26 @@ SELF_DECLARED = [
     (15, "says nothing is taught",
          r"\bnothing is (?:taught|demonstrated|shown)\b|\bteaches nothing\b"),
 ]
+
+# "This is an announcement for a course" is a self-declaration too, but it
+# rarely uses any of the words above: one 6-minute entry announcing a $99/$149
+# paid course scored ZERO because its extraction was written in neutral prose.
+#
+# Two forms, and the loose one MUST stay anchored to the opening lines. An entry
+# that merely mentions mid-paragraph that a course was announced is a real
+# tutorial -- matching the loose form anywhere in the notes false-positives on
+# exactly that (it hit a genuine render-optimization tutorial).
+ANNOUNCE_ANYWHERE = r"\b(?:course|class) announcement\b"
+ANNOUNCE_LEADING = r"\bannounc\w+[^.\n]{0,60}?\b(?:course|class)\b"
+ANNOUNCE_LEAD_CHARS = 200
+
+# REJECTED SIGNALS -- tested against all five corpora and thrown out. Do not
+# re-add without re-testing:
+#   price tags  r"\$\d{2,4}"   19 hits, nearly all REAL tutorials quoting what a
+#       tool costs (mocap services, the Axiom solver, GPU tiers). Would have
+#       accused a dozen good files of being ads for naming a price.
+#   "enrol at" / "sign up at"  3 hits: 2 already caught by other signals, 1 a
+#       genuine mocap tutorial comparing $25/mo and $200/mo plans. Net zero.
 
 # Calls to action are what a trailer is FOR. Checked only in the closing
 # stretch, because a real tutorial can legitimately say "link in the
@@ -273,6 +301,12 @@ def score_file(path, fname=None, all_names=()):
         if re.search(rx, notes, re.IGNORECASE):
             declared += weight
             hits.append("notes: %s (+%d)" % (label, weight))
+    # An announcement OF a course, phrased in neutral prose the list above misses.
+    body = re.sub(r"^###[^\n]*\n", "", notes).strip()
+    if (re.search(ANNOUNCE_ANYWHERE, notes, re.IGNORECASE)
+            or re.search(ANNOUNCE_LEADING, body[:ANNOUNCE_LEAD_CHARS], re.IGNORECASE)):
+        declared += 25
+        hits.append("notes: announces a course, in the opening lines (+25)")
     # Cap: many phrasings of one fact are still one fact.
     if declared > 60:
         hits.append("(self-declared subtotal %d capped at 60)" % declared)
@@ -300,15 +334,21 @@ def score_file(path, fname=None, all_names=()):
         score += 20
         hits.append("Key Steps has only %d item(s) (+20)" % nsteps)
 
-    # 4. low density of named nodes/tools -- names topics, not techniques
+    # 4. low density of named nodes/tools -- names topics, not techniques.
+    # A MISSING node section counts the same as an empty one: an extraction that
+    # produced no node section at all is stronger evidence of emptiness than one
+    # that produced a thin one. Two 6- and 12-minute paid-course announcements
+    # scored nothing here purely because their extractions had no such section.
+    # Safe because a file with a differently-named section still needs a
+    # self-declaration to become a candidate.
     nnamed = count_named_things(node_sec)
-    if node_sec:
-        if nnamed <= 4:
-            score += 25
-            hits.append("only %d distinct node/tool names in the node section (+25)" % nnamed)
-        elif nnamed <= 8:
-            score += 12
-            hits.append("only %d distinct node/tool names in the node section (+12)" % nnamed)
+    where = "node section" if node_sec else "notes (no node section at all)"
+    if nnamed <= 4:
+        score += 25
+        hits.append("only %d distinct node/tool names in the %s (+25)" % (nnamed, where))
+    elif nnamed <= 8:
+        score += 12
+        hits.append("only %d distinct node/tool names in the %s (+12)" % (nnamed, where))
 
     # 5. call to action in the closing stretch of the transcript
     cta = []
