@@ -307,6 +307,28 @@ This downloads the low-quality video, extracts exactly those frames to `tutorial
 4. **Update frontmatter**: set `blender_version:`, `tags:`, `extraction_status: complete`
 5. **Find related tutorials**: scan `INDEX.md` for entries sharing 2+ tags, add cross-links in `## Related Tutorials`
 6. **Update INDEX.md entry**: replace `[PENDING]` fields with real version, tags, and summary
+
+   > ⚠️ **Edit that ONE block. Never rewrite `INDEX.md` wholesale.**
+   > On 2026-08-20 a `git blame` audit (plan batch E2) traced every piece of
+   > INDEX corruption to this step regenerating the whole file: an "extract:
+   > Dash batch 6" commit rewrote **174 lines** for 5 tutorials and mojibake'd
+   > line 1, the file's own title; a single-tutorial extract changed INDEX.md by
+   > **−1031/+72**; a 4-tutorial batch wrote **one summary into three blocks**.
+   > Passing the whole file through an ad-hoc read/write damages lines nobody was
+   > editing — on Windows, PowerShell's `Set-Content`/`Out-File` default to the
+   > ANSI code page and a UTF-8→cp1252 round-trip produces exactly that mojibake.
+   >
+   > Use the tool, which edits a single block with explicit UTF-8:
+   > ```bash
+   > python update_index_entry.py <slug> --from-file      # fields from the file
+   > python update_index_entry.py <slug> --set 'Tags=a, b' # set one field exactly
+   > python update_index_entry.py --all --check           # differences, writes nothing
+   > ```
+   > A batch is **N single-block edits**, never one regeneration. The summary is
+   > still written by you — `--summary` regenerates it from the file and is for
+   > *repair*, since INDEX summaries are curated, not mechanical truncations.
+   > `validate.py` check #12 catches recurrence; this prevents it.
+
 7. **Commit and push** (from this skill's own directory):
 ```bash
 git add tutorials/<slug>.md tutorials/INDEX.md
