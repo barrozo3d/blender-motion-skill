@@ -317,6 +317,52 @@ git push
 ### For web articles/documentation:
 Run ingest.py with the article URL — it fetches page text, `can_have_frames` is false, `frame_status: skipped`. Skip Step 2 (no frames) and go straight to Step 3.
 
+### The promo gate — `validate.py` check #11
+
+**A tutorial must teach a technique, not advertise one.** `validate.py` fails on
+any entry that looks promotional and has not been triaged. Scoring lives in
+`scan_promo.py` (imported, never duplicated); run it directly to investigate:
+
+```bash
+python scan_promo.py                  # ranked candidates
+python scan_promo.py --explain FILE   # why one file scores what it does
+```
+
+**Why the gate exists.** `tutorials/noise.md` was a 1m31s course trailer titled
+exactly "Noise", tagged with eleven topics it never demonstrated. It was the top
+grep hit for any noise question and produced four consecutive wrong answers. The
+two older content checks are both length-based (#8 notes > 200 chars, #9 ≥ 3
+chars/sec above 180s), and a trailer beats length heuristics by construction —
+dense fluent speech about material that is never shown. Nothing asked *"does
+this teach a technique?"*
+
+**What trips it.** Only a **self-declared** signal: the extraction's own prose
+calling the entry a trailer, an advertisement, or a course announcement.
+Structural signals — short video, thin Key Steps, few named nodes — corroborate
+but never accuse on their own, because that shape is *also* a perfectly good
+short-form feature tutorial, which is how most plugin and add-on documentation
+is published. Entries scoring on structure alone are reported as
+`STRUCTURAL-ONLY` and are **not** failures.
+
+**When it fires, you have three honest options** — never loosen the scorer:
+
+| Option | When | What to do |
+|---|---|---|
+| **REMOVE** | Pure promo: no technique, no curriculum outline | Follow the Removal Procedure in `PROMO_ENTRY_CLEANUP_PLAN.md` — **grep for inbound links first**, they are not reciprocal |
+| **DEMOTE** | Real content, oversold framing | Lead the INDEX summary with a depth marker, strip tags that let it beat real tutorials, then allowlist it |
+| **KEEP** | False positive, series intro chapter, deliberate paywalled gap-filler | Add to `scan_promo.ALLOWLIST` **with a written reason** |
+
+`ALLOWLIST` is a **decision record, not a mute button**. Every entry states what
+was decided and why the entry legitimately keeps scoring. Adding one is the
+intended way to clear this check.
+
+**At ingest time** `ingest.py` emits a WARNING (never `needs-review`) for a
+short video whose transcript ends in a call to action. It cannot decide — the
+Structured Notes do not exist yet — so it does the one useful thing it can: it
+asks the extraction pass to **state plainly whether the video demonstrates a
+technique or only advertises one**. That sentence is what check #11 reads, so
+write it honestly either way.
+
 ### Re-ingesting an existing tutorial
 `ingest.py --force` re-collects transcript-only data and refuses to overwrite a file that's already `extraction_status: complete` unless `--force` is passed. `select_frames.py --force` re-captures frames even if `frame_status` is already `complete`.
 

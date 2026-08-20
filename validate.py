@@ -20,11 +20,18 @@ Checks performed:
   9. YouTube videos with duration > 3 min have a non-empty transcript
      (catches failed/truncated ingest where yt-dlp or Whisper returned nothing)
   10. No PLACEHOLDER url: values in frontmatter
+  11. No un-triaged promotional / no-content entries (scan_promo.py, allowlisted)
 """
 
 import os
 import re
 import sys
+
+try:
+    import scan_promo
+except ImportError:                       # pragma: no cover - scanner is optional
+    scan_promo = None
+
 
 TUTORIALS_DIR = os.path.join(os.path.dirname(__file__), "tutorials")
 INDEX_PATH = os.path.join(TUTORIALS_DIR, "INDEX.md")
@@ -174,6 +181,59 @@ def check_tutorials():
     print(f"  Checked {len(files)} files.")
 
 
+def check_promo():
+    """Check #11 -- no un-triaged promotional / no-content entries.
+
+    Scoring lives in scan_promo.py and is imported, never duplicated: the
+    scanner is the tool that was tuned against the corpus, and a second copy
+    of the rules would drift from it silently.
+
+    Fails ONLY on a candidate that is not in scan_promo.ALLOWLIST. That split
+    is the whole design:
+
+      - A candidate requires a SELF-DECLARED signal -- the extraction's own
+        prose calling the entry a trailer, an ad, a course announcement.
+        Structural signals (short video, thin Key Steps, few named nodes)
+        corroborate but never accuse on their own, because that shape is also
+        a perfectly good short-form feature tutorial, which is how most plugin
+        and add-on documentation is published. Getting this wrong once meant
+        flagging a 1-minute tutorial with five concrete steps as an ad.
+
+      - ALLOWLIST is a decision record, not a mute button. Every entry carries
+        a written reason (deliberate paywalled gap-filler, series intro chapter
+        whose siblings are real, demoted course overview, triaged false
+        positive). Adding an entry means recording a decision, and that is the
+        intended way to clear this check -- not loosening the scorer.
+
+    A new promo entry therefore fails the build; an already-triaged one does
+    not. That is exactly what was missing when tutorials/noise.md sat at the
+    top of every noise query for months.
+    """
+    print("\n[3] Checking for un-triaged promotional / no-content entries...")
+    if scan_promo is None:
+        print("  SKIPPED: scan_promo.py not importable from this directory.")
+        return
+
+    results = scan_promo.scan_all(TUTORIALS_DIR)
+    flagged = [r for r in results
+               if r["score"] >= scan_promo.CANDIDATE_THRESHOLD
+               and r["self_declared"] > 0
+               and not r["allowlisted"]]
+    for r in flagged:
+        reasons = "; ".join(h for h in r["hits"] if h.startswith("notes:")) or "see scan_promo.py --explain"
+        fail(
+            f"{r['file']}: looks promotional / teaches no technique "
+            f"(score {r['score']}) -- {reasons}. Triage it: remove it, demote it "
+            f"(fix the INDEX summary + tags), or add it to scan_promo.ALLOWLIST "
+            f"with a written reason. `python scan_promo.py --explain {r['file']}`"
+        )
+
+    allowed = sum(1 for r in results
+                  if r["score"] >= scan_promo.CANDIDATE_THRESHOLD and r["allowlisted"])
+    print(f"  Scanned {len(results)} files | {len(flagged)} un-triaged | "
+          f"{allowed} allowlisted (decisions on record).")
+
+
 def check_index():
     print("\n[2] Checking INDEX.md for duplicates and cross-references...")
 
@@ -217,6 +277,7 @@ def main():
 
     check_tutorials()
     check_index()
+    check_promo()
 
     print("\n[drift] Checking shared-script sync with sibling skills...")
     check_script_drift()
@@ -246,7 +307,12 @@ SHARED_FUNCS = ("slugify", "download_audio", "ytdlp_captions", "segment_by_chapt
                 "_detect_hallucination", "append_safeguard_note", "find_duplicate_by_video_id",
                 # added 2026-08-19: the frame-resolution fix must not drift, and
                 # this function was silently uncovered while it mattered most.
-                "download_video_low", "extract_frames")
+                "download_video_low", "extract_frames",
+                # added 2026-08-20 (A7): the ingest-time promo hint. Its whole
+                # value is in staying a WARNING -- a copy that drifts into
+                # flagging needs-review would start marking short one-feature
+                # plugin tutorials as advertising.
+                "promo_hint_at_ingest")
 
 
 def check_script_drift():

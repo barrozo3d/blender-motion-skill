@@ -30,6 +30,12 @@ import sys, os, re, json, subprocess, tempfile, shutil, argparse
 from datetime import datetime
 from pathlib import Path
 
+try:
+    import scan_promo
+except ImportError:                       # pragma: no cover - scanner is optional
+    scan_promo = None
+
+
 # Ensure stdout handles Unicode on Windows (cp1252 default breaks non-ASCII titles)
 # and flushes per line — block-buffered prints otherwise arrive after subprocess
 # (git/yt-dlp) output when both are captured, scrambling the step order in logs.
@@ -332,6 +338,52 @@ def run_safeguards(ch_transcripts):
                 )
 
     return warnings, critical
+
+def promo_hint_at_ingest(ch_transcripts, duration_secs):
+    """Ingest-time promo hint. Returns a WARNING string, or None.
+
+    Deliberately a WARNING and never a CRITICAL, and it is worth knowing why.
+
+    The strong promo signal is the extraction pass's own prose -- an entry
+    saying "course trailer only", "no step-by-step content". At ingest time
+    that prose DOES NOT EXIST YET: the Structured Notes are written in Step 1,
+    after this runs. All that is available here is the raw transcript and the
+    duration, and those are structural signals only.
+
+    Structural signals corroborate; they do not accuse. "Short video, ends with
+    a call to action" is also a fair description of a good one-minute feature
+    tutorial, which is how most plugin and add-on documentation is published.
+    Marking those `needs-review` would be wrong, and would train whoever reads
+    the flag to ignore it.
+
+    So this does the one useful thing it honestly can: it tells the extraction
+    pass to answer the question explicitly. If the notes then say "trailer, no
+    technique", validate.py check #11 catches it with a real signal -- and if
+    the notes say otherwise, nothing was lost. The gate is at validate time;
+    this only makes sure the gate has something true to read.
+    """
+    if scan_promo is None:
+        return None
+    if not (0 < duration_secs < 180):
+        return None
+    text = " ".join(ch.get("text", "") for ch in ch_transcripts).strip()
+    if not text:
+        return None
+    tail = text[int(len(text) * 0.85):]
+    hits = [rx for rx in scan_promo.CTA if re.search(rx, tail, re.IGNORECASE)]
+    if not hits:
+        return None
+    return (
+        f"Possible promotional entry: {int(duration_secs)}s video whose "
+        f"transcript ends with {len(hits)} call-to-action phrase(s). This may "
+        "be a course trailer rather than a tutorial -- or simply a short "
+        "one-feature tutorial, which looks identical from here. WHEN "
+        "EXTRACTING, ANSWER EXPLICITLY IN THE NOTES: does this demonstrate a "
+        "technique, or only advertise one? Say so in plain words ('trailer "
+        "only -- no step-by-step content' / 'short feature tutorial, N steps "
+        "shown'). validate.py check #11 reads that sentence."
+    )
+
 
 def _print_safeguard_report(warnings, critical):
     if not warnings and not critical:
@@ -678,6 +730,9 @@ def main():
         # Safeguard checks — transcript completeness/hallucination only; frame-count
         # validation now happens in select_frames.py once real timestamps are chosen.
         sg_warnings, sg_critical = run_safeguards(ch_transcripts)
+        _promo = promo_hint_at_ingest(ch_transcripts, info.get("duration", 0))
+        if _promo:
+            sg_warnings.append(_promo)
         if used_captions_fallback:
             sg_warnings.append('Transcript came from the yt-dlp captions fallback - NO per-sentence timestamps. Content-anchored frame selection (select_frames.py) will have to estimate moments; consider re-running ingest.py to retry Whisper before extracting.')
         _print_safeguard_report(sg_warnings, sg_critical)
