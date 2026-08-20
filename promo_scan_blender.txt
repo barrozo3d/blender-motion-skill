@@ -1,0 +1,41 @@
+========================================================================
+scan_promo.py -- promotional / no-content candidates (READ-ONLY)
+========================================================================
+scanned 314 tutorials in C:\Users\KABUM\.claude\skills\blender-motion\tutorials
+threshold 50 | 5 candidate(s) (0 allowlisted)
+score distribution: max 123 | p95 37 | median 0 | zero-score 175
+
+ 123  create-game-ready-characters-blender-secrets.md
+        - notes: calls it promotional/advertising (+30)
+        - notes: says it is not a real tutorial (+20)
+        - YouTube, 173s -- under the 180s floor where check #9 never runs (+18)
+        - Key Steps has only 0 item(s) (+20)
+        - only 0 distinct node/tool names in the node section (+25)
+        - call to action in the closing 15% of transcript: 1 phrase(s) (+10)
+
+  72  in-depth-look-at-my-new-hard-surface-course---blender-secrets.md
+        - notes: calls it promotional/advertising (+30)
+        - notes: calls it a course overview/preview (+20)
+        - notes: says overview only (+20)
+        - (self-declared subtotal 70 capped at 60)
+        - only 6 distinct node/tool names in the node section (+12)
+
+  68  first-look-at-the-new-master-characters-in-blender-course-from-cg-boost.md
+        - notes: calls it promotional/advertising (+30)
+        - notes: calls it a course overview/preview (+20)
+        - YouTube, 175s -- under the 180s floor where check #9 never runs (+18)
+
+  50  anime-girl-character-course-overview---blender-secrets.md
+        - notes: calls it promotional/advertising (+30)
+        - notes: says overview only (+20)
+
+  50  daily-blender-tip-89---riggin-with-seperate-objects-or-not.md
+        * SERIES INTRO? 55 sibling chapter(s) share this slug prefix -- likely a course's own intro, not a standalone trailer. Removing it holes a real series.
+        - YouTube, 106s -- under the 180s floor where check #9 never runs (+25)
+        - only 0 distinct node/tool names in the node section (+25)
+
+------------------------------------------------------------------------
+This tool WRITES NOTHING and DECIDES NOTHING. Every candidate above
+needs hand triage: REMOVE (pure promo) / DEMOTE (real content, oversold
+tags) / KEEP (false positive or deliberate gap-filler). Record the
+decisions in PROMO_ENTRY_CLEANUP_PLAN.md Findings -- batches A4/A5.
