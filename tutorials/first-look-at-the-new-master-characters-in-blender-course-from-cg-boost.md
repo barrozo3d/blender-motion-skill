@@ -5,7 +5,7 @@ url: https://www.youtube.com/watch?v=QNckGYykCNc
 author: Blender Secrets
 ingested: 2026-08-04
 blender_version: "Not specified — b-roll shows a modern Geometry Nodes UI consistent with Blender 4.x/5.x"
-tags: [geometry-nodes, organic, cloth, intermediate, advanced]
+tags: ["course-overview", "not-a-tutorial", "affiliate-review", "character"]
 extraction_status: complete
 frames_dir: tutorials/frames/first-look-at-the-new-master-characters-in-blender-course-from-cg-boost/
 frame_count: 5

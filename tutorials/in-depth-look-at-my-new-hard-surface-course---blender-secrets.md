@@ -5,7 +5,7 @@ url: https://www.youtube.com/watch?v=K6IEt4T91Jw
 author: Blender Secrets
 ingested: 2026-08-04
 blender_version: "Blender 4.3 (explicitly named — the course was developed in it, though older versions are said to work)"
-tags: [modelling, procedural, beginner, intermediate]
+tags: ["course-overview", "not-a-tutorial", "hard-surface", "modelling"]
 extraction_status: complete
 frames_dir: tutorials/frames/in-depth-look-at-my-new-hard-surface-course---blender-secrets/
 frame_count: 5

@@ -5,7 +5,7 @@ url: https://www.youtube.com/watch?v=M-zUIL-DnRA
 author: Blender Secrets
 ingested: 2026-08-04
 blender_version: "4.5 LTS (author notes no features newer than Blender 4.x are used)"
-tags: [modelling, organic, rigging, beginner, intermediate]
+tags: ["course-overview", "not-a-tutorial", "character", "stylized"]
 extraction_status: complete
 frames_dir: tutorials/frames/anime-girl-character-course-overview---blender-secrets/
 frame_count: 4

@@ -78,10 +78,31 @@ CANDIDATE_THRESHOLD = 50
 # it never demonstrates. Keep each reason with its entry; A7 reuses this as the
 # gate's allowlist.
 ALLOWLIST = {
-    # Empty: no deliberate overview-only gap-fillers are recorded for this skill.
-    # Add entries only with a written reason, the way houdini-wand's two are
-    # justified from KNOWLEDGE_GAPS_TODO.md. A4/A5 triage decides what belongs
+    # Add entries only with a written reason. A4/A5 triage decides what belongs
     # here -- an entry is NOT allowlisted just because the scanner flagged it.
+    #
+    # These three were DEMOTED in A6, not removed: each is a genuine curriculum
+    # outline for a paywalled course, kept on purpose and now labelled as such
+    # in its INDEX summary and tags. They will keep scoring above threshold
+    # forever, correctly, because they really are course overviews -- so they
+    # are excused here rather than re-triaged every run.
+    #
+    # Each also self-declares "Kept here as a reference outline" in its notes,
+    # an ingest-time keep decision. That phrase is a triage HINT only and is
+    # deliberately not automated: letting the extraction excuse itself would
+    # mean one confabulated sentence buys permanent immunity.
+    "in-depth-look-at-my-new-hard-surface-course---blender-secrets.md":
+        "DEMOTED in A6. 4m27s, 10 sections: the two-chapter structure of a paid "
+        "'Beginner Hard Surface Modeling' (Spiderbot) course. Outline, not a "
+        "walkthrough -- and labelled that way since A6.",
+    "first-look-at-the-new-master-characters-in-blender-course-from-cg-boost.md":
+        "DEMOTED in A6. 2m55s affiliate review of Jim Moran's third-party "
+        "'Master 3D Characters' course; b-roll shows real Geometry-Nodes and "
+        "cloth-brush work. Curriculum reference, not a walkthrough.",
+    "anime-girl-character-course-overview---blender-secrets.md":
+        "DEMOTED in A6. 4m41s; names the full stylized-character pipeline "
+        "lesson by lesson and is frame-grounded (cites frame 002). Useful as a "
+        "pipeline checklist, not as a procedure.",
 }
 
 

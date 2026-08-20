@@ -1486,16 +1486,6 @@ Each entry format:
 - **File:** tutorials/how-to-model-ornamental-iron-railings-in-blender-using-curves---blender-secrets.md
 
 
-### Create Game Ready Characters | Blender Secrets
-- **Source:** YouTube
-- **URL:** https://www.youtube.com/watch?v=br5g7m-jE_Q
-- **Author:** Blender Secrets
-- **Blender Version:** Not specified
-- **Tags:** intermediate
-- **Summary:** Course advertisement (not a tutorial) for "Complete Game Ready Fantasy Character Creation for Blender" — narration over course b-roll describing scope only (sculpting, retopology, materials, rigging, export to UE); no technique actually demonstrated on screen.
-- **File:** tutorials/create-game-ready-characters-blender-secrets.md
-
-
 ### Easy Ear Sculpting Tip - Blender Secrets
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=-ij6rXb15yA
@@ -1571,8 +1561,8 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=M-zUIL-DnRA
 - **Author:** Blender Secrets
 - **Blender Version:** 4.5 LTS (author notes no features newer than Blender 4.x are used)
-- **Tags:** #modelling #organic #rigging #beginner #intermediate
-- **Summary:** Promotional overview (not a step-by-step tutorial) of the author's paid stylized-anime-character course, naming its full pipeline: box-modeling shoes/socks/limbs/body over reference, joining and adding hands, clothing built on clean geometry with sculpted folds/pockets, head done last via 2D-topology-projected retopology (block-out then deformation topology) plus mouth geometry and Shape Keys for expressions, and hair via a hybrid mesh-clumps + thickened-curves + sculpting workflow. Useful as a reference checklist for a full stylized-character pipeline even without the paid lesson detail.
+- **Tags:** `#course-overview` `#not-a-tutorial` `#character` `#stylized`
+- **Summary:** **COURSE OVERVIEW — NOT A WALKTHROUGH (4m41s).** Promotional overview (not a step-by-step tutorial) of the author's paid stylized-anime-character course, naming its full pipeline: box-modeling shoes/socks/limbs/body over reference, joining and adding hands, clothing built on clean geometry with sculpted folds/pockets, head done last via 2D-topology-projected retopology (block-out then deformation topology) plus mouth geometry and Shape Keys for expressions, and hair via a hybrid mesh-clumps + thickened-curves + sculpting workflow. Useful as a reference checklist for a full stylized-character pipeline even without the paid lesson detail.
 - **File:** tutorials/anime-girl-character-course-overview---blender-secrets.md
 
 
@@ -1681,8 +1671,8 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=K6IEt4T91Jw
 - **Author:** Blender Secrets
 - **Blender Version:** Blender 4.3 (explicitly named)
-- **Tags:** #modelling #procedural #beginner #intermediate
-- **Summary:** Promotional overview (not a walkthrough) of the author's paid "Beginner Hard Surface Modeling" (Spiderbot) course — reference-image-faithful modeling in Chapter 1, retopology/animation/export prep in Chapter 2.
+- **Tags:** `#course-overview` `#not-a-tutorial` `#hard-surface` `#modelling`
+- **Summary:** **COURSE OVERVIEW — NOT A WALKTHROUGH (4m27s).** Promotional overview (not a walkthrough) of the author's paid "Beginner Hard Surface Modeling" (Spiderbot) course — reference-image-faithful modeling in Chapter 1, retopology/animation/export prep in Chapter 2.
 - **File:** tutorials/in-depth-look-at-my-new-hard-surface-course---blender-secrets.md
 
 
@@ -1701,8 +1691,8 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=QNckGYykCNc
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (b-roll consistent with Blender 4.x/5.x)
-- **Tags:** #geometry-nodes #organic #cloth #intermediate #advanced
-- **Summary:** Affiliate review/first-look at Jim Moran's third-party "Master 3D Characters" course on CG Boost — not a walkthrough, but b-roll shows Geometry-Nodes-driven zippers and hardware-bolt scattering plus cloth-brush sculpting for clothing folds.
+- **Tags:** `#course-overview` `#not-a-tutorial` `#affiliate-review` `#character`
+- **Summary:** **AFFILIATE REVIEW OF A THIRD-PARTY COURSE — NOT A WALKTHROUGH (2m55s).** Affiliate review/first-look at Jim Moran's third-party "Master 3D Characters" course on CG Boost — not a walkthrough, but b-roll shows Geometry-Nodes-driven zippers and hardware-bolt scattering plus cloth-brush sculpting for clothing folds.
 - **File:** tutorials/first-look-at-the-new-master-characters-in-blender-course-from-cg-boost.md
 
 
