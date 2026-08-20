@@ -33,6 +33,15 @@ THE KEY INSIGHT
     strongest signal here is not clever text analysis -- it is reading what the
     extraction already wrote.
 
+    That is also why SELF-DECLARATION IS REQUIRED FOR A CANDIDATE. The
+    structural signals (short video, thin Key Steps, few named nodes)
+    CORROBORATE; they do not ACCUSE. On their own they describe a perfectly
+    legitimate format -- the short-form feature tutorial, one minute long, one
+    feature, five concrete steps -- which is exactly how plugin and add-on
+    documentation is published. Scoring those as promo told the user their own
+    plugin library was junk. An entry that fires no self-declared signal is
+    reported separately as structural-only, never as a candidate.
+
     Corollary, and the reason this stays read-only: where the extraction pass is
     honest the score is trustworthy, and where it is not, no amount of scoring
     weight rescues it. Signal 4 (named-thing density) is the one signal that
@@ -257,7 +266,8 @@ def score_file(path, fname=None, all_names=()):
     score = 0
     hits = []
 
-    # 1. self-declared promo language in the extraction's own prose
+    # 1. self-declared promo language in the extraction's own prose.
+    # This is the ACCUSING signal -- everything below only corroborates it.
     declared = 0
     for weight, label, rx in SELF_DECLARED:
         if re.search(rx, notes, re.IGNORECASE):
@@ -322,6 +332,7 @@ def score_file(path, fname=None, all_names=()):
         "named_things": nnamed,
         "key_steps": nsteps,
         "cta_phrases": len(cta),
+        "self_declared": declared,
         "series_siblings": series_siblings(fname, all_names),
         "allowlisted": fname in ALLOWLIST,
         "allowlist_reason": ALLOWLIST.get(fname, ""),
@@ -358,9 +369,15 @@ def main():
         r = score_file(path, all_names=tutorial_files(args.dir))
         print("%s  score %d" % (r["file"], r["score"]))
         print("  duration %ds | youtube %s | named node/tool terms %d | "
-              "key steps %d | tail CTA phrases %d | series siblings %d"
+              "key steps %d | tail CTA phrases %d | series siblings %d | "
+              "self-declared %d"
               % (r["duration_secs"], r["youtube"], r["named_things"],
-                 r["key_steps"], r["cta_phrases"], r["series_siblings"]))
+                 r["key_steps"], r["cta_phrases"], r["series_siblings"],
+                 r["self_declared"]))
+        if r["self_declared"] == 0 and r["score"] >= CANDIDATE_THRESHOLD:
+            print("  STRUCTURAL-ONLY: the extraction never called this "
+                  "promotional. Not a candidate -- most likely a short-form "
+                  "feature tutorial. Default KEEP.")
         if r["allowlisted"]:
             print("  ALLOWLISTED: %s" % r["allowlist_reason"])
         for h in r["hits"]:
@@ -375,7 +392,13 @@ def main():
         print(json.dumps(results, indent=2))
         return 0
 
-    flagged = [r for r in results if r["score"] >= args.threshold]
+    over = [r for r in results if r["score"] >= args.threshold]
+    # Structural signals corroborate; they do not accuse. An entry that scores
+    # on short-duration / thin-steps / few-names alone is most often a
+    # short-form feature tutorial, not promo -- report it, but not as a
+    # candidate. See the module docstring.
+    flagged = [r for r in over if r["self_declared"] > 0]
+    structural = [r for r in over if r["self_declared"] == 0]
     shown = results if args.all else flagged
     scores = [r["score"] for r in results]
     allow_hit = [r for r in flagged if r["allowlisted"]]
@@ -384,8 +407,8 @@ def main():
     print("scan_promo.py -- promotional / no-content candidates (READ-ONLY)")
     print("=" * 72)
     print("scanned %d tutorials in %s" % (len(results), args.dir))
-    print("threshold %d | %d candidate(s) (%d allowlisted)"
-          % (args.threshold, len(flagged), len(allow_hit)))
+    print("threshold %d | %d candidate(s) (%d allowlisted) | %d structural-only"
+          % (args.threshold, len(flagged), len(allow_hit), len(structural)))
     if scores:
         srt = sorted(scores)
         print("score distribution: max %d | p95 %d | median %d | zero-score %d"
@@ -408,6 +431,23 @@ def main():
 
     if not shown:
         print("no candidates at this threshold.")
+
+    if structural and not args.all:
+        print("=" * 72)
+        print("STRUCTURAL-ONLY -- scored at or above threshold but the extraction")
+        print("never called this promotional. NOT candidates.")
+        print("=" * 72)
+        print("These fired only corroborating signals: short video, thin Key Steps,")
+        print("few named nodes. That is also the exact shape of a legitimate")
+        print("short-form feature tutorial -- one minute, one feature, a handful of")
+        print("concrete steps -- which is how most plugin and add-on documentation")
+        print("is published. Default KEEP. Look here only for an entry that is BOTH")
+        print("structurally empty AND teaches nothing.")
+        print()
+        for r in structural:
+            print("%4d  %s  (key steps %d, named terms %d)"
+                  % (r["score"], r["file"], r["key_steps"], r["named_things"]))
+        print()
 
     print("-" * 72)
     print("This tool WRITES NOTHING and DECIDES NOTHING. Every candidate above")

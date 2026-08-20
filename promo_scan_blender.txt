@@ -2,7 +2,7 @@
 scan_promo.py -- promotional / no-content candidates (READ-ONLY)
 ========================================================================
 scanned 314 tutorials in C:\Users\KABUM\.claude\skills\blender-motion\tutorials
-threshold 50 | 5 candidate(s) (0 allowlisted)
+threshold 50 | 4 candidate(s) (0 allowlisted) | 1 structural-only
 score distribution: max 123 | p95 37 | median 0 | zero-score 175
 
  123  create-game-ready-characters-blender-secrets.md
@@ -29,13 +29,34 @@ score distribution: max 123 | p95 37 | median 0 | zero-score 175
         - notes: calls it promotional/advertising (+30)
         - notes: says overview only (+20)
 
-  50  daily-blender-tip-89---riggin-with-seperate-objects-or-not.md
-        * SERIES INTRO? 55 sibling chapter(s) share this slug prefix -- likely a course's own intro, not a standalone trailer. Removing it holes a real series.
-        - YouTube, 106s -- under the 180s floor where check #9 never runs (+25)
-        - only 0 distinct node/tool names in the node section (+25)
+========================================================================
+STRUCTURAL-ONLY -- scored at or above threshold but the extraction
+never called this promotional. NOT candidates.
+========================================================================
+These fired only corroborating signals: short video, thin Key Steps,
+few named nodes. That is also the exact shape of a legitimate
+short-form feature tutorial -- one minute, one feature, a handful of
+concrete steps -- which is how most plugin and add-on documentation
+is published. Default KEEP. Look here only for an entry that is BOTH
+structurally empty AND teaches nothing.
+
+  50  daily-blender-tip-89---riggin-with-seperate-objects-or-not.md  (key steps 4, named terms 0)
 
 ------------------------------------------------------------------------
 This tool WRITES NOTHING and DECIDES NOTHING. Every candidate above
 needs hand triage: REMOVE (pure promo) / DEMOTE (real content, oversold
 tags) / KEEP (false positive or deliberate gap-filler). Record the
 decisions in PROMO_ENTRY_CLEANUP_PLAN.md Findings -- batches A4/A5.
+
+========================================================================
+NEAR-MISS BAND (score 40-49) -- below threshold, listed for A4/A5 context
+========================================================================
+The threshold has a soft edge: in houdini-wand, week-01-01-intro scores 45
+while its sibling week-02-01-intro scores 70 -- same series, same kind of
+file, 25 points apart. The gap is extraction honesty, not content.
+TRIAGE RULE: once ONE member of a series is flagged, triage the WHOLE
+series. Do not triage by threshold alone.
+
+  45  this-technique-lets-you-make-hard-surface-models-easily.md
+  43  daily-blender-secrets---10-ways-to-make-holes-in-blender.md [series: 2 siblings] [structural-only]
+  43  daily-blender-tip-88---how-to-make-a-character-follow-a-path.md [series: 55 siblings] [structural-only]
