@@ -341,6 +341,37 @@ def check_index():
     print(f"  INDEX entries: {len(ref_set)} | Disk files: {len(disk_files)}")
 
 
+def check_readme_count():
+    """Check #13 -- README's "N tutorials ingested" line vs. the real disk count.
+
+    ingest.py::update_readme_tutorial_count() keeps that line honest, but only on
+    the paths that call it, and two paths do not. The `skip` / removal path
+    git-rm's a tutorial without re-running the counter (paint-me-... over-counted
+    by 1 from 2026-08-14), and houdini-wand's course pipeline
+    (course_transcribe.py) writes tutorial files and INDEX stubs directly --
+    13 Designing Destruction lessons landed with the README still reading 536.
+    Both drifts were silent for days because nothing compared the number to the
+    files. Same fail-quiet contract as the writer: a reworded or absent line is a
+    skip, not a failure.
+    """
+    print("\n[5] Checking README tutorial count against disk...")
+    readme = os.path.join(os.path.dirname(os.path.abspath(__file__)), "README.md")
+    if not os.path.isfile(readme):
+        print("  No README.md -- skipped.")
+        return
+    with open(readme, "r", encoding="utf-8") as fh:
+        content = fh.read()
+    m = re.search(r"\*\*(\d+)\s*tutorials ingested\*\*", content)
+    if not m:
+        print("  README.md has no '**N tutorials ingested**' line -- skipped.")
+        return
+    claimed, actual = int(m.group(1)), len(get_tutorial_files())
+    if claimed != actual:
+        fail(f"README.md says '{claimed} tutorials ingested' but {actual} tutorial "
+             f"file(s) are on disk -- re-run ingest.py's update_readme_tutorial_count()")
+    print(f"  README claims {claimed} | disk {actual}.")
+
+
 def main():
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     print("=" * 60)
@@ -359,6 +390,7 @@ def main():
     check_index()
     check_promo()
     check_index_integrity()
+    check_readme_count()
 
     print("\n[drift] Checking shared-script sync with sibling skills...")
     check_script_drift()
