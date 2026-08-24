@@ -91,6 +91,6 @@ procedural, geometry-nodes, materials, organic, product-viz, beginner
 
 ## Related Tutorials
 Part of the **NS Brick Wall Builder** guide set (Nick Sayce / NS add-on). Direct continuation of Part 1.
-- [NS Brick Wall Builder - Mimicking a Real Wall](ns-brick-wall-builder---mimicking-a-real-wall.md) — Part 1 of this same technique tip (shape/jitter matching); this video continues into color and bump matching.
+- [NS Brick Wall Builder - Mimicking a Real Wall](ns-brick-wall-builder-mimicking-a-real-wall.md) — Part 1 of this same technique tip (shape/jitter matching); this video continues into color and bump matching.
 - [NS Brick Wall Builder v4.0 Guide](ns-brick-wall-builder-v4-0-guide.md) — full guide covering Brick Colour, Mortar and Bump controls in depth.
 - [NS Brick Wall Builder Guide](ns-brick-wall-builder-guide.md) — earlier full guide, also covers these same color/bump controls under a slightly different panel layout.

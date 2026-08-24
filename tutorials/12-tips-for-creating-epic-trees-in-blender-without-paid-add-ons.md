@@ -323,6 +323,6 @@ procedural, organic, particles, animation, rigging, materials, intermediate
 
 ## Related Tutorials
 - [How to Create Stylized Feathers and Fur in Blender](how-to-create-stylized-feathers-and-fur-in-blender.md) — shares procedural, materials, animation, organic, particles; same family of particle-driven organic surface coverage.
-- [Blender Tutorial - Procedural Rope in Geometry Nodes](blender-tutorial---procedural-rope-in-geometry-nodes.md) — shares procedural, organic, animation.
+- [Blender Tutorial - Procedural Rope in Geometry Nodes](blender-tutorial-procedural-rope-in-geometry-nodes.md) — shares procedural, organic, animation.
 - [Create a Walk Cycle animation in Blender](create-a-walk-cycle-animation-in-blender.md) — shares animation, rigging, organic (relevant to this tutorial's armature/wind-rig step).
 - [4 new retopology tips to discover! - Blender Secrets](4-new-retopology-tips-to-discover---blender-secrets.md) — shares organic, intermediate; same channel/author.

@@ -154,7 +154,8 @@ def get_transcript(content):
     split = re.search(r"\n## Structured Notes", raw)
     if split:
         raw = raw[:split.start()]
-    raw = re.sub(r"\n## Ingest Safeguard Report\n.*?\n---\n", "\n", raw, flags=re.DOTALL)
+    # Tolerate a hand-annotated header -- see validate.py / E4.
+    raw = re.sub(r"\n## Ingest Safeguard Report[^\n]*\n.*?\n---\n", "\n", raw, flags=re.DOTALL)
     out = []
     for line in raw.splitlines():
         s = line.strip()

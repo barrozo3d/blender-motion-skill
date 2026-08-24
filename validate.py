@@ -84,6 +84,7 @@ def is_youtube_source(content):
 
 
 def parse_duration_secs(content):
+    """Return video duration in seconds from the '**Duration:** Xm Ys' line, or 0."""
     m = re.search(r"\*\*Duration:\*\*\s+(?:(\d+)h\s*)?(?:(\d+)m\s*)?(?:(\d+)s)?", content)
     if not m:
         return 0
@@ -94,6 +95,13 @@ def parse_duration_secs(content):
 
 
 def get_transcript_text(content):
+    """Return the transcript text from the Raw Data section.
+
+    Returns None when the file carries no transcript at all -- no Raw Data
+    section, or the compact "[...raw data omitted...]" marker. Callers must
+    treat None ("cannot be checked") differently from "" ("nothing was
+    recovered"); check #1 counts the None files rather than skipping silently.
+    """
     raw_start = content.find("## Raw Data")
     if raw_start == -1:
         return None
@@ -106,9 +114,13 @@ def get_transcript_text(content):
     # The Ingest Safeguard Report box (inserted by ingest.py/select_frames.py for
     # needs-review files) ends with its own "\n---\n" divider that sits *before*
     # the real transcript — strip the whole box out first so the boundary check
-    # below doesn't mistake it for the end of the Raw Data section. The heading
-    # itself sometimes carries a reviewer suffix (e.g. "-- Reviewed") when Claude
-    # Code has annotated it as checked, so match anything up to end-of-line there.
+    # below doesn't mistake it for the end of the Raw Data section.
+    # The header may carry a hand-written suffix ("-- Reviewed", "(reviewed,
+    # resolved)") added when a flagged chapter was triaged. Requiring a bare
+    # newline after "Report" made the box unstrippable in those files, so its
+    # closing "---" was read as the end of Raw Data and a healthy transcript
+    # measured as 0 chars -- 2 files failed check #1 with full transcripts on
+    # disk. Match any suffix on the header line. (E4, 2026-08-24)
     raw = re.sub(r"\n## Ingest Safeguard Report[^\n]*\n.*?\n---\n", "\n", raw, flags=re.DOTALL)
 
     boundary = re.search(r"\n---", raw)
@@ -381,6 +393,34 @@ def check_readme_count():
     print(f"  README claims {claimed} | disk {actual}.")
 
 
+def check_cross_links():
+    """Check #14 -- tutorial-to-tutorial links point at files that exist.
+
+    Nothing has ever validated these. A1 found 9 inbound links to a file that was
+    about to be deleted and validate.py would have passed with all 9 dangling
+    (finding #8); A7 was the slot for this check and shipped the promo gate
+    instead. When it was finally measured (E5) there were 7 broken links -- none
+    from the A6 removals, which came out clean, but hand-written links whose slug
+    never matched a file ("a - b" slugified to "a---b" where ingest.py writes
+    "a-b"). Cheap to break, invisible without a check.
+    """
+    print("\n[6] Checking tutorial-to-tutorial links resolve...")
+    files = set(get_tutorial_files())
+    link_re = re.compile(r"\[([^\]]+)\]\(([^)]+\.md)\)")
+    checked = 0
+    for fname in sorted(files):
+        with open(os.path.join(TUTORIALS_DIR, fname), "r", encoding="utf-8-sig") as fh:
+            content = fh.read()
+        for m in link_re.finditer(content):
+            target = m.group(2).split("/")[-1]
+            if target == "INDEX.md":
+                continue
+            checked += 1
+            if target not in files:
+                fail(f"{fname}: link to '{target}' but no such tutorial exists "
+                     f"(link text: '{m.group(1)[:60]}')")
+    print(f"  {checked} tutorial-to-tutorial link(s) checked.")
+
 def main():
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     print("=" * 60)
@@ -400,6 +440,7 @@ def main():
     check_promo()
     check_index_integrity()
     check_readme_count()
+    check_cross_links()
 
     print("\n[drift] Checking shared-script sync with sibling skills...")
     check_script_drift()
@@ -447,7 +488,7 @@ SHARED_FUNCS = ("slugify", "download_audio", "ytdlp_captions", "segment_by_chapt
 # that cannot notice its own subject changing is exactly how this program's false
 # positives got their authority -- see PROMO_ENTRY_CLEANUP_PLAN.md finding #2.
 RECORDED_DIVERGENCE = {
-    "_ytdlp_cmd": {
+    "ingest.py::_ytdlp_cmd": {
         "skill": "nuke-em-all",
         "variants": {"b1cd077e6b86", "98c7dfa4f458"},
         "reason": ("nuke-em-all forces the web_embedded player client -- android's "
@@ -456,7 +497,7 @@ RECORDED_DIVERGENCE = {
                    "android (verified 2026-08-24), so they were deliberately left "
                    "alone rather than migrated on a working path."),
     },
-    "download_audio": {
+    "ingest.py::download_audio": {
         "skill": "nuke-em-all",
         "variants": {"cb91e7e62b2c", "0d76f56266c8"},
         "reason": ("consequence of the _ytdlp_cmd split, not an independent edit: "
@@ -465,6 +506,21 @@ RECORDED_DIVERGENCE = {
                    "resolves to bestvideo+bestaudio and downloads a full video "
                    "track just to discard it."),
     },
+}
+
+
+# E5: the drift watch used to cover ingest.py only -- the *pipeline* was
+# guarded while the *gate* was not. That is how four skills sat on a broken
+# transcript parser (E4) while blender-motion had the fix, with no run ever
+# saying so. Watch the checkers too.
+WATCHED_FILES = {
+    "ingest.py": SHARED_FUNCS,
+    "validate.py": ("get_transcript_text", "get_notes_content",
+                    "parse_duration_secs", "is_youtube_source",
+                    "get_tutorial_files", "parse_index_refs"),
+    "scan_promo.py": ("score_file", "get_transcript", "get_notes",
+                      "duration_secs", "count_steps", "count_named_things",
+                      "series_siblings"),
 }
 
 
@@ -479,7 +535,7 @@ def check_script_drift():
     skills_root = os.path.dirname(here)
     my_name = os.path.basename(here)
 
-    def func_sources(pyfile):
+    def func_sources(pyfile, wanted):
         try:
             with open(pyfile, "r", encoding="utf-8") as fh:
                 src = fh.read()
@@ -488,36 +544,39 @@ def check_script_drift():
             return {}
         found = {}
         for node in ast.walk(tree):
-            if isinstance(node, ast.FunctionDef) and node.name in SHARED_FUNCS:
+            if isinstance(node, ast.FunctionDef) and node.name in wanted:
                 found[node.name] = ast.get_source_segment(src, node)
         return found
 
-    mine = func_sources(os.path.join(here, "ingest.py"))
     warned = False
     noted = set()
-    for sib in SIBLING_SKILLS:
-        if sib == my_name:
-            continue
-        sib_ingest = os.path.join(skills_root, sib, "ingest.py")
-        if not os.path.isfile(sib_ingest):
-            continue
-        theirs = func_sources(sib_ingest)
-        for fn in SHARED_FUNCS:
-            if fn in mine and fn in theirs and mine[fn] != theirs[fn]:
-                rec = RECORDED_DIVERGENCE.get(fn)
+    for pyfile, wanted in WATCHED_FILES.items():
+        mine = func_sources(os.path.join(here, pyfile), wanted)
+        for sib in SIBLING_SKILLS:
+            if sib == my_name:
+                continue
+            sib_path = os.path.join(skills_root, sib, pyfile)
+            if not os.path.isfile(sib_path):
+                continue
+            theirs = func_sources(sib_path, wanted)
+            for fn in wanted:
+                if fn not in mine or fn not in theirs or mine[fn] == theirs[fn]:
+                    continue
+                key = f"{pyfile}::{fn}"
+                rec = RECORDED_DIVERGENCE.get(key)
                 if (rec and rec["skill"] in (my_name, sib)
                         and {_srchash(mine[fn]), _srchash(theirs[fn])} == rec["variants"]):
-                    if fn not in noted:
-                        print(f"  RECORDED DIVERGENCE: ingest.py::{fn}() differs in "
+                    if key not in noted:
+                        print(f"  RECORDED DIVERGENCE: {pyfile}::{fn}() differs in "
                               f"'{rec['skill']}' by decision -- {rec['reason']}")
-                        noted.add(fn)
+                        noted.add(key)
                     continue
-                print(f"  DRIFT WARNING: ingest.py::{fn}() differs from sibling skill '{sib}' "
-                      f"-- if the change was intentional, port it to all skills")
+                print(f"  DRIFT WARNING: {pyfile}::{fn}() differs from sibling skill "
+                      f"'{sib}' -- if the change was intentional, port it to all skills")
                 warned = True
     if not warned:
         extra = f" ({len(noted)} recorded divergence(s) noted above)" if noted else ""
-        print(f"  Shared ingest.py helpers in sync with sibling skills"
+        print(f"  Shared helpers in sync with sibling skills"
               f" (or no siblings installed).{extra}")
 
 

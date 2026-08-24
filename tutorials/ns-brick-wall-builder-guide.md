@@ -293,6 +293,6 @@ procedural, geometry-nodes, displacement, organic, product-viz, intermediate
 ## Related Tutorials
 Part of the **NS Brick Wall Builder** guide set (Nick Sayce / NS add-on). This is the earlier full guide (2026-07-13); a newer, more complete v4.0 guide supersedes it with a reorganized panel and an added Colour Ramps tab.
 - [NS Brick Wall Builder v4.0 Guide](ns-brick-wall-builder-v4-0-guide.md) — current/most complete guide, same add-on, later version — compare panel layouts (Colour Ramps section, Base Shape naming) before assuming controls match exactly.
-- [NS Brick Wall Builder - Mimicking a Real Wall](ns-brick-wall-builder---mimicking-a-real-wall.md) — short real-world-reference technique tip, builds on this guide's base controls.
-- [NS Brick Wall Builder - Mimicking a Real Wall 2](ns-brick-wall-builder---mimicking-a-real-wall-2.md) — part 2 of the above tip.
+- [NS Brick Wall Builder - Mimicking a Real Wall](ns-brick-wall-builder-mimicking-a-real-wall.md) — short real-world-reference technique tip, builds on this guide's base controls.
+- [NS Brick Wall Builder - Mimicking a Real Wall 2](ns-brick-wall-builder-mimicking-a-real-wall-2.md) — part 2 of the above tip.
 - [NS Rock Sculptor Guide - Sculpt Settings](ns-rock-sculptor-guide-sculpt-settings.md) — conceptual sibling: same author's other add-on family, also uses a "Make Single" detach mechanism.

@@ -430,7 +430,9 @@ def append_safeguard_note(content, note, level="WARNING"):
     reasoning ends up in one place inside the file, regardless of which step found it.
     """
     line = f"- **{level}:** {note}" if level == "CRITICAL" else f"- {level}: {note}"
-    m = re.search(r"\n## Ingest Safeguard Report\n.*?\n---\n", content, re.DOTALL)
+        # Tolerate a hand-annotated header ('(reviewed, resolved)', '-- Reviewed');
+        # the strict form silently failed to find an existing box. (E5, 2026-08-24)
+    m = re.search(r"\n## Ingest Safeguard Report[^\n]*\n.*?\n---\n", content, re.DOTALL)
     if m:
         insertion_point = content.rindex("\n---\n", m.start(), m.end())
         return content[:insertion_point] + line + "\n" + content[insertion_point:]
