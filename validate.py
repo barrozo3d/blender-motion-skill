@@ -479,7 +479,11 @@ SHARED_FUNCS = ("slugify", "download_audio", "ytdlp_captions", "segment_by_chapt
                 # added 2026-08-24 (E3): the drift checker was watching
                 # download_audio() -- the symptom -- while the player-client
                 # choice that DICTATES it was invisible. Watch the cause too.
-                "_ytdlp_cmd")
+                "_ytdlp_cmd",
+                # added 2026-08-24 (D4b): vendor-doc ingest made this
+                # consequential -- it decides how much of a doc page is
+                # kept and whether navigation chrome crowds it out.
+                "fetch_article")
 
 # Recorded intentional divergences. A difference listed here is a decision, not
 # drift -- but each is PINNED to the two source variants it was reviewed against

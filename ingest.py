@@ -606,20 +606,68 @@ def update_readme_tutorial_count():
         readme.write_text(new_content, encoding="utf-8")
 
 def fetch_article(url):
+    """Fetch a web article or documentation page as plain text.
+
+    Vendor documentation (D4b) is why this is more than a tag-strip. Foundry's
+    Katana docs are MadCap Flare pages: ~220KB of HTML where the real article
+    lives in a div#mc-main-content, wrapped in five <nav> blocks, a footer and a
+    cookie widget. Stripping tags off the whole page and keeping the first 8000
+    characters spent part of the budget on "Skip To Main Content / Account
+    Settings / Search Tips" and then truncated the GafferThree page mid-sentence
+    at roughly a quarter of its content (29,449 clean chars measured).
+
+    So: drop chrome elements, prefer a main-content container when the page
+    declares one, and only then strip tags. The cap is raised because a doc page
+    is legitimately longer than a blog post and much shorter than a transcript.
+    (E-workstream / D4b, 2026-08-24)
+    """
     import urllib.request
+    from urllib.parse import urlparse
+
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
     with urllib.request.urlopen(req, timeout=30) as resp:
-        html = resp.read().decode("utf-8", errors="ignore")
-    html = re.sub(r"<script[^>]*>.*?</script>", "", html, flags=re.DOTALL)
-    html = re.sub(r"<style[^>]*>.*?</style>", "", html, flags=re.DOTALL)
+        raw_html = resp.read().decode("utf-8", errors="ignore")
+
+    # Extract <title> BEFORE stripping tags - stripping first left this dead code
+    # (it searched html that no longer had any tags, so title always fell back
+    # to the raw URL, which then poisoned the slug/filename too).
+    tm = re.search(r"<title[^>]*>(.*?)</title>", raw_html, re.I | re.S)
+    title = re.sub(r"\s+", " ", tm.group(1)).strip() if tm else url
+    title = re.sub(r"&#x27;|&#39;|&rsquo;", "'", title)
+    title = re.sub(r"&amp;", "&", title)
+
+    # 1. remove non-content elements outright
+    html = re.sub(r"<(script|style|nav|footer)[^>]*>.*?</\1>", " ",
+                  raw_html, flags=re.DOTALL | re.I)
+
+    # 2. prefer the page's own main-content container when it declares one.
+    #    Nested divs make a balanced match impractical, so cut from the opening
+    #    tag to the first nav/footer that follows it.
+    for marker in (r'<\w+[^>]*id="mc-main-content"[^>]*>',      # MadCap Flare
+                   r'<main[^>]*>',                              # HTML5
+                   r'<\w+[^>]*role="main"[^>]*>',
+                   r'<article[^>]*>'):
+        m = re.search(marker, html, re.I)
+        if m:
+            html = html[m.end():]
+            cut = re.search(r"<(footer|nav)\b", html, re.I)
+            if cut:
+                html = html[:cut.start()]
+            break
+
+    # 3. tags -> text
     html = re.sub(r"<[^>]+>", " ", html)
-    html = re.sub(r"&[a-z]+;", " ", html)
+    html = re.sub(r"&nbsp;|&#160;", " ", html)
+    html = re.sub(r"&[a-z#0-9]+;", " ", html)
     text = re.sub(r"\s+", " ", html).strip()
-    tm = re.search(r"<title[^>]*>(.*?)</title>", html, re.I | re.S)
-    title = tm.group(1).strip() if tm else url
-    from urllib.parse import urlparse
+
+    # 4. trim trailing feedback/cookie widgets that survive inside the container
+    for tail in (r"Give Feedback.*$", r"You must accept cookies.*$",
+                 r"How can we improve.*$"):
+        text = re.sub(tail, "", text, flags=re.I | re.DOTALL).strip()
+
     return {"title": title, "uploader": urlparse(url).netloc,
-            "description": text[:8000], "duration": 0,
+            "description": text[:25000], "duration": 0,
             "webpage_url": url, "chapters": []}
 
 # ── Main ───────────────────────────────────────────────────────────────────────
