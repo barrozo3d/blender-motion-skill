@@ -421,6 +421,60 @@ def check_cross_links():
                      f"(link text: '{m.group(1)[:60]}')")
     print(f"  {checked} tutorial-to-tutorial link(s) checked.")
 
+REFERENCE_REQUIRED_KEYS = ("class", "verified", "sources", "last_verified")
+
+
+def _frontmatter(text):
+    """Return the leading YAML block, or None if the file has none.
+
+    Deliberately line-based. Splitting on the string "---" looks equivalent and
+    is not: several tutorial filenames contain a triple dash
+    ("...-houdini---free-lesson.md"), so a sources: list holding one of them cuts
+    the frontmatter short and the file reads as missing keys it plainly has.
+    That false positive was produced while building this very check (B6).
+    """
+    lines = text.split("\n")
+    if not lines or lines[0].strip() != "---":
+        return None
+    for i in range(1, len(lines)):
+        if lines[i].strip() == "---":
+            return "\n".join(lines[1:i])
+    return None
+
+
+def check_reference_provenance():
+    """Check #15 -- every references/*.md carries the B2 provenance frontmatter.
+
+    B2 gave all 95 reference files a provenance header so a reader can tell
+    ingested knowledge from model memory; nothing enforced it afterwards, so the
+    next hand-written reference would silently arrive without one.
+
+    verified: no is REPORTED, never failed. Those files are legitimate -- they
+    are model-memory references that honestly say so, and B4/B5 annotated rather
+    than deleted them. Counting them keeps the number visible.
+    """
+    print("\n[7] Checking reference provenance (B2 headers)...")
+    ref_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "references")
+    if not os.path.isdir(ref_dir):
+        print("  No references/ directory -- skipped.")
+        return
+    files = sorted(f for f in os.listdir(ref_dir) if f.endswith(".md"))
+    unverified = []
+    for fname in files:
+        with open(os.path.join(ref_dir, fname), "r", encoding="utf-8-sig") as fh:
+            fm = _frontmatter(fh.read())
+        if fm is None:
+            fail(f"references/{fname}: no frontmatter block -- needs the B2 provenance header")
+            continue
+        missing = [k for k in REFERENCE_REQUIRED_KEYS if not re.search(rf"^{k}:", fm, re.M)]
+        if missing:
+            fail(f"references/{fname}: provenance header missing {', '.join(missing)}")
+        if re.search(r"^verified:\s*no\b", fm, re.M):
+            unverified.append(fname)
+    note = f" | {len(unverified)} marked 'verified: no' (model memory -- not a failure)" if unverified else ""
+    print(f"  {len(files)} reference file(s) checked.{note}")
+
+
 def main():
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     print("=" * 60)
@@ -441,6 +495,7 @@ def main():
     check_index_integrity()
     check_readme_count()
     check_cross_links()
+    check_reference_provenance()
 
     print("\n[drift] Checking shared-script sync with sibling skills...")
     check_script_drift()
