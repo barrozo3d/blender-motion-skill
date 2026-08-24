@@ -231,22 +231,65 @@ def download_video_low(url, tmp):
     timestamps, but yt-dlp still downloads the whole file, and these run in
     batches of hundreds. Set INGEST_FRAME_HEIGHT to raise it (1080 helps for
     dense UI like Nuke's node graph or Houdini's parameter pane).
+
+    PLAYER CLIENT (added 2026-08-24, plan batch D1). The height cap above is
+    only reachable if the player client actually exposes the adaptive ladder.
+    The `android` client that four of the five skills force in _ytdlp_cmd()
+    exposes ONE muxed stream -- itag 18, 640x360 -- so `bestvideo[height<=720]`
+    has nothing to match and selection falls all the way through to that 360p
+    stream. Measured on O6T5eVYJHsA: android offers 640x360 and nothing else;
+    web_embedded offers the full ladder up to 1920x1080. This silently undid
+    D0b for four of the five skills: D1's first run re-captured 119 tutorials
+    and got 640x360 (360x360 for vertical shorts) -- better than 256x144, but
+    not the 720p D0b was written to deliver, and not enough for a Houdini
+    parameter pane.
+
+    So the FRAME download asks for web_embedded first and falls back to
+    whatever _ytdlp_cmd() chose if that fails. Audio (Step 1) is deliberately
+    left alone: it re-encodes to mp3 and does not care about resolution, and
+    android is the client that survives YouTube's bot check -- which is what
+    E3b decided and this does not reopen. The cookies path already exposes the
+    full ladder, so it is passed through untouched.
     """
     h = os.environ.get("INGEST_FRAME_HEIGHT", "720")
     fmt = (f"bestvideo[height<={h}][ext=mp4]/bestvideo[height<={h}]/"
            f"best[height<={h}][ext=mp4]/best[height<={h}]/best")
     out = str(tmp / "video.%(ext)s")
-    cmd = _ytdlp_cmd() + ["-f", fmt, "--no-playlist", "-o", out, url]
+    base = _ytdlp_cmd()
+    if "--cookies" in base:
+        client_attempts = [base]
+    else:
+        stripped, i = [], 0
+        while i < len(base):
+            if (base[i] == "--extractor-args" and i + 1 < len(base)
+                    and base[i + 1].startswith("youtube:player_client")):
+                i += 2
+                continue
+            stripped.append(base[i])
+            i += 1
+        preferred = stripped + ["--extractor-args",
+                                "youtube:player_client=web_embedded"]
+        client_attempts = [preferred] if preferred == base else [preferred, base]
     # Same one-off YouTube throttling failures as the audio download in Step 1;
     # a single retry usually recovers (select_frames.py depends on this helper).
-    for attempt in (1, 2):
-        try:
-            subprocess.run(cmd, capture_output=True, timeout=600, check=True)
+    last_err = None
+    for ci, client_base in enumerate(client_attempts):
+        cmd = client_base + ["-f", fmt, "--no-playlist", "-o", out, url]
+        for attempt in (1, 2):
+            try:
+                subprocess.run(cmd, capture_output=True, timeout=600, check=True)
+                last_err = None
+                break
+            except subprocess.CalledProcessError as exc:
+                last_err = exc
+                if attempt == 1:
+                    print("      Video download failed - retrying once...")
+        if last_err is None:
             break
-        except subprocess.CalledProcessError:
-            if attempt == 2:
-                raise
-            print("      Video download failed - retrying once...")
+        if ci < len(client_attempts) - 1:
+            print("      Falling back to this skill's own player client...")
+    if last_err is not None:
+        raise last_err
     for f in tmp.iterdir():
         if f.suffix in (".mp4", ".webm", ".mkv"):
             return f
