@@ -631,10 +631,15 @@ def fetch_article(url):
     # Extract <title> BEFORE stripping tags - stripping first left this dead code
     # (it searched html that no longer had any tags, so title always fell back
     # to the raw URL, which then poisoned the slug/filename too).
+    from html import unescape          # module name would shadow the html local
     tm = re.search(r"<title[^>]*>(.*?)</title>", raw_html, re.I | re.S)
-    title = re.sub(r"\s+", " ", tm.group(1)).strip() if tm else url
-    title = re.sub(r"&#x27;|&#39;|&rsquo;", "'", title)
-    title = re.sub(r"&amp;", "&", title)
+    title = tm.group(1) if tm else url
+    # Decode entities BEFORE collapsing whitespace. The old ad-hoc list handled
+    # only &#x27; &#39; &rsquo; &amp;, so a &#160; (non-breaking space) survived
+    # into the title, the H1, frames_dir AND the slug -- a 2026-08-24 ingest
+    # produced "setting-up-usdpreviewsurface160materials.md".
+    title = unescape(title)
+    title = re.sub(r"\s+", " ", title).strip()
 
     # 1. remove non-content elements outright
     html = re.sub(r"<(script|style|nav|footer)[^>]*>.*?</\1>", " ",
