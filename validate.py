@@ -132,6 +132,7 @@ def get_transcript_text(content):
 def check_tutorials():
     print("\n[1] Checking tutorial files for PENDING markers, frontmatter issues, and transcript health...")
     files = get_tutorial_files()
+    unverifiable = []
     for fname in files:
         path = os.path.join(TUTORIALS_DIR, fname)
         with open(path, "r", encoding="utf-8-sig") as fh:
@@ -181,7 +182,14 @@ def check_tutorials():
                                 f"{TRANSCRIPT_CHARS_PER_SEC} chars/sec)"
                             )
 
-    print(f"  Checked {len(files)} files.")
+                else:
+                    # No transcript in the file at all (omitted, or no Raw Data
+                    # section). check #1 cannot verify these -- count them so the
+                    # exemption is a measured number rather than a silent skip.
+                    unverifiable.append(fname)
+    extra = (f" | {len(unverifiable)} YouTube tutorial(s) carry no transcript in-file"
+             f" -- check #1 cannot verify those") if unverifiable else ""
+    print(f"  Checked {len(files)} files.{extra}")
 
 
 INDEX_MOJIBAKE = re.compile(r"â€|â†|Ã[\x80-\xbf©¢­±]|Â[\xa0-\xbf]")
