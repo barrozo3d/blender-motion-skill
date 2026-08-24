@@ -25,6 +25,7 @@ Checks performed:
       leftover [PENDING] fields, no mojibake
 """
 
+import hashlib
 import os
 import re
 import sys
@@ -425,7 +426,43 @@ SHARED_FUNCS = ("slugify", "download_audio", "ytdlp_captions", "segment_by_chapt
                 # value is in staying a WARNING -- a copy that drifts into
                 # flagging needs-review would start marking short one-feature
                 # plugin tutorials as advertising.
-                "promo_hint_at_ingest")
+                "promo_hint_at_ingest",
+                # added 2026-08-24 (E3): the drift checker was watching
+                # download_audio() -- the symptom -- while the player-client
+                # choice that DICTATES it was invisible. Watch the cause too.
+                "_ytdlp_cmd")
+
+# Recorded intentional divergences. A difference listed here is a decision, not
+# drift -- but each is PINNED to the two source variants it was reviewed against
+# (sha256[:12] of the function source). Edit either side and the pin stops
+# matching, so it reverts to a warning that has to be re-reviewed. An allowlist
+# that cannot notice its own subject changing is exactly how this program's false
+# positives got their authority -- see PROMO_ENTRY_CLEANUP_PLAN.md finding #2.
+RECORDED_DIVERGENCE = {
+    "_ytdlp_cmd": {
+        "skill": "nuke-em-all",
+        "variants": {"b1cd077e6b86", "98c7dfa4f458"},
+        "reason": ("nuke-em-all forces the web_embedded player client -- android's "
+                   "single muxed itag-18 stream was dying mid-download under "
+                   "YouTube's SABR experiment. The other four still work on "
+                   "android (verified 2026-08-24), so they were deliberately left "
+                   "alone rather than migrated on a working path."),
+    },
+    "download_audio": {
+        "skill": "nuke-em-all",
+        "variants": {"cb91e7e62b2c", "0d76f56266c8"},
+        "reason": ("consequence of the _ytdlp_cmd split, not an independent edit: "
+                   "web_embedded exposes separate audio-only DASH streams, so "
+                   "-f bestaudio/best is required there or an unqualified -x "
+                   "resolves to bestvideo+bestaudio and downloads a full video "
+                   "track just to discard it."),
+    },
+}
+
+
+def _srchash(src):
+    """Short content hash of a function's source, for pinning recorded divergences."""
+    return hashlib.sha256(src.encode("utf-8")).hexdigest()[:12]
 
 
 def check_script_drift():
@@ -449,6 +486,7 @@ def check_script_drift():
 
     mine = func_sources(os.path.join(here, "ingest.py"))
     warned = False
+    noted = set()
     for sib in SIBLING_SKILLS:
         if sib == my_name:
             continue
@@ -458,11 +496,21 @@ def check_script_drift():
         theirs = func_sources(sib_ingest)
         for fn in SHARED_FUNCS:
             if fn in mine and fn in theirs and mine[fn] != theirs[fn]:
+                rec = RECORDED_DIVERGENCE.get(fn)
+                if (rec and rec["skill"] in (my_name, sib)
+                        and {_srchash(mine[fn]), _srchash(theirs[fn])} == rec["variants"]):
+                    if fn not in noted:
+                        print(f"  RECORDED DIVERGENCE: ingest.py::{fn}() differs in "
+                              f"'{rec['skill']}' by decision -- {rec['reason']}")
+                        noted.add(fn)
+                    continue
                 print(f"  DRIFT WARNING: ingest.py::{fn}() differs from sibling skill '{sib}' "
                       f"-- if the change was intentional, port it to all skills")
                 warned = True
     if not warned:
-        print("  Shared ingest.py helpers in sync with sibling skills (or no siblings installed).")
+        extra = f" ({len(noted)} recorded divergence(s) noted above)" if noted else ""
+        print(f"  Shared ingest.py helpers in sync with sibling skills"
+              f" (or no siblings installed).{extra}")
 
 
 if __name__ == "__main__":
