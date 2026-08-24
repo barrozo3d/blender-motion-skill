@@ -475,6 +475,48 @@ def check_reference_provenance():
     print(f"  {len(files)} reference file(s) checked.{note}")
 
 
+def check_frame_provenance():
+    """Check #16 -- frame citations in Structured Notes resolve to captured frames.
+
+    D2's mechanism. Extractions already cite frames organically -- 117 files carry
+    719 `frame_NNN` references across the five skills -- but nothing checked that
+    a cited frame exists. A claim attributed to `frame_012` in a file that
+    captured 8 frames is a claim traced to nothing.
+
+    Checked against the file's OWN record (`frame_count`), never against the
+    filesystem: frames are gitignored and device-local, so a machine that has not
+    downloaded them is not evidence of absence. That is also what makes this
+    survive frame deletion, which the images themselves do not.
+
+    Frames are 0-indexed, so a valid citation satisfies index < frame_count.
+    """
+    print("\n[8] Checking frame provenance in Structured Notes...")
+    files = get_tutorial_files()
+    citing = citations = 0
+    for fname in files:
+        with open(os.path.join(TUTORIALS_DIR, fname), "r", encoding="utf-8-sig") as fh:
+            content = fh.read()
+        if "## Structured Notes" not in content:
+            continue
+        notes = content.split("## Structured Notes")[-1]
+        cited = {int(x) for x in re.findall(r"frame_(\d{3})", notes)}
+        if not cited:
+            continue
+        citing += 1
+        citations += len(re.findall(r"frame_(\d{3})", notes))
+        m = re.search(r"^frame_count:\s*(\d+)", content, re.M)
+        if not m:
+            fail(f"{fname}: cites frame_{max(cited):03d} but has no frame_count in frontmatter")
+            continue
+        count = int(m.group(1))
+        over = sorted(i for i in cited if i >= count)
+        if over:
+            shown = ", ".join(f"frame_{i:03d}" for i in over[:4])
+            fail(f"{fname}: cites {shown} but frame_count is {count} "
+                 f"(frames are 0-indexed -- either the citation or the count is wrong)")
+    print(f"  {citations} frame citation(s) across {citing} file(s).")
+
+
 def main():
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     print("=" * 60)
@@ -496,6 +538,7 @@ def main():
     check_readme_count()
     check_cross_links()
     check_reference_provenance()
+    check_frame_provenance()
 
     print("\n[drift] Checking shared-script sync with sibling skills...")
     check_script_drift()
