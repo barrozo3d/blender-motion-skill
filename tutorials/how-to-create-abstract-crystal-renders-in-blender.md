@@ -78,3 +78,18 @@ Not specified in transcript or frames (UI style in frames is consistent with Ble
 ## Related Tutorials
 - `another-blender-string-tutorialbut-even-better-this-time.md` — shares glass/procedural/intermediate tags and similar abstract crystalline aesthetic
 - `art-stream-27-nodes-nodes-nodes-blender-geometry-nodes.md` — shares Distribute Points on Faces scattering technique for abstract/procedural geometry
+
+## Captured Frames
+
+<!-- BUG 6 REPAIR 2026-08-25. These frames were captured at
+     duration * (0.1, 0.3, 0.55, 0.8), but the .md parked them under a
+     fallback '### Full Content [0:00]' heading, so reground_frames.py
+     re-captured them at 0:00 and produced title cards. Moments below are
+     re-derived from the source's duration, not chosen. Bullet refs take
+     precedence over the heading layout, so the stale [0:00] line above is
+     ignored. Still BLIND-ERA moments: legible, not content-anchored. -->
+
+- [0:21] tutorials/frames/how-to-create-abstract-crystal-renders-in-blender/frame_000.jpg
+- [1:04] tutorials/frames/how-to-create-abstract-crystal-renders-in-blender/frame_001.jpg
+- [1:58] tutorials/frames/how-to-create-abstract-crystal-renders-in-blender/frame_002.jpg
+- [2:51] tutorials/frames/how-to-create-abstract-crystal-renders-in-blender/frame_003.jpg

@@ -85,3 +85,18 @@ Not stated — uses Adaptive Subdivision + 4D Noise Texture + driver expressions
 ## Related Tutorials
 - [[blenders-new-transparency-material-is-crazy]] — another procedural shader-building tutorial with similar node-by-node teaching style
 - [[infinite-wood-dont-fear-the-shader-ep01]] — companion procedural-material approach: noise-driven layering (micro/medium/macro) combined into one shader, same design philosophy applied to wood instead of water
+
+## Captured Frames
+
+<!-- BUG 6 REPAIR 2026-08-25. These frames were captured at
+     duration * (0.1, 0.3, 0.55, 0.8), but the .md parked them under a
+     fallback '### Full Content [0:00]' heading, so reground_frames.py
+     re-captured them at 0:00 and produced title cards. Moments below are
+     re-derived from the source's duration, not chosen. Bullet refs take
+     precedence over the heading layout, so the stale [0:00] line above is
+     ignored. Still BLIND-ERA moments: legible, not content-anchored. -->
+
+- [0:51] tutorials/frames/como-hacer-agua-realista-en-blender/frame_000.jpg
+- [2:34] tutorials/frames/como-hacer-agua-realista-en-blender/frame_001.jpg
+- [4:42] tutorials/frames/como-hacer-agua-realista-en-blender/frame_002.jpg
+- [6:50] tutorials/frames/como-hacer-agua-realista-en-blender/frame_003.jpg

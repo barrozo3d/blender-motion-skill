@@ -85,3 +85,18 @@ cloth, simulation, physics, add-on, third-party, contact-solver, self-intersecti
 
 ## Related Tutorials
 - `blender-new-cloth-simulator-changes-everything.md` — Blender 5.2 native Cloth Dynamics GN node (contrasted in this video)
+
+## Captured Frames
+
+<!-- BUG 6 REPAIR 2026-08-25. These frames were captured at
+     duration * (0.1, 0.3, 0.55, 0.8), but the .md parked them under a
+     fallback '### Full Content [0:00]' heading, so reground_frames.py
+     re-captured them at 0:00 and produced title cards. Moments below are
+     re-derived from the source's duration, not chosen. Bullet refs take
+     precedence over the heading layout, so the stale [0:00] line above is
+     ignored. Still BLIND-ERA moments: legible, not content-anchored. -->
+
+- [1:14] tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/frame_000.jpg
+- [3:44] tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/frame_001.jpg
+- [6:50] tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/frame_002.jpg
+- [9:56] tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/frame_003.jpg
