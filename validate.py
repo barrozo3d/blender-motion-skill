@@ -517,6 +517,109 @@ def check_frame_provenance():
     print(f"  {citations} frame citation(s) across {citing} file(s).")
 
 
+
+# Flip to True once the backlog below is zero, promoting population A from
+# advisory to gating. It is False today because the check would land with 60
+# pre-existing violations across three skills, and a gate that fails on arrival
+# gets ignored rather than fixed (plan Gotcha #1: gate LAST).
+GATE_ORPHAN_FRAMES = False
+
+
+def check_orphan_frames():
+    """Check #17 -- frames that exist but are documented nowhere (plan batch D3).
+
+    Two populations, deliberately judged differently, because D3 as originally
+    specified ("flag any tutorials/frames/<slug>/ containing images whose .md has
+    no Captured Frames section") contradicted D2. D2 checks the file's OWN record
+    and never the filesystem, because frames are gitignored and DEVICE-LOCAL --
+    a machine that never downloaded them is not evidence of absence. A purely
+    filesystem check would be the first one whose result differs per machine,
+    passing here and failing on the other device with neither being wrong.
+
+    So:
+
+      A) RECORD-ONLY, machine-independent -- `frame_count > 0` but the file cites
+         no `frame_NNN.jpg` anywhere. The record contradicts itself identically on
+         every machine, so this is the half that can legitimately gate.
+
+      B) FILESYSTEM -- `tutorials/frames/<slug>/` holds images the .md never
+         references. This is the true "orphan" D3 was named for, but it is
+         device-local and must NEVER gate. Reported so the population stays
+         visible, the same way check #1 prints transcript-less tutorials.
+
+    Measured 2026-08-25 across the five skills, counting BOTH citation forms:
+    A = 59 (unreal 57, houdini 1, nuke 1), B = 109 (unreal 57, blender 49,
+    houdini 2, nuke 1). Counting only the `.jpg` form gave A = 60 / B = 110
+    and falsely flagged the very pair D2 repaired. Note that
+    the original wording would have flagged 286 files in unreal-sidekick alone,
+    because it assumed one frame-reference format; the older
+    `### Title [12:34]` + `**Frame:**` form is equally valid.
+    """
+    print()
+    print("[9] Checking for orphaned / undocumented frames...")
+    files = get_tutorial_files()
+    claim_no_doc = []
+    for fname in files:
+        path = os.path.join(TUTORIALS_DIR, fname)
+        with open(path, "r", encoding="utf-8-sig") as fh:
+            content = fh.read()
+        m = re.search(r"^frame_count:\s*(\d+)", content, re.M)
+        if not m or int(m.group(1)) == 0:
+            continue
+        # Both conventions count as documentation: the "## Captured Frames"
+        # path form (frame_007.jpg) AND D2's citation form ([frame_007],
+        # no extension). Matching only the first falsely flagged the very
+        # pair D2 fixed -- the same one-format assumption that made the
+        # original D3 spec flag 286 unreal files.
+        if not re.search(r"frame_\d{3}", content):
+            claim_no_doc.append((fname, int(m.group(1))))
+
+    frames_root = os.path.join(TUTORIALS_DIR, "frames")
+    orphan_dirs = []
+    if os.path.isdir(frames_root):
+        for slug in sorted(os.listdir(frames_root)):
+            d = os.path.join(frames_root, slug)
+            if not os.path.isdir(d):
+                continue
+            imgs = [f for f in os.listdir(d) if re.match(r"frame_\d{3}\.jpg$", f)]
+            if not imgs:
+                continue
+            md = os.path.join(TUTORIALS_DIR, slug + ".md")
+            if not os.path.exists(md):
+                orphan_dirs.append((slug, len(imgs), "no .md at all"))
+                continue
+            with open(md, "r", encoding="utf-8-sig") as fh:
+                if not re.search(r"frame_\d{3}", fh.read()):
+                    orphan_dirs.append((slug, len(imgs), "documented nowhere"))
+
+    if claim_no_doc:
+        msg = (f"{len(claim_no_doc)} file(s) declare frame_count > 0 but document "
+               f"no frame")
+        if GATE_ORPHAN_FRAMES:
+            for fname, n in claim_no_doc:
+                fail(f"{fname}: frame_count is {n} but the file cites no "
+                     f"frame at all (neither frame_NNN.jpg nor [frame_NNN])")
+        else:
+            print(f"  A (record): {msg} -- advisory, not gating yet.")
+            for fname, n in claim_no_doc[:5]:
+                print(f"      {fname} (frame_count: {n})")
+            if len(claim_no_doc) > 5:
+                print(f"      ... and {len(claim_no_doc) - 5} more")
+    else:
+        print("  A (record): none -- every file claiming frames documents at "
+              "least one.")
+        if not GATE_ORPHAN_FRAMES:
+            print("      Backlog is clear: set GATE_ORPHAN_FRAMES = True to gate this.")
+
+    if orphan_dirs:
+        total = sum(n for _, n, _ in orphan_dirs)
+        print(f"  B (disk):   {len(orphan_dirs)} frame dir(s) holding {total} image(s) "
+              f"the .md never references.")
+        print("      Device-local (frames are gitignored) -- never gates, and absence "
+              "here is not absence on the other machine.")
+    else:
+        print("  B (disk):   none on this device.")
+
 def main():
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     print("=" * 60)
@@ -539,6 +642,7 @@ def main():
     check_cross_links()
     check_reference_provenance()
     check_frame_provenance()
+    check_orphan_frames()
 
     print("\n[drift] Checking shared-script sync with sibling skills...")
     check_script_drift()
