@@ -679,6 +679,64 @@ def check_frame_provenance():
 GATE_ORPHAN_FRAMES = True
 
 
+
+RETRIEVAL_RECHECK_EVERY = 50
+
+
+def check_retrieval_decay():
+    """Check #18 -- re-measure retrieval every 50 ingests, and compare.
+
+    F1 (2026-08-31) established that retrieval quality tracks corpus size: 92-95%
+    top-5 in the two smallest libraries against 71% in the two largest. A summary
+    that was distinctive at 97 entries stops being distinctive at 584. Nothing was
+    watching that, and a one-off measurement does not help -- the number only means
+    something next to the previous one.
+
+    Silent until the library grows RETRIEVAL_RECHECK_EVERY entries past the
+    recorded baseline, then re-runs and prints the movement. 50 is roughly one
+    ingest batch here, so it fires per batch rather than per file.
+
+    WARN-ONLY. Nothing had a baseline when this shipped, so gating would have
+    failed all five on arrival -- Gotcha #1, gate LAST.
+    """
+    print("\n[10] Checking retrieval quality against its baseline...")
+    skill = os.path.basename(os.path.dirname(os.path.abspath(__file__)))
+    try:
+        import retrieval_test as rtst
+    except Exception as exc:
+        print(f"  not run: retrieval_test.py unavailable ({exc.__class__.__name__})")
+        return
+    base = rtst.load_baseline(skill)
+    now = len(get_tutorial_files())
+    if not base:
+        print(f"  no baseline recorded -- run: python retrieval_test.py "
+              f"--skill {skill} --record")
+        return
+    grown = now - base.get('entries', 0)
+    if grown < RETRIEVAL_RECHECK_EVERY:
+        print(f"  baseline {base['entries']} entries, top-5 {base['top5_pct']}% "
+              f"({base.get('recorded','?')}) | +{grown} since -- re-measures at "
+              f"+{RETRIEVAL_RECHECK_EVERY}")
+        return
+    # run() prints its own report; silence it so validate's output stays one voice
+    import contextlib, io as _io
+    with contextlib.redirect_stdout(_io.StringIO()):
+        r = rtst.run(skill, 3, 5, False)
+    if not r:
+        print("  not run: measurement returned nothing")
+        return
+    top5 = 100 * r['topk'] // max(r['tested'], 1)
+    delta = top5 - base['top5_pct']
+    arrow = "unchanged" if delta == 0 else ("UP %d pt" % delta if delta > 0 else "DOWN %d pt" % -delta)
+    print(f"  +{grown} entries since baseline -- re-measured.")
+    print(f"    top-5 {base['top5_pct']}% @ {base['entries']} entries  ->  "
+          f"{top5}% @ {r['tested']}   ({arrow})")
+    if delta <= -5:
+        print(f"    NOTE: retrieval fell {-delta} points as the library grew. "
+              f"Expected as a corpus scales; worth knowing, not automatically a defect.")
+    print(f"    re-record when reviewed: python retrieval_test.py --skill {skill} --record")
+
+
 def check_orphan_frames():
     """Check #17 -- frames that exist but are documented nowhere (plan batch D3).
 
@@ -797,6 +855,7 @@ def main():
     check_reference_provenance()
     check_frame_provenance()
     check_orphan_frames()
+    check_retrieval_decay()
 
     print("\n[drift] Checking shared-script sync with sibling skills...")
     check_script_drift()
