@@ -393,8 +393,50 @@ def check_readme_count():
     print(f"  README claims {claimed} | disk {actual}.")
 
 
+# --- check #14 link parsing (widened 2026-08-31) ------------------------------
+# The corpus writes cross-links three ways. Kept as module-level helpers so the
+# drift checker can watch them alongside check_cross_links itself.
+_LINK_MD_RE = re.compile(r"\[([^\]]+)\]\(([^)]+\.md)\)")
+_LINK_WIKI_RE = re.compile(r"\[\[([^\]]+)\]\]", re.S)
+_LINK_BULLET_RE = re.compile(r"^- .*?\(`([^`]+\.md)`\)", re.M)
+_LINK_TICK_AFTER = re.compile(r"\A\s*\(`([^`]+\.md)`\)")
+_LINK_RELATED_HEADINGS = ("## Related Tutorials", "## Related Entries")
+# Project scaffolding is mentioned in prose and is never a cross-link target.
+_LINK_SCAFFOLD = frozenset((
+    "INDEX.md", "README.md", "SKILL.md", "SETUP.md", "KNOWLEDGE_GAPS_TODO.md",
+    "PROMO_ENTRY_CLEANUP_PLAN.md", "CODE_OF_CONDUCT.md",
+))
+
+
+def _link_norm(x):
+    """Collapse whitespace and case, so a wiki-link can match a title across a wrap."""
+    return re.sub(r"\s+", " ", x).strip().lower()
+
+
+def _collect_links(content):
+    """Yield (kind, raw_target) for every cross-link in one tutorial file.
+
+    See check_cross_links' docstring for why each form is scoped the way it is.
+    """
+    for m in _LINK_MD_RE.finditer(content):
+        yield "markdown", m.group(2)
+
+    for m in _LINK_WIKI_RE.finditer(content):
+        after = _LINK_TICK_AFTER.match(content[m.end():m.end() + 120])
+        yield ("bullet", after.group(1)) if after else ("wiki", m.group(1))
+
+    idx = -1
+    for heading in _LINK_RELATED_HEADINGS:
+        if heading in content:
+            idx = content.index(heading)
+            break
+    if idx >= 0:
+        for m in _LINK_BULLET_RE.finditer(content[idx:]):
+            yield "bullet", m.group(1)
+
+
 def check_cross_links():
-    """Check #14 -- tutorial-to-tutorial links point at files that exist.
+    """Check #14 -- tutorial cross-links point at files that exist.
 
     Nothing has ever validated these. A1 found 9 inbound links to a file that was
     about to be deleted and validate.py would have passed with all 9 dangling
@@ -403,23 +445,87 @@ def check_cross_links():
     from the A6 removals, which came out clean, but hand-written links whose slug
     never matched a file ("a - b" slugified to "a---b" where ingest.py writes
     "a-b"). Cheap to break, invisible without a check.
+
+    WIDENED 2026-08-31. The v1 regex matched `[Text](file.md)` only, and the
+    corpus writes links three ways -- so it saw 1,378 links and was blind to
+    1,217 more (47%). unreal-sidekick writes `## Related Entries` with `[[slug]]`
+    wiki-links in 352 of its 353 files, so its ENTIRE cross-link graph was
+    unvalidated. Seven genuinely broken links were hiding there, and every one of
+    them is an inbound link to a file A6 deleted -- exactly the failure mode
+    finding #8 named and this check was built to stop. It did not stop it,
+    because the removal happened in the one format the check could not read.
+
+    The three forms, each matched against an observed convention:
+
+        markdown  [Text](file.md)        whole file    the only form v1 saw
+        wiki      [[slug]] / [[Title]]   whole file    unreal, houdini
+        bullet    - Text (`file.md`)     Related only  nuke-em-all, paint-me, unreal
+
+    Two scoping decisions worth keeping:
+
+    * The backtick form is scoped to the Related section. Tutorial prose
+      legitimately mentions `KNOWLEDGE_GAPS_TODO.md` and friends in backticks,
+      and a whole-file scan reports those as broken links.
+    * A wiki-link followed on the same line by a backticked filename resolves
+      against THAT filename. houdini writes `[[Truncated Title]] (`real-slug.md`)`
+      -- the wiki text is prose, the backtick is the target. Resolving the prose
+      produced a false positive on the first pass.
+
+    Wiki-links resolve by slug OR by title (frontmatter `title:`, else the H1),
+    because the two skills using them chose different conventions: unreal writes
+    slugs, houdini writes titles. Targets in `references/` resolve against the
+    references directory -- a link to a reference file that does not exist is
+    just as broken, and one such link was misreported as broken on an earlier
+    pass precisely because references were not consulted.
     """
-    print("\n[6] Checking tutorial-to-tutorial links resolve...")
-    files = set(get_tutorial_files())
-    link_re = re.compile(r"\[([^\]]+)\]\(([^)]+\.md)\)")
-    checked = 0
-    for fname in sorted(files):
+    print("\n[6] Checking tutorial cross-links resolve...")
+    tut_files = set(get_tutorial_files())
+    ref_dir = os.path.join(os.path.dirname(__file__), "references")
+    ref_files = set()
+    if os.path.isdir(ref_dir):
+        ref_files = {f for f in os.listdir(ref_dir)
+                     if f.endswith(".md") and f not in _LINK_SCAFFOLD}
+
+    titles = {}
+    for d, names in ((TUTORIALS_DIR, tut_files), (ref_dir, ref_files)):
+        for f in names:
+            try:
+                with open(os.path.join(d, f), "r", encoding="utf-8-sig") as fh:
+                    text = fh.read()
+            except OSError:
+                continue
+            m = re.search(r"^title:\s*(.+)$", text, re.M)
+            if m:
+                titles.setdefault(_link_norm(m.group(1).strip().strip("\"'")), f)
+            m2 = re.search(r"^#\s+(.+)$", text, re.M)
+            if m2:
+                titles.setdefault(_link_norm(m2.group(1)), f)
+
+    counts = {"markdown": 0, "wiki": 0, "bullet": 0}
+    for fname in sorted(tut_files):
         with open(os.path.join(TUTORIALS_DIR, fname), "r", encoding="utf-8-sig") as fh:
             content = fh.read()
-        for m in link_re.finditer(content):
-            target = m.group(2).split("/")[-1]
-            if target == "INDEX.md":
+        seen = set()
+        for kind, target in _collect_links(content):
+            if (kind, target) in seen:
                 continue
-            checked += 1
-            if target not in files:
-                fail(f"{fname}: link to '{target}' but no such tutorial exists "
-                     f"(link text: '{m.group(1)[:60]}')")
-    print(f"  {checked} tutorial-to-tutorial link(s) checked.")
+            seen.add((kind, target))
+            counts[kind] += 1
+            base = target.split("/")[-1].strip()
+            if kind in ("markdown", "bullet"):
+                if base in _LINK_SCAFFOLD:
+                    continue
+                ok = base in tut_files or base in ref_files
+            else:
+                cand = base[:-3] if base.endswith(".md") else base
+                ok = (cand + ".md" in tut_files or cand + ".md" in ref_files
+                      or _link_norm(cand) in titles)
+            if not ok:
+                fail(f"{fname}: {kind} link to '{base[:70]}' but no such tutorial "
+                     f"or reference exists")
+    total = sum(counts.values())
+    print(f"  {total} cross-link(s) checked "
+          f"({counts['markdown']} markdown, {counts['wiki']} wiki, {counts['bullet']} bullet).")
 
 REFERENCE_REQUIRED_KEYS = ("class", "verified", "sources", "last_verified")
 
@@ -723,7 +829,13 @@ WATCHED_FILES = {
     "ingest.py": SHARED_FUNCS,
     "validate.py": ("get_transcript_text", "get_notes_content",
                     "parse_duration_secs", "is_youtube_source",
-                    "get_tutorial_files", "parse_index_refs"),
+                    "get_tutorial_files", "parse_index_refs",
+                    # added 2026-08-31: check #14 was blind to 47% of the
+                    # corpus's links for months because its regex knew one of
+                    # three forms. The widened parser is the thing that must
+                    # not drift back -- a copy that quietly loses the wiki or
+                    # bullet branch re-blinds the check without failing anything.
+                    "check_cross_links", "_collect_links", "_link_norm"),
     "scan_promo.py": ("score_file", "get_transcript", "get_notes",
                       "duration_secs", "count_steps", "count_named_things",
                       "series_siblings"),
