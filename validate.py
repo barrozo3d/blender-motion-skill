@@ -179,9 +179,24 @@ def check_tutorials():
             if duration_secs >= TRANSCRIPT_MIN_DURATION_SECS:
                 transcript = get_transcript_text(content)
                 if transcript is not None:
+                    # Widened 2026-08-31. The original alternation covers only
+                    # "we failed to capture it". Two further situations were found
+                    # where the transcript is COMPLETE and chars/sec simply does
+                    # not apply -- both stated in the file and independently
+                    # verifiable, which is the standard the older phrases are held
+                    # to. Loosening the threshold instead would blind the check
+                    # for every file at once.
+                    #   condensed   -- full timestamped transcript moved to a named
+                    #                  git commit after extraction (nuke-em-all x2;
+                    #                  the commits were checked, 24.7KB and 26.4KB)
+                    #   no narration-- silent / music-only time-lapse (paint-me x2;
+                    #                  one says so on camera, one re-transcribed at
+                    #                  two model sizes returning identical output)
                     no_transcript_ack = bool(re.search(
                         r"transcript\s+(not\s+captured|not\s+available|unavailable|was\s+not\s+captured"
-                        r"|could\s+not\s+be\s+captured|quality\s+degrades)",
+                        r"|could\s+not\s+be\s+captured|quality\s+degrades)"
+                        r"|transcript[^.\n]{0,80}\bcondensed\b"
+                        r"|\bno\s+narration\b",
                         notes, re.IGNORECASE,
                     ))
                     if not no_transcript_ack:
