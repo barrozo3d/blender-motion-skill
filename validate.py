@@ -639,11 +639,16 @@ def check_frame_provenance():
 
 
 
-# Flip to True once the backlog below is zero, promoting population A from
-# advisory to gating. It is False today because the check would land with 60
-# pre-existing violations across three skills, and a gate that fails on arrival
-# gets ignored rather than fixed (plan Gotcha #1: gate LAST).
-GATE_ORPHAN_FRAMES = False
+# PROMOTED 2026-08-31: the backlog reached zero, so population A now gates.
+# It was False from D3 because the check would have landed with 60 pre-existing
+# violations across three skills, and a gate that fails on arrival gets ignored
+# rather than fixed (plan Gotcha #1: gate LAST). 60 -> 8 over the intervening
+# batches; the last 8 were cleared by making their records TRUE rather than by
+# inventing data -- frame_count synced to disk and the frames listed WITHOUT
+# timestamps, since none was ever recorded and inventing one is the
+# moment-choosing D0 rules out. Those frames are 256x144 and are cited nowhere
+# in any Structured Notes, because they ground nothing.
+GATE_ORPHAN_FRAMES = True
 
 
 def check_orphan_frames():
