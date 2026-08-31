@@ -138,7 +138,8 @@ If `execute_blender_code` fails:
 ### Step 1 — Check the Tutorial Library
 Before analyzing, search `tutorials/INDEX.md` for matching techniques. The INDEX is ~1000 lines — grep it by keyword/tag first (e.g. `geometry-nodes`, `#materials`, a node name) and read only the matching entry blocks rather than the whole file. If relevant tutorials exist, cite them in the output.
 
-> ⚠️ **Is the question about the user's OWN file? Then this is Mode 2, not Step 1.**
+> ⚠️ **Is the question about the user's OWN file? Then this is Mode 2 FIRST — and
+> Step 1 still runs afterwards.**
 > "Expose whatever is increasing the blur in this file", "why is my sim doing X",
 > "find what drives Y in my scene" are **diagnostic** questions. The library
 > documents techniques; it does not know their scene. **Mode 2's live BlenderMCP
