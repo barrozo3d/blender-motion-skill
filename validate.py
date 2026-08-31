@@ -144,7 +144,12 @@ def get_transcript_text(content):
 def check_tutorials():
     print("\n[1] Checking tutorial files for PENDING markers, frontmatter issues, and transcript health...")
     files = get_tutorial_files()
+    # Coverage counters. The transcript-health test is the most conditional check
+    # in this file -- four separate paths skip it -- and until 2026-08-31 it
+    # announced only one of them. A clean run therefore looked like "every file
+    # was checked" when it could mean "most files were skipped".
     unverifiable = []
+    skipped_not_youtube = skipped_short = exempted_ack = transcript_tested = 0
     for fname in files:
         path = os.path.join(TUTORIALS_DIR, fname)
         with open(path, "r", encoding="utf-8-sig") as fh:
@@ -167,6 +172,8 @@ def check_tutorials():
         if re.search(r"^url:.*PLACEHOLDER", content, re.MULTILINE):
             fail(f"{fname}: url is a PLACEHOLDER — recover the real URL from git history or batch_ingest.py")
 
+        if not is_youtube_source(content):
+            skipped_not_youtube += 1
         if is_youtube_source(content):
             notes = get_notes_content(content)
             if len(notes) < NOTES_MIN_CHARS:
@@ -176,6 +183,8 @@ def check_tutorials():
                 )
 
             duration_secs = parse_duration_secs(content)
+            if duration_secs < TRANSCRIPT_MIN_DURATION_SECS:
+                skipped_short += 1
             if duration_secs >= TRANSCRIPT_MIN_DURATION_SECS:
                 transcript = get_transcript_text(content)
                 if transcript is not None:
@@ -199,7 +208,10 @@ def check_tutorials():
                         r"|\bno\s+narration\b",
                         notes, re.IGNORECASE,
                     ))
+                    if no_transcript_ack:
+                        exempted_ack += 1
                     if not no_transcript_ack:
+                        transcript_tested += 1
                         min_expected = int(duration_secs * TRANSCRIPT_CHARS_PER_SEC)
                         if len(transcript) < min_expected:
                             fail(
@@ -214,9 +226,12 @@ def check_tutorials():
                     # section). check #1 cannot verify these -- count them so the
                     # exemption is a measured number rather than a silent skip.
                     unverifiable.append(fname)
-    extra = (f" | {len(unverifiable)} YouTube tutorial(s) carry no transcript in-file"
-             f" -- check #1 cannot verify those") if unverifiable else ""
-    print(f"  Checked {len(files)} files.{extra}")
+    print(f"  Checked {len(files)} files.")
+    # The coverage rule: say what was NOT examined, every run, even at zero.
+    print(f"    transcript health tested on {transcript_tested} | not tested: "
+          f"{skipped_not_youtube} non-YouTube, {skipped_short} under "
+          f"{TRANSCRIPT_MIN_DURATION_SECS}s, {exempted_ack} acknowledged, "
+          f"{len(unverifiable)} carry no transcript in-file")
 
 
 INDEX_MOJIBAKE = re.compile(r"â€|â†|Ã[\x80-\xbf©¢­±]|Â[\xa0-\xbf]")
@@ -594,6 +609,10 @@ def check_reference_provenance():
             unverified.append(fname)
     note = f" | {len(unverified)} marked 'verified: no' (model memory -- not a failure)" if unverified else ""
     print(f"  {len(files)} reference file(s) checked.{note}")
+    # The coverage rule: this check reads frontmatter only. It never reads the
+    # BODY of a reference file, which is where copernicus.md's invented content
+    # lived -- B2 headers say a source was recorded, not that it says this.
+    print(f"    not examined: the body of any reference file -- provenance headers only")
 
 
 def check_frame_provenance():
@@ -614,14 +633,17 @@ def check_frame_provenance():
     print("\n[8] Checking frame provenance in Structured Notes...")
     files = get_tutorial_files()
     citing = citations = 0
+    no_notes = no_citations = 0
     for fname in files:
         with open(os.path.join(TUTORIALS_DIR, fname), "r", encoding="utf-8-sig") as fh:
             content = fh.read()
         if "## Structured Notes" not in content:
+            no_notes += 1
             continue
         notes = content.split("## Structured Notes")[-1]
         cited = {int(x) for x in re.findall(r"frame_(\d{3})", notes)}
         if not cited:
+            no_citations += 1
             continue
         citing += 1
         citations += len(re.findall(r"frame_(\d{3})", notes))
@@ -636,6 +658,12 @@ def check_frame_provenance():
             fail(f"{fname}: cites {shown} but frame_count is {count} "
                  f"(frames are 0-indexed -- either the citation or the count is wrong)")
     print(f"  {citations} frame citation(s) across {citing} file(s).")
+    # The coverage rule. This check only ever sees files that DO cite a frame,
+    # so on its own a clean result says nothing about the rest -- which is the
+    # population check #17 exists to watch.
+    print(f"    not examined: {no_citations} file(s) cite no frame in their notes"
+          f"{f', {no_notes} have no Structured Notes' if no_notes else ''}"
+          f" -- see check #17")
 
 
 
