@@ -8,7 +8,9 @@ blender_version: "Blender 4.x"
 tags: [geometry-nodes, tracking, align-rotation, instances, procedural, animation, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/track-objects-using-align-rotation-to-vector-in-geometry-nodes-blender-tutorial/
-frame_count: 0
+frame_count: 5
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Track Objects Using Align Rotation To Vector In Geometry Nodes – Blender Tutorial
@@ -73,6 +75,16 @@ frame_count: 0
 
 ---
 
+## Captured Frames
+
+- [3:10] tutorials/frames/track-objects-using-align-rotation-to-vector-in-geometry-nodes-blender-tutorial/frame_000.jpg
+- [5:50] tutorials/frames/track-objects-using-align-rotation-to-vector-in-geometry-nodes-blender-tutorial/frame_001.jpg
+- [7:30] tutorials/frames/track-objects-using-align-rotation-to-vector-in-geometry-nodes-blender-tutorial/frame_002.jpg
+- [12:00] tutorials/frames/track-objects-using-align-rotation-to-vector-in-geometry-nodes-blender-tutorial/frame_003.jpg
+- [18:50] tutorials/frames/track-objects-using-align-rotation-to-vector-in-geometry-nodes-blender-tutorial/frame_004.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
@@ -94,20 +106,21 @@ Photini By Design builds a reusable GeoNodes modifier that makes instances (arro
 10. **Light trick:** Parent point light to target empty → light follows target → instances appear to glow toward light source.
 
 ### Nodes / Settings
-- Distribute Points on Faces: Poisson Disk; Min Distance 1m; Density Max 200
+- Distribute Points on Faces: Poisson Disk; **`Distance Min`** 1 m; `Density Max` 200.000; `Density Factor` 1.000; `Seed` 0 [frame_001] — *the socket is labelled `Distance Min`, not "Min Distance"; `Density Factor` and `Seed` were previously unrecorded*
 - Vector Math (direction): Subtract; Location (target) − Position (point)
-- Align Rotation to Vector: defaults (Z axis up)
+- Align Rotation to Vector: axis **Z** selected, `Pivot` Auto [frame_001] — confirms the noted default
 - Vector Math (distance): Distance mode
-- Multiply Add: Multiply = −0.1 (min scale); Add = 0.7 (max scale); adjust per scene
+- Multiply Add: sockets are **`Multiplier`** and **`Addend`** [frame_001], not "Multiply"/"Add". At 5:50 both still sit at their default **0.500** [frame_001]; the final values are tuned per scene. ⚠️ **This file's own two accounts disagree** — Key Step 6 says Multiply −1 / Add 1 while this line said −0.1 / 0.7. Neither is confirmed by a frame, so both are left flagged rather than silently reconciled.
 - Combine XYZ: same value into X/Y/Z for uniform scale
-- F-Curve Noise: Scale 20; Strength 4; offsets 0/500/1000 for X/Y/Z
+- Scene render engine: **EEVEE**, viewport samples 16 / render samples 64 [frame_001] — previously unrecorded
+- F-Curve Noise: Scale 20; Strength 4; offsets 0/500/1000 for X/Y/Z — *from the transcript; the 7:30 frame lands just before the modifier is added, so these values are still unconfirmed by a frame*
 - Restrict Frame Range: Start 1, End 240; Blend In/Out 30
 
 ### Difficulty
 Intermediate — requires understanding Vector Math direction/distance concepts; F-Curve modifiers are a powerful but less common tool
 
 ### Blender Version
-Blender 4.x (standard GeoNodes; no version-specific nodes used)
+**Blender 5.0.1** [frame_001, frame_002] — read from the title bar and status bar in two independent frames. *This entry previously said "Blender 4.x (standard GeoNodes; no version-specific nodes used)", which was an inference, not an observation.*
 
 ### Tags
 #geometry-nodes #tracking #align-rotation #instances #procedural #animation #intermediate
