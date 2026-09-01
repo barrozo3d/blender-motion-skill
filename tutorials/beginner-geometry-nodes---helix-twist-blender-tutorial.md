@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=Y4qk49lryRk
 author: Seanterelle
 ingested: 2026-07-28
-blender_version: "Not specified (UI shows classic dark node-editor theme without newer node-color coding conventions, consistent with Blender 3.x/early 4.x)"
+blender_version: "Blender 5.2.0 LTS -- observed in frame_000"
 tags: [geometry-nodes, procedural, animation, materials, shaders, rendering, cycles, motion-design, abstract, organic, beginner]
 extraction_status: complete
 frames_dir: tutorials/frames/beginner-geometry-nodes---helix-twist-blender-tutorial/

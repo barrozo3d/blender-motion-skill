@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=qjJ3kSCis4k
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified — Ocean modifier + node-based foam shading works in both EEVEE and Cycles; consistent with 3.x-5.x"
+blender_version: "Blender 3.4.1 -- observed in frame_000"
 tags: [displacement, shaders, materials, rigging, procedural, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/making-an-ocean-with-foam-and-a-boat-blender-secrets/

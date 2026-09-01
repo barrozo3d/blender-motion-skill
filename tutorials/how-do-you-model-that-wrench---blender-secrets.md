@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=S9WVxHp1Sc0
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified — on-cage Subdivision editing, LoopTools, F2, Round Cube (Extra Objects) and Extra Objects add-ons, consistent with Blender 3.x-5.x"
+blender_version: "Blender 5.0.0 -- observed in frame_000"
 tags: [modelling, procedural, intermediate, advanced]
 extraction_status: complete
 frames_dir: tutorials/frames/how-do-you-model-that-wrench---blender-secrets/

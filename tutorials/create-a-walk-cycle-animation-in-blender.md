@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=SLh3hUIxv1s
 author: Pierrick Picaut
 ingested: 2026-07-19
-blender_version: "Blender 5.x"
+blender_version: "Blender 5.1.0 Beta -- observed in frame_000"
 tags: [animation, rigging, organic, beginner, intermediate, blender-5x]
 extraction_status: complete
 frames_dir: tutorials/frames/create-a-walk-cycle-animation-in-blender/

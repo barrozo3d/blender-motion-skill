@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=D0k6evTvJDg
 author: CGMatter
 ingested: 2026-07-01
-blender_version: "Blender 5.0+"
+blender_version: "Blender 5.1.0 -- observed in frame_002"
 tags: [cloth, simulation, physics, add-on, third-party, contact-solver, self-intersection, pinning, vertex-groups, toml, pc2-cache, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/

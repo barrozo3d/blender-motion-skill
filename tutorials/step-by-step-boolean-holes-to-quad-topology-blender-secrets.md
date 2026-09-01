@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=pe-8GiRCLmM
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified — Weld/Shrinkwrap/Decimate modifier workflow, standard since 2.8+"
+blender_version: "Blender 4.0.2 -- observed in frame_000"
 tags: [modelling, procedural, intermediate, advanced]
 extraction_status: complete
 frames_dir: tutorials/frames/step-by-step-boolean-holes-to-quad-topology-blender-secrets/

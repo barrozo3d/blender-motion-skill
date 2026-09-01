@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=f8xoUkPY4e8
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified (Dyntopo/Multires/Mask Extract workflow, 3.x-5.x)"
+blender_version: "Blender 3.0.0 -- observed in frame_000"
 tags: [organic, procedural, materials, advanced]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---hard-surface-sculpting-tips-part-2/

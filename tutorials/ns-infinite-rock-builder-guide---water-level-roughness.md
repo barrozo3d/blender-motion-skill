@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=8ZX5DsV7eBc
 author: Nick Sayce
 ingested: 2026-08-12
-blender_version: "4.x (see Main Controls video for title-bar reading; not independently confirmed here)"
+blender_version: "Blender 5.1.2 -- observed in frame_000"
 tags: [materials, shaders, procedural, organic, beginner, blender-4x]
 extraction_status: complete
 frames_dir: tutorials/frames/ns-infinite-rock-builder-guide---water-level-roughness/

@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=DwpajQ0oQPI
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified (core mesh-editing/modifier workflow, 3.x-5.x)"
+blender_version: "Blender 3.2.0 -- observed in frame_000"
 tags: [modelling, procedural, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---5-minutes-of-n-gons-to-quads-tips/

@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=s6GQv6eZVms
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified — Human Base Meshes add-on, Voxel/Multires sculpt workflow, consistent with Blender 3.x-5.x"
+blender_version: "Blender 3.5.0 Beta -- observed in frame_000"
 tags: [organic, procedural, materials, advanced]
 extraction_status: complete
 frames_dir: tutorials/frames/monster-sculpting-full-process-blender-secrets-stranger-things-vecna/

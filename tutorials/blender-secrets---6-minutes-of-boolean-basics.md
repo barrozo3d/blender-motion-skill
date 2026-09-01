@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=_S3D8djM5bE
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified (Boolean Fast/Exact solver + BoolTool add-on, 2.9x-5.x)"
+blender_version: "Blender 3.2.0 -- observed in frame_004"
 tags: [procedural, modelling, materials, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---6-minutes-of-boolean-basics/

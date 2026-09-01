@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=3cllYcT-MRg
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified (built-in add-ons/modifiers, 2.8x-5.x)"
+blender_version: "Blender 3.3.1 -- observed in frame_000"
 tags: [procedural, organic, modelling, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---create-towers-with-ivy/

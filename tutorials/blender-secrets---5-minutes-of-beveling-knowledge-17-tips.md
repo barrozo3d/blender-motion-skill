@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=rzZFIpqc98M
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified (modern 3.x-5.x Bevel modifier/shader Bevel node)"
+blender_version: "Blender 3.2.0 -- observed in frame_000"
 tags: [procedural, materials, shaders, cycles, intermediate, advanced]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---5-minutes-of-beveling-knowledge-17-tips/

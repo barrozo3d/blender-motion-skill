@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=do_S94ZXLSc
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified (Cycles required, modern 3.x-4.x UI)"
+blender_version: "Blender 3.3.0 -- observed in frame_000"
 tags: [lighting, hdri, cycles, materials, shaders, rendering, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---4-tips-for-photoreal-lighting/

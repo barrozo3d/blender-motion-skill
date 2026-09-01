@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=-cscjxxxebk
 author: Bring Your Own Laptop
 ingested: 2026-08-04
-blender_version: "Not specified (recent 4.x-era Geometry Nodes UI)"
+blender_version: "Blender 5.1.2 -- observed in frame_000"
 tags: [geometry-nodes, procedural, motion-design, typography, materials, animation, camera, rendering, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/how-to-build-after-effects-style-motion-graphics-in-blender/

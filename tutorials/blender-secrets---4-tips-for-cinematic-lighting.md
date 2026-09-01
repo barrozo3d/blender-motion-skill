@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=lXvmt0QxAFY
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified (EEVEE + Cycles compatible, modern 3.x-4.x UI)"
+blender_version: "Blender 3.3.0 -- observed in frame_000"
 tags: [lighting, hdri, materials, shaders, volume, cycles, eevee, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---4-tips-for-cinematic-lighting/

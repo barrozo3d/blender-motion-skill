@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=VkYNlPxOsUk
 author: Nick Sayce
 ingested: 2026-08-12
-blender_version: "4.x (exact point release not legible in captured frames)"
+blender_version: "Blender 5.1.2 -- observed in frame_000"
 tags: [geometry-nodes, procedural, displacement, organic, intermediate, blender-4x]
 extraction_status: complete
 frames_dir: tutorials/frames/ns-infinite-rock-builder-guide---main-controls/

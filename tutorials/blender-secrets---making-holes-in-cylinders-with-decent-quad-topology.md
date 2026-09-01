@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=JvJ_Hoj82us
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified (core mesh/modifier + Loop Tools workflow, 2.9x-5.x)"
+blender_version: "Blender 3.2.2 -- observed in frame_000"
 tags: [modelling, procedural, intermediate, advanced]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---making-holes-in-cylinders-with-decent-quad-topology/

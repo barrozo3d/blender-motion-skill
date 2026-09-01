@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=fB_F8x_59LA
 author: MinerDesign
 ingested: 2026-07-08
-blender_version: "not stated (Adaptive Subdivision + 4D Noise Texture, Blender 3.x/4.x/5.x compatible)"
+blender_version: "Blender 5.1.2 -- observed in frame_000"
 tags: [materials, shaders, water, ocean, procedural-texture, displacement, noise-texture, driver, adaptive-subdivision, hdri, eevee, spanish, beginner]
 extraction_status: complete
 frames_dir: tutorials/frames/como-hacer-agua-realista-en-blender/

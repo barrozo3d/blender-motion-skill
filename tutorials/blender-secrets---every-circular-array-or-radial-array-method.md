@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=Q6nq1HEA5Y8
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified (core operators/modifiers, 2.8x-5.x)"
+blender_version: "Blender 3.2.2 -- observed in frame_000"
 tags: [procedural, modelling, animation, intermediate, advanced]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---every-circular-array-or-radial-array-method/

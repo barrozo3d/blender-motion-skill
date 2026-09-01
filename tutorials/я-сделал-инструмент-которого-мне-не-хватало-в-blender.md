@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=r1SNvD73Qvo
 author: Batyr K.
 ingested: 2026-08-03
-blender_version: "4.x/5.x (Simulation Nodes zones, not exactly specified)"
+blender_version: "Blender 5.1.2 -- observed in frame_000"
 tags: [geometry-nodes, simulation, particles, procedural, product-viz, motion-design, abstract, glass, intermediate, blender-4x, blender-5x]
 extraction_status: complete
 frames_dir: tutorials/frames/я-сделал-инструмент-которого-мне-не-хватало-в-blender/

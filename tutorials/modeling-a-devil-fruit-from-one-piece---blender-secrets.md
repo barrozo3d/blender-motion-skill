@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=_-a8k2LaZbA
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified — SurfaceDeform + Shrinkwrap workflow, consistent with Blender 3.x-5.x"
+blender_version: "Blender 4.3.0 Alpha -- observed in frame_000"
 tags: [organic, procedural, modelling, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/modeling-a-devil-fruit-from-one-piece---blender-secrets/

@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=Ix-KT9a4PSo
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified (Cycles + modern Color Management, Blender 3.x-5.x compatible)"
+blender_version: "Blender 3.4.1 -- observed in frame_000"
 tags: [materials, shaders, procedural, rendering, cycles, lighting, organic, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/better-billboards-using-normal-maps-low-poly-trees/

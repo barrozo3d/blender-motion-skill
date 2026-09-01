@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=8Swzwo83OP0
 author: CGMatter
 ingested: 2026-08-03
-blender_version: "Not specified (3.x-4.x era workflow)"
+blender_version: "Blender 5.2.0 -- observed in frame_003"
 tags: [simulation, fluid, particles, geometry-nodes, procedural, typography, materials, abstract, advanced]
 extraction_status: complete
 frames_dir: tutorials/frames/sand-simulation---blender-tutorial-nexus/

@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=V7Y-Il-7JFE
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified (core mesh-editing workflow, 3.x-5.x)"
+blender_version: "Blender 3.2.0 -- observed in frame_000"
 tags: [modelling, procedural, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---5-minutes-of-topology-tips/

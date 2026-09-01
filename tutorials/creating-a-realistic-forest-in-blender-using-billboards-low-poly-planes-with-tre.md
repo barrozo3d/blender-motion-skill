@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=mSdzwRcFJM0
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified (EEVEE referenced by name, not EEVEE Next; UI matches Blender 3.x/4.x particle system layout)"
+blender_version: "Blender 3.3.1 -- observed in frame_004"
 tags: [particles, camera, organic, beginner]
 extraction_status: complete
 frames_dir: tutorials/frames/creating-a-realistic-forest-in-blender-using-billboards-low-poly-planes-with-tre/

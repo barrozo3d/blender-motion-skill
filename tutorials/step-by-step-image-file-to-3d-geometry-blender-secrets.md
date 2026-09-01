@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=HUL9o27m11M
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified — Grease Pencil trace-to-mesh + Knife Project workflow, consistent with Blender 3.x-4.x"
+blender_version: "Blender 4.0.2 -- observed in frame_000"
 tags: [modelling, procedural, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/step-by-step-image-file-to-3d-geometry-blender-secrets/

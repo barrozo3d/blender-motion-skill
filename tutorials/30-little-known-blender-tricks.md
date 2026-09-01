@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=5_Jy97TzZuM
 author: Robin Squares
 ingested: 2026-07-19
-blender_version: "Not specified (thin film + shader repeat zone imply 4.5+; modern 4.x/5.x UI)"
+blender_version: "Blender 5.0.0 -- observed in frame_004"
 tags: [materials, shaders, procedural, compositing, rendering, cycles, eevee, geometry-nodes, cloth, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/30-little-known-blender-tricks/

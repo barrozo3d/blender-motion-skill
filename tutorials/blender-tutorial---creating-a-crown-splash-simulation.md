@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=KbAUrN0ExjM
 author: Blender Made Easy
 ingested: 2026-08-17
-blender_version: "3.x (Mantaflow domain/Modular cache UI matches 3.x era; exact point release not stated)"
+blender_version: "Blender 5.2.0 -- observed in frame_000"
 tags: [simulation, fluid, materials, shaders, camera, lighting, rendering, cycles, glass, compositing, product-viz, intermediate, blender-3x]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-tutorial---creating-a-crown-splash-simulation/

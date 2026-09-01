@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=d16IOajUwIc
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified (Rigidbody/NLA/Rokoko/Mixamo workflow, 2.9x-4.x)"
+blender_version: "Blender 3.6.0 -- observed in frame_000"
 tags: [rigid-body, simulation, animation, rigging, expert]
 extraction_status: complete
 frames_dir: tutorials/frames/combining-ragdoll-physics-with-motion-capture-animation-rokoko-smartsuit-2-blend/

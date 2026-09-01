@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=rtnsLjP1ebo
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified — Area Plane/Stencil brush mapping, Multiresolution viewport-level behavior, consistent with Blender 3.x-5.x"
+blender_version: "Blender 4.3.2 -- observed in frame_000"
 tags: [displacement, procedural, organic, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/what-if-you-alpha-brush-texture-is-square-or-the-resolution-is-too-low-blender-s/

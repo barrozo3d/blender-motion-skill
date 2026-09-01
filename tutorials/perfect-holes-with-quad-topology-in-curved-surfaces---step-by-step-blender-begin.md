@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=bfdI_-ymkas
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified — Shrinkwrap + vertex-group-exclusion technique, standard modifier workflow, 2.8+"
+blender_version: "Blender 4.0.0 -- observed in frame_000"
 tags: [modelling, procedural, beginner, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/perfect-holes-with-quad-topology-in-curved-surfaces---step-by-step-blender-begin/

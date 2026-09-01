@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=jcSDF917dBo
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified (core modifier/Quad-View workflow, 2.8x-5.x)"
+blender_version: "Blender 3.3.0 -- observed in frame_000"
 tags: [modelling, procedural, intermediate, advanced]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---car-modeling-tips/

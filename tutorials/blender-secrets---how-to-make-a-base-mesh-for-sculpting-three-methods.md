@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=UojINqTfZsM
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified (Skinify Rig/Rigify/Metaball/GP-trace workflow, 3.x-5.x)"
+blender_version: "Blender 3.3.0 -- observed in frame_000"
 tags: [organic, procedural, rigging, modelling, intermediate, advanced]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---how-to-make-a-base-mesh-for-sculpting-three-methods/

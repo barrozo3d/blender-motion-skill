@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=GzHvD9RFrT8
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified (Cycles/AGX/fSpy/Gaffer workflow, likely 4.0+ given AGX)"
+blender_version: "Blender 4.0.2 -- observed in frame_004"
 tags: [materials, shaders, volume, lighting, hdri, rendering, cycles, camera, animation, advanced]
 extraction_status: complete
 frames_dir: tutorials/frames/creating-a-japanse-city-from-a-photo-using-fspy/

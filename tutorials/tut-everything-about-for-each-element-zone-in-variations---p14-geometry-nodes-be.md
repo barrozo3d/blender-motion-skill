@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=Mm1Oxz6sGAg
 author: Bradley Animation
 ingested: 2026-08-19
-blender_version: "5.0+"
+blender_version: "Blender 5.2.0 -- observed in frame_000"
 tags: [geometry-nodes, procedural, instancing, animation, motion-design, intermediate, advanced, blender-5x]
 extraction_status: complete
 frames_dir: tutorials/frames/tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be/

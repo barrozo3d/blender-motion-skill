@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=thzYTUEyrKI
 author: Nick Sayce
 ingested: 2026-08-12
-blender_version: "4.x (see Main Controls video for title-bar reading; not independently confirmed here)"
+blender_version: "Blender 5.1.2 -- observed in frame_000"
 tags: [materials, shaders, organic, procedural, beginner, blender-4x]
 extraction_status: complete
 frames_dir: tutorials/frames/ns-infinite-rock-builder-guide---moss-fresnel-dust/

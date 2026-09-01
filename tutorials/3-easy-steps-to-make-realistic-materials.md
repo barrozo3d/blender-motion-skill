@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=hAWLqRpzK6I
 author: Jamie Dunbar
 ingested: 2026-07-18
-blender_version: "Not specified (modern UI; Cycles required for Bevel/Pointiness methods)"
+blender_version: "Blender 5.0.0 -- observed in frame_000"
 tags: [materials, shaders, procedural, rendering, cycles, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/3-easy-steps-to-make-realistic-materials/

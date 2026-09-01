@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=m7dccc-J9aQ
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified — Skinify extension noted as newly separate from Rigify; Camera Shakify add-on; consistent with recent 4.x/5.x"
+blender_version: "Blender 4.2.0 -- observed in frame_000"
 tags: [animation, rigging, camera, procedural, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/how-to-make-awesome-topology-animation-blender-secrets/

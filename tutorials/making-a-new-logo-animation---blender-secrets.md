@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=7MIePxGcze0
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified — Cycles + GPU rendering, Gaffer/Turbo Tools/Soundly add-ons, consistent with recent 4.x"
+blender_version: "Blender 4.4.1 -- observed in frame_000"
 tags: [rigid-body, animation, materials, lighting, rendering, compositing, brand-video, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/making-a-new-logo-animation---blender-secrets/

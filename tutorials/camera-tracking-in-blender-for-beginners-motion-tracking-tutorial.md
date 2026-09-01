@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=IvyfdxkABKU
 author: 3Dnot2D
 ingested: 2026-07-20
-blender_version: "4.x (AgX default color management, Cycles GPU)"
+blender_version: "Blender 4.3.2 -- observed in frame_000"
 tags: [camera, compositing, rendering, cycles, hdri, lighting, product-viz, intermediate, blender-4x]
 extraction_status: complete
 frames_dir: tutorials/frames/camera-tracking-in-blender-for-beginners-motion-tracking-tutorial/

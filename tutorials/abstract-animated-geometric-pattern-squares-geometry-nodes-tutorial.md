@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=7I4k8iaF7D8
 author: Artemiy Galutskiy
 ingested: 2026-08-17
-blender_version: "4.x (Repeat Zone node present, feature introduced in Blender 4.0; exact point release not stated)"
+blender_version: "Blender 5.2.0 -- observed in frame_004"
 tags: [geometry-nodes, procedural, abstract, motion-design, animation, intermediate, blender-4x]
 extraction_status: complete
 frames_dir: tutorials/frames/abstract-animated-geometric-pattern-squares-geometry-nodes-tutorial/

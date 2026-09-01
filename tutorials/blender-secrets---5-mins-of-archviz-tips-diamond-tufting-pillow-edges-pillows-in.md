@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=hpFaDiTDZgc
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified (version-agnostic core workflow, 3.x-5.x)"
+blender_version: "Blender 3.2.2 -- observed in frame_000"
 tags: [cloth, simulation, materials, procedural, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---5-mins-of-archviz-tips-diamond-tufting-pillow-edges-pillows-in/

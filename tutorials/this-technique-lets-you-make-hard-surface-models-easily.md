@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=_6uBdIsvm7c
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified — Extra Objects add-on, Multires sculpt workflow, consistent with Blender 3.x-5.x"
+blender_version: "Blender 4.5.3 -- observed in frame_000"
 tags: [displacement, procedural, materials, organic, advanced]
 extraction_status: complete
 frames_dir: tutorials/frames/this-technique-lets-you-make-hard-surface-models-easily/

@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=oAKrQboXo78
 author: Bad Normals
 ingested: 2026-07-16
-blender_version: "5.x (viewport/UI style, exact point release not stated)"
+blender_version: "Blender 5.0.0 Beta -- observed in frame_004"
 tags: [shaders, materials, gradients, color-ramp, node-groups, evaluate-closure, generated-coordinates, glass, emission, light-path, capsule-shader, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/how-to-make-this-style-in-blender/

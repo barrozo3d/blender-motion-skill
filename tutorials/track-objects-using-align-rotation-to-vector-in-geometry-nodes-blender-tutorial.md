@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=ZBZ26xQ9Pnk
 author: Photini By Design
 ingested: 2026-06-25
-blender_version: "Blender 4.x"
+blender_version: "Blender 5.0.1 -- observed in frame_000"
 tags: [geometry-nodes, tracking, align-rotation, instances, procedural, animation, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/track-objects-using-align-rotation-to-vector-in-geometry-nodes-blender-tutorial/

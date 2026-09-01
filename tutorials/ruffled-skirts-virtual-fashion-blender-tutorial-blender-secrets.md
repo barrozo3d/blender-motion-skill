@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=hJ5zUTp9zCc
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified — Cloth Sewing Springs + presets (Denim/Rubber/Silk), standard workflow since 2.8+"
+blender_version: "Blender 3.5.0 Beta -- observed in frame_000"
 tags: [cloth, simulation, materials, organic, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/ruffled-skirts-virtual-fashion-blender-tutorial-blender-secrets/

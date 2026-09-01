@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=dtFFc6f2rK8
 author: Blender Secrets
 ingested: 2026-08-04
-blender_version: "Not specified (Pose brush Cloth Simulation target, 3.x-5.x)"
+blender_version: "Blender 3.5.0 Beta -- observed in frame_000"
 tags: [cloth, simulation, organic, rigging, advanced]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-secrets---in-depth-cloth-sculpting-tricks-with-pose-brush/
