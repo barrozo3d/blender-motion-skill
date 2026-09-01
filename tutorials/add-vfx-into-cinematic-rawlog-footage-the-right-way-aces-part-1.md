@@ -8,7 +8,9 @@ blender_version: "Any (theory only)"
 tags: [color-management, aces, vfx, compositing, theory, beginner]
 extraction_status: complete
 frames_dir: tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/
-frame_count: 0
+frame_count: 5
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Add VFX into Cinematic RAW+LOG Footage (the right way) | ACES Part 1
@@ -49,6 +51,16 @@ frame_count: 0
 
 ---
 
+## Captured Frames
+
+- [1:50] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_000.jpg
+- [3:50] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_001.jpg
+- [5:20] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_002.jpg
+- [6:50] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_003.jpg
+- [8:30] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_004.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
@@ -60,7 +72,7 @@ InLightVFX explains the two core concepts behind ACES before touching any softwa
 ### Key Steps
 1. **Color gamut** — understand that camera sensors capture a triangular subset of all visible colors; ACES 2065-1's gamut encompasses all visible light, making it the universal container for any footage.
 2. **Gamma = transfer function** — gamma value is an exponent applied to luminance; gamma 1 = linear (y=x); any other value = non-linear curve.
-3. **Linear light math** — with linear gamma, adding two images in compositing equals rendering with both lights; this is why multi-pass compositing works.
+3. **Linear light math** — with linear gamma, adding two images in compositing equals rendering with both lights; this is why multi-pass compositing works. **This is demonstrated in Blender, not just asserted** [frame_002]: two `Render Layers` nodes pointing at view layers `Light1` and `Light2` (scene `Scene`, slot 3) feed a `Mix` node whose blend-mode dropdown is open on the additive group — `Lighten`, `Screen`, `Color Dodge`, `Add` — with a `Viewer` node (`Use Alpha` on, `Alpha` 1.000, `Z` 1.000) showing the result.
 4. **Human vision** — non-linear sensitivity (candle in dark room vs. bright room); cameras and displays account for this with non-linear gamma.
 5. **Display-referred cameras** — apply non-linear transfer to reduce file size; loss of dynamic range; poor base for VFX compositing.
 6. **Scene-referred RAW** — stores linear light values; large files; best source for VFX.
@@ -68,7 +80,15 @@ InLightVFX explains the two core concepts behind ACES before touching any softwa
 8. **ACES role** — its IDT converts any footage's color gamut + gamma into ACES 2065-1 linear; artists then work purely in ACES without worrying about source formats.
 
 ### Nodes / Settings
-No Blender nodes — this is a theory/concepts tutorial. Key terms:
+⚠️ **Corrected 2026-09-01.** This section previously read *"No Blender nodes — this is a theory/concepts tutorial"*. That was written from the transcript, and it is wrong: the *Linear Light* chapter carries a working compositor demo [frame_002].
+
+- `Render Layers` ×2 — one per view layer (`Light1`, `Light2`), each rendering a single light
+- `Mix` — blend mode dropdown; the additive modes (`Lighten`, `Screen`, `Color Dodge`, `Add`) are what make the two single-light renders reconstruct the both-lights render
+- `Viewer` — `Use Alpha` enabled, `Alpha` 1.000, `Z` 1.000
+
+The node is named **`Mix`**, not `Mix Color`, so the demo footage predates Blender 4.0 [frame_002]. That dates the *footage*; the concepts are version-independent.
+
+Key terms:
 - ACES 2065-1 — the main ACES linear color space; gamut encompasses all visible light
 - IDT (Input Device Transform) — converts source footage color space + gamma into ACES
 - ODT (Output Device Transform) — converts from ACES to display device color space (e.g. sRGB)
@@ -80,10 +100,24 @@ No Blender nodes — this is a theory/concepts tutorial. Key terms:
 Beginner — no software required; pure theory; helpful prerequisite for Part 2.
 
 ### Blender Version
-Any (theory only; no Blender steps)
+Any — the concepts are version-independent. The one piece of Blender footage in the video is pre-4.0, dated by the compositor node still being called `Mix` rather than `Mix Color` [frame_002].
 
 ### Tags
 #color-management #aces #vfx #compositing #theory #beginner
+
+---
+
+## Frame verification (2026-09-01)
+
+| | |
+|---|---|
+| **Corrected** | *"No Blender nodes — this is a theory/concepts tutorial"* was false. The *Linear Light* chapter contains a real compositor demo [frame_002], and it is the one place the video proves rather than states its central claim. |
+| **Confirmed** | the CIE-style gamut-of-human-vision plot on 0–1 axes [frame_000]; the gamma formula written on screen as **y = x^(gamma value)**, plotted as the linear y=x diagonal [frame_001]; the *Scene-Referred, RAW* transfer plotted as a straight line from origin [frame_003]. |
+
+⚠️ **`frame_004` (8:30) is a mistimed pick** — it lands mid-wipe on b-roll of a
+room, with the caption caught half-transitioned ("Ga… RAW"). Chapter-heading
+picks miss at a measured ~25% (plan batch D3c); this is one. It grounds nothing
+and is left recorded rather than quietly re-rolled.
 
 ---
 

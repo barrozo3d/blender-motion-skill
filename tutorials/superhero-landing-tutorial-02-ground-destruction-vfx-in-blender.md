@@ -8,7 +8,9 @@ blender_version: "Blender 3.x/4.x"
 tags: [vfx, rigid-body, particles, fluid-sim, destruction, compositing, nuke, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/superhero-landing-tutorial-02-ground-destruction-vfx-in-blender/
-frame_count: 0
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Superhero Landing Tutorial 02 | Ground Destruction VFX in Blender
@@ -50,6 +52,17 @@ frame_count: 0
 **Transcript:** Let's play that back.  Obviously there's a few changes I could do.  Somehow he's all the way in shadow probably because these chunks are blocking the light.  So I'd want to adjust the light or move the chunks so he still gets lit.  And then I noticed that there's a bunch of chunks, a bunch of rocks that fall through the ground at the beginning of the shot.  You can fix that just by starting your particle system a couple frames later.  So they only start getting emitted from these chunks once they've started moving.  Adding this into your comp should be as easy as swapping it out with your ground render.  If you hit control shift as you drag it over, it should swap the plates.  And then just shift X to switch, meaning you're putting the ground on top now.  Because you've got the cut out.  Try switching this to a disjoint over.  And that should get some of the rid of some of those bright edges.  Finally, I'd like to add some grain.  And then let's turn the size down a little bit on all three of these.  Just leave the blue bigger though.  And then we'll turn the intensity down as well.  And then I don't like how much grain is in the highlights. That's not natural.  So make a chemix node.  A will be grain, B will be no grain, make a cure.  And then switch the chemix.  So that way the darker areas of the image will be grained and the brighter areas will not.  I think I can turn my grain amount back up a little bit.  And then you can play with the slider to reduce the amount of grain in the highlights.  That's it for this tutorial series.  I hope you enjoyed it and learned a few things.  And let me know what kind of tutorials you'd like to see in the future.
 
 
+
+---
+
+## Captured Frames
+
+- [1:30] tutorials/frames/superhero-landing-tutorial-02-ground-destruction-vfx-in-blender/frame_000.jpg
+- [4:30] tutorials/frames/superhero-landing-tutorial-02-ground-destruction-vfx-in-blender/frame_001.jpg
+- [8:00] tutorials/frames/superhero-landing-tutorial-02-ground-destruction-vfx-in-blender/frame_002.jpg
+- [12:30] tutorials/frames/superhero-landing-tutorial-02-ground-destruction-vfx-in-blender/frame_003.jpg
+- [16:30] tutorials/frames/superhero-landing-tutorial-02-ground-destruction-vfx-in-blender/frame_004.jpg
+- [21:30] tutorials/frames/superhero-landing-tutorial-02-ground-destruction-vfx-in-blender/frame_005.jpg
 
 ---
 

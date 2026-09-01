@@ -8,7 +8,9 @@ blender_version: "Blender 3.x/4.x"
 tags: [realism, lighting, compositing, camera, scanning, beginner, theory]
 extraction_status: complete
 frames_dir: tutorials/frames/the-key-to-realism-in-blender-or-3d/
-frame_count: 0
+frame_count: 5
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # The Key to Realism in Blender (or 3D)
@@ -42,6 +44,16 @@ frame_count: 0
 **Transcript:** Very similar to the initial point for lighting we have to ask ourselves what is it we're  seeing here?  What is the scenario for this image to take place?  Are we using a phone to quickly make a photo of something or are we creating a deliberate  photo using a DSLR camera?  Is it a recording on an older device or a FCR camera?  All of these questions determine how to set up the camera, not in terms of location  or angle, but more so in focal length, depth of field or grain and other settings.  And so after determining what kind of shot your project is, you can simply look up details  for that type of camera and mimic the lens as best as possible in blender.  And not only should you mimic the lens, but also the way the sensor handles the light  and image by looking up plenty of reference or ideally creating your own, you can find  what makes a specific camera unique and copy that.  This could be fin-yating, bloom, camera noise or also grain or maybe lens distortion.  You name it, you can add it in.  Now some of these settings or techniques will require compositing to manually add them  and that's because blender or 3D apps in general create perfect images without our help.  So by taking for example a box mask or ellipse mask, blurring it with a blur note and using  an alpha over note to combine these with the original image, you can really quickly add  it in yet.  Lens distortion is just another note you can simply add in at the end of your compositing  tree.  Just make sure you use very, very low values or it will look fake as hell.  Grain is a matter of adding a texture, adding it to the compositor V8 texture note and combining  this with a mixed color note to add the grain in, you can set the skill to match the sort  of noise that your camera would get.  And by setting it to a linear light you're getting grain in the dark areas which is common  for cameras and by setting it to overlay you're getting it more in the highlights which  is again common in certain cameras.  But if you copy those settings as best as possible and pair this up with lighting and  a great looking photo scan, there's zero chance that your final image won't look incredibly  realistic.  Well you get it right first try, probably not, but try it several times experiment with  lenses, lighting and photo scanning and after a few attempts you'll be creating realistic  artworks in no time.  Be sure to check out Kriry through the link in the description and get started with  photo scanning right now to make realistic renders and if you're unsure about how to use  lighting and blender still, make sure to check out this video here to learn all about it.
 
 
+
+---
+
+## Captured Frames
+
+- [1:00] tutorials/frames/the-key-to-realism-in-blender-or-3d/frame_000.jpg
+- [4:00] tutorials/frames/the-key-to-realism-in-blender-or-3d/frame_001.jpg
+- [7:00] tutorials/frames/the-key-to-realism-in-blender-or-3d/frame_002.jpg
+- [10:00] tutorials/frames/the-key-to-realism-in-blender-or-3d/frame_003.jpg
+- [12:45] tutorials/frames/the-key-to-realism-in-blender-or-3d/frame_004.jpg
 
 ---
 

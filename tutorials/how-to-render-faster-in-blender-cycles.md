@@ -8,7 +8,9 @@ blender_version: "Blender 4.x"
 tags: [rendering, optimization, cycles, performance, workflow, beginner]
 extraction_status: complete
 frames_dir: tutorials/frames/how-to-render-faster-in-blender-cycles/
-frame_count: 0
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How To Render Faster In Blender Cycles
@@ -38,6 +40,17 @@ frame_count: 0
 **Transcript:** Now let's talk about the tricks that can definitely boost up your render time. So first is the  Stitching method. What you will do is that you will only render the area which will have any movement.  This works best for still shots where the camera isn't moving.  So I have this cube going from right to left and I know that in the whole animation,  only this part is being changed and the rest is the same. So we can just render out this portion  and stitch it back later on. So first, render out a single frame and save it somewhere.  It would be great if you create a folder to organize it. Now select that location in the Output  tab and make sure RGBA is selected here which basically stores the alpha map.  Also make sure this is unchecked. Now just create a boundary with control plus B and render out your  animation. In the video editing file, add the image in the first layer and the animation onto  the second and it will perfectly sync up. If you want to do the compositing at this stage,  just add an adjustment clip on top and add a compositor modifier on it, create a new tree and  just open it in the compositor. You can crop the second layer from here and if you get any  scaling problem, just set the scale to 1. Now moving shots are a little tricky because you have  to plan how you will achieve it and the trick here is to use shadow catches and a lot of layers.  I have linked a tutorial in the description which will give you an idea on how to do that.  Let's go even further and cut render time in half using frame interpolation.  The trick is to render half the frames and then use interpolation to generate the missing ones.  This works great for slow or medium speed shots. It might show some artefacts in high speed shots but  I haven't encountered any so far. Just go into Output Properties and increase the step value to two.  Now when you render, it only render the odd frames. When you convert the image sequence into a video,  make sure to set the frame rate to half of what it originally was.  For example, mine was 24 frames per second so I'll set it to 12. Once that's done,  download and install the software. Link in description.  Drag your render video into it. Select the output location, open the settings and choose convert FPS.  Set it back to your original frame rate. Mine was 24 frames per second.  Then click add job and start. Once it's done, preview it.  It'll look almost identical. And that's it. If you have come this far,  please make sure to subscribe and check out the render mine pro add-on. It's worth every penny.
 
 
+
+---
+
+## Captured Frames
+
+- [1:30] tutorials/frames/how-to-render-faster-in-blender-cycles/frame_000.jpg
+- [3:00] tutorials/frames/how-to-render-faster-in-blender-cycles/frame_001.jpg
+- [4:30] tutorials/frames/how-to-render-faster-in-blender-cycles/frame_002.jpg
+- [6:30] tutorials/frames/how-to-render-faster-in-blender-cycles/frame_003.jpg
+- [8:00] tutorials/frames/how-to-render-faster-in-blender-cycles/frame_004.jpg
+- [10:30] tutorials/frames/how-to-render-faster-in-blender-cycles/frame_005.jpg
 
 ---
 

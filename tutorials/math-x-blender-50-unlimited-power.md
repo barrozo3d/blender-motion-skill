@@ -8,7 +8,9 @@ blender_version: "Blender 5.0"
 tags: [geometry-nodes, mathematics, procedural, advanced, fractals, for-each-zone, repeat-zone]
 extraction_status: complete
 frames_dir: tutorials/frames/math-x-blender-50-unlimited-power/
-frame_count: 0
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Math x Blender 5.0 = UNLIMITED POWER!
@@ -70,6 +72,19 @@ frame_count: 0
 **Transcript:** to you like this video again and if you did please give this video a thumbs up comment down below  if you have any questions and if you don't want to miss out on any future videos I recommend  subscribing to the channel and also be sure to check out the big notebook by going into the link  in description to get 25% off of your purchase and lastly I want to give a big thank you to the coding  train because the things that we did in this tutorial are inspired by the things that he does in  this tutorial and with that being said thank you for watching and I see you in the next one  so
 
 
+
+---
+
+## Captured Frames
+
+- [2:00] tutorials/frames/math-x-blender-50-unlimited-power/frame_000.jpg
+- [6:30] tutorials/frames/math-x-blender-50-unlimited-power/frame_001.jpg
+- [12:00] tutorials/frames/math-x-blender-50-unlimited-power/frame_002.jpg
+- [17:00] tutorials/frames/math-x-blender-50-unlimited-power/frame_003.jpg
+- [21:30] tutorials/frames/math-x-blender-50-unlimited-power/frame_004.jpg
+- [24:00] tutorials/frames/math-x-blender-50-unlimited-power/frame_005.jpg
+- [26:30] tutorials/frames/math-x-blender-50-unlimited-power/frame_006.jpg
+- [32:00] tutorials/frames/math-x-blender-50-unlimited-power/frame_007.jpg
 
 ---
 

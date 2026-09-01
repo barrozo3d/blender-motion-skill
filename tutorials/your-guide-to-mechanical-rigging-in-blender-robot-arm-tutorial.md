@@ -8,7 +8,9 @@ blender_version: "Blender 4.x"
 tags: [rigging, ik, mechanical, armature, constraints, robot, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial/
-frame_count: 0
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Your Guide to Mechanical Rigging in Blender (Robot Arm Tutorial)
@@ -70,6 +72,19 @@ frame_count: 0
 **Transcript:** some parts missing right and you are correct we still have these cables here that are kind of like  jiggling and moving with the arm and for these i have an extended version of this tutorial over  on my patreon so if you like to see how to set up those cables and how to move them dynamically  and wiggle a little bit you can see this all in this extended version of this tutorial so if you  are curious about this please consider joining my patreon you will have access to the long version  of this video but also the extended versions of some other tutorials that are also here on youtube  but then that you will also have access to my rigging course which goes over various principle  of mechanical rigging including like robotic arms legs gears pistons and cables and if you just  want to have the course it is also available on gumroad and on super hive so to support me and my  work either my patreon or my shops are the best way to do so the second best thing you can do is just  liking this video and clicking on the like button or subscribing to this channel this really helps  me out a lot and also please let me know if i did everything right or maybe there are better  methods that i used please let me know in the comments below i would love to hear a feedback  if i did good if i did bad please also let me know so i can do better in the next videos  other than that thank you everyone for watching and i hope to see you in the next ones take care and bye bye
 
 
+
+---
+
+## Captured Frames
+
+- [6:00] tutorials/frames/your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial/frame_000.jpg
+- [10:00] tutorials/frames/your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial/frame_001.jpg
+- [11:30] tutorials/frames/your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial/frame_002.jpg
+- [14:00] tutorials/frames/your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial/frame_003.jpg
+- [18:00] tutorials/frames/your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial/frame_004.jpg
+- [20:50] tutorials/frames/your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial/frame_005.jpg
+- [22:30] tutorials/frames/your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial/frame_006.jpg
+- [27:00] tutorials/frames/your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial/frame_007.jpg
 
 ---
 

@@ -8,7 +8,9 @@ blender_version: "Blender 5.1"
 tags: [rendering, eevee, ray-tracing, lighting, light-probes, workflow, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/photorealistic-eevee-renders-in-blender-51/
-frame_count: 0
+frame_count: 7
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Photorealistic Eevee Renders In Blender 5.1
@@ -50,6 +52,18 @@ frame_count: 0
 **Transcript:** Now we are on the final chapter, and let's review the basics.  I have this abandoned house scan that I found on CG Trader. You can grab it for a very low price  using the discount code, check the link in the description. Now I have basically applied the  workflow here. I have changed all of the main settings. I have used a volume probe without the  background light, and with an extra area light to fake the background world. I have also added  ambient occlusion. And that's it. You will get the hang of it when you try this on multiple scenes.  Now the fun part, let's add some fisheye effect in the camera. Now you can do this easily in cycles,  with the panoramic lens type, but it doesn't work with EV. Instead decrease the focal length,  and go into the compositor. Add a lens distortion node, and increase the distortion a little bit.  Check the fit box, and you will be good to go. Another thing I did was this hand held camera animation,  which is basically with the help of this add-on. I have linked it in the description. Add some  final touches in the compositing, play with the exposure, and you will be good to go. I have a  complete video about photorealism so you can watch that out.
 
 
+
+---
+
+## Captured Frames
+
+- [1:40] tutorials/frames/photorealistic-eevee-renders-in-blender-51/frame_000.jpg
+- [3:10] tutorials/frames/photorealistic-eevee-renders-in-blender-51/frame_001.jpg
+- [6:00] tutorials/frames/photorealistic-eevee-renders-in-blender-51/frame_002.jpg
+- [9:00] tutorials/frames/photorealistic-eevee-renders-in-blender-51/frame_003.jpg
+- [11:40] tutorials/frames/photorealistic-eevee-renders-in-blender-51/frame_004.jpg
+- [13:10] tutorials/frames/photorealistic-eevee-renders-in-blender-51/frame_005.jpg
+- [14:10] tutorials/frames/photorealistic-eevee-renders-in-blender-51/frame_006.jpg
 
 ---
 

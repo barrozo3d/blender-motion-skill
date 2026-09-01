@@ -8,7 +8,9 @@ blender_version: "Blender 4.x"
 tags: [lighting, product-visualization, area-lights, emission, glass, light-linking, beginner]
 extraction_status: complete
 frames_dir: tutorials/frames/realistic-product-lighting-in-blender/
-frame_count: 0
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Realistic Product Lighting In Blender
@@ -62,6 +64,17 @@ frame_count: 0
 **Transcript:** how it turns boring sharp renders into soft good looking renders. You should give it a try. Link is  in description. Let's do a quick recap. Lighting products is simple. You just have to add a strong  light in the background to create strong highlights. You have to use another light with less spread  value to create sharp shadow. You have to use one more light with high spread value. If you are  lighting something like glass, use planes with gradient texture. You have to make sure this side is  outside and you hide it in the camera. You can also use the light linking feature to only light  to your product. Thanks for watching the video and you can get both of these project files from my  Patreon and to make things better you can grab some free stuff too from my Patreon. Subscribe.
 
 
+
+---
+
+## Captured Frames
+
+- [1:00] tutorials/frames/realistic-product-lighting-in-blender/frame_000.jpg
+- [2:00] tutorials/frames/realistic-product-lighting-in-blender/frame_001.jpg
+- [3:00] tutorials/frames/realistic-product-lighting-in-blender/frame_002.jpg
+- [4:15] tutorials/frames/realistic-product-lighting-in-blender/frame_003.jpg
+- [5:30] tutorials/frames/realistic-product-lighting-in-blender/frame_004.jpg
+- [6:55] tutorials/frames/realistic-product-lighting-in-blender/frame_005.jpg
 
 ---
 

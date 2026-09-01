@@ -8,7 +8,9 @@ blender_version: "Blender 5.x"
 tags: [motion-graphics, eevee, geometry-nodes, looping, honeycomb, displacement, compositing, beginner]
 extraction_status: complete
 frames_dir: tutorials/frames/sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial/
-frame_count: 0
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Sci-Fi Grid Pattern Animation Loop - Blender Motion Graphics Tutorial
@@ -70,6 +72,19 @@ frame_count: 0
 **Transcript:** thank you so much for watching and I hope you enjoyed the tutorial and if you make something cool  with this and if you upload it to YouTube you can definitely let me know and I'll check out your  channel and check out the animation and if you'd like to help support the channel and purchase the  tutorial project files you can get that with the links in the video description and I did also  want to remind you that Super Hive is currently having a winter sale and all of my products on the  Super Hive market are 25% off during the winter sale from February 24th through a March 2nd of  2026 so links are in the description if you'd like to check out my Super Hive store so thank you  everyone so much for your support so if you enjoyed and thank you for watching
 
 
+
+---
+
+## Captured Frames
+
+- [2:00] tutorials/frames/sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial/frame_000.jpg
+- [4:00] tutorials/frames/sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial/frame_001.jpg
+- [6:30] tutorials/frames/sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial/frame_002.jpg
+- [11:00] tutorials/frames/sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial/frame_003.jpg
+- [14:10] tutorials/frames/sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial/frame_004.jpg
+- [15:10] tutorials/frames/sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial/frame_005.jpg
+- [16:30] tutorials/frames/sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial/frame_006.jpg
+- [17:50] tutorials/frames/sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial/frame_007.jpg
 
 ---
 

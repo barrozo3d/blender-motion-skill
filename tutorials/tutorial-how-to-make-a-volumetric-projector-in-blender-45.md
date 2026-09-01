@@ -8,7 +8,9 @@ blender_version: "Blender 4.5"
 tags: [lighting, volumetrics, cycles, spotlight, video-texture, animated-texture, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/tutorial-how-to-make-a-volumetric-projector-in-blender-45/
-frame_count: 0
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Tutorial: How to make a volumetric projector in Blender 4.5
@@ -70,6 +72,19 @@ frame_count: 0
 **Transcript:** you
 
 
+
+---
+
+## Captured Frames
+
+- [0:50] tutorials/frames/tutorial-how-to-make-a-volumetric-projector-in-blender-45/frame_000.jpg
+- [1:20] tutorials/frames/tutorial-how-to-make-a-volumetric-projector-in-blender-45/frame_001.jpg
+- [2:40] tutorials/frames/tutorial-how-to-make-a-volumetric-projector-in-blender-45/frame_002.jpg
+- [3:30] tutorials/frames/tutorial-how-to-make-a-volumetric-projector-in-blender-45/frame_003.jpg
+- [4:30] tutorials/frames/tutorial-how-to-make-a-volumetric-projector-in-blender-45/frame_004.jpg
+- [5:40] tutorials/frames/tutorial-how-to-make-a-volumetric-projector-in-blender-45/frame_005.jpg
+- [7:40] tutorials/frames/tutorial-how-to-make-a-volumetric-projector-in-blender-45/frame_006.jpg
+- [9:00] tutorials/frames/tutorial-how-to-make-a-volumetric-projector-in-blender-45/frame_007.jpg
 
 ---
 

@@ -8,7 +8,9 @@ blender_version: "Blender 4.x"
 tags: [animation, graph-editor, f-curves, interpolation, workflow, beginner, rigging]
 extraction_status: complete
 frames_dir: tutorials/frames/mastering-blenders-graph-editor/
-frame_count: 0
+frame_count: 7
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Mastering Blender's Graph Editor
@@ -42,6 +44,18 @@ frame_count: 0
 **Transcript:** By taking some time to explore and acclimate to the logic of the graph editor, we were  able to dynamically animate the pan, modify its behavior, non-destructively, and add some  cool frame by frame animation to the fish.  Mastering the graph editor is essential to taking your animation to the next level.  So put in the effort and learn the tool.  As I said at the beginning, this tutorial and really just all of my tutorials in general  is more of a template for a bigger picture.  When you be animating a fish every time you pop open the graph editor, probably not  unless you're in the very specific field of fish viz, but the general approach, the tools  and the implementation of logic, they all should apply in most situations.  So use this demonstration as a springboard and continue getting into your reps, just animating  and using the graph editor, and eventually it will feel like a second nature to you.  If you like the fish that we used here and you want to learn to make your own characters,  be sure you check out my four part character design series, I'll have it linked up somewhere  here.  Don't forget to like this video, subscribe to the channel, and comment your favorite  species of fish.  If you want to support the channel, you can pick up my plugin, Sweet Buttons Pro, it's  just a little add-on that gives you a panel of easy buttons, it'll be linked down below.  Thank you very much to our sponsor, Envato, and thank you for watching.
 
 
+
+---
+
+## Captured Frames
+
+- [4:00] tutorials/frames/mastering-blenders-graph-editor/frame_000.jpg
+- [8:00] tutorials/frames/mastering-blenders-graph-editor/frame_001.jpg
+- [12:00] tutorials/frames/mastering-blenders-graph-editor/frame_002.jpg
+- [18:00] tutorials/frames/mastering-blenders-graph-editor/frame_003.jpg
+- [20:30] tutorials/frames/mastering-blenders-graph-editor/frame_004.jpg
+- [24:00] tutorials/frames/mastering-blenders-graph-editor/frame_005.jpg
+- [28:00] tutorials/frames/mastering-blenders-graph-editor/frame_006.jpg
 
 ---
 

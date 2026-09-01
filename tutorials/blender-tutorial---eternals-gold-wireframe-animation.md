@@ -4,11 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=WmldjCv9P84
 author: Blender Made Easy
 ingested: 2026-06-25
-blender_version: "Blender 4.x"
+blender_version: "Blender 3.0.0 Beta -- observed in frame_002, frame_004"
 tags: [animation, curves, shaders, materials, motion-graphics, vfx, wireframe, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/
-frame_count: 0
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender Tutorial - Eternals Gold Wireframe Animation
@@ -57,6 +59,17 @@ frame_count: 0
 
 ---
 
+## Captured Frames
+
+- [2:00] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_000.jpg
+- [4:50] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_001.jpg
+- [7:00] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_002.jpg
+- [8:50] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_003.jpg
+- [11:00] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_004.jpg
+- [13:30] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
@@ -67,25 +80,26 @@ Blender Made Easy recreates the Eternals weapon-building effect using a curve SV
 
 ### Key Steps
 1. **Import SVG:** File → Import → SVG; box-select all → scale up; delete extra logo parts; keep only main curve.
-2. **Curve setup:** Select all parts → Ctrl+J join; Fill Mode = None; Geometry > Depth for thickness; Ctrl+A apply scale.
+2. **Curve setup:** Select all parts → Ctrl+J join; Fill Mode = None; Ctrl+A apply scale. **Thickness is `Depth` under the curve's `Bevel` section, not under `Geometry`** [frame_002] — Bevel offers `Round` / `Object` / `Profile`, with `Depth`, `Resolution` (4) and `Fill Caps`. The `Geometry` section holds `Offset`, `Extrude`, `Taper Object` and `Taper Radius` (set to **`Override`**).
 3. **Fix Mean Radius:** Edit mode → A select all → N panel → set Mean Radius to 1 (was 284 from scaling, which multiplies depth incorrectly).
 4. **Fix double vertices:** In edit mode, find vertices causing shading glitches (two on top of each other) → delete one at each location.
 5. **Create curve hole:** In edit mode, select two adjacent vertices → X → Delete Segments (not vertices) → Extrude to bridge the gap. This exposes a Start/End point so the build animation works.
-6. **Animate build:** Geometry panel → Mapping section → End: keyframe 0 at frame 0, keyframe 1 at frame 200. Set Mapping mode to **Spline** (not Resolution or Segment) for even-speed animation.
+6. **Animate build:** the panel is **`Start & End Mapping`** [frame_002]. It carries `Factor Start` / `Factor End` (the animated pair — keyframe Factor End 0 at frame 0, 1 at frame 200) and separately `Mapping Start` / `Mapping End` dropdowns, which default to **`Resolution`**. It is `Mapping End` that must be set to **Spline** for even-speed animation.
 7. **Taper effect:** Shift+A → Curve → Bezier; Edit mode → flatten bottom vertex; assign as Taper Object in Geometry panel; enable Map Taper. Adjust vertex Y positions to control taper shape (positive Y = thin at end, negative Y = thin at middle).
 8. **Animate taper out:** Select taper curve → Shape Keys: add Basis (value=0, keep current taper shape); add Key 1 → drag value to 1, go to edit mode → drag vertices to completely flat horizontal line (taper disappears). Keyframe Shape Key value: 0 at frame 150, 1 at frame 200.
 9. **Gold material:** Principled BSDF: Metallic=1, Roughness=0.1, Base Color=gold. Add Emission shader (same gold color, Strength~50). Mix Shader between the two.
-10. **Animated light streak:** Noise Texture (Scale=15, Detail=0, Roughness=0.2; Y scale in Mapping=0.05 to remove horizontal streaks) → Color Ramp (compress) → mask the emission strip. Fresnel node (IOR~0.9) → Color Ramp → compressed strip. Math Multiply (Fresnel × Noise result) → Mix Shader Factor.
+10. **Animated light streak:** Texture Coordinate → `Mapping` (Type **Point**) → `Noise Texture` (**3D**) → Color Ramp (compress) → mask the emission strip. Fresnel node (IOR~0.9) → Color Ramp → compressed strip. Math Multiply (Fresnel × Noise result) → Mix Shader Factor.
+    ⚠️ The frame at this point catches the Noise Texture still at **defaults** — Scale 5.000, Detail 2.000, Roughness 0.500, Distortion 0.000 — and the Mapping node at Location 0/0/0, Scale 1/1/1 [frame_004]. The Scale=15 / Detail=0 / Roughness=0.2 / Mapping-Y=0.05 figures recorded here are from narration later in the chapter and are **not** frame-confirmed.
 11. **Driver for animation:** Texture Coordinate (UV) → Mapping → animate X Location with driver `#frame/250` so the streak moves along the curve during the animation.
 12. **Render:** Cycles; enable Bloom in render settings; Cycles Filter Size ~1.8 (reduces graininess); Samples 256; add dark background plane.
 
 ### Nodes / Settings
-- Curve Geometry panel: **Fill = None**; **Depth** (thickness); **Taper Object** (Bezier curve); **Map Taper** checkbox
-- Geometry > Mapping: **End** 0→1 (animated); Mapping mode = **Spline** (constant speed along full length)
+- Curve data: **Geometry** → `Offset`, `Extrude`, `Taper Object` (Bezier curve), `Taper Radius` = **Override**, `Map Taper`; **Bevel** → `Round`/`Object`/`Profile`, `Depth` (this is the thickness control), `Resolution` 4, `Fill Caps`; **Curve Deform** → `Radius` ✓, `Stretch` ☐, `Bounds Clamp` ☐ [frame_002]
+- **Start & End Mapping** panel: `Factor Start` 0.000 / `Factor End` 1.000 (Factor End is the animated one); `Mapping Start` / `Mapping End` dropdowns default to `Resolution` — set **Mapping End = Spline** for constant speed [frame_002]
 - Mean Radius: must be set to **1** in Edit mode N-panel after applying scale
 - Taper curve: Shape Keys — Basis (tapered) at frame 150 = 0, Key 1 (flat) at frame 200 = 1
 - Material: Principled BSDF (Metallic=1, Roughness=0.1) + Emission (Strength~50) via Mix Shader
-- Noise Texture: Scale=15, Detail=0, Roughness=0.2; Mapping Y scale=0.05 (square splotches)
+- Noise Texture: **3D**; transcript-only values Scale=15, Detail=0, Roughness=0.2, Mapping Y scale=0.05 (square splotches). Frame-confirmed at defaults 5.0 / 2.0 / 0.5 / Distortion 0.0 before tuning [frame_004]
 - Texture Coordinate: **UV** → Mapping node → X Location driven by `#frame/250` (animates streak along curve)
 - Fresnel (IOR~0.9) → Color Ramp (compress to thin edge line) — masks emission to outer/inner curve edges
 - Math Multiply: Fresnel mask × Noise mask → Mix Shader Factor
@@ -94,10 +108,26 @@ Blender Made Easy recreates the Eternals weapon-building effect using a curve SV
 Intermediate — requires curve editing knowledge, shape keys, material node setup, and basic drivers.
 
 ### Blender Version
-Blender 4.x (standard curve, shape keys, material nodes; no version-specific features)
+**Blender 3.0.0 Beta** — read from the status bar in two independent frames [frame_002, frame_004]. This entry previously said *"Blender 4.x (… no version-specific features)"*, which was an inference and is wrong by two major versions.
 
 ### Tags
 #animation #curves #shaders #materials #motion-graphics #vfx #wireframe #intermediate
+
+---
+
+## Frame verification (2026-09-01)
+
+| | |
+|---|---|
+| **Corrected — version** | `Blender 4.x` was an inference. The status bar reads **3.0.0 Beta** in two independent frames [frame_002, frame_004]. Wrong by two major versions. |
+| **Corrected — panel names** | Thickness (`Depth`) lives under **Bevel**, not Geometry [frame_002]. The build animation is driven from the **`Start & End Mapping`** panel, where `Factor End` is the animated value and `Mapping End` is the dropdown that must be set to *Spline* — two different controls this entry had merged into one [frame_002]. |
+| **Scoped down** | The Noise Texture values (Scale 15 / Detail 0 / Roughness 0.2) are transcript-only. The frame covering that chapter shows the node still at defaults [frame_004], so those numbers are now labelled as narration rather than presented as observed. |
+| **Added** | `Taper Radius: Override`; Bevel `Resolution` 4 and `Fill Caps`; Curve Deform `Radius`/`Stretch`/`Bounds Clamp`; Mapping node `Type: Point`; Noise Texture in **3D** mode [frame_002, frame_004]. |
+
+**Subject:** the SVG being animated is `blender_community_badge_white.svg`
+(spline `path1313`, material `SVGMat.022`) — the Blender community badge, not an
+Eternals asset [frame_002, frame_004]. The entry described the technique but never
+said what was on screen.
 
 ---
 

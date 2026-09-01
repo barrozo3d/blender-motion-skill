@@ -4,11 +4,13 @@ source: YouTube
 url: https://www.youtube.com/watch?v=LssHxDCM7H4
 author: InLightVFX
 ingested: 2026-06-25
-blender_version: "Any (with ACES config installed)"
+blender_version: "Blender 2.81 -- observed in frame_002"
 tags: [color-management, aces, vfx, compositing, rendering, davinci-resolve, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/
-frame_count: 0
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Add VFX to Cinematic RAW and LOG Footage (the right way) | ACES Part 2
@@ -39,6 +41,17 @@ frame_count: 0
 
 ---
 
+## Captured Frames
+
+- [1:40] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_000.jpg
+- [3:30] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_001.jpg
+- [5:30] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_002.jpg
+- [7:00] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_003.jpg
+- [9:00] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_004.jpg
+- [10:30] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_005.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
@@ -49,23 +62,24 @@ Part 2 of InLightVFX's ACES series. Practical walkthrough of the complete workfl
 
 ### Key Steps
 1. **DaVinci Resolve — Project setup:** New project → Color Management → Color Workspace = `ACES CC` → save.
-2. **Apply IDT to LOG footage:** Right-click clip → select appropriate IDT (e.g. `Adobe RGB` for the example LOG clip); for RAW footage Resolve auto-applies the conversion.
+2. **Apply IDT to LOG footage:** Right-click clip → select appropriate IDT (e.g. `Adobe RGB` for the example LOG clip); for RAW footage Resolve auto-applies the conversion. The two source clips are visible in the Media Pool [frame_001]: `A007_04061039_C036.mov` (the LOG clip) and `BlackmagicRAW_Clip.braw` — so the RAW case is specifically **Blackmagic RAW**, in project `ACES Main`.
 3. **Preview:** Color Management → Output Device Transform = `sRGB` → footage now looks correct.
 4. **Color correction (safe only):** Adjust color temperature, exposure, offset, and gain wheels only; avoid all other operations (they destroy linear data).
 5. **Export EXR:** Disable ODT (set to None) before exporting; Export → Format: `OpenEXR`, Codec: `RGB Half`; render. (Optionally export an H.264 with ODT enabled for camera tracking reference.)
-6. **Camera match:** Use F-Spy (free) to align camera perspective from a still frame; import camera into Blender.
+6. **Camera match:** Use F-Spy (free) to align camera perspective from a still frame; import camera into Blender via **File → Import → fSpy (.fspy)** — the entry in the Import submenu, which requires the fSpy Blender importer add-on [frame_002].
 7. **Blender — ACES config:** Render Properties → Color Management → Display Device: `ACES`, View Transform: `sRGB`, Sequencer: `ACES CG`.
 8. **Import footage:** In Camera tab, add background footage (EXR sequence) → Color Space: `ACES 2065-1`.
 9. **HDRI:** World Shader Editor → Environment Texture node; select HDRI file; Color Space dropdown → `utility-linear-sRGB` IDT. Use `Ctrl+T` to add Mapping nodes; rotate via Z value.
 10. **Scene geometry:** Floor plane as shadow catcher (Object Properties → Visibility → Shadow Catcher); add CG objects (monkey, balls, etc.) with rough material matching scene.
 11. **Render layers:** Collection for floor (Indirect Only on main layer), collection for objects (Indirect Only on shadow layer); transparent background; output = `OpenEXR Multi-Layer`.
-12. **Compositing scene:** New Blender scene → Compositing tab; import background EXR (color space: ACES 2065-1); import CG multi-layer EXR (color space: ACES CG); Alpha Over: background + shadows → Alpha Over + main objects → Composite node. Add temp camera + EEVEE 1 sample to enable Render Animation.
-13. **Back in Resolve:** Import composite EXR → IDT: `ACES CG` → enable SRGB ODT → compare to original footage (colors should match). Color grade for final look.
+12. **Compositing scene:** New Blender scene (created as `Scene.001`, 1920×1080 at 100%, aspect 1.000 [frame_004]) → Compositing tab; import background EXR (color space: ACES 2065-1); import CG multi-layer EXR (color space: ACES CG); Alpha Over: background + shadows → Alpha Over + main objects → Composite node. Add temp camera + EEVEE 1 sample to enable Render Animation.
+13. **Back in Resolve:** Import composite EXR → IDT: `ACES CG` → enable SRGB ODT → compare to original footage (colors should match). Color grade for final look. The composite comes back as an **EXR image sequence**, not a single file — `o_ServantSequence_Comped_v[10001-10024].exr`, cut on V2 above the original `.braw` on V1 [frame_005].
 14. **Final export:** ODT = `sRGB` (or `P3 DCI` for cinema) → Render H.264.
 
 ### Nodes / Settings
 - DaVinci: Color Workspace = `ACES CC`; IDT per clip (log-specific, e.g. `Adobe RGB`); ODT = `sRGB` for preview, `None` for export; Format: OpenEXR RGB Half
-- Blender: Display Device = ACES; View Transform = sRGB; Sequencer = ACES CG
+- Blender **2.81** [frame_002]: Display Device = ACES; View Transform = sRGB; Sequencer = ACES CG
+- Cycles setup shown alongside: Feature Set `Supported`, Device `GPU Compute`, Integrator `Path Tracing`, samples Render **128** / Viewport **32** [frame_002]
 - Background EXR color space node: `ACES 2065-1`
 - HDRI environment texture color space: `utility-linear-sRGB`
 - Ctrl+T (Node Wrangler) on image/env node → auto-creates Mapping + Texture Coordinate nodes
@@ -79,10 +93,38 @@ Part 2 of InLightVFX's ACES series. Practical walkthrough of the complete workfl
 Intermediate — requires DaVinci Resolve + Blender ACES config; multi-step pipeline spanning two applications; Part 1 concepts are prerequisite.
 
 ### Blender Version
-Any (with ACES color config installed — see Mario Cossadez tutorial linked in original video description)
+**Blender 2.81** — read from the status bar, `v2.81.16` [frame_002]. This entry
+previously said *"Any (with ACES color config installed)"*, which was an
+inference from the transcript; the footage dates the workflow precisely.
+
+⚠️ **The version is not incidental for this tutorial.** 2.81 predates Filmic
+being replaced by AgX (4.0), predates the compositor's `Mix` → `Mix Color`
+rename, and predates the current Color Management panel layout. The
+Display Device / View Transform / Sequencer settings in Key Step 7 are described
+as they appear in 2.81. An ACES config is still required (see the Mario Cossadez
+tutorial linked in the original video description).
+
+**DaVinci Resolve 16 (PUBLIC BETA)** — read from the application's own status
+bar [frame_001, frame_005]. The Resolve half of this workflow is likewise
+described as it stood in 16.
 
 ### Tags
 #color-management #aces #vfx #compositing #rendering #davinci-resolve #intermediate
+
+---
+
+## Frame verification (2026-09-01)
+
+| | |
+|---|---|
+| **Corrected** | `blender_version` was *"Any (with ACES config installed)"* — an inference. The status bar reads **v2.81.16** [frame_002]. For a colour-management tutorial this is load-bearing: 2.81 predates AgX, the `Mix Color` rename and the current Color Management panel. |
+| **Added** | **DaVinci Resolve 16 PUBLIC BETA**, project `ACES Main` [frame_001, frame_005]; the RAW example is **Blackmagic RAW** (`BlackmagicRAW_Clip.braw`) beside the LOG `.mov` [frame_001]; fSpy arrives through **File → Import → fSpy (.fspy)** [frame_002]; Cycles at GPU Compute, 128/32 samples [frame_002]; the compositing scene is `Scene.001` at 1920×1080 [frame_004]; the composite returns as an EXR **sequence**, `[10001-10024]` [frame_005]. |
+
+⚠️ **`frame_000` (1:40) and `frame_003` (7:00) are mistimed picks** — both land on
+talking-head shots. 2 of 6 here, against the ~25% rate plan batch D3c measured for
+chapter-anchored picks. This file's chapters are unusually coarse (`SOFTWARE SETUP`
+spans 0:49–8:06), which is exactly the condition that makes an interpolated moment
+a guess.
 
 ---
 

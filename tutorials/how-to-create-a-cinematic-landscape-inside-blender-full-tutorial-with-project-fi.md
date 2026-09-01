@@ -8,7 +8,9 @@ blender_version: "Blender 3.x/4.x"
 tags: [landscape, terrain, foliage, camera-animation, cycles, hdri, biome-reader, blenderkit, sketchfab, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi/
-frame_count: 0
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How to create a Cinematic Landscape inside Blender | Full tutorial with Project file
@@ -46,6 +48,17 @@ frame_count: 0
 **Transcript:** But, it is a negative point  You can see it from the render  If you go to edit mode, then you will see it from the back  So, better, you keep it here  And, you can check it from here  If you look from the back, it is very wide  And, I tried to recreate this GoPro shot  So, let's first adjust the path  So, the scene is almost ready  I have not done this on the ground  So, now, we will do our environment  Which will be our background  I will show you how to execute it very easily  So, I will use the easy HDRI  Which is very good  To create this kind of a shot  I will first use a single HDRI  Which will use the light to eliminate the rest of the path  And, click here, create world nodes  And, once you click, you can see that  You got a different sky texture  So, now, pick which one looks perfect for this shot  This is the HDRI part  You need to know how to shoot  So, this is very time  To execute it  Sometimes, it takes 2-3 hours  So, I will put the color of the sun here  I will put it in 0-0-1  Because, I want little bit of sun intensity  So, let's say 0-0-5  So, the light is still shining here  Now, it looks like a blank  If you notice, the scene looks pretty blank  So, here, I will attach the sky with the background  On the other side, I will attach it with the sky  So, how I will show you  It is very simple  You can drag it here  So, go to the sheet editor  And, you will get a world nodes  So, here, if you look at the map  You get some panel of the HDRI here  Which is this  So, simply select this  And, Control C, Control V  So, here, it is here  Now, press this too  And, press the Control T  Now, here, the background  And, the values are going down  On the mixed shader  So, we are going to use mixed shader once again  So, we will drag it  And, press the mixed shader  Here, our mixed shader  We are going to mix it with this  So, simply connect to this  And, connect it with this  Now, here, you have to import the other HDRI  Which is a little different  Like, the clouds are going down  So, I am using this one  So, you can see, both the HDRI are here  With the cloud  And, you can adjust here  Because, you want the trend  So, I will add a little bit of this trend  Now, if you want some sun intensity  So, let's import it to like 0.1  Now, it has rotation  So, your sun intensity is going down  So, for example, it is going down  So, now, what we do  Let's see how we can see the whole grass  So, I have shown all the biomleters  Which have also been on all the elements  And, if you notice  They are highly dense  And, the light setup is also here  So, now, what I will do?  I will go to the render settings  And, here, there is a color management  Because, I want a little bit of low contrast  For this shot  Now, if you look at my final render  You will see a little yellowish ink  Which I have actually posted  Which means, I have added the final color  So, after doing this  You can render it in the render  There will be no issues  But, you will have to remember one thing  You will have to add the elements  And, you will have to be heavy  So, I have used some paint  Which you can use  You will get a link in the description box  Which you can download easily  You can download in the gumroad page  So, go and download  There will be no copyright issues  So, you can use it for free  So, I hope you liked the video of the lens  So, go recreate it  And, I will tag me on Instagram  See you in the next video  This is VFX World  Keep watching, keep rocking
 
 
+
+---
+
+## Captured Frames
+
+- [2:00] tutorials/frames/how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi/frame_000.jpg
+- [6:00] tutorials/frames/how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi/frame_001.jpg
+- [9:00] tutorials/frames/how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi/frame_002.jpg
+- [12:00] tutorials/frames/how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi/frame_003.jpg
+- [16:30] tutorials/frames/how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi/frame_004.jpg
+- [21:00] tutorials/frames/how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi/frame_005.jpg
 
 ---
 

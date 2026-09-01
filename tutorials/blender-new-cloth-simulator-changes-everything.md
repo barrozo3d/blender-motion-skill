@@ -8,7 +8,9 @@ blender_version: "Blender 5.2 (experimental)"
 tags: [simulation, cloth, geometry-nodes, physics, vfx, advanced]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-new-cloth-simulator-changes-everything/
-frame_count: 0
+frame_count: 7
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender NEW Cloth Simulator changes EVERYTHING!
@@ -61,6 +63,18 @@ frame_count: 0
 
 ---
 
+## Captured Frames
+
+- [1:05] tutorials/frames/blender-new-cloth-simulator-changes-everything/frame_000.jpg
+- [2:30] tutorials/frames/blender-new-cloth-simulator-changes-everything/frame_001.jpg
+- [4:45] tutorials/frames/blender-new-cloth-simulator-changes-everything/frame_002.jpg
+- [6:15] tutorials/frames/blender-new-cloth-simulator-changes-everything/frame_003.jpg
+- [8:30] tutorials/frames/blender-new-cloth-simulator-changes-everything/frame_004.jpg
+- [12:00] tutorials/frames/blender-new-cloth-simulator-changes-everything/frame_005.jpg
+- [15:30] tutorials/frames/blender-new-cloth-simulator-changes-everything/frame_006.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
@@ -72,24 +86,24 @@ SouthernShotty covers the new experimental Cloth Dynamics GeoNodes system in Ble
 ### Key Steps
 1. **Enable experimental:** Edit → Preferences → Experimental tab → enable Experimental Features; also check Dynamics (hairs + GeoNodes).
 2. **Object setup:** Use a dense mesh (~50K faces for decent quality); add Geometry Nodes modifier + Subdivision Surface modifier after (disable subdivision while working).
-3. **Normal offset outer shell:** `Set Position` node; Group Input geometry → geometry; `Normal` → `Vector Scale` (value ~0.027) → Offset. This pushes the cloth shell slightly outward so it can peel off without Z-fighting.
+3. **Normal offset outer shell:** `Set Position` node; Group Input geometry → geometry; `Normal` (the node exposes `Normal` and `True Normal`) → a Vector Math node in **Scale** mode → `Offset` [frame_005]. The scale field reads **0.027** and its tooltip gives the stored value as **0.0275**. This pushes the cloth shell slightly outward so it can peel off without Z-fighting.
 4. **Set outer material:** `Set Material` after Set Position.
 5. **Shrink simulation:** `Simulation Zone` with `Transform Geometry` inside (scale ~0.9995 per frame → shrinks inward); animate the `Skip` boolean: keyframe OFF at frame 0, ON at frame ~12 to stop shrinking.
-6. **Cloth Dynamics node:** Plug shrink sim output into Cloth Sim geometry. Settings: Stretchiness 0.15–0.5, Bendiness 0.15–0.5, Sub-steps 10–20, Constraint Steps 1–5; Mass 0.25, Friction 1.5, Collision Radius slightly raised; Gravity Z=0, X=1 (sideways float effect).
-7. **Tearing:** Check Tearing ON; Noise Pattern = Voronoi; Threshold ~1.05 (finicky — experiment per object); Scale ~50.
-8. **Geometry Collider (self-collision):** Drag Group Input geometry into `Geometry Collider` node; Friction: adjust until peeling works; Deforming ON (object is animated/scaled); Object Space → select the object this modifier is on.
+6. **Cloth Dynamics node:** Plug shrink sim output into Cloth Sim geometry. **The values actually used in the finished effect, read off the node** [frame_006]: Stretchiness **0.100**, Bendiness **0.100**, Substeps **10**, Constraint Steps **1**, Mass **0.25 kg**, Friction **1.500**, Collision Radius **~0.02**, Linear Damping **1.000**, Gravity **X = 1 / Y = 0 / Z = 0** m/s² (the sideways float; default is Z = −9.81 [frame_003]). The node's full socket order is Pin Group → Invert Pin Group → Stretchiness → Bendiness → **Solver** (Substeps, Constraint Steps) → **Simulation to World** → **Structure** (Auto Rest Shape, Mass, Friction, Collision Radius) → **Damping** (Linear Damping) → **Gravity** → **Tearing** → **Effectors** [frame_001, frame_002, frame_003, frame_006].
+7. **Tearing:** Check Tearing ON; **Threshold 1.050** confirmed on screen [frame_003, frame_006]. The section's first control is a mode dropdown, shown set to **`All`** [frame_003] — not the "Noise Pattern = Voronoi" this entry previously recorded from narration; treat the Voronoi/Scale ~50 figures as transcript-only, since no frame shows them.
+8. **Geometry Collider (self-collision):** Drag Group Input geometry into `Geometry Collider` node. Settings as used [frame_006]: **Friction 0.750**, **Softness 0.000**, **Deforming ✓**, **Edge Contacts ☐**, **Boundary ☐**, Space = **Object Space** with the object set to `Skull_LP` — the object the modifier is on.
 9. **Wind force (Effectors):** `Custom Force` (Field mode, World Space); connect: `Scene Time` (seconds) → `Math Multiply` (speed ×5) → Noise Texture Vector input → Map Range → `Vector Rotate` → Force XYZ; animate Force strength from high (~5) to lower (~1.5) over animation. `Join` (combine bundle) collider + wind force → Cloth Sim Effector input.
 10. **Inner shell:** Group Input geometry → `Set Material` (inner material) → drag into Join Geometry with cloth output.
 11. **Bake:** `Bake` node at the very end of the chain; click Bake to pre-compute animation.
 
 ### Nodes / Settings
-- `Cloth Dynamics` (experimental) — main node; Stretchiness 0.15–0.5 (edge link length), Bendiness 0.15–0.5 (face rotation); Sub-steps 20, Constraint Steps 5 (quality vs speed)
+- `Cloth Dynamics` (experimental) — main node. **Final effect values [frame_006]: Stretchiness 0.100, Bendiness 0.100, Substeps 10, Constraint Steps 1.** The 0.15–0.5 / 20 / 5 figures previously recorded here came from narration about the *range*, not from the built effect. Defaults seen while the settings are being explained: Mass 1 kg, Friction 0.500, Gravity Z −9.81 [frame_002, frame_003]. Also carries **`Simulation to World`** and **`Auto Rest Shape`**, neither of which the transcript mentions [frame_001]
 - Pin Group — vertex group to pin; Invert Pin Group to pin only selection
 - Tearing: Voronoi noise pattern, Threshold ~1.05 (very sensitive), Scale ~50
 - `Custom Force` — Field mode; takes Force X/Y/Z inputs; can chain noise for wind
-- `Geometry Collider` — Friction (key to peeling behavior), Deforming ON, Object Space
+- `Geometry Collider` — Friction **0.750**, Softness **0.000**, Deforming ✓, Edge Contacts ☐, Boundary ☐, Space `Object Space` → `Skull_LP` [frame_006]
 - `Simulation Zone` + `Transform Geometry` (scale ~0.9995) — per-frame shrink; `Skip` boolean keyframed to stop at frame 12
-- `Set Position` — Offset = Normal × 0.027 (outer shell thickness)
+- `Set Position` — Offset = Normal × **0.0275** via a Vector Math *Scale* node (field displays 0.027) [frame_005]
 - Wind force chain: `Scene Time` → `Multiply` → Noise Texture → `Map Range` → `Vector Rotate` → Custom Force
 - `Join Geometry` — combines outer cloth + inner mesh at end
 - `Bake` node — pre-computes and caches simulation frames
@@ -98,10 +112,47 @@ SouthernShotty covers the new experimental Cloth Dynamics GeoNodes system in Ble
 Advanced — requires experimental Blender 5.2 build, understanding of simulation parameters, and careful threshold tuning per object.
 
 ### Blender Version
-Blender 5.2 experimental (Edit → Preferences → Experimental → enable Cloth Dynamics)
+**Blender 5.2.0 Alpha** — from the window title, `… - Blender 5.2.0 Alpha` [frame_005, frame_006]; the status bar reads `5.2.0` [frame_001, frame_003]. Experimental features must be enabled (Edit → Preferences → Experimental).
 
 ### Tags
 #simulation #cloth #geometry-nodes #physics #vfx #advanced
+
+---
+
+## Frame verification (2026-09-01)
+
+The densest correction set of this batch — the transcript described the solver
+settings as *ranges to try*, and the entry recorded those ranges as if they were
+the values used. The frames show the built effect.
+
+| field | entry said (transcript) | frame shows |
+|---|---|---|
+| Stretchiness | 0.15–0.5 | **0.100** [frame_006] |
+| Bendiness | 0.15–0.5 | **0.100** [frame_006] |
+| Substeps | 20 | **10** [frame_006] |
+| Constraint Steps | 5 | **1** [frame_006] |
+| Collider Friction | "adjust until peeling works" | **0.750** [frame_006] |
+| Normal offset | 0.027 | **0.0275** (tooltip) [frame_005] |
+| Tearing pattern | "Voronoi" | dropdown reads **`All`** [frame_003] |
+| Version | "5.2 experimental" | **5.2.0 Alpha** [frame_005] |
+
+**Added:** `Simulation to World`, `Auto Rest Shape`, `Linear Damping` (1.000),
+`Collision Radius`, collider `Softness` / `Edge Contacts` / `Boundary`, and the
+Effectors input being a **Collection** socket with a `Cloth Tags` field beside it
+[frame_001, frame_003, frame_006]. Defaults, captured while the settings are
+explained rather than used: Mass 1 kg, Friction 0.500, Gravity Z −9.81
+[frame_002, frame_003].
+
+**Attribution the transcript alone would have lost:** at 8:30 the video is
+reading an X post by **Miettinen Jesse (@JesseMiettinen)**, 15 May 2026,
+demonstrating the Wool Native geometry-nodes cloth solver and noting that
+experimental features must be enabled in 5.2 — with a follow-up post showing how
+to add a collider and combine forces [frame_004]. The technique in this tutorial
+is built on that demo, and the entry did not say so.
+
+**Scene facts:** the object is `Skull_LP` (60,816 verts / 56,965 faces), the node
+group is named `Peeling_Material`, and a Subdivision (Catmull-Clark, Viewport 1 /
+Render 1, Optimal Display) sits after the Geometry Nodes modifier [frame_005].
 
 ---
 

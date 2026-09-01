@@ -8,7 +8,9 @@ blender_version: "Blender 5.2"
 tags: [materials, shaders, glass, transparency, thin-wall, rendering, beginner]
 extraction_status: complete
 frames_dir: tutorials/frames/blenders-new-transparency-material-is-crazy/
-frame_count: 0
+frame_count: 6
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Blender's NEW Transparency Material is CRAZY!
@@ -54,6 +56,17 @@ frame_count: 0
 **Transcript:** interest. I'm really excited to see what the community creates with this thin wall material.  Let me know what you think about the tutorial in the comments below. I will be putting this project  file on my Patreon if you'd like to check it out.
 
 
+
+---
+
+## Captured Frames
+
+- [1:40] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_000.jpg
+- [3:30] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_001.jpg
+- [5:10] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_002.jpg
+- [6:00] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_003.jpg
+- [7:00] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_004.jpg
+- [8:40] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_005.jpg
 
 ---
 

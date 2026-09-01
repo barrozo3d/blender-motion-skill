@@ -8,7 +8,9 @@ blender_version: "Blender 4.x"
 tags: [volume, clouds, geometry-nodes, rendering, lighting, atmosphere, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/how-i-made-realistic-storm-clouds-in-blender/
-frame_count: 0
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How I Made Realistic Storm Clouds in Blender!
@@ -58,6 +60,19 @@ frame_count: 0
 **Transcript:** So this is how you can create clouds and atmospheric sky right in blender.  Essentially there are three methods I use and before we wrap up a quick knot on optimization.  Since everything here is built with volumes and there are a lot of volumes in the scene now it's clear on this directly impacts performance.  Especially when for the final image you will want the smaller value of voxel size to get much sharper details.  And if you don't want to wait forever for the render finish you can do it with the global volume settings since the render settings here.  By default these settings are way too high for a final image but we can adjust them slightly.  I set max step to 500 well and increase step rate render from 1 to 3.  I also adjust the viewport settings to avoid overloaded the GPU while walking.  This way you can save some time or rather avoid wasting it because the quality doesn't suffer at all.  Just make sure to check test render to avoid any artifacts on the render.  You might need to find on the settings for your own scene.  So thank you for watching this video. Don't forget to subscribe to my channel, Instagram, X and Patreon to access my classes and sets.  And I'll catch you in the next one.
 
 
+
+---
+
+## Captured Frames
+
+- [1:20] tutorials/frames/how-i-made-realistic-storm-clouds-in-blender/frame_000.jpg
+- [2:45] tutorials/frames/how-i-made-realistic-storm-clouds-in-blender/frame_001.jpg
+- [6:00] tutorials/frames/how-i-made-realistic-storm-clouds-in-blender/frame_002.jpg
+- [9:30] tutorials/frames/how-i-made-realistic-storm-clouds-in-blender/frame_003.jpg
+- [13:00] tutorials/frames/how-i-made-realistic-storm-clouds-in-blender/frame_004.jpg
+- [15:40] tutorials/frames/how-i-made-realistic-storm-clouds-in-blender/frame_005.jpg
+- [16:50] tutorials/frames/how-i-made-realistic-storm-clouds-in-blender/frame_006.jpg
+- [19:00] tutorials/frames/how-i-made-realistic-storm-clouds-in-blender/frame_007.jpg
 
 ---
 

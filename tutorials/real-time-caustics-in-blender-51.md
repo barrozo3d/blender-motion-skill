@@ -8,7 +8,9 @@ blender_version: "Blender 5.1"
 tags: [shaders, caustics, cycles, glass, materials, procedural, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/real-time-caustics-in-blender-51/
-frame_count: 0
+frame_count: 5
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Real time Caustics In Blender 5.1
@@ -46,6 +48,16 @@ frame_count: 0
 **Transcript:** Now we are on the final shader which looks absolutely beautiful,  but it's also a bit harder to make. We're just going to build this on top of the base shader  we created earlier. Add a mapping node and place it here. Add a Normalize node and place it before  the mapping node. Duplicate it and set it to Add. Make sure the values are set to 0.5.  Now change the Z axis on the mapping node to minus one.  Also adjust the scale to 0.8 on the x and y axis and keep it at 1.4 on the Z axis.  Add a Mix color node, set it to Screen and make sure the factor value is set to 0.7.  Now let's add some texture to it. Add a Gradient node and a Noise texture.  Make sure to add the coordinates and set them to Object.  Decrease the scale on the Noise texture and increase the detail and roughness to Max.  Increase the distortion to something around 200 as well.  Now just duplicate the Vexerad node and connect it before the Mix color node.  Connect the texture into the second slot.  Now you have to add a Color ramp and create some fringes.  It's pretty simple. Just copy what I am doing. Change the mode to Constant and decrease the white value.  Now you have to add three fringes. Just copy the settings.  Now add another Color ramp and set the mode to E's.  Bring the black handle closer towards the white and mix these two Color ramps with a Mix color node.  Add a Multiply node and change the value to 2.  Now for the color, add a Mix color node and set it to Multiply.  Increase the factor to 1. You can control the color from this value now.  Now we can improve this even further with Chromatic Dispersion,  which is a little complex so I have made this free project file that contains both this shader  and the Corsics shader. You can get it from my Patreon for free.  You just have to append the material or copy it into your project file.  Thanks for watching and make sure to click that subscribe button.
 
 
+
+---
+
+## Captured Frames
+
+- [2:00] tutorials/frames/real-time-caustics-in-blender-51/frame_000.jpg
+- [3:30] tutorials/frames/real-time-caustics-in-blender-51/frame_001.jpg
+- [5:10] tutorials/frames/real-time-caustics-in-blender-51/frame_002.jpg
+- [7:20] tutorials/frames/real-time-caustics-in-blender-51/frame_003.jpg
+- [9:30] tutorials/frames/real-time-caustics-in-blender-51/frame_004.jpg
 
 ---
 

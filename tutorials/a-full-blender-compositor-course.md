@@ -8,7 +8,9 @@ blender_version: "Blender 4.5"
 tags: [compositing, rendering, render-passes, color-grading, denoise, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/a-full-blender-compositor-course/
-frame_count: 0
+frame_count: 8
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # A FULL Blender Compositor Course!
@@ -49,6 +51,19 @@ frame_count: 0
 
 ---
 
+## Captured Frames
+
+- [1:30] tutorials/frames/a-full-blender-compositor-course/frame_000.jpg
+- [7:00] tutorials/frames/a-full-blender-compositor-course/frame_001.jpg
+- [12:00] tutorials/frames/a-full-blender-compositor-course/frame_002.jpg
+- [18:00] tutorials/frames/a-full-blender-compositor-course/frame_003.jpg
+- [24:00] tutorials/frames/a-full-blender-compositor-course/frame_004.jpg
+- [30:00] tutorials/frames/a-full-blender-compositor-course/frame_005.jpg
+- [35:00] tutorials/frames/a-full-blender-compositor-course/frame_006.jpg
+- [40:00] tutorials/frames/a-full-blender-compositor-course/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
@@ -64,14 +79,14 @@ SharpWind's 42-minute compositor survey starts from node basics (viewer setup in
 3. Any node with a `Factor` or `Mask` input accepts a grayscale image: black = no effect, white = full effect — this is the core compositing logic.
 
 **Practical Effects**
-4. **Glare** — add Glare node; Blender 4.5 gives separate outputs for full, glare-only, and highlight-only; adjust Threshold/Smoothness/Strength/Saturation; type controls glare shape.
+4. **Glare** — add Glare node; Blender 4.5 gives separate outputs for full, glare-only, and highlight-only; type controls glare shape. The 4.5 node is laid out in three collapsible sections [frame_001]: **Highlights** (`Threshold`, `Smooth`, `Clamp`), **Adjust** (`Strength`, `Saturation`, `Tint`) and **Glare** (`Size`, observed at `0.500`). Type shown is **Fog Glow** with **Quality: High** [frame_001]. `Tint` is a colour input — the frame catches its picker open at HSV `0.328 / 1.000 / 2.999`, hex `#5AFF00FF`, i.e. a Value above 1 to push the glare brighter than white.
 5. **Atmospheric fog** — View Layer → enable Mist Pass; set camera Mist start/end in World Properties; Mix Color node (Mix mode) with Mist Pass as Factor and fog color as Socket B; Math Multiply before Mist Pass to control strength.
 6. **Color Balance** — Lift (shadows), Gamma (midtones), Gain (highlights) per channel tint and brightness.
 7. **Color Correction** — single node with per-section (shadows/midtones/highlights) saturation, contrast, and LGG; range thresholds (default 0.2/0.7 for shadow/highlight boundary).
 8. **Hue Correct** — per-color-channel hue/saturation/brightness adjustments; **Hue Saturation Value** — same but for whole image.
 9. **Ellipse Mask + Blur** — localized effect (light bleed, vignette): Ellipse Mask → Blur → plug into Factor; flip sockets for vignette (black in Socket A, image in Socket B); add Math Multiply to control strength.
 10. **Lens Distortion** — enable `Fits` checkbox to remove black edges; add Dispersion for chromatic aberration (keep subtle).
-11. **Denoise (Cycles)** — View Layer → Denoising Data pass on; turn off Render Properties default denoise; Denoise node: Image→Image, Denoising Normal→Normal, Denoising Albedo→Albedo; mute while working (M key) for speed.
+11. **Denoise (Cycles)** — View Layer → Denoising Data pass on; turn off Render Properties default denoise; Denoise node: Image→Image, Denoising Normal→Normal, Denoising Albedo→Albedo; mute while working (M key) for speed. The node also carries two dropdowns and a fourth input the transcript never mentions [frame_003]: **Prefilter** (set to `Accurate`) and **Quality** (`Follow Scene`), plus an **HDR** checkbox input, enabled. The Render Layers node exposes **Denoising Depth** alongside Normal and Albedo [frame_003].
 12. **Fake Defocus** — View Layer → Z pass; Map Range to squash Z-distance to 0–1; Color Ramp to control focus falloff; multiply colors for blur amount; plug into Defocus node; use Z Scale as blur multiplier.
 
 **Render Layers**
@@ -83,22 +98,22 @@ SharpWind's 42-minute compositor survey starts from node basics (viewer setup in
 **Render Passes (Professional Setup)**
 17. View Layer → enable Diffuse/Glossy/Transmission/Volume Direct+Indirect+Color, Emission, Ambient Occlusion, Cryptomatte Object, Denoising Data.
 18. Rebuild image: for each shading type: `Add(direct, indirect)` → `Multiply(result, color)` → add all shading types together → `Set Alpha(combined_rgb, alpha_pass)` → Denoise.
-19. **Cryptomatte** — add Cryptomatte node; image→image; Pick output lets you click-select objects; Mat output = perfect per-object mask → use as Factor for Hue Saturation, Glossy Color tint via Multiply, etc.
+19. **Cryptomatte** — add Cryptomatte node; image→image; **Pick** output lets you click-select objects; **`Matte`** output = perfect per-object mask → use as Factor for Hue Saturation, Glossy Color tint via Multiply, etc. The node's source is a **Render / Image** toggle, the layer is chosen as `<ViewLayer>.CryptoObject` (observed: `The_ONE_Layer.CryptoObject`), and picked objects accumulate in a **Matte ID** list with `+`/`−` buttons (observed: `Cube.001`) [frame_007].
 20. **Light Groups** — View Layer → Light Groups → assign lights to groups via Object Properties → Shading → Light Group; combine with Add nodes (factor 1) to isolate and recolor individual lights.
 21. Export workflow: set output to OpenEXR Multi-Layer, render; import back in fresh scene with Render Layers node → all passes preserved.
 
 ### Nodes / Settings
-- `Glare` — Bloom/Streaks/Ghosts; Threshold, Smoothness, Strength, Saturation; 3 outputs in 4.5
+- `Glare` — Fog Glow/Bloom/Streaks/Ghosts, with a **Quality** dropdown; 3 outputs in 4.5. Sections and exact socket names [frame_001]: Highlights → `Threshold`, `Smooth`, `Clamp`; Adjust → `Strength`, `Saturation`, `Tint`; Glare → `Size`
 - `Mix Color` (Mix mode) — Factor 0 = Socket A, 1 = Socket B; plug mask into Factor for non-uniform effect
 - `Math (Multiply)` — reduce mist/vignette/effect strength below 1.0
 - `Color Balance` (Lift/Gamma/Gain) — shadows/midtones/highlights tint + brightness
-- `Color Correction` — per-section LGG with range control (default 0.2/0.7 shadow/highlight)
+- `Color Correction` — sections are **Master / Highlights / Midtones / Shadows**, each with `Saturation`, `Contrast`, `Gamma`, `Gain`, `Lift`; plus a **Tonal Range** section (two midtone thresholds, caught mid-drag at `0.035` / `0.700`) and a **Channels** section. It takes a **`Mask`** input (1.000 = full effect) as well as Image [frame_002]
 - `Hue Correct`, `Hue Saturation Value`, `RGB Curves`, `Exposure`, `Tone Map`
 - `Ellipse Mask` — Blender 4.5 gizmo moveable; → `Blur` → Factor input for localized effects
 - `Lens Distortion` (enable Fits) + Dispersion for chromatic aberration
-- `Denoise` — needs Denoising Data pass; connect Normal + Albedo for better quality
+- `Denoise` — needs Denoising Data pass; connect Normal + Albedo for better quality; **Prefilter** (`Accurate`) and **Quality** (`Follow Scene`) dropdowns and an **HDR** toggle [frame_003]
 - `Defocus` — requires Z-pass → Map Range (0→scene_max to 0→1) → Color Ramp → Z input; Z Scale as strength
-- `Cryptomatte` — Pick output for click-select; Mat output = per-object mask
+- `Cryptomatte` — outputs `Image` / `Matte` / `Pick`; Render-or-Image source toggle; `<ViewLayer>.CryptoObject` layer selector; **Matte ID** list of picked names [frame_007]
 - `Set Alpha` — reattach alpha channel lost during pass recombination
 - OpenEXR Multi-Layer — only format that preserves all render passes for import
 
@@ -110,6 +125,27 @@ Blender 4.5 (Glare node has 3 outputs; Ellipse Mask gizmo moveable with node sel
 
 ### Tags
 #compositing #rendering #render-passes #color-grading #denoise #intermediate
+
+---
+
+## Frame verification (2026-09-01)
+
+These frames were captured **after** the Structured Notes were written, so the
+notes above were sourced from the transcript alone. Re-reading them against
+720p frames confirmed most of the entry and produced **one outright correction**
+plus four fields the transcript never carried.
+
+| | |
+|---|---|
+| **Corrected** | Cryptomatte's mask output is **`Matte`**, not `Mat` [frame_007]. |
+| **Added, unmentioned in narration** | Glare's `Tint` socket and `Size` [frame_001]; Denoise's `Prefilter` / `Quality` / `HDR` [frame_003]; Color Correction's `Mask` input, `Master` section and `Channels` section [frame_002]; the Render Layers node's `Denoising Depth` output [frame_003]. |
+| **Confirmed** | Composite + Viewer both fed from one branched noodle [frame_000]; per-collection render layers rendering to a transparent background, with the layer and pass pickers in the Image Editor header [frame_004]; the Diffuse pass split into `Direct` / `Indirect` / `Color` [frame_005]. |
+
+⚠️ **`frame_006` (35:00) is a mistimed pick** — it lands on a talking-head shot
+with no UI, in the middle of the *Professional Setup* chapter. It is left in
+place and recorded here rather than quietly re-rolled: the moment was chosen from
+a chapter heading, and plan batch D3c measured that method at a **25% mistiming
+rate**. This is one of those. It grounds nothing.
 
 ---
 
