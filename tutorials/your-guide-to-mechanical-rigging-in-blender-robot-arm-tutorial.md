@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=SCz1tmOVmFw
 author: DemNikoArt
 ingested: 2026-06-25
-blender_version: "Blender 4.x"
+blender_version: "Blender 4.x -- no version string readable; narrowed to 4.0+ by the Bone Collections UI"
 tags: [rigging, ik, mechanical, armature, constraints, robot, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/your-guide-to-mechanical-rigging-in-blender-robot-arm-tutorial/
@@ -99,24 +99,28 @@ DemNikoArt rigs a ceiling-mounted robotic arm with a single IK controller bone. 
 ### Key Steps
 1. **Align bones to model:** Shift+S → Cursor to Selection on each pivot point. Armature → Edit Mode → E to extrude bone chain (all joints). "In Front" option in Armature Properties so bones visible through geometry.
 2. **Disconnect IK target bone:** Select IK target bone → Alt+P → Clear Parent. Must be fully disconnected (no dotted line) for IK to work.
-3. **Create IK chain:** In Pose Mode: select IK target first, then deformation bone → Shift+I → "Add IK Target, Selected Bone". Yellow dotted chain appears; adjust Chain Length in Bone Constraint properties.
-4. **Lock rotation axes:** Bone Properties → Inverse Kinematics tab → enable axis display → lock all axes except the one allowed (e.g. Lock X + Lock Z = only Y rotates).
-5. **Adjust stiffness:** Same IK tab → Stiffness per axis (0 = free, 1 = fully rigid). Set to 0.5 for a ball-joint end that shouldn't do all the work.
+3. **Create IK chain:** In Pose Mode: select IK target first, then deformation bone → Shift+I. The menu that opens is headed **`Add IK`** with a single item, **`Target Selected Bone`** [frame_001] — the entry had run the two together as one string. Yellow dotted chain appears; adjust Chain Length in Bone Constraint properties.
+4. **Lock rotation axes:** Bone Properties → `Inverse Kinematics` tab → lock all axes except the one allowed. ⚠️ **The panel is captured twice and is at defaults both times** [frame_003, frame_004]: `IK Stretch` 0.000, `Lock IK X/Y/Z` all **unticked**, `Stiffness X/Y/Z` all **0.000**, and `Limit X/Y/Z` unticked at **−180° / 180°**. Both captures are of the **IK target** bone, where the fields are greyed out because it is not itself in a chain — so the panel's layout is confirmed, but no lock or stiffness value in this entry is.
+5. **Adjust stiffness:** Same IK tab → Stiffness per axis (0 = free, 1 = fully rigid). Set to 0.5 for a ball-joint end that shouldn't do all the work. *(Narrated — every captured Stiffness field reads **0.000**; see Key Step 4.)*
 6. **Parent geometry to bones:** Select geometry → Shift+select Armature → Right-click → Parent → Parent to Nearest Bone (from add-on). Or manually: Ctrl+P → Bone in Pose Mode with bone selected.
 7. **Piston setup:** Add bone at each piston hinge; parent each bone to its respective geometry piece (Ctrl+P Keep Offset). Add empties at opposing hinge point (parent empties to geometry, NOT bones). Pose Mode: select piston bone → Object Constraint → Damp Track → target = opposing hinge empty. Repeat for all pistons.
 8. **Clamp controller bone:** Place at center of clamp (Shift+S mid-point). Parent to main arm bone (Alt+P Keep Offset). F2 to rename "open_close".
-9. **Transformation constraint (clamp):** Select finger bone → Add Constraint → Transformation. Target = armature/open_close bone. Space: Local → Local. Map From: Location, Y axis, Min −10, Max 0. Map To: Rotation, Z axis, Min 0°, Max 70°. Copy to symmetric bone → change to −70° for opposite direction.
+9. **Transformation constraint (clamp):** Select finger bone → Add Constraint → **`Transformation`** — confirmed on `Bone.012`, with `Target` **`Armature.006`** and `Bone` **`open_close`**, which is exactly the name Key Step 8 says to give it [frame_007]. The space dropdown is caught **open**, with the cursor on **`Local Space`** among `World Space | Custom Space | Pose Space | Local With Parent | Local Space | Local Space (Owner Orientation)` — so the Local→Local choice is confirmed as it is being made.
+    ⚠️ **The mapping itself is not set yet in the frame.** `Map From` reads `Location` with every Min/Max at **0 cm**, and `Map To` is still on **`Location`**, not `Rotation`. The −10→0 → 0°→70° numbers and the −70° mirror are narrated only.
 10. **Limit Location constraint:** On open_close bone → Limit Location → Local Space → Min/Max X=0, Y from −10 to 0, Z=0.
 11. **IK rotation copy:** Bone Properties → IK tab → enable Rotation checkbox → end effector copies IK target orientation.
-12. **Bone Widget add-on:** Select bone → Bone Widget panel → choose shape (circle, roll) → Create → assign gizmo mesh.
-13. **Bone Collections:** Pose Mode → M → New Collection "main" → assign controller bones. Armature Properties → hide Bones Collection (deformation bones). Animators only see controller bones.
+12. **Bone Widget add-on:** Select bone → `Bone Widget` panel → choose shape → Create. **The whole shape library is captured** [frame_005] — 3 Axes, 6 Axes, four Arrow variants, Chest, **Circle**, Clavicle, Cube, two Eye Target shapes, FK Limb 1/2, Gear Complex/Simple, Line, two Paddles, Plane, Plane (r…), Pyramid, Rhomboid, **Roll 1 / Roll 2 / Roll 3**, Roll_IK, Root 1/2, Saddle, Sphere, Sphere (…), Tile, Torso, Triangle, WGT-ri… — which confirms both shapes the entry names (`Circle` for the IK target, a roll gizmo for head rotation) actually exist in it. The panel also carries `Preview Panel`, **`Match Bone Transforms`**, `Symmetrize Shape`, `Resync Widget Names`, `Clear Bone Widget` and `Delete Unused Widgets` [frame_006]. `Roll 1` is the shape assigned to `Bone.015`, a bone with `Roll` **−90°** and `Length` 15.324 cm.
+13. **Bone Collections:** Pose Mode → M → New Collection → assign controller bones. The `Bone Collections` panel is visible in three frames with its default collection named **`Bones`** — the one Key Step 13 says to hide — and the `Assign` / `Remove` / `Select` / `Deselect` row beneath it [frame_000, frame_002, frame_005]. Only the one collection exists in every capture, so the second, `"main"`, is narrated. Armature Properties → hide Bones Collection. Animators only see controller bones.
 
 ### Nodes / Settings
 - IK chain length: 0 = full chain; set to N for partial influence
-- Axis locks (IK tab): Lock X, Lock Z = only Y rotates (adjust per-joint)
-- Stiffness: 0.5 recommended for ball joints; 0.8 for joints that should barely rotate
+- Axis locks (IK tab): Lock X, Lock Z = only Y rotates (adjust per-joint) *(narrated — every captured `Lock IK` box is unticked)*
+- IK panel layout as captured: `IK Stretch`, `Lock IK X/Y/Z`, `Stiffness X/Y/Z`, `Limit X/Y/Z` with −180°/180° defaults [frame_003, frame_004]
+- Stiffness: 0.5 recommended for ball joints; 0.8 for joints that should barely rotate *(narrated — captured values are 0.000)*
 - Damp Track: target = empty at opposing piston end; Track Axis = -Y or +Y (test both)
-- Transformation constraint: Map From Location Y −10 to 0; Map To Rotation Z 0° to ±70°
+- Transformation constraint: type, `Target` `Armature.006` and `Bone` **`open_close`** confirmed; space caught mid-selection on **`Local Space`** [frame_007]. Map From Location Y −10 to 0 / Map To Rotation Z 0° to ±70° *(narrated — the frame still reads Location→Location with all fields 0 cm)*
+- Viewport Display for bones: `Display As` **Octahedral** (**Stick** later), `Shapes` ✓, `Bone Colors` ✓, **`In Front` ✓** [frame_000, frame_002, frame_005]
+- Scene frame range **1–370**; the rig grows from 1 bone to 22 across the set
 - Limit Location: Min Y = −10, Max Y = 0; all others = 0; Local Space
 - IK Rotation: enables bone to copy IK target orientation
 
@@ -124,10 +128,41 @@ DemNikoArt rigs a ceiling-mounted robotic arm with a single IK controller bone. 
 Intermediate — IK setup and axis locks are approachable; Transformation constraint for clamp requires careful axis mapping; Damp Track pistons are straightforward
 
 ### Blender Version
-Blender 4.x (standard rigging features; Bone Widget and Parent to Nearest Bone are free add-ons)
+**Blender 4.x — no version string is readable in this set**, but 4.x is now evidence-based rather than assumed: the armature UI shows a **`Bone Collections`** panel [frame_000, frame_002, frame_005], and Bone Collections replaced the old bone-layers system in **Blender 4.0**. So the major version is confirmed even though the patch cannot be. The status bar is covered in all eight frames by the standing banner across the bottom of the video.
 
 ### Tags
 #rigging #ik #mechanical #armature #constraints #robot #intermediate
+
+---
+
+## Frame verification (2026-09-02)
+
+| | |
+|---|---|
+| **Confirmed** | the controller bone really is named **`open_close`**, read off the Transformation constraint's Bone field [frame_007] — a satisfying check, since the entry gives that name three steps earlier. Also: the `Add IK` → `Target Selected Bone` menu [frame_001]; `In Front` and the bone display settings [frame_000]; the `Bones` collection [frame_000, frame_002]; `Snap Selection to Cursor` [frame_000]; and the Bone Widget add-on with `Circle` and `Roll` shapes both present in its library [frame_005, frame_006]. |
+| **Corrected** | the Shift+I menu is `Add IK` **→** `Target Selected Bone`, two levels, which the entry had quoted as one string. `blender_version` gains a reason: **Bone Collections is 4.0+**, so `4.x` is now grounded rather than inferred. |
+| **Added** | the complete Bone Widget shape library and panel buttons [frame_005, frame_006]; the IK panel's full field list including the ±180° Limit defaults [frame_003, frame_004]; the Transformation constraint's six space options [frame_007]; `Bone.015` at `Roll` −90°; and the scene's 1–370 frame range. |
+| **Flagged as unverified** | **every numeric in the rig.** The per-joint axis locks, the 0.5 and 0.8 stiffness values, the Damp Track setup and its track axis, the Transformation mapping (−10→0 → 0°→70° and the −70° mirror), and the Limit Location ranges. The IK panel is captured only on the **IK target** bone, where every field is greyed at its default; the Transformation constraint is captured mid-configuration with its mapping still at zero. |
+
+ℹ️ **A fourth way the version corner can be lost.** This video carries a
+**standing banner across the bottom of every frame** — alternating between a
+link to the author's paid course and a follow-me strip — and it sits exactly
+where Blender's status bar is. Unlike a mistimed pick, no choice of moment
+avoids it: it is present in all eight frames. Together with the three already
+recorded in this batch (fullscreen, no-UI, webcam overlay), that is four
+distinct reasons a version region can come back unreadable, and **this one and
+the webcam both return a confident-looking crop of something that is not
+Blender.**
+
+What rescued it here is that a *feature* dated the build where a *string* could
+not: `Bone Collections` did not exist before 4.0. **When the version corner is
+gone, the UI itself is still evidence** — a panel that only exists after a
+certain release brackets the version just as well, and is often more robust
+than the digits.
+
+ℹ️ Note also that the banner is part of the video's furniture, not a segment:
+this entry is a genuine 27-minute rigging walkthrough and `scan_promo.py` does
+not flag it. The banner simply costs us the status bar.
 
 ---
 

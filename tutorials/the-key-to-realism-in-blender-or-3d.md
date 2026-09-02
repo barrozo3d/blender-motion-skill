@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=0OVEJVbklV0
 author: Kaizen
 ingested: 2026-06-25
-blender_version: "Blender 3.x/4.x"
+blender_version: "any -- no Blender UI appears in any frame; software-agnostic principles"
 tags: [realism, lighting, compositing, camera, scanning, beginner, theory]
 extraction_status: complete
 frames_dir: tutorials/frames/the-key-to-realism-in-blender-or-3d/
@@ -66,31 +66,66 @@ frame_selection: content-anchored (manual timestamps chosen from transcript, not
 Kaizen breaks down photorealism into three interdependent forces. Subject: 3D scanning (Kiri app) captures imperfections and micro-detail far faster than manual modeling — key inputs are feature-rich objects, soft even lighting (overcast outdoors ideal), steady overlapping photos, auto object masking. Lighting: approach from "what is happening outside camera bounds?" perspective — HDRI provides colored fill; area light as main source; optional gobo for natural shadow patterns; bounce light planes + objects for realistic reflections in shadows; volumetric cube (Volume Scatter, low density, high anisotropy) for atmospheric depth. Aim for best looking result, not most physically correct. Camera: identify what real camera would take this image (phone, DSLR, film) — then match focal length, DOF, and apply in compositor: vignette (ellipse mask + Blur + Alpha Over), grain (Texture node + Mix Color, Linear Light mode = dark-area grain), lens distortion (very low values). All three forces must work together.
 
 ### Key Steps
-1. **Subject (3D scanning):** Use Kiri app (free tier). Object needs good feature points (visible surface variation). Lighting: overcast outdoor (natural softbox) or shadow indoors. Camera: 50–100 overlapping steady photos. Enable auto object masking. Pro: Featureless Object Scan (video-based, AI reconstruction). Edit scan in app; export as GLTF.
+1. **Subject (3D scanning):** Use Kiri app (free tier). Object needs good feature points (visible surface variation). Lighting: overcast outdoor (natural softbox) or shadow indoors — illustrated literally by the reference footage, a woodland stream under closed tree canopy with no hard shadows anywhere in shot [frame_001]. Camera: 50–100 overlapping steady photos. Enable auto object masking. Pro: Featureless Object Scan (video-based, AI reconstruction). Edit scan in app; export as GLTF.
 2. **Lighting — think contextually:** Ask "what is outside camera bounds?" (indoor night vs. sunny outdoor). Decide setting first, then build lighting to match.
 3. **Lighting — build up:** HDRI (low strength, for colored fill) → Area light (main source, with/without Gobo for leaf/blind shadows) → Optional fill area light (soften shadows) → Bounce planes/objects for reflections in shadow areas.
 4. **Volumetric atmosphere:** Add cube → Material → Principled Volume (or Volume Scatter) → Volume socket → low Density; high Anisotropy (0.8+). Subtle atmospheric depth.
-5. **Camera — identify type:** Phone shot? DSLR? Film camera? Match focal length in camera settings.
+5. **Camera — identify type:** Phone shot? DSLR? Film camera? Match focal length in camera settings. The camera the video puts on screen for this chapter is a **Canon EOS R6** — a full-frame mirrorless body, shown with the lens off and the sensor exposed [frame_004]. The auto-versus-manual choice is illustrated with an **`A` / `M`** mode graphic over a shallow-depth-of-field garden shot [frame_002].
 6. **Camera — DOF:** Enable depth of field, match aperture to reference.
 7. **Compositor — vignette:** Box/Ellipse mask → Blur → Alpha Over (composite with render) → subtle darkening of corners.
 8. **Compositor — grain:** Texture node → Texture node scale to match camera noise pattern. Mix Color: Linear Light mode = dark-area grain (common in digital cameras); Overlay mode = highlight grain (film cameras).
 9. **Compositor — lens distortion:** Lens Distortion node → very low values (0.02–0.05). Too high = obviously fake.
 
 ### Nodes / Settings
-- Volume Scatter (atmosphere): Density 0.01–0.05; Anisotropy 0.7–0.9
-- Grain Mix Color mode: Linear Light (shadows) or Overlay (highlights) depending on camera type
-- Lens Distortion: very low values (±0.02–0.05 max)
-- HDRI: low strength (0.2–0.5) as colored fill only
-- Gobo: plane with cutout placed in light path for shadow pattern
+⚠️ **Every value in this list is transcript-only.** No frame in this set shows
+the Blender interface at all — see the Frame verification note below — so none
+of these numbers has been read off a panel. They are recorded as narrated.
+
+- Volume Scatter (atmosphere): Density 0.01–0.05; Anisotropy 0.7–0.9 *(narrated)*
+- Grain Mix Color mode: Linear Light (shadows) or Overlay (highlights) depending on camera type *(narrated)*
+- Lens Distortion: very low values (±0.02–0.05 max) *(narrated)*
+- HDRI: low strength (0.2–0.5) as colored fill only *(narrated)*
+- Gobo: plane with cutout placed in light path for shadow pattern *(narrated)*
+- Camera named on screen: **Canon EOS R6** [frame_004]
 
 ### Difficulty
 Beginner/Intermediate — conceptual framework rather than technical tutorial; scanning requires Kiri app (free)
 
 ### Blender Version
-any (software-agnostic principles; Blender examples shown)
+**any** — and this is now checked rather than assumed: **no frame in the set shows a Blender window**, so there is no status bar, no title bar and no version to read. The frontmatter previously said `Blender 3.x/4.x`, which contradicted this section; the two now agree. Software-agnostic principles, Blender examples shown.
 
 ### Tags
 #realism #lighting #compositing #camera #scanning #beginner #theory
+
+---
+
+## Frame verification (2026-09-02)
+
+| | |
+|---|---|
+| **Corrected** | the frontmatter said `Blender 3.x/4.x` while this entry's own Blender Version section said `any`. The frames settle it in favour of `any`, and the contradiction is now removed. |
+| **Confirmed** | what the set *can* confirm, it does: the overcast-light advice for scanning is exactly what the reference footage shows [frame_001]; the camera-identification step names a real body, the **Canon EOS R6** [frame_004]; and the auto/manual decision is illustrated with an `A`/`M` graphic over a shallow-DOF shot [frame_002]. Two finished renders — a rainy windowsill still life and a warm-lit figurine — show the result the framework is aiming at [frame_000, frame_003]. |
+| **Added** | the Canon EOS R6 as the named reference camera, which the entry did not carry. |
+| **Flagged as unverified** | **every numeric in the entry.** Volume Scatter density and anisotropy, the grain blend modes, lens-distortion range, HDRI strength, the 50–100 photo count, the GLTF export — all of it. Not one Blender panel appears in any of the five frames. |
+
+⚠️ **This set grounds nothing technical, and the picks are not at fault.** Each
+of the five lands squarely on its chapter — subject, lighting reference, camera
+mode, result, camera body. They are well chosen. The problem is upstream: **this
+is a video essay, not a screen recording.** The presenter talks over renders,
+stock footage and product shots; the software is essentially never on screen.
+
+That matters for the batch's scoping assumption. The 22 sets were selected
+because their transcripts carry **real chapters**, on the reasoning that a
+chapter lets you point at a moment instead of guessing. That reasoning holds —
+but it establishes only that a *moment* can be chosen, not that the moment will
+**show an interface**. Chapters are a property of the narration; a visible UI is
+a property of the production. **A conceptual or showreel-style tutorial can be
+perfectly chaptered and still be ungroundable**, and no amount of better
+moment-picking will change that.
+
+The correct outcome here is therefore not a re-capture. It is this entry being
+marked as narration-sourced throughout, which is what the Nodes/Settings list
+now says out loud.
 
 ---
 

@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=F8pqNeVam54
 author: Polyfjord
 ingested: 2026-06-25
-blender_version: "Blender 4.5"
+blender_version: "Blender 4.5 (from the video title -- NOT readable in any frame; see Frame verification)"
 tags: [lighting, volumetrics, cycles, spotlight, video-texture, animated-texture, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/tutorial-how-to-make-a-volumetric-projector-in-blender-45/
@@ -97,35 +97,69 @@ Volumetric projector effect in Cycles 4.5: Spotlight with Use Nodes → Image/Vi
 Polyfjord creates a cinematic volumetric projector where video content travels as god rays through fog. Setup: Cycles + GPU. Spotlight → Use Nodes → Emission shader → Ctrl+T (Node Wrangler) → Image Texture → open video file. World shader → delete Background → add Volume Scatter (density 0.1) → plug into Volume output = world fog. Video texture: Image Texture node → N panel (Node tab) → refresh frame count → Auto Refresh ON → video animates. Color space: sRGB → AGX Base sRGB for correct colors under AGX render. Aspect ratio: Mapping Scale X = 2; Extension = Clip; Location X = −0.5 to center. Better method: Object Properties Scale X = 1920÷1080 (type as math expression). Denoiser: disable Noise Threshold for clean viewport preview. Movie screen: Add Plane perpendicular to beam. For final scene: marble bust with SSS + ground plane catches the projected light from all directions (volumetric fog distributes light throughout environment). Custom video textures can be created procedurally or with a web app.
 
 ### Key Steps
-1. **Setup:** Cycles render engine + GPU Compute (Preferences → System → Cycles Render Devices). Viewport → Rendered mode.
+1. **Setup:** Cycles render engine + GPU Compute — confirmed in the Render properties [frame_001] and in Preferences → System [frame_000], where the device row reads `None | CUDA | OptiX | HIP | oneAPI` with **OptiX** active, an **NVIDIA GeForce RTX 4090** ticked and a **13th Gen Intel Core i9-13900KS** left unticked. Display Graphics `Backend` is **Vulkan** (with Blender's "Low performance in VR" limitations notice showing). Viewport → Rendered mode.
+    Sampling as shipped [frame_001]: Viewport `Noise Threshold` **0.1000** / `Max Samples` **256**, Render `Noise Threshold` **0.0100** / `Max Samples` **512**, `Denoise` ✓.
 2. **Spotlight:** Shift+A → Light → Spot. G+Z to elevate. Right click → Adjust Light Power → increase.
-3. **World fog:** Shader Editor → World tab. Delete Background. Shift+A → Volume Scatter → connect to Volume socket. Density: 0.1 (lower = more transparent fog).
+3. **World fog:** Shader Editor → World tab. Delete Background. Shift+A → `Volume Scatter` → connect to the World Output's **Volume** socket. ✅ `Density` **0.100** exactly as recorded [frame_002]. Two fields the entry never carried: the phase function dropdown reads **`Henyey-Greenstein`** and `Anisotropy` is **0.000** — worth knowing, because anisotropy is what would bias the scatter forward into the beam if raised.
 4. **Spotlight video texture:** Select spotlight → Shader Editor (object mode) → click Use Nodes. Add Emission shader. Ctrl+T → Image Texture + Mapping + Texture Coordinate added automatically. Image Texture → click Open → select video file (.mp4, .mov, etc.).
-5. **Animate video:** Select Image Texture node → N panel → Node tab → Frames: click refresh icon (gets total frame count) → enable Auto Refresh checkbox. Scrub timeline → video plays.
-6. **Fix color space:** Image Texture node → Color Space dropdown: change from sRGB to AGX Base sRGB. Colors become vibrant.
+5. **Animate video:** Select Image Texture node → N panel → Node tab → `Frames`: click the refresh icon → enable `Auto Refresh`. ✅ **Captured as a clean before/after**: `Auto Refresh` **unticked** with the cursor moving onto it [frame_004], then **ticked** [frame_005]. The clip is **`Glass Knot.mp4`**, `Source` **Movie**, **1920 × 1080**, **RGBA16F**, `Frames` **354**, `Start Frame` 1, `Offset` 0, `Half Float Precision` ✓, `Seam Margin` 8.
+6. **Fix color space:** Image Texture node → `Color Space` dropdown. ✅ **Also a clean before/after**: **`sRGB`** [frame_004] → **`AgX Base sRGB`** [frame_005]. Note the UI spelling is **`AgX`** (lower-case g), not "AGX".
 7. **Fix aspect ratio (simple method):** Select Spotlight object → Object Properties (not Object Data) → Scale → X field: type "1920/1080" and press Enter (or your video's aspect ratio). Width/height as math expression.
-8. **Fix repeating (full method):** Mapping node → Scale X = 2. Image Texture → Extension = Clip. Mapping → Location X = −0.5 (center the clip).
-9. **Movie screen:** Add Plane → rotate perpendicular to beam → position in spotlight cone.
-10. **Denoiser:** Render Properties → Denoiser → uncheck Noise Threshold (viewport) and render. Smoother preview at cost of render speed.
+8. **Fix repeating (full method):** Mapping node → Scale X = 2. Image Texture → Extension = Clip. Mapping → Location X = −0.5 (center the clip). ⚠️ **None of these three values appears in any frame.** The `Mapping` node captured at 5:40 still reads `Location` 0,0,0 / `Rotation` 0° / **`Scale` 1.000, 1.000, 1.000**, and the Image Texture's extension dropdown still reads **`Repeat`** [frame_005]. Recorded as narrated.
+9. **Movie screen:** Add Plane → rotate perpendicular to beam → position in spotlight cone. Its transform is captured in full [frame_006]: `Plane.001` at Location **0, 0, 1.742 m**, `Rotation X` **90°** (the "perpendicular"), `Scale` **2.502** on all three axes.
+10. **Denoiser:** Render Properties → uncheck `Noise Threshold`. ⚠️ **Not captured** — in every frame showing the Sampling panel the `Noise Threshold` checkbox is **ticked**, in both the Viewport and Render blocks [frame_001, frame_002, frame_004, frame_005]. Narrated only.
 11. **Add scene object:** Import free 3D model (marble bust) → add SSS material for light scattering. Add ground plane with texture. Position in beam. Volumetric fog distributes light around entire object.
 
 ### Nodes / Settings
-- Volume Scatter density: 0.1 (lower = lighter fog; higher = denser, shorter rays)
-- Image Texture Color Space: AGX Base sRGB (under AGX color management)
+- Volume Scatter: `Density` **0.100** ✓, phase **Henyey-Greenstein**, `Anisotropy` **0.000** [frame_002]
+- Image Texture `Color Space`: **`AgX Base sRGB`** (UI spelling; sRGB before the change) [frame_004, frame_005]
+- Image Texture source: `Glass Knot.mp4`, Movie, 1920×1080, RGBA16F, **354 frames**, Half Float Precision ✓ [frame_004]
 - Image Texture Extension: Clip (no repeat)
 - Mapping Location X: −0.5 (center single clip)
 - Spotlight Scale X: 1920/1080 = 1.777… (16:9 aspect ratio)
-- Spotlight Power: 5–15 (needs to be high for visible volumetric effect)
-- Denoiser Noise Threshold: disabled for clean preview
+- ⚠️ "Spotlight Power" is the wrong control: what the frames show being raised is the **`Emission` node's `Strength`** on the light's own shader — **1.000** [frame_003] → **8.000** [frame_005]. The light's Power (in watts) panel never appears in the set
+- Light shader output node is `Light Output` (All → Surface) [frame_003]
+- Movie screen `Plane.001`: Location Z **1.742 m**, Rotation X **90°**, Scale **2.502** [frame_006]
+- Hardware behind the captures: **RTX 4090** + i9-13900KS, OptiX, **Vulkan** backend [frame_000]
+- Denoiser Noise Threshold: disabled for clean preview *(narrated — it reads **enabled** in every frame that shows the panel)*
 
 ### Difficulty
 Intermediate — Cycles only; requires understanding spotlight node setup + world volume + color space; very visual payoff; render time is high
 
 ### Blender Version
-Blender 4.5 (explicitly stated; standard Cycles, Volume Scatter, Node Wrangler Ctrl+T)
+**Blender 4.5 — from the video title, not read off a frame.** The status-bar corner where the version sits is covered by the presenter's webcam overlay in **every** frame of this set, so there is no version string to read. The Preferences layout is at least consistent with 4.5: the sidebar carries **`Get Extensions`** (4.2+) and Display Graphics offers a **Vulkan** backend with its "current limitations" notice [frame_000]. Consistent with, not proof of.
 
 ### Tags
 #lighting #volumetrics #cycles #spotlight #video-texture #animated-texture #intermediate
+
+---
+
+## Frame verification (2026-09-02)
+
+| | |
+|---|---|
+| **Confirmed** | `Volume Scatter` `Density` **0.100**, exactly [frame_002]. Cycles + GPU Compute [frame_000, frame_001]. The movie-screen plane really is rotated 90° [frame_006]. And **three separate before/after pairs**: `Auto Refresh` off→on, `Color Space` sRGB→`AgX Base sRGB`, and Emission `Strength` 1.000→8.000 [frame_003, frame_004, frame_005]. |
+| **Corrected** | "Spotlight Power: 5–15" names the wrong control — what is raised is the **`Emission` node's `Strength`** inside the light's shader, reaching **8.000**; the light's watt-denominated Power panel appears in no frame. The colour space is spelled **`AgX`**, not "AGX". |
+| **Added** | the Volume Scatter phase function (**Henyey-Greenstein**) and `Anisotropy` **0.000** [frame_002]; the clip's full identity — `Glass Knot.mp4`, 1920×1080, RGBA16F, **354 frames**, Half Float Precision [frame_004]; the movie screen's exact transform [frame_006]; the sampling configuration [frame_001]; and the machine — **RTX 4090** on OptiX with the **Vulkan** backend [frame_000]. |
+| **Flagged as unverified** | the whole of Key Step 8 — `Scale X = 2`, `Extension = Clip`, `Location X = −0.5` — none of which appears: the Mapping node still reads Scale 1/1/1 and the extension still reads `Repeat` at 5:40 [frame_005]. Also the aspect-ratio expression `1920/1080` typed into Object Scale (Key Step 7), the denoiser change (Key Step 10), and the marble-bust/SSS finale (Key Step 11). |
+
+ℹ️ **A third distinct reason a version cannot be read.** This batch has now hit
+three, and they are worth listing together because each defeats a different
+assumption:
+
+| entry | why the version is unreadable |
+|---|---|
+| `math-x-blender-50` | Blender runs **fullscreen** — no title bar; only the status-bar corner carries it |
+| `the-key-to-realism` | **no Blender window at all** — a video essay over renders and stock footage |
+| this entry | the **webcam overlay** sits exactly on the status-bar corner, in all 8 frames |
+
+The practical lesson for `version_from_frames.py` is that "crop the region where
+the version lives" has at least three distinct failure modes, and **two of them
+return a plausible-looking crop of something else** rather than an obvious
+blank. Here it would return a corner of the presenter's t-shirt.
+
+ℹ️ **`frame_007` (9:00) is a full-screen result render** — blue light streaks,
+no UI. It shows what the technique produces and grounds no setting.
 
 ---
 
