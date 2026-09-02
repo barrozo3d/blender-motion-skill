@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=IzSRBH8CDTo
 author: Ryan King Art
 ingested: 2026-06-25
-blender_version: "Blender 5.x"
+blender_version: "Blender 5.0.1 -- observed in all 8 frames"
 tags: [motion-graphics, eevee, geometry-nodes, looping, honeycomb, displacement, compositing, beginner]
 extraction_status: complete
 frames_dir: tutorials/frames/sci-fi-grid-pattern-animation-loop---blender-motion-graphics-tutorial/
@@ -98,14 +98,18 @@ Ryan King Art builds a seamless looping sci-fi grid animation in Blender 5.x / E
 
 ### Key Steps
 1. **Add-ons:** Enable Node Wrangler. Get Extensions → install Extra Mesh Objects.
-2. **Honeycomb grid:** Shift+A → Mesh → Extras → Honeycomb. Rows+Columns = 50. Edge Width = 1 (squish to triangles). Close settings. Tab → Edit Mode → A → M → Merge by Distance. Back to Object Mode.
+2. **Honeycomb grid:** Shift+A → Mesh → Extras → Honeycomb. The operator panel confirms `Rows` **50** and `Columns` **50**, plus `Cell Diameter` **1.00** and `Align` World, which the entry never recorded [frame_000]. ⚠️ `Edge Width` reads **0.10** — its default — in that frame, captured while the `Rows` field is still being typed; the squish to **1** is narrated and happens after. The mesh at that moment is 1,008 verts / 815 faces. Close settings. Tab → Edit Mode → A → M → Merge by Distance. Back to Object Mode.
 3. **Icosphere:** Shift+A → Icosphere → Subdivisions 3 → Shade Smooth → S → 0.07 → Apply Scale. Move out of way.
-4. **Instance on Elements modifier:** Select honeycomb → Modifiers → Add → Instance on Elements. Eyedropper → select Icosphere. Turn off Keep Surface. Open Realize Instances button and click it (so noise appears unique per instance).
+4. **Instance on Elements modifier:** Select honeycomb → Modifiers → Add → Instance on Elements. ✅ **The set captures this step as a clean before/after pair**, which is exactly what a re-grounding pass wants:
+    - *before* [frame_001] — `Instance On` **Points**, `Mask` 1.000, `Instance Type` **Object**, `Object` empty with the eyedropper live over the tooltip "Object: Icosphere", **`Realize Instances` unticked**, **`Keep Surface` ticked**, `Seed` 0.
+    - *after* [frame_003] — same modifier with `Object` = **`Icosphere`**, **`Realize Instances` ticked**, **`Keep Surface` unticked**.
+    Both changes the step describes are therefore confirmed, in the direction described.
 5. **Material (EEVEE):** Select honeycomb → Shading workspace. New material "glow". Delete Principled → add Emission Shader → plug into Surface. Add Noise Texture → Ctrl+T → plug Object into Vector. Noise → Color Ramp → Emission Color. Emission Strength 25.
-6. **Noise settings:** Scale 0.2; change type to 4D. World black. Color Ramp: drag tabs for contrast. Color: red (glow); very dark gray (non-glow). Filmic + Very High Contrast color management.
+6. **Noise settings:** `Scale` **0.200**, driven by a Value node literally named `Scale` feeding both textures [frame_003] — confirmed, as is the **4D** type. Both Noise nodes also read **fBM**, `Normalize` **✓**, `Detail` **2.000**, `Roughness` 0.500, `Lacunarity` 2.000, `Distortion` 0.000, none of which was recorded. The glow colour is exact: **`#FF3354FF`** (H 0.973 / S 0.802 / V 1.000) on a `Color Ramp` in **RGB / Linear** mode [frame_007].
+    ⚠️ **Colour management does not match.** At 2:00 the panel reads Display `sRGB`, View **`Filmic`**, **`Look: None`**, Exposure 0.000, Gamma 1.000 [frame_000] — Filmic is right, "Very High Contrast" is not set in the only frame that shows the panel.
 7. **Two-noise seamless loop:** Duplicate noise (Ctrl+Shift+D). Add Value node "Scale" → plug into both noises' Scale. Add Mix Color between them. Frame 1: noise1 W=40→I; noise2 W=0→I; Mix factor=0→I. Frame 251: noise1 W=80→I; noise2 W=40→I; Mix factor=1→I. Select all three F-curves in Graph Editor → T → Linear interpolation.
-8. **Glare Bloom compositor:** New compositing nodes. Add → Glare → Bloom. Quality: High.
-9. **Displacement (pop-out dots):** Add Displacement node (shader editor). Plug Mix Color result → Displacement Height. Scale 1. Material Settings → Displacement = Displacement and Bump. Mid-level 0. Add separate Color Ramp (Shift+D) between Mix and Displacement: adjust for dot size control (darker = smaller, lighter = larger).
+8. **Glare Bloom compositor:** New compositing nodes. Add → `Glare` → **Bloom** — confirmed, wired `Render Layers` → `Glare` → Group Output + Viewer [frame_005]. ⚠️ **Quality reads `Medium`, not High.** The node's other settings, unrecorded until now: Adjust → `Strength` **1.000**, `Saturation` **1.000**, `Tint` white; Glare → `Size` **0.500**.
+9. **Displacement (pop-out dots):** Add `Displacement` node (shader editor). Plug Mix Color result → Displacement `Height`. `Scale` **1.000** ✓, space **Object Space**. Material Settings → `Displacement` = **Displacement and Bump** ✓. **`Midlevel` 0 is confirmed, and the set catches the change itself**: it reads **0.500** at 16:30 [frame_006] and **0.000** at 17:50 [frame_007]. Add separate Color Ramp (Shift+D) between Mix and Displacement: adjust for dot size control (darker = smaller, lighter = larger).
 10. **DoF variation:** Camera → DoF ON; Focus Object = empty. F-stop 0.05.
 11. **Export:** Output Properties → JPG (quality 1.0) → render animation (Ctrl+F12) → Video Editor: File → New → Video Editor → Shift+A → Image/Sequence → select all frames → render H.264 MP4.
 
@@ -113,23 +117,51 @@ Ryan King Art builds a seamless looping sci-fi grid animation in Blender 5.x / E
 - Honeycomb: 50 rows×cols; Edge Width 1.0 → Merge by Distance
 - Icosphere: subdivisions 3; scale 0.07; Apply Scale; Shade Smooth
 - Instance on Elements: Realize Instances = ON
-- Noise 4D: scale 0.2; Object coordinates
+- Noise 4D ×2: `Scale` **0.200** via a shared Value node named `Scale`; **fBM**, `Normalize` ✓, `Detail` **2.000**, Roughness 0.500, Lacunarity 2.000, Distortion 0.000 [frame_003]
+- Mix node between them: `Color` / `Mix`, **`Clamp Factor` ✓**, `Factor` **1.000** [frame_003]
 - Color Ramp: high contrast; color = red; non-glow = very dark gray
 - Emission Strength: 25
 - Loop keyframes: noise1 W 40→80; noise2 W 0→40; factor 0→1; 1–251 frames; linear
-- Displacement: mid-level 0; scale 1; Material Displacement+Bump
-- Glare Bloom: High quality
-- Color Management: Filmic; Very High Contrast
+- Displacement: **Object Space**, `Midlevel` **0.500 → 0.000** across the set, `Scale` 1.000; Material `Displacement and Bump` [frame_006, frame_007]
+- EEVEE material settings, none previously recorded: Render Method **Dithered**, Thickness **Sphere**, `Light Probe Volume` ✓, `Transparent Shadows` ✓, Max Distance 0 m, Backface Culling off [frame_006, frame_007]
+- EEVEE sampling at 15:10: Viewport **16** (Temporal Reprojection ✓, Jittered Shadows off), Render **64**, `Raytracing` ✓, `Motion Blur` ✓ [frame_005]
+- Glare: **Bloom**, quality **Medium** (not High), Strength 1.000, Saturation 1.000, Size 0.500 [frame_005]
+- Color Management: View **Filmic** ✓, but **`Look: None`** in the only frame showing the panel [frame_000]; Display sRGB, Exposure 0.000, Gamma 1.000
 - DoF f-stop: 0.05; Focus Object = empty
 
 ### Difficulty
 Beginner — clear step-by-step; the two-noise loop technique is the most complex part but well-explained
 
 ### Blender Version
-Blender 5.x (explicitly stated; Instance on Elements modifier as a standard modifier)
+**Blender 5.0.1** — status bar, all eight frames. The entry had `Blender 5.x`, which was right in kind; the frames pin the build.
 
 ### Tags
 #motion-graphics #eevee #geometry-nodes #looping #honeycomb #displacement #compositing #beginner
+
+---
+
+## Frame verification (2026-09-02)
+
+| | |
+|---|---|
+| **Confirmed** | more of this entry survives than any other in the batch. `Scale` **0.200** and the 4D noise type, the shared Value node, Emission `Strength` **25.000** (twice), `Displacement and Bump`, `Midlevel` **0**, Displacement `Scale` 1, the material name `Glow`, the loop keyframe sitting at frame **251** against an End of 250, and both halves of the Instance-on-Elements step — all match [frame_001, frame_003, frame_006, frame_007]. |
+| **Corrected** | `blender_version` `Blender 5.x` → **5.0.1**. Glare quality is **Medium**, not High [frame_005]. Colour management shows **`Look: None`**, not "Very High Contrast" [frame_000]. |
+| **Added** | the Honeycomb operator's `Cell Diameter` and `Align` [frame_000]; the Noise nodes' fBM / Normalize / `Detail 2.000` [frame_003]; the Mix node's `Clamp Factor` and `Factor 1.000`; the Glare node's Strength / Saturation / Size; the exact glow colour **`#FF3354FF`** [frame_007]; and the EEVEE material block — Render Method **Dithered**, Thickness **Sphere**, Light Probe Volume, Transparent Shadows — which is what actually makes the emission read as glow in EEVEE Next [frame_006, frame_007]. |
+| **Flagged as unverified** | the Node Wrangler / Extra Mesh Objects installs, the Merge by Distance pass, the Icosphere's subdivisions 3 and 0.07 scale, the DoF empty at f/0.05, and the JPG → Video Editor → H.264 export. None appear in any frame. |
+
+ℹ️ **The scene starts on Cycles, not EEVEE.** At 2:00 the Render Engine reads
+**Cycles / GPU Compute** [frame_000]; by 15:10 it reads **EEVEE** [frame_005],
+and the material panel carries EEVEE-only controls (Render Method, Light Probe
+Volume) by 16:30. The entry describes the tutorial as EEVEE throughout, which is
+true of the technique but not of the file at the point the grid is built. Worth
+recording because a reader copying the early steps is looking at a Cycles scene.
+
+✅ **Two clean before/after pairs in one set** — Instance on Elements
+(Realize/Keep Surface flipped) and Displacement `Midlevel` (0.500 → 0.000).
+Where the earlier entries in this batch kept catching the *pre-change* state and
+leaving the claim unverified, here the set happens to contain both ends, and the
+claims are confirmed rather than merely unrefuted. The difference is that these
+picks are spread across the chapter rather than clustered at its start.
 
 ---
 

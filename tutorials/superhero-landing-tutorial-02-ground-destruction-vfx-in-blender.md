@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=4ULxB4PzbAc
 author: Graphical Ninja
 ingested: 2026-06-25
-blender_version: "Blender 3.x/4.x"
+blender_version: "Blender 3.3.1 -- observed in frame_000 through frame_004"
 tags: [vfx, rigid-body, particles, fluid-sim, destruction, compositing, nuke, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/superhero-landing-tutorial-02-ground-destruction-vfx-in-blender/
@@ -69,44 +69,82 @@ frame_selection: content-anchored (manual timestamps chosen from transcript, not
 ## Structured Notes
 
 ### Core Technique
-Full superhero ground-break VFX pipeline: Cell Fracture add-on to shatter road surface → Rigid Body simulation with Force Field (speed ramp to slow-mo) → particle system dirt/rock chunks (collection render, Brownian motion, inherited velocity) → Mantaflow smoke sim for dust trails → Voronoid displacement on chunk materials → Nuke comp with Holdout render pass and grain.
+Full superhero ground-break VFX pipeline: Cell Fracture add-on to shatter road surface → Rigid Body simulation with Force Field (speed ramp to slow-mo) → particle system dirt/rock chunks (collection render, Brownian motion, inherited velocity) → Mantaflow smoke sim for dust trails → Voronoi displacement on chunk materials → Nuke comp with Holdout render pass and grain.
 
 ### Summary
-Graphical Ninja builds a ground destruction VFX effect for a superhero landing. Road plane is cut via Loop Cuts → separated center face → Cell Fracture (ownverts point source, recursive 2) to shatter into chunks. Rigid Body sim: force field (strength 100,000 for 2 frames at landing, falloff power 1 for edge distance) with speed ramp (frame 53 = speed 1, frame 56 = speed 0.25 = slow-mo). Passive rigid body edges prevent floating chunks. Particle system (2,000 particles per chunk, lifetime 50, Brownian 0.1, inherited velocity 0.5, rock collection from Bridge asset library, decimate 0.1) baked and copied to all chunks. Mantaflow smoke domain (128→256 resolution, time scale 0.25, CFL 10, adaptive domain, dissolve 25 modular) emitting from all chunk surfaces (flow type Inflow, surface emission 0.2, initial velocity 0.25). Chunk material: dry cracked texture + Voronoid displacement modifier (strength 0.25, X and Y) + Subdivision Surface (Simple) before displacement + adaptive subdivision at render time. Road: BlenderKit material with clearcoat OFF + roughness plugged correctly. Nuke comp: Holdout render pass for character cutout; swap plate with Ctrl+Shift drag; Disjoint Over for edge cleanup; grain node with Chemix mask (dark areas grain only).
+Graphical Ninja builds a ground destruction VFX effect for a superhero landing. Road plane is cut via Loop Cuts → separated center face → Cell Fracture (ownverts point source, recursive 2) to shatter into chunks. Rigid Body sim: force field (strength 100,000 for 2 frames at landing, falloff power 1 for edge distance) with speed ramp (frame 53 = speed 1, frame 56 = speed 0.25 = slow-mo). Passive rigid body edges prevent floating chunks. Particle system (2,000 particles per chunk, lifetime 50, Brownian 0.1, inherited velocity 0.5, rock collection from Bridge asset library, decimate 0.1) baked and copied to all chunks. Mantaflow smoke domain (128→256 resolution, time scale 0.25, CFL 10, adaptive domain, dissolve 25 modular) emitting from all chunk surfaces (flow type Inflow, surface emission 0.2, initial velocity 0.25). Chunk material: dry cracked texture + Voronoi displacement modifier (strength 0.25, X and Y) + Subdivision Surface (Simple) before displacement + adaptive subdivision at render time. Road: BlenderKit material with clearcoat OFF + roughness plugged correctly. Nuke comp: Holdout render pass for character cutout; swap plate with Ctrl+Shift drag; Disjoint Over for edge cleanup; grain node with Chemix mask (dark areas grain only).
 
 ### Key Steps
 1. **Ground setup:** Add plane, scale up, raise 5-6 units. Loop cuts to isolate center section. Select center face → P → Separate by Selection → move to "ground brake" collection.
 2. **Cell Fracture:** Tab into ground piece, more loop cuts to subdivide. Select outer faces, move for variety. Extrude piece downward. Select all → Cell Fracture (search): Point Source = OwnVerts; Recursive 2; Cursor Close. Apply. Delete original unshattered object.
-3. **Rigid Body sim:** Select one chunk → Object Properties → Rigid Body (Active, Dynamic). Select all → Object → Rigid Body → Copy from Active. Scene Properties → Rigid Body World: Steps/Frame = 20; Split Impulse = 20. Cache Start = 50, End = 100.
+3. **Rigid Body sim:** Select one chunk → Object Properties → Rigid Body (Active, Dynamic). Select all → Object → Rigid Body → Copy from Active. Scene Properties → Rigid Body World [frame_001]: `Collection` **RigidBodyWorld**, `Substeps Per Frame` **20**, `Solver Iterations` **20**, Cache `Simulation Start` **50** / `End` **100** — all confirmed.
+    ⚠️ **"Split Impulse = 20" was a misreading.** `Split Impulse` is a **checkbox**, and it is **unticked**; the second 20 belongs to `Solver Iterations`, the field beneath it.
 4. **Speed ramp:** Frame 53 → RB World Speed = 1 → I. Frame 56 → Speed = 0.25 → I.
-5. **Force field:** Shift+A → Force Field → Force. Move below ground. Frame 50 → Strength = 10,000 → I. Frame 52 → Strength = 0 → I. Fall Off Power = 1 (distance-based dropoff).
+5. **Force field:** Shift+A → Force Field → Force. Move below ground. A `Force` object does appear in the outliner from 8:00 onward [frame_002, frame_003], so the step happened — but **no force-field properties panel is captured in this set**, so its strength is unverified.
+    ⚠️ **The entry disagrees with itself about that strength**: the Summary says **100,000** and this Key Step says **10,000**. Nothing in the frames settles it, so both readings are left standing and flagged rather than one being silently chosen. Fall Off Power = 1 (distance-based dropoff) is likewise narrated only.
 6. **Ground plane passive RB:** Select original road plane → Rigid Body → Passive. Prevents chunks falling through.
 7. **Particle system (rocks):** Select one chunk → Particle Properties → New ("dirt chunks"). Number 2000; Start 50, End 200; Lifetime 50. Rotation ON; Angular Velocity = Random, Amount 5; Phase 1 all; randomize phase+amount. Physics: Brownian 0.1; Damping 0.05; Force Fields → All = 0; Gravity = 0.05. Render: Collection → rocks collection; Pick Random; Scale 0.2 (or 0.1); Scale Randomness 0.8. Velocity: Normal = 0; Object = 0.5; Randomize 0.25.
 8. **Copy particles:** Select all ground brake objects → modifier tab → particle system modifier drop-down → Copy to Selected. Bake All Dynamics.
-9. **Smoke domain:** Add cube → Physics → Fluid → Domain. Edit mode: scale up to cover scene, move up, lower top. Settings: Resolution 128 (→256 final); Time Scale 0.25; CFL 10; Adaptive Time Steps max 3; Adaptive Domain ON; Dissolve ON (25, Modular); Field Weights all = 0. Cache: Start 50, End 100. Bake Data.
+9. **Smoke domain:** Add cube → Physics → Fluid → Domain. Edit mode: scale up to cover scene, move up, lower top. Settings: Resolution 128 (→256 final); Time Scale 0.25; CFL 10; Adaptive Time Steps max 3; Adaptive Domain ON; `Dissolve` **✓** with `Time` **25** and **`Slow` ✓** (a checkbox the entry omitted) [frame_003].
+    ⚠️ **Two errors here.** "Modular" is not part of Dissolve — it is the **Cache `Type`**, further down the panel. And the smoke cache does **not** run 50–100: it reads `Frame Start` **1**, `End` **250**, `Offset` 0, `Is Resumable` ✓, `Format Volumes` **OpenVDB**, in a directory named `cache_fluid_4b85f272_v02`. ⚠️ **`Field Weights` are not all 0** either — Gravity, Force, Vortex, Magnetic and Harmonic all read **1.000** [frame_003]. Also visible: `Heat` 1.00000, `Vorticity` 0.000. Bake Data.
 10. **Smoke flow (chunks):** Select one chunk → Fluid → Flow. Type = Inflow. Sampling Subsets = 1. Flow Source: Surface Emission = 0.2; Initial Velocity ON, Value 0.25. Copy Fluid modifier to all ground brake objects.
 11. **Smoke material:** Select domain → Shading → New material. Replace Principled BSDF with Principled Volume → plug into Volume input. Density ~2. Color: brownish. Brightness ~50%.
-12. **Chunk materials:** Link dry cracked material to all chunks. Add Displacement modifier: new Voronoid texture (default), Strength 0.25, Direction X. Add Subdivision Surface (Simple, before Displacement). Duplicate Displacement → set Direction Y. Copy all modifiers to all chunks.
-13. **Render/Comp:** Set up render passes with Holdout for character plate. In Nuke: Ctrl+Shift drag to swap plates; Disjoint Over to fix edges; Grain node + Chemix (dark areas = grain, bright areas = no grain).
+12. **Chunk materials:** Link the `Dry_Cracked_…` material to all chunks. The modifier stack is captured in full on `Fracture_cell.006` [frame_004], top to bottom: **`Dirt chunks`** (the particle system, named exactly as Key Step 7 says), **`Fluid`**, **`Subdivision`**, **`Displace`** — confirming Subdivision sits *before* Displace as the step requires.
+    - `Subdivision`: **Simple** ✓, `Levels Viewport` **1**, `Render` **2** (the Nodes/Settings list below said Render 1), `Optimal Display` ✓.
+    - `Displace`: `Coordinates` **Local**, `Direction` **X** ✓, `Space` Local, `Strength` **0.250** ✓, on a texture shared by 2 users.
+    Duplicate Displacement → set Direction Y. Copy all modifiers to all chunks.
+13. **Render/Comp:** Set up render passes with Holdout for character plate. **The comp application is NukeX**, not plain Nuke [frame_005] — script `SuperheroLandingTutorial_v003.nkx`. The `Read13` node reads `SuperheroLandingTutorial_v006_Ground_%04d.exr` at `Format` **HD_1080 1920x1080**, `Frame Range` **25–100** (`hold` at both ends), `Original Range` 25–100, `Input Transform` default (linear) — a **19-channel** EXR. That 25–100 is the same range Blender's timeline carries [frame_000], which is a useful cross-check that the plate and the sim line up. Ctrl+Shift drag to swap plates; Disjoint Over to fix edges; Grain node + Chemix. *(The swap, Disjoint Over and grain operations themselves are narrated — the captured node graph is zoomed out past readability.)*
 
 ### Nodes / Settings
 - Cell Fracture: OwnVerts; Recursive 2; Cursor Close
-- RB World: Steps 20; Impulse 20; Speed ramp 1→0.25
-- Force: Strength 10,000 (2 frames); Fall Off Power 1
+- RB World: `Substeps Per Frame` **20**, `Solver Iterations` **20**, `Split Impulse` **unticked** (not "20"), Cache 50–100 [frame_001]
+- Speed ramp confirmed on both ends: **1.000** at frame 53 [frame_001] and **0.250** at frame 70 [frame_002], the field keyframe-highlighted in both
+- Force: strength **unverified** — the entry says 10,000 here and **100,000** in its Summary, and no force-field panel appears in any frame. A `Force` object is present in the outliner from 8:00 [frame_002]
 - Particle: 2,000 count; Brownian 0.1; Object velocity 0.5; Normal 0; Scale 0.2; Randomness 0.8
 - Smoke Domain: Resolution 128/256; Time Scale 0.25; CFL 10; Dissolve 25 Modular
 - Flow: Surface Emission 0.2; Initial Velocity 0.25
-- Displacement: Voronoid default; Strength 0.25; X then Y separate modifiers
-- Subdivision Surface: Simple; Render 1
+- Displace: `Coordinates` **Local**, `Direction` **X**, `Space` Local, `Strength` **0.250** ✓ [frame_004]; X then Y as separate modifiers
+- Modifier order on a chunk: `Dirt chunks` → `Fluid` → `Subdivision` → `Displace` [frame_004]
+- Smoke cache: `Frame Start` **1**, `End` **250**, Type **Modular**, Is Resumable ✓, **OpenVDB** [frame_003] — not the 50–100 recorded
+- Field Weights: Gravity / Force / Vortex / Magnetic / Harmonic all **1.000**, not 0 [frame_003]
+- Rocks collection: six Quixel/Bridge assets, `Asset_nature_rock_S_vdkja3tw_00_LOD0` … `_05_LOD0` [frame_003]
+- Comp: **NukeX**, HD_1080, frame range 25–100, 19-channel EXR [frame_005]
+- Subdivision Surface: **Simple** ✓; `Levels Viewport` 1, **`Render` 2**, Optimal Display ✓ [frame_004]
 
 ### Difficulty
 Intermediate — multi-system VFX pipeline; requires Cell Fracture add-on + Mantaflow; good real-world production workflow
 
 ### Blender Version
-Blender 3.x/4.x (Mantaflow, Cell Fracture, particle system - all standard)
+**Blender 3.3.1** — status bar, five frames [frame_000 … frame_004]. The recorded `3.x/4.x` can be narrowed further than the frames alone would allow: the Windows taskbar clock in the same captures reads **2/4/2023** and **2/5/2023** [frame_000, frame_005], which places the session in the 3.3 LTS period and rules out 4.x entirely — 4.0 did not ship until November 2023.
 
 ### Tags
 #vfx #rigid-body #particles #fluid-sim #destruction #compositing #nuke #intermediate
+
+---
+
+## Frame verification (2026-09-02)
+
+| | |
+|---|---|
+| **Corrected** | `blender_version` `3.x/4.x` → **3.3.1**. `Split Impulse` is an unticked **checkbox**, not a value of 20 — the second 20 is `Solver Iterations` [frame_001]. The smoke cache runs **1–250**, not 50–100, and **"Modular" is the cache `Type`**, not part of Dissolve [frame_003]. `Field Weights` are all **1.000**, not 0 [frame_003]. Subdivision `Render` is **2**, not 1 [frame_004]. The texture node is **Voronoi** — "Voronoid" again, the same transcription artifact corrected in `real-time-caustics-in-blender-51.md`. The comp is **NukeX** [frame_005]. |
+| **Confirmed** | the speed ramp, on both ends — **1.000** at frame 53 and **0.250** at frame 70, keyframe-highlighted [frame_001, frame_002]. Substeps 20, Solver 20, RB cache 50–100. Displace `Strength` **0.250** and `Direction X`, Subdivision **Simple** sitting before it, and the particle system named `Dirt chunks` [frame_004]. `Dissolve` `Time` 25. The Cell Fracture recursion is legible straight off the outliner: `Fracture_cell.016` spawns `Fracture_cell.016.cell`, `.cell.001 … .007` — which is what Recursive 2 produces [frame_001]. |
+| **Added** | the scene's frame range (**Start 25 / End 100**) which the entry never carried [frame_000]; `Slow` ✓ on Dissolve, `Heat` 1.0, `Vorticity` 0.0, `Is Resumable`, OpenVDB and the cache directory name [frame_003]; the six Bridge rock assets by name [frame_003]; the full modifier order on a chunk; and the NukeX read — HD_1080, 19 channels, `Frame Range` 25–100 matching Blender's [frame_005]. |
+| **Flagged as unverified** | the **force-field strength**, deliberately (see below); Cell Fracture's OwnVerts/Recursive 2 dialogue; every particle-system numeric (2,000 count, Brownian 0.1, velocities, scale); the smoke flow settings (Inflow, surface emission 0.2, initial velocity 0.25); the Principled Volume smoke material; and the Nuke operations themselves — the captured node graph is zoomed out past readability. |
+
+⚠️ **An internal contradiction the frames could not settle.** The Summary says
+the force field runs at **100,000** for two frames; Key Step 5 says **10,000**.
+A `Force` object is in the outliner from 8:00, so the step is real, but no
+force-field properties panel appears in any of the six frames. **Both numbers
+are left in place and labelled**, rather than one being quietly picked — a
+10× difference in the value that drives the entire destruction sim is exactly
+the kind of thing a reader needs told, not guessed at.
+
+ℹ️ **The desktop dated the build.** These captures include the Windows taskbar,
+whose clock reads 2/4/2023 and 2/5/2023. That independently corroborates 3.3.1
+and rules out the `4.x` half of the old version field, since 4.0 shipped nine
+months later. **Where a capture includes OS chrome, the clock is a second,
+independent witness to the version** — worth remembering for entries whose
+status bar is cropped or obscured.
 
 ---
 

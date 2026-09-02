@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=WreZ_VKDn4M
 author: Extra 3d
 ingested: 2026-06-25
-blender_version: "Blender 4.x"
+blender_version: "Blender 4.3.2 -- observed in frame_001 through frame_005"
 tags: [lighting, product-visualization, area-lights, emission, glass, light-linking, beginner]
 extraction_status: complete
 frames_dir: tutorials/frames/realistic-product-lighting-in-blender/
@@ -88,18 +88,23 @@ Extra 3d demonstrates a reliable product lighting formula: strong area light fro
 
 ### Key Steps
 1. **Setup:** Place and orient camera + product first. No HDRI — controlled lights only.
-2. **Backlight:** Add area light → move behind product → render preview window → increase intensity (not too high).
+2. **Backlight:** Add area light → move behind product → render preview window → increase intensity (not too high). Two area lights are captured with full settings: `Area.004` at `Power` **100 W**, Shape **Square**, `Size` **2.16 m** [frame_002], and `Area` at `Power` **10 W**, `Size` **1 m** [frame_003] — both with `Max Bounces` 1024, `Cast Shadow` ✓ and `Multiple Importance` ✓.
+    ⚠️ **Both read `Spread` 180°**, the default. The sharp/soft spread values in the Nodes/Settings list below appear in no frame.
 3. **Move 3D Cursor to product center:** Select product → Shift+S → Cursor to Active Mesh. Set pivot point to 3D Cursor.
 4. **Side light (sharp):** Duplicate backlight → R twice to orbit around product → place at side opposite product facing direction. Decrease intensity. Decrease Spread to make it sharp (narrow cone = hard shadows).
 5. **Fill light:** Duplicate side light → R twice → rotate 180°. Increase Spread for soft fill.
-6. **Glass/glossy variant:** Delete area lights. Add a plane behind product → Shader Editor → delete Principled → add Emission node → increase strength → Object tab → Visibility → Camera: OFF.
+6. **Glass/glossy variant:** Delete area lights. Add a plane behind product → Shader Editor → delete Principled → add `Emission` node → `Strength` **5.000** [frame_005] → Object tab → **`Ray Visibility` → `Camera` unchecked** [frame_004]. **Confirmed precisely**: it is the *Ray Visibility* group, not the plain Visibility one, and only `Camera` is cleared — `Diffuse`, `Glossy`, `Transmission`, `Volume Scatter` and `Shadow` all stay ticked, which is what lets the plane keep lighting the product while vanishing from the render. The three emission planes end up as `Plane`, `Plane.001`, `Plane.002` in a collection named `Light` [frame_005].
 7. **Gradient emission side plane:** Duplicate back plane → position at side → new material → Emission + Gradient Texture + Texture Coordinate (Object) + Mapping → Color Ramp (Spline, soft fade) → connect to Emission Color. Rotate/adjust Mapping so bright end faces back of product.
 8. **Light Linking:** Select each light → Object Data Properties → Light Linking → Create New → drag product objects into list. Prevents lights from affecting ground plane reflections.
-9. **Custom reflections (non-glass):** Shader Editor → add Image Texture node on area light material (replace plain emission) for interesting reflection shapes.
+9. **Custom reflections (non-glass):** Shader Editor → add Image Texture node on the area light material (replacing plain emission) for interesting reflection shapes. **The two textures are named on screen**, open side by side in image editors: **`Softbox.exr`** and **`Circular Light.exr`** [frame_003] — a rectangular softbox with visible frame edges, and an octagonal ring light. Both are EXRs, i.e. HDR light sources rather than plain images.
 
 ### Nodes / Settings
-- Area light Spread: low (5–15°) for sharp shadow; high (120–160°) for soft fill
-- Emission plane: strength 2–8 (not too high); Camera visibility OFF
+- Area light Spread: low (5–15°) for sharp shadow; high (120–160°) for soft fill *(narrated — both captured lights read `Spread` **180°**)*
+- Area lights as captured: `Power` **100 W** / Square / `Size` **2.16 m** [frame_002]; `Power` **10 W** / Square / `Size` **1 m** [frame_003]; Max Bounces 1024, Cast Shadow ✓, Multiple Importance ✓, Portal off on both
+- The scene carries **four** area lights at 2:00 — `Area`, `Area.001`, `Area.002`, `Area.003` (the last disabled) — not the three the formula describes [frame_001]
+- Emission plane: `Strength` **5.000** as configured [frame_005] (recorded range 2–8 — consistent); **`Ray Visibility → Camera` off, every other ray type on** [frame_004]
+- Light reflection textures: **`Softbox.exr`** and **`Circular Light.exr`** [frame_003]
+- Render: **Cycles**, Feature Set `Supported`, Device **GPU Compute**; viewport Noise Threshold 0.5000, `Samples` **50**, `Denoise` ✓ — Denoiser **Automatic**, Passes `Albedo`, Prefilter **Fast**, Quality **Balanced**, Start Sample 25, Use GPU ✓ [frame_005]
 - Gradient Texture mode: Linear; Texture Coordinate: Object; Mapping for rotation
 - Color Ramp: Spline interpolation for soft fade; white on bright side, black on dark side
 - Pivot point: 3D Cursor (for orbiting lights around product)
@@ -109,10 +114,34 @@ Extra 3d demonstrates a reliable product lighting formula: strong area light fro
 Beginner — clear setup formula, no complex nodes; glass variant adds one extra step
 
 ### Blender Version
-Blender 4.x (Light Linking available since 4.0)
+**Blender 4.3.2** — status bar, five frames [frame_001 … frame_005]. Light Linking is available from 4.0, which is what the old `Blender 4.x` was reasoning from; the frames narrow it to the exact build. Note this author's other entries in the corpus run **5.1.2** — he moved builds between tutorials, so the version cannot be carried across from one of his entries to another.
 
 ### Tags
 #lighting #product-visualization #area-lights #emission #glass #light-linking #beginner
+
+---
+
+## Frame verification (2026-09-02)
+
+| | |
+|---|---|
+| **Corrected** | `blender_version` `Blender 4.x` → **4.3.2**, from five status bars. Key Step 6 said "Object tab → Visibility → Camera: OFF"; the control is in the **`Ray Visibility`** group, and only `Camera` is cleared while `Diffuse`, `Glossy`, `Transmission`, `Volume Scatter` and `Shadow` stay on [frame_004]. |
+| **Sharpened** | emission `Strength` is **5.000**, inside the recorded 2–8 [frame_005]. The two area lights are fully specified for the first time — 100 W / 2.16 m and 10 W / 1 m [frame_002, frame_003]. The custom-reflection textures have names: **`Softbox.exr`** and **`Circular Light.exr`** [frame_003]. |
+| **Added** | the render configuration — Cycles, GPU Compute, Samples 50, Denoise Automatic/Albedo/Fast/Balanced [frame_005]; the collection layout (`Lights`, `Lights.001`, `Light`, `Assets`, a disabled `Product Lighting`); and the fact that the scene holds **four** area lights, not the three the formula describes [frame_001]. The two products are a mechanical keyboard and a Dior Sauvage bottle. |
+| **Flagged as unverified** | the `Spread` values are the notable one — **both captured lights read 180°**, the default, so the "5–15° sharp / 120–160° soft" advice that is the heart of Key Steps 4–5 appears nowhere in the set. Also unseen: the 3D-Cursor pivot workflow, the Gradient Texture + Color Ramp (Spline) chain of Key Step 7, and the whole Light Linking step 8. |
+
+⚠️ **`frame_000` (1:00) is a full-screen Vagon sponsor card** — no Blender, no
+technique, just the sponsor's logo on a mint background. This is the second
+sponsor slot this batch has caught (the first was a Storyblocks card in
+`blenders-new-transparency-material-is-crazy`), and both landed at a **round
+early timestamp**. The pattern is worth stating plainly: **a pick in the first
+one to two minutes of a sponsored YouTube tutorial has a real chance of landing
+in the sponsor read**, because that is where creators place it. Prefer a later
+moment when the chapter allows it.
+
+To be clear about what this does *not* mean: the entry is not itself
+marketing material, and `scan_promo.py` does not flag it. One frame is a
+sponsor card; the tutorial around it teaches a real technique.
 
 ---
 
