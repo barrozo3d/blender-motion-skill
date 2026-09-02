@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=gmGMsKJ6xd8
 author: Extra 3d
 ingested: 2026-06-25
-blender_version: "Blender 4.x"
+blender_version: "Blender 5.1.2 -- observed in frame_002, frame_004, frame_005"
 tags: [rendering, optimization, cycles, performance, workflow, beginner]
 extraction_status: complete
 frames_dir: tutorials/frames/how-to-render-faster-in-blender-cycles/
@@ -63,42 +63,77 @@ Four-layer Cycles optimization strategy: (1) GPU settings + sampling (128–512 
 Extra 3D covers Cycles optimization from 1h25m → 24 seconds (on same hardware). GPU settings: Preferences → System → Cycles Render Devices (Optix for Nvidia, HIP+RT for AMD, Metal for Mac, oneAPI for Intel); switch display backend to Vulkan. Sampling: 128 for normal, 256 for noisy, max 512; noise threshold 0.05–0.075; Open Image Denoise (use GPU) for final, Optix denoiser for viewport. Performance tab: enable Persistent Data. Light Paths: uncheck unused features (caustics etc.). Volume: switch to Biased method. Memory: disable/uncheck off-camera collections; use Alt+D instances instead of Shift+D duplicates; Decimate modifier 0.1 on distant objects (Ctrl+L to copy to all); resize textures for distant objects; File → Clean Up → Purge Unused Data. Output: OpenEXR DWA-A Lossy Half Float (not PNG) → allows post-compositing + smaller files. Stitching: Ctrl+B render region for animated area only, composite over static BG frame. Frame interpolation: Output step=2, render at half FPS, use DAIN software to generate missing frames.
 
 ### Key Steps
-1. **GPU Setup:** Preferences → System → Cycles Render Devices → select GPU (Optix/Nvidia, HIP+AMD RT enabled, Metal/Mac, oneAPI/Intel). Change Display Backend to Vulkan.
-2. **Sampling:** Render Properties → Sampling → Max Samples 128–512; Noise Threshold 0.05–0.075. Add Denoise: Open Image Denoise + Use GPU.
+1. **GPU Setup:** Preferences → System → Cycles Render Devices → select GPU (Optix/Nvidia, HIP+AMD RT enabled, Metal/Mac, oneAPI/Intel). The tab row reads `None | CUDA | OptiX | HIP | oneAPI` with **OptiX** active; the checked device is an **NVIDIA GeForce RTX 4050 Laptop GPU**, with the **AMD Ryzen 7 7445HS** CPU present but unchecked [frame_000].
+    ⚠️ **Display Backend is still `OpenGL` in the frame**, with the "A restart of Blender is required" notice showing [frame_000]. The switch to Vulkan is narrated; the capture catches the panel before it. Also visible: this is a **Microsoft Store installation** of Blender, and Memory & Limits sits at Undo Steps 32 / Undo Memory Limit 0 / Console Scrollback 256.
+2. **Sampling:** Render Properties → Sampling. **The scene as shipped uses 256 / 0.0500 in both blocks**, not a range [frame_001]:
+    - *Viewport* — `Noise Threshold` ✓ **0.0500**, `Max Samples` **256**, `Min Samples` 0. **`Denoise` is unchecked**; its greyed settings read Denoiser `OptiX`, Passes `Albedo`, Start Sample 1. So OptiX is the *selection* for the viewport, but viewport denoising is off.
+    - *Render* — `Noise Threshold` ✓ **0.0500**, `Max Samples` **256**, `Min Samples` 0, `Time Limit` 0 s, `Denoise` ✓ → Denoiser **OpenImageDenoise**, Passes **Albedo and Normal**, Prefilter **Accurate**, Quality **High**, **Use GPU** ✓.
+    Render Engine **Cycles**, Device **GPU Compute**, Open Shading Language off.
 3. **Persistent Data:** Render Properties → Performance → check Persistent Data (caches scene data between frames).
-4. **Light Paths:** Uncheck Caustics, Shadow Caustics if not needed. Reduces noise bounces.
-5. **Volume:** Light Paths → Volume → switch from Unbiased to Biased (faster, removes volume artifacts, old method).
+4. **Light Paths:** Uncheck Caustics if not needed — confirmed: both `Caustics Reflective` and `Caustics Refractive` are **unchecked**, with `Filter Glossy` **1.00** [frame_002]. The rest of the panel, none of it previously recorded: Max Bounces `Total` **12**, `Diffuse` **4**, `Glossy` **4**, `Transmission` **12**, `Volume` **0**, `Transparent` **8**; Clamping `Direct Light` **0.00**, `Indirect Light` **10.00**.
+5. **Volume:** Render Properties → Volumes → **`Biased` ✓** [frame_002] — confirmed. Alongside it: `Step Rate Render` **1.00**, `Viewport` **1.00**, `Max Steps` **1024**. (The panel is *Volumes*, a sibling of Light Paths, not a sub-panel of it.)
 6. **Memory — disable objects:** Uncheck collections/objects not in camera view from Outliner (completely removes from memory calculation).
 7. **Memory — instances:** Use Alt+D instead of Shift+D for duplicates. For existing duplicates: use Riley B3D script (auto-convert identical duplicates to instances).
 8. **Memory — decimate:** Add Decimate modifier (factor 0.1) to distant geometry. Copy to all: select all → Ctrl+L → Copy Modifiers.
-9. **Memory — textures:** Resize textures for distant objects. Use Render Mind add-on Texture Manager (select objects → choose resolution → Apply).
-10. **Memory — purge:** File → Clean Up → Purge Unused Data.
+9. **Memory — textures:** Resize textures for distant objects. The add-on is **`RenderMind`** (one word) — installed from a 17 KiB `RenderMind.zip`, with the status bar confirming `Modules Installed () from ...\RenderMind...` [frame_002]. Use its Texture Manager (select objects → choose resolution → Apply).
+10. **Memory — purge:** File → Clean Up → Purge Unused Data. The confirmation dialog is titled **"Purge Unused Data from This File"** and carries three checkboxes, all ticked: `Local Data-blocks`, `Linked Data-blocks` and **`Recursive Delete`** [frame_003]. Both data-block counts read `None` in the capture, so this particular purge frees nothing — the dialog is being shown, not paying off.
 11. **Output format:** Change from PNG to OpenEXR, Float Half, Codec = DWA-A Lossy. Enables post-render compositing (Glare nodes work on raw data). For transparency use RGBA.
-12. **Post-render compositing:** Open new file → Video Editing → set same resolution/framerate/color management → Add → Image Sequence → select first frame → A to select all → add Glare or other compositor nodes via Adjustment Clip.
+    ⚠️ **The frame catches the panel *before* the change** [frame_004]: `Media Type` Image, `File Format` **PNG (.png)** with the dropdown just being opened, `Color` **RGBA**, `Color Depth` **8**, `Compression` **15%**, Overwrite ✓, Placeholders ✗. Frame Rate **24 fps**, Frame Range **1–120**, `Step` **1**. The OpenEXR/DWA-A settings themselves are narrated, not shown.
+    ✅ **But the outcome is corroborated downstream:** the sequence loaded in the Video Editor is `0033.exr … 0037.exr`, so EXR was in fact what got rendered [frame_005].
+12. **Post-render compositing:** Open new file → Video Editing → set same resolution/framerate/color management → Add → Image Sequence → select first frame → A to select all. The grade is applied through an **Adjustment** strip (25 frames long, on Channel 3, above the `0033.exr` strip on Channel 2) via **Strip → Add Modifier**, whose menu offers exactly: `Brightness/Contrast`, `Color Balance`, **`Compositor`**, `Curves`, `Hue Correct`, `Mask`, `Tone Map`, `White Balance` — `Compositor` is the entry being picked [frame_005].
 13. **Stitching trick (static shots):** Render one full background frame and save. Then Ctrl+B to set render region around animated area only. Render animation (just the moving part). Composite in Video Editor: BG frame (layer 1) + animated region (layer 2).
 14. **Frame interpolation:** Output Properties → Frame Step = 2 (renders every other frame). Set project FPS to half (e.g. 12 for 24fps project). Export. Run through DAIN (AI frame interpolation software) to generate missing frames at original FPS. ~2× render speedup.
 
 ### Nodes / Settings
-- Cycles GPU: Optix (Nvidia) / HIP + RT (AMD) / Metal (Mac) / oneAPI (Intel)
-- Vulkan display backend in Preferences
-- Sampling: 128–512 max; Noise Threshold 0.05–0.075
-- Denoise: Open Image Denoise + Use GPU (Optix for viewport)
-- Performance: Persistent Data checkbox ON
-- Light Paths: disable unused caustics; Volume → Biased method
-- Alt+D for instances (not Shift+D)
-- Decimate modifier: factor 0.1 for distant objects; Ctrl+L → Copy Modifiers
-- File → Clean Up → Purge Unused Data
-- Output: OpenEXR, Float Half, DWA-A Lossy codec
-- Frame Step = 2 + DAIN for ~2× speedup on slow/medium motion
+- Cycles Render Devices: tab row `None | CUDA | OptiX | HIP | oneAPI`, **OptiX** active; **RTX 4050 Laptop GPU** checked, **Ryzen 7 7445HS** unchecked [frame_000]
+- Display Backend: reads **OpenGL** in the capture, restart notice showing; Vulkan is narrated only [frame_000]
+- Sampling as shipped: **Max Samples 256**, **Noise Threshold 0.0500**, Min Samples 0 — in *both* Viewport and Render blocks [frame_001]
+- Render Denoise: **OpenImageDenoise**, Passes **Albedo and Normal**, Prefilter **Accurate**, Quality **High**, **Use GPU** ✓ [frame_001]
+- Viewport Denoise: **unchecked** (OptiX / Albedo / Start Sample 1 greyed beneath it) [frame_001]
+- Max Bounces: Total 12, Diffuse 4, Glossy 4, Transmission 12, Volume 0, Transparent 8 [frame_002]
+- Clamping: Direct 0.00, Indirect 10.00; Filter Glossy 1.00; both Caustics **off** [frame_002]
+- Volumes: **Biased** ✓, Step Rate Render 1.00, Viewport 1.00, Max Steps **1024** [frame_002]
+- Performance: Persistent Data checkbox ON *(narrated — the Performance panel appears in no frame)*
+- Alt+D for instances (not Shift+D) *(narrated)*
+- Decimate modifier: factor 0.1 for distant objects; Ctrl+L → Copy Modifiers *(narrated)*
+- **RenderMind** add-on (one word), installed from a 17 KiB `RenderMind.zip` [frame_002]
+- Purge dialog: Local Data-blocks / Linked Data-blocks / **Recursive Delete**, all ticked [frame_003]
+- Output at 8:00: **PNG / RGBA / 8-bit / 15% compression**, 24 fps, range 1–120, **Step 1** — the pre-change state [frame_004]
+- Output actually delivered: an **`.exr` sequence** (`0033.exr … 0037.exr`) [frame_005]
+- VSE grade: **Adjustment** strip → `Strip → Add Modifier → Compositor` [frame_005]
+- Frame Step = 2 + DAIN for ~2× speedup on slow/medium motion *(narrated — Step reads 1 in the only frame showing it)*
 
 ### Difficulty
 Beginner — settings reference tutorial; no node or modeling work required.
 
 ### Blender Version
-Blender 4.x (settings paths are standard across recent versions)
+**Blender 5.1.2** — read from the status bar in three frames [frame_002, frame_004, frame_005], and corroborated by an add-on install path under `\Blender Foundation\Blender\5.1\scripts\addons` [frame_002]. This matters more here than in most entries: the tutorial *is* a settings tour, and it was filed under `Blender 4.x`.
 
 ### Tags
 #rendering #optimization #cycles #performance #workflow #beginner
+
+---
+
+## Frame verification (2026-09-02)
+
+| | |
+|---|---|
+| **Corrected** | `blender_version` was `Blender 4.x` by inference — the status bar reads **5.1.2** in three frames, with a `\Blender\5.1\scripts\addons` install path agreeing [frame_002]. The add-on in Key Step 9 is **`RenderMind`**, one word [frame_002]. The *Volumes* panel is a sibling of Light Paths, not a sub-panel of it, as Key Step 5 implied [frame_002]. |
+| **Sharpened** | sampling was recorded as the advice ranges "128–512" and "0.05–0.075"; the scene actually runs **Max Samples 256 / Noise Threshold 0.0500** in both the Viewport and Render blocks [frame_001]. Viewport `Denoise` is **unchecked** — OptiX is merely the greyed selection beneath it, so "Optix denoiser for viewport" describes a dropdown, not an active setting. |
+| **Added** | the full Denoise config (Albedo and Normal / Accurate / High / Use GPU) [frame_001]; every Max Bounces and Clamping value [frame_002]; Volumes Step Rate and **Max Steps 1024** [frame_002]; the Purge dialog's three checkboxes including **Recursive Delete** [frame_003]; the exact VSE route — **Adjustment strip → Add Modifier → Compositor** — and the full modifier menu [frame_005]; and the hardware behind the "1h25m → 24s" claim: an **RTX 4050 Laptop GPU** with a Ryzen 7 7445HS, on a Microsoft Store install [frame_000]. |
+| **Flagged as unverified** | `Persistent Data` (Key Step 3), the Alt+D instancing and Decimate steps (7–8), and the DAIN interpolation (14) appear in no frame — the Performance panel is never on screen, and the only frame showing `Frame Step` reads **1**, not 2. All now read as narrated. |
+
+⚠️ **One pick landed early — the failure mode D3c measured.** `frame_004`
+(8:00) covers the output-format chapter but catches the panel **before** the
+change: File Format still `PNG`, Color Depth 8, Compression 15%. The presenter
+is saying what he is about to do. The OpenEXR / Float Half / DWA-A settings are
+therefore transcript-only — **though the outcome is corroborated sideways**: the
+sequence loaded in the Video Editor two chapters later is `0033.exr … 0037.exr`
+[frame_005]. Worth noting as a pattern: a missed pick can still be *answered* by
+a later frame, so check the rest of the set before recording a claim as unseen.
+
+Display Backend is the same story at 1:30 — the dropdown reads `OpenGL` with the
+restart notice visible, so the Vulkan switch is narrated rather than shown.
 
 ---
 

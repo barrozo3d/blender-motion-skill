@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=QJhiYYf6qJI
 author: vfx world
 ingested: 2026-06-25
-blender_version: "Blender 3.x/4.x"
+blender_version: "Blender 4.3.2 -- observed in all 6 frames"
 tags: [landscape, terrain, foliage, camera-animation, cycles, hdri, biome-reader, blenderkit, sketchfab, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/how-to-create-a-cinematic-landscape-inside-blender-full-tutorial-with-project-fi/
@@ -75,35 +75,61 @@ vfx world builds a countryside landscape scene with multiple Sketchfab assets (o
 2. **Foliage zone:** Object → Weight Paint mode → paint front area where grass should appear. Return to Object mode.
 3. **Camera:** Shift+A → Camera. Ctrl+Alt+0 to snap to viewport. Set focal length to 25mm (wide angle / GoPro look).
 4. **Assets:** Import from Sketchfab (FBX) — house, windmill, watch tower. Scale + rotate to fit camera composition. Also from Blenderkit: old house model (free). Place windmill/tower slightly off-center for depth.
-5. **Ground material:** Select ground → Materials → Blenderkit search "Grassy rock ground" (displacement material). Apply. Add Subdivision Surface modifier (right-click → Subdivide to add vertices for displacement). UV unwrap: Tab → A → right-click → Unwrap → Smart UV Project. In Shader Editor: scale UV to ~15. Enable Displacement+Bump in material → Scale 0.25.
+5. **Ground material:** Select ground → Materials → Blenderkit search **`ground`** (4,498 results) — the applied material is named **`Grassy Rocks`** [frame_001, frame_002]. Apply. Add Subdivision Surface modifier (right-click → Subdivide to add vertices for displacement). UV unwrap: Tab → A → right-click → Unwrap → Smart UV Project. In Shader Editor: scale UV to ~15. Enable Displacement+Bump in material → Scale 0.25 — confirmed on the material panel, which reads Displacement **Object Space**, `Height` Displacement, `Midlevel` **0.500**, `Scale` **0.250**, `Normal` Default [frame_002]. The Principled BSDF carries Metallic 0.000, `IOR` 1.450, Alpha 1.000, with Base Color, Roughness and Normal all driven by maps [frame_002].
 6. **Water:** Add plane at lake area → Blenderkit search "water" → free animated water material → apply.
-7. **Grass foliage:** Select ground → Biome Reader → open biomes → pick "Old Grasses" mix biome → apply. In particle settings, set Vertex Group to the weight-painted group, Swap (invert) so grass appears on correct area. Disable render in viewport (performance); render-only flag stays ON for final render.
-8. **Background tree plane:** Edit mode on new plane → extrude vertices to create boundary shape behind scene → Apply Scale. Biome Reader → select tree → Scatter Object (density 0.001 initially). Fix face orientation if trees appear underground: Tab → A → Shift+N → Inside. Duplicate plane for variation. Adjust scale + randomization.
-9. **Camera animation path:** Shift+A → Curve → Bezier. Edit path to arc across scene (subtle slow move). Select camera → Object Constraints → Follow Path → pick curve. Click Animate Path. Adjust camera offset/rotation. Add empty at house location → camera constraint → Track To → target empty (camera orbits house while moving).
-10. **Camera shake:** Shaky-Fi add-on → apply basic close-up shake preset.
-11. **HDRI:** Easy HDRI add-on → World tab → Create World Nodes. Pick base HDRI (one with sun, 0.05 sun intensity). Duplicate HDRI node + Mapping + Texture Coordinate → second HDRI (more clouds). Mix both via Mix Shader → adjust factor for cloud blend.
+7. **Grass foliage:** Select ground → **Geo-Scatter** (Biome Reader is its biome browser, opened via `Biome Scatter → Open Biomes`) → pick a biome → apply. ⚠️ **The scattered systems are not an "Old Grasses" mix.** The outliner names all five: `psy : Grass Dry Uniform`, `psy : Dry Grass.variation 1`, `.variation 2`, `.variation 3`, and `psy : Dead Plant 1`, under a `Geo-Scatter → Geo-Scatter Geonode` collection [frame_003]. The Biome Reader window at 9:00 is open on its **Dead Leaves** folder (12 elements) [frame_002]. In particle settings, set Vertex Group to the weight-painted group, Swap (invert) so grass appears on correct area. Disable render in viewport (performance); render-only flag stays ON for final render.
+8. **Background tree plane:** Edit mode on new plane → extrude vertices to create boundary shape behind scene → Apply Scale. Geo-Scatter → select tree → `Scatter Object(s)`. The settled values on the tree system's **Beginner Interface** [frame_004]: `Density` **0.045**, `Scale` **2.63**, `Random` **1.00**, `Align` **Normal** (not Local Z), rotation `Random` 0.00, `Collision` and both `Vertex-Group` toggles **off**, `Displays` Inactive. The single instanced asset is **`Alea chinese elm Summer LowPoly`** [frame_004, frame_005]. The Density Scatter readout above it reports Surface Area **5,423 m²** at **10.0 /m²** → **54,238 estimated instances**; the earlier ground scatter reports 21,915 m² → 109,184 [frame_002, frame_004]. Fix face orientation if trees appear underground: Tab → A → Shift+N → Inside. Duplicate plane for variation. Adjust scale + randomization.
+9. **Camera animation path:** Shift+A → Curve. ⚠️ The path object in the scene is a **`NurbsPath`**, not a Bezier — the outliner names it in two frames [frame_004, frame_005]. Edit path to arc across scene (subtle slow move). Select camera → Object Constraints → Follow Path → pick curve. Click Animate Path. Adjust camera offset/rotation. Add empty at house location → camera constraint → Track To → target empty (camera orbits house while moving).
+10. **Camera shake:** the add-on is **CameraShakify** — the outliner carries a `CameraShakify v2` collection, excluded from the view layer [frame_005]. "Shaky-Fi" was a mishearing of the Hinglish narration. Apply a basic close-up shake preset.
+11. **HDRI:** Easy HDRI add-on → World tab → Create World Nodes.
+    **What the frame shows** [frame_005]: a **single** 4K `.hdr` loaded from `G:\HDRI\skys\`, projection **Equirectangular**, `Sun Strength` **0.000**, `Sky Strength` **1.000**, Rotation X 0° / Y 0° / **Z 34.8°**. The filename does not survive JPEG compression even cropped at 12×, so it is not transcribed here.
+    ⚠️ **Transcript-only:** the two-HDRI setup — duplicating the HDRI node with Mapping + Texture Coordinate and blending via `Mix Shader` — appears in no captured frame, nor does the "0.05 sun intensity". Recorded as narrated, not as observed.
+    **Before the HDRI, the world was procedural** and the entry never said so: at 6:00 it is a `Sky Texture` in **Nishita** mode, `Sun Disc` on, `Sun Size` 0.545°, `Sun Intensity` 1.000, `Sun Elevation` **15°**, `Sun Rotation` **−112°**, Altitude 0 m, Air/Dust/Ozone 1.000, Strength 1.000 [frame_001].
 12. **Color management:** Render Properties → Color Management → low contrast (cinematic look with slight warmth).
 13. **Render:** Cycles + GPU. All biomes visible in render only for performance.
 
 ### Nodes / Settings
-- A.N.T. Landscape: Lake 1 preset; scale 10×10×5
-- Ground material: displacement+bump mode; UV scale ~15; displacement scale 0.25
-- Biome Reader (grass): Old Grasses biome mix; Vertex Group for zone; render-only visibility
-- Biome Reader (trees): density 0.001; randomize scale; face flip Shift+N Inside
-- Camera focal length: 25mm (wide)
-- Follow Path: Animate Path button; camera offset adjusted
-- Track To: target empty placed at house
-- Easy HDRI: two HDRIs mixed; sun intensity 0.05–0.1
+- A.N.T. Landscape: Lake 1 preset; scale 10×10×5. Objects land as `Landscape.001` + `Landscape_plane.001`, scale applied (Transform reads 1.000 on all axes) [frame_000]
+- Weight Paint brush as shown: `Weight` 1.000, `Radius` **225 px**, `Strength` 1.000 [frame_000]
+- Ground material `Grassy Rocks`: Displacement **Object Space**, Midlevel 0.500, **Scale 0.250**; Principled BSDF Metallic 0.000, IOR 1.450, Alpha 1.000 [frame_002]
+- **Geo-Scatter** (grass): systems `Grass Dry Uniform`, `Dry Grass.variation 1–3`, `Dead Plant 1`; Vertex Group for zone; render-only visibility [frame_003]
+- **Geo-Scatter** (trees): `Density` **0.045**, `Scale` 2.63, `Random` 1.00, `Align` Normal; instance `Alea chinese elm Summer LowPoly`; face flip Shift+N Inside [frame_004]
+- Camera focal length: 25mm (wide). Camera transform at 16:30: Rotation X 93°, Y 0.000317°, Z 47.467° [frame_004]
+- Follow Path: Animate Path button; the path object is a **`NurbsPath`** [frame_004, frame_005]
+- Track To: target `Empty` placed at house — the object exists in the outliner [frame_005]
+- **CameraShakify v2** — the shake add-on's collection, excluded from the view layer [frame_005]
+- World before HDRI: `Sky Texture` / **Nishita**, Sun Elevation 15°, Sun Rotation −112° [frame_001]
+- Easy HDRI: **one** equirectangular 4K HDR, Sun Strength 0.000, Sky Strength 1.000, Z rotation 34.8° [frame_005]. The two-HDRI Mix Shader blend is transcript-only
 - Color Management: low contrast
 
 ### Difficulty
-Intermediate — requires multiple third-party add-ons (A.N.T. Landscape, Biome Reader, Easy HDRI, Blenderkit, Shaky-Fi); transcript is Hinglish with some gaps
+Intermediate — requires multiple third-party add-ons (A.N.T. Landscape, **Geo-Scatter** + Biome Reader, Easy HDRI, Blenderkit, **CameraShakify**); transcript is Hinglish with some gaps
 
 ### Blender Version
-Blender 3.x/4.x (standard built-in add-ons; exact version not stated)
+**Blender 4.3.2** — read from the title bar, identical across all six frames [frame_000 … frame_005]. The scene file is `delete.blend` under `C:\Users\micro\Videos\`.
 
 ### Tags
 #landscape #terrain #foliage #camera-animation #cycles #hdri #biome-reader #blenderkit #sketchfab #intermediate
+
+---
+
+## Frame verification (2026-09-02)
+
+| | |
+|---|---|
+| **Corrected** | `blender_version` was `Blender 3.x/4.x` by inference; the title bar reads **4.3.2** in all six frames. The scatter add-on is **Geo-Scatter**, and its five systems are `Grass Dry Uniform`, `Dry Grass.variation 1–3` and `Dead Plant 1` — there is no "Old Grasses" mix biome [frame_003]. The camera path is a **`NurbsPath`**, not the Bezier the entry specified [frame_004, frame_005]. The shake add-on is **CameraShakify**, not "Shaky-Fi" [frame_005]. |
+| **Sharpened** | tree scatter `Density` **0.045** with `Scale` 2.63 / `Random` 1.00 / `Align` Normal, against the entry's "density 0.001 initially" [frame_004]; the Blenderkit material is named **`Grassy Rocks`**, found by searching `ground` [frame_001, frame_002]. |
+| **Added** | displacement in **Object Space** with Midlevel 0.500, Scale 0.250 confirmed [frame_002]; the **Nishita Sky Texture** world used before the HDRI swap, Sun Elevation 15° / Sun Rotation −112°, which the entry never mentioned [frame_001]; the Easy HDRI settings actually shown — one equirectangular 4K HDR, Sun Strength 0.000, Sky Strength 1.000, Z 34.8° [frame_005]; scatter surface areas and instance estimates (5,423 m² → 54,238; 21,915 m² → 109,184); the weight-paint brush and camera rotation values. |
+| **Flagged as unverified** | the **two-HDRI Mix Shader blend** and the "0.05 sun intensity" of Key Step 11 appear in no frame. The frame covering that chapter shows a single HDRI with Sun Strength at 0.000, so the claim is now labelled transcript-only rather than left reading as observed. |
+
+✅ **All six picks landed on substantive content** — no talking-head or
+transition shots in this set, against the batch's running 4-of-31 miss rate.
+
+❌ **One value would not resolve.** The HDRI filename in the Easy HDRI panel
+stays illegible at 12× — the source JPEG has no detail left at that scale. The
+containing folder (`G:\HDRI\skys\`) is legible and is recorded instead. Not
+every field survives a 1280×720 capture, and guessing the characters would be
+exactly the invention this pass exists to remove.
 
 ---
 
