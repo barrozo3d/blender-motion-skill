@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=AoGPxjgqVYE
 author: Extra 3d
 ingested: 2026-06-25
-blender_version: "Blender 5.1"
+blender_version: "Blender 5.1.0 -- observed in frame_002, frame_003, frame_004, frame_006"
 tags: [rendering, eevee, ray-tracing, lighting, light-probes, workflow, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/photorealistic-eevee-renders-in-blender-51/
@@ -77,21 +77,22 @@ Extra 3d walks through making EEVEE match Cycles quality in Blender 5.1. Ray tra
 
 ### Key Steps
 1. **Vulkan backend:** Preferences → System → Backend Mode → Vulkan. Save + Restart.
-2. **Enable ray tracing:** Render Properties → Ray Tracing → ON.
+2. **Enable ray tracing:** Render Properties → Ray Tracing → ON. **The set captures this as a genuine before/after pair**: the `Raytracing` checkbox is **unticked** at 6:00 [frame_002] and **ticked** at 11:40, with `Method` on `Screen-Trac…` [frame_004].
 3. **Ray tracing quality:** Resolution 1×1; Precision 1; Thickness 1.
 4. **Denoising:** Disable second option (ruins materials).
 5. **Fast GI:** Disable Fast GI Approximation.
-6. **Samples:** Increase to 120 for final render.
-7. **Shadows:** Shadows tab → Shadow Rays = 4. Per light: Jittered Shadows ON; all three values to minimum. Enable Jittered Shadows in viewport. Alt+click to apply to all lights simultaneously.
+6. **Samples:** ⚠️ **"120" appears in no frame.** Render `Samples` reads **64** at 6:00 [frame_002] and **128** at 11:40 [frame_004] — so the value was raised, but to 128. Viewport `Samples` moves the other way, **16** → **0** [frame_002, frame_004], with `Temporal Reprojection` on throughout.
+7. **Shadows:** Shadows panel. ⚠️ The only frame showing it reads `Rays` **1**, `Steps` **6** — **and the mouse is sitting on the `Rays` field as a horizontal drag cursor** [frame_004], i.e. captured in the instant before the change. "Rays = 4" is the target, not the state. Also visible: `Volume Shadows` unticked at `Steps` 16, shadow `Resolution` **1.000**, and Advanced → `Light Threshold` **0.010**.
+    **Viewport `Jittered Shadows` is confirmed as a before/after**: unticked at 6:00 [frame_002], ticked at 11:40 [frame_004]. Per light: all three values to minimum; Alt+click to apply to all lights simultaneously *(narrated — no light data panel is in shot)*.
 8. **Film Overscan:** Film tab → Overscan → ON.
-9. **World threshold:** World Properties → HDRI threshold: 10 (softer light).
-10. **Volume probe:** Add → Light Probe → Volume. Scale to fit scene. Data tab: grid resolution 16–20, resolution 80–120, World contribution checked. Disable volumetrics and animated objects. Click Bake. Re-enable disabled objects.
-11. **Indoor world bleeding fix:** Before baking: disable Background World shader. Add area lights at windows (same HDRI color/warmth) in separate collection. Bake. Re-enable world + disable fake lights.
-12. **Reflection probe:** Add → Light Probe → Reflection Cube. Scale to fit glossy object.
-13. **AO in compositor:** Render Properties → Passes → Ambient Occlusion ON. Compositor: AO pass → Mix Color (multiply) with Render Image (value 0.2–1). Enable Viewport Compositing. 
-14. **Background/DoF fixes:** Enable Environment pass → Alpha Over node in compositor. Enable Transparent in Render Properties. DoF: enable Jitter checkbox.
+9. **World threshold:** ⚠️ **What the World actually contains is a two-shader trick the entry never described** [frame_006]: Surface = **`Mix Shader`**, its `Factor` driven by **`Light Path → Is Camera Ray`**, mixing two `Background` shaders — the visible one at `Strength` **10.000** with a white `Color`. That is the "10" in this step, and it is a camera-ray split (one background for the camera, another for lighting), not an "HDRI threshold" slider.
+10. **Volume probe:** Add → Light Probe → Volume. Scale to fit scene. Data tab, as configured [frame_003]: `Resolution X/Y/Z` **20 / 20 / 20**, `Bake Samples` **2048**, `Surfel Resolution` **80**, Capture `Distance` **20 m**, Contributions → **`World` ✓**. The probe block above it, never recorded: `Intensity` 1.000, `Normal Bias` **0.30**, `View Bias` 0.00, `Facing Bias` **0.50**, `Validity Threshold` **0.40**, `Dilation Threshold` **0.50**, `Radius` 1.00. The button is labelled **`Bake Light Cache`**. Disable volumetrics and animated objects, bake, then re-enable.
+11. **Indoor world bleeding fix:** Before baking: disable Background World shader. Add area lights at windows (same HDRI color/warmth) in a separate collection — **the author's own collections are named `Lights For Baking` and `For Bake`**, sitting beside the normal `Lights` collection [frame_004, frame_006], which is about as direct a confirmation of this step as an outliner can give. Bake. Re-enable world + disable fake lights.
+12. **Reflection probe:** Add → Light Probe → Reflection Cube. Scale to fit glossy object. Confirmed structurally: the outliner carries a **`Reflection Probes`** collection alongside a `Light Probe` entry [frame_004].
+13. **AO in compositor:** Render Properties → Passes → Ambient Occlusion ON. Confirmed — the `Render Layers` node exposes `Image`, `Alpha`, **`Environment`** and **`Ambient Occlusion`** sockets, all four wired [frame_006]. The mix node is a Color `Multiply` with `Clamp Factor` **✓** and `Factor` **1.000** — the top of the recorded 0.2–1 range, not a mid value. Enable Viewport Compositing. Two further compositor nodes were never recorded: a **`Glare`** node in `Fog Glow` mode (Threshold / Smooth / Strength / Saturation / Tint / Size) and a node **Group** named `Compositor Nodes` at `Node Width` 140. 
+14. **Background/DoF fixes:** Enable Environment pass → `Alpha Over` node in compositor — present, with `Factor` **1.000**, mode `Over`, `Straight Alpha` unticked [frame_006]. Enable Transparent in Render Properties. DoF: enable Jitter checkbox *(narrated)*.
 15. **Glass material:** Material Properties → enable Ray Trace Transmission.
-16. **Translucent material:** Use Subsurface Scattering instead of Translucent shader.
+16. **Translucent material:** Use Subsurface Scattering instead of Translucent shader. ⚠️ **The frame covering this chapter is a picture-in-picture of someone else's video** — "Better(!) Eevee Subsurface Scattering Translucency Hack", paused at 0:48 / 2:05 with the YouTube player chrome visible [frame_005]. The SSS values on screen (`Random Walk`, `Weight` 1.000, `Radius` 0.800 / 0.800 / 0.100, `Scale` 2.45 m, `Anisotropy` 0.000) belong to **that** tutorial, not this one, and its Blender is a different build. Cited here only as the referenced source.
 17. **Fisheye in EEVEE:** Decrease focal length. Compositor → Lens Distortion node → increase distortion → check Fit.
 
 ### Nodes / Settings
@@ -99,12 +100,14 @@ Extra 3d walks through making EEVEE match Cycles quality in Blender 5.1. Ray tra
 - Ray Tracing: ON; Resolution 1×1; Precision 1; Thickness 1
 - Denoising: second option disabled
 - Fast GI: disabled
-- Samples: 120
-- Shadow Rays: 4; Jittered Shadows ON; all three min values; Alt+click = apply to all lights
+- Samples: Render **64** → **128**; Viewport **16** → **0**, Temporal Reprojection on [frame_002, frame_004]. "120" appears in no frame
+- Shadows: `Rays` **1**, `Steps` **6** at capture (drag cursor on the field), Volume Shadows off / Steps 16, Resolution 1.000, Light Threshold **0.010** [frame_004]; viewport Jittered Shadows off → on [frame_002, frame_004]; Alt+click = apply to all lights *(narrated)*
 - Film: Overscan ON
-- World: threshold 10 (softer HDRI)
-- Volume Probe: grid res 16–20, resolution 80–120, World contribution ON
-- AO pass → Multiply Mix Color (0.2–1.0) + Environment pass → Alpha Over + Transparent ON
+- World: **`Mix Shader`** with `Factor` = **`Light Path | Is Camera Ray`**, mixing two `Background` shaders, visible one at `Strength` **10.000** [frame_006]
+- Volume Probe: Resolution **20/20/20**, Bake Samples **2048**, Surfel Resolution **80**, Capture Distance 20 m, `World` ✓; biases 0.30 / 0.00 / 0.50, Validity 0.40, Dilation 0.50 [frame_003]
+- Collections `Lights For Baking` and `For Bake`, plus a `Reflection Probes` collection [frame_004, frame_006]
+- Render Layers passes wired: `Image`, `Alpha`, `Environment`, `Ambient Occlusion`; Multiply with Clamp Factor on at `Factor` **1.000**; `Alpha Over` at Factor 1.000 / `Over` / Straight Alpha off [frame_006]
+- Also in the compositor, unrecorded until now: a `Glare` node in **Fog Glow** mode, and a node Group named `Compositor Nodes` [frame_006]
 - DoF: Jitter checkbox ON
 - Material → Ray Trace Transmission (glass); SSS for translucent
 - Lens Distortion (compositor): Fit ON for fisheye
@@ -113,10 +116,40 @@ Extra 3d walks through making EEVEE match Cycles quality in Blender 5.1. Ray tra
 Intermediate — no modeling; pure settings configuration; covers all key EEVEE photorealism pain points
 
 ### Blender Version
-Blender 5.1 (ray tracing settings interface; some settings layout may differ from 4.x)
+**Blender 5.1.0** for the working session — status bar, four frames [frame_002, frame_003, frame_004, frame_006]. ⚠️ **Two other version strings appear in this set and belong to other footage**: `5.0.1` in the opening scene showcase [frame_001], and `4.5.2` inside a picture-in-picture of a different creator's video [frame_005]. Read the version off a frame here without checking what the frame *is*, and you get the wrong answer two times in seven.
 
 ### Tags
 #rendering #eevee #ray-tracing #lighting #light-probes #workflow #intermediate
+
+---
+
+## Frame verification (2026-09-02)
+
+| | |
+|---|---|
+| **Confirmed** | `Blender 5.1` is right for the working session — **5.1.0** in four status bars. Ray tracing, viewport Jittered Shadows, the Environment and AO passes, `Alpha Over`, the `Reflection Probes` collection and the separate bake-lights collection are all visible and match. |
+| **Corrected** | the final sample count is **128**, not 120 — and the set contains its own before shot at **64** [frame_002, frame_004]. Key Step 9's "HDRI threshold: 10" describes something that is not a threshold: the World is a **`Mix Shader`** split by **`Light Path → Is Camera Ray`** between two Backgrounds, the visible one at `Strength` **10.000** [frame_006]. The AO multiply runs at `Factor` **1.000**, the top of the recorded range. |
+| **Added** | the full Volume Probe configuration — Resolution 20/20/20, Bake Samples **2048**, Surfel Resolution 80, Capture Distance 20 m, and six bias/threshold fields never recorded [frame_003]; EEVEE `Light Threshold` 0.010 and the Volume Shadows/Resolution row [frame_004]; a `Glare` node in **Fog Glow** mode and a `Compositor Nodes` group [frame_006]; and the author's collection names `Lights For Baking` / `For Bake`, which confirm Key Step 11's advice in his own words [frame_004, frame_006]. |
+| **Flagged as unverified** | the Vulkan backend switch, RT Resolution/Precision/Thickness, the second denoising option, Fast GI, Film Overscan, per-light Jittered Shadow values, Transparent, the DoF Jitter checkbox, Ray Trace Transmission, and the Lens Distortion fisheye step. None appear in any frame — no Preferences window, no material panel and no Film panel is ever on screen. |
+
+⚠️ **This set is the counterexample to reading a version off any frame.**
+Three different Blender versions appear across seven frames:
+
+| frame | reads | whose Blender |
+|---|---|---|
+| frame_001 (3:10) | **5.0.1** | the author's, in an earlier scene-showcase segment |
+| frames 002/003/004/006 | **5.1.0** | the author's working session — the correct value |
+| frame_005 (13:10) | **4.5.2** | **someone else's** — a picture-in-picture of the referenced video |
+
+`frame_005` is a YouTube player, chrome and all, paused at 0:48 / 2:05 on
+"Better(!) Eevee Subsurface Scattering Translucency Hack". Its SSS numbers are
+real but they document *that* tutorial. A version-region crop taken blind would
+have returned 4.5.2 or 5.0.1 here — **two of seven frames give a wrong answer,
+and neither looks wrong in isolation.** Check what the frame *is* before
+trusting where the digits sit.
+
+ℹ️ **`frame_000` (1:40) is a CGTrader search page** — browser, not Blender. It
+grounds where the scene's assets came from and nothing else.
 
 ---
 
