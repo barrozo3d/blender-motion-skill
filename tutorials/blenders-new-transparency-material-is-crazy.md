@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=U2I8YDrO5Jc
 author: SouthernShotty
 ingested: 2026-06-25
-blender_version: "Blender 5.2"
+blender_version: "Blender 5.2.0 Alpha -- observed in frame_000"
 tags: [materials, shaders, glass, transparency, thin-wall, rendering, beginner]
 extraction_status: complete
 frames_dir: tutorials/frames/blenders-new-transparency-material-is-crazy/
@@ -79,11 +79,11 @@ Blender 5.2's new Thin Wall checkbox on Principled BSDF: enables correct light t
 SouthernShotty covers the Thin Wall parameter added to Principled BSDF in Blender 5.2. Previously, one-sided planes with Transmission would show no light until a Solidify modifier was added (doubles geo, can cause Z-fighting). Thin Wall eliminates this — Blender treats the surface as having negligible thickness rather than as a solid volume, so SSS radius/scale are cleared and light passes through correctly. The `Backscatter` sub-setting (−1 to +1) controls which side of the plane emits projected light. Use cases shown: basic transparency, thin-film bubbles (glass sphere now reads as soap bubble surface rather than solid glass), foliage (more natural light transmission, faster render, no need to double-side leaves), glass windows (fixes dark-glass-eats-light problem in complex scenes), paper, and a frosted horror-glass creative effect (noise textures × grunge maps → roughness + bump, Transmission material, front and back lighting).
 
 ### Key Steps
-1. **Enable Thin Wall:** Select object with Principled BSDF shader → in shader properties check **Thin Wall** checkbox. Solidify modifier no longer required for one-sided planes.
-2. **Basic transparency:** Transmission = 1, Roughness ≈ 0; check Thin Wall. SSS Radius/Scale are automatically cleared (were used for skin simulation — irrelevant for thin surfaces).
+1. **Enable Thin Wall:** Select object with Principled BSDF shader → check the **Thin Wall** checkbox. It is a **top-level socket sitting directly under `Alpha` and above `Normal`**, not a sub-setting of Transmission [frame_000, frame_002]. Solidify is no longer required for one-sided planes — the "before" setup it replaces is visible as a Solidify modifier in **Simple** mode, Thickness **0.01 m**, Offset **−1.0000**, Rim **Fill** on [frame_000].
+2. **Basic transparency:** Transmission = 1, Roughness ≈ 0; check Thin Wall. SSS Radius/Scale are automatically cleared — the values being cleared are the Subsurface defaults visible before the switch: method **Random Walk**, Weight 1.000, Radius **1.000 / 0.200 / 0.100**, Scale **0.05 m**, Anisotropy 0.000 [frame_000].
 3. **Backscatter:** `Backscatter` value (−1 to +1) controls which side receives projected light; set to 0 to split evenly or 1 to favor front-lit surfaces.
-4. **Bubble / thin film:** On a glass sphere, enabling Thin Wall switches from solid-glass look to soap-bubble surface rendering; optionally add Thin Film node or iridescent shader for color variation.
-5. **Foliage optimization:** Check Thin Wall on leaf material → light passes through more naturally; eliminates need to double-side leaves → better render quality AND faster render times (saves seconds per frame; scales to minutes in forest scenes).
+4. **Bubble / thin film:** On a glass sphere, enabling Thin Wall switches from solid-glass look to soap-bubble surface rendering. **`Thin Film` is a built-in section of the Principled BSDF, not a separate node** [frame_002] — it carries `Thickness` (in **nm**, default 0) and `IOR` (default **1.330**). This entry previously said "add Thin Film node or iridescent shader", which is wrong about where the control lives.
+5. **Foliage optimization:** Check Thin Wall on leaf material → light passes through more naturally; eliminates need to double-side leaves → better render quality AND faster render times. **The comparison is run as named render slots** — `Thin Wall`, `Normal`, `Solidify` — so the three variants can be flipped between in the Render Result window [frame_003]; the visible render is 1920×1080 RGBA float at `Time 00:26.38`, Peak 1599M. The test asset is an oak: GeoNodes group `Tree Leaves` scattering `EN-leaves-oak` over `EN-oak.1.branches` at Density 1000.0, Randomness 0.400, Viewport Visibility 0.100, mask `Leaves` — a CC-BY asset credited in an open text block [frame_003].
 6. **Fix dark glass:** Add glass plane to window opening → check Thin Wall → scene lighting is restored while still getting real glass reflections. The original dark-glass problem: one-sided glass without Thin Wall absorbs too much light energy.
 7. **Frosted horror glass (creative example):**
    - Geometry: flat plane with two extruded border pieces (black material for contrast).
@@ -94,8 +94,10 @@ SouthernShotty covers the Thin Wall parameter added to Principled BSDF in Blende
    - Animation: simple shape key on character to simulate approach.
 
 ### Nodes / Settings
-- Principled BSDF → **Thin Wall** checkbox (new in Blender 5.2) — replaces Solidify modifier for transmission on single-sided geometry
-- **Backscatter** (Thin Wall sub-setting) — range −1 to +1; controls light projection direction
+- Principled BSDF → **Thin Wall** checkbox (new in Blender 5.2), a top-level socket between `Alpha` and `Normal` [frame_000, frame_002] — replaces Solidify modifier for transmission on single-sided geometry
+- Principled BSDF → **Thin Film** section: `Thickness` (nm, default 0), `IOR` (default 1.330) [frame_002]
+- Principled BSDF section order as shown: Metallic, Roughness, IOR, Alpha, **Thin Wall**, Normal, Diffuse, Subsurface, Specular, Transmission (`Weight`), Coat, Sheen, Emission, **Thin Film** [frame_002]
+- **Backscatter** (Thin Wall sub-setting) — range −1 to +1; controls light projection direction. ⚠️ **Transcript-only**: no captured frame shows this socket, so the name and range are as narrated, not as read
 - **Transmission** — use for glass/frosted glass; **not** SSS (SSS is for skin/wax)
 - Frosted glass roughness chain: `Noise Texture` (stretched scale) → `Color Ramp` → `Multiply` with second `Noise Texture` → `Multiply` with grunge maps → feeds Roughness + Bump Normal
 - Solidify modifier — **no longer needed** for one-sided plane transparency; can be removed
@@ -108,6 +110,21 @@ Blender 5.2 (Thin Wall is a new Principled BSDF parameter; not available in earl
 
 ### Tags
 #materials #shaders #glass #transparency #thin-wall #rendering #beginner
+
+---
+
+## Frame verification (2026-09-01)
+
+| | |
+|---|---|
+| **Corrected** | `Thin Film` is a **section of the Principled BSDF** (`Thickness` in nm, `IOR` 1.330), not a separate node as this entry claimed [frame_002]. `Thin Wall` is a top-level socket between `Alpha` and `Normal`, not a Transmission sub-setting [frame_000, frame_002]. |
+| **Sharpened** | version `Blender 5.2` → **5.2.0 Alpha**, from the window title [frame_000]. |
+| **Added** | the Solidify setup being replaced (Simple, 0.01 m, Offset −1.0, Rim Fill) [frame_000]; the Subsurface defaults that Thin Wall clears (Random Walk, 1.0/0.2/0.1, Scale 0.05 m) [frame_000]; the render-slot A/B method — slots literally named `Thin Wall`, `Normal`, `Solidify` [frame_003]; the foliage test asset and its GeoNodes scatter settings [frame_003]. |
+| **Flagged as unverified** | `Backscatter` and its −1…+1 range appear in no captured frame. Marked transcript-only rather than left reading as observed. |
+
+⚠️ **`frame_001` (3:30) is a mistimed pick** — it lands on the video's
+**Storyblocks sponsor card**. The tutorial itself is substantive (this is not a
+promo entry under A6's criteria); the frame simply grounds nothing.
 
 ---
 

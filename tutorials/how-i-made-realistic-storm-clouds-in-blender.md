@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=Kep7URnyXgU
 author: c g s l a v
 ingested: 2026-06-25
-blender_version: "Blender 4.x"
+blender_version: "Blender 4.3.1 -- observed in all 8 frames"
 tags: [volume, clouds, geometry-nodes, rendering, lighting, atmosphere, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/how-i-made-realistic-storm-clouds-in-blender/
@@ -87,9 +87,9 @@ c g s l a v demonstrates three sky methods (2D image plane, HDRI, procedural vol
 ### Key Steps
 1. **Quick methods (simple):** (a) Plane with sky image → Emission material; (b) HDRI in World shader. Both lack light interaction.
 2. **God rays / light rays:** Cube with Volume Scatter material (density ~low) → place Spotlight inside cube → rotate to illuminate desired area in scene.
-3. **GeoNodes cloud base:** Icosphere → Geometry Nodes → New. Mesh to Volume node → Distribute Points in Volume.
-4. **Organic point scatter:** Set Position after Distribute Points: Offset = Noise Texture (normalized) × Vector Math Scale. Adjustable spread.
-5. **Density gradient (center dense, edges wispy):** Voronoi / Position-based compression: Vector Math (multiply by -1) pushes points toward center → dense core. Second Set Position (multiply by +1) → loosens edges → translucent rim. Key for realistic cloud look.
+3. **GeoNodes cloud base:** Icosphere → Geometry Nodes → New. `Mesh to Volume` → `Distribute Points in Volume`. Values read off the graph [frame_003]: **Mesh to Volume** `Density` 1.000, `Voxel Size` **0.5 m**, `Interior Band Width` **0.2 m**; **Distribute Points in Volume** in **Random** mode, `Density` 5.000, `Seed` 0. The base object is an **Icosphere** at 7,992 verts / 7,950 faces [frame_003].
+4. **Organic point scatter:** `Set Position` after Distribute Points: `Offset` = `Noise Texture` → Vector Math in **Scale** mode → Offset [frame_003]. Observed settings: Noise Texture **3D**, type **fBM**, `Normalize` **off**, `Scale` 3.000, `Detail` 3.000, `Roughness` 0.000, `Lacunarity` 2.000, `Distortion` 0.000; the Vector Math `Scale` field is **5.000**.
+5. **Density gradient (center dense, edges wispy):** Voronoi / Position-based compression: Vector Math (multiply by −1) pushes points toward center → dense core. Second Set Position (multiply by +1) → loosens edges → translucent rim. Key for realistic cloud look. The **Voronoi Texture** in that branch is **3D**, **F1**, **Euclidean**, `Normalize` off, `Scale` **0.300**, `Detail` 0.000, `Roughness` 0.500, `Lacunarity` 2.000, `Randomness` 1.000 [frame_003].
 6. **Back to volume:** Points to Volume → Volume to Mesh (for viewport preview/detail control).
 7. **Wispy surface detail:** Set Position (before final Mesh to Volume) with another Noise Texture + Scale Vector Math → breaks up surface for organic edge detail.
 8. **Final volume:** Mesh to Volume (final node) → Set Material node with Volume Scatter shader (white color).
@@ -101,9 +101,10 @@ c g s l a v demonstrates three sky methods (2D image plane, HDRI, procedural vol
 14. **Optimization:** Render Settings → Volume → Max Steps = 500; Step Rate Render = 3 (saves time without visual loss); Viewport step rate increase to avoid GPU overload.
 
 ### Nodes / Settings
-- `Mesh to Volume` — converts mesh to volumetric field; "Amount to Size" prevents scale distortion
-- `Distribute Points in Volume` — creates point cloud inside volume; density controls cloud resolution
-- `Set Position` + `Noise Texture` → center-push: Vector × −1 (compress), × +1 (expand edges)
+- `Mesh to Volume` — converts mesh to volumetric field; "Amount to Size" prevents scale distortion. Observed: `Density` 1.000, `Voxel Size` 0.5 m, `Interior Band Width` 0.2 m [frame_003]
+- `Distribute Points in Volume` — **Random** mode, `Density` 5.000, `Seed` 0 [frame_003]
+- `Set Position` + `Noise Texture` (3D, fBM, Scale 3.0, Detail 3.0, Roughness 0.0, Lacunarity 2.0, Distortion 0.0) → Vector Math *Scale* 5.000 → `Offset`; center-push via Vector × −1 (compress), × +1 (expand edges) [frame_003]
+- `Voronoi Texture` — 3D / F1 / Euclidean, Scale 0.300, Detail 0.000, Roughness 0.500, Lacunarity 2.000, Randomness 1.000 [frame_003]
 - `Points to Volume` → `Volume to Mesh` — intermediate mesh for viewport preview and detail editing
 - `Set Position` + `Noise Texture` (before final Mesh to Volume) — fine wispy surface variation
 - Volume material: `Volume Scatter` (white, density ~0.3–1.0); adjust Anisotropy
@@ -119,6 +120,23 @@ Blender 4.x (Light Linking feature; GeoNodes volume nodes available in 3.x+)
 
 ### Tags
 #volume #clouds #geometry-nodes #rendering #lighting #atmosphere #intermediate
+
+---
+
+## Frame verification (2026-09-01)
+
+| | |
+|---|---|
+| **Corrected** | `blender_version` was `Blender 4.x` by inference. The status bar reads **4.3.1**, identically across **all eight** frames [frame_000 … frame_007]. |
+| **Added** | every numeric setting in the cloud graph, none of which the transcript carried: Mesh to Volume (Density 1.0, Voxel Size 0.5 m, Interior Band Width 0.2 m), Distribute Points in Volume (Random, Density 5.0, Seed 0), Noise Texture (3D/fBM, 3.0/3.0/0.0/2.0/0.0), Vector Math Scale 5.000, Voronoi (3D/F1/Euclidean, 0.3/0.0/0.5/2.0/1.0) [frame_003]. |
+
+📐 **Method note.** The wide node-editor shot is unreadable at 1280×720 as
+captured — the node names resolve, the numeric fields do not. Cropping the node
+cluster and rescaling 3× made every field legible, and cropping the status-bar
+corner at 8× across all eight frames is what settled the version digit that a
+single frame left ambiguous between 4.3.1 and 4.5.1. **A frame that looks
+unreadable at full size is often readable in pieces** — worth trying before
+recording a set as ungrounded.
 
 ---
 

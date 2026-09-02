@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=ENnEYoUpFfU
 author: Blender Guru
 ingested: 2026-06-25
-blender_version: "Blender 4.x"
+blender_version: "Blender 5.1.0 -- observed in frame_003, frame_004"
 tags: [lighting, theory, rendering, eevee, cycles, compositing, beginner]
 extraction_status: complete
 frames_dir: tutorials/frames/fundamentals-of-lighting-in-blender/
@@ -82,18 +82,20 @@ Blender Guru's comprehensive lighting fundamentals course lesson using a sci-fi 
 4. **Fill light:** Duplicate key lamp → position opposite side → reduce power significantly (no exact ratio — just enough to reveal shadow-side detail without confusing form).
 5. **Inverse square law:** At 2× distance, light = 25% of original. Use this intentionally to create or minimize falloff for storytelling priority.
 6. **Light size (radius):** Increase radius → softer shadows → less detail, more form emphasis. Decrease radius → hard shadows → detail and texture pop. Match to purpose: soft for characters/organic, hard for textured mechanical objects.
-7. **Light color:** Use Kelvin temperature for natural sources (Light settings → Temperature dropdown). Use Color picker for sci-fi/theatrical colors. Color differentiation between key and fill helps brain separate surfaces.
+7. **Light color:** Use Kelvin temperature for natural sources; use the Color picker for sci-fi/theatrical colors. Color differentiation between key and fill helps the brain separate surfaces.
+    **What the frame actually shows** [frame_004]: the warm key is dialled in with the ordinary **HSV / hex picker**, not the Kelvin control — Hue 0.108, Saturation 0.705, Value 1.000, hex **`#FFC04B`**, on an **Area** light at `Power` **11.592**, `Exposure` 0.000, `Normalize` ✓, `Radius` **0 m**, `Soft Falloff` ✓, with its `Nodes → Surface` set to **Emission**. The Kelvin/Temperature route is described in narration; no captured frame shows that dropdown.
 8. **Ground texture polish:** Apply PBR texture (e.g. concrete); UV scale to 2× for correct tiling; Shading tab → add RGB Curves node between color map and Principled BSDF → crush darks to maintain silhouette readability; disconnect roughness map, set manually.
 9. **Spot lamp conversion:** Change key/fill lamps from Point to Spot once happy with position → set Spot Size to control lit area → prevent light from spilling onto foreground or off-camera areas.
 10. **Interior Area lamp:** Add Area lamp inside transparent object for storytelling (small, flat, warm color like incandescent for vintage feel).
-11. **Evaluation:** Hide all lamps except one being adjusted. Use Render slots (F12 → slot 3, move lamp → F12 → slot 4) to compare before/after variants.
+11. **Evaluation:** Hide all lamps except one being adjusted. Use Render slots (F12 → slot 3, move lamp → F12 → slot 4) to compare before/after variants. Render settings behind those comparisons [frame_003]: **Cycles**, Device **GPU Compute**, Sampling → Render with `Noise Threshold` **0.0100**, `Max Samples` **4096**, `Min Samples` 0, `Time Limit` 0 s, `Denoise` ✓.
 
 ### Nodes / Settings
 - Point lamp: Omnidirectional; Position high and far for minimal falloff; close for attention focus
 - Sun lamp: Zero falloff (mimics sun at infinite distance); tends to look flat — prefer Point with distance
 - Spot lamp: Adds rotation control; set Spot Size for area cutoff; use Blend for feathering
 - Area lamp: Flat-plane light source; minimal up/down light spill; useful for glowing panels/interior sources
-- Light Radius: 0 = hard shadows + visible detail; high = soft shadows + form-only emphasis
+- Light Radius: 0 = hard shadows + visible detail; high = soft shadows + form-only emphasis (the *Color* chapter's key light is at `Radius` 0 m [frame_004])
+- Light settings also carry `Power` (W), `Exposure`, `Normalize` and `Soft Falloff` — all shown on the Area key light, none previously recorded here [frame_004]
 - Light Temperature: Kelvin scale (1500K fire → 2200K incandescent → 5500K daylight → 7000K+ sky)
 - RGB Curves node: Between texture color and Principled BSDF → invert curve to crush darks and preserve silhouette
 - Ground plane material: Base Color = near-black (not pure black); Roughness = high (matte, non-reflective)
@@ -107,6 +109,16 @@ Blender 4.x (EEVEE with ray-traced GI approximation mentioned; features work acr
 
 ### Tags
 #lighting #theory #rendering #eevee #cycles #compositing #beginner
+
+---
+
+## Frame verification (2026-09-01)
+
+| | |
+|---|---|
+| **Corrected** | `blender_version` was `Blender 4.x` by inference; the status bar reads **5.1.0** in two independent frames [frame_003, frame_004]. |
+| **Scoped down** | Key Step 7 presented the **Kelvin Temperature** control as the method for the colour pass. The frame covering that chapter shows the colour being set with the plain HSV/hex picker (`#FFC04B`) instead [frame_004]. The Kelvin advice is narration and is now labelled as such. |
+| **Added** | Area-light settings the entry never carried — `Power` 11.592, `Exposure`, `Normalize`, `Soft Falloff`, `Nodes → Surface: Emission` [frame_004]; and the render config behind the slot comparisons — Cycles / GPU Compute / Noise Threshold 0.0100 / Max Samples 4096 / Denoise on [frame_003]. |
 
 ---
 
