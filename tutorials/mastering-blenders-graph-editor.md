@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=MS1z9diLUOI
 author: elijah sheffield
 ingested: 2026-06-25
-blender_version: "Blender 4.x"
+blender_version: "Blender 4.5.0 (macOS) -- observed in all 7 frames"
 tags: [animation, graph-editor, f-curves, interpolation, workflow, beginner, rigging]
 extraction_status: complete
 frames_dir: tutorials/frames/mastering-blenders-graph-editor/
@@ -73,24 +73,26 @@ Elijah Sheffield demystifies the Blender Graph Editor for beginners and intermed
 3. **Add animation:** Frame 20 → X Rotation −30°; Frame 28 → X Rotation 0°. Play = linear/robotic.
 4. **Change interpolation:** Select all keys (A) → T → Bezier. Now has ease in/out.
 5. **Reshape Bezier handles:** Add anticipation keyframe (frame 15, rotate up slightly); add overshoot keyframe (frame 25, over-rotate); pull handles to spend less time at peak, more time on upswing.
-6. **Normalize view:** Channels panel (left sidebar) → enable Normalize for multi-channel comparison on −1/+1 scale.
+6. **Normalize view:** ⚠️ **`Normalize` is a toggle in the Graph Editor *header*, not in the Channels sidebar** — it sits immediately right of the `Key` menu, beside the filter icons, with its auto-refresh companion button next to it [frame_001 … frame_006]. (The Nodes/Settings list below always had this right; Key Step 6 did not.) Off in [frame_001], on in [frame_002, frame_003, frame_004, frame_006] — the same curve reads −60…28 unnormalised and −1…+1 normalised.
 7. **Channel management:** Left sidebar → toggle channel on/off; Tab = lock/unlock selected channel (Tab in Graph Editor, not Viewport!).
-8. **Cycles modifier (loop):** Select one keyframe → N panel → Modifiers tab → Add Modifier → Cycles. Set repeat count. Add duplicate keyframe at loop-out point (copy value + paste at frame 40).
-9. **Noise modifier:** Add Modifier → Noise. Set Scale = 10 (time freq), Strength = 0.05 (mild jitter) for organic secondary motion.
-10. **Stepped Interpolation:** Add Modifier → Stepped Interpolation. Step size 2 = stop-motion feel at 24fps. Put AFTER Cycles in modifier stack.
+8. **Cycles modifier (loop):** Select one keyframe → N panel → `Modifiers` tab → Add Modifier → Cycles. ⚠️ **Both counts are left at `0`, not "set"** [frame_003]: `Before Mode` **Repeat Motion** / `Count` **0**, `After Mode` **Repeat Motion** / `Count` **0** — and 0 is Blender's value for *repeat forever*, which is why the curve tiles across the whole visible range in the frame. `Influence` is unchecked (greyed at 1.000) and `Restrict Frame Range` is collapsed and off. Add duplicate keyframe at loop-out point (copy value + paste at frame 40).
+9. **Noise modifier:** Add Modifier → Noise. `Scale` **10.000** and `Strength` **0.050** are confirmed exactly as recorded [frame_004] — the first values in this batch that needed no correction. The rest of the panel was never recorded: `Blend Type` **Replace**, `Offset` **0.000**, `Phase` **1.000**, `Depth` **0**, `Legacy Noise` **off**, `Lacunarity` **2.000**, `Roughness` **0.500**, `Influence` unchecked.
+10. **Stepped Interpolation:** Add Modifier → Stepped Interpolation. Step size 2 = stop-motion feel at 24fps. Put AFTER Cycles in modifier stack. ⚠️ **Transcript-only** — no captured frame shows this modifier or its stack position; the two modifier panels in the set are Cycles [frame_003] and Noise [frame_004].
 11. **Frame-by-frame (character):** Preferences → Animation → Default Interpolation → Constant. Then Pose Mode → K → Location and Rotation per key frame. Fix existing keys: A → T → Constant.
 12. **Motion paths:** Pose Mode → select bone → Pose menu → Motion Paths → Calculate. Shows arc in 3D space.
-13. **Bone Cycles modifier:** In Graph Editor, select keyframe of any channel → N panel → Modifiers → Cycles (Repeat Motion, count 3). Duplicate modifier copy to other channels via Copy/Paste buttons.
+13. **Bone Cycles modifier:** In Graph Editor, select keyframe of any channel → N panel → Modifiers → Cycles (Repeat Motion). ⚠️ **"count 3" is not what the frames show** — the only Cycles panel captured reads Count **0** in both directions [frame_003]. Duplicate modifier copy to other channels via Copy/Paste buttons: the payoff is visible in [frame_006], where **all six `root bone` channels** — `X/Y/Z Location` and `X/Y/Z Euler Rotation` — carry the modifier icon under `ArmatureAction`.
 
 ### Nodes / Settings
 - Interpolation modes: Linear, Bezier (auto handles), Constant (stop-motion)
 - Handle type: V in Graph Editor → Auto, Vector, Aligned, Free
 - Navigation hotkeys: A = select all; tilde+Frame All; MMB = pan; scroll = zoom; Cmd+MMB = squash/stretch
 - Transformation: G/R/S work on selected keyframes; pivot point changes (2D cursor = playhead, individual centers, bounding box)
-- Normalize: top bar → Normalize toggle; shows channels on −1/+1 scale
+- Normalize: **Graph Editor header** → `Normalize` toggle (right of the `Key` menu, with its auto-refresh companion); shows channels on −1/+1 scale. Compare [frame_001] (off, axis runs −60…60) with [frame_002] (on, axis runs −2.5…3.0)
 - Lock: Tab (toggles lock on selected F-curve)
 - Solo: Shift+H
-- Modifiers: Cycles (Before/After mode, Repeat Motion/Offset, count), Noise (Scale=time, Strength=value), Stepped Interpolation (step size)
+- Modifiers: Cycles — `Before Mode` Repeat Motion / Count **0**, `After Mode` Repeat Motion / Count **0**, Influence off [frame_003]
+- Modifiers: Noise — Blend Type **Replace**, Scale **10.000**, Strength **0.050**, Offset 0.000, Phase 1.000, Depth 0, Lacunarity 2.000, Roughness 0.500, Legacy Noise off [frame_004]
+- Modifiers: Stepped Interpolation (step size) *(narrated — appears in no frame)*
 - Modifier stack order matters: Cycles first, then Stepped Interpolation
 - Motion Paths: Pose mode → Pose menu → Motion Paths → Calculate All
 
@@ -98,10 +100,27 @@ Elijah Sheffield demystifies the Blender Graph Editor for beginners and intermed
 Beginner — covers fundamentals from scratch with a practical animation project
 
 ### Blender Version
-Blender 4.x (standard Graph Editor features, no version-specific nodes)
+**Blender 4.5.0**, on **macOS** — title bar and status bar agree in all seven frames; the window controls are the macOS traffic lights, which is also why the entry's `Cmd+MMB` shortcut reads the way it does. The scene file is `filmFile.002.blend`.
 
 ### Tags
 #animation #graph-editor #f-curves #interpolation #workflow #beginner #rigging
+
+---
+
+## Frame verification (2026-09-02)
+
+| | |
+|---|---|
+| **Corrected** | `blender_version` was `Blender 4.x` by inference; title bar and status bar both read **4.5.0** in all seven frames, on a **macOS** build. Key Step 6 put `Normalize` in the *Channels sidebar*; it is a **header toggle** — the Nodes/Settings list had it right and the step contradicted it [frame_001 … frame_006]. The Cycles modifier's repeat counts are **0 / 0**, not the "count 3" of Key Step 13 [frame_003]. |
+| **Confirmed unchanged** | the Noise modifier's `Scale` **10.000** and `Strength` **0.050** are exactly as recorded [frame_004] — the first values in this batch to survive a frame check untouched. Constant interpolation for the frame-by-frame chapter is visible as literal staircase curves [frame_006], and the motion-path arc with its numbered frames is on screen beside them. |
+| **Added** | the whole Cycles panel (Before/After Mode, Influence off, Restrict Frame Range) [frame_003]; the seven unrecorded Noise fields — Blend Type Replace, Offset, Phase, Depth, Lacunarity 2.000, Roughness 0.500, Legacy Noise off [frame_004]; the rig's real names — action `ArmatureAction`, bone **`root bone`**, with modifiers on all six Location/Rotation channels [frame_006]; and the scene frame range, which **starts at 12, not 1**, running to 250 at 24 fps [frame_000 … frame_006]. The world is an HDRI named `GSG_HC015_A022_Sho…` at Strength 1.000 [frame_000]. |
+| **Flagged as unverified** | **Stepped Interpolation** (Key Step 10) appears in no frame — neither the modifier nor its stack position after Cycles. The claim that modifier order matters is therefore narrated, not shown. |
+
+ℹ️ **One pick is thin rather than mistimed.** `frame_005` (24:00) correctly
+lands on the frame-by-frame chapter — Pose Mode, `root bone` selected — but the
+Graph Editor beside it is **empty**, so it grounds the setup and carries no curve
+data. The chapter's actual content is recoverable from `frame_006` four minutes
+later. Recorded rather than re-rolled.
 
 ---
 

@@ -123,8 +123,8 @@ Blender 5.2 (Thin Wall is a new Principled BSDF parameter; not available in earl
 | **Flagged as unverified** | `Backscatter` and its −1…+1 range appear in no captured frame. Marked transcript-only rather than left reading as observed. |
 
 ⚠️ **`frame_001` (3:30) is a mistimed pick** — it lands on the video's
-**Storyblocks sponsor card**. The tutorial itself is substantive (this is not a
-promo entry under A6's criteria); the frame simply grounds nothing.
+**Storyblocks sponsor card**. The tutorial itself is substantive and
+A6's criteria do not flag it; the frame simply grounds nothing.
 
 ---
 

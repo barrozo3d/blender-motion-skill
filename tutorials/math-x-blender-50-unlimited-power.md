@@ -4,7 +4,7 @@ source: YouTube
 url: https://www.youtube.com/watch?v=EvWAcSA86fw
 author: MTR Animation
 ingested: 2026-06-25
-blender_version: "Blender 5.0"
+blender_version: "Blender 5.0.0 -- observed in frame_000, frame_004, frame_005, frame_007"
 tags: [geometry-nodes, mathematics, procedural, advanced, fractals, for-each-zone, repeat-zone]
 extraction_status: complete
 frames_dir: tutorials/frames/math-x-blender-50-unlimited-power/
@@ -98,41 +98,76 @@ MTR Animation recreates the Apollonian Gasket — a fractal where circles are re
 
 ### Key Steps
 1. **Initial 3 circles:** Three Points nodes (big radius=2, two smalls=0.5×R_big, R_big−R_small); combine XYZ for positions; use Subtract math to keep positions procedurally linked to radii; join with Join Geometry.
-2. **4th circle radius:** Store Named Attribute "K" = 1/radius (Divide). Apply pre-built "New Point Curvature" node group (takes 3 circle geometry, outputs K of new circle). Convert back: 1/K_new = radius.
+2. **4th circle radius:** Store Named Attribute **`k`** (lower-case, `Float`, `Point` domain, with a `Selection` input) = 1/radius via a `Divide` node [frame_003, frame_004]. Apply pre-built "New Point Curvature" node group (takes 3 circle geometry, outputs K of new circle). Convert back: 1/K_new = radius.
 3. **Outer circle curvature fix:** Store Named Attribute "outer" (Boolean, True) on enclosing circle. Math Multiply + named attribute "outer" + Mix node: flip sign to −1 for outer, +1 for others.
 4. **4th circle position:** Pre-built "New Point Position" node group (needs 3 circles + K1,K2,K3,K4). Outputs positive and negative positions. Use positive position → Set Position.
-5. **Recursive triplets:** Duplicate triplet extraction 3 times (Delete Geometry on index 0/1/2 to get each pair). Geometry to Instance × 3 → join → For Each Element Zone → Realize Instances → run curvature+position formulas. Nested: outer For Each creates new triplets → inner node group encapsulating the curvature/position logic.
+5. **Recursive triplets:** Duplicate triplet extraction 3 times: `Index` → `Equal` (Integer) → `Delete Geometry` (`Point`, `All`), three times over [frame_003]. ⚠️ **All three `Equal` nodes read `B = 2` in the frame**, not 0/1/2 — the capture lands during the node-arranging pass (a `G` / "Move and Attach" overlay is on screen), before the comparisons are differentiated. Geometry to Instance × 3 → join → For Each Element Zone → Realize Instances → run curvature+position formulas. Nested: outer For Each creates new triplets → inner node group encapsulating the curvature/position logic.
 6. **Repeat Zone:** Wrap For Each + node group in Repeat Zone. Set iterations (5–7 gives detail; 6+ causes lag without bake).
-7. **Remove wrong circles:** "Is Tangent" node group checks distance vs. sum of radii for each triplet member (index 0, 1, 2 vs. index 3 = new point). Boolean OR → Delete Geometry if any fails.
-8. **Dedup:** Two Merge by Distance nodes — first masked to Named Attribute "outer" (inverse selection for outer), second for remaining points. Prevents outer circle deletion.
-9. **LOD instancing:** Three Icosphere nodes (subdivisions 2, 3, 4) → Geometry to Instance → Join. Bake node before instancing. Pick Instance: Compare (radius < 0.1) + Mix node → instance index; add second threshold (radius < 0.01) for even lower LOD.
-10. **Outer ring:** Second Instance on Points with Curve Circle (selection = reversed outer attribute). Curve to Mesh with small profile circle (radius 0.1, res 7). Set Curve Tilt 180° on outer circle selection to flip ring outward.
-11. **Render:** Render Properties → Cycles, GPU Compute. Light Paths → Light Tree OFF. Color Management → Look: Very High Contrast. Plane + Area light + black world.
-12. **Materials:** Set Material node. Store Named Attribute "rent" (Float, Random Value per instance). In Shader: Attribute node "rent" → Hue Saturation Value (vary Saturation) + Ambient Occlusion → Color Ramp → multiply for contact shadow depth.
+7. **Remove wrong circles:** the "Is Tangent" node group. The tutorial puts the test on screen as a reference image (`is tangent.png`), and it is sharper than "distance vs. sum of radii" — it reads **`d − (r₁ + r₂) < epsilon`** [frame_005, frame_006], i.e. an epsilon-tolerance comparison, not an exact one. Checked for each triplet member (index 0, 1, 2 vs. index 3 = new point); Boolean OR → Delete Geometry if any fails.
+8. **Dedup:** Merge by Distance, mode **`All`**, `Distance` **0.001 m**, driven through its `Selection` input [frame_006] — first masked to Named Attribute `outer` (a **Boolean** attribute, read back through a `Named Attribute` node with its `Exists` output [frame_006]), second for remaining points. Prevents outer circle deletion. The `Realize Instances` feeding it runs `Realize All` with `Depth` **0**.
+9. **LOD instancing:** Three `Ico Sphere` nodes → Geometry to Instance → Join, with `Instance on Points` → **`Pick Instance` ✓** [frame_006, frame_007]. Bake node before instancing.
+    ⚠️ **The frame catches all three icospheres identical** — `Radius` **1 m**, `Subdivisions` **3** on each [frame_006], captured right after the duplication that made them (a `Shift + D x2` / "Duplicate" overlay is on screen). The 2/3/4 differentiation is narrated, not shown.
+    ⚠️ **The recorded LOD thresholds appear nowhere.** The `Less Than` compares actually on screen read `B` **1.000** [frame_006] and `B` **0.760** [frame_007]; neither 0.1 nor 0.01 is visible in any frame.
+10. **Outer ring:** Second Instance on Points with Curve Circle (selection = reversed outer attribute). ⚠️ The only `Curve Circle` captured reads `Resolution` **32** / `Radius` **1 m** [frame_005]; the "small profile circle (radius 0.1, res 7)" of the Curve to Mesh step is transcript-only. Set Curve Tilt 180° on outer circle selection to flip ring outward *(also narrated — no Set Curve Tilt node is in shot)*.
+11. **Render:** Render Properties → Cycles, GPU Compute. Light Paths → Light Tree OFF. Color Management → Look: Very High Contrast. **The black world is confirmed** — World → Surface `Background`, `Color` a flat black swatch, `Strength` **1.000** — as is the scene contents: the outliner holds exactly `Area`, `Camera`, `Cube`, `Plane` [frame_007]. The Cycles/Light Tree/Look settings themselves are narrated; no render-properties panel is in shot.
+12. **Materials:** `Set Material` node assigning a material named **`BLOBS`** [frame_007]. Store Named Attribute "rent" (Float, Random Value per instance). In Shader: Attribute node "rent" → Hue Saturation Value (vary Saturation) + Ambient Occlusion → Color Ramp → multiply for contact shadow depth.
+    ⚠️ **The shader graph on screen at 32:00 is only `Principled BSDF → Material Output`** — Base Color a flat white, `Metallic` 0.000, `Roughness` 0.500, `IOR` 1.500, `Alpha` 1.000, with no Attribute, HSV, AO or Color Ramp node visible [frame_007]. The colour-randomisation chain is narrated; what the render actually shows is white blobs.
 
 ### Nodes / Settings
-- **New Point Curvature** (custom node group): implements K4 = K1+K2+K3 + 2√(K1K2+K2K3+K1K3)
+- **New Point Curvature** (custom node group): implements K4 = K1+K2+K3 **±** 2√(K1K2+K2K3+K1K3) — the reference image `Curvature formula.png` shows a **±**, not a `+` [frame_001]. Its sockets read `Three Circles`, `k1`, `k2`, `k3`, `k4` [frame_003, frame_004]
 - **New Point Position** (custom node group): complex number multiply + complex square root formulas
-- **Is Tangent** (custom node group): distance between circles vs. radius sum threshold
+- **Is Tangent** (custom node group): **`d − (r₁ + r₂) < epsilon`** — an epsilon tolerance, read off the `is tangent.png` reference [frame_005, frame_006]
+- **New Point Position** (custom node group): outputs both `Position +` and `Position -`, exactly as the entry describes [frame_004]. Its formula image is filed as `Position foluma.png` (the author's own typo)
+- `Random Value` (Vector, Min `0,0,0` → Max `0,0,1.000`) → `Set Position` **Offset** [frame_005] — unrecorded until now
 - **For Each Element Zone**: iterate over instances; Realize Instances before processing
 - **Repeat Zone**: recursion driver; set iterations (5–7 recommended)
 - **Geometry to Instance + Realize Instances**: convert geometry to instance and back for per-instance processing
-- Store Named Attribute: "K" (Float), "outer" (Boolean), "rent" (Float/Random)
+- Store Named Attribute: **`k`** lower-case (Float, Point domain) [frame_004], `outer` (Boolean, read back with `Exists`) [frame_006], "rent" (Float/Random) *(narrated)*
 - Named Attribute node in shader: "rent" for random per-blob color
 - **Bake node**: caches heavy calculations (pre-instancing) to avoid recalculating on every edit
 - Compare + Mix → Pick Instance index for LOD resolution switching
 - Set Curve Tilt 180° for outer ring flip (select "outer" attribute as mask)
-- Merge by Distance (two passes, one masked to outer attribute)
+- Merge by Distance: mode `All`, `Distance` **0.001 m** [frame_006] (two passes, one masked to outer attribute)
 - Cycles: GPU, Light Tree OFF, Very High Contrast look
 
 ### Difficulty
 Advanced — requires downloading pre-built node groups; complex math concepts (Descartes theorem, complex numbers); For Each + Repeat Zone patterns
 
 ### Blender Version
-Blender 5.0 (For Each Element Zone, Bake node, pre-built node groups updated to 5.0)
+**Blender 5.0.0** — status bar, four frames [frame_000, frame_004, frame_005, frame_007]. Blender runs fullscreen here, so there is no title bar; the status-bar corner is the only place the version appears. For Each Element Zone, Bake node, pre-built node groups updated to 5.0.
 
 ### Tags
 #geometry-nodes #mathematics #procedural #advanced #fractals #for-each-zone #repeat-zone #instancing
+
+---
+
+## Frame verification (2026-09-02)
+
+| | |
+|---|---|
+| **Confirmed — the version field was already right** | `Blender 5.0` matches: the status bar reads **5.0.0** in four frames. This is the **first entry in the batch whose version survived a frame check**, and it is not a coincidence — the value came from the video's own title rather than from inference. Sharpened only to the patch digit. |
+| **Corrected** | the stored attribute is lower-case **`k`**, not `"K"` [frame_004]. The tangency test is **`d − (r₁ + r₂) < epsilon`** — an epsilon tolerance, not a bare comparison [frame_005, frame_006]. The curvature formula carries a **±**, which the entry had written as `+` [frame_001]. The LOD thresholds `radius < 0.1` and `radius < 0.01` appear in **no** frame; the `Less Than` compares on screen read **1.000** and **0.760**. |
+| **Added** | the node groups' actual sockets (`Three Circles`, `k1–k4`, `Position +` / `Position -`) [frame_003, frame_004]; Merge by Distance at mode `All` / **0.001 m** and `Realize Instances` at `Depth 0` [frame_006]; the `Random Value` (Vector, max `0,0,1`) driving `Set Position` **Offset** [frame_005]; the material name **`BLOBS`** and its Principled values [frame_007]; and confirmation that the world really is **black** at Strength 1.000, with the scene holding exactly `Area`, `Camera`, `Cube`, `Plane` [frame_007]. |
+| **Flagged as unverified** | the icosphere LOD levels (2/3/4), the Curve to Mesh profile (radius 0.1, res 7), `Set Curve Tilt`, the Cycles / Light Tree / Very High Contrast render settings, and the whole `"rent"` → Attribute → HSV → AO colour chain. None appear in any frame — the shader graph at 32:00 is a bare `Principled BSDF → Material Output` and the render is white blobs. |
+
+⚠️ **A pattern worth naming: "duplicate-then-edit" defeats moment-picking.**
+Two of the eight picks land seconds after a duplication, before the copies are
+differentiated — `frame_003` catches all three `Equal` nodes still reading
+`B = 2` under a "Move and Attach" overlay, and `frame_006` catches all three
+`Ico Sphere` nodes still reading `Subdivisions 3` under a `Shift + D x2`
+"Duplicate" overlay. This is D3c's failure mode with a specific cause: in a
+node-graph workflow the presenter duplicates first and edits after, so **a
+chapter-anchored moment reliably lands on the identical copies**. When an entry
+claims differentiated values across duplicated nodes, expect the frame not to
+show them, and look later in the set.
+
+ℹ️ **`frame_002` (12:00) is a teaching slide, not the UI** — a full-screen
+card reading `Z₁*Z₂`, `√Z`, `Z = 2 + 1i`. It grounds the complex-number chapter
+faithfully and is *not* filler or a transition shot, but it carries no node data.
+Three of the eight frames are reference images of this kind (`Curvature
+formula.png`, `Position foluma.png`, `is tangent.png`), which is itself
+characteristic of a maths tutorial: the formulas are on screen far more often
+than the node graph.
 
 ---
 
