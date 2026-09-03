@@ -421,6 +421,115 @@ def caption_crosscheck_note(flags, n_cues):
         f"{spans}{more}"
     )
 
+
+# ── In-run slice re-decode (ULTIMATE_PIPELINE_PLAN.md §3.7 item 3) ────────────
+#
+# §3.2 calls the isolated-slice re-decode "the single biggest protocol change of
+# the project": when a span looks wrong, cutting it out and decoding it ALONE
+# with the course prompt produces a genuinely independent second reading. Locally
+# that was a manual step, done dozens of times across Weeks 7-8.
+#
+# The audio is ALREADY in the temp directory during a run, so this costs one
+# extra short decode and stores nothing.
+#
+# ⚠️ DO NOT ARCHIVE AUDIO TO MAKE THIS EASIER. The plan declines that explicitly:
+# archiving serves retroactive re-checking, which decision #1 has already ruled
+# out, and it would accumulate junk for every span where nothing was said.
+#
+# ⚠️ ALWAYS OVERLAP KNOWN-GOOD TEXT ON BOTH SIDES -- "the agreement is what
+# validates the splice" (§3.2). A slice whose overlaps do NOT agree with the full
+# decode is not a better witness, it is a different one, and this reports that
+# rather than trusting it.
+#
+# ⚠️ AND A SLICE CAN DEGENERATE TOO (§3.4). One produced seventeen consecutive
+# "So it's." where the full run was correct. Read a slice only inside the span it
+# was cut for, and never treat it as automatically the better reading.
+
+SLICE_OVERLAP_SEC = 4.0      # known-good context on each side
+SLICE_MIN_CLUSTER = 3        # fewer flags than this is not a cluster
+SLICE_CLUSTER_GAP = 20.0     # flags farther apart than this are separate events
+SLICE_MAX_PER_RUN = 2        # each slice is another Whisper load; bound the cost
+
+
+def cluster_flag_spans(flags, min_count=SLICE_MIN_CLUSTER, max_gap=SLICE_CLUSTER_GAP):
+    """Group flagged spans into clusters worth a second decode.
+
+    A lone flag is not worth a re-decode -- §3.4's "the flag list is not the
+    defect list" applies here too. A RUN of them in one stretch is a different
+    signal, the same way a repeat burst is different from a repeated line."""
+    ts = sorted(f["start"] for f in flags or [] if f.get("start") is not None)
+    ends = {f["start"]: f.get("end", f["start"]) for f in flags or [] if f.get("start") is not None}
+    if not ts:
+        return []
+    clusters, cur = [], [ts[0]]
+    for t in ts[1:]:
+        if t - cur[-1] <= max_gap:
+            cur.append(t)
+        else:
+            clusters.append(cur); cur = [t]
+    clusters.append(cur)
+    return [(c[0], ends.get(c[-1], c[-1]), len(c)) for c in clusters if len(c) >= min_count]
+
+
+def redecode_slice(audio_path, start, end, model_name, tmp, overlap=SLICE_OVERLAP_SEC):
+    """Cut [start-overlap, end+overlap] and decode it alone. Returns text or ''.
+
+    16 kHz mono, matching what Whisper resamples to anyway -- §3.2's recipe."""
+    lo = max(0.0, start - overlap)
+    dur = (end + overlap) - lo
+    out = Path(tmp) / f"slice_{int(lo)}_{int(dur)}.wav"
+    try:
+        subprocess.run(
+            ["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-ss", str(lo),
+             "-t", str(dur), "-i", str(audio_path), "-ac", "1", "-ar", "16000", str(out)],
+            capture_output=True, timeout=120, check=True)
+    except Exception:
+        return ""
+    try:
+        model = _load_whisper_model(model_name)
+        r = model.transcribe(str(out), initial_prompt=WHISPER_VOCAB_HINT)
+        return (r.get("text") or "").strip()
+    except Exception:
+        return ""
+    finally:
+        try:
+            out.unlink()
+        except OSError:
+            pass
+
+
+def _norm_words(s):
+    return re.findall(r"[a-z']+", (s or "").lower())
+
+
+def slice_agreement(full_text, slice_text):
+    """0-1 similarity between the full decode's span text and the slice's.
+
+    ⚠️ This is the OVERLAP CHECK in spirit: high agreement means the slice
+    corroborates and there is nothing to look at; LOW agreement is the finding,
+    and it means "listen to this span", not "the slice is right"."""
+    import difflib
+    a, b = " ".join(_norm_words(full_text)), " ".join(_norm_words(slice_text))
+    if not a or not b:
+        return 0.0
+    return difflib.SequenceMatcher(None, a, b).ratio()
+
+
+def slice_redecode_note(results):
+    """One safeguard line, or None. Keeps the limit attached to the finding."""
+    if not results:
+        return None
+    parts = []
+    for r in results:
+        parts.append(f"{r['start']:.1f}-{r['end']:.1f}s ({r['n_flags']} flags, "
+                     f"agreement {r['agreement']:.2f}): slice heard \"{r['slice'][:90]}\"")
+    return ("Slice re-decode: " + "; ".join(parts) +
+            ". A span was cut out and decoded ALONE with overlap on both sides, giving an "
+            "independent second reading. LOW agreement means listen to this span -- it does "
+            "NOT mean the slice is correct: a slice can degenerate too (one produced "
+            "seventeen consecutive 'So it's.' where the full run was fine). Nothing was "
+            "changed; the audio was not kept.")
+
 def segment_by_chapters(transcript, chapters):
     """
     Bucket the Whisper transcript into sections (by official chapters, or one
@@ -1281,6 +1390,7 @@ def main():
         used_captions_fallback = False
         _cap_note = None
         _cap_flags = []
+        _slice_results = []
         if is_yt:
             if has_whisper:
                 print(f"[2/4] Downloading audio + transcribing with Whisper ({args.whisper_model})...")
@@ -1305,6 +1415,29 @@ def main():
                                       "(no second witness available -- not a clean result)")
                         except Exception as _e:
                             print(f"      caption cross-check skipped ({_e})")
+                    # §3.7 item 3: when flags CLUSTER, cut that span out and
+                    # decode it alone while the audio is still here. Reports;
+                    # never replaces. Stores nothing.
+                    if os.getenv("INGEST_SLICE_REDECODE", "1").lower() not in ("0", "false", "no"):
+                        try:
+                            _clusters = cluster_flag_spans(_cap_flags)[:SLICE_MAX_PER_RUN]
+                            for _s, _e2, _n in _clusters:
+                                _full = " ".join(
+                                    (sg.get("text") or "") for sg in transcript.get("segments", [])
+                                    if sg.get("start") is not None and _s <= sg["start"] <= _e2)
+                                _sl = redecode_slice(audio, _s, _e2, args.whisper_model, tmp)
+                                if not _sl:
+                                    continue
+                                _ag = slice_agreement(_full, _sl)
+                                _slice_results.append({"start": _s, "end": _e2, "n_flags": _n,
+                                                       "agreement": _ag, "slice": _sl})
+                                print(f"      slice re-decode {_s:.0f}-{_e2:.0f}s "
+                                      f"({_n} flags): agreement {_ag:.2f}")
+                            if not _clusters:
+                                print("      slice re-decode: no flag clusters "
+                                      f"(need {SLICE_MIN_CLUSTER}+ within {SLICE_CLUSTER_GAP:g}s)")
+                        except Exception as _e:
+                            print(f"      slice re-decode skipped ({_e})")
                 except Exception as e:
                     print(f"      Whisper failed ({e}), using yt-dlp captions")
                     used_captions_fallback = True
@@ -1337,6 +1470,9 @@ def main():
         sg_warnings, sg_critical = run_safeguards(ch_transcripts)
         if _cap_note:
             sg_warnings.append(_cap_note)
+        _slice_note = slice_redecode_note(_slice_results)
+        if _slice_note:
+            sg_warnings.append(_slice_note)
         _promo = promo_hint_at_ingest(ch_transcripts, info.get("duration", 0))
         if _promo:
             sg_warnings.append(_promo)

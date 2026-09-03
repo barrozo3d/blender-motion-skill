@@ -922,7 +922,12 @@ SHARED_FUNCS = ("slugify", "download_audio", "ytdlp_captions", "segment_by_chapt
                 # lists are ENGLISH -- a drifted copy that loses the
                 # "no English words found" reporting would turn "no signal"
                 # into a silent "no activity" on a non-English transcript.
-                "parse_transcript_timeline", "transcript_activity")
+                "parse_transcript_timeline", "transcript_activity",
+                # §3.7 item 3, added 2026-09-03. The note text is the payload:
+                # a copy that drifts into treating the slice as the better
+                # reading inverts the finding. A slice can degenerate too.
+                "cluster_flag_spans", "redecode_slice", "slice_agreement",
+                "slice_redecode_note")
 
 # Recorded intentional divergences. A difference listed here is a decision, not
 # drift -- but each is PINNED to the two source variants it was reviewed against
