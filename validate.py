@@ -953,6 +953,13 @@ WATCHED_FILES = {
     # re-creates the stale-engine blind spot the loader exists to prevent.
     # (Skills without the file are skipped by the sibling walk.)
     "course_engine_loader.py": ("load_course_engine", "_version_at", "_parse"),
+    # added 2026-09-03 (plan §3.7 item 5): the corpus hapax/variant scan. Its
+    # value is entirely in its TUNING, and every constant in it was measured
+    # against a real corpus rather than guessed -- a drifted copy that quietly
+    # loosens the cutoff or widens the affix suppression turns a 76%-precision
+    # pointer into a flag storm, or silently deletes the finding it exists for.
+    "hapax_scan.py": ("looks_technical", "_is_affix_variant", "build_index",
+                      "find_candidates", "find_variants"),
     "validate.py": ("get_transcript_text", "get_notes_content",
                     "parse_duration_secs", "is_youtube_source",
                     "get_tutorial_files", "parse_index_refs",
