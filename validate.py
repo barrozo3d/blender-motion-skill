@@ -917,7 +917,12 @@ SHARED_FUNCS = ("slugify", "download_audio", "ytdlp_captions", "segment_by_chapt
                 # the floor rule means it never returns nothing. A drifted copy
                 # that quietly returns [] for a short video re-creates the
                 # frame_count: 0 class the rule exists to end.
-                "scene_activity", "plan_density_timestamps")
+                "scene_activity", "plan_density_timestamps",
+                # the transcript half of §3.8, added 2026-09-03. The word
+                # lists are ENGLISH -- a drifted copy that loses the
+                # "no English words found" reporting would turn "no signal"
+                # into a silent "no activity" on a non-English transcript.
+                "parse_transcript_timeline", "transcript_activity")
 
 # Recorded intentional divergences. A difference listed here is a decision, not
 # drift -- but each is PINNED to the two source variants it was reviewed against

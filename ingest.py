@@ -588,8 +588,67 @@ def scene_activity(video_path, sample_fps=DENSITY_SAMPLE_FPS):
     return out
 
 
+
+# ── The transcript's own density signal (§3.8, second half) ───────────────────
+#
+# ⚠️ This needs NO VIDEO AT ALL, which is what makes it worth having beside
+# scdet rather than instead of it. §3.8: "imperative and deictic speech --
+# 'click this', 'set that to', 'now I'm going to add' -- clusters exactly where
+# the hands are working, while a talking-head recap runs high words-per-minute
+# with no deixis."
+#
+# ⚠️ The two signals fail differently, and that is the entire argument for using
+# both. scdet sees a viewport orbit as an enormous change carrying almost no
+# information; this sees it as nothing at all, because nobody said "click this".
+# Conversely a value typed into a parameter field is a tiny pixel delta and a
+# loud verbal one. Neither is an importance oracle; together they miss less.
+#
+# ⚠️ ENGLISH-ONLY, and silently so if not stated: the word lists below are
+# English. On a non-English transcript this returns a flat zero signal, which
+# the caller must read as "no transcript signal", never as "no activity". The
+# same class of assumption as ytdlp_caption_cues' --sub-lang en.
+
+DEIXIS_WORDS = frozenset("""
+this that these those here there
+""".split())
+
+ACTION_VERBS = frozenset("""
+click set add drag select open press type hit create delete move change
+increase decrease connect plug turn enable disable choose pick put copy paste
+rename bring drop hold scroll zoom jump grab snap merge split extrude bevel
+scale rotate translate assign attach detach duplicate group ungroup
+""".split())
+
+TRANSCRIPT_LINE_RE = re.compile(r"^\[(\d+):(\d{2})\]\s+(.*)$")
+
+
+def parse_transcript_timeline(content):
+    """[(seconds, text), ...] from a tutorial .md's timestamped transcript."""
+    out = []
+    for line in content.splitlines():
+        m = TRANSCRIPT_LINE_RE.match(line.strip())
+        if m:
+            out.append((int(m.group(1)) * 60 + int(m.group(2)), m.group(3)))
+    return out
+
+
+def transcript_activity(timeline, window=DENSITY_WINDOW_SEC):
+    """{window_index: score} -- density of imperative/deictic speech.
+
+    Score is per-window COUNT of action verbs and deictic words, not a rate:
+    a stretch of dense instruction produces many in a row, and normalising by
+    word count would flatten exactly the difference being looked for."""
+    buckets = {}
+    for t, text in timeline:
+        words = re.findall(r"[a-z']+", text.lower())
+        hits = sum(1 for w in words if w in ACTION_VERBS or w in DEIXIS_WORDS)
+        if hits:
+            buckets[int(t // window)] = buckets.get(int(t // window), 0) + hits
+    return buckets
+
 def plan_density_timestamps(video_path, n_frames, duration_sec=None,
-                            window=DENSITY_WINDOW_SEC, min_gap=DENSITY_MIN_GAP_SEC):
+                            window=DENSITY_WINDOW_SEC, min_gap=DENSITY_MIN_GAP_SEC,
+                            transcript=None):
     """Allocate n_frames across the runtime PROPORTIONAL TO SCREEN CHANGE.
 
     Allocation is per-STRETCH, not per-video: one interval for a whole tutorial
@@ -623,6 +682,36 @@ def plan_density_timestamps(video_path, n_frames, duration_sec=None,
         return [0.0], "no buckets"
 
     weights = {k: sum(s for _, s in v) for k, v in buckets.items()}
+
+    # Blend in the transcript signal when one is available. Both are normalised
+    # to 0-1 first: their raw units are unrelated (pixel change vs word counts)
+    # and summing them unnormalised would let whichever happens to be numerically
+    # larger silently win.
+    # ⚠️ Equal weight is a DEFAULT, not a measurement. Nothing here establishes
+    # that screen change and spoken deixis deserve the same say; it is the
+    # neutral choice until someone measures a better one.
+    tr_note = ""
+    if transcript:
+        tr = transcript_activity(transcript, window)
+        if tr:
+            wmax = max(weights.values()) or 1.0
+            tmax = max(tr.values()) or 1
+            # ⚠️ Clamp to the runtime scdet actually measured. A transcript can
+            # outrun its video -- a truncated or partial download, or simply the
+            # wrong transcript -- and an unclamped blend then proposes timestamps
+            # past the end of the file, which extract_frames silently fails on.
+            # Caught by a test that paired a transcript with the wrong video and
+            # got 242.5s out of a 190s clip.
+            last_window = max(buckets) if buckets else 0
+            for k in set(weights) | set(tr):
+                if k > last_window:
+                    continue
+                weights[k] = (weights.get(k, 0.0) / wmax) + (tr.get(k, 0) / tmax)
+                buckets.setdefault(k, [(k * window + window / 2, 0.0)])
+            tr_note = f" + transcript deixis over {len(tr)} window(s)"
+        else:
+            tr_note = " (transcript present but no English action/deictic words found)"
+
     total = sum(weights.values())
     order = sorted(buckets, key=lambda k: (-weights[k], k))
 
@@ -650,7 +739,7 @@ def plan_density_timestamps(video_path, n_frames, duration_sec=None,
                 picked.append(cand)
     picked.sort()
     return picked, (f"activity-weighted over {len(buckets)} window(s) of {window:g}s "
-                    f"from {len(samples)} sample(s)")
+                    f"from {len(samples)} sample(s){tr_note}")
 
 def extract_frames(video_path, timestamps, out_dir):
     out_dir.mkdir(parents=True, exist_ok=True)

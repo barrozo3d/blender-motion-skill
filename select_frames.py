@@ -144,7 +144,12 @@ def main():
             # sample's time, which is the runtime it actually measured. Passing
             # a separately-probed duration would only introduce a second source
             # of truth for the same number.
-            auto_ts, why = ingest.plan_density_timestamps(video, args.auto)
+            # §3.8 second half: the transcript is a free second signal that
+            # needs no video. It covers what scdet cannot -- a typed parameter
+            # value is a tiny pixel delta and a loud verbal one.
+            auto_ts, why = ingest.plan_density_timestamps(
+                video, args.auto,
+                transcript=ingest.parse_transcript_timeline(content))
             added = [t for t in auto_ts if all(abs(t - e) > 1.0 for e in timestamps)]
             print(f"      --auto: {why}")
             print(f"      --auto: +{len(added)} timestamp(s) "
