@@ -141,11 +141,108 @@ def _load_whisper_model(model_name):
         sys.stderr.write(captured.getvalue())
         raise
 
-def whisper_transcribe(audio_path, model_name):
+# ── Per-video decoder priming (ULTIMATE_PIPELINE_PLAN.md §3.7 item 2) ──────────
+#
+# get_info() already calls --dump-json, so the video's own title, chapter titles
+# and description are in hand before a single second of audio is decoded — and a
+# tutorial description usually NAMES the exact nodes being demonstrated. Until
+# 2026-09-03 none of it reached the decoder: initial_prompt was the static,
+# skill-wide WHISPER_VOCAB_HINT and nothing else.
+#
+# This attacks the accent-substitution class AT THE SOURCE rather than detecting
+# it afterwards: Whisper is far likelier to emit "Cull Volume" when that phrase
+# is already in its prompt. (§3.2's wk8-05 case — "call the velocity" is really
+# "cull" — is exactly this, and locally it took a frame to settle.)
+#
+# ⚠️ LANGUAGE GUARD, and it is not decoration. The single most expensive bug in
+# this pipeline's history was a wrong-language initial_prompt: feeding an ENGLISH
+# hint to a RUSSIAN decode triggered Whisper's multilingual-drift failure mode
+# across five of nuke-em-all's Week 1 lessons (Spanish, Hangul and Chinese
+# bleeding into the transcript). Metadata is attacker-adjacent in the same way —
+# a Russian, Japanese or Arabic title appended to an English prompt is the same
+# mistake arriving through a different door. Non-Latin-script candidates are
+# therefore DROPPED, not transliterated.
+#
+# ⚠️ Whisper's prompt window is ~224 tokens. This is a SELECTION problem, not a
+# dump: past the window the decoder silently truncates, and what falls off the
+# end is whatever was appended last.
+
+PROMPT_TOKEN_BUDGET = 224      # half of Whisper's n_text_ctx=448
+PROMPT_CHARS_PER_TOKEN = 3.0   # deliberately pessimistic — rare technical terms
+                               # tokenize worse than prose, and overshooting the
+                               # window fails silently.
+_NON_LATIN_RE = re.compile(
+    r"[\u0400-\u04FF\u0500-\u052F"      # Cyrillic
+    r"\u0590-\u05FF\u0600-\u06FF"       # Hebrew, Arabic
+    r"\u0900-\u097F\u0E00-\u0E7F"       # Devanagari, Thai
+    r"\u3040-\u30FF\u3400-\u4DBF"       # Kana, CJK ext-A
+    r"\u4E00-\u9FFF\uAC00-\uD7AF]"      # CJK, Hangul
+)
+
+def _looks_technical(tok):
+    """A term worth spending prompt budget on: CamelCase, ALLCAPS, or carrying a
+    digit. Ordinary prose words are already well within Whisper's language model
+    and buy nothing; node names and version strings are precisely what it fumbles."""
+    if len(tok) < 2 or len(tok) > 30:
+        return False
+    if any(c.isdigit() for c in tok):
+        return True
+    if tok.isupper():
+        return True
+    return tok[0].isupper() and any(c.isupper() for c in tok[1:])
+
+def build_video_prompt(base_hint, info, budget_tokens=PROMPT_TOKEN_BUDGET):
+    """
+    Extend this skill's static vocab hint with terms from THIS video's metadata,
+    highest-value first: chapter titles (they name the actual steps), then the
+    video title, then technical-looking tokens from the description.
+
+    Returns base_hint unchanged when info is empty, when priming is disabled via
+    INGEST_PROMPT_PRIMING=0, or when nothing survives the filters — so every
+    caller can pass info unconditionally.
+    """
+    if not info or os.getenv("INGEST_PROMPT_PRIMING", "1").lower() in ("0", "false", "no"):
+        return base_hint
+    cands = []
+    for ch in (info.get("chapters") or []):
+        t = (ch.get("title") or "").strip()
+        if t:
+            cands.append(t)
+    title = (info.get("title") or "").strip()
+    if title:
+        cands.append(title)
+    for tok in re.findall(r"[A-Za-z][\w.+#/-]{1,29}", info.get("description") or ""):
+        if _looks_technical(tok):
+            cands.append(tok)
+
+    budget_chars = int(budget_tokens * PROMPT_CHARS_PER_TOKEN)
+    seen = {w.lower() for w in re.findall(r"[A-Za-z][\w+#-]*", base_hint)}
+    picked, used = [], len(base_hint)
+    for cand in cands:
+        cand = re.sub(r"\s+", " ", cand).strip(" -–—:|.,")
+        if not cand or len(cand) > 80:
+            continue
+        if _NON_LATIN_RE.search(cand):
+            continue          # see the LANGUAGE GUARD note above
+        key = cand.lower()
+        if key in seen:
+            continue
+        if used + len(cand) + 2 > budget_chars:
+            break             # budget is spent; drop the rest rather than
+                              # letting Whisper truncate at an arbitrary point
+        seen.add(key)
+        picked.append(cand)
+        used += len(cand) + 2
+    return base_hint + ". " + ", ".join(picked) if picked else base_hint
+
+def whisper_transcribe(audio_path, model_name, info=None):
     model = _load_whisper_model(model_name)
     # initial_prompt biases decoding toward this skill's vocabulary — without it
     # Whisper mis-hears domain terms (e.g. "COPs" -> "cups", "Houdini" -> "Odini").
-    return model.transcribe(str(audio_path), initial_prompt=WHISPER_VOCAB_HINT)
+    # `info` is optional so every existing caller keeps working; when supplied,
+    # the video's own title/chapters/description extend the hint (§3.7 item 2).
+    prompt = build_video_prompt(WHISPER_VOCAB_HINT, info)
+    return model.transcribe(str(audio_path), initial_prompt=prompt)
 
 def download_audio(url, tmp):
     out = str(tmp / "audio.%(ext)s")
@@ -167,25 +264,149 @@ def download_audio(url, tmp):
             return f
     raise FileNotFoundError("Audio file not found after download")
 
-def ytdlp_captions(url, tmp):
-    subprocess.run(
-        _ytdlp_cmd() + ["--write-auto-subs", "--sub-lang", "en",
-         "--sub-format", "vtt", "--skip-download", "--no-playlist",
-         "-o", str(tmp / "%(id)s"), url],
-        capture_output=True, timeout=120
-    )
-    for f in tmp.glob("*.vtt"):
-        raw = f.read_text(encoding="utf-8", errors="ignore")
-        lines = []
-        for line in raw.splitlines():
-            if "-->" in line or line.startswith("WEBVTT") or line.strip().isdigit():
+# ── Caption cross-check (ULTIMATE_PIPELINE_PLAN.md §3.7 item 1) ────────────────
+#
+# YouTube hands us a SECOND, INDEPENDENT ASR transcript for free, from a
+# different vendor. Until 2026-09-03 it was thrown away twice over: captions
+# were fetched only when Whisper FAILED, and the parser then discarded the cue
+# timings, flattening everything into one string.
+#
+# ⚠️ The asymmetry that makes this worth keeping: Whisper FABRICATES over
+# silence (§3.3 shape 1 — 3.2s at −75.7 dB became segments of 0.02-0.08s);
+# Google's ASR generally emits NOTHING there. So a Whisper segment with no
+# caption counterpart anywhere in its window is a fabrication CANDIDATE, and
+# that is §3.3's shapes 1, 2, 4 and 5 caught MECHANICALLY — the class that cost
+# a manual slice re-decode every single time on the local course.
+#
+# ⚠️ AND THE LIMIT, which is not optional: auto-captions carry their own errors.
+# Disagreement means "LOOK HERE". It never means "Whisper is wrong." Nothing
+# below edits, deletes, reorders or overrides a Whisper segment — it reports,
+# and a human or a later extraction pass decides.
+
+_VTT_TIME_RE = re.compile(
+    r"(\d{1,2}):(\d{2}):(\d{2})[.,](\d{3})\s*-->\s*(\d{1,2}):(\d{2}):(\d{2})[.,](\d{3})"
+)
+
+def _vtt_secs(h, m, s, ms):
+    return int(h) * 3600 + int(m) * 60 + int(s) + int(ms) / 1000.0
+
+def ytdlp_caption_cues(url, tmp):
+    """
+    Fetch YouTube's auto-captions and return [(start, end, text), ...] with the
+    cue TIMINGS INTACT. The timings are the entire point: a second transcript
+    with no clock cannot be aligned against Whisper's segments, which is why the
+    old flat-string parser was useless as a witness even though it already had
+    the data in hand.
+
+    Returns [] when no caption track exists — common on small channels. Every
+    caller must read [] as "NO WITNESS AVAILABLE", never as "no problems found".
+    """
+    try:
+        subprocess.run(
+            _ytdlp_cmd() + ["--write-auto-subs", "--sub-lang", "en",
+             "--sub-format", "vtt", "--skip-download", "--no-playlist",
+             "-o", str(tmp / "%(id)s"), url],
+            capture_output=True, timeout=120
+        )
+    except Exception:
+        return []
+    for f in sorted(tmp.glob("*.vtt")):
+        cues, start, end, buf = [], None, None, []
+        for line in f.read_text(encoding="utf-8", errors="ignore").splitlines():
+            m = _VTT_TIME_RE.search(line)
+            if m:
+                if start is not None:
+                    txt = re.sub(r"\s+", " ", " ".join(buf)).strip()
+                    if txt and (not cues or cues[-1][2] != txt):
+                        cues.append((start, end, txt))
+                g = m.groups()
+                start, end, buf = _vtt_secs(*g[:4]), _vtt_secs(*g[4:]), []
                 continue
+            if line.startswith("WEBVTT") or line.strip().isdigit() or not line.strip():
+                continue
+            # YouTube's rolling auto-captions embed per-word timing tags
+            # (<00:00:01.234><c>word</c>) — strip the markup, keep the words.
             clean = re.sub(r"<[^>]+>", "", line).strip()
-            if clean and (not lines or clean != lines[-1]):
-                lines.append(clean)
-        f.unlink()
-        return " ".join(lines)
-    return ""
+            if clean:
+                buf.append(clean)
+        if start is not None:
+            txt = re.sub(r"\s+", " ", " ".join(buf)).strip()
+            if txt and (not cues or cues[-1][2] != txt):
+                cues.append((start, end, txt))
+        try:
+            f.unlink()
+        except OSError:
+            pass
+        if cues:
+            return cues
+    return []
+
+def ytdlp_captions(url, tmp):
+    """Flat caption text with no timings — the Whisper-failed fallback path's
+    original contract, unchanged. Now derived from ytdlp_caption_cues() so there
+    is ONE VTT parser in this file rather than two free to drift apart."""
+    return " ".join(t for _, _, t in ytdlp_caption_cues(url, tmp))
+
+# Tuned to keep this a pointer, not a second flag storm. The corpus lesson from
+# §3.4 applies verbatim: the flag list is not the defect list.
+CROSSCHECK_MIN_CUES = 10     # below this the caption track is too sparse to be
+                             # evidence of anything; treat as "no witness".
+CROSSCHECK_PAD_SEC = 2.0     # the two ASRs drift; only a total miss counts.
+CROSSCHECK_MIN_CHARS = 15    # short interjections are noise on both sides.
+CROSSCHECK_MAX_REPORT = 10   # cap what reaches the safeguard box.
+
+def caption_crosscheck(segments, cues):
+    """
+    Return the Whisper segments that NO caption cue overlaps, as
+    [{start, end, text}, ...] — fabrication CANDIDATES, in the §3.3 sense.
+
+    Three deliberate suppressions, each one a false-positive class:
+      * fewer than CROSSCHECK_MIN_CUES cues -> return [] outright. A sparse or
+        absent caption track is missing evidence, not exculpatory evidence.
+      * only judge inside the span the caption track actually covers. Captions
+        routinely start late and stop early; a Whisper segment beyond either end
+        is uncovered, not contradicted.
+      * require CROSSCHECK_PAD_SEC of clearance on both sides, because the two
+        decoders disagree about boundaries constantly without disagreeing about
+        content.
+
+    ⚠️ A hit is a REASON TO LISTEN, never a verdict. See the module note above.
+    """
+    if len(cues) < CROSSCHECK_MIN_CUES:
+        return []
+    cue_lo = min(c[0] for c in cues)
+    cue_hi = max(c[1] for c in cues)
+    out = []
+    for seg in segments:
+        s, e = seg.get("start"), seg.get("end")
+        text = (seg.get("text") or "").strip()
+        if s is None or e is None or len(text) < CROSSCHECK_MIN_CHARS:
+            continue
+        if s < cue_lo or e > cue_hi:
+            continue
+        lo, hi = s - CROSSCHECK_PAD_SEC, e + CROSSCHECK_PAD_SEC
+        if any(cs < hi and ce > lo for cs, ce, _ in cues):
+            continue
+        out.append({"start": s, "end": e, "text": text})
+    return out
+
+def caption_crosscheck_note(flags, n_cues):
+    """One safeguard-report line, or None when there is nothing to say. Kept
+    beside the detector so the WORDING cannot drift from the rule — the note has
+    to carry the limit, or a future reader treats a candidate as a finding."""
+    if not flags:
+        return None
+    shown = flags[:CROSSCHECK_MAX_REPORT]
+    spans = "; ".join(f"{f['start']:.1f}-{f['end']:.1f}s \"{f['text'][:60]}\"" for f in shown)
+    more = f" (+{len(flags) - len(shown)} more)" if len(flags) > len(shown) else ""
+    return (
+        f"Caption cross-check: {len(flags)} Whisper span(s) have NO counterpart in "
+        f"YouTube's {n_cues}-cue auto-caption track. Whisper fabricates over silence "
+        f"where Google's ASR usually emits nothing, so these are the spans worth "
+        f"listening to first. NOT a verdict — auto-captions have their own errors, "
+        f"and disagreement means 'look here', never 'Whisper is wrong'. Spans: "
+        f"{spans}{more}"
+    )
 
 def segment_by_chapters(transcript, chapters):
     """
@@ -801,13 +1022,30 @@ def main():
         # 2. Transcript (per-sentence timestamps preserved — see segment_by_chapters)
         ch_transcripts = []
         used_captions_fallback = False
+        _cap_note = None
         if is_yt:
             if has_whisper:
                 print(f"[2/4] Downloading audio + transcribing with Whisper ({args.whisper_model})...")
                 try:
                     audio = download_audio(args.url, tmp)
-                    transcript = whisper_transcribe(audio, args.whisper_model)
+                    transcript = whisper_transcribe(audio, args.whisper_model, info)
                     ch_transcripts = segment_by_chapters(transcript, chapters)
+                    # §3.7 item 1: a second, independent ASR pass we already had
+                    # access to and were discarding. Report-only -- see
+                    # caption_crosscheck() for why it never overrules Whisper.
+                    if os.getenv("INGEST_CAPTION_CROSSCHECK", "1").lower() not in ("0", "false", "no"):
+                        try:
+                            _cues = ytdlp_caption_cues(args.url, tmp)
+                            _cap_flags = caption_crosscheck(transcript.get("segments", []), _cues)
+                            _cap_note = caption_crosscheck_note(_cap_flags, len(_cues))
+                            if _cues:
+                                print(f"      caption cross-check: {len(_cues)} cues, "
+                                      f"{len(_cap_flags)} unsupported span(s)")
+                            else:
+                                print("      caption cross-check: no caption track "
+                                      "(no second witness available -- not a clean result)")
+                        except Exception as _e:
+                            print(f"      caption cross-check skipped ({_e})")
                     print(f"      {len(transcript.get('segments',[]))} segments -> {len(ch_transcripts)} sections")
                 except Exception as e:
                     print(f"      Whisper failed ({e}), using yt-dlp captions")
@@ -839,6 +1077,8 @@ def main():
         # Safeguard checks — transcript completeness/hallucination only; frame-count
         # validation now happens in select_frames.py once real timestamps are chosen.
         sg_warnings, sg_critical = run_safeguards(ch_transcripts)
+        if _cap_note:
+            sg_warnings.append(_cap_note)
         _promo = promo_hint_at_ingest(ch_transcripts, info.get("duration", 0))
         if _promo:
             sg_warnings.append(_promo)

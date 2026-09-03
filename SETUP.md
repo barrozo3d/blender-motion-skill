@@ -270,3 +270,45 @@ python select_frames.py <slug> <ts1> <ts2> ... --force
 ```
 
 (timestamps are listed in the tutorial file's "Captured Frames" section).
+
+## Ingest environment variables
+
+Three knobs, all optional, all read at ingest time. Defaults are what every
+batch run has used — set them only for a specific reason.
+
+| variable | default | what it does |
+|---|---|---|
+| `INGEST_FRAME_HEIGHT` | per-skill (see above) | max height for the frame-capture download |
+| `INGEST_PROMPT_PRIMING` | `1` (on) | extend Whisper's `initial_prompt` with this video's own title, chapter titles and technical description terms |
+| `INGEST_CAPTION_CROSSCHECK` | `1` (on) | fetch YouTube's auto-captions as a second, independent ASR witness and report Whisper spans it does not support |
+
+```
+# PowerShell
+$env:INGEST_PROMPT_PRIMING = "0"; python ingest.py <url>
+# bash
+INGEST_CAPTION_CROSSCHECK=0 python ingest.py <url>
+```
+
+**`INGEST_PROMPT_PRIMING`** — a tutorial description usually names the exact
+nodes being demonstrated, and `--dump-json` already fetched it before any audio
+is decoded. Priming makes Whisper far likelier to emit `Cull Volume` than
+`call volume`, attacking the mishear class at the source instead of detecting it
+afterwards. Candidates are ranked chapter titles → video title → technical
+tokens from the description, capped at Whisper's ~224-token prompt window.
+
+> ⚠️ Non-Latin-script metadata is **dropped, never transliterated**. A
+> wrong-language `initial_prompt` is the single most expensive bug in this
+> pipeline's history — an English hint driving a Russian decode bled Spanish,
+> Hangul and Chinese into five lessons. A Japanese title appended to an English
+> prompt is that same mistake through a different door.
+
+**`INGEST_CAPTION_CROSSCHECK`** — Whisper fabricates over silence; Google's ASR
+generally emits nothing there. So a Whisper segment with no caption counterpart
+in its window is a fabrication *candidate*, reported in the Ingest Safeguard
+Report. Turn it off to skip one extra yt-dlp call per ingest.
+
+> ⚠️ It reports, it never overrules. Auto-captions carry their own errors, so
+> disagreement means "listen to this span", not "Whisper is wrong". An empty
+> result can also mean the video simply has no caption track — **no witness
+> available is not the same as no problems found**, and the run prints which of
+> the two it got.

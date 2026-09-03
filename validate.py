@@ -898,7 +898,18 @@ SHARED_FUNCS = ("slugify", "download_audio", "ytdlp_captions", "segment_by_chapt
                 # added 2026-08-24 (D4b): vendor-doc ingest made this
                 # consequential -- it decides how much of a doc page is
                 # kept and whether navigation chrome crowds it out.
-                "fetch_article")
+                "fetch_article",
+                # added 2026-09-03 (plan §3.7 items 1-2): the caption
+                # cross-check and per-video prompt priming. Both carry a limit
+                # that is the whole point and is easy to lose in a copy --
+                # caption_crosscheck_note() must keep saying disagreement means
+                # "look here" and never "Whisper is wrong", and
+                # build_video_prompt() must keep DROPPING non-Latin metadata.
+                # A drifted copy that quietly lost either would look like it
+                # still worked while re-creating the Week 1 language disaster.
+                "ytdlp_caption_cues", "caption_crosscheck",
+                "caption_crosscheck_note", "build_video_prompt",
+                "_looks_technical", "whisper_transcribe")
 
 # Recorded intentional divergences. A difference listed here is a decision, not
 # drift -- but each is PINNED to the two source variants it was reviewed against
