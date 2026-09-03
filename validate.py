@@ -927,7 +927,15 @@ SHARED_FUNCS = ("slugify", "download_audio", "ytdlp_captions", "segment_by_chapt
                 # a copy that drifts into treating the slice as the better
                 # reading inverts the finding. A slice can degenerate too.
                 "cluster_flag_spans", "redecode_slice", "slice_agreement",
-                "slice_redecode_note")
+                "slice_redecode_note",
+                # §3.6 source-max escalation + the client logic it shares with
+                # download_video_low, added 2026-09-03. A copy that loses
+                # _frame_client_attempts() silently returns 360p from the
+                # android client -- WORSE than the 720p baseline the
+                # escalation exists to improve, and it would look like it
+                # worked.
+                "_frame_client_attempts", "capture_frame_at_source_max",
+                "_probe_height")
 
 # Recorded intentional divergences. A difference listed here is a decision, not
 # drift -- but each is PINNED to the two source variants it was reviewed against

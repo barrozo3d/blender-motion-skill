@@ -569,6 +569,114 @@ def segment_by_chapters(transcript, chapters):
 DEFAULT_FRAME_HEIGHT = "720"
 
 
+
+def _frame_client_attempts():
+    """yt-dlp base commands to try for a VIDEO download, best client first.
+
+    Extracted from download_video_low() so the source-max escalation below uses
+    exactly the same client logic instead of a second copy that could drift.
+    See download_video_low()'s docstring for why web_embedded is required: the
+    `android` client four skills force exposes ONE muxed 640x360 stream, so any
+    height selector silently falls through to 360p. Audio stays on android --
+    that is E3b's decision and this does not reopen it."""
+    base = _ytdlp_cmd()
+    if "--cookies" in base:
+        return [base]
+    stripped, i = [], 0
+    while i < len(base):
+        if (base[i] == "--extractor-args" and i + 1 < len(base)
+                and base[i + 1].startswith("youtube:player_client")):
+            i += 2
+            continue
+        stripped.append(base[i])
+        i += 1
+    preferred = stripped + ["--extractor-args", "youtube:player_client=web_embedded"]
+    return [preferred] if preferred == base else [preferred, base]
+
+
+# ── Source-max frame escalation (ULTIMATE_PIPELINE_PLAN.md §3.6) ──────────────
+#
+# ⚠️ This is the ANSWER TO OPEN QUESTION 5, and it is deliberately NOT a bulk
+# reground. Measured 2026-09-03: 98.0% of houdini-wand's 3,205 frames, 98.6% of
+# nuke-em-all's 590 and 100% of paint-me's 899 sit in the 720-1079 band, and
+# NONE are >=1080 -- so "reground the corpus at 1080" would mean re-downloading
+# ~590 tutorials, not a subset. Against that: the earlier campaign already took
+# readability from 3.5% to 95%, nothing is illegible, and since Phase 0 new
+# ingests already default to 1080 for the dense-UI skills, so the gap closes on
+# its own going forward. Frames are also gitignored and device-local, so a bulk
+# reground here would not help the other machine at all.
+#
+# The cost is therefore spent only where 720 vs 1080 can change an OUTCOME:
+# §3.2's frame arbitration, where a frame is being used to decide a transcript
+# word. wk8-05's "call the velocity" is really "cull", and only the `Cull Volume`
+# parameter visible in frame settled it. That is the case worth a fresh grab.
+#
+# ⚠️ VERIFIED 2026-09-03, because §3.6 flagged it untested: `--download-sections`
+# with `--force-keyframes-at-cuts` works against these sources -- a 10s section
+# fetched in 2.4s. But the FIRST verification came back 640x360, because the
+# default client caps there; without _frame_client_attempts() this escalation
+# would have returned frames WORSE than the 720p baseline it exists to improve.
+
+FRAME_SECTION_WINDOW = 6.0     # seconds around the timestamp to fetch
+
+
+def capture_frame_at_source_max(url, timestamp, out_path, tmp,
+                                window=FRAME_SECTION_WINDOW):
+    """Re-fetch a few seconds around `timestamp` at the source's best height and
+    extract one frame. Returns (path, height) or (None, reason).
+
+    Downloads a SECTION, not the file: a targeted grab is seconds, which is what
+    removes the cost argument behind the 720p batch cap for this one case."""
+    lo = max(0.0, timestamp - window / 2.0)
+    hi = lo + window
+    fmt = "bestvideo[ext=mp4]/bestvideo/best"
+    clip = Path(tmp) / f"atmax_{int(timestamp)}.%(ext)s"
+    got = None
+    for base in _frame_client_attempts():
+        cmd = base + ["-f", fmt, "--download-sections", f"*{lo}-{hi}",
+                      "--force-keyframes-at-cuts", "--no-playlist",
+                      "-o", str(clip), url]
+        try:
+            subprocess.run(cmd, capture_output=True, timeout=300, check=True)
+        except Exception:
+            continue
+        cands = sorted(Path(tmp).glob(f"atmax_{int(timestamp)}.*"))
+        if cands:
+            got = cands[0]
+            break
+    if not got:
+        return None, "section download failed on every player client"
+
+    h = _probe_height(got)
+    # Offset inside the clip, not the original timeline.
+    off = max(0.0, timestamp - lo)
+    try:
+        subprocess.run(
+            ["ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
+             "-ss", str(off), "-i", str(got), "-vframes", "1", "-q:v", "2",
+             str(out_path)],
+            capture_output=True, timeout=120, check=True)
+    except Exception as e:
+        return None, f"frame extract failed ({e})"
+    finally:
+        try:
+            got.unlink()
+        except OSError:
+            pass
+    return out_path, h
+
+
+def _probe_height(video_path):
+    """Video height via ffprobe, or None."""
+    try:
+        out = subprocess.run(
+            ["ffprobe", "-v", "error", "-select_streams", "v:0",
+             "-show_entries", "stream=height", "-of", "csv=p=0", str(video_path)],
+            capture_output=True, text=True, timeout=60).stdout.strip()
+        return int(out.splitlines()[0])
+    except Exception:
+        return None
+
 def download_video_low(url, tmp):
     """
     Download the video for frame extraction, at a resolution frames can be READ at.
@@ -609,21 +717,7 @@ def download_video_low(url, tmp):
     fmt = (f"bestvideo[height<={h}][ext=mp4]/bestvideo[height<={h}]/"
            f"best[height<={h}][ext=mp4]/best[height<={h}]/best")
     out = str(tmp / "video.%(ext)s")
-    base = _ytdlp_cmd()
-    if "--cookies" in base:
-        client_attempts = [base]
-    else:
-        stripped, i = [], 0
-        while i < len(base):
-            if (base[i] == "--extractor-args" and i + 1 < len(base)
-                    and base[i + 1].startswith("youtube:player_client")):
-                i += 2
-                continue
-            stripped.append(base[i])
-            i += 1
-        preferred = stripped + ["--extractor-args",
-                                "youtube:player_client=web_embedded"]
-        client_attempts = [preferred] if preferred == base else [preferred, base]
+    client_attempts = _frame_client_attempts()
     # Same one-off YouTube throttling failures as the audio download in Step 1;
     # a single retry usually recovers (select_frames.py depends on this helper).
     last_err = None

@@ -66,6 +66,10 @@ def main():
     parser.add_argument("slug", help="Tutorial slug (tutorials/<slug>.md must exist)")
     parser.add_argument("timestamps", nargs="*",
                          help="Timestamps to capture, seconds or mm:ss (e.g. 10 60 4:20 8:05)")
+    parser.add_argument("--at-max", action="store_true",
+                         help="fetch each timestamp as a short SECTION at the source's best "
+                              "height instead of the capped whole-file download (plan §3.6) -- "
+                              "for frame ARBITRATION, when a frame is deciding a transcript word")
     parser.add_argument("--auto", type=int, metavar="N",
                          help="allocate N timestamps by SCREEN ACTIVITY (plan §3.8) -- a density "
                               "allocator, not an importance oracle; combine with your own picks")
@@ -131,7 +135,32 @@ def main():
     tmp = Path(tempfile.mkdtemp())
     try:
         print(f"[1/3] Downloading video (lowest quality) for {args.slug}...")
-        video = ingest.download_video_low(url, tmp)
+        if args.at_max:
+            # §3.6 escalation, and the answer to open question 5: spend the cost
+            # only where 720 vs 1080 can change an OUTCOME. A section grab is
+            # seconds, so this needs no whole-file download at all.
+            # ⚠️ --auto cannot run here: activity allocation needs the whole
+            # runtime, and this deliberately never fetches it.
+            if args.auto:
+                print("ERROR: --at-max and --auto are incompatible -- activity allocation "
+                      "needs the whole video, which --at-max deliberately never downloads.")
+                sys.exit(1)
+            out_dir.mkdir(parents=True, exist_ok=True)
+            frame_paths, heights = [], []
+            for i, ts in enumerate(timestamps):
+                dst = out_dir / f"frame_{i:03d}.jpg"
+                got, h = ingest.capture_frame_at_source_max(url, ts, dst, tmp)
+                if got:
+                    frame_paths.append(dst); heights.append(h)
+                    print(f"      {ts:.1f}s -> {h}p")
+                else:
+                    print(f"      {ts:.1f}s -> FAILED ({h})")
+            if heights:
+                print(f"[2/3] {len(frame_paths)}/{len(timestamps)} frame(s) at source max "
+                      f"(heights: {sorted(set(str(x) for x in heights))})")
+            video = None
+        else:
+            video = ingest.download_video_low(url, tmp)
 
         if args.auto:
             # §3.8: allocate by screen activity, per-stretch rather than one
@@ -156,8 +185,9 @@ def main():
                   f"({len(auto_ts) - len(added)} already covered)")
             timestamps = sorted(timestamps + added)
 
-        print(f"[2/3] Extracting {len(timestamps)} content-anchored frame(s)...")
-        frame_paths = ingest.extract_frames(video, timestamps, out_dir)
+        if not args.at_max:
+            print(f"[2/3] Extracting {len(timestamps)} content-anchored frame(s)...")
+            frame_paths = ingest.extract_frames(video, timestamps, out_dir)
         print(f"      {len(frame_paths)}/{len(timestamps)} frame(s) saved to "
               f"{out_dir.relative_to(SKILL_DIR)}")
 
