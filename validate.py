@@ -996,6 +996,14 @@ WATCHED_FILES = {
     # pointer into a flag storm, or silently deletes the finding it exists for.
     "hapax_scan.py": ("looks_technical", "_is_affix_variant", "build_index",
                       "find_candidates", "find_variants"),
+    # added 2026-09-03: byte-identical in all five and, until now, ungated --
+    # the same blind spot course_engine_loader.py had. It is the only tool that
+    # measures the ANSWER PATH, and check #10 reads its numbers, so a drifted
+    # copy would report a different retrieval score for the same corpus. The
+    # provenance split in particular is a measurement whose whole value is that
+    # every skill computes it the same way.
+    "retrieval_test.py": ("tok", "index_blocks", "core_technique", "provenance",
+                          "record_baseline", "run"),
     "validate.py": ("get_transcript_text", "get_notes_content",
                     "parse_duration_secs", "is_youtube_source",
                     "get_tutorial_files", "parse_index_refs",

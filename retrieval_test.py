@@ -50,6 +50,29 @@ READ THE HEADLINE NUMBER CORRECTLY -- IT IS A FLOOR, NOT A CEILING
   TWO entries. Not 204. Do NOT read the single-query figure as a mandate to
   restructure INDEX.md -- that conclusion was drawn once, on 2026-08-31, and the
   reachability run retired it the same day.
+
+LOCAL vs ONLINE -- the split, added 2026-09-03 (plan section 3.7)
+  A skill's entries arrive by two different pipelines: `ingest.py` from YouTube,
+  and the course scripts from local video. They write INDEX blocks through
+  different code, and whether they retrieve EQUALLY well had only ever been
+  asserted. The run now reports top-k per provenance, plus the gap between them,
+  read from each block's own `**Source:**` line.
+
+  ⚠️ A GAP IS NOT AUTOMATICALLY A DEFECT, AND THE FIRST ONE MEASURED WAS NOT.
+  houdini-wand, 2026-09-03: local 63% top-5 (115 entries) vs online 72% (494),
+  a -9 pt gap. It is mostly the local entries crowding EACH OTHER, not the
+  local pipeline writing worse blocks -- of the 203 top-5 slots sitting above a
+  missed local entry, 36% are held by other local entries, against an 18%
+  corpus share. Twice over-represented. A course is one instructor over one
+  subject, so its entries compete for the same narrow vocabulary in a way a
+  grab-bag of YouTube tutorials does not.
+
+  So: read the gap as a fact to EXPLAIN, not a regression to chase, and re-run
+  that occupancy check before concluding a pipeline is at fault.
+
+  ⚠️ Only houdini-wand and nuke-em-all have both classes today; the other three
+  are effectively single-provenance, and the run says so explicitly rather than
+  printing a one-sided split that would read as parity.
 """
 import argparse
 import collections
@@ -107,6 +130,30 @@ def core_technique(path):
 BASELINE = 'retrieval_baseline.json'
 
 
+PROV_ORDER = ('local', 'online', 'other')
+
+
+def provenance(block):
+    """Which pipeline produced this entry: 'local' (course), 'online' (YouTube),
+    or 'other' (articles, vendor docs).
+
+    ⚠️ Read from the INDEX block's own `**Source:**` line, which is the only
+    provenance marker every entry carries. `validate.py::is_youtube_source()`
+    reads the same field out of the TUTORIAL file; this one reads INDEX because
+    that is the document being searched, and an entry with no block is already
+    counted as not-tested above.
+    """
+    m = re.search(r'\*\*Source:\*\*\s*(.+)', block)
+    if not m:
+        return 'other'
+    s = m.group(1).lower()
+    if 'local course' in s:
+        return 'local'
+    if 'youtube' in s:
+        return 'online'
+    return 'other'
+
+
 def baseline_path(skill):
     return os.path.join(SKILLS_ROOT, skill, BASELINE)
 
@@ -131,6 +178,10 @@ def record_baseline(skill, r):
             'rank1_pct': 100 * r['r1'] // max(r['tested'], 1),
             'top5_pct': 100 * r['topk'] // max(r['tested'], 1),
             'unreachable_single_query': r['absent'],
+            # per-pipeline, so a future run can see WHICH side moved. Absent
+            # classes are simply not written -- an empty key would read as 0%.
+            'by_provenance': {k: {'entries': v['tested'], 'top5_pct': v['pct']}
+                              for k, v in (r.get('by_prov') or {}).items()},
             'recorded': str(date.today())}
     with io.open(baseline_path(skill), 'w', encoding='utf-8') as fh:
         json.dump(data, fh, indent=2)
@@ -145,6 +196,7 @@ def run(skill, nterms, topk, verbose):
         return None
 
     btok = {slug: set(tok(txt)) for slug, txt in blocks.items()}
+    bprov = {slug: provenance(txt) for slug, txt in blocks.items()}
     # the skill's own tag vocabulary = its definition of searchable domain terms
     tagvocab = set()
     for txt in blocks.values():
@@ -161,6 +213,7 @@ def run(skill, nterms, topk, verbose):
     N = max(len(btok), 1)
 
     ranks, no_ct, no_block, misses = [], 0, 0, []
+    prov_ranks = collections.defaultdict(list)
     for fn in sorted(os.listdir(tdir)):
         if not fn.endswith('.md') or fn == 'INDEX.md':
             continue
@@ -195,6 +248,7 @@ def run(skill, nterms, topk, verbose):
         scored.sort(key=lambda x: (-x[0], -x[1], x[2]))
         pos = next((i + 1 for i, r in enumerate(scored) if r[2] == slug), None)
         ranks.append(pos)
+        prov_ranks[bprov.get(slug, 'other')].append(pos)
         if pos is None or pos > topk:
             misses.append((pos, slug, query, len(scored)))
 
@@ -208,12 +262,42 @@ def run(skill, nterms, topk, verbose):
     # the coverage rule
     print('        not tested: %d entry with no Core Technique, %d tutorial with no INDEX block'
           % (no_ct, no_block))
+    # ⚠️ THE LOCAL-vs-ONLINE SPLIT (plan §3.7). The two pipelines write INDEX
+    # blocks by different routes, and the claim that they retrieve equally well
+    # was only ever an assertion. Split the score and the gap is an observed
+    # number that either closes or does not.
+    by_prov = {}
+    for name in PROV_ORDER:
+        rs = prov_ranks.get(name, [])
+        if not rs:
+            continue
+        hit = sum(1 for r in rs if r and r <= topk)
+        by_prov[name] = dict(tested=len(rs), topk=hit,
+                             pct=100 * hit // max(len(rs), 1))
+    if len(by_prov) > 1:
+        print('        by provenance:')
+        for name in PROV_ORDER:
+            d = by_prov.get(name)
+            if d:
+                print('          %-7s %4d entries | top-%d %4d (%3d%%)'
+                      % (name, d['tested'], topk, d['topk'], d['pct']))
+        if 'local' in by_prov and 'online' in by_prov:
+            gap = by_prov['local']['pct'] - by_prov['online']['pct']
+            print('          gap local-online: %+d pt' % gap)
+    # the coverage rule again: say which classes this corpus does NOT contain,
+    # so a single-provenance skill reads as "nothing to compare", not as parity.
+    absent_prov = [n for n in PROV_ORDER if n not in by_prov]
+    if absent_prov:
+        print('        provenance not present in this corpus: %s%s'
+              % (', '.join(absent_prov),
+                 ' -- no split to measure' if len(by_prov) <= 1 else ''))
     if verbose and misses:
         print('        worst misses:')
         for pos, slug, q, n in sorted(misses, key=lambda x: (x[0] is not None, -(x[0] or 0)))[:8]:
             print('          rank %-5s %-52s q=%s (%d hits)'
                   % (pos if pos else 'NONE', slug[:52], ','.join(q), n))
-    return dict(tested=len(ranks), r1=r1, topk=rk, absent=absent, misses=misses)
+    return dict(tested=len(ranks), r1=r1, topk=rk, absent=absent, misses=misses,
+                by_prov=by_prov)
 
 
 if __name__ == '__main__':
