@@ -859,6 +859,7 @@ def main():
 
     print("\n[drift] Checking shared-script sync with sibling skills...")
     check_script_drift()
+    check_vendored_engine()
 
     print("\n" + "=" * 60)
     if failures:
@@ -970,6 +971,56 @@ WATCHED_FILES = {
 def _srchash(src):
     """Short content hash of a function's source, for pinning recorded divergences."""
     return hashlib.sha256(src.encode("utf-8")).hexdigest()[:12]
+
+
+def check_vendored_engine():
+    """
+    ULTIMATE_PIPELINE_PLAN.md §2.2: fail when a vendored course_engine snapshot is
+    OLDER than the _shared/ package on a device holding both.
+
+    ⚠️ This is the half the runtime loader CANNOT cover. course_engine_loader.py
+    prints its provenance on every run, but only when a course script actually
+    runs -- a stale snapshot can sit committed for days between runs, and get
+    pushed to the other machine, without anyone invoking the pipeline. The gate
+    that runs on every validate is where that gets caught.
+
+    ⚠️ Absence is not failure. A skill with no vendor/ has no course pipeline, and
+    a device without _shared/ cannot know whether its snapshot is behind -- both
+    are reported as NOT CHECKED rather than passed, per the coverage rule.
+    """
+    import hashlib
+    here = os.path.dirname(os.path.abspath(__file__))
+    skills_root = os.path.dirname(here)
+    vendor = os.path.join(here, "vendor", "course_engine")
+    shared = os.path.join(skills_root, "_shared", "course_engine")
+
+    def digest(pkg):
+        h = hashlib.sha256()
+        for root, _, files in sorted(os.walk(pkg)):
+            for f in sorted(files):
+                if not f.endswith(".py"):
+                    continue
+                p = os.path.join(root, f)
+                h.update(os.path.relpath(p, pkg).replace("\\", "/").encode())
+                with open(p, "rb") as fh:
+                    h.update(fh.read())
+        return h.hexdigest()[:12]
+
+    print("\n[engine] Checking vendored course_engine snapshot...")
+    if not os.path.isdir(vendor):
+        print("    not examined: this skill vendors no course_engine (no course pipeline).")
+        return
+    if not os.path.isdir(shared):
+        print("    not examined: _shared/course_engine is absent on this device --")
+        print("    a snapshot cannot be compared against a package that is not here.")
+        return
+    dv, ds = digest(vendor), digest(shared)
+    if dv == ds:
+        print(f"  Vendored snapshot matches _shared/ ({ds}).")
+        return
+    print(f"  VENDOR DRIFT: snapshot {dv} != _shared/ {ds}")
+    print("    Regenerate with: python _shared/sync_vendor.py  (and commit the result)")
+    fail(f"vendored course_engine snapshot ({dv}) differs from _shared/ ({ds})")
 
 
 def check_script_drift():

@@ -300,6 +300,19 @@ def ytdlp_caption_cues(url, tmp):
 
     Returns [] when no caption track exists — common on small channels. Every
     caller must read [] as "NO WITNESS AVAILABLE", never as "no problems found".
+
+    ⚠️ ENGLISH IS HARDCODED (`--sub-lang en`), and that is an assumption, not a
+    fact about the world. All five skills' online paths are English-facing today,
+    so it holds — but a non-English tutorial returns [] here and the run reports
+    "no caption track", which is indistinguishable from a video that genuinely
+    has none. It degrades safely and says so, which is why this is documented
+    rather than urgent.
+
+    ⚠️ Note the asymmetry with §3.7 item 2 next door: `build_video_prompt()`
+    makes its language assumption EXPLICIT and enforced (non-Latin metadata is
+    dropped). This function makes the same class of assumption silently. When
+    the online path gains a PROFILE dict (Phase 2 onward), the caption language
+    belongs in it beside the prompt's — one language decision, one place.
     """
     try:
         subprocess.run(
