@@ -64,8 +64,11 @@ def main():
         description="Extract content-anchored frames for a collected tutorial (Step 2)"
     )
     parser.add_argument("slug", help="Tutorial slug (tutorials/<slug>.md must exist)")
-    parser.add_argument("timestamps", nargs="+",
+    parser.add_argument("timestamps", nargs="*",
                          help="Timestamps to capture, seconds or mm:ss (e.g. 10 60 4:20 8:05)")
+    parser.add_argument("--from-flags", action="store_true",
+                         help="also capture the ingest's uncertainty_frames (plan §3.7 item 4) -- "
+                              "the spans where Whisper and YouTube's captions disagreed")
     parser.add_argument("--force", action="store_true",
                          help="Re-capture even if frame_status is already 'complete'")
     args = parser.parse_args()
@@ -90,6 +93,26 @@ def main():
         sys.exit(1)
 
     timestamps = [parse_timestamp(t) for t in args.timestamps]
+    if args.from_flags:
+        # §3.7 item 4: aim the frame budget at what the detectors distrust.
+        # ⚠️ These come from Step 1's caption cross-check and mean "the two ASRs
+        # disagreed here", NOT "this is an important moment". Combine them with
+        # content-anchored picks; they are not a substitute for reading the
+        # transcript.
+        raw = read_frontmatter_field(content, "uncertainty_frames") or ""
+        flagged = [float(x) for x in re.findall(r"[-+]?\d*\.?\d+", raw)]
+        if not flagged:
+            print("      --from-flags: no uncertainty_frames recorded for this tutorial.")
+        else:
+            added = [t for t in flagged if all(abs(t - e) > 1.0 for e in timestamps)]
+            print(f"      --from-flags: +{len(added)} uncertainty timestamp(s) "
+                  f"({len(flagged) - len(added)} already covered)")
+            timestamps += added
+        timestamps.sort()
+    if not timestamps:
+        print("ERROR: no timestamps given and none found. Pass timestamps, or --from-flags "
+              "on a tutorial that recorded uncertainty_frames.")
+        sys.exit(1)
     out_dir = ingest.FRAMES_DIR / args.slug
 
     # On a re-capture (--force), clear any frames from a previous run first —

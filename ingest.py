@@ -736,8 +736,50 @@ def append_safeguard_note(content, note, level="WARNING"):
 
 # ── Build raw .md ──────────────────────────────────────────────────────────────
 
+
+# §3.7 item 4 -- spend the frame budget where the transcript is UNCERTAIN.
+#
+# ⚠️ The plan's wording for this item is STALE, written against an older
+# pipeline: "capture extra frames at flagged timestamps, IN THE SAME RUN while
+# the video is still in the temp directory". ingest.py no longer downloads video
+# at all -- frame capture moved to Step 2 (select_frames.py) so a human or model
+# picks content-anchored moments instead of the script guessing. There is no
+# video in temp to spend frames from.
+#
+# So the item is implemented as a HANDOFF rather than a capture: Step 1 records
+# the timestamps its detectors distrust, and Step 2 spends frames there via
+# `select_frames.py <slug> --from-flags`. Same intent -- aim the budget at
+# uncertainty -- adapted to where the video actually lives now.
+#
+# ⚠️ These are the CROSS-CHECK's spans. They say "the two ASRs disagree here",
+# never "this is what matters in the video". Richness-directed selection (§3.8)
+# is a different signal and does not come from this field.
+
+def uncertainty_timestamps(cap_flags, limit=8):
+    """Distinct, rounded start times from caption cross-check flags."""
+    seen, out = set(), []
+    for f in cap_flags or []:
+        t = f.get("start")
+        if t is None:
+            continue
+        key = round(float(t), 1)
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(key)
+        if len(out) >= limit:
+            break
+    return sorted(out)
+
+
+def fmt_uncertainty(ts):
+    """Render the frontmatter list. Always emits a list, never omits the key --
+    an absent field and an empty one would be indistinguishable to Step 2, and
+    "no disagreement found" must not read the same as "never checked"."""
+    return "[" + ", ".join(f"{v:g}" for v in (ts or [])) + "]"
+
 def build_raw_md(info, ch_transcripts, slug, frame_status="pending-selection",
-                  sg_warnings=None, sg_critical=None):
+                  sg_warnings=None, sg_critical=None, uncertainty_ts=None):
     title    = info.get("title", "Unknown")
     url      = info.get("webpage_url", "")
     author   = info.get("uploader", "Unknown")
@@ -790,6 +832,7 @@ extraction_status: pending
 frames_dir: tutorials/frames/{slug}/
 frame_count: 0
 frame_status: {frame_status}
+uncertainty_frames: {fmt_uncertainty(uncertainty_ts)}
 ---
 
 # {title}
@@ -1036,6 +1079,7 @@ def main():
         ch_transcripts = []
         used_captions_fallback = False
         _cap_note = None
+        _cap_flags = []
         if is_yt:
             if has_whisper:
                 print(f"[2/4] Downloading audio + transcribing with Whisper ({args.whisper_model})...")
@@ -1101,7 +1145,8 @@ def main():
 
         # 4. Write raw .md + commit
         print("[4/4] Writing raw tutorial file...")
-        md = build_raw_md(info, ch_transcripts, slug, frame_status, sg_warnings, sg_critical)
+        md = build_raw_md(info, ch_transcripts, slug, frame_status, sg_warnings, sg_critical,
+                          uncertainty_ts=uncertainty_timestamps(_cap_flags))
         if sg_critical:
             md = md.replace("extraction_status: pending", "extraction_status: needs-review", 1)
         out_md.write_text(md, encoding="utf-8")
