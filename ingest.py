@@ -540,6 +540,118 @@ def download_video_low(url, tmp):
             return f
     raise FileNotFoundError("Video not found after download")
 
+
+# ── Frame-density allocation (ULTIMATE_PIPELINE_PLAN.md §3.8) ─────────────────
+#
+# Local course ingest ran at 62 frames/lesson (7.6/min); online ingest's median
+# is 7 across 501 files -- at least 8x. Part of that gap is a per-video attention
+# BUDGET and does not close. But WHERE the frames you can afford go is a RULE,
+# and rules port: density scales with screen activity, not with runtime. Week 6's
+# VEX-heavy lessons settled at ~4s intervals, roughly 7x denser than the stated
+# 20-30s baseline, decided entirely by what was on screen.
+#
+# ⚠️ THIS IS A DENSITY ALLOCATOR, NOT AN IMPORTANCE ORACLE, and the distinction
+# is the whole reason it is safe to automate. It decides where to sample MORE.
+# It does not decide what matters -- the transcript still does. Scene scoring is
+# NOISY on a screencast: a viewport orbit is an enormous pixel delta carrying
+# almost no information, while a value typed into a parameter field is a tiny
+# delta carrying a great deal. Never present its output as "the important
+# moments".
+#
+# ⚠️ Pairs with, and does not replace, §3.7 item 4's flag-directed spend. The two
+# cover different failure modes: richness catches what was never captured,
+# uncertainty catches what was captured wrong.
+
+DENSITY_SAMPLE_FPS = 4        # scdet at source fps is ~30x more work for no
+                              # extra signal at these window sizes.
+DENSITY_WINDOW_SEC = 5.0
+DENSITY_MIN_GAP_SEC = 3.0     # frames closer than this are near-duplicates
+
+
+def scene_activity(video_path, sample_fps=DENSITY_SAMPLE_FPS):
+    """[(time, score), ...] from ffmpeg's scdet, decimated to sample_fps.
+
+    Returns [] when ffmpeg is unavailable or the probe fails -- callers must read
+    that as "no activity signal", never as "no activity"."""
+    try:
+        r = subprocess.run(
+            ["ffmpeg", "-hide_banner", "-nostats", "-i", str(video_path),
+             "-vf", f"fps={sample_fps},scdet=threshold=0", "-f", "null", "-"],
+            capture_output=True, text=True, timeout=900,
+        )
+    except Exception:
+        return []
+    out = []
+    for m in re.finditer(r"lavfi\.scd\.score:\s*([0-9.]+),\s*lavfi\.scd\.time:\s*([0-9.]+)",
+                         r.stderr or ""):
+        out.append((float(m.group(2)), float(m.group(1))))
+    return out
+
+
+def plan_density_timestamps(video_path, n_frames, duration_sec=None,
+                            window=DENSITY_WINDOW_SEC, min_gap=DENSITY_MIN_GAP_SEC):
+    """Allocate n_frames across the runtime PROPORTIONAL TO SCREEN CHANGE.
+
+    Allocation is per-STRETCH, not per-video: one interval for a whole tutorial
+    is exactly the thing being replaced. Within a chosen window the peak-change
+    moment is taken, since that is when something on screen actually happened.
+
+    ⚠️ THE FLOOR (§3.8's Week 3 rule): never return nothing. "Even short recap /
+    homework / intro lessons tend to have real screen content -- always sample at
+    least 1-2 frames before assuming a short lesson needs zero visual
+    verification." It paid for itself twice: wk6-18's closing photograph was the
+    only content not in the transcript at all, and wk7-17's "throne, bridge,
+    cave" was settled by frames. Online, 9 corpus files already carry
+    frame_count: 0 -- a 30-second video is exactly the class that gets nothing.
+
+    Falls back to EVEN spacing when there is no activity signal, and says so via
+    the returned reason string."""
+    n_frames = max(1, int(n_frames))
+    samples = scene_activity(video_path)
+    if not samples:
+        if not duration_sec or duration_sec <= 0:
+            return [0.0], "no activity signal and no duration -- single frame at 0s"
+        step = duration_sec / (n_frames + 1)
+        return ([round(step * (i + 1), 2) for i in range(n_frames)],
+                "no activity signal (ffmpeg/scdet unavailable) -- fell back to EVEN spacing")
+
+    end = duration_sec or samples[-1][0]
+    buckets = {}
+    for t, score in samples:
+        buckets.setdefault(int(t // window), []).append((t, score))
+    if not buckets:
+        return [0.0], "no buckets"
+
+    weights = {k: sum(s for _, s in v) for k, v in buckets.items()}
+    total = sum(weights.values())
+    order = sorted(buckets, key=lambda k: (-weights[k], k))
+
+    picked = []
+    if total <= 0:
+        # A completely static video still gets frames -- the floor applies.
+        step = end / (n_frames + 1)
+        return ([round(step * (i + 1), 2) for i in range(n_frames)],
+                "zero measured change (static screen) -- fell back to EVEN spacing")
+
+    for k in order:
+        if len(picked) >= n_frames:
+            break
+        peak_t = max(buckets[k], key=lambda ts: ts[1])[0]
+        if all(abs(peak_t - p) >= min_gap for p in picked):
+            picked.append(round(peak_t, 2))
+    # Top up from evenly spaced positions if activity was too concentrated.
+    if len(picked) < n_frames:
+        step = end / (n_frames + 1)
+        for i in range(n_frames):
+            cand = round(step * (i + 1), 2)
+            if len(picked) >= n_frames:
+                break
+            if all(abs(cand - p) >= min_gap for p in picked):
+                picked.append(cand)
+    picked.sort()
+    return picked, (f"activity-weighted over {len(buckets)} window(s) of {window:g}s "
+                    f"from {len(samples)} sample(s)")
+
 def extract_frames(video_path, timestamps, out_dir):
     out_dir.mkdir(parents=True, exist_ok=True)
     frames = []

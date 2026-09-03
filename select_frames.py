@@ -66,6 +66,9 @@ def main():
     parser.add_argument("slug", help="Tutorial slug (tutorials/<slug>.md must exist)")
     parser.add_argument("timestamps", nargs="*",
                          help="Timestamps to capture, seconds or mm:ss (e.g. 10 60 4:20 8:05)")
+    parser.add_argument("--auto", type=int, metavar="N",
+                         help="allocate N timestamps by SCREEN ACTIVITY (plan §3.8) -- a density "
+                              "allocator, not an importance oracle; combine with your own picks")
     parser.add_argument("--from-flags", action="store_true",
                          help="also capture the ingest's uncertainty_frames (plan §3.7 item 4) -- "
                               "the spans where Whisper and YouTube's captions disagreed")
@@ -109,8 +112,8 @@ def main():
                   f"({len(flagged) - len(added)} already covered)")
             timestamps += added
         timestamps.sort()
-    if not timestamps:
-        print("ERROR: no timestamps given and none found. Pass timestamps, or --from-flags "
+    if not timestamps and not args.auto:
+        print("ERROR: no timestamps given and none found. Pass timestamps, --auto N, or --from-flags "
               "on a tutorial that recorded uncertainty_frames.")
         sys.exit(1)
     out_dir = ingest.FRAMES_DIR / args.slug
@@ -129,6 +132,24 @@ def main():
     try:
         print(f"[1/3] Downloading video (lowest quality) for {args.slug}...")
         video = ingest.download_video_low(url, tmp)
+
+        if args.auto:
+            # §3.8: allocate by screen activity, per-stretch rather than one
+            # interval for the whole video.
+            # ⚠️ A DENSITY allocator, not an importance oracle. It says "sample
+            # more here", never "this is what matters" -- a viewport orbit is a
+            # huge pixel delta carrying almost nothing, a typed parameter value a
+            # tiny one carrying a great deal. The transcript still decides.
+            # duration is left to the allocator: it uses the last scdet
+            # sample's time, which is the runtime it actually measured. Passing
+            # a separately-probed duration would only introduce a second source
+            # of truth for the same number.
+            auto_ts, why = ingest.plan_density_timestamps(video, args.auto)
+            added = [t for t in auto_ts if all(abs(t - e) > 1.0 for e in timestamps)]
+            print(f"      --auto: {why}")
+            print(f"      --auto: +{len(added)} timestamp(s) "
+                  f"({len(auto_ts) - len(added)} already covered)")
+            timestamps = sorted(timestamps + added)
 
         print(f"[2/3] Extracting {len(timestamps)} content-anchored frame(s)...")
         frame_paths = ingest.extract_frames(video, timestamps, out_dir)
