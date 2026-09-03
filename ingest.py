@@ -215,6 +215,17 @@ def segment_by_chapters(transcript, chapters):
 
 # ── Step 3: Frame extraction ───────────────────────────────────────────────────
 
+# Frame-capture height for THIS skill (the skill-adapter layer of
+# ULTIMATE_PIPELINE_PLAN.md 3.6). Deliberately a module constant rather than a
+# literal inside download_video_low(): that function is drift-gated by
+# validate.py::check_script_drift(), so its source must stay byte-identical
+# across all five skills while the VALUE differs per skill.
+# content here is more often viewport/result-led than parameter-pane-led, so 720p
+# is the cost/legibility balance. Raise it per run for a UI-heavy screencast.
+# Override for one run with the INGEST_FRAME_HEIGHT environment variable.
+DEFAULT_FRAME_HEIGHT = "720"
+
+
 def download_video_low(url, tmp):
     """
     Download the video for frame extraction, at a resolution frames can be READ at.
@@ -251,7 +262,7 @@ def download_video_low(url, tmp):
     E3b decided and this does not reopen. The cookies path already exposes the
     full ladder, so it is passed through untouched.
     """
-    h = os.environ.get("INGEST_FRAME_HEIGHT", "720")
+    h = os.environ.get("INGEST_FRAME_HEIGHT", DEFAULT_FRAME_HEIGHT)
     fmt = (f"bestvideo[height<={h}][ext=mp4]/bestvideo[height<={h}]/"
            f"best[height<={h}][ext=mp4]/best[height<={h}]/best")
     out = str(tmp / "video.%(ext)s")

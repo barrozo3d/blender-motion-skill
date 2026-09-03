@@ -231,6 +231,32 @@ Pipeline stages:
 8. Auto cross-linking with existing tutorials (2+ shared tags)
 9. Update `INDEX.md`, commit `.md` + `INDEX.md` together, git push
 
+## Frame capture height (`INGEST_FRAME_HEIGHT`)
+
+Frames are captured at **720p** in this skill (viewport/result-led content more often than parameter-pane-led), set by
+`DEFAULT_FRAME_HEIGHT` at the top of `ingest.py`. The value is per-skill on
+purpose: `download_video_low()` itself is drift-gated across all five skills, so
+its source stays identical while only the constant changes.
+
+Raise or lower it for a single run without editing anything:
+
+```
+# PowerShell
+$env:INGEST_FRAME_HEIGHT = "1080"; python ingest.py <url>
+# bash
+INGEST_FRAME_HEIGHT=1080 python ingest.py <url>
+```
+
+Why it matters: frames are how a claim gets checked against what was actually on
+screen, and text that cannot be read cannot settle anything. Frames below **480p**
+count as blind-era and `reground_frames.py` treats them as needing re-capture.
+Raise this when a tutorial is a UI-heavy screencast and lower it only if disk or
+bandwidth genuinely bites — the cap exists for download cost, not quality.
+
+> This variable existed for weeks before being documented here, and so defaulted
+> to 720p everywhere by accident. Per the Setup Sync Rule at the top of this
+> file, a new environment variable must be added here in the same change.
+
 ## Note: captured frames are local-only
 
 `tutorials/frames/` is gitignored — frame images never sync to GitHub. On a fresh
