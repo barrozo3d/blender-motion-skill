@@ -145,27 +145,51 @@ def get_transcript(content):
     return " ".join(out)
 
 
+def get_notes(content):
+    m = re.search(r"## Structured Notes(.+)", content, re.DOTALL)
+    return m.group(1) if m else ""
+
+
 def build_index():
-    """term -> {"total": n, "files": {name: n}} over every tutorial transcript."""
-    index = defaultdict(lambda: {"total": 0, "files": defaultdict(int)})
+    """term -> {"total": n, "notes": n, "files": {name: n}} per tutorial.
+
+    ⚠️ `notes` is tracked separately because SEVERITY DIFFERS ENORMOUSLY, and a
+    scan that conflates them misleads. Measured 2026-09-03: the Houdini mishear
+    family had **145 occurrences in raw transcripts and 2 in Structured Notes**,
+    and both of those two were deliberate quotations of the transcript with the
+    correct reading given alongside (*'mentions "I believe in Odini 20"; UI
+    matches Houdini 20-era look'*).
+
+    A hit confined to the raw transcript is cosmetic: the transcript is a
+    verbatim record of what Whisper emitted, and the extraction read-through
+    already corrected it downstream. A hit in the NOTES is a real defect -- that
+    is the durable knowledge the corpus is for. Report both, and never quote the
+    raw count alone as if it were damage."""
+    index = defaultdict(lambda: {"total": 0, "notes": 0, "files": defaultdict(int)})
     n_files = 0
     for fn in sorted(os.listdir(TUTORIALS_DIR)):
         if not fn.endswith(".md") or fn == "INDEX.md":
             continue
         path = os.path.join(TUTORIALS_DIR, fn)
         with open(path, "r", encoding="utf-8", errors="replace") as fh:
-            text = get_transcript(fh.read())
+            content = fh.read()
+        text = get_transcript(content)
+        notes = get_notes(content)
         if not text:
             continue
         n_files += 1
-        for tok in TERM_RE.findall(text):
-            if len(tok) < MIN_TERM_LEN or tok.lower() in STOPWORDS:
-                continue
-            if not looks_technical(tok):
-                continue
-            rec = index[tok]
-            rec["total"] += 1
-            rec["files"][fn] += 1
+        for src, is_notes in ((text, False), (notes, True)):
+            for tok in TERM_RE.findall(src):
+                if len(tok) < MIN_TERM_LEN or tok.lower() in STOPWORDS:
+                    continue
+                if not looks_technical(tok):
+                    continue
+                rec = index[tok]
+                if is_notes:
+                    rec["notes"] += 1
+                else:
+                    rec["total"] += 1
+                    rec["files"][fn] += 1
     return index, n_files
 
 
@@ -243,6 +267,7 @@ def find_variants(index, min_count, dominance, cutoff):
                 continue
             out.append({
                 "term": term, "count": n_term, "files": len(index[term]["files"]),
+                "notes": index[term]["notes"],
                 "neighbour": other, "neighbour_count": n_other,
                 "similarity": difflib.SequenceMatcher(None, term.lower(), other.lower()).ratio(),
             })
@@ -283,7 +308,8 @@ def main():
             near = difflib.get_close_matches(args.term, list(index), n=5, cutoff=0.7)
             print(f"'{args.term}' does not appear as a technical term. Near: {near}")
             return 0
-        print(f"'{args.term}': {rec['total']} occurrence(s) across {len(rec['files'])} file(s)")
+        print(f"'{args.term}': {rec['total']} in raw transcripts across {len(rec['files'])} file(s), "
+              f"{rec['notes']} in Structured Notes")
         for fn, n in sorted(rec["files"].items(), key=lambda kv: -kv[1])[:10]:
             print(f"    {n:3d}  {fn}")
         return 0
@@ -293,14 +319,18 @@ def main():
         total = sum(v["count"] for v in vs)
         print(f"Consistent-variant candidates: {len(vs)} term(s), {total} occurrence(s)\n")
         for v in vs[:args.limit]:
+            sev = (f"  🔴 {v['notes']} IN NOTES" if v["notes"]
+                   else "  (raw transcript only — cosmetic)")
             print(f"  '{v['term']}' x{v['count']} in {v['files']} file(s)"
-                  f"  ~  '{v['neighbour']}' x{v['neighbour_count']}  (sim {v['similarity']:.2f})")
+                  f"  ~  '{v['neighbour']}' x{v['neighbour_count']}  (sim {v['similarity']:.2f}){sev}")
         if len(vs) > args.limit:
             print(f"\n  ... {len(vs) - args.limit} more (raise --limit)")
         print(f"\n  not examined: terms appearing fewer than {args.min_count} times "
               f"(use the default hapax mode for those), and any variant whose")
         print(f"  neighbour is under {args.dominance}x commoner.")
         print("  ⚠️ Candidates, not defects: a real term can sit one edit from a commoner one.")
+        print("  ⚠️ 'raw transcript only' means the extraction read-through already absorbed it —")
+        print("     the transcript is a verbatim record, the NOTES are the durable knowledge.")
         return 0
 
     cands = find_candidates(index, args.min_ratio, args.cutoff)
