@@ -982,7 +982,13 @@ WATCHED_FILES = {
     # with a course pipeline and must stay identical -- a copy that drifts into
     # writing, or into treating "nothing compared" as a pass, would report a
     # green criterion it never actually tested.
-    "verify_phase2.py": ("main",),
+    # 2026-09-03 (courses machine): `course_outputs` and `cue_skeleton` joined it.
+    # They are what separates "the engine mis-wrote this .srt" from "the
+    # translation pass legitimately overwrote it downstream" -- a copy that
+    # drifts into skipping the skeleton compare, or into reading `outputs` as
+    # translated when it is not, turns a real FAIL into a PASS. That exact bug
+    # shipped in the first version and reported 109/109 FAIL on a healthy engine.
+    "verify_phase2.py": ("main", "course_outputs", "cue_skeleton"),
     # added 2026-09-03 (plan §3.7 item 5): the corpus hapax/variant scan. Its
     # value is entirely in its TUNING, and every constant in it was measured
     # against a real corpus rather than guessed -- a drifted copy that quietly
