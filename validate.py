@@ -945,6 +945,13 @@ RECORDED_DIVERGENCE = {
 # saying so. Watch the checkers too.
 WATCHED_FILES = {
     "ingest.py": SHARED_FUNCS,
+    # added 2026-09-03: extracting the course engine into _shared/ created a NEW
+    # duplicate -- the loader itself, which cannot live in the package it loads.
+    # It was an ungated clone for exactly one afternoon. Watch it: a copy that
+    # drifts into loading silently, or into preferring vendor/ over _shared/,
+    # re-creates the stale-engine blind spot the loader exists to prevent.
+    # (Skills without the file are skipped by the sibling walk.)
+    "course_engine_loader.py": ("load_course_engine", "_version_at", "_parse"),
     "validate.py": ("get_transcript_text", "get_notes_content",
                     "parse_duration_secs", "is_youtube_source",
                     "get_tutorial_files", "parse_index_refs",

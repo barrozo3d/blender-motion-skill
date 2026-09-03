@@ -1030,6 +1030,7 @@ def main():
                     audio = download_audio(args.url, tmp)
                     transcript = whisper_transcribe(audio, args.whisper_model, info)
                     ch_transcripts = segment_by_chapters(transcript, chapters)
+                    print(f"      {len(transcript.get('segments',[]))} segments -> {len(ch_transcripts)} sections")
                     # §3.7 item 1: a second, independent ASR pass we already had
                     # access to and were discarding. Report-only -- see
                     # caption_crosscheck() for why it never overrules Whisper.
@@ -1046,7 +1047,6 @@ def main():
                                       "(no second witness available -- not a clean result)")
                         except Exception as _e:
                             print(f"      caption cross-check skipped ({_e})")
-                    print(f"      {len(transcript.get('segments',[]))} segments -> {len(ch_transcripts)} sections")
                 except Exception as e:
                     print(f"      Whisper failed ({e}), using yt-dlp captions")
                     used_captions_fallback = True
