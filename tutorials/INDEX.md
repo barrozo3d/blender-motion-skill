@@ -3232,6 +3232,16 @@ Each entry format:
 - **Related:** How I made this bridge destruction scene in blender (`how-i-made-this-bridge-destruction-scene-in-blender.md`) — Blender-native destruction/fracture tooling, contrasted with this tutorial's import-a-Houdini-sim workflow.
 - **Note:** A significant portion of this video (Houdini RBD sim build + MDD export setup) is Houdini-specific; a lightweight cross-reference stub pointing back to this canonical entry was added to `houdini-wand/tutorials/INDEX.md`.
 
+
+### Grease Pencil Fundamentals: 2D Animation - Blender Studio (1)
+- **Source:** YouTube
+- **URL:** https://studio.blender.org/training/grease-pencil-fundamentals/5c40c0d679f30a0147c0c194/
+- **Author:** Unknown
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/grease-pencil-fundamentals-2d-animation---blender-studio-1.md
+
 ---
 
 ## Tag Reference
