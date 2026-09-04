@@ -3337,9 +3337,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=SLVbMEF5LVU
 - **Author:** roe.num77
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.0
+- **Tags:** rendering, materials, intermediate, blender-5x
+- **Summary:** Non-destructive optimisation of a 10 GB scene with the free memsaver add-on (N-panel tab "polygoniq"). Resize Images and Decimate Meshes apply across all scene objects in one click and are fully reversible from a per-scene cache. The workflow that matters is the ordering: crush everything first, then Revert Images/Meshes to Originals on only the objects inside the camera frustum, so the viewport stays navigable while the render keeps its detail. Depth of field is exploited deliberately — out-of-focus characters go to 64 or 32 px textures. Measured on a test plane: 5,222,912 triangles down to 522,290 at Decimation Ratio 0.10. Texture resizing propagates through scatters (GeoScatter, geometry nodes or particles). Panel also exposes Adaptive Optimize, Check & Regenerate Images and Memory Estimation with HTML reports, none of which the video covers.
 - **File:** tutorials/optimize-heavy-blender-scenes.md
 
 ---

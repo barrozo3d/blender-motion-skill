@@ -4,13 +4,14 @@ source: YouTube
 url: https://www.youtube.com/watch?v=SLVbMEF5LVU
 author: roe.num77
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.0"
+tags: [rendering, materials, intermediate, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/optimize-heavy-blender-scenes/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 13
+frame_status: complete
 uncertainty_frames: []
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Optimize Heavy Blender Scenes
@@ -24,12 +25,7 @@ uncertainty_frames: []
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py optimize-heavy-blender-scenes <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -157,30 +153,83 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:50] tutorials/frames/optimize-heavy-blender-scenes/frame_000.jpg
+- [2:00] tutorials/frames/optimize-heavy-blender-scenes/frame_001.jpg
+- [2:28] tutorials/frames/optimize-heavy-blender-scenes/frame_002.jpg
+- [3:08] tutorials/frames/optimize-heavy-blender-scenes/frame_003.jpg
+- [3:52] tutorials/frames/optimize-heavy-blender-scenes/frame_004.jpg
+- [4:15] tutorials/frames/optimize-heavy-blender-scenes/frame_005.jpg
+- [4:46] tutorials/frames/optimize-heavy-blender-scenes/frame_006.jpg
+- [5:44] tutorials/frames/optimize-heavy-blender-scenes/frame_007.jpg
+- [7:16] tutorials/frames/optimize-heavy-blender-scenes/frame_008.jpg
+- [7:44] tutorials/frames/optimize-heavy-blender-scenes/frame_009.jpg
+- [8:07] tutorials/frames/optimize-heavy-blender-scenes/frame_010.jpg
+- [12:19] tutorials/frames/optimize-heavy-blender-scenes/frame_011.jpg
+- [13:31] tutorials/frames/optimize-heavy-blender-scenes/frame_012.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Non-destructive scene optimisation with the free **memsaver** add-on: bulk-downscale every texture and decimate every mesh in a heavy scene, then selectively revert only the objects visible to camera back to full quality — so the viewport stays responsive while the render keeps its detail.
 
 ### Summary
-[PENDING EXTRACTION]
+A 10 GB environment (World Creator terrain, Kitbash-style assets, 3D scans, GeoScatter vegetation, 2048 m across) is unusable — solid view will not navigate and rendered view risks an out-of-GPU-memory crash. The add-on's two workhorse operators, `Resize Images` and `Decimate Meshes`, apply across the whole scene in one click and are fully reversible, because the originals are preserved in a cache the add-on tracks per scene. The workflow that makes it useful is the ordering: crush everything first, then revert *only* the objects inside the camera frustum. Depth of field is exploited deliberately — background characters get textures dropped to 64 or even 32 px because the blur hides it.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Install.** Drag the zip into Blender → OK, then Edit → Preferences → Add-ons, search **memsaver**, enable it `[transcript 1:33-1:53]`.
+2. **Find the panel.** Press `N`; the add-on lives under a vertical tab labelled **`polygoniq`**, with the panel header reading **`memsaver personal`** `[frame_001][frame_009]` `[transcript 1:53-1:59]`.
+3. **Resize Images — the texture pass.** Opens a `Change Image Size` dialog with two fields: **`Target`** (`Scene Objects` = everything in the scene, or `Selected Objects`) and **`Desired Size`** in pixels `[frame_003]` `[transcript 2:57-3:20]`. Options run 4K / 2K / HD / 512 and lower `[transcript 2:41-2:56]`.
+4. **Know where the originals go.** Downscaled copies are written to a cache folder the add-on manages, and it remembers which textures belong to which scene — so no manual folder bookkeeping `[transcript 4:06-4:26]`.
+5. **`Revert Images to Originals`** restores full resolution, with the same Target choice. The whole thing is non-destructive `[transcript 4:36-5:04]`.
+6. **Exploit depth of field.** For a character sitting behind the focal subject, select just that object, set `Target: Selected Objects` and `Desired Size: 64` — the DoF blur hides the loss almost entirely `[transcript 5:05-6:15]`. If it goes too far, re-run at 128 or 256 `[transcript 6:22-6:42]`.
+7. **Decimate Meshes — the geometry pass.** Same Target choice plus a **`Decimation Ratio`** from 0 to 1, where `1` means untouched and lower values strip more geometry `[frame_010]` `[transcript 6:51-7:29]`.
+8. **Turn on Statistics** in the viewport overlays to actually see the effect `[transcript 7:32-7:40]`.
+9. **The measured result.** The test ground plane goes from **`5,222,912` triangles** `[frame_003][frame_009]` to **`522,290` triangles** at `Decimation Ratio 0.10` `[frame_010]` — a 10x reduction with, in the author's words, no visible difference `[transcript 7:41-8:21]`.
+10. **`Revert Meshes to Originals`** restores the original geometry, and the ratio can be re-tweaked at any time — 0.3 to give some density back, for example `[transcript 8:22-8:52]`.
+11. **On the real scene, textures first.** `Resize Images` with `Target: Scene Objects` and `Desired Size: 64`. Expect a wait proportional to scene size `[transcript 9:53-10:20]`.
+12. **Scatters inherit the change.** Resizing the source tree collection's images propagates to every scattered instance, and works regardless of scatter method — GeoScatter, geometry nodes, or the particle system `[transcript 10:27-11:23]`.
+13. **Then geometry.** `Decimate Meshes`, `Target: Scene Objects`, `Decimation Ratio 0.1` `[frame_011]` `[transcript 12:01-12:31]`.
+14. **Revert only what the camera sees.** Frame the shot, select the hero character plus the visible building and background objects, then run **both** `Revert Images to Originals` and `Revert Meshes to Originals` with `Target: Selected Objects` `[frame_012]` `[transcript 12:48-13:42]`.
+15. **The payoff.** Objects in frame carry full quality; everything else stays optimised, and the viewport remains responsive on a 10 GB scene `[transcript 13:43-14:20]`.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Add-on** — **memsaver**, free, panel header `memsaver personal`, N-panel tab **`polygoniq`** `[frame_001][frame_009]`
+- **Panel contents (full, from frames)** — `Adaptive Optimize` (with a search field), `Resize Images`, `Decimate Meshes`, `Revert Images to Originals`, `Revert Meshes to Originals`, `Check & Regenerate Images`; a `Memory Estimation` section with `Estimate This File` and `Estimate File/Folder`; and `Output Settings` writing reports to a directory in **`HTML`** format `[frame_001][frame_009]`
+- **`Change Image Size` dialog** — `Target`: `Scene Objects` / `Selected Objects`; `Desired Size`: pixel value (`2048` shown; `512`, `64`, `32` used) `[frame_003]`
+- **Decimate dialog** — `Target`: `Selected Objects` / `Scene Objects`; `Decimation Ratio` `0.10` shown, range 0-1 `[frame_010]`
+- **Measured reduction** — Vertices `2,614,689` → `263,153`; Edges `5,226,144` → `771,839`; Faces `2,611,456` → `508,687`; Triangles **`5,222,912` → `522,290`** `[frame_003][frame_009][frame_010]`
+- **Scene under test** — ~10 GB, World Creator terrain, GeoScatter vegetation, 3D scans, 2048 m across `[transcript 0:00-0:36, 9:19-9:34]`
+
+> **Features present but not covered by the video.** The panel visibly exposes
+> `Adaptive Optimize`, `Check & Regenerate Images`, and the whole `Memory Estimation`
+> block with HTML report output `[frame_001]`. None of these are demonstrated or explained
+> in the narration — recorded here because the frame shows them and a reader looking at
+> the same panel will want to know they were out of scope, not missed.
+>
+> **Whisper unreliability.** The add-on's name is mangled throughout: "MemSaver",
+> "MimSaver", "name saver", "MemeSaver" — the panel reads **`memsaver`** `[frame_001]`.
+> Also "decimate measures" for `Decimate Meshes`, "Redart images to originals" for
+> `Revert Images to Originals`, "catch folder" for cache folder, "Word Creator" for World
+> Creator, and "Belender" for Blender.
+>
+> **The video's own typo:** the on-screen caption at `[frame_010]` reads
+> "522,290 **Traingles**". The number is correct; the spelling is theirs.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.0.0 — read from the title bar and status bar in `[frame_001]`, `[frame_003]`, `[frame_009]` and `[frame_010]`. Never stated in narration.
 
 ### Tags
-[PENDING EXTRACTION]
+rendering, materials, intermediate, blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Procedural Grass in Blender Geometry Nodes | Fast Viewport Setup & Optimization Tutorial](procedural-grass-in-blender-geometry-nodes-fast-viewport-se.md) — viewport optimisation approached from the generator side (keeping the scatter cheap) rather than the cleanup side; shares rendering
+- [Can Blender Still Compete (Motion Graphics)](can-blender-still-compete-motion-graphics.md) — its warning that SDF voxel size "gets heavy incredibly fast" is the same problem this add-on cleans up after; shares rendering, blender-5x
