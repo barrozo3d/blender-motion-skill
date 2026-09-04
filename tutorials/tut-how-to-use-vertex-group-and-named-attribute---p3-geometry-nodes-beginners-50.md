@@ -4,13 +4,14 @@ source: YouTube
 url: https://www.youtube.com/watch?v=wgAF2lUSu70
 author: Bradley Animation
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.1"
+tags: [geometry-nodes, procedural, materials, shaders, blender-5x, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/tut-how-to-use-vertex-group-and-named-attribute---p3-geometry-nodes-beginners-50/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 10
+frame_status: complete
 uncertainty_frames: []
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # [Tut] How to use Vertex Group and Named Attribute? - P3 Geometry Nodes Beginners 5.0+
@@ -24,12 +25,7 @@ uncertainty_frames: []
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py tut-how-to-use-vertex-group-and-named-attribute---p3-geometry-nodes-beginners-50 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro of Named Attribute [0:00]
@@ -261,30 +257,87 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:46] tutorials/frames/tut-how-to-use-vertex-group-and-named-attribute---p3-geometry-nodes-beginners-50/frame_000.jpg
+- [2:51] tutorials/frames/tut-how-to-use-vertex-group-and-named-attribute---p3-geometry-nodes-beginners-50/frame_001.jpg
+- [4:58] tutorials/frames/tut-how-to-use-vertex-group-and-named-attribute---p3-geometry-nodes-beginners-50/frame_002.jpg
+- [5:35] tutorials/frames/tut-how-to-use-vertex-group-and-named-attribute---p3-geometry-nodes-beginners-50/frame_003.jpg
+- [6:33] tutorials/frames/tut-how-to-use-vertex-group-and-named-attribute---p3-geometry-nodes-beginners-50/frame_004.jpg
+- [7:47] tutorials/frames/tut-how-to-use-vertex-group-and-named-attribute---p3-geometry-nodes-beginners-50/frame_005.jpg
+- [9:28] tutorials/frames/tut-how-to-use-vertex-group-and-named-attribute---p3-geometry-nodes-beginners-50/frame_006.jpg
+- [11:04] tutorials/frames/tut-how-to-use-vertex-group-and-named-attribute---p3-geometry-nodes-beginners-50/frame_007.jpg
+- [13:40] tutorials/frames/tut-how-to-use-vertex-group-and-named-attribute---p3-geometry-nodes-beginners-50/frame_008.jpg
+- [16:29] tutorials/frames/tut-how-to-use-vertex-group-and-named-attribute---p3-geometry-nodes-beginners-50/frame_009.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+The distinction between **named attributes** (stored on the geometry, persistent, costly) and **anonymous attributes / fields** (passed directly between nodes and discarded), why fields are the default choice, and the specific cases — vertex groups and passing data to shaders — where a named attribute is the only option.
 
 ### Summary
-[PENDING EXTRACTION]
+Attributes are geometry properties: vertex groups, weight paint, UV maps, position. They come in two kinds. A **named attribute** is written onto the geometry with `Store Named Attribute` and read back with `Named Attribute` — a pair of nodes for every value, whose names must match. It persists in the file, inflates the spreadsheet, survives subdivision, and can grow a blend file "from kilobytes to gigabytes". An **anonymous attribute** — a field — is simply a node output plugged straight into the socket that needs it, used and discarded. The author's analogy: named attributes are weights on your body, fields are tools in your hands. The episode also clears up **implicit attributes** (sockets pre-filled by the system) and closes with `Ctrl+F` as a way to trace where an attribute or group input is actually used.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Two kinds of attributes.** Named and anonymous. Searching "named attribute" surfaces the pair — `Named Attribute` and `Store Named Attribute` `[transcript 1:26-1:45]`.
+2. **Where to see them.** Named attributes appear at the top of the spreadsheet — `position`, `sharp face`, `UV map` `[transcript 1:46-1:56]`.
+3. **The reading asymmetry.** `Store Named Attribute` only lists existing attributes once inserted into the link; `Named Attribute` reads directly from the group input without insertion, and shows nothing if geometry is disconnected `[transcript 1:57-2:29]`.
+4. **Vertex groups are named attributes.** Assign a group in Edit Mode and it appears in both nodes' dropdowns `[transcript 2:35-2:56]`.
+5. **Or expose it on the modifier.** A value exposed on the Group Input gets a `+` icon in the modifier panel that converts the field to a text box, working exactly like the Named Attribute node `[transcript 3:07-3:26]`. Note the author hits a live bug — the search returns no results, but typing the name manually and pressing Enter works `[transcript 3:27-3:39]`.
+6. **Dedicated nodes exist for common properties** — `Position`, `Normal` (plus `True Normal`), `Index`, `ID`, `Curve Tangent` `[frame_002]` `[transcript 3:46-4:03]`. Some are not strictly named attributes but are system-level properties; a mesh must carry normals to shade at all `[transcript 4:04-4:26]`.
+7. **Implicit attributes — what they actually are.** `Set Position`'s `Position` socket is pre-filled with the position attribute, so muting the node changes nothing. The tooltip says the input is "a field based on the position attribute" `[transcript 4:37-5:11]`.
+8. **Prove it.** Plugging a `Position` node in changes nothing; plugging `Normal` in changes everything; plugging a `Combine XYZ` at 0,0,0 collapses every point to the world origin — visible in the spreadsheet and via `Mesh to Points` `[transcript 5:12-6:15]`.
+9. **The terminology correction, made on screen:** *"'Implicit Attribute' is not a type of attribute. It actually refers to 'Sockets' that have already [been] filled with an attribute by default."* `[frame_004]`.
+10. **The 5.0 visual regression.** Before Blender 5.0, an unfilled diamond socket had a small hole and an implicitly-filled one was solid, so you could tell at a glance. Blender 5.0 removed that distinction — most sockets now render as a filled diamond, so you must rely on node names, experience and tooltips instead `[frame_004]` `[transcript 6:26-7:21]`.
+11. **Watch for misleading socket names.** `Mesh to Points` also uses position internally; `Random Value`'s `ID` corresponds to the `ID` node; and the `Noise Texture` node's **`Vector`** input silently defaults to position `[transcript 7:22-8:05]`.
+12. **Downside 1 — the pairs are unreadable.** A tree built from many `Store Named Attribute` / `Named Attribute` pairs (`AAA`, `BBB`, `CCC`, `DDD`, `EEE`, `FFF`, `XXX`, `ZZZ`) makes the storage-to-use relationship impossible to follow `[frame_006][frame_009]` `[transcript 8:58-9:37]`.
+13. **Historical note, on screen:** that chaos *"was basically the situation of Geometry Nodes before 3.0. It led to lots of complaints and we end up [with] the current system of GN in 3.0."* `[frame_006]`.
+14. **Downside 2 — they cost real storage.** Named attributes stay with the geometry, expand the spreadsheet, multiply under subdivision, and are written to disk; a file can grow from kilobytes to gigabytes. They do not behave like a cache `[transcript 9:38-10:21]`. `Remove Named Attribute` exists for cleanup `[transcript 10:26-10:31]`.
+15. **The preferred workflow.** Drop the pair entirely — connect the `Random Value` node straight into `Set Position`'s `Offset`. Same result, no name, no storage `[transcript 10:47-11:17]`.
+16. **The vocabulary the author uses.** "Attribute" for named attributes; "field" for the anonymous ones passed around the tree `[transcript 11:30-11:40]`. Fields are simpler, cleaner and more hardware-friendly, and are therefore the common case `[transcript 12:19-12:28]`.
+17. **When a named attribute is mandatory - vertex groups.** They are named attributes from the outset, so there is no field alternative `[transcript 12:37-12:54]`.
+18. **When a named attribute is mandatory - shaders.** The render engine can only read stored named attributes. Store one in Geometry Nodes, then read it in the Shader Editor with the shader's own `Attribute` node, typing the name manually — that node is old and has no search `[frame_008]` `[transcript 12:55-13:49]`.
+19. **A name to avoid.** `color` does not work in Cycles; certain names are unavailable there. The author uses single letters like `C` instead `[transcript 14:06-14:38]`.
+20. **Why pass data at all rather than repeating the texture in the shader?** Because **shaders are always evaluated after geometry nodes** — data flows one way only. If a noise texture drives instancing or animation and the render must match it, the value has to be passed forward `[transcript 14:48-15:15]`.
+21. **An alternative route** exists via the Group Output plus "output attributes" in the modifier panel, but `Store Named Attribute` is generally preferred `[transcript 13:14-13:28]`.
+22. **Tracing attributes with `Ctrl+F`.** Originally a node search for large trees; since Blender 5.0 it also searches **text boxes**, so searching `AAA` finds where it is stored and used, and searching `GGG` reveals it is stored but never used `[frame_009]` `[transcript 15:53-16:41]`.
+23. **It also traces group input sockets** — but only *used* ones. An unconnected Boolean socket returns nothing; connect it and the search finds it, showing every place it is used `[transcript 16:42-17:27]`.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **`Named Attribute`** — reads from the group input without needing insertion; data types include `Vector`, `Float`, `Integer`, `Color`, `Boolean` `[frame_006][frame_009]`
+- **`Store Named Attribute`** — inputs `Geometry`, `Selection`, `Name`, `Value`; data type plus domain (`Point` shown) `[frame_002][frame_009]`
+- **`Remove Named Attribute`** — the cleanup counterpart `[transcript 10:26-10:31]`
+- **Dedicated attribute nodes** — `Position`, `Normal` (with `True Normal`), `Index`, `ID`, `Curve Tangent` `[frame_002]`
+- **`Set Position`** — `Geometry`, `Selection`, `Position` (implicitly filled with the position attribute), `Offset` `[frame_002][frame_004]`
+- **Nodes with hidden implicit position** — `Mesh to Points`, and `Noise Texture` via its `Vector` input `[transcript 7:22-7:52]`
+- **Shader-side** — the Shader Editor's `Attribute` node, name typed manually, `Color` output to `Color` `[frame_008]`
+- **`Ctrl+F`** — node search; since 5.0 also searches text boxes and used group-input sockets `[frame_009]`
+- **Render context of the demo** — Cycles, GPU Compute, Viewport and Render `Max Samples 16` `[frame_009]`
+
+> **Whisper unreliability.** "Belander" for Blender, "UB-Sepir node" for **UV Sphere**,
+> "Vue" for viewer, "storm attributes" for *stored* attributes, "cycle" for **Cycles**,
+> "Shader A search" for the `Shift+A` add-search, and "rule nodes" for an unclear phrase at
+> `[transcript 12:51]`. Node names in these notes come from the frames.
+>
+> **Two on-screen captions are the authoritative record** for claims narration states less
+> precisely: the implicit-attribute definition `[frame_004]` and the pre-3.0 history
+> `[frame_006]`. Both are the author's own text, not paraphrase.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.1.0 — read from the status bar in `[frame_002]`, `[frame_004]`, `[frame_006]` and `[frame_009]`. The title advertises "5.0+". Note this is an **older build than the P15/P16 episodes** in the same series, which show 5.2.1 RC — relevant because the socket-appearance change discussed here landed in 5.0.
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural, materials, shaders, blender-5x, beginner
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[tut-sample-uv-surface-for-uv-deformer---p15-geometry-nodes-beginners-50]] — P15 depends throughout on named attributes carrying UV data between geometries, exactly the case this episode says warrants them
+- [[tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50]] — P16, later in the same series; its spreadsheet reading of `curve_type` is the same attribute-inspection habit taught here
+- [[tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be]] — P14's per-element seeding is a field workflow of the kind this episode advocates over stored attributes
+- [The 6 Levels of Blender Materials](the-6-levels-of-blender-materials.md) — its Levels 5-6 are a worked example of this episode's rule that the shader can only read a stored named attribute

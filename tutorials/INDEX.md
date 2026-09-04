@@ -3377,9 +3377,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=wgAF2lUSu70
 - **Author:** Bradley Animation
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.1
+- **Tags:** geometry-nodes, procedural, materials, shaders, blender-5x, beginner
+- **Summary:** Episode 3 separates named attributes (written with Store Named Attribute, read with Named Attribute, persistent on the geometry) from anonymous attributes or fields (a node output plugged straight into the socket that needs it, then discarded). Named attributes inflate the spreadsheet, multiply under subdivision and are written to disk — a file can grow from kilobytes to gigabytes — so fields are the default; the analogy is weights on your body versus tools in your hands. Two cases still require a named attribute: vertex groups, which are named attributes from the outset, and passing data to shaders, since shaders always evaluate after geometry nodes and data flows one way only (avoid the name "color", which fails in Cycles). Also corrects a common misuse: "implicit attribute" is not a type of attribute but a socket pre-filled with one, and Blender 5.0 removed the socket-appearance cue that used to reveal it. Closes with Ctrl+F, which since 5.0 searches text boxes and used group-input sockets.
 - **File:** tutorials/tut-how-to-use-vertex-group-and-named-attribute---p3-geometry-nodes-beginners-50.md
 
 ---
