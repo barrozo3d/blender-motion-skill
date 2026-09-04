@@ -4,13 +4,14 @@ source: YouTube
 url: https://www.youtube.com/watch?v=RfPro3hlOMg
 author: Kaizen
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [materials, shaders, procedural, geometry-nodes, cycles, metal, blender-5x, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/the-6-levels-of-blender-materials/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
 uncertainty_frames: []
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # The 6 Levels of Blender Materials
@@ -24,12 +25,7 @@ uncertainty_frames: []
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py the-6-levels-of-blender-materials <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Level 1 - The Principled BSDF [0:00]
@@ -254,30 +250,106 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:53] tutorials/frames/the-6-levels-of-blender-materials/frame_000.jpg
+- [2:16] tutorials/frames/the-6-levels-of-blender-materials/frame_001.jpg
+- [3:49] tutorials/frames/the-6-levels-of-blender-materials/frame_002.jpg
+- [7:44] tutorials/frames/the-6-levels-of-blender-materials/frame_003.jpg
+- [9:22] tutorials/frames/the-6-levels-of-blender-materials/frame_004.jpg
+- [11:09] tutorials/frames/the-6-levels-of-blender-materials/frame_005.jpg
+- [12:57] tutorials/frames/the-6-levels-of-blender-materials/frame_006.jpg
+- [16:48] tutorials/frames/the-6-levels-of-blender-materials/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A six-stage progression from a bare Principled BSDF to a reusable "smart" material, where geometry-derived attributes (`Edge Angle`, `Ambient Occlusion`) automatically place wear and dirt on any mesh, and the key parameters are exposed as Geometry Nodes modifier sliders.
 
 ### Summary
-[PENDING EXTRACTION]
+The through-line is that a professional material is not a better-tuned Principled BSDF but a *system* that reacts to the mesh it is applied to. Levels 1–3 cover the BSDF, adding texture-node layers, and tuning their 0–1 output into physically sensible ranges. Level 4 introduces the crucial architectural move — a material may contain **more than one shader node**, combined with `Mix Shader` and masked by a texture. Level 5 is the payoff: rather than painting dirt everywhere, `Edge Angle` stored as a named attribute masks scratches onto convex edges, and an `Ambient Occlusion` node masks dirt into crevices, so the material adapts to any model automatically. Level 6 makes it reusable by routing those controls to the Geometry Nodes modifier, ending with four named sliders — `Base Color`, `Speckle Scale`, `Speckle Strength`, `Dirt Level` — usable without opening the shader editor.
 
 ### Key Steps
-[PENDING EXTRACTION]
+
+**Level 1 — the Principled BSDF** `[transcript 0:00-1:12]`
+1. **Rough plastic**: roughness 0.3–0.8 plus some transmission.
+2. **Soap bubble**: roughness near zero, `IOR 3`, transmission ~1, then Thin Film thickness ≈500 nm at `IOR 1.6`. The frame shows `Roughness 0.014`, `IOR 3.000`, `Metallic 0.000` with `Transmission → Weight 0.950` `[frame_000]`.
+3. **Car paint**: colour, `Metallic 1`, `Roughness 0.25`, plus a `Coat` of ~1 for the glossy top layer — confirmed as `Metallic 1.000`, `Roughness 0.250`, `Coat Weight 0.990`, `Coat Roughness 0.010` `[frame_001][frame_002]`.
+
+**Level 2 — layers of detail** `[transcript 1:13-2:26]`
+4. **Add texture nodes** (Voronoi, Noise, Wave, Gradient) into BSDF inputs.
+5. **For car-paint flake**, a Noise texture at `Scale 1000` gives speckle but reads too soft; a **Voronoi** at the same scale gives the sharp angular flakes that metallic paint actually has `[frame_001]`.
+6. **Route it through a `Normal Map` node at low strength** (`0.100`) so the speckles catch light rather than changing colour `[frame_001]`.
+
+**Level 3 — controlling value ranges** `[transcript 2:27-4:33]`
+7. **Understand the problem**: textures output 0–1, but no real material has roughness of exactly 0 or 1.
+8. **Tune with `Color Ramp` or `Map Range`.** Both give identical results; `Map Range` computes slightly faster, `Color Ramp` is easier to read visually `[transcript 3:13-3:33]`.
+9. **Compress the range** — e.g. black/white remapped to grey values around `0.5`–`0.8` — and drag the stops inward for cleaner shapes `[frame_002]`.
+
+**Level 4 — surface imperfections** `[transcript 5:53-9:36]`
+10. **A material can hold multiple shader nodes.** Add a *second* Principled BSDF and build a dirt shader on it: two Noise textures for variation, through separate Color Ramps for colour and for bump, plus another texture set driving roughness for wet/dry variation `[frame_003]`.
+11. **Combine with `Mix Shader`, not `Add Shader`.** `Add Shader` sums both shaders (useful for e.g. glass dispersion) but here you want *either* paint *or* dirt, not both `[transcript 7:05-7:43]`.
+12. **Mask the mix with a texture** into the Mix Shader `Factor`, then tighten it with a Color Ramp so values are near-binary `[frame_003]` `[transcript 7:44-8:12]`.
+13. **Procedural vs image textures**: procedural survives any object without distortion and is light to render, but scratches and fingerprints are easier as images `[transcript 8:13-8:49]`.
+14. **Plug scratches into `Coat Roughness`, not Roughness** — the imperfection belongs in the clear coat, which sits above the base layer `[frame_004]` `[transcript 9:12-9:31]`. The scratch image is set to **Non-Color** `[frame_004]`.
+
+**Level 5 — smart materials** `[transcript 9:37-14:59]`
+15. **The insight**: dirt belongs low on the car, scratches on protruding edges. The shader needs to know the mesh's shape.
+16. **The `Geometry` node's `Pointiness`** finds convex/concave regions — but does not work in EEVEE `[transcript 10:25-10:47]`.
+17. **The modern route**: in Geometry Nodes, add `Store Named Attribute` fed by the **`Edge Angle`** node's signed output, with any chosen name `[frame_005]` `[transcript 10:48-11:26]`.
+18. **Read it back** with an `Attribute` node in the shader using the same name — spelling must match — and it works in EEVEE too `[transcript 11:27-11:42]`.
+19. **Use it as a mask.** Edge Angle outputs concave as black, convex as white — usually the right way round for scratches; invert with Map Range/Color Ramp if not. Combine with the scratch texture via `Mix Color`, black on top, scratches below, attribute as Factor `[transcript 11:53-12:41]`.
+20. **For dirt, use the `Ambient Occlusion` node** — proximity-based, mostly white by default, so dial it with a Color Ramp until crevices go dark, then feed the Mix Shader factor `[frame_006]` `[transcript 12:42-13:27]`. It is noted as computationally expensive.
+21. **Vary the AO** by plugging a Noise Texture factor into the AO node's `Distance` `[transcript 13:28-13:44]`.
+
+**Level 6 — reusability** `[transcript 15:00-17:10]`
+22. **Decide which values deserve controls**, and place an `Attribute` node for each — base colour (Color output), normal-map strength, the AO control, and the Voronoi scale (all Factor output) `[transcript 15:04-15:41]`.
+23. **Expect the material to break** at this point; the attributes are not yet defined anywhere `[transcript 15:42-15:51]`.
+24. **Define them in Geometry Nodes.** One `Store Named Attribute` per control, names copied verbatim between workspaces. **The base-colour one must use Color data, not Float** `[transcript 15:52-16:24]`.
+25. **Expose to the modifier.** Connect each to the Group Input, rename the sockets in the N-panel, and they appear as modifier fields `[transcript 16:25-16:57]`. Final result: `Base Color`, `Speckle Scale`, `Speckle Strength`, `Dirt Level` on the Geometry Nodes modifier `[frame_007]`.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Principled BSDF (soap bubble)** — `Metallic 0.000`, `Roughness 0.014`, `IOR 3.000`, `Alpha 1.000`, `Transmission → Weight 0.950`, plus `Thin Film` (≈500 nm, IOR 1.6 per narration) `[frame_000]`
+- **Principled BSDF (car paint)** — `Base Color` orange, `Metallic 1.000`, `Roughness 0.250`, `IOR 1.500`, `Coat Weight 0.900–0.990`, `Coat Roughness 0.010`, `Coat IOR 1.500` `[frame_001][frame_002][frame_004]`
+- **`Voronoi Texture` (flake)** — `3D`, `F1`, `Euclidean`, **`Scale 1000.000`**, `Detail 0.000–2.000`, `Roughness 0.500`, `Lacunarity 2.000`, `Randomness 1.000` `[frame_001][frame_002][frame_004]`
+- **`Normal Map`** — `Tangent Space`, `OpenGL`, **`Strength 0.100`** `[frame_001][frame_002][frame_004]`
+- **`Color Ramp`** — used to compress texture output into sensible ranges; interpolation `Linear`, stops dragged inward `[frame_002][frame_004]`
+- **Dirt shader** — second `Principled BSDF` fed by Noise → Color Ramp → **`Bump`** (`Invert`, `Strength 10.000`, `Distance 0.001`, `Filter 0.109 px`) `[frame_003]`
+- **`Mix Shader`** — `Factor 0.500` before masking; the factor is where the texture or attribute mask goes `[frame_003]`
+- **Scratch texture** — image node, `Linear`, `Flat`, `Repeat`, `Single Image`, colour space **`Non-Color`**, into `Coat Roughness` `[frame_004]`
+- **`Edge Angle`** — Geometry Nodes, signed output into `Store Named Attribute`; sits alongside `Edge Vertices`, `Split Edges`, `Is Edge Smooth`, `Edge Neighbors` in the search `[frame_005]`
+- **`Ambient Occlusion`** — outputs `Color` and `AO`; `Samples 16`, `Inside` off, `Only Local` off, `Color` white, **`Distance 1.000`**, `Normal` `[frame_006]`
+- **`Geometry` node `Pointiness`** — the older attribute route; Cycles only, not EEVEE `[transcript 10:44-10:47]`
+- **Exposed modifier controls** — `Base Color`, `Speckle Scale`, `Speckle Strength`, `Dirt Level` `[frame_007]`
+- **Demo object modifier stack** — `Bevel` (`Edges`, `Offset`, `Amount 0.1 m`, `Segments 1`, `Limit Method: Angle`, `30°`) → `Subdivision` (Catmull-Clark, Viewport 3 / Render 2) → `GeometryNodes` `[frame_005]`
+- **Render** — Cycles, GPU Compute, Viewport `Max Samples 2048`, Render `Max Samples 500–1000` `[frame_002][frame_003][frame_004]`
+- **Recommended add-on** — `realistic touch`, 200+ seamless imperfection textures (name as spoken; not verified on screen) `[transcript 8:50-9:01]`
+
+> **Sponsor segment** at `[transcript 4:34-5:52]` (Odoo, rendered by Whisper as "Odu") is
+> excluded from these notes.
+>
+> **Whisper vs frames.** The transcript writes "principal PSDF" for Principled BSDF,
+> "noon meters" for nanometers, "normal Mab" for `Normal Map`, "EV" for EEVEE, "jump tree
+> notes" for geometry nodes, "carpet" for car paint, "buffiness" and "code values" for
+> roughness and *coat* values, and garbles the fourth exposed control as "a four O skill".
+> The frame settles that last one: the modifier's four controls read **`Base Color`,
+> `Speckle Scale`, `Speckle Strength`, `Dirt Level`** `[frame_007]`.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2.0 — read from the status bar in `[frame_001]`, `[frame_002]`, `[frame_003]`, `[frame_004]`, `[frame_005]` and `[frame_007]`. Never stated in narration.
 
 ### Tags
-[PENDING EXTRACTION]
+materials, shaders, procedural, geometry-nodes, cycles, metal, blender-5x, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [THIN WALL, the incredible new Principled BSDF feature in Blender 5.2](thin-wall-the-incredible-new-principled-bsdf-feature-in-blender-52.md) — the `Thin Wall` toggle visible in this video's Level 1 panel; shares materials, shaders, cycles, blender-5x
+- [Blender 5.3 gets dispersion!](blender-53-gets-dispersion.md) — Level 4 cites `Add Shader` chains as the old way to fake chromatic dispersion in glass; 5.3 makes that native; shares materials, shaders, cycles, blender-5x
+- [Blender 5 Beginner Tutorial - Part 2 - Materials and rendering](blender-5-beginner-tutorial-part-2-materials-and-rendering.md) — the Level 1-2 ground this video moves through quickly; shares materials, shaders, rendering
+- [[tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50]] — Levels 5–6 depend on `Store Named Attribute`, the same attribute-domain mechanics this episode explains in depth

@@ -3357,9 +3357,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=RfPro3hlOMg
 - **Author:** Kaizen
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** materials, shaders, procedural, geometry-nodes, cycles, metal, blender-5x, intermediate
+- **Summary:** Six-stage progression from a bare Principled BSDF to a reusable smart material. Levels 1-3 cover the BSDF, layering texture nodes (Voronoi at Scale 1000 through a Normal Map at Strength 0.1 for metallic flake), and tuning 0-1 texture output into sensible ranges with Color Ramp or Map Range. Level 4 is the architectural turn: a material can hold multiple shader nodes, so a second Principled BSDF becomes a dirt shader combined via Mix Shader (not Add Shader) with a texture mask, and scratches go into Coat Roughness rather than Roughness. Level 5 makes it smart — Edge Angle stored as a named attribute in Geometry Nodes masks scratches onto convex edges, and an Ambient Occlusion node masks dirt into crevices, so the material adapts to any mesh. Level 6 exposes the controls on the Geometry Nodes modifier as Base Color, Speckle Scale, Speckle Strength and Dirt Level.
 - **File:** tutorials/the-6-levels-of-blender-materials.md
 
 ---
