@@ -3332,6 +3332,16 @@ Each entry format:
 - **Summary:** Breaks the left-to-right waveform bias of the Sample Sound Frequencies node by driving the frequency lookup from a shuffled Index (Index into Random Value in Integer mode) instead of position, so audio-reactive values scatter across faces rather than marching along one axis. Frequency window is a Map Range to 20-15000 Hz into Low with an Add of 100 into High, fed by Scene Time seconds; the result is stored as a named attribute and read into an Emission shader. Design pass adds Split Edges, Scale Elements, Extrude Mesh and Mesh Bevel, a Layer Weight facing mix, and a Bloom plus Film Grain composite (Blender 5.2 required). Note: the author explicitly doubts on camera whether his Index-into-ID link does anything, so that connection is recorded as unverified.
 - **File:** tutorials/dont-make-boring-audio-visualizers-blender-tutorial.md
 
+
+### Optimize Heavy Blender Scenes
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=SLVbMEF5LVU
+- **Author:** roe.num77
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/optimize-heavy-blender-scenes.md
+
 ---
 
 ## Tag Reference
