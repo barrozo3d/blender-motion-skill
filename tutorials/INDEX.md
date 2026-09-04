@@ -3397,9 +3397,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=e8g8h4CLUdY
 - **Author:** Robin Squares
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** compositing, camera, rendering, cycles, blender-5x, advanced
+- **Summary:** Intermediate tier of a lens-cloning series — the sequel is "Making my lens in Blender". Measures three sensor-side artefacts from real calibration footage and applies each as a remove-then-restore pair. Vignette: photograph a white screen, desaturate, raise exposure until the centre hits 1 (verify with a Greater Than node at 0.999), save as Linear Rec.2020 EXR with DWAB, then divide out and multiply back — inside the undistort/redistort bracket. Black level: shoot with the lens cap on, eyedropper a Color node for the per-channel noise floor (it varies by camera body, colour space AND ISO), subtract before and add after. Sensor noise: shoot a defocused white wall outdoors at several light levels, and do NOT undistort it, because noise happens after the lens. Blender's Denoise node cannot touch real sensor noise, so the clean reference comes from mixing ~32 frame-offset copies in a binary cascade plus a sub-4px blur; a Divide node then isolates the noise delta, and Separate Color in YCbCr mode uses Y luminance to blend dark/medium/bright noise versions.
 - **File:** tutorials/making-the-perfect-camera-sensor-node-in-blender.md
 
 ---

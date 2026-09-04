@@ -4,13 +4,14 @@ source: YouTube
 url: https://www.youtube.com/watch?v=e8g8h4CLUdY
 author: Robin Squares
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [compositing, camera, rendering, cycles, blender-5x, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/making-the-perfect-camera-sensor-node-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 11
+frame_status: complete
 uncertainty_frames: []
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Making the perfect camera sensor node in Blender
@@ -24,12 +25,7 @@ uncertainty_frames: []
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py making-the-perfect-camera-sensor-node-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -273,30 +269,107 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:20] tutorials/frames/making-the-perfect-camera-sensor-node-in-blender/frame_000.jpg
+- [1:52] tutorials/frames/making-the-perfect-camera-sensor-node-in-blender/frame_001.jpg
+- [2:15] tutorials/frames/making-the-perfect-camera-sensor-node-in-blender/frame_002.jpg
+- [5:09] tutorials/frames/making-the-perfect-camera-sensor-node-in-blender/frame_003.jpg
+- [6:12] tutorials/frames/making-the-perfect-camera-sensor-node-in-blender/frame_004.jpg
+- [8:52] tutorials/frames/making-the-perfect-camera-sensor-node-in-blender/frame_005.jpg
+- [9:15] tutorials/frames/making-the-perfect-camera-sensor-node-in-blender/frame_006.jpg
+- [10:02] tutorials/frames/making-the-perfect-camera-sensor-node-in-blender/frame_007.jpg
+- [10:20] tutorials/frames/making-the-perfect-camera-sensor-node-in-blender/frame_008.jpg
+- [11:28] tutorials/frames/making-the-perfect-camera-sensor-node-in-blender/frame_009.jpg
+- [13:40] tutorials/frames/making-the-perfect-camera-sensor-node-in-blender/frame_010.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Measuring three *sensor*-side camera artefacts — **vignette**, **black level** and **sensor noise** — from calibration footage shot on the actual camera, and applying each as a remove-then-restore pair in the compositor so CG can be integrated in between.
 
 ### Summary
-[PENDING EXTRACTION]
+The intermediate tier of a lens-cloning series (distortion and colour space came before; bokeh, glare, lens breathing and chromatic aberration come after, in **"Making my lens in Blender"**). Each effect follows the same shape: capture it once from the real camera, divide or subtract it out of the plate, composite the CG into the now-clean image, then multiply or add it back. The sharpest lesson is a boundary: vignette is a *lens* artefact and must be handled inside the undistort/redistort bracket, while sensor noise happens *after* the lens and must never be undistorted. Blender cannot denoise real sensor noise at all — its Denoise node targets render noise — so the noise-free reference is built by mixing ~32 offset copies of the footage in a binary cascade.
 
 ### Key Steps
-[PENDING EXTRACTION]
+
+**Vignette** `[transcript 0:26-3:20]`
+1. **Understand the cause.** Darkening toward the frame edge, caused by the lens walls occluding light — effectively ambient occlusion inside the barrel `[transcript 0:31-0:46]`.
+2. **Capture it.** Photograph a plain white image on a monitor with the real camera `[transcript 0:52-0:56]`.
+3. **Prepare the plate.** Load in Blender, set the input colour space, and **undistort** it using the previous video's method `[transcript 0:57-1:03]`.
+4. **Normalise it.** Desaturate fully, then raise exposure until the centre just reaches a value of 1. Verify by adding a **`Greater Than`** node set to `0.999` — the moment the centre clips to white, you are at 1 `[transcript 1:09-1:30]`.
+5. **Save in a consistent intermediate format** — the author standardises on **Linear Rec.2020**, EXR with **DWAB compression at ~60% quality** `[transcript 1:36-1:57]`.
+6. **Apply it.** Load the saved vignette alongside the footage, **setting its input colour space to Linear Rec.2020 to match what was saved** `[transcript 2:06-2:19]`. Then **divide** it out of the plate, composite the CG, and **multiply** it back over `[transcript 2:20-2:36]`.
+7. **Mind the bracket.** All of this must happen *between* the distortion nodes, because the vignette image was saved undistorted and therefore applies to undistorted footage `[transcript 2:42-2:53]`.
+
+**Black level** `[transcript 4:18-6:32]`
+8. **Understand the cause.** Cycles renders true black; a real sensor does not, because of its **noise floor** — which differs per individual camera body, not just per model `[transcript 4:23-4:53]`.
+9. **Measure it.** Take a photo with the lens cap on, open it in Blender, set the input colour transform `[transcript 4:55-5:04]`.
+10. **Sample it.** Add a `Color` node, use the eyedropper across the black frame; the R, G and B values come out slightly different (the author's green sits higher) — that is the black level `[frame_003]` `[transcript 5:05-5:21]`.
+11. **Two things change it.** The value depends on the **colour space** you are working in, and on the camera's **ISO**, since ISO boosts the analog sensor signal. Sample at the same ISO as the shot `[transcript 5:22-5:50]`.
+12. **Apply it.** **Subtract** that colour to bring the plate to true black, composite the CG (also on true black), then **add** it back with a `Mix Color` node set to `Add` using the identical value `[transcript 5:51-6:15]`.
+
+**Sensor noise** `[transcript 6:33-14:53]`
+13. **Capture the noise.** Point the camera at a white wall, defocus, and overexpose. Shoot **outdoors** — indoor lighting or a monitor can beat against the camera's frame rate and introduce flicker `[transcript 7:00-7:32]`.
+14. **Capture a range.** Three or four different light levels from lens-cap black to pure white, because noise differs between dark and light. Surfaces should be close to evenly coloured `[transcript 7:33-8:05]`.
+15. **Match ISO** to the footage being matched `[transcript 8:06-8:12]`.
+16. **Do NOT undistort the noise.** Light is distorted by the lens *before* it reaches the sensor, so sensor noise is not lens-distorted and must not be treated as if it were `[transcript 8:20-8:36]`.
+17. **Blender's `Denoise` node will not help.** Adding it does nothing here — it is built for render noise, which looks different `[transcript 8:40-9:01]`.
+18. **Build the clean reference by frame-mixing.** Duplicate the clip, offset it by one frame, and mix the two — noise halves. Repeat in a binary cascade, `Alt`-dragging the frame number to bump paired nodes together, up to roughly **32 frames** `[frame_006]` `[transcript 9:05-10:11]`.
+19. **Finish with a small blur** — at most about **4 pixels**, and only if it does not visibly affect the background, which must be very even for this to be safe `[transcript 10:15-10:41]`.
+20. **Cache the result.** The cascade is slow to evaluate, so save each light level's clean plate out and re-import `[transcript 10:55-11:11]`.
+21. **Extract the noise delta.** `Mix Color` set to **`Divide`**, noisy version over noise-free version — the result is the isolated noise `[frame_009]` `[transcript 11:12-11:43]`. The author flags his own uncertainty about which input goes on top and defers to the on-screen version `[transcript 11:25-11:33]`.
+22. **Render out noise deltas** for each lighting range `[transcript 11:44-11:58]`.
+23. **Accept the workflow limitation.** Because Blender cannot remove noise from the plate, the recommended route is to **denoise the footage in other software**, bring it back (Linear Rec.2020), composite, then **multiply** the noise over `[transcript 12:03-13:13]`. Multiplying noise onto only the render is possible but breaks the order of operations, since the subsequent distortion would then distort the noise too — which is wrong `[transcript 12:35-12:59]`.
+24. **Blend the noise levels by luminance.** `Separate Color` set to **`YCbCr`**; its `Y` output is luminosity, and that drives the mix between the dark, medium and bright noise versions `[frame_010]` `[transcript 13:33-13:56]`.
+25. **Find the thresholds empirically.** Eyedropper each original noise sample to read the light level it was captured at; that is the level at which it should be mixed in. Artistic license is offered as the alternative `[transcript 14:13-14:38]`.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **`Greater Than`** — set to `0.999`, used to confirm the vignette centre has reached a value of 1 `[transcript 1:18-1:30]`
+- **Intermediate file standard** — **Linear Rec.2020**, EXR, **DWAB** compression at ~60% quality `[transcript 1:44-1:57]`
+- **Vignette application** — `Mix Color` `Divide` before compositing, `Multiply` after, both inside the undistort/redistort bracket `[transcript 2:20-2:53]`
+- **Black-level source** — clip `Black 400ISO`, input colour space **V-Log V-Gamut**, `Alpha: Straight`, Movie type `[frame_003]`
+- **`Color` node** — holds the eyedroppered black-level value; R/G/B differ slightly `[frame_003]`
+- **Black-level application** — subtract before, `Mix Color` set to `Add` after, same value both sides `[transcript 5:51-6:15]`
+- **Noise plates** — `clone_noisePlate_*_black_##.exr` and `*_darkGray_##.exr` as **64-frame image sequences**, plus `clone_noise_plate_denoised_0.02.exr` / `_0.1.exr` as single images; all `Linear Rec.2020`, `Premultiplied` `[frame_009]`
+- **Noise delta** — `Mix Color` set to **`Divide`**, `Clamp Factor` on, `Factor 1.000` `[frame_009]`
+- **Noise application** — `Mix Color` set to **`Multiply`** `[frame_010]`
+- **`Separate Color`** — mode **`YCbCr`** (options: `RGB`, `HSV`, `HSL`, `YCbCr`, `YUV`); `Y` used as the luminance mask `[frame_010]`
+- **`Denoise` node** — explicitly *not* usable for sensor noise `[transcript 8:40-9:01]`
+- **Blur** — at most 4 px, conditional on an even background `[transcript 10:33-10:41]`
+- **Render** — Cycles, GPU Compute, `Max Samples 4096` `[frame_003]`; Color Management varies by task — `AgX / High Contrast` at exposure `6.490` while inspecting noise `[frame_006]`, `Filmic / Medium Contrast` for the composite `[frame_010]`
+
+> **Series position, stated by the source.** This is the intermediate tier: distortion
+> and colour space were covered previously `[transcript 0:12-0:17]`, and the next video is
+> the advanced tier covering "Bokeh, glare, lens breathing and chromatic aberrations"
+> `[transcript 15:03-15:12]` — which is
+> [Making my lens in Blender](making-my-lens-in-blender-bokeh-glare-chromatic-aberrations.md),
+> already in this library. That video's 15-step order-of-operations graphic is where these
+> three effects get their positions: black level subtract/add at steps 2 and 14, divide/
+> multiply vignette at 5 and 10, and de-noise/re-noise at 3 and 13.
+>
+> **Transcript tail bleed.** The final lines `[transcript 15:19-15:29]` ("we start of
+> course by importing our movie clip… movie clip editor, press open… EXR sequence") are
+> the opening of the *next* video, carried over as an end-card teaser. They describe
+> content documented in the sequel's entry, not this one.
+>
+> **Affiliate promo** at `[transcript 3:22-4:16]` (InLightVFX course) is excluded — the
+> same course promoted in two other entries in this library.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2.0 — read from the status bar in `[frame_003]`, `[frame_006]`, `[frame_009]` and `[frame_010]`. Never stated in narration.
 
 ### Tags
-[PENDING EXTRACTION]
+compositing, camera, rendering, cycles, blender-5x, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Making my lens in Blender (Bokeh, glare, chromatic aberrations)](making-my-lens-in-blender-bokeh-glare-chromatic-aberrations.md) — the direct sequel, named as such by this video; its 15-step order of operations places all three effects documented here
+- [I made the VFX tool Blender was missing... (Full Workflow)](i-made-the-vfx-tool-blender-was-missing-full-workflow.md) — supplies the undistort/redistort bracket this video's vignette step must sit inside; shares compositing, camera, rendering
+- [A FULL Blender Compositor Course!](a-full-blender-compositor-course.md) — the compositor fundamentals underneath the divide/multiply and subtract/add pairs; shares compositing, rendering
