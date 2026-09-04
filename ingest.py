@@ -984,10 +984,42 @@ _STOP_WORDS = {
 }
 
 def _detect_hallucination(text):
-    """Content word repeated >= 8x in last 50 words → probable ASR loop."""
+    """Probable ASR loop. Two independent signals; either one is enough.
+
+    1. LINE-LEVEL  -- one distinct line repeated >= 4x AND accounting for >= 40%
+       of the section's lines.
+    2. WORD-LEVEL  -- a content word repeated >= 8x in the last 50 content words.
+
+    ⚠️ Signal 1 was added 2026-09-04 because signal 2 is STRUCTURALLY BLIND to a
+    repeated PHRASE -- not merely mistuned. A 50-word tail holds at most 50/N
+    copies of an N-word line, so a 7-word hallucination tops out at 7 occurrences
+    of each of its words: permanently under the >= 8 threshold no matter how many
+    times it repeats. Measured on -ZUAhe-gRns (Polyfjord, 41m21s), where 72 of 154
+    transcript lines were the identical string "How to make Looping Polyrhythms in
+    Blender, NLA": every chapter peaked at exactly 7 and zero were flagged. The
+    duration-aware floor missed it too -- 7,350 chars clears a 500-char floor --
+    so nothing in the pipeline caught a transcript that was 47% hallucination.
+
+    The >= 40% share and >= 12 char guards were fitted against the whole corpus
+    (1,495 files / 3,701 chapters at the time): they flag the two genuinely
+    degenerate files and nothing else. Both guards earn their place. Without the
+    length guard, ordinary filler ("Okay.", "Yeah.") trips it; without the share
+    guard, legitimate caption markers do -- a real 188-line Substance Painter
+    chapter carries "Music playing" 62 times (33%) around usable content, and
+    must not be flagged. Thresholds anywhere in 0.40-0.60 give the same verdict,
+    so 0.40 sits in a basin rather than on an edge.
+    """
     import collections
-    lines = [l for l in text.splitlines()
+    lines = [l.strip() for l in text.splitlines()
              if not re.search(r'frame_\d+\.(jpg|png)|tutorials[/\\]frames', l, re.I)]
+    lines = [l for l in lines if l]
+
+    if len(lines) >= 4:
+        top_line, n = collections.Counter(lines).most_common(1)[0]
+        if n >= 4 and n >= 0.40 * len(lines) and len(top_line) >= 12:
+            snip = top_line if len(top_line) <= 60 else top_line[:57] + "..."
+            return True, 'repeated line "%s" (%d of %d lines)' % (snip, n, len(lines)), n
+
     words = re.findall(r'\b[a-z]+\b', ' '.join(lines).lower())
     if not words:
         return False, '', 0
@@ -995,7 +1027,7 @@ def _detect_hallucination(text):
     if not tail:
         return False, '', 0
     top_word, top_count = collections.Counter(tail).most_common(1)[0]
-    return top_count >= 8, top_word, top_count
+    return top_count >= 8, "content word '%s' in last 50 content words" % top_word, top_count
 
 def run_safeguards(ch_transcripts, duration_sec=None):
     """
@@ -1049,11 +1081,11 @@ def run_safeguards(ch_transcripts, duration_sec=None):
     for ch in ch_transcripts:
         text = ch.get('text', '')
         if len(text) > 200:
-            hallu, word, count = _detect_hallucination(text)
+            hallu, what, count = _detect_hallucination(text)
             if hallu:
                 critical.append(
                     f"ASR hallucination in '{ch.get('title', '?')}': "
-                    f"'{word}' x{count} in last 50 content words. "
+                    f"{what} x{count}. "
                     "Review and truncate the affected section before extracting."
                 )
 
