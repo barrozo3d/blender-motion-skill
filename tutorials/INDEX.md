@@ -3292,6 +3292,16 @@ Each entry format:
 - **Summary:** Episode 16 maps Blender's two coexisting curve systems: the legacy Curve object (invisible until converted via Curve to Mesh, whose Scale socket replaced the old Set Curve Radius auto-behaviour) and the new Hair Curve object (natively renderable, added only as a child of a selected mesh, bound to the surface by data settings rather than parenting). New-curve rendering works only on that object type and only on realized geometry — instancing breaks it. Decodes curve_type in the spreadsheet (Poly 1, Bezier 2, NURBS 3, plus Catmull Rom for sculpted hair), shows that "resolution" only fabricates virtual render points (a Bezier Segment at Resolution 256 still has 2 real points), flags Quadratic Bezier as actually a polyline, and contrasts Resample Curve (converts to polylines; Evaluated/Count/Length modes) with Subdivide Curve (preserves type). Also untangles the spline vs curve vs hair nomenclature split.
 - **File:** tutorials/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50.md
 
+
+### I Combined 5 HDRIs in Blender
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=MvJEnsMX4DU
+- **Author:** roe.num77
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/i-combined-5-hdris-in-blender.md
+
 ---
 
 ## Tag Reference
