@@ -6,6 +6,7 @@ author: NextFrameSaga
 ingested: 2026-05-13
 blender_version: "4.x"
 tags: [geometry-nodes, procedural, materials, shaders, rendering, cycles, eevee, motion-design, blender-4x, beginner]
+extraction_status: complete
 ---
 
 # Blender Geometry Nodes – Sci-Fi Cube Creation (Step-by-Step Tutorial) #Blender

@@ -6,6 +6,7 @@ author: Midge "Mantissa" Sinnaeve
 ingested: 2026-05-13
 blender_version: "Blender 3.x/4.x"
 tags: [geometry-nodes, particles, volume, procedural, abstract, intermediate, advanced]
+extraction_status: complete
 ---
 
 # Art Stream #27: Nodes, nodes, nodes! [Blender / Geometry Nodes]

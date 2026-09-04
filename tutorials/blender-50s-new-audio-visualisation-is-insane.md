@@ -6,6 +6,7 @@ author: MTR Animation
 ingested: 2026-05-13
 blender_version: "5.0"
 tags: [geometry-nodes, simulation, animation, smoke-fire, volume, motion-design, blender-5x, intermediate]
+extraction_status: complete
 ---
 
 # Blender 5.0's NEW Audio Visualisation is INSANE!

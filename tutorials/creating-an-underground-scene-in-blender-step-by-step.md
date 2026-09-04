@@ -6,6 +6,7 @@ author: Max Hay
 ingested: 2026-05-13
 blender_version: "Blender 3.x/4.x"
 tags: [materials, rendering, lighting, compositing, intermediate]
+extraction_status: complete
 ---
 
 # Creating an Underground Scene in Blender (Step by Step)

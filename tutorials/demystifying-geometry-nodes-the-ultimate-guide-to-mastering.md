@@ -6,6 +6,7 @@ author: Deayan Studios
 ingested: 2026-05-13
 blender_version: "Blender 4.x"
 tags: [geometry-nodes, procedural, beginner, intermediate]
+extraction_status: complete
 ---
 
 # Demystifying Geometry Nodes: The Ultimate Guide to Mastering Blender's Procedural Power

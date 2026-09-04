@@ -167,8 +167,18 @@ def check_tutorials():
         # had ever noticed, because "not pending" was treated as "fine".
         # Same shape as the tag parser and the vendored-snapshot gap: an
         # unchecked field reading as a clean pass. Check the vocabulary.
+        # ⚠️ ABSENCE MUST FAIL TOO, and this is the second half of the same
+        # lesson. The first version only validated the value WHEN THE FIELD
+        # EXISTED, so a file with no extraction_status at all sailed through
+        # -- 18 blender-motion entries from 2026-05-13, written before the
+        # field existed, were sitting outside this gate the same day it was
+        # added. A check that only inspects what is present is not a check on
+        # the field; missing evidence must fail, not pass quietly.
         m_status = re.search(r"^extraction_status:\s*(.+)$", content, re.M)
-        if m_status:
+        if not m_status:
+            fail(f"{fname}: no extraction_status in frontmatter -- every entry "
+                 f"must declare one of {sorted(EXTRACTION_STATUSES)}")
+        else:
             status = m_status.group(1).strip().strip('"').strip("'")
             if status.lower() not in EXTRACTION_STATUSES:
                 fail(f"{fname}: extraction_status {status!r} is not one of "

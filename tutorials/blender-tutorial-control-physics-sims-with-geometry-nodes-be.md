@@ -6,6 +6,7 @@ author: Skramble
 ingested: 2026-05-13
 blender_version: "4.5"
 tags: [geometry-nodes, rigid-body, simulation, animation, procedural, blender-4x, intermediate]
+extraction_status: complete
 ---
 
 # Blender Tutorial - Control Physics Sims with Geometry Nodes (Beginner Friendly)

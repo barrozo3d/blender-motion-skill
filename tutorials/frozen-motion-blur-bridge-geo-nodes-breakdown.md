@@ -5,6 +5,7 @@ tags: [geometry-nodes, motion-blur, procedural, animation, scene-time, glass, di
 source: direct-file-analysis
 url: https://www.youtube.com/watch?v=675BOBWbTt4
 author: Albin Merle
+extraction_status: complete
 ---
 
 # Frozen Motion Blur Bridge — Geo Nodes Breakdown

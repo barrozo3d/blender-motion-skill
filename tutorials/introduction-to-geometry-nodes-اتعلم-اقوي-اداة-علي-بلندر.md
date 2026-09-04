@@ -6,6 +6,7 @@ author: Tabasheer
 ingested: 2026-05-13
 blender_version: Not specified
 tags: [geometry-nodes, procedural, animation, particles, displacement, materials, beginner, intermediate]
+extraction_status: complete
 ---
 
 # Introduction to Geometry Nodes - اتعلم اقوي اداة علي بلندر

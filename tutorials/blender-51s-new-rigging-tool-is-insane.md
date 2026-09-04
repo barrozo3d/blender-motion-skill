@@ -6,6 +6,7 @@ author: MTR Animation
 ingested: 2026-05-13
 blender_version: "5.1"
 tags: [rigging, geometry-nodes, animation, particles, procedural, blender-5x, intermediate, advanced]
+extraction_status: complete
 ---
 
 # Blender 5.1's NEW Rigging Tool is INSANE!

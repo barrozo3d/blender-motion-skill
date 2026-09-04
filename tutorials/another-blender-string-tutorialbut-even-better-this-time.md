@@ -6,6 +6,7 @@ author: Ducky 3D
 ingested: 2026-05-13
 blender_version: "Blender 3.x/4.x"
 tags: [geometry-nodes, simulation, animation, motion-design, procedural, intermediate]
+extraction_status: complete
 ---
 
 # Another Blender String Tutorial....But even Better This Time!

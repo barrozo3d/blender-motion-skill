@@ -6,6 +6,7 @@ author: Zack (3D animation)
 ingested: 2026-05-13
 blender_version: "5.0"
 tags: [geometry-nodes, simulation, particles, animation, procedural, intermediate, blender-5x]
+extraction_status: complete
 ---
 
 # Blender 5.0 particle attraction and follow surface motion

@@ -6,6 +6,7 @@ author: RTF Dimensions
 ingested: 2026-05-13
 blender_version: "Blender 4.x"
 tags: [geometry-nodes, procedural, particles, organic, rendering, beginner, intermediate]
+extraction_status: complete
 ---
 
 # 🎞️ Procedural Grass in Blender Geometry Nodes 🌿 | Fast Viewport Setup & Optimization Tutorial

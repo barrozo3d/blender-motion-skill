@@ -6,6 +6,7 @@ author: Entagma
 ingested: 2026-05-13
 blender_version: "3.4"
 tags: [geometry-nodes, procedural, particles, animation, motion-design, abstract, blender-3x, advanced]
+extraction_status: complete
 ---
 
 # Blender Tutorial: Connect The Dots with Geometry Nodes, The "Plexus" Effect

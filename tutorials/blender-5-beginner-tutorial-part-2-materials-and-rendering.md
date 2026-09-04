@@ -6,6 +6,7 @@ author: Rob Tuytel
 ingested: 2026-05-13
 blender_version: "5.0"
 tags: [materials, rendering, cycles, eevee, lighting, hdri, beginner, blender-5x]
+extraction_status: complete
 ---
 
 # Blender 5 Beginner Tutorial - Part 2 - Materials and rendering

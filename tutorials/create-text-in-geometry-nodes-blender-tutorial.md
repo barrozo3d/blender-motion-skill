@@ -6,6 +6,7 @@ author: Ryan King Art
 ingested: 2026-05-13
 blender_version: "Blender 4.x"
 tags: [geometry-nodes, typography, animation, procedural, particles-reveal, beginner, intermediate]
+extraction_status: complete
 ---
 
 # Create Text in Geometry Nodes! (Blender Tutorial)

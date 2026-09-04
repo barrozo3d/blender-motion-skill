@@ -6,6 +6,7 @@ author: CG Cookie – Learn Blender
 ingested: 2026-05-13
 blender_version: "5.0"
 tags: [geometry-nodes, procedural, organic, animation, blender-5x, intermediate, advanced]
+extraction_status: complete
 ---
 
 # Blender Tutorial - Procedural Rope in Geometry Nodes
