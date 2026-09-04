@@ -3257,9 +3257,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=nru_2wdBqsY
 - **Author:** Robin Squares
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** compositing, camera, rendering, cycles, lighting, materials, shaders, blender-5x, expert
+- **Summary:** Rebuilds one specific real lens (17.5mm prime, MFT) inside Blender so CG matches footage shot on it: three compared bokeh methods (camera DoF, a physical bokeh-image plane giving cat's eyes, and nine screen-segmented Bokeh Blur nodes), a custom glare kernel generated in RealBloom and loaded via the Glare node in Kernel mode, lens breathing driven by a focus-to-focal-length driver curve calibrated from a filmed focus rack, and depth-varying chromatic aberration built per-channel with Vector Curves. Centres on a 15-step order of operations where every effect removed from the plate is re-added after compositing.
 - **File:** tutorials/making-my-lens-in-blender-bokeh-glare-chromatic-aberrations.md
 
 ---

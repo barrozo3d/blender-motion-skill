@@ -4,13 +4,14 @@ source: YouTube
 url: https://www.youtube.com/watch?v=nru_2wdBqsY
 author: Robin Squares
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [compositing, camera, rendering, cycles, lighting, materials, shaders, blender-5x, expert]
+extraction_status: complete
 frames_dir: tutorials/frames/making-my-lens-in-blender-bokeh-glare-chromatic-aberrations/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 14
+frame_status: complete
 uncertainty_frames: []
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Making my lens in Blender (Bokeh, glare, chromatic aberrations)
@@ -24,12 +25,7 @@ uncertainty_frames: []
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py making-my-lens-in-blender-bokeh-glare-chromatic-aberrations <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -688,30 +684,83 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:19] tutorials/frames/making-my-lens-in-blender-bokeh-glare-chromatic-aberrations/frame_000.jpg
+- [3:25] tutorials/frames/making-my-lens-in-blender-bokeh-glare-chromatic-aberrations/frame_001.jpg
+- [4:19] tutorials/frames/making-my-lens-in-blender-bokeh-glare-chromatic-aberrations/frame_002.jpg
+- [6:40] tutorials/frames/making-my-lens-in-blender-bokeh-glare-chromatic-aberrations/frame_003.jpg
+- [8:02] tutorials/frames/making-my-lens-in-blender-bokeh-glare-chromatic-aberrations/frame_004.jpg
+- [11:00] tutorials/frames/making-my-lens-in-blender-bokeh-glare-chromatic-aberrations/frame_005.jpg
+- [11:22] tutorials/frames/making-my-lens-in-blender-bokeh-glare-chromatic-aberrations/frame_006.jpg
+- [11:48] tutorials/frames/making-my-lens-in-blender-bokeh-glare-chromatic-aberrations/frame_007.jpg
+- [18:38] tutorials/frames/making-my-lens-in-blender-bokeh-glare-chromatic-aberrations/frame_008.jpg
+- [24:30] tutorials/frames/making-my-lens-in-blender-bokeh-glare-chromatic-aberrations/frame_009.jpg
+- [25:50] tutorials/frames/making-my-lens-in-blender-bokeh-glare-chromatic-aberrations/frame_010.jpg
+- [28:05] tutorials/frames/making-my-lens-in-blender-bokeh-glare-chromatic-aberrations/frame_011.jpg
+- [33:18] tutorials/frames/making-my-lens-in-blender-bokeh-glare-chromatic-aberrations/frame_012.jpg
+- [37:10] tutorials/frames/making-my-lens-in-blender-bokeh-glare-chromatic-aberrations/frame_013.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Physically matching a real camera lens in Blender by measuring its bokeh, glare, lens breathing, chromatic aberration and vignette from reference footage, then rebuilding each as a compositor stage applied in a strict 15-step order of operations.
 
 ### Summary
-[PENDING EXTRACTION]
+Rather than approximating lens artefacts with Blender's stock controls, this builds each effect from measurements of one specific lens (17.5 mm prime, MFT sensor) so CG integrates against footage shot on it. Three separate bokeh methods are compared with explicit trade-offs, glare is generated as a custom convolution kernel in the external tool RealBloom, lens breathing is driven by a focus-to-focal-length driver curve calibrated against a filmed focus rack, and chromatic aberration is rebuilt per-channel with depth-varying vector curves. The payload is the order of operations `[frame_011]`: a 15-stage chain where every effect removed from the plate before compositing is re-added after it.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Match the camera first.** Movie Clip editor, Track, Camera: Sensor Width `17.300`, Focal Length `17.50 mm`, Lens Distortion model `Polynomial`, `K1 -0.126`, `K2 0.234` `[frame_012]`. Set clip input color space to Panasonic V-Log V-Gamut `[transcript 29:52]`.
+2. **Bokeh method 1, pure Blender camera.** Enable Depth of Field, set Focus on Object, then match `Blades` and `Rotation` to the real aperture. Aperture panel reads `F-Stop 2.8`, `Blades 0`, `Rotation 0`, `Ratio 1.000` `[frame_000]` — blades still at the circular default at that moment, changed to match afterwards `[transcript 2:19]`. Easiest and how Cycles is designed to render bokeh, but looks digital and produces no cat's eyes `[transcript 2:24-2:43]`.
+3. **Bokeh method 2, physical plane.** Remove the DoF blades, place an image plane of a photographed out-of-focus flashlight directly in front of the camera. Shader is Image Texture into Transparent BSDF into Material Output, image set `Linear Rec.709` / `Premultiplied` `[frame_001]`, white fully transparent and black fully opaque `[transcript 3:13-3:25]`. Extrude the plane's edges wide enough to fall outside the field of view `[transcript 3:50]`. Adds real bokeh colour and texture plus cat's-eye cropping toward frame edges `[frame_002]`, at the cost of slower renders and broken render passes `[transcript 4:36-4:52]`. Modelling an actual circular hole instead of using a texture keeps the cat's eyes and loses the colour, but survives passes `[transcript 4:58-5:17]`.
+4. **Bokeh method 3, compositor.** Render sharp, then feed a Bokeh Blur node whose Bokeh input is the flashlight photo. To recover cat's eyes, photograph the flashlight in nine screen positions, drive nine Bokeh Blur nodes, and mix them by screen space using a `Screen segment` node group (`Vertical 1/2`, `Horizontal 1/2`, `Feather 0.130`) `[frame_003]`. Best for stills; breaks under camera motion because the shapes morph incorrectly as lights cross the frame `[transcript 7:01-7:20]`.
+5. **Drive bokeh size from depth.** Convert the Z-depth pass to blur size with a Subtract, Absolute, Multiply, Minimum chain, exposing `Focus distance 0.677`, `Blur size 1.400`, `Max blur 100.000`, into a Bokeh Blur node (`Mask 1.000`, `Extend Bounds`) `[frame_004]`.
+6. **Capture the aperture at the right f-stop.** Aperture blades physically rotate and disappear wide open, so bokeh and glare references must be shot at the same aperture as the plate `[transcript 9:57-10:29]`.
+7. **Generate a glare kernel in RealBloom v0.8.0** `[frame_005]`. Load the aperture photo, enable `Logarithmic Normalization`, press `Compute`. The transcript calls this simply "normalization" `[transcript 10:54]`; the control is labelled *Logarithmic Normalization* `[frame_005]`. Working space is `Linear BT.2020 I-E`, input `Linear BT.709 I-D65`, output `Linear BT.2020 I-E`. A polygonal aperture yields streaks; a circular one does not `[transcript 10:59-11:04]`.
+8. **Apply dispersion.** `Move To` into the Dispersion input, then Dispersion tab: `Amount 1.000`, `Edge Offset 1.000`, `Steps 1024`, `Method` set to `GPU` `[frame_006]`. The transcript's "turn everything up to max" `[transcript 11:20]` corresponds to those values. Save the result — it is written in Linear Rec.2020 `[transcript 11:34]`.
+9. **Use the kernel in Blender.** Add a Glare node, mode `Kernel`, quality `Medium`, `Strength 1.000`, `Saturation 1.000`; import the kernel image and set its color space to `Linear Rec.2020` `[frame_007]`. Feed the Glare node *only* the CG render, but composite its result over the whole frame — the plate already contains its own glare `[transcript 12:25-12:45]`.
+10. **Lens breathing via driver.** Film a focus rack against a grid calling out focus distances, export a still per called distance, rebuild the setup in Blender, and animate camera focus to match each still `[transcript 16:41-17:51]`. Copy focus as a driver onto focal length, then shape the driver curve — focus distance is the input, focal length the output `[frame_008]`. Key infinity focus at the lens's marked `17.5` `[transcript 19:03]`, then add keys per timeline distance, nudging each until the checkerboard stops sliding `[transcript 19:16-19:45]`. Flatten both ends (aligned handles, Y scaled to zero) so focus at 0 does not break the rig `[transcript 20:16-20:49]`. Delete the calibration keyframes when done `[transcript 21:11]`.
+11. **Chromatic aberration per channel.** Split with Separate Color (`RGB`), transform each channel independently, recombine with Combine Color `[frame_009]`. Only nodes that can vary per-pixel are usable, since the effect must respond to depth `[transcript 24:47-24:58]`. Work side by side against the shot reference, with a blur node at the head of the chain to match reference softness `[transcript 24:01-24:13]`.
+12. **Make it depth-varying.** Animate a value from -1 to +1 representing how far out of focus a pixel is and in which direction (0 is sharp), run it through a `Vector Curves` node (`X`/`Y`/`Z`, `Factor 1.000`) and feed the outputs into each channel's transform or blur `[frame_010]`; the exposed control is a `Defocus level` value, shown at `-0.930` `[frame_010]`. Group the network, expose that input, and drive it from the same Z-depth math used for bokeh, but signed rather than absolute `[transcript 27:26-27:39]`.
+13. **Assemble in the documented order** `[frame_011]`: 1 camera color space to working, 2 black level subtract, 3 de-noise, 4 undistort, 5 divide vignette, 6 lens breathing (in render), 7 bokeh blur or DoF, 8 chromatic aberrations, 9 composite CG over plate, 10 multiply vignette, 11 distort, 12 glare, 13 re-noise, 14 black level add, 15 working color space to display. Steps 2-5 are done to the plate before compositing, 6-9 only to CG elements, 11-13 to the finished shot.
+14. **Black level tier.** Mix Color set to `Subtract` with a per-channel value (0 red, 0 blue, a small linear green offset) at the head, mirrored by an `Add` at the tail `[transcript 31:57-32:51]`.
+15. **Distortion tier.** A `Movie Distortion` node in `Undistort` mode using the tracked clip's polynomial values `[frame_012]`, mirrored by a `Distort` at the tail; force final resolution with a Mix Color fed the original footage in its first input `[transcript 33:53-34:18]`.
+16. **Vignette tier.** Divide by the vignette image (`Linear Rec.2020`, strength around `0.25` for the lens actually used) early, multiply it back at full strength late `[transcript 34:36-35:46]`.
+17. **Overall softness.** No real lens is perfectly sharp, so add a baseline blur to every render. Matched here at `Size X/Y 3.000 px` `[frame_013]`, reached by eye against the plate `[transcript 36:41-36:49]`, applied to both beauty and shadow passes before the `Segment bokeh` node group adds depth of field `[frame_013]`.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Camera (object data)** — Type `Perspective`, Focal Length `17.5 mm`, Lens Unit `Millimeters`, Clip Start `0.1 m` / End `1000 m`, Depth of Field on, Focus on Object, Aperture `F-Stop 2.8`, `Blades 0`, `Rotation 0`, `Ratio 1.000` `[frame_000]`
+- **Movie Clip, Track, Camera** — Sensor Width `17.300`, Pixel Aspect `1.00`, Focal Length `17.50 mm`, Optical Center `0.000/0.000`, Lens Distortion `Polynomial`, `K1 -0.126`, `K2 0.234` `[frame_012]`
+- **Bokeh plane shader** — Image Texture (`Linear Rec.709`, `Premultiplied`, Single Image, Flat, Clip) into Transparent BSDF into Material Output `[frame_001]`
+- **Bokeh Blur** — inputs Image, Bokeh, Size, `Mask 1.000`, `Extend Bounds` `[frame_004]`
+- **Z-depth to blur size** — Subtract, Absolute, Multiply, Minimum, with `Focus distance 0.677`, `Blur size 1.400`, `Max blur 100.000` `[frame_004]`
+- **Screen segment (node group)** — `Vertical 1`, `Vertical 2`, `Horizontal 1`, `Horizontal 2`, `Feather 0.130` `[frame_003]`
+- **Segment bokeh (node group)** — Result output, segment count `3`, `Defocus 0.000`; paired Blur node at `X 3.000 px` / `Y 3.000 px` `[frame_013]`
+- **Glare** — mode `Kernel`, quality `Medium`, `Strength 1.000`, `Saturation 1.000`; kernel image color space `Linear Rec.2020` `[frame_007]`
+- **Separate Color / Combine Color** — mode `RGB`, `Alpha 1.000` `[frame_009]`
+- **Vector Curves** — `X`/`Y`/`Z` tabs, `Factor 1.000`, fed by a `Defocus level` value node (`-0.930` as shown) `[frame_010]`
+- **Movie Distortion** — mode `Undistort`, mirrored by `Distort` late `[frame_012]`
+- **Mix Color** — `Subtract` / `Add` for black level, `Divide` / `Multiply` for vignette `[transcript 31:57, 34:44]`
+- **RealBloom v0.8.0** — Diffraction: `Logarithmic Normalization` plus `Compute`; Dispersion: `Amount 1.000`, `Edge Offset 1.000`, `Steps 1024`, `Method GPU`; working space `Linear BT.2020 I-E`, input `Linear BT.709 I-D65`, output `Linear BT.2020 I-E` `[frame_005][frame_006]`
+- **Render / output** — Cycles, GPU Compute, Noise Threshold `0.0100`, Max Samples `4096`, Denoise plus Temporal Animation Denoiser on, Motion Blur on `[frame_003]`; `3840x2160`, `24 fps`, OpenEXR `RGBA` `Float (Half)` `DWAA (lossy)` quality `90%` `[frame_010][frame_012]`
+- **Color Management** — Display `sRGB`, View `AgX`, Look `High Contrast`, Exposure `0.000`, Gamma `1.000` `[frame_009]`
+- **External** — RealBloom (free, GitHub) for glare kernel generation `[transcript 10:35]`
 
 ### Difficulty
-[PENDING EXTRACTION]
+Expert
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2.0 — read from the status bar in `[frame_000]`, `[frame_009]` and `[frame_012]`; never stated in narration.
 
 ### Tags
-[PENDING EXTRACTION]
+compositing, camera, rendering, cycles, lighting, materials, shaders, blender-5x, expert
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [A FULL Blender Compositor Course!](a-full-blender-compositor-course.md) — foundational compositor coverage this builds on; shares compositing, rendering, lighting, materials, shaders
+- [I Recreated movie scene in Blender & Nuke | Complete Tutorial](i-recreated-movie-scene-in-blender-nuke-complete-tutorial.md) — the same plate-integration problem approached across two compositors; shares compositing, camera, lighting, rendering
+- [Using Geometry Nodes for VFX in Blender](using-geometry-nodes-for-vfx-in-blender.md) — CG-over-plate VFX workflow; shares camera, compositing, lighting, rendering
+- [Creating a Japanse city from a photo using fSpy](creating-a-japanse-city-from-a-photo-using-fspy.md) — matching a real camera's parameters to footage; shares camera, cycles, lighting, rendering
