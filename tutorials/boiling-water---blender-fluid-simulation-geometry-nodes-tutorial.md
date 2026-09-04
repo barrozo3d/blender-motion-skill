@@ -4,13 +4,14 @@ source: YouTube
 url: https://www.youtube.com/watch?v=MRGgqR1N_b8
 author: CGMatter
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [simulation, fluid, geometry-nodes, procedural, materials, shaders, blender-5x, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/boiling-water---blender-fluid-simulation-geometry-nodes-tutorial/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 14
+frame_status: complete
 uncertainty_frames: []
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Boiling Water - Blender Fluid Simulation + Geometry Nodes Tutorial
@@ -24,12 +25,7 @@ uncertainty_frames: []
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py boiling-water---blender-fluid-simulation-geometry-nodes-tutorial <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -456,30 +452,106 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:08] tutorials/frames/boiling-water---blender-fluid-simulation-geometry-nodes-tutorial/frame_000.jpg
+- [2:52] tutorials/frames/boiling-water---blender-fluid-simulation-geometry-nodes-tutorial/frame_001.jpg
+- [4:05] tutorials/frames/boiling-water---blender-fluid-simulation-geometry-nodes-tutorial/frame_002.jpg
+- [5:20] tutorials/frames/boiling-water---blender-fluid-simulation-geometry-nodes-tutorial/frame_003.jpg
+- [5:50] tutorials/frames/boiling-water---blender-fluid-simulation-geometry-nodes-tutorial/frame_004.jpg
+- [7:20] tutorials/frames/boiling-water---blender-fluid-simulation-geometry-nodes-tutorial/frame_005.jpg
+- [8:25] tutorials/frames/boiling-water---blender-fluid-simulation-geometry-nodes-tutorial/frame_006.jpg
+- [10:05] tutorials/frames/boiling-water---blender-fluid-simulation-geometry-nodes-tutorial/frame_007.jpg
+- [11:10] tutorials/frames/boiling-water---blender-fluid-simulation-geometry-nodes-tutorial/frame_008.jpg
+- [12:38] tutorials/frames/boiling-water---blender-fluid-simulation-geometry-nodes-tutorial/frame_009.jpg
+- [13:25] tutorials/frames/boiling-water---blender-fluid-simulation-geometry-nodes-tutorial/frame_010.jpg
+- [14:12] tutorials/frames/boiling-water---blender-fluid-simulation-geometry-nodes-tutorial/frame_011.jpg
+- [16:55] tutorials/frames/boiling-water---blender-fluid-simulation-geometry-nodes-tutorial/frame_012.jpg
+- [20:05] tutorials/frames/boiling-water---blender-fluid-simulation-geometry-nodes-tutorial/frame_013.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Two independent routes to boiling water: (1) a FLIP fluid sim where rising bubbles are geometry-node-driven collision effectors, with spray/foam/bubble particle systems extracted via the `Particle Instance` modifier; and (2) a real-time fake where **two Voronoi textures sharing identical settings** — one in `F1` distance mode, one in `N-Sphere Radius` mode — are combined into a correctly-packed height map of hemispheres rising through a cross-section.
 
 ### Summary
-[PENDING EXTRACTION]
+The simulation route works but is slow and hard to iterate, which the author says outright. Its interesting part is not the fluid setup but how bubbles are made: a geometry-nodes plane spawns points that rise on a looping `Fraction` of time, instances low-poly icospheres on them, realizes those instances, and registers the result as a Fluid **Effector** so it physically displaces the liquid. Four separate proxy objects then pull the domain's spray, foam, bubble and liquid particle systems out through `Particle Instance` modifiers so each can be shaded differently.
+
+The second method is the one worth learning. A Voronoi texture's cells each contain an n-dimensional sphere, and its `N-Sphere Radius` output gives that sphere's radius. Feeding the same texture twice — distance in one, radius in the other — lets you build a height field where each bubble is correctly sized for the space it occupies, rather than fudged with a Map Range. Offsetting the 3D texture on Z animates spheres rising through the surface plane, a `Float Curve` reshapes the spikes into hemispheres, and layered copies at different scales give big and small bubbles together. It runs in real time with no bake.
 
 ### Key Steps
-[PENDING EXTRACTION]
+
+**Method 1 — simulation**
+1. **Set up the vessel.** High-resolution cylinder for the water; a duplicate with the top removed plus a `Solidify` modifier as the container `[transcript 1:14-1:38]`.
+2. **Quick Liquid**, then make the container a Fluid **Effector** with `Effector Type: Collision` `[transcript 1:41-1:58]`. If fluid still passes through, raise **`Surface Thickness`** above zero (0.1 used) `[frame_003]` `[transcript 2:04-2:12]`.
+3. **Constrain the domain** to only the region that matters, and double the fluid resolution — noting this is 8× slower, since it is 2× in three dimensions `[transcript 2:36-2:55]`.
+4. **Build the bubble rig in geometry nodes.** `Distribute Points on Faces` → `Set Position` offset on Z, where Z comes from `Scene Time (Seconds)` plus a `Random Value` (`Float`, `Min 0.000`, `Max 1.000`) through an `Add`, into `Combine XYZ` `[frame_002]` `[transcript 3:14-3:53]`.
+5. **Loop the rise.** A `Fraction` node discards the integer part so points recycle over a 0–1 interval, giving an endless bubble stream; multiply to push them past the water's top `[transcript 3:54-4:18]`.
+6. **Instance and realize.** `Instance on Points` with a **level-2 icosphere**, randomised in size, then **`Realize Instances`** — instances alone will not push fluid `[transcript 4:19-4:44]`.
+7. **Register the bubbles as an effector.** Physics → Fluid → `Type: Effector`, `Effector Type: Collision`, `Use Effector` on `[frame_003]` `[transcript 4:45-4:59]`.
+8. **Fix the fast-motion inaccuracy.** Raise frame rate to 30 and set the effector's **`Sampling Substeps`** to 2 `[frame_003]` `[transcript 5:11-5:27]`. If the displacement is too violent, shrink the bubble radius instead `[transcript 5:28-5:36]`.
+9. **Enable the extra FLIP particle systems** — spray, foam and bubbles, on top of the main liquid particles `[transcript 5:39-6:00]`.
+10. **Bake.** Switch the cache from replay to bake, limit to 100 frames, enable meshing `[transcript 6:15-6:35]`.
+11. **Extract the particles.** Make a proxy object collapsed to a single vertex (`M` → At Center), add a **`Particle Instance`** modifier pointing at the liquid domain, and pick one particle system — `Create Instances: Regular`, `Show: Alive`, `Amount 1.000`, `Coordinate Space: World` `[frame_005]` `[transcript 7:02-7:41]`. Repeat for all four systems and group them in a `particles` collection `[transcript 7:42-8:00]`.
+12. **Assemble.** One "everything" object with four `Object Info` nodes (liquid mesh + three particle proxies), instancing tiny randomised icospheres on the particle vertices, joined together `[transcript 8:08-8:56]`.
+13. **Shade.** Water = high transmission, near-zero roughness, white; bubbles = transmissive with **IOR ≈ 1.05** against water's **1.33** `[transcript 9:20-10:08]`.
+14. **Fix the black patches.** Excess transmission through stacked bubbles darkens the render; split the foam onto its own diffuse material via a duplicated node group `[transcript 10:08-10:50]`.
+15. **Free surface detail.** `Noise Texture` → `Bump` node's Height, raise `Distance` and `Scale`, into the Normal input `[transcript 10:58-11:35]`.
+
+**Method 2 — real-time geometry nodes**
+16. **Start from a circle, not a cylinder.** `Mesh Circle`, `Fill Type: N-Gon`, **`Vertices 200`**, `Radius 1 m` `[frame_011]` `[transcript 12:03-12:14]`.
+17. **Add interior resolution.** A custom **`Grid Fill 2D [CGM]`** node at `Resolution 100` — keeps the outline, subdivides the inside `[frame_011]` `[transcript 12:33-12:41]`. From the author's free CGMatter node pack `[transcript 12:15-12:26]`.
+18. **Understand the Voronoi trick.** Each Voronoi cell contains an n-dimensional sphere with a centre and a radius; the `N-Sphere Radius` output exposes that radius `[transcript 12:55-13:40]`.
+19. **Wire two Voronoi textures with identical settings.** Both `3D`, `Scale 5.000`, `Randomness 1.000`; the first in `F1` / `Euclidean` giving `Distance`, the second switched to **`N-Sphere Radius`** giving `Radius` `[frame_011]` `[transcript 14:03-14:10]`. **Any change must be made to both** `[transcript 14:30-14:32]`.
+20. **Map distance against radius.** `Map Range` (`Clamp` on) running `From Min 0.000` / `From Max 1.000` to **`To Min 1.000` / `To Max 0.000`** — inverted, so distance-from-centre becomes height, correctly scaled per cell `[frame_011]` `[transcript 14:10-14:21]`.
+21. **Animate it.** Feed `Position` plus a Z offset from `Combine XYZ` driven by a time node (speed 1.5) into both textures — spheres then rise through the surface as a moving cross-section `[transcript 14:26-15:07]`.
+22. **Round the profile.** Insert a **`Float Curve`** immediately after the Map Range inside the node group to turn conical spikes into hemispherical caps `[frame_012]` `[transcript 16:47-17:02]`.
+23. **Layer it.** Turn the setup into a node group (named **`Bubbles`** `[frame_012]`) and stack two or three copies at different `Scale` and speed, combined with `Add` — or **`Maximum`** if you want bubbles not to overlap `[transcript 15:24-16:03, 17:23-17:33]`.
+24. **Offset the surface** by the combined height, multiplied down (≈0.1), then `Set Shade Smooth` `[frame_013]` `[transcript 16:07-17:08]`.
+25. **Build the vessel walls.** `Border to Curve` extracts the perimeter → convert to mesh (only meshes extrude as edges) → `Extrude Mesh` by **zero**, then `Set Position` on the top selection to push it down, nulling the Z component via a `Multiply` of `(1,1,0)` so the bottom stays flat `[transcript 17:34-18:50]`.
+26. **Seal the base.** Extrude the bottom perimeter by zero again, then `Scale Elements` on that selection to **0** for edges, collapsing it to a point `[transcript 18:51-19:16]`.
+27. **Make it a valid volume.** Check face orientation — the faces come out **flipped** (red) — apply `Flip Faces`, then `Merge by Distance` at the join `[frame_013]` `[transcript 19:58-20:18]`.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Fluid Effector** — `Type: Effector`, `Effector Type: Collision`, `Sampling Substeps` (2), `Surface Thickness` (0.1), `Use Effector`, `Is Planar` `[frame_003]`
+- **Bubble rig** — `Distribute Points on Faces` → `Set Position` ← `Combine XYZ` ← `Add` ← `Scene Time (Seconds)` + `Random Value` (`Float`, `Min 0.000`, `Max 1.000`, `Seed 0`) `[frame_002]`, plus `Fraction`, `Instance on Points` (icosphere subdiv 2), `Realize Instances` `[transcript 3:27-4:44]`
+- **`Particle Instance` modifier** — `Object` = liquid domain, `Particle System` index, `Create Instances: Regular`, `Show: Alive`, `Amount 1.000`, `Offset 0.000`, `Coordinate Space: World`, `Axis Z` `[frame_005]`
+- **FLIP particle systems** — spray, foam, bubbles, liquid `[transcript 5:39-6:00, 6:51-6:58]`
+- **`Mesh Circle`** — `Fill Type: N-Gon`, `Vertices 200`, `Radius 1 m` `[frame_011]`
+- **`Grid Fill 2D [CGM]`** — custom node, `Resolution 100` `[frame_011]`
+- **`Voronoi Texture` ×2** — both `3D`, `Scale 5.000`, `Randomness 1.000`, `Detail 0.000`, `Roughness 0.500`, `Lacunarity 2.000`; #1 `F1` / `Euclidean` → `Distance`, #2 **`N-Sphere Radius`** → `Radius` `[frame_011][frame_012]`
+- **`Map Range`** — `Float`, `Linear`, `Clamp` on, `From Min 0.000`, `From Max 1.000`, **`To Min 1.000`, `To Max 0.000`** `[frame_011]`
+- **`Float Curve`** — inserted after Map Range inside the `Bubbles` group to shape hemispheres `[frame_012]`
+- **Custom CGMatter nodes used** — `Grid Fill 2D [CGM]`, a time node with built-in speed multiply, a height-offset node, `Border to Curve` `[transcript 12:15-12:26, 14:56-15:00, 16:09-16:18, 17:36-17:40]`
+- **Geometry finishing** — `Extrude Mesh` (by 0), `Set Position` with Z nulled by `Multiply (1,1,0)`, `Scale Elements` to 0, `Flip Faces`, `Merge by Distance`, `Set Shade Smooth` (`Face` domain) `[frame_013]`
+- **Materials** — water: high transmission, roughness ≈0, white; bubbles: transmissive, `IOR 1.05`; water `IOR 1.33`; foam: diffuse; plus `Noise Texture` → `Bump` (Distance, Scale) → Normal `[transcript 9:20-11:35]`
+- **Scene scale (method 2)** — ~53.4K verts / 51.7K faces at completion `[frame_013]`
+
+> **Sponsor segment** at `[transcript 0:26-1:13]` (Squarespace) is excluded from these
+> notes, as is the repeated CGMatter file/node-pack promotion — though the node pack is
+> recorded above because method 2 genuinely depends on custom nodes, and a reader
+> attempting it without them will not find `Grid Fill 2D [CGM]` in stock Blender.
+>
+> **Whisper notes:** "geonode" for geometry nodes, "end gun" for `N-Gon`
+> `[transcript 12:14]`, "verbujas" for *burbujas* (the author's Spanish aside naming the
+> `Bubbles` group) `[transcript 15:35-15:41]`. The group's actual name in the breadcrumb
+> is **`Bubbles`** `[frame_012]`.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2.0 — read from the status bar in `[frame_002]`, `[frame_003]`, `[frame_005]`, `[frame_011]` and `[frame_013]`. Never stated in narration.
 
 ### Tags
-[PENDING EXTRACTION]
+simulation, fluid, geometry-nodes, procedural, materials, shaders, blender-5x, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [the New Blender Fluid Simulator is AWESOME - MantaFlow Tutorial](the-new-blender-fluid-simulator-is-awesome---mantaflow-tutorial.md) — the FLIP/MantaFlow foundation method 1 sits on, including the spray/foam/bubble particle systems; shares simulation, fluid, materials, shaders
+- [Blender Tutorial - Creating a Crown Splash Simulation](blender-tutorial---creating-a-crown-splash-simulation.md) — the same domain-resolution-vs-bake-time tradeoff this video complains about, on a shorter sim; shares simulation, fluid
+- [Creating Realistic 3D Water in Blender : The Ultimate Guide](creating-realistic-3d-water-in-blender-the-ultimate-guide.md) — water shading and surface detail, the part method 1 handles with transmission plus a Bump-driven normal; shares fluid, materials, shaders
+- [Can Blender Still Compete (Motion Graphics)](can-blender-still-compete-motion-graphics.md) — the same instinct as method 2, replacing an expensive solve with a procedural stand-in; shares geometry-nodes, procedural, blender-5x

@@ -3347,9 +3347,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=MRGgqR1N_b8
 - **Author:** CGMatter
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** simulation, fluid, geometry-nodes, procedural, materials, shaders, blender-5x, advanced
+- **Summary:** Two routes to boiling water. The simulation route drives a FLIP sim with geometry-node bubbles: points rising on a looping Fraction of time, instanced icospheres, Realize Instances, then registered as a Fluid Effector with Sampling Substeps 2 so they physically displace liquid; spray/foam/bubble/liquid particle systems are pulled out through Particle Instance modifiers on single-vertex proxy objects for separate shading (bubble IOR 1.05 vs water 1.33). The real-time route is the better idea: two Voronoi Textures with identical Scale 5.0 and Randomness 1.0, one in F1 distance mode and one in N-Sphere Radius mode, mapped against each other (Map Range inverted To Min 1.0 / To Max 0.0) to build a correctly-packed height field of hemispheres rising through a cross-section, rounded by a Float Curve and layered at several scales. Needs the free CGMatter node pack (Grid Fill 2D). Closes with Border to Curve walls, Flip Faces and Merge by Distance to make a valid watertight volume.
 - **File:** tutorials/boiling-water---blender-fluid-simulation-geometry-nodes-tutorial.md
 
 ---
