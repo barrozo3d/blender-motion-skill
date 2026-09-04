@@ -141,6 +141,49 @@ PROV_ORDER = ('local', 'online', 'other')
 VIDEO_HOSTS = ('youtube', 'blender studio')
 
 
+def tag_terms(block):
+    """The searchable domain terms in one INDEX block's Tags line.
+
+    ⚠️ THE CORPUS USES FOUR TAG STYLES AND THIS MUST READ ALL OF THEM. Measured
+    2026-09-03 over 1488 entries: comma `animation, beginner` (978), backtick+hash
+    `` `#niagara` `#vfx` `` (224), hash `#modelling #beginner` (187), and backtick
+    `` `uv` `baking` `` (97). **508 entries -- 34% of the corpus -- are NOT
+    comma-separated**, and the split is per skill rather than per era:
+    paint-me-like-your-french-substances is 100% backtick, unreal-sidekick 62%
+    backtick+hash, blender-motion 57% hash, while houdini-wand and nuke-em-all
+    are effectively all comma.
+
+    A comma-only split collapsed each of those 508 lines into ONE token --
+    "#modelling #beginner" -- which matches nothing. Those entries contributed
+    exactly ZERO domain vocabulary, and since tags are the corpus's own
+    definition of what is worth searching for, three of the five skills were
+    scored with most of their vocabulary invisible.
+
+    ⚠️ There are no genuine multi-word tags: every apparently multi-word value
+    turned out to be one of these separators. That is why splitting on
+    whitespace as well as commas is safe here, and it was checked rather than
+    assumed.
+
+    ⚠️ Fixed HERE, in the measurement, and deliberately not by rewriting 508
+    INDEX blocks. All four styles grep identically for a bare word, so none is
+    wrong for a human reader, and `update_index_entry.py --all --check` reports
+    191 blocks differing from their files in blender-motion alone -- most of it
+    intentional editorial condensation. Normalising tags is a corpus decision
+    for the user to make, not a side effect of fixing a parser.
+    """
+    m = re.search(r'\*\*Tags:\*\*\s*(.+)', block)
+    if not m:
+        return set()
+    out = set()
+    for chunk in re.split(r'[,\s]+', m.group(1)):
+        term = chunk.strip().strip('`').lstrip('#').strip('`').lower()
+        if not term:
+            continue
+        out.add(term)
+        out.update(pp for pp in term.split('-') if len(pp) >= 3)
+    return out
+
+
 def provenance(block):
     """Which pipeline produced this entry: 'local' (course), 'online' (YouTube),
     or 'other' (articles, vendor docs).
@@ -213,13 +256,7 @@ def run(skill, nterms, topk, verbose):
     # the skill's own tag vocabulary = its definition of searchable domain terms
     tagvocab = set()
     for txt in blocks.values():
-        m = re.search(r'\*\*Tags:\*\*\s*(.+)', txt)
-        if m:
-            for t in m.group(1).split(','):
-                t = t.strip().lower()
-                if t:
-                    tagvocab.add(t)
-                    tagvocab.update(p for p in t.split('-') if len(p) >= 3)
+        tagvocab |= tag_terms(txt)
     df = collections.Counter()
     for terms in btok.values():
         df.update(terms)

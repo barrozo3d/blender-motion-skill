@@ -1003,6 +1003,13 @@ WATCHED_FILES = {
     # provenance split in particular is a measurement whose whole value is that
     # every skill computes it the same way.
     "retrieval_test.py": ("tok", "index_blocks", "core_technique", "provenance",
+                          # added 2026-09-03: tag_terms reads the corpus's FOUR
+                          # tag styles (comma / hash / backtick / backtick+hash).
+                          # A copy that drifts back to a comma-only split makes
+                          # 508 entries -- 34% of the corpus, and 100% of
+                          # paint-me -- contribute zero domain vocabulary, while
+                          # still printing a confident score.
+                          "tag_terms",
                           "record_baseline", "run"),
     "validate.py": ("get_transcript_text", "get_notes_content",
                     "parse_duration_secs", "is_youtube_source",
