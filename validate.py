@@ -161,6 +161,20 @@ def check_tutorials():
         if re.search(r"extraction_status:\s*pending", content, re.IGNORECASE):
             fail(f"{fname}: extraction_status is 'pending'")
 
+        # ⚠️ The line above rejected exactly ONE bad value, so every OTHER
+        # value passed silently -- including a typo. Found 2026-09-03: one
+        # entry said `done` where the convention is `complete`, and nothing
+        # had ever noticed, because "not pending" was treated as "fine".
+        # Same shape as the tag parser and the vendored-snapshot gap: an
+        # unchecked field reading as a clean pass. Check the vocabulary.
+        m_status = re.search(r"^extraction_status:\s*(.+)$", content, re.M)
+        if m_status:
+            status = m_status.group(1).strip().strip('"').strip("'")
+            if status.lower() not in EXTRACTION_STATUSES:
+                fail(f"{fname}: extraction_status {status!r} is not one of "
+                     f"{sorted(EXTRACTION_STATUSES)} -- add it to "
+                     f"EXTRACTION_STATUSES deliberately, or fix the typo")
+
         if re.search(r'blender_version:\s*["\']?\[?PENDING', content, re.IGNORECASE):
             fail(f"{fname}: blender_version is still a PENDING placeholder")
 
@@ -969,6 +983,16 @@ RECORDED_DIVERGENCE = {
 # guarded while the *gate* was not. That is how four skills sat on a broken
 # transcript parser (E4) while blender-motion had the fix, with no run ever
 # saying so. Watch the checkers too.
+# Every value `extraction_status:` is allowed to hold. `pending` is written by
+# ingest.py at collect time and is rejected separately above -- a finished
+# entry must never still be pending -- so it is deliberately NOT listed here.
+#   complete           the normal end state
+#   needs-review       ingest.py sets this when a safeguard fires critical
+#   superseded-partial kept on purpose: an entry replaced by later, better ones
+# ⚠️ Widen this set only on purpose. Its whole value is that a typo fails.
+EXTRACTION_STATUSES = frozenset({"complete", "needs-review", "superseded-partial"})
+
+
 WATCHED_FILES = {
     "ingest.py": SHARED_FUNCS,
     # added 2026-09-03: extracting the course engine into _shared/ created a NEW

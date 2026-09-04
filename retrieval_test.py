@@ -340,6 +340,16 @@ def run(skill, nterms, topk, verbose):
         if 'local' in by_prov and 'online' in by_prov:
             gap = by_prov['local']['pct'] - by_prov['online']['pct']
             print('          gap local-online: %+d pt' % gap)
+        # ⚠️ COVERAGE: this split counts only entries that could be TESTED.
+        # An entry with no Core Technique never gets a rank, so it never
+        # reaches this tally either -- and those are not randomly spread:
+        # all 18 in unreal-sidekick are Epic Documentation hub pages, a whole
+        # provenance class that is structurally untestable here. Saying the
+        # split is over a subset is the difference between a measurement and
+        # a claim about the corpus.
+        if no_ct or no_block:
+            print('          (over TESTED entries only -- %d more were not '
+                  'tested and are absent from this split)' % (no_ct + no_block))
     # the coverage rule again: say which classes this corpus does NOT contain,
     # so a single-provenance skill reads as "nothing to compare", not as parity.
     unknown_src = sorted({s for s in raw_sources

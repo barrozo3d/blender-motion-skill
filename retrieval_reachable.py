@@ -11,6 +11,32 @@ So the number that decides whether a fix is needed is different:
 If most of the 204 are reachable by some other term, the retrieval surface is
 fine and the fix is unnecessary. If they are unreachable by every term they are
 about, the INDEX genuinely does not describe them.
+
+THE TWO GENUINELY UNREACHABLE ENTRIES ARE ACCEPTED, AND CHECKED (2026-09-03)
+Both were read in full before being left alone. Neither is a defect, and
+"fixing" either would mean writing tags that misdescribe the entry to move a
+number -- which is the one thing this measurement must never cause.
+
+  * houdini-wand/designing-destruction-wk1-12-conclusion
+    Its Core Technique reads, correctly, "N/A -- recap lesson, no new
+    technique." Queries here are built FROM Core Technique, so there is nothing
+    distinctive to retrieve it by, and that is an accurate description of a
+    week-recap lesson rather than a gap. It is reachable by browsing the course,
+    which is how a recap is actually found.
+
+  * blender-motion/daily-blender-tip-47---custom-transform-orientation
+    A real technique (Custom Transform Orientation, Ctrl+Alt+Space), tagged
+    `modelling, beginner`. Those tags are RIGHT: this corpus's tag vocabulary is
+    deliberately COARSE -- the top terms are intermediate / procedural /
+    materials / beginner / geometry-nodes -- so tags are broad categories, not
+    per-feature keywords. Adding `transform-orientation` would make this the
+    only entry in 1488 carrying a one-off feature tag, breaking the convention
+    to satisfy a metric. Its distinctive words ("orientation", "transform")
+    simply are not tags, and should not be.
+
+So the honest reading of this script's headline is: 2 of 1488 entries (0.1%)
+cannot be reached by a single term from their own Core Technique, and both have
+a specific, examined reason. Do not treat that number as work outstanding.
 """
 import collections, io, math, os, re, sys
 
