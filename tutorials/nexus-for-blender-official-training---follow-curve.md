@@ -5,7 +5,7 @@ url: https://www.youtube.com/watch?v=na6NGPw4XWM
 author: INSYDIUM LTD
 ingested: 2026-06-25
 blender_version: "Blender 4.x"
-tags: [particles, simulation, fluids, plugins, nexus, meshing, motion-blur, intermediate]
+tags: [particles, simulation, fluid, plugins, nexus, meshing, motion-blur, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/nexus-for-blender-official-training---follow-curve/
 frame_count: 0

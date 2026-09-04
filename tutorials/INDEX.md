@@ -249,7 +249,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=1hKAkCP-tFQ
 - **Author:** CGMatter
 - **Blender Version:** Blender 4.5
-- **Tags:** geometry-nodes, procedural, displacement, materials, shaders, organic, abstract, blender-4x, advanced
+- **Tags:** geometry-nodes, procedural, modelling, crystals, rocks, materials, advanced
 - **Summary:** Procedurally generates an amethyst geode in Blender 4.5 Geometry Nodes: noise-distorted Icosphere exterior, Boolean cut (new Manifold mode), boundary isolation via Geometry Proximity, variable-height crystal extrusion via Noise→Map Range, and instanced spike geometry. Full amethyst and rock material setup.
 - **File:** tutorials/geode-nodes-i-am-so-clever-blender-tutorial.md
 
@@ -652,7 +652,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=na6NGPw4XWM
 - **Author:** INSYDIUM LTD
 - **Blender Version:** Blender 4.x
-- **Tags:** particles, simulation, fluid, meshing, motion-blur, addon, intermediate
+- **Tags:** particles, simulation, fluid, plugins, nexus, meshing, motion-blur, intermediate
 - **Summary:** Using the NeXus particle plugin (Insydium) to emit a liquid particle stream from a sphere emitter, make it follow a scene curve's path, mesh the stream into a continuous surface, and apply render-time motion blur for a dynamic fluid-trail effect.
 - **File:** tutorials/nexus-for-blender-official-training---follow-curve.md
 
@@ -722,7 +722,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=bHWvVtuLJkM
 - **Author:** CrossMind Studio
 - **Blender Version:** Blender 3.1
-- **Tags:** geometry-nodes, procedural, materials, shaders, glass, abstract, beginner, intermediate
+- **Tags:** geometry-nodes, fractals, procedural, modelling, beginner
 - **Summary:** Chains 4-5 duplicated copies of a grouped [Extrude Mesh (Offset ~0.01) + Scale Elements (Top selection)] node pair — all sharing the same group data, so editing one updates all — to build a self-similar fractal pattern on a cube. An optional extra layer uses Face Area + Compare (>0.4) so only larger faces get additional recursive detail, for organic size variation. Rendered in Cycles with Glass BSDF + colored point lights inside hollow cubes. Note: a near-duplicate entry for this video exists at the single-dash slug `tutorials/fractals-in-blender-geometry-nodes-extrude-node.md` — left as-is per the known slugify duplicate-entry issue, not merged.
 - **File:** tutorials/fractals-in-blender---geometry-nodes-extrude-node.md
 
@@ -763,7 +763,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=IgpUXXg2Vbs
 - **Author:** JB 3D Studio
 - **Blender Version:** Blender 4.4
-- **Tags:** animation, rigging, beginner, modeling, rendering, 12-principles, robot, course
+- **Tags:** animation, rigging, beginner, modelling, rendering, 12-principles, robot, course
 - **Summary:** 5-hour beginner animation course by JB 3D Studio covering the full pipeline: Blender interface, 12 principles of animation, basketball bounce, robot character modeling, armature rigging, IK constraints, NLA editor, Cycles rendering. 11+ modules, soup-to-nuts production walkthrough.
 - **File:** tutorials/the-complete-blender-3d-animation-course-5-hours-blender-b3d-animation.md
 
@@ -935,7 +935,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=DX36hit2g0s
 - **Author:** Nico Linde
 - **Blender Version:** Not specified (modern 4.x/5.x; version-agnostic)
-- **Tags:** materials, shaders, displacement, modeling, sci-fi, intermediate
+- **Tags:** materials, shaders, displacement, modelling, sci-fi, intermediate
 - **Summary:** Build detailed sci-fi megastructures fast using two methods: kitbashing greeble packs, and displacement detailing — subdivide + Simple subdivision modifier + Displace modifier (UV coords, Edit-Mode visibility on) driven by JSplacement-generated panel/circuit maps (~1M face budget, Decimate afterwards). Red paint panels are masked by the displacement map itself through a Color Ramp + Multiply Mix so paint follows panels; windows mix Emission/Transparent shaders with a JSplacement window mask. Space-station demo: cylinder → inset/bridge/loops/bevels, P-separate the section to displace, duplicate the ring, then selective greebles (antennas/railings) to break the silhouette.
 - **File:** tutorials/quick-easy-megastructures-in-blender.md
 
@@ -965,7 +965,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=AMnMbxEwa7Q
 - **Author:** Grant Abbitt (Gabbitt)
 - **Blender Version:** Blender 5.0
-- **Tags:** materials, shaders, modeling, beginner, blender-5x
+- **Tags:** materials, shaders, modelling, beginner, blender-5x
 - **Summary:** Texture complex hard-surface objects with zero UV unwrapping: Node Wrangler Ctrl+Shift+T auto-wires a freepbr.com PBR set, then switch texture coordinates from UV to Object and every Image Texture's projection from Flat to Box (Alt-click edits all selected nodes), raising Blend (~0.2) to dissolve projection seams — the material then adapts live to any mesh edit (loop cuts, insets, extrudes). Also covers the classic gotcha: Ctrl+A Apply Scale before beveling (non-uniform scale skews Ctrl+B), and the limitation that game-engine export still requires unwrap + bake at the end (model with live textures first, bake onto the final unwrap).
 - **File:** tutorials/the-easiest-way-to-texture-in-blender-adaptive-no-uv-unwrapping.md
 
@@ -1005,7 +1005,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=dm3bBpZVmnE
 - **Author:** On Mars 3D
 - **Blender Version:** Blender 5.0
-- **Tags:** materials, modeling, beginner, intermediate, blender-5x
+- **Tags:** materials, modelling, beginner, intermediate, blender-5x
 - **Summary:** Universal 5-step UV workflow (apply scale, project from view, mark seams, unwrap, pack islands) applied to hard-surface, sub-D, triangulated and organic models, with seam-placement logic, checker-map + UV Stretch verification, and Blender 5.0 updates: UV sync on by default, mark seam inside the UV editor, pack to custom region, arrange islands. Ends with hiding seams via tri-planar projection and 3D painting in Substance Painter.
 - **File:** tutorials/blender-50-how-to-uv-unwrap-anything.md
 
@@ -1035,7 +1035,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=24EtrCpg4Iw
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (modern 4.x/5.x UI)
-- **Tags:** modeling, organic, beginner, intermediate
+- **Tags:** modelling, organic, beginner, intermediate
 - **Summary:** Four retopology workflow upgrades: the Retopology overlay with tunable depth offset (replaces In Front + backface culling), Ctrl+RMB extrude that orients geometry while extruding, the Relax Slide sculpt brush for redistributing vertices without volume loss, and Face Nearest snapping (vs Face Project) for extruding around limb-like forms; cleanup via LoopTools Space and Ctrl+R.
 - **File:** tutorials/4-new-retopology-tips-to-discover---blender-secrets.md
 
@@ -2751,7 +2751,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=PICzZINI0VM
 - **Author:** SouthernShotty
 - **Blender Version:** 5.2
-- **Tags:** geometry-nodes, mesh-bevel-node, bevel, hard-surface, procedural-modeling, panel-cut, sharp-edges, for-each-element, sci-fi
+- **Tags:** geometry-nodes, mesh-bevel-node, bevel, hard-surface, procedural-modelling, panel-cut, sharp-edges, for-each-element, sci-fi
 - **Summary:** Tours Blender 5.2's new Mesh Bevel node in Geometry Nodes (Selection, offsets, Miter, Segments, Shape, Profile, and new output-selection mask sockets), then rebuilds a classic hard-surface "panel cut" modifier stack (Edge Split + Solidify + Bevel) as one portable node group: Named Attribute reads `sharp_edge` into Split to Instances, a For Each Element zone solidifies each panel piece independently, Merge By Distance welds seams so the bevel reads continuous edges, and an Edge Angle → Greater Than comparison drives angle-limited beveling (with the angle-subtype gotcha for degrees vs. radians).
 - **File:** tutorials/blender-52-just-made-bevels-better.md
 
@@ -2761,7 +2761,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=SvOBxvRjQ8Q
 - **Author:** Max Hay
 - **Blender Version:** not specified on screen
-- **Tags:** geometry-nodes, procedural-modeling, instancing, curves, hard-surface, wires, cables, split-edges, align-rotation-to-vector, endpoint-selection, group-input, menu-switch
+- **Tags:** geometry-nodes, procedural-modelling, instancing, curves, hard-surface, wires, cables, split-edges, align-rotation-to-vector, endpoint-selection, group-input, menu-switch
 - **Summary:** A reusable Geometry Nodes modifier that instances pre-made wire meshes along a hand-drawn chain of extruded edges: Split Edges + Mesh to Curve turn each edge into its own spline, Instance on Points (via Collection Info/Pick Instance for variety) places the wires, an Endpoint Selection node (Start Size 1/End Size 0) fixes a double-instance-per-segment artifact, Spline Length through a Combine XYZ node auto-scales each instance's X to fit its segment, and Curve Tangent through two chained Align Rotation to Vector nodes (second one on Z axis/Pivot X — an empirically-found fix for random upside-down flips) keeps wires hanging naturally regardless of extrude direction. Z-scale and a random seed are exposed as Group Inputs so duplicated wire clusters can be varied independently; a fuller variant adds a Menu Switch to toggle between single-object and full-collection instancing.
 - **File:** tutorials/awesome-wire-generator-with-geo-nodes-blender-tutorial.md
 
@@ -2781,7 +2781,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=ufaZPxkiwtM
 - **Author:** Cartesian Caramel
 - **Blender Version:** 5.3
-- **Tags:** geometry-nodes, simulation-zone, particles, procedural-modeling, curves, vfx, web-effect, sdf-collision, tension-force, blur-attribute, eevee-next, shading, alpha-blend, tri-planar, livestream, advanced
+- **Tags:** geometry-nodes, simulation-zone, particles, procedural-modelling, curves, vfx, web-effect, sdf-collision, tension-force, blur-attribute, eevee-next, shading, alpha-blend, tri-planar, livestream, advanced
 - **Summary:** 113-minute live build recreating the *Spider-Man: Brand New Day* "web tornado" VFX purely in Geometry Nodes (no cloth/physics sim). A Simulation Zone fires particles from a spinning empty into a room collider; on hit, only "end"-marked particles freeze while "start" stays pinned to the spinner, producing taut strands. Each strand instances a separately-built procedural web-patch mesh (grid → random deletion → blurred position → frayed extrude/scale) converted to Cylinder curves for rendering. A tension force built from blurred rest-position offset (captured post-hit, not pre-hit — a real gotcha) makes unattached sections droop realistically. Covers real debugging dead-ends (recursive-subdivision web-shape attempts abandoned, direct constraint-baking broken, velocity blur silently breaking after freeze), a 180°-duplicated "double helix" density trick, Tri-Planar brick/plaster set dressing, a Copy Location constraint gag shot, and a closing lighting/compositing pass. Good case study in GN Simulation Zone debugging methodology.
 - **File:** tutorials/spoilers-spiderman-tornado-webs-test-blender-53.md
 

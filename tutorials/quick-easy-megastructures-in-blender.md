@@ -5,7 +5,7 @@ url: https://www.youtube.com/watch?v=DX36hit2g0s
 author: Nico Linde
 ingested: 2026-07-18
 blender_version: "Not specified (modern 4.x/5.x UI; version-agnostic)"
-tags: [materials, shaders, displacement, modeling, sci-fi, intermediate]
+tags: [materials, shaders, displacement, modelling, sci-fi, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/quick-easy-megastructures-in-blender/
 frame_count: 6

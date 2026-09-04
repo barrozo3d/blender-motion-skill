@@ -5,7 +5,7 @@ url: https://www.youtube.com/watch?v=lT1UBQwtZ1g
 author: hbitproject
 ingested: 2026-08-17
 blender_version: "5.2 (visible in viewport title bar in captured frames)"
-tags: [geometry-nodes, procedural, displacement, materials, shaders, procedural, compositing, rendering, lighting, hdri, product-viz, advanced, blender-5x]
+tags: [geometry-nodes, procedural, displacement, materials, shaders, compositing, rendering, lighting, hdri, product-viz, advanced, blender-5x]
 extraction_status: complete
 frames_dir: tutorials/frames/how-i-model-ancient-ruins-in-blender/
 frame_count: 8

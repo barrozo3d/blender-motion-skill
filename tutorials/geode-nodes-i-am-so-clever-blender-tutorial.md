@@ -5,7 +5,7 @@ url: https://www.youtube.com/watch?v=1hKAkCP-tFQ
 author: CGMatter
 ingested: 2026-06-25
 blender_version: "Blender 4.5"
-tags: [geometry-nodes, procedural, modeling, crystals, rocks, materials, advanced]
+tags: [geometry-nodes, procedural, modelling, crystals, rocks, materials, advanced]
 extraction_status: complete
 frames_dir: tutorials/frames/geode-nodes-i-am-so-clever-blender-tutorial/
 frame_count: 0

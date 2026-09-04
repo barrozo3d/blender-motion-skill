@@ -4,6 +4,7 @@ update_index_entry.py -- rewrite ONE INDEX.md block from its own tutorial file.
 
     python update_index_entry.py <slug> --from-file      # new entry: fields from file
     python update_index_entry.py <slug> --set 'Tags=a, b' # set one field exactly
+    python update_index_entry.py <slug> --set 'Related=...' # cross-links (after File:)
     python update_index_entry.py <slug> --summary        # repair a wrong Summary
     python update_index_entry.py --all --check           # report differences only
 
@@ -224,6 +225,41 @@ def desired_fields(tut, with_summary):
     return fields
 
 
+def set_related(idx, slug, value, check):
+    """Write ONE block's Related line, which lives AFTER its File line.
+
+    ⚠️ This is why `--set 'Related=...'` used to do nothing whatsoever, without
+    saying so. block_re() captures `### title` through the lines BEFORE
+    `- **File:**`, and Related is the one field this corpus writes AFTER it --
+    so the field was outside the region update_one() edits, the `if not
+    current: continue` guard matched, and an explicit user value was dropped on
+    the floor. 133 blocks already carry a Related line (nuke-em-all 65,
+    houdini-wand 46, blender-motion 22) and every one was hand-edited, because
+    the sanctioned writer could not write them.
+
+    ⚠️ Related is deliberately NOT derived from the tutorial file, for exactly
+    the reason Summary is not. The INDEX form is a curated paraphrase and is
+    routinely richer than the file's own bullets -- "shares `compositing`,
+    `grading`, and the same Nuke Survival Toolkit gizmo pack" is a judgement
+    about two tutorials, not a list of links. A mechanical sync would flatten
+    133 good lines into worse ones, which is the wholesale overwrite this
+    script exists to prevent. It is written only when explicitly passed.
+    """
+    fm = re.search(r"^- \*\*File:\*\* tutorials/" + re.escape(slug) + r"\.md[^\n]*\n",
+                   idx, re.M)
+    if not fm:
+        return idx, False, "no INDEX block"
+    new_line = "- **Related:** %s\n" % value.strip()
+    tail = idx[fm.end():]
+    existing = re.match(r"- \*\*Related:\*\*[^\n]*\n", tail)
+    if existing and existing.group(0) == new_line:
+        return idx, False, None
+    if check:
+        return idx, True, None
+    cut = existing.end() if existing else 0
+    return idx[:fm.end()] + new_line + tail[cut:], True, None
+
+
 def update_one(idx, slug, check, with_summary, from_file, overrides):
     """Return (idx, changed_labels, error)."""
     path = os.path.join(TUTORIALS_DIR, slug + ".md")
@@ -241,11 +277,22 @@ def update_one(idx, slug, check, with_summary, from_file, overrides):
     wanted = (desired_fields(tut, with_summary)
               if (from_file or with_summary or check) else {})
     wanted.update(overrides)
+    # Related is handled separately: it is the one field written AFTER the File
+    # line, so it is not inside `body` and the loop below cannot reach it.
+    related = wanted.pop("Related", None)
+    unplaced = []
     for label, value in wanted.items():
         line_re = re.compile(r"- \*\*%s:\*\*[^\n]*\n" % re.escape(label))
         current = line_re.search(body)
         if not current:
-            continue          # only fields the block already has
+            # Deriving a field the block does not carry is a legitimate skip --
+            # not every block has an App line. Dropping a value the USER typed
+            # is not: --set is an instruction, and silently discarding it is the
+            # failure mode this whole script exists to end. Collected and
+            # reported below rather than ignored.
+            if label in overrides:
+                unplaced.append(label)
+            continue
         current_line = current.group(0)
         if label == "Tags":
             # ⚠️ This used to `continue` whenever the tag SETS matched, so a
@@ -266,6 +313,16 @@ def update_one(idx, slug, check, with_summary, from_file, overrides):
             body = line_re.sub(lambda _m: new_line, body, count=1)
     if changed and not check:
         idx = idx[:m.start(1)] + body + idx[m.end(1):]
+    # After the splice, so the File-line offset is the post-edit one.
+    if related is not None:
+        idx, rchanged, rerr = set_related(idx, slug, related, check)
+        if rerr:
+            return idx, changed, rerr
+        if rchanged:
+            changed.append("Related")
+    if unplaced:
+        return idx, changed, ("block has no line for %s -- refusing to silently "
+                              "drop an explicit --set" % ", ".join(sorted(unplaced)))
     return idx, changed, None
 
 

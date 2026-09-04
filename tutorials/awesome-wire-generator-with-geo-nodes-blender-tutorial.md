@@ -5,7 +5,7 @@ url: https://www.youtube.com/watch?v=SvOBxvRjQ8Q
 author: Max Hay
 ingested: 2026-08-09
 blender_version: "not specified on screen"
-tags: [geometry-nodes, procedural-modeling, instancing, curves, hard-surface, wires, cables, split-edges, align-rotation-to-vector, endpoint-selection, group-input, menu-switch]
+tags: [geometry-nodes, procedural-modelling, instancing, curves, hard-surface, wires, cables, split-edges, align-rotation-to-vector, endpoint-selection, group-input, menu-switch]
 extraction_status: complete
 frames_dir: tutorials/frames/awesome-wire-generator-with-geo-nodes-blender-tutorial/
 frame_count: 11

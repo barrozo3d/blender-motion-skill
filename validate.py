@@ -21,6 +21,8 @@ Checks performed:
      (catches failed/truncated ingest where yt-dlp or Whisper returned nothing)
   10. No PLACEHOLDER url: values in frontmatter
   11. No un-triaged promotional / no-content entries (scan_promo.py, allowlisted)
+  18. No tag filed under two spellings (cop/cops, modelling/modeling) where
+      the pool or a 2:1 majority names a winner; ambiguous splits reported only
   12. INDEX block integrity — no block describing a different tutorial, no
       leftover [PENDING] fields, no mojibake
 """
@@ -761,6 +763,128 @@ def check_retrieval_decay():
     print(f"    re-record when reviewed: python retrieval_test.py --skill {skill} --record")
 
 
+def tag_pool():
+    """The skill's approved tag pool, read from its own SKILL.md.
+
+    Returns an empty set when the heading is absent, and callers must treat
+    that as "no opinion" rather than "nothing is approved" -- an empty pool
+    read as authoritative would make every tag in the corpus off-pool.
+    """
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "SKILL.md")
+    if not os.path.isfile(path):
+        return set()
+    with open(path, "r", encoding="utf-8-sig") as fh:
+        text = fh.read()
+    m = re.search(r"###\s*Approved tag pool\s*\n+```[^\n]*\n(.*?)```", text, re.S | re.I)
+    if not m:
+        return set()
+    return set(t.strip().lower() for t in m.group(1).replace("\n", " ").split(",") if t.strip())
+
+
+def tag_concept(tag):
+    """A key that collides for two spellings of the SAME tag.
+
+    Hyphenation, plural and British/American doubling only. Deliberately NOT
+    quote/backtick/hash decoration: retrieval_test.tag_terms() already strips
+    all of that, and `grep beginner` finds `"beginner"`, so folding it here
+    would report a difference that costs nobody anything.
+    """
+    k = tag.strip().strip("`").strip('"').strip("'").lstrip("#").strip("`\"'").lower()
+    k = k.replace("_", "").replace("-", "").replace(" ", "")
+    k = re.sub(r"ise$", "ize", k)
+    k = re.sub(r"isation$", "ization", k)
+    k = re.sub(r"([bcdfglmnprstz])\1(ing|ed|er|ers)$", r"\1\2", k)
+    k = re.sub(r"ies$", "y", k)
+    k = re.sub(r"s$", "", k)
+    return k
+
+
+def check_tag_variants():
+    """Check #18 -- the same tag written two ways.
+
+    WHY THIS IS NOT AN OFF-POOL CHECK. Measured 2026-09-04: the five corpora
+    carry roughly 1500 distinct tags against pools of 37-70, so "not in the
+    pool" describes most of the library and flagging it would be noise with a
+    number attached. The pool is a spine, not an allowlist, and a check that
+    demanded otherwise would be asking for 1400 deletions of real vocabulary.
+
+    The defect is narrower and has a right answer: ONE concept filed under TWO
+    spellings, so half the entries hide from a search for the other half. It
+    was real -- `cop` x23 vs `cops` x61 in houdini-wand, `modelling` x48 vs
+    `modeling` x7 in blender-motion while houdini-wand ran the same split
+    INVERTED at 15 vs 26 -- and neither grep nor tag_terms() bridges any of it,
+    because tag_terms splits on hyphens and does not stem.
+
+    Two populations, judged differently, in the shape check #17 already uses:
+
+      A) MECHANICAL, and therefore gating. The pool names exactly one of the
+         forms, or one form outnumbers the rest 2:1. There is a correct answer
+         that needs no judgement, so a new split of this kind is a regression
+         of the 2026-09-04 normalisation and fails the run.
+
+      B) EDITORIAL, and therefore reported only. `vine x3 | vines x3`,
+         `character x8 | characters x7` -- no pool entry, no majority. Picking
+         a winner is a corpus decision, and a check that gated on it would
+         block every run until someone made an arbitrary call. Printed so the
+         population stays visible, never gated.
+
+    ⚠️ Context abbreviations are exactly why (A) consults the pool BEFORE the
+    majority. houdini-wand writes `cops` 61 times and `cop` 23, so majority
+    alone would have elected the plural and contradicted the pool's own
+    `sop, dop, lop, cop, chop, top` line. Usage is evidence; the pool is the
+    decision.
+    """
+    print()
+    print("[11] Checking for split tag spellings...")
+    pool = tag_pool()
+    counts = {}
+    for fname in get_tutorial_files():
+        path = os.path.join(TUTORIALS_DIR, fname)
+        with open(path, "r", encoding="utf-8-sig") as fh:
+            m = re.search(r"^tags:\s*\[(.*?)\]\s*$", fh.read(), re.M)
+        if not m:
+            continue
+        for raw in m.group(1).split(","):
+            t = raw.strip().strip("`").strip('"').strip("'").lstrip("#").strip("`\"'").lower()
+            if t:
+                counts[t] = counts.get(t, 0) + 1
+
+    groups = {}
+    for t, n in counts.items():
+        groups.setdefault(tag_concept(t), []).append((t, n))
+
+    mechanical, editorial = [], []
+    for key in sorted(groups):
+        members = sorted(groups[key], key=lambda kv: (-kv[1], kv[0]))
+        if len(members) < 2:
+            continue
+        in_pool = [t for t, n in members if t in pool]
+        top, topn = members[0]
+        rest = sum(n for _, n in members[1:])
+        shown = " | ".join("%s x%d" % (t, n) for t, n in members)
+        if len(in_pool) == 1:
+            mechanical.append((shown, in_pool[0], "pool"))
+        elif topn >= 2 * rest and topn != rest:
+            mechanical.append((shown, top, "majority"))
+        else:
+            editorial.append(shown)
+
+    if editorial:
+        print("  %d split(s) with no mechanical answer -- reported, not gated:"
+              % len(editorial))
+        for shown in editorial[:20]:
+            print("    %s" % shown)
+        if len(editorial) > 20:
+            print("    ... and %d more" % (len(editorial) - 20))
+
+    for shown, win, why in mechanical:
+        fail("split tag spelling with a clear winner (%s): %s -- use '%s'"
+             % (why, shown, win))
+
+    if not mechanical:
+        print("  OK -- no split tag spelling has an unapplied mechanical fix.")
+
+
 def check_orphan_frames():
     """Check #17 -- frames that exist but are documented nowhere (plan batch D3).
 
@@ -880,6 +1004,7 @@ def main():
     check_frame_provenance()
     check_orphan_frames()
     check_retrieval_decay()
+    check_tag_variants()
 
     print("\n[drift] Checking shared-script sync with sibling skills...")
     check_script_drift()
@@ -1051,7 +1176,15 @@ WATCHED_FILES = {
     # skipping whenever the tag SETS match, silently re-forks the corpus into
     # the five styles that were just normalised away.
     "update_index_entry.py": ("render_tags", "update_one", "file_tags",
-                              "tag_set", "block_re"),
+                              "tag_set", "block_re",
+                              # added 2026-09-04: the Related writer. It is the
+                              # only field written AFTER the File line, which is
+                              # exactly how --set 'Related=...' managed to be a
+                              # silent no-op for 133 hand-edited blocks. A copy
+                              # that drifts back into deriving Related from the
+                              # tutorial file would flatten those curated lines
+                              # the way a Summary sync would.
+                              "set_related"),
     # ⚠️ retrieval_reachable.py is byte-identical across all five and is NOT
     # watchable here: it is a flat script with no functions, and this checker
     # compares named function bodies. Naming a function it does not have would
@@ -1068,7 +1201,18 @@ WATCHED_FILES = {
                     # three forms. The widened parser is the thing that must
                     # not drift back -- a copy that quietly loses the wiki or
                     # bullet branch re-blinds the check without failing anything.
-                    "check_cross_links", "_collect_links", "_link_norm"),
+                    "check_cross_links", "_collect_links", "_link_norm",
+                    # added 2026-09-04 with check #18. tag_concept() is the
+                    # whole judgement: it decides which two tags are the same
+                    # tag. A copy that drifts into folding decoration would
+                    # start failing runs over `"beginner"` vs `beginner`, which
+                    # costs nobody anything and which tag_terms() already
+                    # normalises; a copy that drifts into NOT folding plurals
+                    # silently stops noticing the `cop`/`cops` split it was
+                    # written for. And check_tag_variants must keep consulting
+                    # the pool BEFORE the majority -- reverse those two and
+                    # houdini-wand elects `cops` 61-23 against its own pool.
+                    "tag_pool", "tag_concept", "check_tag_variants"),
     "scan_promo.py": ("score_file", "get_transcript", "get_notes",
                       "duration_secs", "count_steps", "count_named_things",
                       "series_siblings"),

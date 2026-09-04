@@ -5,7 +5,7 @@ url: https://www.youtube.com/watch?v=AMnMbxEwa7Q
 author: Grant Abbitt (Gabbitt)
 ingested: 2026-07-18
 blender_version: "Blender 5.0"
-tags: [materials, shaders, modeling, beginner, blender-5x]
+tags: [materials, shaders, modelling, beginner, blender-5x]
 extraction_status: complete
 frames_dir: tutorials/frames/the-easiest-way-to-texture-in-blender-adaptive-no-uv-unwrapping/
 frame_count: 7

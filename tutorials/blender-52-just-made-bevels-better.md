@@ -5,7 +5,7 @@ url: https://www.youtube.com/watch?v=PICzZINI0VM
 author: SouthernShotty
 ingested: 2026-08-08
 blender_version: "5.2"
-tags: [geometry-nodes, mesh-bevel-node, bevel, hard-surface, procedural-modeling, panel-cut, sharp-edges, for-each-element, sci-fi]
+tags: [geometry-nodes, mesh-bevel-node, bevel, hard-surface, procedural-modelling, panel-cut, sharp-edges, for-each-element, sci-fi]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-52-just-made-bevels-better/
 frame_count: 12

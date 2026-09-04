@@ -5,7 +5,7 @@ url: https://www.youtube.com/watch?v=ufaZPxkiwtM
 author: Cartesian Caramel
 ingested: 2026-08-09
 blender_version: "5.3"
-tags: [geometry-nodes, simulation-zone, particles, procedural-modeling, curves, vfx, web-effect, sdf-collision, tension-force, blur-attribute, eevee-next, shading, alpha-blend, tri-planar, livestream, advanced]
+tags: [geometry-nodes, simulation-zone, particles, procedural-modelling, curves, vfx, web-effect, sdf-collision, tension-force, blur-attribute, eevee-next, shading, alpha-blend, tri-planar, livestream, advanced]
 extraction_status: complete
 frames_dir: tutorials/frames/spoilers-spiderman-tornado-webs-test-blender-53/
 frame_count: 14

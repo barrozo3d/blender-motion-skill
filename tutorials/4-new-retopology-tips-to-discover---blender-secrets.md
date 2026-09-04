@@ -5,7 +5,7 @@ url: https://www.youtube.com/watch?v=24EtrCpg4Iw
 author: Blender Secrets
 ingested: 2026-07-19
 blender_version: "Blender 5.0.1 -- observed in frame_000"
-tags: [modeling, organic, beginner, intermediate]
+tags: [modelling, organic, beginner, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/4-new-retopology-tips-to-discover---blender-secrets/
 frame_count: 4

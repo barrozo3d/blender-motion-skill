@@ -5,7 +5,7 @@ url: https://www.youtube.com/watch?v=bHWvVtuLJkM
 author: CrossMind Studio
 ingested: 2026-06-25
 blender_version: "Blender 3.1"
-tags: [geometry-nodes, fractals, procedural, modeling, beginner]
+tags: [geometry-nodes, fractals, procedural, modelling, beginner]
 extraction_status: complete
 frames_dir: tutorials/frames/fractals-in-blender---geometry-nodes-extrude-node/
 frame_count: 0

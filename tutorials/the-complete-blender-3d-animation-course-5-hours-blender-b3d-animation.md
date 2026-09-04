@@ -5,7 +5,7 @@ url: https://www.youtube.com/watch?v=IgpUXXg2Vbs
 author: JB 3D Studio
 ingested: 2026-06-25
 blender_version: "Blender 4.4"
-tags: [animation, rigging, beginner, modeling, rendering, 12-principles, robot, course]
+tags: [animation, rigging, beginner, modelling, rendering, 12-principles, robot, course]
 extraction_status: complete
 frames_dir: tutorials/frames/the-complete-blender-3d-animation-course-5-hours-blender-b3d-animation/
 frame_count: 0

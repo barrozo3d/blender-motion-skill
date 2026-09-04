@@ -5,7 +5,7 @@ url: https://www.youtube.com/watch?v=dm3bBpZVmnE
 author: On Mars 3D
 ingested: 2026-07-19
 blender_version: "5.0"
-tags: [materials, modeling, beginner, intermediate, blender-5x]
+tags: [materials, modelling, beginner, intermediate, blender-5x]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-50-how-to-uv-unwrap-anything/
 frame_count: 8
