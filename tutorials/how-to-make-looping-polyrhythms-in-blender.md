@@ -4,13 +4,14 @@ source: YouTube
 url: https://www.youtube.com/watch?v=-ZUAhe-gRns
 author: Polyfjord
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: needs-review
+blender_version: "Blender 5.2"
+tags: [animation, rigging, motion-design, rendering, cycles, blender-5x, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/how-to-make-looping-polyrhythms-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 13
+frame_status: complete
 uncertainty_frames: []
+frame_selection: chapter-anchored (transcript unusable -- Whisper repetition loop; timestamps taken from the video's own chapter boundaries)
 ---
 
 # How to make Looping Polyrhythms in Blender
@@ -32,12 +33,7 @@ _Auto-generated at ingest/frame-capture time — explains why `extraction_status
 ---
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py how-to-make-looping-polyrhythms-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Lightswitch polyrhythm [0:00]
@@ -239,30 +235,92 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:30] tutorials/frames/how-to-make-looping-polyrhythms-in-blender/frame_000.jpg
+- [3:00] tutorials/frames/how-to-make-looping-polyrhythms-in-blender/frame_001.jpg
+- [5:30] tutorials/frames/how-to-make-looping-polyrhythms-in-blender/frame_002.jpg
+- [7:30] tutorials/frames/how-to-make-looping-polyrhythms-in-blender/frame_003.jpg
+- [10:00] tutorials/frames/how-to-make-looping-polyrhythms-in-blender/frame_004.jpg
+- [12:30] tutorials/frames/how-to-make-looping-polyrhythms-in-blender/frame_005.jpg
+- [14:30] tutorials/frames/how-to-make-looping-polyrhythms-in-blender/frame_006.jpg
+- [17:00] tutorials/frames/how-to-make-looping-polyrhythms-in-blender/frame_007.jpg
+- [20:00] tutorials/frames/how-to-make-looping-polyrhythms-in-blender/frame_008.jpg
+- [24:00] tutorials/frames/how-to-make-looping-polyrhythms-in-blender/frame_009.jpg
+- [28:00] tutorials/frames/how-to-make-looping-polyrhythms-in-blender/frame_010.jpg
+- [33:00] tutorials/frames/how-to-make-looping-polyrhythms-in-blender/frame_011.jpg
+- [37:00] tutorials/frames/how-to-make-looping-polyrhythms-in-blender/frame_012.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Building a visual polyrhythm from one animated armature cycle: convert the action to an **NLA strip**, then duplicate the rig and give each copy a **different `Repeat` count** so the arms fall out of phase and re-converge on a single loop point — with matching audio strips cut to the same set of differing lengths in the Video Sequencer.
 
 ### Summary
-[PENDING EXTRACTION]
+> **Transcript warning — read this before trusting any timestamp citation below.**
+> Whisper entered a **repetition loop** on this video. **72 of 154 transcript lines
+> (47%) are the identical hallucinated string** `"How to make Looping Polyrhythms in
+> Blender, NLA"`, covering roughly **0:00 to 35:10**. Real narration only resumes at
+> `[transcript 35:30]`. No caption track exists, so no cross-check was possible.
+> **Everything before 35:30 in these notes is read from frames**; `[transcript]`
+> citations appear only for the final stretch, where the audio actually transcribed.
+
+A mechanical arm flips a lightswitch on a plinth. One flip is keyframed as a 120-frame action, pushed into the NLA, and given a `Repeat` value. Duplicating the arm and varying only that `Repeat` count per copy produces periods that drift apart and realign — the polyrhythm. Collection instances mirror the row. Audio is assembled in the Video Sequencer with one strip per arm, each trimmed to a different length so the clicks land in the same pattern, then a `Pitch` modifier differentiates them. Reverb and EQ are applied in **openDAW**, a browser-based DAW, and the final video and audio are assembled in a fresh blend file from a rendered EXR sequence.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **The rig.** An armature drives a mechanical arm that flips a lightswitch; each arm has its own `Lightswitch.Light` object, and the scene holds parallel copies (`Armature`, `Armature.001`, `Armature.002`, …) `[frame_001]`.
+2. **Animate one cycle.** The action `ArmatureAction` runs frames `1`-`120` `[frame_003]`.
+3. **Push it into the NLA.** The strip appears per armature in the NLA editor alongside `<No Action>` `[frame_001][frame_003]`.
+4. **Configure the strip.** Active Strip: `Extrapolation: Hold`, `Blending: Replace`, `Blend In/Out 0.000`, with `Reversed` and `Cyclic Strip Time` available. Action Clip: `Sync Length` enabled, `Playback Scale 1.000`, `Repeat` `[frame_003]`.
+5. **The polyrhythm move.** Extend the strip to the full timeline (`Frame Start 0.000`, `End 1800.000`) and set **`Repeat`** — `15.000` shown — so one 120-frame action tiles the whole range `[frame_006]`. Giving each duplicated armature a *different* Repeat value is what puts the arms out of phase.
+6. **Duplicate the row.** Eight armatures (`Armature` through `Armature.007`), each with its own strip and its own repeat count `[frame_006]`.
+7. **Mirror with collection instances.** `Add Collection Instance` duplicates the row without duplicating data `[frame_006]`.
+8. **Timeline length.** Scene runs to frame `1800` at `30 fps` `[frame_003]`, later `0`-`2640` for the audio assembly `[frame_009]`.
+9. **Audio, one strip per arm.** The Video Sequencer carries ~10 channels of `Metastrip_v01_0000-2640.mkv` `[frame_009]`.
+10. **The audio polyrhythm is literal.** Each channel is trimmed to a **different end frame** — `1803`, `1889`, `1983`, `2087`, `2203`, `2333`, `2479`, `2644` `[frame_010]`. Those differing lengths are the rhythm.
+11. **Differentiate the strips.** A **`Pitch`** modifier is added per strip (`Quality: High`), with `Copy to Selected` to propagate settings `[frame_010]`.
+12. **Reverb and EQ elsewhere.** Audio goes to **openDAW**, a browser-based DAW running at `120 BPM`, `4/4`, `48000` sample rate `[frame_011]`. Its effects list includes `Dattorro Reverb`, `Free Reverb`, `Revamp` (graphical EQ), `Autotune`, `Compressor`, `Maximizer` and `Stereo Tool` `[frame_011]`.
+13. **Check the loop point.** The author lands on frame **`1798`** as the better loop than his first choice `[transcript 36:00-36:05]`.
+14. **Render as an image sequence, not a movie.** Output Properties → `Media Type: Image`, `File Format: OpenEXR`, codec **`DWAB` (lossy)**, then import that sequence back for assembly `[transcript 36:15-36:42]`.
+15. **Assemble in a separate file.** The author explicitly does not use the animation blend file to combine audio and video, starting a fresh scene instead `[frame_012]` `[transcript 36:46-36:54]`.
+16. **Final output settings** for the assembly: `1920 x 1080` at `15%` preview, `30 fps`, frame range `0`-`2640`, `Media Type: Video`, `Container: Matroska`, RGB `[frame_009]`.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **NLA Active Strip** — `Frame Start` / `End` (`1`-`120`, later `0`-`1800`), `Extrapolation: Hold`, `Blending: Replace`, `Blend In/Out 0.000`, `Auto Blend In/Out`, `Reversed`, `Cyclic Strip Time`, `Animated Influence`, `Animated Strip Time` `[frame_003][frame_006]`
+- **NLA Action Clip** — `Action: ArmatureAction`, `Slot: Armature`, `Frame Start 0.000` / `End 120.000`, `Sync Length` on, `Playback Scale 1.000`, **`Repeat 15.000`** `[frame_003][frame_006]`
+- **Sequencer audio** — one strip per arm, end frames `1803 / 1889 / 1983 / 2087 / 2203 / 2333 / 2479 / 2644`; `Pitch` modifier at `Quality: High`, propagated with `Copy to Selected` `[frame_010]`
+- **Output (animation)** — `Media Type: Image`, `OpenEXR`, `DWAB` lossy codec `[transcript 36:28-36:40]`
+- **Output (assembly)** — `1920 x 1080`, `30 fps`, range `0`-`2640`, `Media Type: Video`, `Container: Matroska`, `Color: RGB` `[frame_009]`
+- **Render** — Cycles, GPU Compute, Viewport `Samples 256`, Render `Samples 512`, Denoise on, Motion Blur on `[frame_003][frame_006]`
+- **openDAW** (browser-based, external) — `120 BPM`, `4/4`, `48000` Hz, `48 ms` latency; effects include `Dattorro Reverb`, `Free Reverb`, `Revamp` (Graphical EQ), `Autotune`, `Compressor`, `Crusher`, `Delay`, `Gate`, `Maximizer`, `Stereo Tool`, `Vocoder`, `Waveshaper` `[frame_011]`
+- **Scene objects** — `Armature` … `Armature.007`, `Lightswitch.Light` … `.005` `[frame_001][frame_006]`
+
+> **Coverage limits.** With 85% of the narration lost to the repetition loop, the *values*
+> above are solid (every one is read off a frame) but the *reasoning* is not recoverable —
+> why these particular repeat counts and strip lengths were chosen, and how the loop point
+> was derived, are not in the record. Treat this as a parameter reference plus a workflow
+> outline, not a full explanation. Worth re-ingesting if captions ever appear.
+>
+> **On the gate that should have caught this:** the transcript floor measures total
+> character count, and 7,350 characters clears the threshold for a 2,481-second video
+> easily. It has no notion of *diversity*, so a repetition loop passes. The `needs-review`
+> status this file received was triggered by an unrelated CRITICAL — "Empty transcript in
+> chapter 'Final result'" — not by the hallucination.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2.0 — read from the status bar in `[frame_003]`, `[frame_006]`, `[frame_009]`, `[frame_010]` and `[frame_012]`. Not recoverable from narration.
 
 ### Tags
-[PENDING EXTRACTION]
+animation, rigging, motion-design, rendering, cycles, blender-5x, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [A New Way To Loop Animations in Blender](a-new-way-to-loop-animations-in-blender.md) — the same looping problem approached from the animation side; shares animation, motion-design
+- [Don't Make Boring Audio Visualizers (Blender Tutorial)](dont-make-boring-audio-visualizers-blender-tutorial.md) — the inverse relationship, driving visuals from audio rather than cutting audio to match visuals; shares animation, motion-design, blender-5x
+- [Can Blender Still Compete (Motion Graphics)](can-blender-still-compete-motion-graphics.md) — its loop is built from keyframed Mapping nodes on linear interpolation, the shader-side equivalent of this video's NLA repeat trick; shares motion-design, cycles, blender-5x

@@ -3387,9 +3387,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=-ZUAhe-gRns
 - **Author:** Polyfjord
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** animation, rigging, motion-design, rendering, cycles, blender-5x, intermediate
+- **Summary:** DEGRADED TRANSCRIPT — Whisper repetition loop destroyed roughly 0:00-35:10 (72 of 154 lines are one hallucinated string), so this entry is read from frames anchored on the video chapters. Builds a visual polyrhythm from a single 120-frame armature action: push it to an NLA strip, extend the strip across the timeline and set Repeat, then duplicate the rig giving each copy a different Repeat count so the arms drift out of phase and reconverge on one loop point. Collection instances mirror the row. The audio polyrhythm is literal — one Video Sequencer strip per arm, each trimmed to a different end frame (1803/1889/1983/2087/2203/2333/2479/2644) with a per-strip Pitch modifier. Reverb and EQ are done in openDAW, a browser-based DAW, and the final cut is assembled in a separate blend file from an OpenEXR DWAB image sequence.
 - **File:** tutorials/how-to-make-looping-polyrhythms-in-blender.md
 
 ---
