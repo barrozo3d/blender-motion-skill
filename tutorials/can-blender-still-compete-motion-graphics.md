@@ -4,13 +4,14 @@ source: YouTube
 url: https://www.youtube.com/watch?v=bDHdUT2oiZE
 author: Ducky 3D
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [geometry-nodes, motion-design, materials, shaders, lighting, cycles, glass, blender-5x, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/can-blender-still-compete-motion-graphics/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 17
+frame_status: complete
 uncertainty_frames: []
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Can Blender Still Compete (Motion Graphics)
@@ -24,12 +25,7 @@ uncertainty_frames: []
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py can-blender-still-compete-motion-graphics <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -245,30 +241,93 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:20] tutorials/frames/can-blender-still-compete-motion-graphics/frame_000.jpg
+- [2:45] tutorials/frames/can-blender-still-compete-motion-graphics/frame_001.jpg
+- [3:10] tutorials/frames/can-blender-still-compete-motion-graphics/frame_002.jpg
+- [3:22] tutorials/frames/can-blender-still-compete-motion-graphics/frame_003.jpg
+- [3:52] tutorials/frames/can-blender-still-compete-motion-graphics/frame_004.jpg
+- [4:42] tutorials/frames/can-blender-still-compete-motion-graphics/frame_005.jpg
+- [5:14] tutorials/frames/can-blender-still-compete-motion-graphics/frame_006.jpg
+- [6:22] tutorials/frames/can-blender-still-compete-motion-graphics/frame_007.jpg
+- [6:52] tutorials/frames/can-blender-still-compete-motion-graphics/frame_008.jpg
+- [8:35] tutorials/frames/can-blender-still-compete-motion-graphics/frame_009.jpg
+- [9:06] tutorials/frames/can-blender-still-compete-motion-graphics/frame_010.jpg
+- [11:10] tutorials/frames/can-blender-still-compete-motion-graphics/frame_011.jpg
+- [11:26] tutorials/frames/can-blender-still-compete-motion-graphics/frame_012.jpg
+- [11:52] tutorials/frames/can-blender-still-compete-motion-graphics/frame_013.jpg
+- [13:58] tutorials/frames/can-blender-still-compete-motion-graphics/frame_014.jpg
+- [16:22] tutorials/frames/can-blender-still-compete-motion-graphics/frame_015.jpg
+- [18:05] tutorials/frames/can-blender-still-compete-motion-graphics/frame_016.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Melting intersecting instanced cubes into one continuous form by round-tripping through a signed distance field (`Realize Instances` → `Mesh to SDF Grid` → `Grid to Mesh`), then shading it as a noise-driven mix of Glass and Principled BSDF and lighting it against a `Gradient Texture` × `Power` emission backdrop.
 
 ### Summary
-[PENDING EXTRACTION]
+Framed as a Blender-vs-Cinema-4D comparison, this rebuilds a Tendril Studio render and in doing so demonstrates the SDF round-trip as Blender's answer to a dedicated MoGraph toolset. Scattered cubes are stretched and randomised until they intersect, then converted to an SDF volume and back to mesh, which fuses every intersection into a single organic surface with a natural bevel. The material mixes Glass and Principled through a Noise Texture, the background is a spherical gradient sharpened by a `Power` math node rather than the usual Color Ramp, and the whole thing loops via two keyframed Mapping nodes with linear interpolation.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Build the scatter surface.** Geometry Nodes → delete the input → `Grid`, scaled `10 × 6` with about 15 vertices `[transcript 2:10-2:26]`.
+2. **Displace it.** `Set Position` with a `Vector Math` node set to `Multiply` to control strength, driven by a `Noise Texture` — plug Factor into Vector and enable `Normalize` `[transcript 2:27-2:49]`.
+3. **Scatter points and instance cubes.** `Distribute Points on Faces` at density ≈ `2.4`, then `Instance on Points` with a `Cube` `[transcript 2:56-3:19]`.
+4. **Randomise into intersection.** `Combine XYZ` into Scale, fed by two `Random Value` nodes — one for thickness, one for height. Keep minimums above zero so the cubes genuinely overlap `[transcript 3:28-4:26]`.
+5. **Add a density control.** `Delete Geometry` set to `Instance` domain, with a `Random Value` in Boolean mode into Selection — a single slider that thins the scatter `[transcript 4:31-4:57]`.
+6. **Set the camera early.** Focal length `100` mm, deliberately long, because composition drives the rest of the modelling `[transcript 5:02-5:17]`.
+7. **The melt — realize first.** `Realize Instances` (`Realize All` on, `Depth 0`) so downstream nodes stop treating the cubes as separate objects `[frame_007]` `[transcript 6:00-6:13]`.
+8. **SDF round trip.** `Mesh to SDF Grid` → `Grid to Mesh` `[frame_007]` `[transcript 6:14-6:33]`. Every intersection fuses into one surface and gains a natural bevel.
+9. **Mind the voxel size.** Lowering it is effectively subdivision and gets heavy extremely fast `[transcript 6:39-6:55]`. Finish with `Set Shade Smooth` `[transcript 6:56-7:02]`.
+10. **Bypass the melt while shading.** The melted mesh is heavy, so mute the SDF section and shade the raw instances, checking the melted result only occasionally `[transcript 7:37-7:50]`.
+11. **Mix Glass and Principled.** `Set Material` → new material → `Mix Shader` combining a `Glass BSDF` with the `Principled BSDF`; Principled roughness is dropped to `0.133` for shine, and a touch of roughness is added to the glass `[frame_009]` `[transcript 7:52-8:50]`.
+12. **Drive the mix with noise.** `Noise Texture` → `Color Ramp` → Mix Shader factor, with `Ctrl+T` (Node Wrangler) generating Mapping/Texture Coordinate on the **Object** coordinate `[transcript 8:51-9:12]`. Scale the noise up and pull the ramp stops apart for a softer transition `[transcript 9:12-9:34]`.
+13. **Build the backdrop.** A plane rotated `Rx 90`, pushed back, scaled and `Ctrl+A` applied; an `Empty (Plain Axes)` placed near it to drive the gradient `[transcript 10:09-10:48]`.
+14. **Emission gradient.** Delete Principled → `Emission` at `Strength 30` → `Gradient Texture` set to **`Spherical`**, driven by Texture Coordinate `Object` pointing at the empty `[frame_013]` `[transcript 11:00-11:32]`.
+15. **Sharpen the gradient with `Power`, not a Color Ramp.** A `Math` node in `Power` mode with a high `Exponent` (`5.800` shown) produces a far better falloff than a Color Ramp's B-Spline `[frame_013]` `[transcript 11:37-12:11]`.
+16. **Colour the backdrop.** `Mix Color` with the Power output as Factor, A black, B the chosen colour `[transcript 12:12-12:28]`.
+17. **Black out the world.** The default grey world background is what's still lighting the object; set it to black `[transcript 12:33-12:41]`.
+18. **Light it.** Area light, raised and aimed with `R R`, switched from Square to **Disc**, scaled up, controlled with `Exposure` and a reduced `Spread` `[transcript 13:38-14:14]`. Then a duplicate behind the object as a rim/key `[transcript 14:36-15:02]`.
+19. **The lighting principle worth keeping.** Light *into* the dark part of the gradient and leave negative space where the backdrop is already bright — the value contrast is what gives the modern look `[transcript 14:16-14:32]`.
+20. **Stop the noise from sitting still.** Duplicate the Noise Texture and Mapping, combine the two with a `Mix Color` set to `Multiply`, then animate the *second* Mapping so the noise pattern itself deforms rather than merely sliding `[frame_016]` `[transcript 16:05-17:00]`.
+21. **Loop it.** Set Preferences → Animation → default interpolation to **Linear**, or it will not loop `[transcript 17:44-17:52]`. Keyframe the Mix factor left-to-right and the Mapping `Z` from `-25` to `25` across the timeline; `60 / -60` for a faster drift `[transcript 17:52-18:30]`.
+22. **Render settings.** `300` samples, standard denoise, 1080p `[frame_009]` `[transcript 18:58-19:05]`.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Scatter chain** — `Grid` (`10 × 6`, ~15 verts) → `Set Position` + `Vector Math (Multiply)` + `Noise Texture (Normalize)` → `Distribute Points on Faces` (density ≈ `2.4`, later `2.6-3`) → `Instance on Points` + `Cube` `[frame_007]`
+- **Randomisation** — `Combine XYZ` → Scale, fed by two `Random Value` nodes (thickness, height); `Delete Geometry` on `Instance` domain with `Random Value` (Boolean) → Selection `[frame_007]`
+- **The melt** — `Realize Instances` (`Realize All`, `Depth 0`) → `Mesh to SDF Grid` (`Voxel Size 0.5 m`, `Band Width 3`) → `Grid to Mesh` → `Set Shade Smooth` `[frame_007]`
+- **Material** — `Mix Shader` of `Glass BSDF` + `Principled BSDF` (`Metallic 0.000`, `Roughness 0.133`, `IOR 1.500`, `Alpha 1.000`), factor from `Noise Texture` → `Color Ramp`, coordinates via `Ctrl+T` on **Object** `[frame_009]`
+- **Animated noise** — two `Mapping` + two `Noise Texture` nodes (`4D`, `fBM`, `Normalize` on, `W 8.300`, `Scale 0.100`, `Detail 2.000`, `Roughness 0.500`, `Lacunarity 2.000`, `Distortion 0.000`) combined by a `Mix` (Color) node `[frame_016]`
+- **Backdrop** — `Texture Coordinate (Object → Empty)` → `Mapping` → `Gradient Texture (Spherical)` → `Math (Power, Exponent 5.800)` → `Emission (Strength 30)`, coloured by `Mix Color` `[frame_013]`
+- **Light Paths** — Max Bounces Total `20`, Diffuse `10`, Glossy `10`, Transmission `20`, Volume `10`, Transparent `10`; Clamping Direct `0.00`, Indirect `10.00`; Caustics Reflective + Refractive on, `Filter Glossy 1.00` `[frame_013]`
+- **Lighting** — Area light, shape `Disc`, driven by `Exposure` and reduced `Spread`, duplicated for a back/rim light `[transcript 13:58-15:02]`
+- **Render** — Viewport `Max Samples 32`, Render `Max Samples 300`, `Noise Threshold 0.0100`, Denoise on, Motion Blur on, 1080p `[frame_009]`
+- **Preference** — Animation → default interpolation `Linear` (required for the loop) `[transcript 17:44-17:52]`
+
+> **Frame-vs-transcript.** `[transcript 9:40]` reads "3d switch it to 40 on the noise
+> texture"; the Noise Texture is set to **`4D`** with `Scale 0.100` `[frame_016]`. Whisper
+> also writes "mixed color" for the `Mix (Color)` node, "color amp" for `Color Ramp`, and
+> "EVE"/"EV" for EEVEE throughout.
+>
+> **Attribution:** the original artwork being recreated is by **Tendril Studio**, credited
+> repeatedly in narration `[transcript 0:30-0:44, 18:47-18:53]`. This entry documents the
+> Blender rebuild, not the original design.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2.0 LTS — read from the title bar and status bar in `[frame_007]`, `[frame_009]`, `[frame_013]` and `[frame_016]`. Narration says "we're going to be in Blender 5.2" `[transcript 2:06]`, so both witnesses agree here.
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, motion-design, materials, shaders, lighting, cycles, glass, blender-5x, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [You Should Make Glass Animations in Blender 5.1](you-should-make-glass-animations-in-blender-51.md) — the same Glass-BSDF-driven motion design look; shares glass, materials, shaders, motion-design, blender-5x
+- [Blender 5.3 gets dispersion!](blender-53-gets-dispersion.md) — the transmission-channel controls that would extend this tutorial's glass mix; shares materials, shaders, glass, cycles, blender-5x
+- [3 Easy Lighting Setups | Blender Tutorial](3-easy-lighting-setups-blender-tutorial.md) — the gradient-backdrop-plus-area-light approach here in a different key; shares lighting, materials, shaders

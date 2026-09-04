@@ -3307,9 +3307,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=bDHdUT2oiZE
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** geometry-nodes, motion-design, materials, shaders, lighting, cycles, glass, blender-5x, intermediate
+- **Summary:** Rebuilds a Tendril Studio Cinema 4D render in Blender 5.2 to argue the MoGraph case. The core move is an SDF round trip: scattered, randomly stretched cubes are forced to intersect, then Realize Instances into Mesh to SDF Grid into Grid to Mesh fuses every intersection into one continuous surface with a natural bevel (watch the voxel size — it is effectively subdivision). Material is a Mix Shader of Glass and Principled BSDF driven by a Noise Texture and Color Ramp; the backdrop is a spherical Gradient Texture sharpened by a Math Power node at exponent 5.8 rather than a Color Ramp, lit so the key light falls into the dark side of the gradient. Loops by keyframing two Mapping nodes Z from -25 to 25 with linear default interpolation.
 - **File:** tutorials/can-blender-still-compete-motion-graphics.md
 
 ---
