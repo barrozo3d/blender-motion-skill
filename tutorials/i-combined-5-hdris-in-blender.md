@@ -4,13 +4,14 @@ source: YouTube
 url: https://www.youtube.com/watch?v=MvJEnsMX4DU
 author: roe.num77
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 4.5"
+tags: [lighting, hdri, materials, shaders, rendering, blender-4x, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/i-combined-5-hdris-in-blender/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 13
+frame_status: complete
 uncertainty_frames: [13.2]
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # I Combined 5 HDRIs in Blender
@@ -32,12 +33,7 @@ _Auto-generated at ingest/frame-capture time — explains why `extraction_status
 ---
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py i-combined-5-hdris-in-blender <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -251,30 +247,92 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:35] tutorials/frames/i-combined-5-hdris-in-blender/frame_000.jpg
+- [2:22] tutorials/frames/i-combined-5-hdris-in-blender/frame_001.jpg
+- [3:06] tutorials/frames/i-combined-5-hdris-in-blender/frame_002.jpg
+- [3:44] tutorials/frames/i-combined-5-hdris-in-blender/frame_003.jpg
+- [5:30] tutorials/frames/i-combined-5-hdris-in-blender/frame_004.jpg
+- [5:42] tutorials/frames/i-combined-5-hdris-in-blender/frame_005.jpg
+- [6:14] tutorials/frames/i-combined-5-hdris-in-blender/frame_006.jpg
+- [8:16] tutorials/frames/i-combined-5-hdris-in-blender/frame_007.jpg
+- [9:00] tutorials/frames/i-combined-5-hdris-in-blender/frame_008.jpg
+- [10:06] tutorials/frames/i-combined-5-hdris-in-blender/frame_009.jpg
+- [11:42] tutorials/frames/i-combined-5-hdris-in-blender/frame_010.jpg
+- [15:00] tutorials/frames/i-combined-5-hdris-in-blender/frame_011.jpg
+- [15:40] tutorials/frames/i-combined-5-hdris-in-blender/frame_012.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Layering five separate HDRIs in the World shader by chaining `Mix` (Color) nodes with `Lighten` / `Screen` blend modes, giving each HDRI its own rotation and per-channel colour control, then splitting emitted light from visible background using a `Light Path` → `Is Camera Ray` → `Mix Shader` setup.
 
 ### Summary
-[PENDING EXTRACTION]
+Instead of picking one environment map, this builds a compositable lighting rig in the World node tree: each HDRI gets its own Texture Coordinate → Mapping → Environment Texture chain inside a labelled frame, is colour-graded independently via Hue/Saturation/Value plus a Separate Color → Math(Multiply) → Combine Color triplet, and is then blended into the stack with a `Mix` node. The blend mode does the heavy lifting — `Lighten` keeps only the bright parts, which is how a star map and a second nebula dissolve into the first without muddying it. It closes with a genuinely reusable trick: a `Light Path` node driving a `Mix Shader` so one Background node controls how much light the HDRI *emits* while a second controls how bright the HDRI *looks*, independently.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Set the camera to panoramic.** Camera data → `Type: Panoramic`, `Panorama Type: Fisheye Equisolid`, `Lens 12.09`, `Field of View 360°` `[frame_000]` `[transcript 1:29-1:37]`. This is what makes the wrapped environment read dramatically inside the camera view `[transcript 1:51-1:57]`.
+2. **Open a World shader editor.** New window → Shader Editor → switch the mode from Object to **World** `[transcript 2:01-2:12]`.
+3. **Add the first HDRI.** `Shift+A` → `Environment Texture` into the `Background` node, then `Open` and load the map `[transcript 2:18-2:31]`.
+4. **Tame the brightness.** Drop the Background node's `Strength` from 1 to **`0.300`** `[frame_003]` `[transcript 2:46-2:53]`.
+5. **Add rotation control.** Select the Environment Texture and press `Ctrl+T` to generate `Texture Coordinate` → `Mapping` `[frame_003]` `[transcript 2:57-3:06]`. Animating the Mapping node's Z rotation gives a slow drift in the final render `[transcript 3:13-3:23]`.
+6. **Frame and label each HDRI.** Select the three nodes, press `F`, and label the frame — the first is labelled **`Earth Atmosphere`** `[frame_003]` `[transcript 3:37-3:43]`.
+7. **Duplicate for HDRIs 2-4.** Same three-node chain per map, labelled `Nebula`, `Nebula 2`, and a star map `[transcript 3:46-4:38]`.
+8. **Grade with Hue/Saturation/Value.** `Hue` shifts colour, `Saturation` makes it pop, `Value` brightens `[transcript 4:46-5:05]`.
+9. **Add per-channel control.** `Separate Color` (RGB) → one **Math node set to `Multiply`** per channel → `Combine Color` (RGB) `[frame_006]` `[transcript 5:19-5:34]`. A multiplier of `1.000` is a no-op; here red and green go to `0.9` to push the result bluish `[transcript 6:04-6:17]`.
+10. **Blend HDRI 2 in with a `Mix` node.** Drop a `Mix` (Color) node onto the connection and plug the second HDRI into input `B` `[transcript 6:27-6:34]`.
+11. **Drop channels you don't want.** On the Nebula, simply **disconnecting the red channel** removes unwanted red spots `[transcript 7:21-7:28]`.
+12. **Control the balance with `Factor`.** `0` shows only the first HDRI, `1` only the second, default `0.5`; **`0.3`** is used throughout to keep each new layer subordinate `[frame_008]` `[transcript 7:48-8:18]`.
+13. **Switch blend mode to `Lighten` for additive layers.** `Lighten` keeps the bright parts and drops the black, which is how Nebula 2 dissolves into the existing sky; `Multiply` would do the inverse `[frame_008]` `[transcript 8:57-9:16]`.
+14. **Tint a layer with a Color Ramp.** Feed the layer through a `Color Ramp` and set the white stop to a blue tint so it harmonises with the layer beneath `[frame_009]` `[transcript 9:58-10:12]`.
+15. **Add the star map on `Lighten`.** Only the bright points are wanted, so `Lighten` again at `Factor 0.3`, then raise Hue/Saturation `Value` sharply to make the stars read `[transcript 11:06-11:47]`.
+16. **Add a deliberately difficult fifth HDRI.** A heavily saturated nebula, blended with `Screen` (equivalent here to Lighten), then beaten into place with Hue/Saturation, Separate/Combine Color and another disconnected red channel `[transcript 13:19-14:12]`.
+17. **Separate emitted light from visible background.** Duplicate the `Background` node, add a `Mix Shader`, and plug a `Light Path` node's **`Is Camera Ray`** output into the Mix Shader's `Fac` `[frame_011]` `[transcript 14:35-15:05]`. The result: the top Background controls how much light the HDRI casts on the scene, the bottom controls how bright the HDRI itself appears, with no crosstalk `[transcript 15:05-15:33]`.
+18. **Use the same split for mixed sources.** Plugging a `Sky Texture` into one side lights the subject from the sky while the HDRIs remain the visible backdrop, or the reverse `[transcript 15:34-16:00]`.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Camera** — `Type: Panoramic`, `Panorama Type: Fisheye Equisolid`, `Lens 12.09`, `Field of View 360°`, `Clip 0.1 m - 1000 m` `[frame_000]`
+- **Per-HDRI chain** — `Texture Coordinate` → `Mapping` (`Type: Point`, Location/Rotation 0, Scale 1) → `Environment Texture` (`Linear`, `Equirectangular`, `Single Image`, colour space `sRGB`, `Alpha: Straight`) `[frame_003]`
+- **`Background`** — `Strength 0.300` `[frame_003]`
+- **Per-channel grade** — `Separate Color` (RGB) → three `Math` nodes in `Multiply` (`1.000` neutral, `0.9` on red and green) → `Combine Color` (RGB) `[frame_006]`
+- **`Mix` (Color)** — `Clamp Factor` on, `Factor` `0.3` for each added layer; blend modes used: `Mix`, `Lighten`, `Screen`, with `Multiply` mentioned as the inverse of Lighten `[frame_008]`
+- **`Color Ramp`** — white stop retinted blue for layer harmonisation `[frame_009]`
+- **`Hue Saturation Value`** — used per layer; `Value` raised sharply to brighten stars `[transcript 11:32-11:47]`
+- **`Light Path`** — `Is Camera Ray` → `Mix Shader.Fac`, with two `Background` nodes on the two Shader inputs `[frame_011]`
+- **`Mix Shader`** — `Fac 0.500` before the Light Path link is made `[frame_011]`
+- **HDRI source** — RenderCrate `[frame_003]` `[transcript 2:31]`
+
+> **Transcript reliability.** The ingest's caption cross-check raised a **WARNING** on this
+> file: one Whisper span (13.2-27.6s) has no counterpart in YouTube's 153-cue auto-caption
+> track. Inspecting it confirms fabrication over the musical intro — `[0:00]` reads
+> "chemistry nodes, BSDF, Vocal, Control 1," and `[0:13]` reads "high- curriculum,拜拜."
+> Actual narration begins at `[0:57]`. Neither line is used in these notes.
+>
+> Two further Whisper errors settled by frames: the recurring **"ERS atmosphere"** /
+> **"air's atmosphere"** is the node frame labelled **`Earth Atmosphere`** `[frame_003]`,
+> and the **"mass node"** is a **Math node** set to Multiply `[frame_006]`. "Belender"
+> appears throughout for Blender.
+>
+> **Timing note:** `[frame_008]` catches the `Mix` node one beat before the switch to
+> `Lighten`, and `[frame_009]` catches the colour picker still at white `#FFFFFFFF` before
+> the blue tint is chosen. Both are recorded as what they show; the changes themselves are
+> cited to narration.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 4.5.3 LTS — read from the title bar and status bar in `[frame_000]`, `[frame_003]` and `[frame_006]`. Never stated in narration.
 
 ### Tags
-[PENDING EXTRACTION]
+lighting, hdri, materials, shaders, rendering, blender-4x, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [3 Easy Lighting Setups | Blender Tutorial](3-easy-lighting-setups-blender-tutorial.md) — the HDRI-plus-separate-background-plane approach there solves the same "light vs. visible backdrop" split this one solves with Light Path; shares lighting, hdri, materials, shaders, rendering
+- [Photoreal Skies In Blender 5.0](photoreal-skies-in-blender-50.md) — Sky Texture as a lighting source, which this tutorial swaps into the Mix Shader at `[transcript 15:34]`; shares lighting, materials, shaders, rendering
+- [Photoreal Volumetrics in Blender](photoreal-volumetrics-in-blender.md) — complementary environment-lighting technique; shares lighting, materials, shaders, rendering

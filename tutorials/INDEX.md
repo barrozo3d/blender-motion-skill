@@ -3297,9 +3297,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=MvJEnsMX4DU
 - **Author:** roe.num77
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 4.5
+- **Tags:** lighting, hdri, materials, shaders, rendering, blender-4x, intermediate
+- **Summary:** Layers five HDRIs in the World shader by chaining Mix (Color) nodes on Lighten/Screen at Factor 0.3, each map getting its own Texture Coordinate/Mapping/Environment Texture chain in a labelled frame plus independent grading via Hue-Saturation-Value and a Separate Color to Math(Multiply) to Combine Color triplet (dropping a channel entirely is used to kill unwanted red). Closes with a Light Path node feeding Is Camera Ray into a Mix Shader Fac, so one Background node controls how much light the HDRI emits while a second controls how bright it appears, independently — and a Sky Texture can be swapped into either side. Camera is Panoramic / Fisheye Equisolid at 360 degrees.
 - **File:** tutorials/i-combined-5-hdris-in-blender.md
 
 ---
