@@ -4,13 +4,14 @@ source: YouTube
 url: https://www.youtube.com/watch?v=YLJjEYd47JQ
 author: Bradley Animation
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [geometry-nodes, procedural, rendering, eevee, cycles, blender-5x, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 17
+frame_status: complete
 uncertainty_frames: []
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # [Tut] What makes Spline/Curves more complicated - P16 Geometry Nodes Beginners 5.0+
@@ -24,12 +25,7 @@ uncertainty_frames: []
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### A big picture of today's episode [0:00]
@@ -309,30 +305,102 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [1:38] tutorials/frames/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50/frame_000.jpg
+- [2:15] tutorials/frames/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50/frame_001.jpg
+- [3:38] tutorials/frames/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50/frame_002.jpg
+- [4:10] tutorials/frames/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50/frame_003.jpg
+- [5:14] tutorials/frames/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50/frame_004.jpg
+- [5:33] tutorials/frames/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50/frame_005.jpg
+- [6:12] tutorials/frames/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50/frame_006.jpg
+- [8:08] tutorials/frames/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50/frame_007.jpg
+- [8:24] tutorials/frames/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50/frame_008.jpg
+- [10:05] tutorials/frames/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50/frame_009.jpg
+- [13:44] tutorials/frames/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50/frame_010.jpg
+- [14:12] tutorials/frames/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50/frame_011.jpg
+- [15:47] tutorials/frames/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50/frame_012.jpg
+- [16:05] tutorials/frames/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50/frame_013.jpg
+- [17:26] tutorials/frames/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50/frame_014.jpg
+- [19:30] tutorials/frames/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50/frame_015.jpg
+- [22:18] tutorials/frames/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50/frame_016.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Distinguishing Blender's two coexisting curve systems — the legacy Curve object and the new Hair Curve object — by how each renders, and decoding the four curve types (`curve_type` 1–3 plus Catmull Rom) along with the spline/curve/hair naming mess that spans both.
 
 ### Summary
-[PENDING EXTRACTION]
+Blender is mid-rewrite on curves, so two systems exist simultaneously with mixed terminology. The practical difference is rendering: legacy curves are invisible until converted to geometry (`Curve to Mesh`), while new Hair Curves render natively and efficiently enough for trillions of strands — but only on the new object type, and only on realized (never instanced) geometry. The episode then walks the four curve types via the spreadsheet's `curve_type` attribute, explains that "resolution" only generates *virtual* render points (a Bézier segment really has two points no matter what), and covers the two ways to add real points: `Resample Curve` (which silently converts everything to polylines) and `Subdivide Curve` (which preserves type). The author's own summary is that only two things really matter: the new hair curve's rendering speed, and the nomenclature confusion `[transcript 22:47-22:59]`.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Spot the two systems in the Add menu.** `Shift+A` → `Curve` lists `Bézier`, `Circle`, `Nurbs Curve`, `Nurbs Circle`, `Path` as available, with `Empty Hair` and `Fur` greyed out `[frame_000]`. The greyed entries are the new curve type, which cannot be added directly in Blender 5.2 `[transcript 1:51-2:03]`.
+2. **Add a new Hair Curve object.** Create any mesh (e.g. a plane), keep it selected, then add the new curve type — it becomes a **child of that mesh**, carries a different object icon, and ships with its own geometry nodes modifier instead of the legacy Curve data block `[transcript 2:03-2:34]`.
+3. **Ignore the hair physics for now.** In 5.2 that modifier includes experimental hair physics; the default animation mode behaves exactly as before, and physics only engage if explicitly enabled `[transcript 2:41-3:00]`.
+4. **Understand what binds hair to the surface.** Grow strands in Sculpt Mode with the hair brushes `[transcript 3:34-3:47]`. The strands follow the mesh **even after clearing the parent** — the binding lives in the object data's animation mode, not the parent relationship `[transcript 3:54-4:26]`.
+5. **See the rendering difference.** Turn off viewport overlays: legacy curves vanish entirely because they cannot be rendered directly, while hair strands remain — they are natively renderable `[transcript 5:05-5:36]`.
+6. **Render a legacy curve with `Curve to Mesh`.** By default it produces only edges (still invisible); supply a **Profile Curve** — a `Curve Circle` is enough `[frame_006]` `[transcript 5:48-6:09]`.
+7. **Use the `Scale` socket, not Set Curve Radius.** Radius is already influenced by the profile curve, so the old auto-behaviour was **dropped** and replaced by a `Scale` socket on `Curve to Mesh` `[frame_006]` `[transcript 6:18-6:47]`. Older tutorials showing Set Curve Radius driving tube thickness are out of date.
+8. **Prefer the `Curve to Tube` preset.** An asset provided by the Blender Foundation; the point of using it is the **UV map** it constructs, which takes many nodes to build from scratch `[transcript 6:48-7:21]`.
+9. **For new hair curves, use `Set Curve Radius`.** Build from a `Curve Line` node and set radius there — shown at `0.615 m` `[frame_007]` `[transcript 7:43-7:58]`.
+10. **Radius does nothing until the render shape is changed.** In EEVEE, `Curves → Shape` defaults to **`Strand`**; switching to `Strip` or `Cylinder` makes the radius visible `[frame_007]` `[transcript 7:58-8:12]`. `Strip` is a plane that always faces the camera; `Cylinder` is a semicircle facing the camera `[transcript 8:19-8:34]`.
+11. **Why this is fast.** These camera-facing forms avoid the vertex and polygon count a real curve-to-tube would generate, and geometry nodes runs on the CPU while rendering happens on the GPU `[transcript 8:35-8:56]` `[frame_014]`. The tradeoff is visible flaws at strand tips, irrelevant when rendering huge numbers of thin hairs `[transcript 8:57-9:08]`.
+12. **Cycles has its own shape settings.** All Cycles modes support radius; a `Curve Line` reads as a perfect capsule from every angle including the tip `[transcript 9:24-9:52]`. Switching to `Rounded Ribbon` makes tips flat (like EEVEE's Strip) and `3D Curves` makes them circular (like Cylinder); only linear 3D curves give the capsule `[transcript 10:00-10:23]`.
+13. **New-curve rendering is object-type-bound.** Applying the same node tree to a legacy curve object — or generating curves inside a mesh object — will not produce hair-curve rendering. Only the new Hair Curve object does, "there is no exception" `[transcript 10:43-11:08]`.
+14. **Never instance new hair curves.** New-curve rendering only works on **realized** geometry; feeding it through `Geometry to Instance` immediately breaks rendering back to black viewport lines regardless of curve type, so instancing must be paired with `Realize Instances` `[frame_014]` `[transcript 17:21-17:44]`.
+15. **Learn the naming conflict.** In the old system a single strand is a **spline** and multiple splines make a **curve**. The new system proposes only "curve" and "curves", with no splines and no separate hair type — hair should be curve and curve should be hair `[transcript 11:29-12:14]`. Both systems and both vocabularies currently coexist, and searching "spline" still returns many nodes `[transcript 12:37-12:52]`.
+16. **Read `curve_type` in the spreadsheet.** Bézier is **2** `[frame_010]`, NURBS is **3** `[frame_011]`, Poly is **1** `[transcript 16:26]`. Catmull Rom is the type used by sculpted hair curves and carries no explicit `curve_type` on the spline domain `[transcript 16:33-16:47]` `[frame_014]`.
+17. **Bézier vs NURBS.** Bézier uses handles to build smooth curvature from very few points `[frame_010]`; NURBS needs no handles — control points sit on straight lines and the curvature is derived `[frame_011]` `[transcript 14:02-14:26]`.
+18. **Understand what "resolution" actually means.** It is the number of **virtual** points the render engine fabricates to fake curvature — fewer points, coarser approximation `[transcript 14:45-14:59]`. Proof: a Bézier Segment at `Resolution 256` still shows only **`Rows: 2`** in the spreadsheet, so `Set Position` with a Random Value barely disturbs it `[frame_012]` `[transcript 15:06-15:44]`.
+19. **Polyline is the exception.** It simply connects point to point, so resolution does not affect it `[transcript 16:02-16:25]` — and the resulting shape is visibly angular `[frame_013]`.
+20. **Watch out for Quadratic Bézier.** Despite the name it is a **polyline** (`curve_type 1`), stated outright by its tooltip: *"Generate a poly spline in a parabola shape with control points positions"* `[frame_015]` `[transcript 19:26-19:41]`. Its `Resolution` behaves as a count and is **not** overridable by `Set Spline Resolution`, unlike a real Bézier Segment `[transcript 19:42-20:11]`.
+21. **Add real points, method 1 — `Resample Curve`.** Internally converts everything to polylines `[transcript 18:20-18:27]`. Three modes: `Evaluated` generates points matching the resolution (and `Set Spline Resolution` can override it) `[frame_015]`, `Count` sets an exact number `[frame_016]`, and `Length` sets a point-to-point interval `[transcript 18:28-20:47]`.
+22. **Know the interval trap.** `Resample by Length` cannot always honour the interval: a 1 m curve at 0.8 m leaves a remainder shorter than the interval and the result is invalid; 0.5 m divides cleanly `[transcript 20:47-21:39]`.
+23. **Add real points, method 2 — `Subdivide Curve`.** Found alongside `Subdivide Mesh` and `Subdivision Surface` `[frame_016]`. It **preserves the curve type** and avoids some Resample accuracy problems, at the cost of no definitive count and possibly uneven distribution `[transcript 22:13-22:41]`.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Add menu** — `Shift+A` → `Curve`: `Bézier`, `Circle`, `Nurbs Curve`, `Nurbs Circle`, `Path` available; `Empty Hair`, `Fur` greyed out in 5.2 `[frame_000]`
+- **`Curve to Mesh`** — inputs Curve, Profile Curve, `Scale` (shown `1.000`), `Fill Caps`; fed by `Curve Circle` (`Resolution 32`, `Radius 1 m`) `[frame_006]`
+- **`Set Curve Radius`** — Curve, Selection, `Radius` (`0.615 m` / `0.015 m` in the hair setups) `[frame_007][frame_014]`
+- **`Set Spline Type`** — dropdown offering `Catmull Rom`, `Poly`, `Bézier`, `NURBS` `[frame_010][frame_011]`
+- **`Bézier Segment`** — `Position`/`Offset` mode, `Resolution` (256 and 8 shown), Start / Start Handle / End Handle / End vectors `[frame_012][frame_015]`
+- **`Quadratic Bézier`** — `Resolution 16`, Start / Middle / End; tooltip declares it a *poly spline* `[frame_015]`
+- **`Set Spline Resolution`** — `Resolution 182` shown; overrides evaluated resolution for real Béziers only `[frame_015]`
+- **`Resample Curve`** — modes `Evaluated` `[frame_015]` / `Count` (`Count 10`) `[frame_016]` / `Length`
+- **`Subdivide Curve`** — search shows it beside `Subdivide Mesh` and `Subdivision Surface` `[frame_016]`
+- **EEVEE `Curves → Shape`** — `Strand` (default) | `Strip` | `Cylinder`, plus `Additional Subdivision` `[frame_007][frame_010]`
+- **Cycles `Curves`** — `Shape: Linear 3D Curves` / `Rounded Ribbons`, `Curve Subdivisions 2` `[frame_010][frame_015]`
+- **Spreadsheet `curve_type`** — Bézier `2` (with `resolution 12`, `normal_mode 0`) `[frame_010]`; NURBS `3` (with `nurbs_order 5`, `knots_mode 1`) `[frame_011]`; Poly `1` `[transcript 16:26]`
+- **Legacy Curve data panel** — `Shape 2D | 3D`, `Resolution Preview U 12`, `Render U 0`, `Twist Method Minimum`, `Fill Mode Full`, `Fill Solver Sweep Line` `[frame_012][frame_013]`
+- **Assets** — `Curve to Tube` (Blender Foundation asset, builds the UV map) `[transcript 6:48-7:00]`
+
+> **Transcript unreliability in this episode is unusually high**, and the frames
+> settle it repeatedly. Whisper writes EEVEE's `Strand` shape as **"strength"**
+> `[transcript 8:06]` — the button reads `Strand` `[frame_007]`. It writes the bevel
+> modifier as **"beauty modifier"** `[transcript 7:36]`, EEVEE as **"EV"** throughout,
+> the Blender Foundation as **"Belander Foundation"** `[transcript 6:54]`, Catmull Rom
+> as **"catmouron"** `[transcript 16:33]`, `Set Spline Resolution` as **"set spine
+> resolution"**, and the Bézier `curve_type` of 2 as **"marked with A2"**
+> `[transcript 13:44]`. The on-screen annotations in `[frame_014]` — *"Sculpted Hair is
+> Catmull-Rom type"*, *"GN is running on CPU"*, *"Polyline is not influenced by Cycles
+> Shape Render Settings"* — are the author's own captions and are the reliable record of
+> those three claims.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2.1 RC — read from the status bar in `[frame_000]`, `[frame_010]` and `[frame_011]`. The title advertises "5.0+", and the narration pins the greyed-out Add-menu entries specifically to 5.2 `[transcript 1:56]`.
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural, rendering, eevee, cycles, blender-5x, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be]] — P14, two episodes earlier in the same series; its realize-vs-instance performance discussion is the direct counterpart to this episode's rule that hair curves render only on realized geometry
+- [[tut-align-rotation-to-vector-axes-to-rotation---p11-geometry-nodes-beginners-50]] — P11, same series and version target; complementary deep dive on the instance side of the same node vocabulary
+- [Curves Just Got Easier in Blender 5.0](curves-just-got-easier-in-blender-50.md) — covers the 5.0 curve improvements this episode's nomenclature discussion sits on top of; shares geometry-nodes, procedural, blender-5x
+- [Hair Grooming in Blender ft. New Hair System (Hair Curves)](hair-grooming-in-blender-ft-new-hair-system-hair-curves.md) — the practical grooming side of the same new Hair Curve object this episode explains structurally
