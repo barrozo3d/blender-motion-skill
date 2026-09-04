@@ -3277,9 +3277,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=TWYYOKlwgds
 - **Author:** InLightVFX
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** compositing, camera, rendering, blender-5x, advanced
+- **Summary:** Full undistort/VFX/redistort pipeline using a free Blender 5.2+ add-on ("Undistort") that calibrates lens distortion from a checkerboard or Charuco board and exports the solve as ST maps. Compares five lens models by solve error, builds the compositor Map UV setup automatically, and generates a matched camera carrying solved focal length, sensor width and optical-center shift. Key lesson: single-image calibration removes distortion well but yields an untrustworthy focal length, which multi-image Charuco calibration fixes — and the final composite never undistorts the plate, only redistorts the CG, with overscan preventing transparent edges.
 - **File:** tutorials/i-made-the-vfx-tool-blender-was-missing-full-workflow.md
 
 ---

@@ -4,13 +4,14 @@ source: YouTube
 url: https://www.youtube.com/watch?v=TWYYOKlwgds
 author: InLightVFX
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [compositing, camera, rendering, blender-5x, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 19
+frame_status: complete
 uncertainty_frames: []
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # I made the VFX tool Blender was missing... (Full Workflow)
@@ -24,12 +25,7 @@ uncertainty_frames: []
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py i-made-the-vfx-tool-blender-was-missing-full-workflow <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -403,30 +399,104 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [3:10] tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/frame_000.jpg
+- [4:06] tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/frame_001.jpg
+- [5:30] tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/frame_002.jpg
+- [6:28] tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/frame_003.jpg
+- [6:42] tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/frame_004.jpg
+- [7:03] tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/frame_005.jpg
+- [7:46] tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/frame_006.jpg
+- [9:05] tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/frame_007.jpg
+- [10:17] tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/frame_008.jpg
+- [10:40] tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/frame_009.jpg
+- [11:16] tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/frame_010.jpg
+- [14:31] tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/frame_011.jpg
+- [15:08] tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/frame_012.jpg
+- [16:09] tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/frame_013.jpg
+- [20:04] tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/frame_014.jpg
+- [22:02] tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/frame_015.jpg
+- [22:33] tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/frame_016.jpg
+- [24:18] tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/frame_017.jpg
+- [25:50] tutorials/frames/i-made-the-vfx-tool-blender-was-missing-full-workflow/frame_018.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+The undistort / VFX / redistort workflow for integrating CGI with real footage, executed with a free Blender add-on ("Undistort") that solves lens distortion from a checkerboard or Charuco board, exports the solve as ST maps, and builds the compositor setup and a matched camera automatically.
 
 ### Summary
-[PENDING EXTRACTION]
+A real lens bends straight lines; a virtual camera does not, so the two cannot be composited directly. The fix is to remove distortion from the plate, do the 3D work in an undistorted world, then reapply the distortion to the CG. This walks the whole pipeline with a custom add-on: calibrate against a printed grid, compare five lens models by solve error, export the result as an ST map (the standard pro-VFX way to move a warp between programs), and use overscan so the redistort does not reveal empty edges. The sharpest practical lesson is that single-image calibration removes distortion well but produces an untrustworthy focal length, which multi-image Charuco calibration fixes.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Understand the three ingredients of any lens model.** An optical center with zero distortion, a radius `r` from that center, and a scaling function. The naive model is `xy * r = xy` `[frame_000]`; adding 1 keeps the center unchanged, and a `k1` term scales the effect `[transcript 3:20-3:42]`.
+2. **Brown-Conrady** extends this to `xy * (1 + K1·r² + K2·r⁴) = xy`, shown at `Focal Length 11.7 mm`, `K1 -0.400`, `K2 0.000` `[frame_001]`. Published 1966 and still standard, but it breaks down at very short focal lengths where the points explode — which is why the later fisheye/Brown model exists `[transcript 4:22-4:44]`.
+3. **Install the add-on.** Called `Undistort`, linked in the video description, and **it requires Blender 5.2 or newer** `[transcript 5:10-5:15]`.
+4. **Find the panel.** Movie Clip Editor → open a clip → right-side `Track` tab → `Camera` → `Lens` → `Distortion Calibration` `[frame_002]` `[transcript 5:19-5:32]`.
+5. **Generate and shoot a lens grid.** `Setup` → `Checkerboard` → `Export`; display it fullscreen, put the camera on a tripod square to the center, fill the frame, focus, and record a short clip. It must be the **same camera, lens, focal length and recording format** as the plate `[transcript 5:33-6:15]`.
+6. **Detect and solve.** Load the grid clip, `Detect` (markers land on the corners — here `120 corners 11r×16c`), then `Solve` `[frame_004]` `[transcript 6:19-6:35]`.
+7. **Pick a model by error, but know the caveat.** The single-frame solve reports: `Polynomial 16.097 px`, `Division 2.033 px`, `Nuke 2.096 px`, `Brown-Conrady 35.251 px`, `Fisheye 2.132 px` `[frame_004]`. He selects **Nuke** `[transcript 6:44-6:46]` even though Division scored marginally lower — the narration says only "the Nuke model looks pretty good" and gives no reason for preferring it over Division.
+8. **Apply to the clip, then to the footage.** `Apply to Clip` copies the solved values up into Blender's own lens fields — after which the clip reads `Lens Distortion: Nuke`, `K1 -0.308`, `K2 -0.027`, `P1 0.000`, `P2 0.000`, `Optical Center -0.007 / -0.017` `[frame_007]`. Toggle `Render Undistorted` in the Clip Display dropdown to preview `[transcript 6:59-7:06]`. Then set `Target Clip` to the actual footage and `Apply` `[frame_013]` `[transcript 7:07-7:17]`.
+9. **Understand ST maps before exporting.** An ST map stores coordinates as colour: red ramps 0→1 horizontally, green 0→1 vertically `[frame_006]`. Bake a warp into the map and any program supporting ST mapping can reproduce that deformation without having the original effect `[transcript 8:03-8:26]`. **Blender additionally requires a blue channel of solid 1.0** `[transcript 10:29-10:37]`, and the map's colour space must be set to **Non-Color** `[frame_008]` `[transcript 10:47]`.
+10. **Export the ST map.** `Export STMap` section: choose the lens data (`Current Clip Data`), the target program (`Blender` / `Nuke` / `Fusion` / `Resolve` — Blender expects a different format from the others), then `Native` vs `Overscan` and `Undistort` vs `Distort` `[frame_007]` `[transcript 8:49-9:15]`. Choose **Overscan**: undistorting pushes image content outside the original frame, and overscan is the padding that keeps it `[transcript 9:17-9:34]`.
+11. **Build the compositor setup.** `Create Compositor Setup` generates a node group containing the Movie Clip, the `Undistort STMap` image node, and a **Map UV node renamed `Undistort`** wired to Group Output and a Viewer `[frame_008]` `[transcript 9:37-10:47]`.
+12. **Switch the compositor to CPU.** With `Device` on GPU the image is cut off at the edges; changing `Performance → Device` to `CPU` reveals the full undistorted frame including overscan `[frame_008]` `[transcript 10:10-10:20]`. The narration explicitly does not know why GPU misbehaves.
+13. **Match the render resolution to the map.** Set output resolution to the ST map's size (here `13932 × 10449`), drop `%` to 50 to keep the render manageable, and add a `Scale` node set to `Render Size` so the output matches `[transcript 11:05-11:38]`. Everything to be exported must reach the Group Output node `[transcript 11:38]`.
+14. **Set up the virtual camera (specs route).** Enter the lens's stated focal length and the camera's sensor width, switching `Sensor Fit` from `Auto` to `Horizontal` first `[frame_012]` `[transcript 15:01-15:11]`. **For overscan, keep the focal length and multiply the sensor width by the overscan multiplier** — the overscan area behaves like a physically larger sensor `[transcript 15:47-16:02]`.
+15. **Know why single-image focal length is unreliable.** The solver can fit multiple focal lengths that all undistort identically, so only one is the true lens `[transcript 13:39-14:05]`. The Nuke model sidesteps the question by not estimating focal length at all — stated in the panel as *"Nuke model does not estimate focal length"* `[frame_013]`; other models show an estimate plus an unreliability warning `[transcript 14:29-14:36]`.
+16. **Or solve it by camera tracking.** In the Solve tab enable `Refine Focal Length`. With defaults far from reality the solve will not move; seeding the sensor width and focal length first lets Blender refine successfully `[transcript 16:36-17:20]`. Accuracy depends on plentiful accurate markers and real parallax `[transcript 17:29]`.
+17. **Best route — multi-image Charuco calibration.** `Setup` → `Charuco board` → save PNG, then shoot the board from many distances and angles, deliberately letting it run off frame edges (distortion is greatest there), keeping it sharp `[transcript 18:11-18:50]`. In the plugin switch to `Full Clip`; `Frame Step 1` suits stills, but use 50–100 for video where neighbouring frames are near-identical `[frame_015]` `[transcript 19:07-19:31]`. `Detect and Solve` reports `5 model(s) fitted` and offers `View Coverage Plot`, which should show points reaching the frame edges `[frame_015]` `[transcript 19:58-20:15]`.
+18. **Read the multi-image solve.** Best model here is `Fisheye (Err 1.792 px)` — better than any single-image result — with the note *"Fisheye has no native Blender model"* `[frame_015]`. Details: `k1 +0.01559`, `k2 +0.00150`. The Native/Overscan table gives `Resolution 5760×4320 | 13932×10449`, `Sensor 17.30 mm | 41.84 mm`, `Focal 8.42 mm | 8.42 mm`, `H. FOV 91.5° | 136.2°`, `Overscan 2.419×` `[frame_015]`. Sensor scales by the multiplier while focal length stays fixed, exactly as step 14 describes.
+19. **Set sensor width before trusting focal length.** The table's sensor value mirrors whatever is set on the camera, and focal length re-derives to hold field of view constant — so enter the real `17.3 mm` first `[transcript 20:28-20:53]`.
+20. **Use `Create Camera`.** With Overscan + Fisheye selected, this builds a camera carrying the solved focal length, sensor width **and** the optical-center-derived `Shift X/Y`, and sets the project resolution `[frame_015]` `[transcript 21:51-22:20]`. The result: `Sensor Fit Horizontal`, `Width 41.84 mm`, `Shift X -0.001`, `Y -0.002` `[frame_016]`.
+21. **Do the VFX.** Environment from BlenderKit by David Tirindeli; position the camera in 3D from real measurements, match the key light to the practical softbox, add a bounce for warm rim light, and place a stand-in figure to cast contact shadows `[transcript 22:52-23:40]`.
+22. **Redistort only the CG.** Add a `Map UV` node, feed it the CG render and the **distort** ST map `[frame_017]` `[transcript 24:15-24:20]`. ST maps rescale any input to the map's size, so input resolution does not matter — only that the aspect ratio matches the undistorted overscan map `[transcript 24:22-24:57]`.
+23. **Merge with Alpha Over.** CG environment to Background, the keyed foreground plate on top `[frame_018]` `[transcript 25:04-25:09]`.
+24. **The key insight — never undistort the final plate.** The original footage stays distorted throughout the composite; distortion is applied only to the VFX. Undistorting earlier existed solely to line up the 3D scene and to enable camera tracking `[transcript 25:13-25:33]`.
+25. **Why overscan mattered.** Rendering native instead of overscan is faster, but redistorting a native render pulls transparent edges into frame `[frame_018]` `[transcript 25:34-25:58]`.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Add-on** — `Undistort`, free, link in video description; **Blender 5.2+ only** `[transcript 5:10-5:15]`
+- **Panel path** — Movie Clip Editor → `Track` → `Camera` → `Lens` → `Distortion Calibration` `[frame_002]`
+- **Solve controls** — `Solve: Focal Length / Optical Center` checkboxes, `Single Frame | Full Clip`, `Frame Step`, `Detect`, `Solve` `[frame_004][frame_015]`
+- **Single-frame solve errors (LensGrid.mp4, 120 corners 11r×16c)** — Polynomial `16.097 px`, Division `2.033 px`, Nuke `2.096 px`, Brown-Conrady `35.251 px`, Fisheye `2.132 px` `[frame_004]`
+- **Single-image Nuke result** — `k1 -0.30763`, `k2 -0.026889`; Native `5760×4320` / Overscan `13204×9903` at `2.292×`; Opt. Cent. `-0.0073,-0.0170` / `-0.0032,-0.0074`; Shift X/Y `-0.00366,-0.00636` / `-0.00160,-0.00278` `[frame_013]`
+- **Applied clip values** — `Lens Distortion: Nuke`, `K1 -0.308`, `K2 -0.027`, `P1 0.000`, `P2 0.000`, `Optical Center -0.007/-0.017` `[frame_007]`
+- **Multi-image Charuco result** — `Fisheye (Err 1.792 px)`, "Fisheye has no native Blender model"; `k1 +0.01559`, `k2 +0.00150`; Native/Overscan `2.419×`: Resolution `5760×4320 | 13932×10449`, Sensor `17.30 | 41.84 mm`, Focal `8.42 | 8.42 mm`, H. FOV `91.5° | 136.2°`, Opt. Cent. `-0.0060,-0.0143 | -0.0025,-0.0059`, Shift X/Y `-0.00302,-0.00535 | -0.00125,-0.00221` `[frame_015]`
+- **Export STMap** — model dropdown, format `Blender / Nuke / Fusion / Resolve`, `Native | Overscan`, `Undistort | Distort`, output folder, `Export STMap EXR`, `Create Compositor Setup`, `Create Camera` `[frame_007][frame_015]`
+- **Compositor group `Lens Distortion Setup`** — `Movie Clip` → `Map UV` (renamed `Undistort`, inputs Image / UV / Sampling) ← `Undistort STMap` image node (`Single Image`, colour space `Non-Color`, `Premultiplied`) → `Group Output` + `Viewer` `[frame_008]`
+- **Compositor Performance** — `Device: CPU` (GPU crops the overscan edges) `[frame_008]`
+- **Final composite nodes** — `ME DISTORTED`, `VFX_OVERSCAN`, `DISTORT_OVERSCAN`, `UNDISTORT_OVERSCAN`, `Map UV`, `Alpha Over` (`Factor 1.000`, `Straight Alpha`) `[frame_017][frame_018]`
+- **Created camera** — `Sensor Fit Horizontal`, `Width 41.84 mm`, `Focal 8.42 mm`, `Shift X -0.001 / Y -0.002` `[frame_015][frame_016]`
+- **Output** — resolution set to ST map size (`13932×10449`), `%` at 50 or 25, `24 fps`, plus a `Scale` node set to `Render Size` `[frame_017][transcript 11:26-11:38]`
+
+> **Focal length: specs vs solve.** The narration states the lens is `7.5 mm` with a
+> `17.3 mm` sensor from the camera's published specs `[transcript 14:53-15:01]`, and that
+> value is typed in manually for the single-image route `[frame_012]`. The multi-image
+> Charuco solve instead reports `8.42 mm` on the same `17.30 mm` sensor `[frame_015]`,
+> and the final `Create Camera` uses the solved value, not the spec `[frame_016]`. Both
+> recorded — the discrepancy is the point of the multi-image section, not an error.
+>
+> **Not captured:** the coverage plot image itself. `View Coverage Plot` is visible as a
+> button `[frame_015]`, but the rendered plot was not among the selected timestamps; its
+> description here comes from narration only `[transcript 20:01-20:15]`.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2.1 — read from the status bar in `[frame_002]` and `[frame_008]`. The add-on itself requires Blender 5.2 or newer, stated in narration `[transcript 5:15]`.
 
 ### Tags
-[PENDING EXTRACTION]
+compositing, camera, rendering, blender-5x, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Making my lens in Blender (Bokeh, glare, chromatic aberrations)](making-my-lens-in-blender-bokeh-glare-chromatic-aberrations.md) — the closest companion: same undistort/redistort ordering problem, but solved with Blender's built-in Movie Distortion node and polynomial values rather than exported ST maps; shares camera, compositing, rendering
+- [I Recreated movie scene in Blender & Nuke | Complete Tutorial](i-recreated-movie-scene-in-blender-nuke-complete-tutorial.md) — ST maps exist precisely to move a warp between Blender and Nuke like this; shares camera, compositing, rendering
+- [Using Geometry Nodes for VFX in Blender](using-geometry-nodes-for-vfx-in-blender.md) — CG-over-plate integration; shares camera, compositing, rendering
+- [Creating a Japanse city from a photo using fSpy](creating-a-japanse-city-from-a-photo-using-fspy.md) — the other route to recovering a real camera's focal length and optical center; shares camera, rendering
