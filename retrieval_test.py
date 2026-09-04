@@ -132,6 +132,14 @@ BASELINE = 'retrieval_baseline.json'
 
 PROV_ORDER = ('local', 'online', 'other')
 
+# ⚠️ Hosts whose entries came through the ONLINE video pipeline (ingest.py).
+# This was a bare 'youtube' test until 2026-09-03, when --video-url made
+# ingest.py usable against self-hosted lessons and `source_host()` started
+# writing real host names. A new host missing from this tuple lands in 'other'
+# beside the articles and quietly understates the online corpus -- so the run
+# NAMES the source values it did not recognise rather than just bucketing them.
+VIDEO_HOSTS = ('youtube', 'blender studio')
+
 
 def provenance(block):
     """Which pipeline produced this entry: 'local' (course), 'online' (YouTube),
@@ -149,7 +157,7 @@ def provenance(block):
     s = m.group(1).lower()
     if 'local course' in s:
         return 'local'
-    if 'youtube' in s:
+    if any(h in s for h in VIDEO_HOSTS):
         return 'online'
     return 'other'
 
@@ -197,6 +205,11 @@ def run(skill, nterms, topk, verbose):
 
     btok = {slug: set(tok(txt)) for slug, txt in blocks.items()}
     bprov = {slug: provenance(txt) for slug, txt in blocks.items()}
+    raw_sources = set()
+    for txt in blocks.values():
+        ms = re.search(r'\*\*Source:\*\*\s*(.+)', txt)
+        if ms:
+            raw_sources.add(ms.group(1).strip())
     # the skill's own tag vocabulary = its definition of searchable domain terms
     tagvocab = set()
     for txt in blocks.values():
@@ -286,6 +299,15 @@ def run(skill, nterms, topk, verbose):
             print('          gap local-online: %+d pt' % gap)
     # the coverage rule again: say which classes this corpus does NOT contain,
     # so a single-provenance skill reads as "nothing to compare", not as parity.
+    unknown_src = sorted({s for s in raw_sources
+                          if 'local course' not in s.lower()
+                          and not any(h in s.lower() for h in VIDEO_HOSTS)})
+    if unknown_src:
+        print('        source values counted as "other" (not a known video host):')
+        for s in unknown_src[:6]:
+            print('          %s' % s)
+        if len(unknown_src) > 6:
+            print('          ... and %d more' % (len(unknown_src) - 6))
     absent_prov = [n for n in PROV_ORDER if n not in by_prov]
     if absent_prov:
         print('        provenance not present in this corpus: %s%s'

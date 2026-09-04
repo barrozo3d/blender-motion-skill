@@ -1182,14 +1182,39 @@ def fmt_uncertainty(ts):
     "no disagreement found" must not read the same as "never checked"."""
     return "[" + ", ".join(f"{v:g}" for v in (ts or [])) + "]"
 
+def source_host(url):
+    """The human name of the host a VIDEO came from, for its `source:` field.
+
+    ⚠️ The label used to be the literal "YouTube" whenever the video path ran,
+    which was true for exactly as long as that path only ever ran on YouTube.
+    `--video-url` made it false. The field is NOT decoration: it is the only
+    provenance marker an entry carries, `retrieval_test.py::provenance()`
+    classifies by it, and `validate.py::is_youtube_source()` reads it -- a
+    Blender Studio lesson labelled "YouTube" is a lie told to every later
+    measurement.
+
+    ⚠️ Only the VIDEO branch calls this. An article keeps its "Article" label,
+    which describes the KIND of source rather than its host, and that
+    distinction is what the templates have always encoded.
+    """
+    u = (url or "").lower()
+    if "youtube.com" in u or "youtu.be" in u:
+        return "YouTube"
+    if "studio.blender.org" in u:
+        return "Blender Studio"
+    m = re.match(r"https?://(?:www\.)?([^/]+)", u)
+    return m.group(1) if m else "Unknown"
+
+
 def build_raw_md(info, ch_transcripts, slug, frame_status="pending-selection",
-                  sg_warnings=None, sg_critical=None, uncertainty_ts=None):
+                  sg_warnings=None, sg_critical=None, is_yt=True, uncertainty_ts=None):
     title    = info.get("title", "Unknown")
     url      = info.get("webpage_url", "")
     author   = info.get("uploader", "Unknown")
     today    = datetime.now().strftime("%Y-%m-%d")
     duration = info.get("duration", 0)
     dur_str  = f"{int(duration)//60}m{int(duration)%60}s" if duration else "unknown"
+    source_label = source_host(url) if is_yt else "Article"
 
     # Chapter breakdown with per-sentence timestamped transcript.
     # No frames yet at this point — frame capture is Step 2 (content-aware,
@@ -1226,7 +1251,7 @@ def build_raw_md(info, ch_transcripts, slug, frame_status="pending-selection",
 
     return f"""---
 title: {title}
-source: YouTube
+source: {source_label}
 url: {url}
 author: {author}
 ingested: {today}
@@ -1241,7 +1266,7 @@ uncertainty_frames: {fmt_uncertainty(uncertainty_ts)}
 
 # {title}
 
-**Source:** [YouTube]({url})
+**Source:** [{source_label}]({url})
 **Author:** {author}
 **Duration:** {dur_str} | {len(ch_transcripts)} section(s)
 
@@ -1285,15 +1310,16 @@ uncertainty_frames: {fmt_uncertainty(uncertainty_ts)}
 [PENDING EXTRACTION]
 """
 
-def update_index_pending(info, slug, filename):
+def update_index_pending(info, slug, filename, is_yt=True):
     title  = info.get("title", "Unknown")
     url    = info.get("webpage_url", "")
     author = info.get("uploader", "Unknown")
+    source_label = source_host(url) if is_yt else "Article"
 
     entry = f"""
 
 ### {title}
-- **Source:** YouTube
+- **Source:** {source_label}
 - **URL:** {url}
 - **Author:** {author}
 - **Blender Version:** [PENDING]
@@ -1441,10 +1467,28 @@ def main():
                         help="Skip video download and frame extraction")
     parser.add_argument("--force", action="store_true",
                         help="Overwrite an existing tutorial file even if extraction_status: complete")
+    parser.add_argument("--video-url", action="store_true",
+                        help="Treat a NON-YouTube url as a video page yt-dlp can download "
+                             "(e.g. a self-hosted Blender Studio lesson) instead of an article")
+    parser.add_argument("--title", default=None,
+                        help="Override the fetched title (generic extractors append site chrome)")
+    parser.add_argument("--author", default=None,
+                        help="Override the fetched author (generic extractors rarely report one)")
     args = parser.parse_args()
 
     has_ffmpeg, has_whisper = check_prerequisites()
-    is_yt = "youtube.com" in args.url or "youtu.be" in args.url
+    # ⚠️ This flag answers "run the VIDEO pipeline", not "this is YouTube". They
+    # were the same question for as long as every video source was YouTube, and
+    # the name is kept because everything downstream reads it as the video path.
+    # Opt-in only: without --video-url a non-YouTube url still goes to
+    # fetch_article exactly as before, so no existing behaviour moves.
+    # ⚠️ The one genuinely YouTube-specific consumer is the duplicate guard,
+    # which greps for the extractor's id -- harmless on another host, where the
+    # id is that host's own and still worth catching a re-ingest by. The caption
+    # cross-check finds no track off-YouTube and SAYS so, per §3.7's rule that a
+    # missing witness is reported rather than assumed clean.
+    is_yt = ("youtube.com" in args.url or "youtu.be" in args.url
+             or args.video_url)
     tmp = Path(tempfile.mkdtemp())
 
     try:
@@ -1455,6 +1499,16 @@ def main():
         else:
             info = fetch_article(args.url)
 
+        # ⚠️ Applied to `info` itself, not just to local `title`, so the
+        # overrides reach build_raw_md / update_index_pending / the slug --
+        # every consumer reads them back out of `info`. Generic extractors
+        # append site chrome to the title ("... - Blender Studio (1)") and
+        # usually report no uploader at all, and a slug built from chrome is
+        # frozen identity the moment the file is committed.
+        if args.title:
+            info["title"] = args.title
+        if args.author:
+            info["uploader"] = args.author
         title    = info.get("title", "Unknown")
         chapters = info.get("chapters") or []
         duration = info.get("duration", 0)
@@ -1577,11 +1631,12 @@ def main():
         # 4. Write raw .md + commit
         print("[4/4] Writing raw tutorial file...")
         md = build_raw_md(info, ch_transcripts, slug, frame_status, sg_warnings, sg_critical,
+                          is_yt=is_yt,
                           uncertainty_ts=uncertainty_timestamps(_cap_flags))
         if sg_critical:
             md = md.replace("extraction_status: pending", "extraction_status: needs-review", 1)
         out_md.write_text(md, encoding="utf-8")
-        update_index_pending(info, slug, out_md.name)
+        update_index_pending(info, slug, out_md.name, is_yt=is_yt)
         update_readme_tutorial_count()
 
         print("      Committing raw data to GitHub...")

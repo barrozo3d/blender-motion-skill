@@ -3237,9 +3237,9 @@ Each entry format:
 - **Source:** Blender Studio
 - **URL:** https://studio.blender.org/training/grease-pencil-fundamentals/5c40c0d679f30a0147c0c194/
 - **Author:** Matias Mendiola (Blender Studio)
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 2.80 (status bar reads v2.80.37 / v2.80.39) — see the version caveat: Grease Pencil was rewritten as GPv3 in 4.3
+- **Tags:** animation, grease-pencil, 2d-animation, onion-skinning, beginner
+- **Summary:** The lesson builds a bouncing ball and then generalises the same workflow to character animation. It starts by shortening the playback range and adding a dedicated layer for a **reference motion path** — the pink arc visible across [frame_001] and [frame_002] — drawn in **Camera Perspective** so the drawing is framed exactly as it will render. Once the path is drawn its layer is **locked** to prevent accidental...
 - **File:** tutorials/grease-pencil-fundamentals-2d-animation.md
 
 ---
