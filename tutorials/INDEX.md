@@ -3282,6 +3282,16 @@ Each entry format:
 - **Summary:** Full undistort/VFX/redistort pipeline using a free Blender 5.2+ add-on ("Undistort") that calibrates lens distortion from a checkerboard or Charuco board and exports the solve as ST maps. Compares five lens models by solve error, builds the compositor Map UV setup automatically, and generates a matched camera carrying solved focal length, sensor width and optical-center shift. Key lesson: single-image calibration removes distortion well but yields an untrustworthy focal length, which multi-image Charuco calibration fixes — and the final composite never undistorts the plate, only redistorts the CG, with overscan preventing transparent edges.
 - **File:** tutorials/i-made-the-vfx-tool-blender-was-missing-full-workflow.md
 
+
+### [Tut] What makes Spline/Curves more complicated - P16 Geometry Nodes Beginners 5.0+
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=YLJjEYd47JQ
+- **Author:** Bradley Animation
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50.md
+
 ---
 
 ## Tag Reference
