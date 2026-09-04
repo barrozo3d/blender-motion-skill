@@ -3239,7 +3239,7 @@ Each entry format:
 - **Author:** Matias Mendiola (Blender Studio)
 - **Blender Version:** 2.80 (status bar reads v2.80.37 / v2.80.39) — see the version caveat: Grease Pencil was rewritten as GPv3 in 4.3
 - **Tags:** animation, grease-pencil, 2d-animation, onion-skinning, beginner
-- **Summary:** The lesson builds a bouncing ball and then generalises the same workflow to character animation. It starts by shortening the playback range and adding a dedicated layer for a **reference motion path** — the pink arc visible across [frame_001] and [frame_002] — drawn in **Camera Perspective** so the drawing is framed exactly as it will render. Once the path is drawn its layer is **locked** to prevent accidental...
+- **Summary:** Onion skinning, multiframe editing, and duplicating keyframes instead of redrawing them: the lesson builds a bouncing ball animation on the 2D Animation template and then generalises the same workflow to character animation. It starts by shortening the playback range and adding a dedicated layer for a **reference motion path** — the pink arc visible across [frame_001] and [frame_002] — drawn in **Camera...
 - **File:** tutorials/grease-pencil-fundamentals-2d-animation.md
 
 
@@ -3247,9 +3247,9 @@ Each entry format:
 - **Source:** Blender Studio
 - **URL:** https://studio.blender.org/training/grease-pencil-fundamentals/5c40c1d379f30a0147c0c19a/
 - **Author:** Matias Mendiola (Blender Studio)
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** 2.80 (status bar reads v2.80.39) — see the version caveat: Grease Pencil was rewritten as GPv3 in 4.3
+- **Tags:** grease-pencil, materials, brushes, texturing, beginner
+- **Summary:** Brush versus material: stroke colour, fill style, the stabilizer, jitter and the texture brush. Each Grease Pencil tool has its own brush family — the freehand draw tool and the primitives use **draw** brushes, the fill tool uses **fill** brushes, the eraser uses **eraser** brushes. Brush settings live in the Active Tool panel or the top bar, which in [frame_001] reads `Draw Pencil | Radius 221px | Strength 0.936 |...
 - **File:** tutorials/grease-pencil-fundamentals-drawing-brushes-and-materials.md
 
 ---

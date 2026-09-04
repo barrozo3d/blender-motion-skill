@@ -78,10 +78,10 @@ Frames captured — see "Captured Frames" section below.
 ## Structured Notes
 
 ### Core Technique
-The complete Grease Pencil 2D animation loop in Blender 2.8's **2D Animation** workspace template, taught on the classic bouncing-ball exercise: draw *through the camera view* so what you draw is what renders, separate the work across dedicated GP layers (a locked motion-path reference, roughs, ink, fills), let each new drawing on a new frame auto-create its own keyframe, use **Onion Skinning** to see the drawings before and after the current one, and then avoid redrawing every frame by **duplicating keyframes and tweaking them in Edit/Sculpt mode**. **Multiframe** editing extends that to transforming many keyframes at once — which is what makes retiming or re-pathing an already-animated sequence practical rather than a full redraw.
+The complete Grease Pencil 2D animation loop in Blender 2.8's **2D Animation** workspace template, taught on the classic bouncing ball exercise: draw *through the camera view* so what you draw is what renders, separate the work across dedicated GP layers (a locked motion-path reference, roughs, ink, fills), let each new drawing on a new frame auto-create its own keyframe, use **Onion Skinning** to see the drawings before and after the current one, and then avoid redrawing every frame by **duplicating keyframes and tweaking them in Edit/Sculpt mode**. **Multiframe** editing extends that to transforming many keyframes at once — which is what makes retiming or re-pathing an already-animated sequence practical rather than a full redraw.
 
 ### Summary
-The lesson builds a bouncing ball and then generalises the same workflow to character animation.
+Onion skinning, multiframe editing, and duplicating keyframes instead of redrawing them: the lesson builds a bouncing ball animation on the 2D Animation template and then generalises the same workflow to character animation.
 
 It starts by shortening the playback range and adding a dedicated layer for a **reference motion path** — the pink arc visible across [frame_001] and [frame_002] — drawn in **Camera Perspective** so the drawing is framed exactly as it will render. Once the path is drawn its layer is **locked** to prevent accidental edits; [frame_001] shows the `Path` layer carrying a padlock in the dope sheet channel list while `Lines` stays editable. The layer stack in that scene is a clean three-way split: `Path`, `Lines`, `Fills` ([frame_002], Layers panel).
 
