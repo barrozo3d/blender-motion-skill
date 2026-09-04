@@ -176,7 +176,13 @@ def tag_terms(block):
         return set()
     out = set()
     for chunk in re.split(r'[,\s]+', m.group(1)):
-        term = chunk.strip().strip('`').lstrip('#').strip('`').lower()
+        # ⚠️ FIVE styles, not four. The quoted form (`"dop", "sop"` -- 25
+        # houdini-wand entries) survived the first fix because it splits on
+        # commas like the plain style, so it looked handled; it was not, and
+        # normalising the corpus is what exposed it (houdini-wand moved by
+        # one entry when its data was cleaned, which should have been zero).
+        # Strip every wrapper, in any order, rather than a fixed sequence.
+        term = chunk.strip().strip('`"\'').lstrip('#').strip('`"\'').lower()
         if not term:
             continue
         out.add(term)

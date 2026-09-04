@@ -18,7 +18,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=FYJb10NIMH8
 - **Author:** Max Hay
 - **Blender Version:** Blender 4.x
-- **Tags:** #lighting #volume #rendering #cycles #eevee #hdri #materials #shaders
+- **Tags:** lighting, volume, rendering, cycles, eevee, hdri, materials, shaders
 - **Summary:** Three reusable lighting recipes: a dramatic spotlight rig (main spot + dim area fill + Light Falloff/Color Ramp/Map Range rim-highlight trick) in volume scatter fog; a natural outdoor HDRI setup decoupled from a separate emissive sky-image background plane (with an optional lens-flare-on-alpha trick for visible suns); and a dark futuristic/neon setup using reflective surfaces, thick volume scatter, an emissive sign mesh, and a Compositor Glare/Bloom node.
 - **File:** tutorials/3-easy-lighting-setups-blender-tutorial.md
 
@@ -29,7 +29,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=Vqe4jBf3wx4
 - **Author:** Seanterelle
 - **Blender Version:** Blender 5.0
-- **Tags:** #geometry-nodes #simulation #smoke-fire #volume #blender-5x #advanced
+- **Tags:** geometry-nodes, simulation, smoke-fire, volume, blender-5x, advanced
 - **Summary:** Physically-based 3D smoke simulation in Blender 5.0 using Geometry Nodes volume grid nodes. Implements velocity, divergence, pressure, and density fields in a simulation zone with variable solver/smoke resolution for interactive preview vs. final bake quality.
 - **File:** tutorials/3d-smoke-blender-geometry-nodes.md
 
@@ -40,7 +40,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=_7N7emOvDko
 - **Author:** SharpWind
 - **Blender Version:** Blender 4.5
-- **Tags:** #compositing #rendering #materials #shaders #lighting #beginner #intermediate #advanced
+- **Tags:** compositing, rendering, materials, shaders, lighting, beginner, intermediate, advanced
 - **Summary:** Full Compositor walkthrough: practical FX (Glare/Bloom, Mist-Pass fake fog, color grading, Ellipse Mask grading/vignettes, fake Defocus-based DOF via the Z-Pass, Cycles compositor-side denoising), then Render Layers with manual secondary-bounce visibility, and full Render Pass reconstruction (diffuse/glossy/transmission/volume × direct/indirect/color) with Cryptomatte for post-render per-object recoloring.
 - **File:** tutorials/a-full-blender-compositor-course.md
 
@@ -51,7 +51,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=9Fvw8HlWHpo
 - **Author:** Ducky 3D
 - **Blender Version:** Blender 4.x
-- **Tags:** #geometry-nodes #animation #motion-design #abstract #glass #procedural #intermediate
+- **Tags:** geometry-nodes, animation, motion-design, abstract, glass, procedural, intermediate
 - **Summary:** Teaches a mathematically precise seamless loop technique using the Mesh Line node: add the Z Offset value to the Start Location keyframe to guarantee a perfect loop regardless of spacing. Builds a stacked glass cube array with spherical gradient scaling and noise displacement.
 - **File:** tutorials/a-new-way-to-loop-animations-in-blender.md
 
@@ -62,7 +62,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=Y0zAZnbBcQU
 - **Author:** RADIUM
 - **Blender Version:** Blender 4.5
-- **Tags:** #geometry-nodes #procedural #blender-4x #beginner #intermediate #advanced
+- **Tags:** geometry-nodes, procedural, blender-4x, beginner, intermediate, advanced
 - **Summary:** One-hour reference video covering all 275+ Geometry Nodes in Blender 4.3 — each node's purpose, socket types, and use cases. Deep dives into Fields vs. single values, field context (domain adaptation), and attributes in the Spreadsheet Editor.
 - **File:** tutorials/all-300-geometry-nodes-in-blender.md
 
@@ -73,7 +73,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=0lBaaCMpZGs
 - **Author:** Ducky 3D
 - **Blender Version:** Blender 3.x/4.x
-- **Tags:** #geometry-nodes #simulation #animation #motion-design #procedural #intermediate
+- **Tags:** geometry-nodes, simulation, animation, motion-design, procedural, intermediate
 - **Summary:** Uses Simulation Zones to generate an array of Quadratic Bezier curves (strings), then displaces them with per-string randomized W values in a 4D Noise Texture for organic movement. Covers two animation modes: center swell and string reveal.
 - **File:** tutorials/another-blender-string-tutorialbut-even-better-this-time.md
 
@@ -84,7 +84,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/live/7FdfSKOkzXg
 - **Author:** Midge "Mantissa" Sinnaeve
 - **Blender Version:** Blender 3.x/4.x
-- **Tags:** #geometry-nodes #particles #volume #procedural #abstract #intermediate #advanced
+- **Tags:** geometry-nodes, particles, volume, procedural, abstract, intermediate, advanced
 - **Summary:** Live stream exploring procedural nebula creation using Volume Cube + Distribute Points with iterated Noise Texture offsets through a Repeat Zone for organic space nebula shapes. Also explores converting points to volume and using Blur Attribute for smooth mesh nebulas.
 - **File:** tutorials/art-stream-27-nodes-nodes-nodes-blender-geometry-nodes.md
 
@@ -95,7 +95,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=RQvTplfsz8k
 - **Author:** Rob Tuytel
 - **Blender Version:** 5.0
-- **Tags:** #materials #rendering #cycles #eevee #lighting #hdri #beginner #blender-5x
+- **Tags:** materials, rendering, cycles, eevee, lighting, hdri, beginner, blender-5x
 - **Summary:** Beginner introduction to Blender 5 render engines (Eevee vs Cycles), adding PBR materials with UV maps, and lighting a scene with a Sun Light at intensity 10. Covers Eevee Ray Tracing, Cycles denoising, and material preview modes.
 - **File:** tutorials/blender-5-beginner-tutorial-part-2-materials-and-rendering.md
 
@@ -106,7 +106,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=QHJXi25OczQ
 - **Author:** Zack (3D animation)
 - **Blender Version:** 5.0
-- **Tags:** #geometry-nodes #simulation #particles #animation #procedural #intermediate #blender-5x
+- **Tags:** geometry-nodes, simulation, particles, animation, procedural, intermediate, blender-5x
 - **Summary:** Creates a particle system in Blender 5.0 Geometry Nodes where particles attract to a surface using two vector forces: a normalized attraction vector toward the nearest surface point and a cross-product force for surface-following flow, with added Noise Texture for organic curved paths.
 - **File:** tutorials/blender-50-particle-attraction-and-follow-surface-motion.md
 
@@ -117,7 +117,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=YOx9me2MnGA
 - **Author:** MTR Animation
 - **Blender Version:** 5.0
-- **Tags:** #geometry-nodes #simulation #animation #smoke-fire #volume #motion-design #blender-5x #intermediate
+- **Tags:** geometry-nodes, simulation, animation, smoke-fire, volume, motion-design, blender-5x, intermediate
 - **Summary:** Builds a music-reactive smoke simulation in Blender 5.0 using the Graph Editor's Sound to Samples feature to drive an Empty's Z location from audio, then using the Empty as a force controller for a Geometry Nodes Grid Node volumetric simulation. Covers converting audio graphs to keyframes and scaling amplitude.
 - **File:** tutorials/blender-50s-new-audio-visualisation-is-insane.md
 
@@ -128,7 +128,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=NwYZ1QKQhx0
 - **Author:** MTR Animation
 - **Blender Version:** 5.1
-- **Tags:** #rigging #geometry-nodes #animation #particles #procedural #blender-5x #intermediate #advanced
+- **Tags:** rigging, geometry-nodes, animation, particles, procedural, blender-5x, intermediate, advanced
 - **Summary:** Uses Blender 5.1's new Bone Info Node to bridge Geometry Nodes and armature rigging, replacing bones with procedurally scattered geometry (rocks, spikes, leaves) on a Rigify-rigged golem character. Demonstrates Mesh Lines driven by bone head/tail positions, converted to curves for scattering.
 - **File:** tutorials/blender-51s-new-rigging-tool-is-insane.md
 
@@ -139,7 +139,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=ZmoL0Wa5n0Y
 - **Author:** NextFrameSaga
 - **Blender Version:** 4.x
-- **Tags:** #geometry-nodes #procedural #materials #shaders #rendering #cycles #eevee #motion-design #blender-4x #beginner
+- **Tags:** geometry-nodes, procedural, materials, shaders, rendering, cycles, eevee, motion-design, blender-4x, beginner
 - **Summary:** Fully procedural sci-fi glowing cube grid in Blender 4.x using Geometry Nodes to distribute and instance cubes with procedural scale variation, combined with emission and metallic materials for a futuristic look. No manual modeling required.
 - **File:** tutorials/blender-geometry-nodes-sci-fi-cube-creation-step-by-step-tut.md
 
@@ -150,7 +150,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=tj6ZZYO5qPY
 - **Author:** Entagma
 - **Blender Version:** 3.4
-- **Tags:** #geometry-nodes #procedural #particles #animation #motion-design #abstract #blender-3x #advanced
+- **Tags:** geometry-nodes, procedural, particles, animation, motion-design, abstract, blender-3x, advanced
 - **Summary:** Recreates the "Plexus" effect by distributing points inside a Suzanne volume using Distribute Points in Volume, then using a serialized loop approach to test all pairwise point distances and connect only those below a threshold with lines. Demonstrates how to fake nested loops in Geometry Nodes using geometry serialization.
 - **File:** tutorials/blender-tutorial-connect-the-dots-with-geometry-nodes-the-pl.md
 
@@ -161,7 +161,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=Fec4BhDFBUo
 - **Author:** Skramble
 - **Blender Version:** 4.5
-- **Tags:** #geometry-nodes #rigid-body #simulation #animation #procedural #blender-4x #intermediate
+- **Tags:** geometry-nodes, rigid-body, simulation, animation, procedural, blender-4x, intermediate
 - **Summary:** Builds a non-destructive Geometry Nodes system in Blender 4.5 for flexible non-linear playback control of baked rigid body simulations — control start frame, end frame, speed, direction, and spatial proximity triggering without rebaking. Uses Cell Fracture, two identical collections (static/physics), and a Map Range node.
 - **File:** tutorials/blender-tutorial-control-physics-sims-with-geometry-nodes-be.md
 
@@ -172,7 +172,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=csvduOcQpIw
 - **Author:** Fattu Tutorials
 - **Blender Version:** Blender 3.x/4.x
-- **Tags:** #materials #displacement #rendering #cycles #lighting #hdri #organic #beginner
+- **Tags:** materials, displacement, rendering, cycles, lighting, hdri, organic, beginner
 - **Summary:** Creates a river landscape in Blender using the free Biome Reader add-on for vegetation and environment scattering. Covers terrain shaping, water/river materials, and outdoor lighting with HDRI.
 - **File:** tutorials/blender-tutorial-create-a-beautiful-river-landscape-in-blend.md
 
@@ -183,7 +183,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/live/z-fKQtlQPw0
 - **Author:** CG Cookie – Learn Blender
 - **Blender Version:** 5.0
-- **Tags:** #geometry-nodes #procedural #organic #animation #blender-5x #intermediate #advanced
+- **Tags:** geometry-nodes, procedural, organic, animation, blender-5x, intermediate, advanced
 - **Summary:** Builds a fully procedural, customizable rope generator in Blender 5.0 Geometry Nodes using a hierarchy of instanced Curve Circles to create interlocking spiral strands along a Bezier curve path, with fine surface hairs. Also covers maze generation and organic leaf scattering.
 - **File:** tutorials/blender-tutorial-procedural-rope-in-geometry-nodes.md
 
@@ -194,7 +194,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=qrYmDg0HpYI
 - **Author:** Ryan King Art
 - **Blender Version:** Blender 4.x
-- **Tags:** #geometry-nodes #typography #animation #procedural #particles-reveal #beginner #intermediate
+- **Tags:** geometry-nodes, typography, animation, procedural, particles-reveal, beginner, intermediate
 - **Summary:** Creates and animates text entirely in Geometry Nodes using String to Curves, covering font selection, alignment, extrusion, wireframe effects, per-letter random transforms, particle reveal animations, and bubbly animated text with index-based random seeds.
 - **File:** tutorials/create-text-in-geometry-nodes-blender-tutorial.md
 
@@ -205,7 +205,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=-QbetK8c1As
 - **Author:** Max Hay
 - **Blender Version:** Blender 3.x/4.x
-- **Tags:** #materials #rendering #lighting #compositing #intermediate
+- **Tags:** materials, rendering, lighting, compositing, intermediate
 - **Summary:** Full scene-building walkthrough for an industrial underground silo environment: modeling custom factory stairs using the Spin tool, Mirror modifier, and bevel; constructing platforms and structural elements; then developing the complete scene with concrete textures and dramatic spotlight lighting.
 - **File:** tutorials/creating-an-underground-scene-in-blender-step-by-step.md
 
@@ -216,7 +216,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=DvMyxyMG0Mk
 - **Author:** The Visual Vibe
 - **Blender Version:** Blender 3.x/4.x
-- **Tags:** #materials #shaders #animation #product-viz #brand-video #beginner
+- **Tags:** materials, shaders, animation, product-viz, brand-video, beginner
 - **Summary:** Designs a credit card texture in Figma (860Ã—540px with safe areas, typography, chip, Visa logo) then imports it into Blender for a SaaS/FinTech product animation with gradient and metallic material transitions. Covers Figma layout grids, pen tool chip creation, and PNG export for use as Image Texture nodes in Blender.
 - **File:** tutorials/credit-card-texture-and-animation-saas-fintech-part-1-blende.md
 
@@ -227,7 +227,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=WbrjlYM0Qno
 - **Author:** Deayan Studios
 - **Blender Version:** Blender 4.x
-- **Tags:** #geometry-nodes #procedural #beginner #intermediate
+- **Tags:** geometry-nodes, procedural, beginner, intermediate
 - **Summary:** Comprehensive conceptual guide to Geometry Nodes covering all data types (integer, float, vector, boolean, geometry), socket color-coding, node categories, data flow, Fields vs single values, and field context. Teaches how to use the Spreadsheet Editor to inspect attribute values across geometry domains.
 - **File:** tutorials/demystifying-geometry-nodes-the-ultimate-guide-to-mastering.md
 
@@ -238,7 +238,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=ENnEYoUpFfU
 - **Author:** Blender Guru
 - **Blender Version:** Blender 4.x
-- **Tags:** #lighting #rendering #cycles #eevee #materials #beginner
+- **Tags:** lighting, rendering, cycles, eevee, materials, beginner
 - **Summary:** Teaches the four lighting fundamentals — Position, Falloff (inverse-square law, used to direct attention), Size (Radius/Area lamp controls shadow softness and detail-vs-form emphasis), and Color (Kelvin temperature for natural light vs. Color for stylized) — on a sci-fi crate. Also covers camera-lock-to-view staging, ground-plane bounce light, an RGB-Curves silhouette-readability trick, and final polish via Spot lamp vignetting and isolated single-light judging.
 - **File:** tutorials/fundamentals-of-lighting-in-blender.md
 
@@ -249,7 +249,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=1hKAkCP-tFQ
 - **Author:** CGMatter
 - **Blender Version:** Blender 4.5
-- **Tags:** #geometry-nodes #procedural #displacement #materials #shaders #organic #abstract #blender-4x #advanced
+- **Tags:** geometry-nodes, procedural, displacement, materials, shaders, organic, abstract, blender-4x, advanced
 - **Summary:** Procedurally generates an amethyst geode in Blender 4.5 Geometry Nodes: noise-distorted Icosphere exterior, Boolean cut (new Manifold mode), boundary isolation via Geometry Proximity, variable-height crystal extrusion via Noise→Map Range, and instanced spike geometry. Full amethyst and rock material setup.
 - **File:** tutorials/geode-nodes-i-am-so-clever-blender-tutorial.md
 
@@ -260,7 +260,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=XOLuYDLYEgI
 - **Author:** Ducky 3D
 - **Blender Version:** Blender 5.0
-- **Tags:** #geometry-nodes #simulation #glass #materials #shaders #animation #motion-design #abstract #blender-5x #intermediate
+- **Tags:** geometry-nodes, simulation, glass, materials, shaders, animation, motion-design, abstract, blender-5x, intermediate
 - **Summary:** Creates a metaball-style cell division animation in Blender 5.0 using the new Points to SDF Grid and Grid to Mesh nodes for efficient organic blob geometry from animated point clouds — far more efficient than the old instances→volume method. Topped with an RGB glass dispersion material in Cycles.
 - **File:** tutorials/glass-cell-division-effect-in-blender-50-tutorial.md
 
@@ -271,7 +271,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=KhBaHDvIamw
 - **Author:** Ducky 3D
 - **Blender Version:** Blender 4.x
-- **Tags:** #materials #glass #animation #rendering #cycles #motion-design #abstract #beginner #intermediate
+- **Tags:** materials, glass, animation, rendering, cycles, motion-design, abstract, beginner, intermediate
 - **Summary:** Recreates the Apple MacBook Air 3D wallpaper using a tall teardrop cylinder (Z:47, X/Y:2) with a circular Array modifier (14 cylinders, Align Rotation Y), a glass transmission material in Cycles, and an emissive highlight plane for the signature glowing band. Covers exact camera positioning for the spiral composition.
 - **File:** tutorials/how-apple-makes-3d-wallpapers-blender-tutorial.md
 
@@ -282,7 +282,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=upUPrc35DYw
 - **Author:** Max Hay
 - **Blender Version:** Blender 4.x
-- **Tags:** #animation #motion-design #camera #compositing #rendering #materials #shaders #intermediate
+- **Tags:** animation, motion-design, camera, compositing, rendering, materials, shaders, intermediate
 - **Summary:** Breakdown of a sci-fi gate opening animation using simple location keyframes staged with the Graph Editor, Mirror modifier for symmetrical animation, and staggered timing for sequential choreography. Complex visual look is achieved by layering emissive wireframe textures and particles on top of the basic keyframed motion.
 - **File:** tutorials/how-i-built-this-gate-animation-in-blender-scene-breakdown.md
 
@@ -293,7 +293,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=Kep7URnyXgU
 - **Author:** c g s l a v
 - **Blender Version:** Blender 4.x
-- **Tags:** #geometry-nodes #volume #rendering #cycles #lighting #hdri #organic #intermediate #advanced
+- **Tags:** geometry-nodes, volume, rendering, cycles, lighting, hdri, organic, intermediate, advanced
 - **Summary:** Creates realistic storm clouds using a multi-pass Geometry Nodes pipeline: mesh→volume→distribute points→set position with Noise Texture→points to volume→mesh→volume. The cycling between representations adds fine organic detail. Also covers god rays using a Volume Scatter cube with an interior Spotlight.
 - **File:** tutorials/how-i-made-realistic-storm-clouds-in-blender.md
 
@@ -304,7 +304,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=SybPYdsd_DI
 - **Author:** Max Hay
 - **Blender Version:** Blender 4.x
-- **Tags:** #materials #shaders #lighting #rendering #compositing #procedural #displacement #intermediate
+- **Tags:** materials, shaders, lighting, rendering, compositing, procedural, displacement, intermediate
 - **Summary:** Intermediate guide to building a cyberpunk alleyway in Blender: wet concrete with noise-driven roughness and normal strength for puddle effects (no roughness map), building modeling from photo reference using Ian Hubert's technique, neon emissive signs, and Volume Scatter atmosphere. Uses Polyhaven add-on for free PBR textures.
 - **File:** tutorials/how-to-make-cyberpunk-scenes-in-blender.md
 
@@ -315,7 +315,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=rbPOL9ibooY
 - **Author:** Ducky 3D
 - **Blender Version:** Blender 5.0
-- **Tags:** #geometry-nodes #animation #motion-design #materials #shaders #eevee #compositing #abstract #blender-5x #beginner #intermediate
+- **Tags:** geometry-nodes, animation, motion-design, materials, shaders, eevee, compositing, abstract, blender-5x, beginner, intermediate
 - **Summary:** Creates a stacked-curve motion graphics animation using 120 Curve Circles on a Mesh Line, animated by Wave and Noise Textures through stored Spline Parameter and Random Value attributes. Uses an 8mm ultra-wide camera for the distinctive zoomed-through-ring effect; rendered in Eevee with Emission shaders and compositing glow.
 - **File:** tutorials/how-to-make-this-style-in-blender-50.md
 
@@ -326,7 +326,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=iW6WF8guDMY
 - **Author:** MISSING PIXEL VFX
 - **Blender Version:** Blender 5.0
-- **Tags:** #rendering #compositing #animation #camera #lighting #materials #intermediate #advanced
+- **Tags:** rendering, compositing, animation, camera, lighting, materials, intermediate, advanced
 - **Summary:** Full VFX pipeline recreating a Kong: Skull Island shot using free Sketchfab assets, Mixamo animation retargeting (Kong at 80m scale), a 700m camera distance with telephoto compression, atmospheric volume lighting, and multi-pass Blender rendering composited in Nuke. Covers asset fixing, helicopter blade rig with Empty parent, and Nuke compositing.
 - **File:** tutorials/i-recreated-movie-scene-in-blender-nuke-complete-tutorial.md
 
@@ -337,7 +337,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=JU70u6cJZqI
 - **Author:** Default Cube
 - **Blender Version:** Blender 4.5
-- **Tags:** #geometry-nodes #procedural #blender-4x #beginner #intermediate
+- **Tags:** geometry-nodes, procedural, blender-4x, beginner, intermediate
 - **Summary:** 5.5-hour comprehensive Geometry Nodes course in Blender 4.5 starting from zero: workspace navigation, Node Editor left-to-right flow, Spreadsheet Editor for live attribute inspection. First project is a 3D Menger Sponge fractal demonstrating the power of procedural iteration and instancing.
 - **File:** tutorials/ill-teach-you-geometry-nodes.md
 
@@ -348,7 +348,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=RU3VO-qb91o
 - **Author:** Tabasheer
 - **Blender Version:** Not specified
-- **Tags:** #geometry-nodes #procedural #animation #particles #displacement #materials #beginner #intermediate
+- **Tags:** geometry-nodes, procedural, animation, particles, displacement, materials, beginner, intermediate
 - **Summary:** Arabic-language 3.5+ hour beginner course covering Geometry Nodes from scratch: objects, joining, basic shapes, object info, scaling, extruding, insetting, displacement, particles, curves, geometry proximity, drawing curves, and materials. Comprehensive foundation for Arabic-speaking Blender learners.
 - **File:** tutorials/introduction-to-geometry-nodes-اتعلم-اقوي-اداة-علي-بلندر.md
 
@@ -359,7 +359,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=MS1z9diLUOI
 - **Author:** elijah sheffield
 - **Blender Version:** Blender 4.x
-- **Tags:** #animation #rigging #camera #beginner #intermediate
+- **Tags:** animation, rigging, camera, beginner, intermediate
 - **Summary:** Demystifies the Graph Editor for animation: covers F-curves, interpolation modes (Linear vs Bezier), Bezier handle types, Auto Keying, and Animation Modifiers (Cycles, Noise, Envelope). Practical demonstration animates a pan flip with proper anticipation, weight, and easing using only three keyframes refined in the graph.
 - **File:** tutorials/mastering-blenders-graph-editor.md
 
@@ -370,7 +370,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=EvWAcSA86fw
 - **Author:** MTR Animation
 - **Blender Version:** Blender 5.0
-- **Tags:** #geometry-nodes #procedural #abstract #animation #blender-5x #expert #advanced
+- **Tags:** geometry-nodes, procedural, abstract, animation, blender-5x, expert, advanced
 - **Summary:** Builds an Apollonian Gasket fractal (infinite tangent circles) in Blender 5.0 Geometry Nodes by implementing Descartes' Circle Theorem with Math nodes, Repeat Zones, and For Each Element Zones. Pre-built curvature formula node groups handle the complex mathematics; the result is a fully procedural iterative fractal pattern.
 - **File:** tutorials/math-x-blender-50-unlimited-power.md
 
@@ -381,7 +381,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=2MKKuHcni1U
 - **Author:** Ducky 3D
 - **Blender Version:** Blender 5.0
-- **Tags:** #geometry-nodes #simulation #metal #materials #shaders #animation #abstract #organic #blender-5x #intermediate
+- **Tags:** geometry-nodes, simulation, metal, materials, shaders, animation, abstract, organic, blender-5x, intermediate
 - **Summary:** Creates an organic liquid metal effect in Blender 5.0 using SDF Grid Boolean (Union) to merge multiple sphere instances into a unified organic mesh with liquid connective tissue. Animated via 4D Noise Texture W value; includes metallic and subsurface fleshy material variants with Smooth Geometry node for artifact removal.
 - **File:** tutorials/organic-liquid-metal-effect-in-blender-50-tutorial.md
 
@@ -392,7 +392,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=965bgIUHoxA
 - **Author:** Ducky 3D
 - **Blender Version:** Blender 4.5
-- **Tags:** #geometry-nodes #simulation #animation #motion-design #materials #shaders #camera #abstract #blender-4x #intermediate
+- **Tags:** geometry-nodes, simulation, animation, motion-design, materials, shaders, camera, abstract, blender-4x, intermediate
 - **Summary:** Topographic map-inspired light trail animation using Simulation Zone to array 77 Quadratic Bezier curves, Noise Texture displacement shaped by RGB Curves for flat ground areas, and a camera-parented gradient transparency that reveals curves as the camera moves. Uses Wave Texture for center focal highlighting and metallic floor material.
 - **File:** tutorials/powerful-light-trails-in-blender-45-tutorial.md
 
@@ -403,7 +403,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=TTGcr-45jCE
 - **Author:** Ducky 3D
 - **Blender Version:** Blender 4.x
-- **Tags:** #geometry-nodes #particles #particles-reveal #animation #logo-animation #typography #materials #shaders #motion-design #intermediate
+- **Tags:** geometry-nodes, particles, particles-reveal, animation, logo-animation, typography, materials, shaders, motion-design, intermediate
 - **Summary:** Converts text or logos into a dusty particle flow effect using Distribute Points on Faces (density 10,000+, tiny radius) with selective displacement via two Noise Textures and a Mix Vector node — some areas stay readable while others disperse. Particles are colored procedurally with Noise Texture + Color Ramp in an Emission shader.
 - **File:** tutorials/powerful-logo-particle-flow-effect-in-blender.md
 
@@ -414,7 +414,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=8wFnzrRz0Xg
 - **Author:** RTF Dimensions
 - **Blender Version:** Blender 4.x
-- **Tags:** #geometry-nodes #procedural #particles #organic #rendering #beginner #intermediate
+- **Tags:** geometry-nodes, procedural, particles, organic, rendering, beginner, intermediate
 - **Summary:** Builds a viewport-optimized procedural grass system using Geometry Nodes with Instance on Points and random rotation/scale variation, then optimizes by culling instances outside camera bounds. Explains how instances reference the original object for memory efficiency and how to link camera visibility properties to the node setup.
 - **File:** tutorials/procedural-grass-in-blender-geometry-nodes-fast-viewport-se.md
 
@@ -425,7 +425,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=KnYGp58REUk
 - **Author:** Ahad Animates
 - **Blender Version:** Blender 4.x
-- **Tags:** #cloth #simulation #animation #rendering #beginner #intermediate
+- **Tags:** cloth, simulation, animation, rendering, beginner, intermediate
 - **Summary:** Step-by-step cloth simulation setup in Blender covering Cloth modifier settings (quality, mass, stiffness, damping), collision objects, pin vertex groups, self-collision, baking, and fabric material. Aimed at beginners and intermediate users wanting natural fabric movement in their animations.
 - **File:** tutorials/realistic-cloth-physics-in-blender-full-tutorial.md
 
@@ -436,7 +436,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=erICwexR7Iw
 - **Author:** Bad Normals
 - **Blender Version:** Blender 4.x
-- **Tags:** #materials #glass #shaders #rendering #cycles #organic #abstract #geometry-nodes #intermediate
+- **Tags:** materials, glass, shaders, rendering, cycles, organic, abstract, geometry-nodes, intermediate
 - **Summary:** Recreates an AI-generated glass flower in 20 minutes: organic sculpting from a remeshed cylinder base, distance-based center glow emission using Texture Coordinate + Vector Length + Color Ramp in the glass shader, and multi-color luminescence matching the AI reference. Glass at Roughness 0.1 with slight blue tint.
 - **File:** tutorials/remake-this-in-blender-in-20-mins.md
 
@@ -449,7 +449,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=PgRax5MeZgY
 - **Author:** Jacob Zirkle
 - **Blender Version:** Blender 4.5
-- **Tags:** #geometry-nodes #compositing #rendering #lighting #hdri #camera #blender-4x #intermediate #advanced
+- **Tags:** geometry-nodes, compositing, rendering, lighting, hdri, camera, blender-4x, intermediate, advanced
 - **Summary:** Full VFX pipeline integrating a 3D asset into live-action footage in Blender 4.5 using camera tracking, shadow catcher, ACES color workflow, and HDRI calibrated to footage brightness with a Multiply Mix Color node. Geometry Nodes drives the procedural VFX element; final composite assembled in the Blender compositor.
 - **File:** tutorials/using-geometry-nodes-for-vfx-in-blender.md
 
@@ -460,7 +460,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=vemW4ceygRg
 - **Author:** Ducky 3D
 - **Blender Version:** Blender 5.1
-- **Tags:** #glass #animation #materials #shaders #motion-design #abstract #rendering #cycles #blender-5x #intermediate
+- **Tags:** glass, animation, materials, shaders, motion-design, abstract, rendering, cycles, blender-5x, intermediate
 - **Summary:** Six glass animation design patterns using transparent glass objects as magnifying lenses over animated emissive texture planes — with no scene lights. Covers interlocking sphere arrays, ribbed glass panels, and proper emissive plane distance for optimal refraction spots. Key insight: Wave Texture at scale ~0.7 with animated Distortion looks best.
 - **File:** tutorials/you-should-make-glass-animations-in-blender-51.md
 
@@ -471,7 +471,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=U5y1Krd-ykk
 - **Author:** Ducky 3D
 - **Blender Version:** Blender 4.x/5.x
-- **Tags:** #materials #shaders #glass #animation #motion-design #procedural #geometry-nodes #eevee #intermediate
+- **Tags:** materials, shaders, glass, animation, motion-design, procedural, geometry-nodes, eevee, intermediate
 - **Summary:** Teaches a color distribution technique where a first Noise Texture drives highlight/dark patterns and a second Noise Texture provides color — connected via Mix Color with the first texture as Factor, so color distributes naturally within the pattern's highlights rather than being limited to center-to-edge gradients. Demonstrated with glass brick wall geometry nodes setup.
 - **File:** tutorials/you-should-try-this-blender-color-hack.md
 
@@ -482,7 +482,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=0OVEJVbklV0?si=9fHvKcSM0pjBBy2G
 - **Author:** Kaizen
 - **Blender Version:** Blender 3.x/4.x
-- **Tags:** #realism #photorealism #3dscanning #lighting #camera #workflow #beginner
+- **Tags:** realism, photorealism, 3dscanning, lighting, camera, workflow, beginner
 - **Summary:** Introduces the "Triforce of 3D Realism" — Subject, Lighting, Camera — as the three pillars that together produce convincing photorealism. Covers using KIRI Engine for free mobile 3D scanning to generate realistic subjects without years of modeling skill, optimal scanning conditions (overcast outdoor vs. controlled indoor lighting), and how all three forces compound.
 - **File:** tutorials/the-key-to-realism-in-blender-or-3d.md
 
@@ -493,7 +493,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=F8pqNeVam54
 - **Author:** Polyfjord
 - **Blender Version:** Blender 4.5
-- **Tags:** #lighting #volume #animation #rendering #cycles #intermediate #god-rays #projector #video-texture
+- **Tags:** lighting, volume, animation, rendering, cycles, intermediate, god-rays, projector, video-texture
 - **Summary:** Creates a volumetric projector effect by setting the World Shader to Volume Scatter (density ~0.1) as scene fog, then assigning a video image texture to a Spotlight via Use Nodes + Node Wrangler (Ctrl+T). Animated video travels through the fog as god rays. Key trick: set image color space to AGX Base sRGB for correct vibrant color.
 - **File:** tutorials/tutorial-how-to-make-a-volumetric-projector-in-blender-45.md
 
@@ -507,7 +507,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=J_mweAPcO4M?si=_bc3120mdobqksIE
 - **Author:** Extra 3d
 - **Blender Version:** Blender 4.x
-- **Tags:** #realism #photorealism #materials #textures #lighting #workflow #intermediate #3dscanning #imperfections
+- **Tags:** realism, photorealism, materials, textures, lighting, workflow, intermediate, 3dscanning, imperfections
 - **Summary:** Comprehensive photorealism pipeline: reference gathering in PureRef → camera focal length/height decision early → high-res stacked textures with imperfections (Polyhaven, Ambient CG, Megascans) → photoscanned or AI-generated assets (Tripo3D: 1-4 photo input → 4K PBR output) → bevel all edges → scale verification with Rigify rig.
 - **File:** tutorials/photorealistic-renders-in-blender.md
 
@@ -518,7 +518,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=675BOBWbTt4
 - **Author:** Albin Merle
 - **Blender Version:** 4.x / 5.x
-- **Tags:** #geometry-nodes #motion-blur #procedural #animation #scene-time #glass #displacement #intermediate #advanced #albin-merle
+- **Tags:** geometry-nodes, motion-blur, procedural, animation, scene-time, glass, displacement, intermediate, advanced, albin-merle
 - **Summary:** Full breakdown of the `Frozen_MotionBlur` node group from file `061_AM_Frozen_motion_Blur_Bridge`. Two Scene Time nodes oscillate X/Z displacement vectors at different speeds (÷24 and ÷45), masked by Z height via Map Range. Geometry source is a Collection (not the modifier input). Includes Python snippet to add a Strength input for animating the effect on/off.
 - **File:** tutorials/frozen-motion-blur-bridge-geo-nodes-breakdown.md
 
@@ -530,7 +530,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=AoGPxjgqVYE&t=76s
 - **Author:** Extra 3d
 - **Blender Version:** Blender 5.1
-- **Tags:** #eevee #rendering #photorealism #ray-tracing #lighting #light-probes #materials #glass #hdri #vulkan #blender-5x #beginner #intermediate
+- **Tags:** eevee, rendering, photorealism, ray-tracing, lighting, light-probes, materials, glass, hdri, vulkan, blender-5x, beginner, intermediate
 - **Summary:** Full workflow for photorealistic Eevee renders in Blender 5.1: switch backend to Vulkan, enable ray tracing, then combine irradiance volume + reflection cubemap light probes (baked) to fix Eevee's screen-space limitations. Covers 5 chapters: theory, basic scene, light probes, glass/translucent materials, and relighting complete scenes.
 - **File:** tutorials/photorealistic-eevee-renders-in-blender-51.md
 
@@ -541,7 +541,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=WreZ_VKDn4M
 - **Author:** Extra 3d
 - **Blender Version:** Blender 4.x
-- **Tags:** #lighting #product-viz #materials #rendering #glass #brand-video #beginner #intermediate
+- **Tags:** lighting, product-viz, materials, rendering, glass, brand-video, beginner, intermediate
 - **Summary:** Three-point product lighting system covering non-glossy products (Area Lights with Image Texture nodes to fix reflections) and glass products (Emission planes with Gradient Texture + Color Ramp for smooth falloff). Includes the 3D Cursor pivot trick for rotating lights around a product, hiding emission planes from camera via Visibility settings, and using Light Linking to prevent lights from contaminating ground reflections.
 - **File:** tutorials/realistic-product-lighting-in-blender.md
 
@@ -551,7 +551,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=ZK92Uuhiesg
 - **Author:** Ducky 3D
 - **Blender Version:** Blender 4.x/5.0
-- **Tags:** #materials #shaders #animation #motion-design #abstract #procedural #beginner #intermediate
+- **Tags:** materials, shaders, animation, motion-design, abstract, procedural, beginner, intermediate
 - **Summary:** Creates a looping animated texture on a flat canvas plane using Shader Editor nodes: Voronoi Texture twisted into circular patterns by a Wave Texture (Rings), plus three stacked radial masks (outer edge, inner core, lighting variation). All motion driven by keyframed node values — no geometry animation. Part of Ducky 3D's "Blender as After Effects" series.
 - **File:** tutorials/replacing-adobe-after-effects-with-blender-tutorial.md
 
@@ -561,7 +561,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=BoCCxy9ec0g
 - **Author:** Ducky 3D
 - **Blender Version:** Blender 5.0
-- **Tags:** #materials #shaders #compositing #motion-design #animation #procedural #lighting #intermediate
+- **Tags:** materials, shaders, compositing, motion-design, animation, procedural, lighting, intermediate
 - **Summary:** The key lesson: a Sun Beams Glare node alone looks weak — stack it on top of two Bloom Glare nodes (one tight/strong, one large/atmospheric) to give the brightness visual context. Demonstrated on a procedural animated dot-grid (Voronoi/Noise-masked Emission shader) with a seamless loop via mirrored keyframes on a 4D Noise Texture's W value, parallax via a duplicated/instanced grid layer, and Blender 5.0's Sensor Noise compositor node for grain.
 - **File:** tutorials/a-powerful-lighting-node-in-blender-50.md
 
@@ -571,7 +571,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=wOyk5V7PyfA
 - **Author:** Extra 3d
 - **Blender Version:** Blender 5.1
-- **Tags:** #shaders #caustics #glass #cycles #voronoi #transparent-shader #light-path #procedural #extra-3d #intermediate
+- **Tags:** shaders, caustics, glass, cycles, voronoi, transparent-shader, light-path, procedural, extra-3d, intermediate
 - **Summary:** Fake real-time caustics via shadow manipulation — Cycles only. Mix Shader + Transparent Shader + Light Path (Is Shadow Ray) makes the shadow controllable. Voronoi 4D Smooth F1 (two with different smoothness subtracted via Difference node) creates caustic pattern fed into shadow. Water variant animates via W value. Final complex variant adds Gradient + Noise distortion + Color Ramp fringes.
 - **File:** tutorials/real-time-caustics-in-blender-51.md
 
@@ -581,7 +581,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=wWv0E94XE4M
 - **Author:** Extra 3d
 - **Blender Version:** Blender 5.0
-- **Tags:** #volumetrics #noise #rendering #cycles #bug-fix #ray-marching #extra-3d #beginner
+- **Tags:** volumetrics, noise, rendering, cycles, bug-fix, ray-marching, extra-3d, beginner
 - **Summary:** Blender 5.0 volumetrics noise fix — new default rendering algorithm causes noise that increasing samples cannot fix. Fix: Render Properties → Volume → enable Legacy Ray Marching. The legacy method is faster AND noise-free for typical fog/smoke use cases.
 - **File:** tutorials/remove-noise-from-volumetrics-in-blender-50.md
 
@@ -591,7 +591,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=89ZPdMI_nE8
 - **Author:** Ducky 3D
 - **Blender Version:** Blender 4.x
-- **Tags:** #wave-texture #curves #seam-fix #animation #motion-graphics #procedural #shader-animation #ducky-3d #intermediate
+- **Tags:** wave-texture, curves, seam-fix, animation, motion-graphics, procedural, shader-animation, ducky-3d, intermediate
 - **Summary:** Fixing wave texture seam on closed curves — standard Texture Coordinate (Generated/Object) creates a visible break at the seam on looping curves. Fix: UV unwrap the curve as a strip (convert to mesh) or use Geometry Nodes Spline Parameter Factor (0→1 seamless around loop). Animating Phase drives smooth flow. Enables clean looping wave animations on circle/ring shapes.
 - **File:** tutorials/my-circle-problem-in-blender-tutorial.md
 
@@ -601,7 +601,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=gmGMsKJ6xd8
 - **Author:** Extra 3d
 - **Blender Version:** 4.x
-- **Tags:** #rendering #cycles #compositing #camera #intermediate
+- **Tags:** rendering, cycles, compositing, camera, intermediate
 - **Summary:** Three-chapter Cycles optimization guide: GPU selection (OptiX/HIP/Metal/oneAPI + Vulkan backend), adaptive noise-threshold sampling, memory reduction (disable off-camera collections, mute unused textures, Alt+D instancing, Purge Unused Data), and render stitching in the VSE for still-camera animations — claimed up to 4000% speedup without hardware upgrades.
 - **File:** tutorials/how-to-render-faster-in-blender-cycles.md
 
@@ -611,7 +611,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=1-Cj4mtdCMc
 - **Author:** Curtis Holt
 - **Blender Version:** Blender 4.x
-- **Tags:** `#lighting` `#animation` `#materials` `#shaders` `#cycles` `#abstract` `#laser` `#vfx` `#intermediate` `#curtis-holt`
+- **Tags:** lighting, animation, materials, shaders, cycles, abstract, laser, vfx, intermediate, curtis-holt
 - **Summary:** Curtis Holt (Project Fold) demonstrates a physical laser-style lighting method that avoids area lights or shader raycasting.
 - **File:** tutorials/my-new-favorite-lighting-trick-in-blender.md
 
@@ -621,7 +621,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=ih100VB7BUI
 - **Author:** SouthernShotty
 - **Blender Version:** Blender 5.2 (experimental)
-- **Tags:** #cloth #simulation #geometry-nodes #animation #organic #blender-5x #intermediate #advanced
+- **Tags:** cloth, simulation, geometry-nodes, animation, organic, blender-5x, intermediate, advanced
 - **Summary:** Full breakdown of Blender 5.2's Cloth Dynamics Experimental GN node — covers all parameters (Pin Group, Stretchiness, Bendiness, Sub Steps, Tearing, Geometry Collider, Custom Force, Bake node) then builds a "peeling skin" effect where an offset outer shell tears away from a skull mesh. The GN modifier is portable to any object. Requires Blender 5.2 experimental build.
 - **File:** tutorials/blender-new-cloth-simulator-changes-everything.md
 
@@ -632,7 +632,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=eQLCfPwEcrI
 - **Author:** Christopher 3D
 - **Blender Version:** Blender 5.2
-- **Tags:** #materials #shaders #rendering #cycles #eevee #organic #blender-5x #beginner
+- **Tags:** materials, shaders, rendering, cycles, eevee, organic, blender-5x, beginner
 - **Summary:** The new Thin Wall checkbox in Blender 5.2's Principled BSDF simulates correct light transport through zero-thickness geometry (leaves, curtains, lampshades, glass panes, soap bubbles) without needing a Solidify modifier. Two sub-parameters — Weight (0.5 typical) and Anisotropy (−0.25 for fabric, 0.0 for foliage) — fine-tune the effect. Part of the OpenPBR specification integration.
 - **File:** tutorials/thin-wall-the-incredible-new-principled-bsdf-feature-in-blender-52.md
 
@@ -642,7 +642,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=HMxZTPjFoc0
 - **Author:** Cinematic Cookie
 - **Blender Version:** Blender 4.x
-- **Tags:** #geometry-nodes #procedural #modelling #instancing #materials #organic #intermediate #advanced
+- **Tags:** geometry-nodes, procedural, modelling, instancing, materials, organic, intermediate, advanced
 - **Summary:** Builds procedural desert/Middle-Eastern-style buildings in GN using Normal Z component + Compare node for automatic top-face selection, fed into a free custom Inset node for architectural recessing. Covers procedural scattering of multiple building instances and ends with a complete sandy building complex with carved windows and rooftop detail.
 - **File:** tutorials/procedural-desert-buildings-in-blender-geo-nodes-blender-tutorial.md
 
@@ -652,7 +652,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=na6NGPw4XWM
 - **Author:** INSYDIUM LTD
 - **Blender Version:** Blender 4.x
-- **Tags:** #particles #simulation #fluid #meshing #motion-blur #addon #intermediate
+- **Tags:** particles, simulation, fluid, meshing, motion-blur, addon, intermediate
 - **Summary:** Using the NeXus particle plugin (Insydium) to emit a liquid particle stream from a sphere emitter, make it follow a scene curve's path, mesh the stream into a continuous surface, and apply render-time motion blur for a dynamic fluid-trail effect.
 - **File:** tutorials/nexus-for-blender-official-training---follow-curve.md
 
@@ -662,7 +662,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=NzZTrDln6Ko
 - **Author:** Ducky 3D
 - **Blender Version:** Blender 5.0
-- **Tags:** #geometry-nodes #materials #shaders #motion-design #animation #procedural #abstract #intermediate
+- **Tags:** geometry-nodes, materials, shaders, motion-design, animation, procedural, abstract, intermediate
 - **Summary:** Uses the UV Map attribute auto-generated by Curve to Tube (with a flat Path as Custom Profile for ribbon geometry) to map a Wave Texture per-strand across an evenly-spaced curve array (constant ring spacing via Radius = iteration × constant inside a Repeat Zone). A per-spline Random attribute desyncs each strand's wave phase and drives per-strand coloring, finished with Sensor Noise + Bloom compositing for an After-Effects-style animated background.
 - **File:** tutorials/curves-just-got-easier-in-blender-50.md
 
@@ -672,7 +672,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=U2I8YDrO5Jc
 - **Author:** SouthernShotty
 - **Blender Version:** Blender 5.2
-- **Tags:** #materials #shaders #rendering #lighting #glass #organic #intermediate #blender-5x
+- **Tags:** materials, shaders, rendering, lighting, glass, organic, intermediate, blender-5x
 - **Summary:** Blender 5.2's Thin Wall option on the Principled BSDF correctly renders one-sided transmissive/subsurface surfaces without a Solidify modifier — demonstrated on bubble/thin-film glass, faster and more natural foliage backlighting, fixing the classic dark-glass light-loss bug, and a frosted-glass creative effect.
 - **File:** tutorials/blenders-new-transparency-material-is-crazy.md
 
@@ -682,7 +682,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=RKz3DdbybVk
 - **Author:** Extra 3d
 - **Blender Version:** Blender 3.x/4.x
-- **Tags:** #geometry-nodes #materials #shaders #procedural #glass #lighting #volume #compositing #abstract #intermediate
+- **Tags:** geometry-nodes, materials, shaders, procedural, glass, lighting, volume, compositing, abstract, intermediate
 - **Summary:** Scatters a free crystal GLB model across a UV sphere using Geometry Nodes (Distribute Points on Faces → Instance on Points → Join Geometry), then builds a transmissive purple crystal shader and a bump/displacement rock material. Finished with high-focal-length DoF camera, point lights, cube volumetrics, and Cinematic Compositor+ grading.
 - **File:** tutorials/how-to-create-abstract-crystal-renders-in-blender.md
 
@@ -692,7 +692,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=aJF2sAjRsy0
 - **Author:** InLightVFX
 - **Blender Version:** Any (theory only)
-- **Tags:** #compositing #rendering #intermediate
+- **Tags:** compositing, rendering, intermediate
 - **Summary:** Color theory primer (not hands-on Blender): color gamut via the CIE diagram (ACES2065-1's gamut covers the full visible spectrum), gamma/transfer functions (linear vs. non-linear luminance math, why human vision is non-linear), and display-referred vs. scene-referred camera storage (RAW/Log) — explains why RAW/Log footage looks flat and how ACES's linear working space lets VFX artists ignore source footage gamma. Note: a near-duplicate entry for this video exists at the 80-char-truncated slug `tutorials/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-par.md` — left as-is per the known slugify duplicate-entry issue, not merged.
 - **File:** tutorials/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1.md
 
@@ -702,7 +702,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=LssHxDCM7H4
 - **Author:** InLightVFX
 - **Blender Version:** Any (with ACES config installed)
-- **Tags:** #compositing #rendering #lighting #hdri #intermediate #advanced
+- **Tags:** compositing, rendering, lighting, hdri, intermediate, advanced
 - **Summary:** Full hands-on ACES pipeline: DaVinci Resolve (Color Workspace ACES CC, IDT per clip, ODT sRGB for preview, disable ODT before EXR/RGB-Half export) → Blender (Display Device ACES, View Transform sRGB, render in ACES CG, per-image IDT via node Color Space, Shadow Catcher + split Main-Objects/Shadows render layers) → Compositor (Alpha Over chain, EEVEE 1-sample render-trigger workaround) → re-import final EXR to Resolve (IDT: ACES CG) for color grading and final ODT-based delivery export. EXR throughout preserves full dynamic range (demonstrated recovering blown highlights via the Gain slider). Note: a near-duplicate entry for this video exists at `tutorials/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces.md` — left as-is per the known slugify duplicate-entry issue, not merged.
 - **File:** tutorials/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2.md
 
@@ -712,7 +712,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=WmldjCv9P84
 - **Author:** Blender Made Easy
 - **Blender Version:** Blender 4.x
-- **Tags:** #materials #shaders #animation #motion-design #logo-animation #procedural #metal #intermediate
+- **Tags:** materials, shaders, animation, motion-design, logo-animation, procedural, metal, intermediate
 - **Summary:** Curve-based "build-on" logo animation (Bevel Depth + Start/End mapping in Spline mode) with a Taper-curve thickness falloff and a Fresnel-masked, driver-animated Noise Texture for a traveling molten-gold emission edge. Note: a near-duplicate legacy-format entry for this same video exists at `tutorials/blender-tutorial-eternals-gold-wireframe-animation.md` (single-dash slug, captions-based, missing the taper/material/render sections covered here) — left as-is per the known slugify duplicate-entry issue, not merged.
 - **File:** tutorials/blender-tutorial---eternals-gold-wireframe-animation.md
 
@@ -722,7 +722,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=bHWvVtuLJkM
 - **Author:** CrossMind Studio
 - **Blender Version:** Blender 3.1
-- **Tags:** #geometry-nodes #procedural #materials #shaders #glass #abstract #beginner #intermediate
+- **Tags:** geometry-nodes, procedural, materials, shaders, glass, abstract, beginner, intermediate
 - **Summary:** Chains 4-5 duplicated copies of a grouped [Extrude Mesh (Offset ~0.01) + Scale Elements (Top selection)] node pair — all sharing the same group data, so editing one updates all — to build a self-similar fractal pattern on a cube. An optional extra layer uses Face Area + Compare (>0.4) so only larger faces get additional recursive detail, for organic size variation. Rendered in Cycles with Glass BSDF + colored point lights inside hollow cubes. Note: a near-duplicate entry for this video exists at the single-dash slug `tutorials/fractals-in-blender-geometry-nodes-extrude-node.md` — left as-is per the known slugify duplicate-entry issue, not merged.
 - **File:** tutorials/fractals-in-blender---geometry-nodes-extrude-node.md
 
@@ -833,7 +833,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=ByWrhGggWm8
 - **Author:** Cartesian Caramel
 - **Blender Version:** Blender 5.2
-- **Tags:** #geometry-nodes #procedural #simulation #uv-mapping #materials #shaders #cycles #eevee #advanced #intermediate #blender-5x #attributes #organic #sci-fi #anatomy #livestream
+- **Tags:** geometry-nodes, procedural, simulation, uv-mapping, materials, shaders, cycles, eevee, advanced, intermediate, blender-5x, attributes, organic, sci-fi, anatomy, livestream
 - **Summary:** Unedited ~2hr livestream (no chapter markers) building a procedural "3D printer" Geometry Nodes rig: a spline traces across a mesh's per-UV-island map and progressively deforms/reveals the surface along it, faking a live tissue-printing/growth process, applied to hand tendons/muscles over a skeleton reference. Covers the tracer/deform/muscle-fiber node-group architecture, an ad-hoc auto-square-UV trick (shortest-edge-path gradients, no add-on), a progress auto-stop via Attribute Statistic, a minimum-stretch UV-unwrap trick for circular fiber UVs, and a genuinely useful Cycles-only gotcha: naming a Store Named Attribute output `UV` silently collides with Blender's reserved active-UV-map attribute and gets ignored in Cycles (EEVEE unaffected).
 - **File:** tutorials/blender-52-printing-muscles.md
 
@@ -844,7 +844,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=n1_NMIV7A5U
 - **Author:** ALL THE WORKS
 - **Blender Version:** Blender 5.1
-- **Tags:** #geometry-nodes #procedural #instancing #organic #curves #beginner #intermediate #blender-5x
+- **Tags:** geometry-nodes, procedural, instancing, organic, curves, beginner, intermediate, blender-5x
 - **Summary:** Scatters a Collection of hand-modeled low-poly rock variants across a mesh or curve using Distribute Points on Faces (Poisson Disk) + Instance on Points (Pick Instance), with Align Rotation to Vector for surface-normal alignment, layered Random Value nodes for scale/rotation variety, and an optional Normal/Compare face-selection mask. Covers merging overlapping instances via Realize Instances + Remesh + Decimate, and a curve-based scattering variant.
 - **File:** tutorials/easy-geometry-nodes---low-poly-rocks-blender-51.md
 
@@ -854,7 +854,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=EdEIUkWzYY0
 - **Author:** Josh - Blender Bros
 - **Blender Version:** Blender 5.1
-- **Tags:** #shading #normals #weighted-normal #boolean #bevel #topology #hard-surface #intermediate #advanced #blender-5x
+- **Tags:** shading, normals, weighted-normal, boolean, bevel, topology, hard-surface, intermediate, advanced, blender-5x
 - **Summary:** Diagnostic (not build) tutorial covering three distinct causes of hard-surface shading distortion after Booleans/Bevels: inherited Sharp edge-marks on bevel holding edges (fix: clear the mark, avoid it pre-bevel, or Hard Ops Recalculate), non-90° holding-edge angles on flat surfaces (fix: Weighted Normal modifier), and bent n-gon polygons from Booleans on curved surfaces (Weighted Normal does NOT fix this — needs clean quad topology or added geometry density instead).
 - **File:** tutorials/how-to-fix-shading-errors-in-blender.md
 
@@ -864,7 +864,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=QF-gxJLVNOw
 - **Author:** Nils Gallist
 - **Blender Version:** Not specified (Mantaflow works on any recent Blender 3.x/4.x/5.x)
-- **Tags:** #simulation #fluid #particles #review #workflow #intermediate #advanced
+- **Tags:** simulation, fluid, particles, review, workflow, intermediate, advanced
 - **Summary:** Comparative benchmark (not a build tutorial) of five water-simulation tools on an identical splash scene: Blender-internal Mantaflow (free but slow, 19-115GB caches, crash-prone), Flip Fluids add-on (best realism/detail, CPU-bound), NeXus Particles (fast/GPU but no whitewater and broken caching), LiquiGen (external, real-time GPU, fastest iteration, exports via Alembic), and HydroFX (external, GPU, most fun to iterate with). Ranks tools by bake time, cache size, viewport performance, and final quality; honorable mention to an untested AI water LoRA.
 - **File:** tutorials/i-tested-5-different-ways-to-simulate-water.md
 
@@ -914,7 +914,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=NrK9FjcNBJA
 - **Author:** Polygon Runway
 - **Blender Version:** Blender 5.2
-- **Tags:** #materials #shaders #procedural #glass #product-viz #lighting #hdri #compositing #rendering #cycles #blender-5x #intermediate
+- **Tags:** materials, shaders, procedural, glass, product-viz, lighting, hdri, compositing, rendering, cycles, blender-5x, intermediate
 - **Summary:** Full "health potion" prop build: models bottle/liquid/cork/label from one duplicated cylinder (Shift+D + P separate workflow), shades glass and red liquid with noise-driven roughness variation, and uses Blender 5.2's new Thin Wall Principled BSDF option for translucent paper label and backlit liquid glow from an interior point light. Finishes with Essentials/Polyhaven HDRI + ground texture and a compositor pass (Bloom, DOF, color curves).
 - **File:** tutorials/blender-52-health-potion-tutorial.md
 
@@ -1125,7 +1125,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=5-mNgCpEkCI
 - **Author:** Grant Abbitt (Gabbitt)
 - **Blender Version:** Blender 4.3.1
-- **Tags:** #organic #displacement #cloth #intermediate #blender-4x
+- **Tags:** organic, displacement, cloth, intermediate, blender-4x
 - **Summary:** Full brush-by-brush survey of Blender 4.3's Sculpt Mode: add/subtract brushes (Draw, Clay, Clay Strips, Crease Polish/Sharp, Inflate, Layer, Flatten, Scrape, Trim), push/pull brushes (Grab, Snake Hook, Grab Silhouette, Pose, Boundary), and the full cloth-simulation brush family (Drag/Expand/Bend/Twist Cloth, Grab Planar, Pinch Folds), plus Mask and Face Sets. Anchored on the Voxel Remesh (R gizmo + Ctrl+R) and Dyntopo workflows needed to keep enough topology under each brush, and notes which brushes require a non-manifold mesh with real boundary edges.
 - **File:** tutorials/master-blender-sculpting-every-brush-explained.md
 
@@ -1135,7 +1135,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=RdTuAY23vzk
 - **Author:** Grant Abbitt (Gabbitt)
 - **Blender Version:** Blender 4.3
-- **Tags:** #rigging #animation #beginner #intermediate #blender-4x
+- **Tags:** rigging, animation, beginner, intermediate, blender-4x
 - **Summary:** Rigs a low-poly character with the Rigify add-on: adds and scales the Human meta-rig, matches bones to the mesh in Edit Mode (X-Mirror, Snap-to-Volume, deleting unused finger/face bones), applies scale, Generates Rig, parents the mesh with Automatic Weights, then walks through the color-coded control bones (IK/FK, tweak, foot roll). Finishes by fixing cross-object weight-paint bleed using Alt+Click bone preview and Auto Normalize.
 - **File:** tutorials/easy-rigging-using-rigify-in-blender.md
 
@@ -1145,7 +1145,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=IvyfdxkABKU
 - **Author:** 3Dnot2D
 - **Blender Version:** Blender 4.x (AgX default, switched to Standard; Cycles GPU)
-- **Tags:** #camera #compositing #rendering #cycles #hdri #lighting #product-viz #intermediate #blender-4x
+- **Tags:** camera, compositing, rendering, cycles, hdri, lighting, product-viz, intermediate, blender-4x
 - **Summary:** Full camera match-move pipeline: tracks handheld footage of a plaza (manual + automatic marker detection, Detect Features, Track Forward/Backward), solves the camera (Solve Error tuning via Clean Up/Filter Tracks down to ~0.25px), sets Floor/Origin/Axis/Scale from tracked markers, then composites a 3D car into the shot with a Poly Haven HDRI matched to the footage lighting (Node Wrangler Mapping rotation), a matte ground shadow-catcher, and a transparent-film Cycles render assembled back over the plate in an NLE.
 - **File:** tutorials/camera-tracking-in-blender-for-beginners-motion-tracking-tutorial.md
 
@@ -1155,7 +1155,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=5epzCprCdGc
 - **Author:** Jesse J. Jones
 - **Blender Version:** Blender 3.6
-- **Tags:** #animation #camera #motion-design #beginner #blender-3x
+- **Tags:** animation, camera, motion-design, beginner, blender-3x
 - **Summary:** End-to-end beginner Grease Pencil 2D animation workflow: drawing tools and Draw/Object/Edit/Sculpt modes, a bouncing-ball exercise using Auto Keying with keyframe duplicate/reverse/retime tricks (Shift+D, S -1, S 2 for ones-vs-twos), Fill tool coloring (Multi Frame + Inverted Fill, Holdout materials), masked-layer cel shading, background image planes with camera parallax animation, and audio-driven lip sync with a mouth-shape reference chart.
 - **File:** tutorials/blender-2d-animation-tutorial-for-beginners-grease-pencil-tutorial.md
 
@@ -1165,7 +1165,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=XOsXZ1qDfSk
 - **Author:** Chris P
 - **Blender Version:** Blender 3.6.1
-- **Tags:** #geometry-nodes #simulation #particles #procedural #animation #materials #shaders #motion-design #abstract #advanced #blender-3x
+- **Tags:** geometry-nodes, simulation, particles, procedural, animation, materials, shaders, motion-design, abstract, advanced, blender-3x
 - **Summary:** Pure-Blender audio-reactive motion graphics with no add-ons: bakes 3 frequency bands (bass/mid/high) of a music track to F-Curves via the Graph Editor, then drives three Geometry Nodes systems from the baked values — bass-triggered bubbles that spawn and shrink inside a Simulation Zone, mid-range particles emitted along surface normals whose velocity scales with volume, and random high-frequency "laser" line bursts gated by a threshold. Includes cartoon-cloud bubble shading (Layer Weight + Color Ramp) and age-based particle emission color.
 - **File:** tutorials/blender-sound-reactive-geometry-nodes-tutorial-how-to-audio-music-simulation-mog.md
 
@@ -1175,7 +1175,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=Rp1G9mIBskI
 - **Author:** Martin Klekner
 - **Blender Version:** Blender 2.8 RC (+ Marvelous Designer)
-- **Tags:** #cloth #organic #animation #intermediate
+- **Tags:** cloth, organic, animation, intermediate
 - **Summary:** Blender <-> Marvelous Designer round-trip pipeline for simulated character garments: pose the character to a clean T-pose at frame 1, bake and export FBX, then in Marvelous Designer pattern flat fabric rectangles (Edit Pattern, Add Point, Edit Curvature), mirror them, Segment-Sew the seams, simulate the drape, gather the waist with an elastic Internal Line, Pin fabric to fixed spots for a cloak, change Fabric Type presets (linen/wool/silk), remesh to clean topology, and reimport the OBJ into Blender for scale/normal cleanup.
 - **File:** tutorials/how-to-quickly-create-clothing-using-blender-and-marvelous-designer.md
 
@@ -1235,7 +1235,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=6_vwVjODhog
 - **Author:** adrien_ltn
 - **Blender Version:** Blender 4.x
-- **Tags:** #geometry-nodes #volume #procedural #cycles #rendering #materials #lighting #hdri #compositing #organic #intermediate #blender-4x
+- **Tags:** geometry-nodes, volume, procedural, cycles, rendering, materials, lighting, hdri, compositing, organic, intermediate, blender-4x
 - **Summary:** Fully procedural photoreal clouds without VDBs using the creator's "Cloud Creator" geometry-nodes tool (free Converter / paid Pro), modeled on Houdini's cloud pipeline: a Generator scatters and displaces spheres into cloud silhouettes (Humilis/Mediocris/Congestus/Fractus presets, curve-drawn shapes), a Converter turns any geometry into a particle-scattered volume (Resolution = voxel size, Noise/Flatten/Wind/Vortex tabs, camera-culling optimization, bake to still/animation), and volume shaders add billowy noise, Z-gradient colors, and edge halation. Rendering half: Cycles Volumes Max Steps 10–25 for sane render times, HDRI-first lighting ("90% lighting, 10% shader"), Volume Direct/Indirect passes for comp, and rendering clouds on separate layers every 2–10 frames interpolated with Flowframes.
 - **File:** tutorials/perfect-procedural-clouds-in-blender-geometry-nodes-tutorial.md
 
@@ -1245,7 +1245,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=h_Q91x_8dd4
 - **Author:** Ryan King Art
 - **Blender Version:** 5.2
-- **Tags:** #geometry-nodes #animation #motion-design #procedural #materials #metal #lighting #compositing #cycles #rendering #abstract #intermediate #blender-5x
+- **Tags:** geometry-nodes, animation, motion-design, procedural, materials, metal, lighting, compositing, cycles, rendering, abstract, intermediate, blender-5x
 - **Summary:** Bar-style audio visualizer built on the new Sample Sound Frequencies node (5.2): a UV-unwrapped row of planes maps UV X into the Low/High frequency inputs via Map Range nodes, and Amplitude drives Extrude Mesh along normals (Offset Scale 40, To Min 250/600 for variation/strength). Finished with Mesh Bevel, grungy metal material, red/blue area lighting, Bloom + chromatic aberration compositing, and a frames-to-Video-Editor pipeline synced to the audio.
 - **File:** tutorials/create-an-audio-visualizer-with-geometry-nodes-in-blender-52.md
 
@@ -1255,7 +1255,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=ZqON1ms8VOM
 - **Author:** Curtis Holt
 - **Blender Version:** Not specified
-- **Tags:** #animation #rigging #advanced #curtis-holt #vlog
+- **Tags:** animation, rigging, advanced, curtis-holt, vlog
 - **Summary:** Talking-head R&D vlog (not a tutorial): Curtis Holt's automated mocap foot-sliding cleanup — classifies support feet via heel/spin control-bone rotation+location thresholds with pre/post keyframe context, then magnetizes the residual offset to the flat grounded pose ("grav boots" snap; kills sliding, needs animator polish). Proposes a body-wide semantic event-labeling pass (queryable markers: fingers open/close, foot plants) to replace per-script context detection; also covers markerless mocap's missing hand capture, Rokoko Smart Gloves vs a DIY ESP32 glove idea.
 - **File:** tutorials/i-fixed-a-difficult-animation-issue-kind-of.md
 
@@ -1265,7 +1265,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=yR8FatqgTDQ
 - **Author:** SouthernShotty
 - **Blender Version:** Not specified (4.2+ UI)
-- **Tags:** #geometry-nodes #procedural #materials #shaders #eevee #animation #organic #particles #intermediate
+- **Tags:** geometry-nodes, procedural, materials, shaders, eevee, animation, organic, particles, intermediate
 - **Summary:** Stylized EEVEE-friendly feathers/fur: the bundled Scatter on Surface preset (density 150, Y-aligned, randomized rot/scale) is unpacked and extended with the key trick — Set Mesh Normal (Free) fed by Sample Nearest Surface from a hidden smooth proxy sphere so all instances shade as one smooth surface — plus a Scene Time/Noise → Rotate Instances idle-motion rig and an instance-domain "ran_color" Random Value attribute. Feather shader layers UV gradient, stretched noise lines (Scale 2, Distortion 1.1, UV X×5), random color mix (0.25), and a Layer Weight → HSV (Value 5) fake rim light; EEVEE looks best with ray tracing off or Fast GI tamed (1 ray/4 steps, thickness 0.1, bias 0.25).
 - **File:** tutorials/how-to-create-stylized-feathers-and-fur-in-blender.md
 
@@ -1275,7 +1275,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=TYo0Vpf13E0
 - **Author:** Kai🔸
 - **Blender Version:** 5.x (5.2+ for footage modifier)
-- **Tags:** #compositing #motion-design #camera #animation #procedural #advanced #blender-5x
+- **Tags:** compositing, motion-design, camera, animation, procedural, advanced, blender-5x
 - **Summary:** Builds the film "time shift" shutter-desync streak (Project Hail Mary aspect-ratio blends) as a reusable compositor group asset: highlights isolated via Map Range 0.5 + threshold mix, smeared with Directional Blur (64 samples, −π/2 angle offset), and edge-wrapped through a hand-built 32-tap Translate-node accumulator (Repeat sampling, taps at index/31, 5-stage halving cascade with 0.001008 shift) run twice (Repeat − Clip) so only the wrapped tail is added back at 0.72. Exposes Highlight Threshold, Streak Length, Angle, Wrap/Symmetric toggles, Intensity/Tint panel, Scene Time 1D-noise animated jitter, Mask input, and a streaks-only output; usable in 5.2+ as a non-destructive modifier on video footage.
 - **File:** tutorials/how-to-create-a-time-shift-blur-in-blender.md
 
@@ -1285,7 +1285,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=KGf58mE5fZI
 - **Author:** Kenan Proffitt
 - **Blender Version:** 5.1
-- **Tags:** #geometry-nodes #procedural #materials #shaders #displacement #organic #intermediate #blender-5x
+- **Tags:** geometry-nodes, procedural, materials, shaders, displacement, organic, intermediate, blender-5x
 - **Summary:** Boolean-free blending of a rock into terrain with Geometry Nodes: ground-object Geometry Proximity (via Relative Object Info) drives Map Range + reversed Color Ramp displacement at the contact (strength ~0.1, optionally mirrored onto the ground at the cost of a Join Geometry), Sample Nearest Surface (Vector, Normal→Value) mixed with the mesh's own normal by proximity distance feeds Set Mesh Normal (Free) so both surfaces shade as one, and the ramp color is stored as a "blend" attribute driving a Mix Shader between the two materials (each Ctrl+G-grouped into a clean master material). Fully dynamic — move/sink the rock and the blend follows.
 - **File:** tutorials/how-to-blend-separate-objects-in-blender-easy-method.md
 
@@ -1295,7 +1295,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=fgPiXjKkRdI
 - **Author:** Bradley Animation
 - **Blender Version:** Not specified
-- **Tags:** #geometry-nodes #procedural #instancing #beginner
+- **Tags:** geometry-nodes, procedural, instancing, beginner
 - **Summary:** Beginner-series episode on faking instance variation in Geometry Nodes: recaps Object Info (Original/Relative transforms, the self-reference "geometry cannot be retrieved" error, and the As Instance toggle for perf + instancing lights/cameras), then covers the core recipe — Collection Info + Separate Children + Pick Instance on Instance on Points — to pick a different pre-made variant per point, with Instance Index + a Random Value node to randomize which variant lands where. Also covers Geometry to Instance for procedurally-generated variants.
 - **File:** tutorials/tut-how-pick-instance-is-used-for-instance-variations---p10-geometry-nodes-begin.md
 - **Related:** [Tut] Different Instance Color and Materials - P13 Geometry Nodes Beginners (`tut-different-instance-color-and-materials---p13-geometry-nodes-beginners.md`) — direct successor in the same series; this episode's geometry variation vs. P13's color/shader variation.
@@ -1308,7 +1308,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=KNqV2wJgxVM
 - **Author:** Ducky 3D
 - **Blender Version:** 5.2
-- **Tags:** #geometry-nodes #procedural #displacement #animation #lighting #rendering #cycles #motion-design #abstract #volume #intermediate #blender-5x
+- **Tags:** geometry-nodes, procedural, displacement, animation, lighting, rendering, cycles, motion-design, abstract, volume, intermediate, blender-5x
 - **Summary:** Showcases Blender 5.2's new native Mesh Bevel node in Geometry Nodes (no more external-model-then-instance workaround). Builds a volume-distributed grid of beveled cube instances whose scale is driven by an animated, looping Noise Texture → Color Ramp, plus a culled cylinder "rain line" accent layer, finished with a white emission-plane rim light and an orange disc Area Light in Cycles.
 - **Related:** A New Way To Loop Animations in Blender (`a-new-way-to-loop-animations-in-blender.md`) — the exact loop-keyframe trick referenced directly in this video's transcript. Also shares tags with Blender 5.0's NEW Audio Visualisation is INSANE! (volume, blender-5x), Glass Cell Division Effect in Blender 5.0 (abstract, blender-5x), and You Should Make Glass Animations in Blender 5.1 (motion-design, cycles, blender-5x) — all Ducky 3D "new 5.x feature" showcases.
 - **File:** tutorials/blender-finally-did-it.md
@@ -1319,7 +1319,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=kaDtwG3JimM
 - **Author:** Extra 3d
 - **Blender Version:** Not specified (viewport UI consistent with Blender 4.x — modern tab layout, Cycles GPU compute)
-- **Tags:** #materials #shaders #rigging #animation #cycles #organic #advanced
+- **Tags:** materials, shaders, rigging, animation, cycles, organic, advanced
 - **Summary:** Full photo-to-MetaHuman pipeline: generates a likeness head mesh from one photo in Meshy AI, uses it to facial-track and conform a MetaHuman preset in Unreal Engine 5 (Identity + Character tools), then exports the DNA rig and grooms and reassembles the fully textured, groomed character in Blender via the free Polyhammer add-on, including a from-scratch hair/beard shader (Image Texture -> Separate Color -> Principled BSDF) bound to the face with Surface Deform.
 - **Related:** MetaHumans in Blender: Using OpenRigLogic to Customize DNA's Behavior | Inside Unreal (`metahumans-in-blender-using-openriglogic-to-customize-dnas-behavior-inside-unrea.md`) — shares the MetaHuman DNA / Unreal Engine -> Blender rigging pipeline.
 - **File:** tutorials/photoreal-metahumans-in-blender.md
@@ -1330,7 +1330,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=Y4qk49lryRk
 - **Author:** Seanterelle
 - **Blender Version:** Not specified (node editor styling consistent with Blender 3.x/early 4.x)
-- **Tags:** #geometry-nodes #procedural #animation #materials #shaders #rendering #cycles #motion-design #abstract #organic #beginner
+- **Tags:** geometry-nodes, procedural, animation, materials, shaders, rendering, cycles, motion-design, abstract, organic, beginner
 - **Summary:** Builds a multi-strand helix that twists together into a rope/candy shape and unwinds apart, animated by frame: strand curves driven by Curve Tilt + Curve Scale off Spline Parameter, resampled onto an evenly-spaced guide curve via Sample Curve for constant strand length, meshed with Curve to Mesh, eased with a Mix+Power node combo, and finished with a glossy subsurface "candy" shader plus a Bake-node trick to keep procedural surface textures from swimming as the geometry animates.
 - **Related:** Blender Tutorial - Procedural Rope in Geometry Nodes (`blender-tutorial-procedural-rope-in-geometry-nodes.md`) — same interlocking spiral-strand domain. Curves Just Got Easier in Blender 5.0 (`curves-just-got-easier-in-blender-50.md`) — shares the per-strand attribute-driven shading approach.
 - **File:** tutorials/beginner-geometry-nodes---helix-twist-blender-tutorial.md
@@ -1391,7 +1391,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=r1SNvD73Qvo
 - **Author:** Batyr K.
 - **Blender Version:** 4.x/5.x (Simulation Nodes zones, not exactly specified)
-- **Tags:** #geometry-nodes #simulation #particles #procedural #product-viz #motion-design #abstract #glass #intermediate #blender-4x #blender-5x
+- **Tags:** geometry-nodes, simulation, particles, procedural, product-viz, motion-design, abstract, glass, intermediate, blender-4x, blender-5x
 - **Summary:** Demonstrates a custom packaged GeoNodes asset (Surface Flow / free Surface Flow Light) that distributes flowing, noise-driven particle instances across any watertight proxy surface — shown on a cream tube product shot, bubbles rising inside a liquid-filled glass, and an abstract vortex hugging a drinking glass. Exposes particle size/density/distribution and Flow Speed/Scale/Type controls without manual node editing; full version adds Stick to Surface, Particle Relaxation, and Self Collision.
 - **File:** tutorials/я-сделал-инструмент-которого-мне-не-хватало-в-blender.md
 
@@ -1401,7 +1401,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=8Swzwo83OP0
 - **Author:** CGMatter
 - **Blender Version:** Not specified (3.x-4.x era workflow)
-- **Tags:** #simulation #fluid #particles #geometry-nodes #procedural #typography #materials #abstract #advanced
+- **Tags:** simulation, fluid, particles, geometry-nodes, procedural, typography, materials, abstract, advanced
 - **Summary:** Uses the third-party Nexus add-on's granular SPH fluid solver to make a text mesh assemble out of clumping sand particles, driven by an "infection" growth mask (red/blue color-coded) that freezes particles outside the spreading region via a speed clamp. Covers baking to a real Point Cloud object, a Point-Info-driven sandy material, and a cache-retiming trick to make the sand settle and stop instead of jittering forever.
 - **File:** tutorials/sand-simulation---blender-tutorial-nexus.md
 
@@ -1411,7 +1411,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=CztCgbqaiZk
 - **Author:** Artemiy Galutskiy
 - **Blender Version:** Not specified (silent video, no version indicator visible in captured frames)
-- **Tags:** #geometry-nodes #procedural #abstract #typography #motion-design
+- **Tags:** geometry-nodes, procedural, abstract, typography, motion-design
 - **Summary:** Music-only video (no narration — extracted from visuals only). Builds a Geometry Nodes setup producing dense, evenly-offset "looping" contour/wave lines that trace the silhouette of input geometry — shown on a flat plane (radiating swirl pattern) and on 3D text (concentric contours around the letter "A"), with a Color Ramp driving line color. Exact node names/values unverified due to lack of audio — re-watch directly for precise parameters.
 - **File:** tutorials/abstract-wave-lines-looping-curves-geometry-nodes-tutorial.md
 
@@ -1461,7 +1461,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=IZFniY_vyGo
 - **Author:** Blender Secrets
 - **Blender Version:** 5.0+ (Instances on Elements modifier is explicitly new in 5.0)
-- **Tags:** #procedural #materials #displacement #cycles #intermediate #advanced
+- **Tags:** procedural, materials, displacement, cycles, intermediate, advanced
 - **Summary:** Six hard-surface panel-cut methods, most ending in a bake to a normal map: (1) sharp-marked edges + Bevel(Miter Outer=Arc)/Subdivision modifier stack for straight/diagonal cuts, (2) ripped edges (V) for naturally rounded panel corners, (3) Sculpt-mode Mask brush + Curve Stroke + Inflate mesh filter, (4) Sculpt-mode Layer brush with Persistent Base + Line stroke for straight sculpted cuts, (5) direct normal-map painting via the free Youku Paint extension, and (6) the Blender 5.0 Instances on Elements modifier for vertex-group-masked scattered surface details (rivets/bolts) with Realized Instances for baking.
 - **File:** tutorials/6-panel-cut-tips---blender-secrets.md
 
@@ -1471,7 +1471,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=_6uBdIsvm7c
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Extra Objects add-on, Multires workflow; 3.x-5.x)
-- **Tags:** #displacement #procedural #materials #organic #advanced
+- **Tags:** displacement, procedural, materials, organic, advanced
 - **Summary:** Builds a custom tiling hard-surface displacement map from scratch: alpha-brush sculpting with View-Plane texture mapping for seamless tiling, hand-modeled pipe details via a ±tile-size Array modifier for guaranteed edge match, tiling-mismatch troubleshooting, and pre-bake flat-shading checks.
 - **File:** tutorials/this-technique-lets-you-make-hard-surface-models-easily.md
 
@@ -1481,7 +1481,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=_1OLudY5qQY
 - **Author:** Blender Secrets
 - **Blender Version:** Blender 5 (explicitly named for the new curve-mode Array modifier)
-- **Tags:** #procedural #modelling #organic #intermediate #advanced
+- **Tags:** procedural, modelling, organic, intermediate, advanced
 - **Summary:** Full cast-iron railing built from Curves: a custom mesh-to-curve Bevel Object for bar thickness, Blender 5's curve-mode Array modifier for rigid spokes, a separate Array+Curve-modifier combo for deforming swirl decorations, and the Curve Pen tool for hand-drawn scrollwork.
 - **File:** tutorials/how-to-model-ornamental-iron-railings-in-blender-using-curves---blender-secrets.md
 
@@ -1521,7 +1521,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=S9WVxHp1Sc0
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (On Cage editing, LoopTools, F2, Extra Objects; 3.x-5.x)
-- **Tags:** #modelling #procedural #intermediate #advanced
+- **Tags:** modelling, procedural, intermediate, advanced
 - **Summary:** Reference-to-model workflow (title says Wrench, content is actually pliers) covering box-modeling over a photo reference, graduated LoopTools Circle percentages for sharp-to-round transitions, a boolean jaw cut, freeform post-boolean topology cleanup, and Round Cube end-cap details.
 - **File:** tutorials/how-do-you-model-that-wrench---blender-secrets.md
 
@@ -1531,7 +1531,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=jrR1T-dIA8c
 - **Author:** Blender Secrets
 - **Blender Version:** Blender 5 (explicitly named)
-- **Tags:** #modelling #procedural #beginner #intermediate
+- **Tags:** modelling, procedural, beginner, intermediate
 - **Summary:** Two hole-modeling approaches: a fast vertex-bevel/LoopTools-Circle method that leaves n-gons, and an all-quad subdivision-ready method using three intersecting edge loops plus edge-creasing to keep corners sharp under a Subdivision modifier.
 - **File:** tutorials/easy-hole-modeling-for-beginners---blender-secrets.md
 
@@ -1551,7 +1551,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=YCd_tS_3BTU
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Multires + On Cage editing + Gaffer add-on; 3.x-5.x)
-- **Tags:** #modelling #procedural #organic #beginner #intermediate
+- **Tags:** modelling, procedural, organic, beginner, intermediate
 - **Summary:** Full 37-minute walkthrough of the "double-subdivision-modifier" (Simple + Catmull-Clark, edited On Cage) fast blockout technique, tools primer plus a complete sci-fi robot build through symmetry, panel cuts, hard-surface alpha-brush sculpting, and UV-less drag-and-drop materials.
 - **File:** tutorials/for-beginners-easiest-modeling-technique-long-version.md
 
@@ -1561,7 +1561,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=M-zUIL-DnRA
 - **Author:** Blender Secrets
 - **Blender Version:** 4.5 LTS (author notes no features newer than Blender 4.x are used)
-- **Tags:** `#course-overview` `#not-a-tutorial` `#character` `#stylized`
+- **Tags:** course-overview, not-a-tutorial, character, stylized
 - **Summary:** **COURSE OVERVIEW — NOT A WALKTHROUGH (4m41s).** Promotional overview (not a step-by-step tutorial) of the author's paid stylized-anime-character course, naming its full pipeline: box-modeling shoes/socks/limbs/body over reference, joining and adding hands, clothing built on clean geometry with sculpted folds/pockets, head done last via 2D-topology-projected retopology (block-out then deformation topology) plus mouth geometry and Shape Keys for expressions, and hair via a hybrid mesh-clumps + thickened-curves + sculpting workflow. Useful as a reference checklist for a full stylized-character pipeline even without the paid lesson detail.
 - **File:** tutorials/anime-girl-character-course-overview---blender-secrets.md
 
@@ -1571,7 +1571,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=gS8MHAXKFQE
 - **Author:** Blender Secrets
 - **Blender Version:** Blender 4.5 LTS (explicitly named)
-- **Tags:** #modelling #procedural #intermediate
+- **Tags:** modelling, procedural, intermediate
 - **Summary:** Grid Fill turns a boundary loop into a curvature-aware quad patch (with a "select two rails instead of the full boundary" trick); Blender 4.5 LTS adds running it on existing face selections to retopologize n-gons/triangles into quads.
 - **File:** tutorials/grid-fill-update-in-blender-45-lts---blender-secrets.md
 
@@ -1581,7 +1581,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=7MIePxGcze0
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Cycles + GPU, Gaffer/Turbo Tools/Soundly add-ons; recent 4.x)
-- **Tags:** #rigid-body #animation #materials #lighting #rendering #compositing #brand-video #intermediate
+- **Tags:** rigid-body, animation, materials, lighting, rendering, compositing, brand-video, intermediate
 - **Summary:** Production-diary walkthrough (not a step-by-step lesson) of a logo animation: weighted-bevel hard-surface modeling, Rigid Body physics for a "stunt cube" launched through animated hatch doors, Cycles rendering with volume-lit gradient backdrops, Sequencer sound design via Soundly, and DaVinci Resolve grading.
 - **File:** tutorials/making-a-new-logo-animation---blender-secrets.md
 
@@ -1591,7 +1591,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=96ppCrgb2JI
 - **Author:** Blender Secrets
 - **Blender Version:** 4.2+ (for Extensions-tab install of Ucupaint/Auto Reload)
-- **Tags:** #organic #materials #procedural #intermediate
+- **Tags:** organic, materials, procedural, intermediate
 - **Summary:** Dyntopo-sculpts a stump prop, retopologizes it, then paints layered textures via the free Ucupaint extension (Principled or flat-Emission mode) and round-trips painting through Krita via the free Auto Reload extension for near-live PSD updates. Contains a sponsored XP-Pen tablet segment, flagged in the notes.
 - **File:** tutorials/how-to-texture-paint-in-blender----using-xppen-artist-pro-22-gen-2-ucupaint-auto.md
 
@@ -1601,7 +1601,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=qxxoDYGrvtw
 - **Author:** Blender Secrets
 - **Blender Version:** Blender 4.2 (explicitly named for EEVEE displacement support)
-- **Tags:** #materials #shaders #displacement #cycles #eevee #intermediate
+- **Tags:** materials, shaders, displacement, cycles, eevee, intermediate
 - **Summary:** Full PBR pipeline: sourcing free textures from Polyhaven, Node Wrangler's Principled Texture Setup, real geometric displacement with adaptive subdivision, baking displacement into real geometry, and triplanar/box mapping for objects without UVs — for both Cycles and EEVEE.
 - **File:** tutorials/easy-pbr-textures---blender-secrets.md
 
@@ -1611,7 +1611,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=bHmZfA07F0Y
 - **Author:** Blender Secrets
 - **Blender Version:** 4.3+ (Cloth sculpt brush split into several dedicated brushes)
-- **Tags:** #cloth #simulation #rigging #intermediate
+- **Tags:** cloth, simulation, rigging, intermediate
 - **Summary:** Poses cloth interactively via a Hook+Pin-Group rig (drag a pinned vertex in Object Mode while the sim plays), refines with Blender 4.3's split-out Cloth sculpt brushes, and bakes efficiently by rehearsing motion via Auto-Keying before a full-quality bake.
 - **File:** tutorials/interactive-cloth-new-cloth-brushes-more---blender-secrets.md
 
@@ -1621,7 +1621,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=rtnsLjP1ebo
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Area Plane/Stencil mapping, Multires; 3.x-5.x)
-- **Tags:** #displacement #procedural #organic #intermediate
+- **Tags:** displacement, procedural, organic, intermediate
 - **Summary:** Fixes for two alpha-brush problems: square textures getting corner-clipped by the brush's circular sample radius (fix: Size X/Y ≈1.1, or use Stencil mapping), and blurry alphas (caused by inactive-object Multires resolution saving, insufficient geometry, or missing Shade Smooth).
 - **File:** tutorials/what-if-you-alpha-brush-texture-is-square-or-the-resolution-is-too-low-blender-s.md
 
@@ -1631,7 +1631,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=DBuKtyPaIbw
 - **Author:** Blender Secrets
 - **Blender Version:** Blender 4.3.2 (explicitly named, compared against 4.0.2)
-- **Tags:** #modelling #organic #procedural #displacement #intermediate #advanced
+- **Tags:** modelling, organic, procedural, displacement, intermediate, advanced
 - **Summary:** Two paths from a B&W concept sketch to a mech blockout — Trace Image to Grease Pencil → Mesh with quad-topology cleanup and mirrored Solidify+double-Subdivision, or classic box-modeling from a cube — followed by a full hard-surface detailing pass (sculpting, multires, tiling displacement maps, greebles).
 - **File:** tutorials/image-to-3d-model-workflow-in-blender.md
 
@@ -1641,7 +1641,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=75inBBl39es
 - **Author:** Blender Secrets
 - **Blender Version:** Blender 4.3.2 (explicitly named)
-- **Tags:** #organic #procedural #abstract #intermediate
+- **Tags:** organic, procedural, abstract, intermediate
 - **Summary:** A painted Vertex Group drives both a Decimate modifier's density and the free Tissue add-on's "Convert to Dual Mesh" honeycomb generation plus a Wireframe modifier's line thickness, on a free Blender Studio human base mesh — vertex groups as general-purpose modifier masks, not just deformation.
 - **File:** tutorials/vertex-groups-modifiers-and-tissue-add-on---blender-secrets.md
 
@@ -1651,7 +1651,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=y7EuYx9CaTU
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (long-standing core shortcut)
-- **Tags:** #modelling #procedural #beginner
+- **Tags:** modelling, procedural, beginner
 - **Summary:** Compares three ways to add symmetric loops around a middle edge loop — manual Ctrl+R (imprecise), Bevel + Profile correction, and the recommended Shift+Ctrl+R Offset Edge Slide shortcut, which adds both loops precisely with no shape distortion.
 - **File:** tutorials/offset-edge-slide---blender-secrets.md
 
@@ -1661,7 +1661,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=m7dccc-J9aQ
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Camera Shakify add-on, Skinify extension; recent 4.x/5.x)
-- **Tags:** #animation #rigging #camera #procedural #intermediate
+- **Tags:** animation, rigging, camera, procedural, intermediate
 - **Summary:** A "topology reveal" animation made from a chain of objects (one Shape Key each) with synchronized visibility keyframes swapping between them to fake one continuously-evolving mesh, finished with a hand-animated camera and the Camera Shakify add-on.
 - **File:** tutorials/how-to-make-awesome-topology-animation-blender-secrets.md
 
@@ -1671,7 +1671,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=K6IEt4T91Jw
 - **Author:** Blender Secrets
 - **Blender Version:** Blender 4.3 (explicitly named)
-- **Tags:** `#course-overview` `#not-a-tutorial` `#hard-surface` `#modelling`
+- **Tags:** course-overview, not-a-tutorial, hard-surface, modelling
 - **Summary:** **COURSE OVERVIEW — NOT A WALKTHROUGH (4m27s).** Promotional overview (not a walkthrough) of the author's paid "Beginner Hard Surface Modeling" (Spiderbot) course — reference-image-faithful modeling in Chapter 1, retopology/animation/export prep in Chapter 2.
 - **File:** tutorials/in-depth-look-at-my-new-hard-surface-course---blender-secrets.md
 
@@ -1681,7 +1681,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=_-a8k2LaZbA
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Surface Deform + Shrinkwrap workflow; 3.x-5.x)
-- **Tags:** #organic #procedural #modelling #intermediate
+- **Tags:** organic, procedural, modelling, intermediate
 - **Summary:** Builds swirl motifs via vertex-to-curve extrusion + mirroring, then uses a Surface Deform + Shrinkwrap combo (swirl bound to a wireframe plane, plane shrinkwrapped onto the base sphere) to conform each swirl to the sphere's curvature and tile a full "Devil Fruit."
 - **File:** tutorials/modeling-a-devil-fruit-from-one-piece---blender-secrets.md
 
@@ -1691,7 +1691,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=QNckGYykCNc
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (b-roll consistent with Blender 4.x/5.x)
-- **Tags:** `#course-overview` `#not-a-tutorial` `#affiliate-review` `#character`
+- **Tags:** course-overview, not-a-tutorial, affiliate-review, character
 - **Summary:** **AFFILIATE REVIEW OF A THIRD-PARTY COURSE — NOT A WALKTHROUGH (2m55s).** Affiliate review/first-look at Jim Moran's third-party "Master 3D Characters" course on CG Boost — not a walkthrough, but b-roll shows Geometry-Nodes-driven zippers and hardware-bolt scattering plus cloth-brush sculpting for clothing folds.
 - **File:** tutorials/first-look-at-the-new-master-characters-in-blender-course-from-cg-boost.md
 
@@ -1701,7 +1701,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=WKaQ_V-FHGA
 - **Author:** Blender Secrets
 - **Blender Version:** Not applicable (Nomad Sculpt app content, not Blender)
-- **Tags:** #organic #beginner
+- **Tags:** organic, beginner
 - **Summary:** Not a Blender tutorial — hardware review/vlog testing an XPPen Android tablet by sculpting a Totoro-like creature in Nomad Sculpt on a train to Tokyo's Ghibli Museum (Blender doesn't run on Android). Covers Nomad Sculpt's Blender-parallel workflow: base sphere, Symmetry/Mirror, Multires/VoxRemesh/Dyntopo-style modes, standard brush set (Drag, Move, Smooth, Flatten, Inflate, Mask), Add-primitive + Gizmo + Validate flow, and its Scene outliner. Exporting for use in Blender requires the paid version.
 - **File:** tutorials/3d-sculpting-on-the-go-with-xppen-magic-drawing-tablet-and-visiting-ghibli-museu.md
 
@@ -1711,7 +1711,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=GzHvD9RFrT8
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Cycles/AGX/fSpy/Gaffer workflow, likely 4.0+ given AGX)
-- **Tags:** #materials #shaders #volume #lighting #hdri #rendering #cycles #camera #animation #advanced
+- **Tags:** materials, shaders, volume, lighting, hdri, rendering, cycles, camera, animation, advanced
 - **Summary:** Full photo-to-3D city pipeline from a real Tokyo/Shinjuku photograph: fSpy camera-matching (standalone app + Blender add-on, vanishing-point alignment, axis-matching), vertex-level building blockout matched to the photo, Boolean facade cuts, photo-projected texturing fixed for distortion via a dense Knife-Project reference grid, a Track-To background plane, volumetric haze (Volume Scatter cube), Gaffer HDRI lighting, a Linear-interpolated camera move sized to a target duration, low-res test renders before a full 4K EXR/AGX render, and a story-detail emissive window (Blackbody-driven color temperature) for a moody post-apocalyptic look — finished with external color grading in DaVinci Resolve.
 - **File:** tutorials/creating-a-japanse-city-from-a-photo-using-fspy.md
 
@@ -1721,7 +1721,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=3VNiWcO1QN8
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Voxel/Quadriflow/Remesh modifier; 3.x-5.x)
-- **Tags:** #organic #procedural #modelling #beginner #intermediate
+- **Tags:** organic, procedural, modelling, beginner, intermediate
 - **Summary:** Three escalating remesh methods (plain Voxel, Voxel+Fix-Poles+Preserve-Volume, Quadriflow) with cleanup via Mirror+Shrinkwrap, troubleshooting Voxel-Remesh holes via a Remesh modifier fallback, avoiding finger-spiral topology with the paid Quad Remesher add-on, and the conceptual distinction between remeshing and retopology.
 - **File:** tutorials/remeshing-tips-for-beginners-blender-secrets.md
 
@@ -1731,7 +1731,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=bfdI_-ymkas
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Shrinkwrap + vertex-group workflow; 2.8+)
-- **Tags:** #modelling #procedural #beginner #intermediate
+- **Tags:** modelling, procedural, beginner, intermediate
 - **Summary:** Cuts a circular hole into a curved surface with boundary-protection inset/extrude loops, then fixes the "lumpy" Subdivision distortion around the hole via a Shrinkwrap modifier (targeting an undisplaced duplicate) restricted by a vertex group, baked via Visual Geometry to Mesh, and optionally Decimated back down.
 - **File:** tutorials/perfect-holes-with-quad-topology-in-curved-surfaces---step-by-step-blender-begin.md
 
@@ -1741,7 +1741,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=pe-8GiRCLmM
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Weld/Shrinkwrap/Decimate workflow; 2.8+)
-- **Tags:** #modelling #procedural #intermediate #advanced
+- **Tags:** modelling, procedural, intermediate, advanced
 - **Summary:** Cuts a complex (heart-shaped) boolean hole then retopologizes it into clean quads: Weld modifier cleanup, Bridge Edge Loops + Bevel (2 segments, Profile 1) for proper boundary loops, Grid Fill caps, and a Shrinkwrap modifier (vertex-group-limited, targeting a smooth duplicate) to restore true surface curvature.
 - **File:** tutorials/step-by-step-boolean-holes-to-quad-topology-blender-secrets.md
 
@@ -1751,7 +1751,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=HUL9o27m11M
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Grease Pencil trace + Knife Project; 3.x-4.x)
-- **Tags:** #modelling #procedural #intermediate
+- **Tags:** modelling, procedural, intermediate
 - **Summary:** Engraves a 2D logo image onto a curved surface via Knife Project: image traced to Grease Pencil then mesh, cleaned up with Merge by Distance/Checker Deselect/LoopTools Space, projected into a sphere from the current view, cleaned up via non-manifold Merge by Distance, and given depth with Extrude+Alt+S.
 - **File:** tutorials/step-by-step-image-file-to-3d-geometry-blender-secrets.md
 
@@ -1761,7 +1761,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=HV4pRb6XKAI
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (OS/driver-level configuration, version-agnostic)
-- **Tags:** #organic #beginner
+- **Tags:** organic, beginner
 - **Summary:** Hardware review (not a modeling tutorial) of the XP-Pen Artist Pro 16 Gen 2 drawing display, with actionable Blender-specific tips: mapping pen buttons to left/middle/right-click for viewport navigation, and using Windows' "Extend" display mode for a tablet-as-second-monitor setup.
 - **File:** tutorials/review-and-tips-for-using-the-xppen-artist-pro-16-gen-2-in-blender.md
 
@@ -1771,7 +1771,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=qjJ3kSCis4k
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Ocean modifier, EEVEE/Cycles compatible; 3.x-5.x)
-- **Tags:** #displacement #shaders #materials #rigging #procedural #intermediate
+- **Tags:** displacement, shaders, materials, rigging, procedural, intermediate
 - **Summary:** Modifier-only ocean (no fluid sim): the Ocean modifier drives wave displacement, a height-based ColorRamp fakes peak/valley coloring, Generate Foam + an Attribute/Power node mixes in white foam, and a Shrinkwrap-plane + Copy Transforms rig floats a boat naturally on the waves.
 - **File:** tutorials/making-an-ocean-with-foam-and-a-boat-blender-secrets.md
 
@@ -1781,7 +1781,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=d16IOajUwIc
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Rigidbody/NLA/Rokoko/Mixamo workflow, 2.9x-4.x)
-- **Tags:** #rigid-body #simulation #animation #rigging #expert
+- **Tags:** rigid-body, simulation, animation, rigging, expert
 - **Summary:** Blends Rigidbody ragdoll physics (constrained-joint ragdoll, deactivated-until-hit hitboxes, bone-parented trigger cube, baked to keyframes) with Rokoko-retargeted motion capture (Mixamo T-pose auto-rig, Rokoko Retargeting add-on) across three separate animation-layer/NLA-blended phases: mocap walk-in → hand-posed "Stunt" layer bridging to the physics sim → baked ragdoll impact → NLA-blended "Getting Up" mocap. Includes an improvised root-bone fix for root-less Mixamo rigs (extrude from hips) to reconcile the ragdoll's end position with the mocap clip's own starting location.
 - **File:** tutorials/combining-ragdoll-physics-with-motion-capture-animation-rokoko-smartsuit-2-blend.md
 
@@ -1791,7 +1791,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=dtFFc6f2rK8
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Pose brush Cloth Simulation target, 3.x-5.x)
-- **Tags:** #cloth #simulation #organic #rigging #advanced
+- **Tags:** cloth, simulation, organic, rigging, advanced
 - **Summary:** Poses a clothed character's limb with the Sculpt Mode Pose brush using two Face Sets (built via X-Ray+Lasso Select → Face Set from Edit Mode Selection) and Deformation Target = Cloth Simulation instead of Geometry — producing real, physically-simulated fabric folds while bending, especially strong with the Squash & Stretch deformation type. Recommends pre-stretching with Geometry mode first to offset the length-shortening from squashing. Cleanup via Smooth brush for minor intersections, Alt+Q + Grab brush for larger ones.
 - **File:** tutorials/blender-secrets---in-depth-cloth-sculpting-tricks-with-pose-brush.md
 
@@ -1801,7 +1801,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=s6GQv6eZVms
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Human Base Meshes add-on, Voxel/Multires workflow; 3.x-5.x)
-- **Tags:** #organic #procedural #materials #advanced
+- **Tags:** organic, procedural, materials, advanced
 - **Summary:** Full Vecna-inspired monster bust process: Boolean+Voxel-Remesh blockout from a base mesh, Clay Strips sculpting, a curve-based (non-sculpting) technique for tapered tendrils/veins, and purchased ArtStation alpha-texture stamping for skin detail.
 - **File:** tutorials/monster-sculpting-full-process-blender-secrets-stranger-things-vecna.md
 
@@ -1811,7 +1811,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=iNL98QwGEmQ
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Cycles displacement workflow, 2.9x-5.x)
-- **Tags:** #materials #shaders #displacement #rendering #cycles #intermediate
+- **Tags:** materials, shaders, displacement, rendering, cycles, intermediate
 - **Summary:** Builds a photoreal Moon from free NASA color/height textures on a UV Sphere (Subdivision+Displace modifier, UV coordinates, Non-Color height map), then fixes the classic equirectangular-on-UV-sphere pole-pinching artifact by switching to Generated+Sphere-projected texture coordinates (Smart Interpolation) and moving displacement from the mesh modifier into a shader-graph Displacement node (Material Settings = Displacement Only/Displacement and Bump) so color and height stay aligned under the new projection.
 - **File:** tutorials/create-a-photoreal-moon-in-minutes-3d-tutorial-blender-secrets.md
 
@@ -1821,7 +1821,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=KACmuXsoc30
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Vector Displacement brush, standard since 2.8+)
-- **Tags:** #displacement #organic #advanced
+- **Tags:** displacement, organic, advanced
 - **Summary:** Converts a ZBrush Vector Displacement Map (VDM) brush into a Blender-compatible sculpt stamp — export as OpenEXR, mirror the axis to fix the background color, swap/boost the Green and Blue channels in Photoshop, then load it as a Draw brush with Vector Displacement enabled.
 - **File:** tutorials/export-vdm-maps-from-zbrush-to-blender.md
 
@@ -1831,7 +1831,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=hJ5zUTp9zCc
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Cloth Sewing Springs + Presets; 2.8+)
-- **Tags:** #cloth #simulation #materials #organic #intermediate
+- **Tags:** cloth, simulation, materials, organic, intermediate
 - **Summary:** Ruffled fabric via Cloth Sewing Springs: an oversized flat extension is deleted down to just boundary edges, pinned/sewn to a smaller opening so it puckers into ruffles, tuned with material Presets (Denim/Rubber/Silk) and repeated in layers via Pin/Effects vertex groups for a multi-tier skirt.
 - **File:** tutorials/ruffled-skirts-virtual-fashion-blender-tutorial-blender-secrets.md
 
@@ -1841,7 +1841,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=1YqtY02n8iU
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Cloth/Hook/Multires workflow, 2.9x-5.x)
-- **Tags:** #cloth #simulation #rigging #organic #advanced
+- **Tags:** cloth, simulation, rigging, organic, advanced
 - **Summary:** Makes a garment interactively grabbable like Marvelous Designer: model a simple shirt from a base mesh (Circle Select, mirror, duplicate+offset, Separate), scale the whole rig 10x for cloth-solver stability, rig Hook modifiers to individual vertices with a Pin Group excluding them from the sim, then grab hooks in Object Mode to pose realistic folds live. Bakes via Ctrl+A Visual Geometry to Mesh, then refines with Multires + Draw brush hand-sculpting. Includes a downloadable GitHub Python script that automates the repetitive hook rigging/teardown into "Add Hooks"/"Remove Hooks" N-panel buttons.
 - **File:** tutorials/blender-secrets---long-version-marvelous-designer-like-cloth-grabbing.md
 
@@ -1851,7 +1851,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=RbqpANWvTWY
 - **Author:** Blender Secrets
 - **Blender Version:** 3.4+ (Auto Masking Cavity feature is explicitly new in 3.4)
-- **Tags:** #organic #procedural #beginner #intermediate
+- **Tags:** organic, procedural, beginner, intermediate
 - **Summary:** Blender 3.4+'s Sculpt Mode Cavity Auto Masking (dropdown or Alt+A pie menu, plus per-brush Advanced overrides): constrains brush strokes to surface recesses (or raised areas via Cavity Inverted), tuned with Factor/Blur; "Create Mask" bakes a standalone Mask From Cavity that can be refined further with Smooth/Sharpen Mask filters. Demoed on a detailed T-Rex sculpt; noted use case is bringing out extra detail on 3D scans.
 - **File:** tutorials/blender-secrets---auto-masking-cavities-in-sculpt-mode.md
 
@@ -1861,7 +1861,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=Ix-KT9a4PSo
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Cycles + modern Color Management, Blender 3.x-5.x compatible)
-- **Tags:** #materials #shaders #procedural #rendering #cycles #lighting #organic #intermediate
+- **Tags:** materials, shaders, procedural, rendering, cycles, lighting, organic, intermediate
 - **Summary:** Bakes a 2D billboard tree impostor with dynamic lighting response: light a real 3D tree with a scaled-up Area Light, render a transparent-background PNG (F12) for the color/alpha texture, then switch to Matcap shading (Color=Object, "normal" matcap, Color Management View Transform=Standard) and use View→Viewport Render Image to capture a second bake as the normal map. Loading both textures on a flat billboard plane makes it shade and cast shadows correctly as scene/HDRI lighting rotates, instead of looking flat.
 - **File:** tutorials/better-billboards-using-normal-maps-low-poly-trees.md
 
@@ -1871,7 +1871,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=mSdzwRcFJM0
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (EEVEE referenced generically; UI matches Blender 3.x/4.x)
-- **Tags:** #particles #camera #organic #beginner
+- **Tags:** particles, camera, organic, beginner
 - **Summary:** Uses camera-facing billboard planes (Images as Planes + Track To constraint targeting the camera) instanced across a terrain via a Hair particle system to fake a dense background forest cheaply.
 - **File:** tutorials/creating-a-realistic-forest-in-blender-using-billboards-low-poly-planes-with-tre.md
 
@@ -1881,7 +1881,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=3cllYcT-MRg
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (built-in add-ons/modifiers, 2.8x-5.x)
-- **Tags:** #procedural #organic #modelling #intermediate
+- **Tags:** procedural, organic, modelling, intermediate
 - **Summary:** Builds a stone tower entirely from built-in Blender add-ons: Extra Objects' Wall Factory generator (stones scaled to overlap via Alt+S) bent into a cylinder with Simple Deform (Bend 360°, Z-axis), heightened via an Array modifier, varied with a second hidden top section, softened with a Voxel-mode Remesh (transcript mis-heard as "Foxhole"), and finally covered in procedurally-grown ivy via the built-in Add Curve: IvyGen add-on (Max Ivy Length, Gravity, Randomness, separate Leaves/Stem materials).
 - **File:** tutorials/blender-secrets---create-towers-with-ivy.md
 
@@ -1891,7 +1891,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=lXvmt0QxAFY
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (EEVEE + Cycles compatible, modern 3.x-4.x UI)
-- **Tags:** #lighting #hdri #materials #shaders #volume #cycles #eevee #intermediate
+- **Tags:** lighting, hdri, materials, shaders, volume, cycles, eevee, intermediate
 - **Summary:** Four cinematic lighting tips: aim a Spot light precisely by making it the Local Camera (N-panel View tab, Lock Camera to View, Numpad0); build a leaf/gobo light-shaper from an Images-as-Planes video texture (Color→Alpha, MapRange) in front of a spot, extended with a Volume Scatter-filled cube for visible light shafts; browse/swap HDRIs live via the Gaffer add-on (auto-transcribed as "Kevver"/"Gether," confirmed from on-screen UI); and drive an Emission shader's Strength with an expression/driver for a pulsating light (exact expression syntax not verifiable from the source video).
 - **File:** tutorials/blender-secrets---4-tips-for-cinematic-lighting.md
 
@@ -1901,7 +1901,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=AxDXWgFDwLA
 - **Author:** Blender Secrets
 - **Blender Version:** 3.2+ (Color Attributes bake workflow)
-- **Tags:** #materials #procedural #organic #cycles #advanced
+- **Tags:** materials, procedural, organic, cycles, advanced
 - **Summary:** Merges two textured 3D scans (deer head + cow body example) without losing either texture: boolean-trim + Proportional-Editing overlap blend + matched UV map names + BoolTool join, then Dyntopo-sculpt the seam on a texture-free duplicate (Dyntopo strips texture, hence the duplicate), and finally Cycles-bake the original's texture (Emit or Diffuse channel, Selected to Active, Extrusion ~0.2) onto the sculpted duplicate as a Color Attribute (vertex colors) — viewable via Color Attribute viewport shading and touch-up-paintable with the Sculpt Paint tool.
 - **File:** tutorials/blender-secrets---how-to-merge-3d-scans-and-bake-the-texture-as-color-attributes.md
 
@@ -1911,7 +1911,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=do_S94ZXLSc
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Cycles required, modern 3.x-4.x UI)
-- **Tags:** #lighting #hdri #cycles #materials #shaders #rendering #intermediate
+- **Tags:** lighting, hdri, cycles, materials, shaders, rendering, intermediate
 - **Summary:** Four photoreal lighting techniques: real-world IES light profiles (Cycles-only) driving a Point light's Emission Strength via an IES Texture node (Radius 0.02-0.03 for a sharp, artifact-free distribution pattern); a textured/video Spot light built with Ctrl+T auto-texture-node-wiring (Match Movie Length + Auto Refresh for video); the procedural Nishita Sky Texture with Sun Disc as a physically-based sun (Elevation/Rotation/Size/Air-Dust-Ozone controls, Solidify modifier to stop light leaks, Linear-keyframed Elevation for sunset timelapses); and manual HDRI world lighting via Poly Haven with a Transparent-Film + PNG/EXR RGBA trick to keep the lighting but hide the HDRI background.
 - **File:** tutorials/blender-secrets---4-tips-for-photoreal-lighting.md
 
@@ -1921,7 +1921,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=6wHgqPPQ3WI
 - **Author:** Blender Secrets
 - **Blender Version:** 2.8x-2.9x (M3 add-on step specifically: 2.83.2)
-- **Tags:** #procedural #organic #particles #animation #rigging #materials #intermediate
+- **Tags:** procedural, organic, particles, animation, rigging, materials, intermediate
 - **Summary:** Twelve free tree-building techniques: the M3 node-based tree generator (Trunk/Branch/Tree Parameters nodes) with armature-rig "Fast Wind" animation, the built-in Sapling add-on, fully hand-modeled Skin-modifier trunks with weight-painted twig/leaf Hair particle systems, photogrammetry-scanned bark texture baked and blended onto a procedural trunk (Mix Shader + Gradient), Grease Pencil-sculpted stylized branches, and Hair-particle forest scattering across an A.N.T. Landscape terrain.
 - **File:** tutorials/12-tips-for-creating-epic-trees-in-blender-without-paid-add-ons.md
 
@@ -1931,7 +1931,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=xLAlFoRPTPM
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (core Grease Pencil/Curve workflow, 2.9x-5.x)
-- **Tags:** #modelling #procedural #materials #beginner #intermediate
+- **Tags:** modelling, procedural, materials, beginner, intermediate
 - **Summary:** Draws ornamental surface patterns directly on a 3D object via Grease Pencil's Stroke Placement = Surface, avoiding zoom-dependent offset drift by working in Orthographic view (Numpad5). Strokes are smoothed (right-click Smooth, Shift+R), converted to a Bezier curve ("GP_Layer"), Decimate-Curve-simplified (~10%), and given physical thickness via Bevel Depth/Resolution — turning a hand-drawn pattern into a raised-relief engraved curve mesh (demoed as goblet filigree).
 - **File:** tutorials/blender-secrets---draw-grease-pencil-on-surfaces-without-offset-distance-issue.md
 
@@ -1941,7 +1941,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=jcSDF917dBo
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (core modifier/Quad-View workflow, 2.8x-5.x)
-- **Tags:** #modelling #procedural #intermediate #advanced
+- **Tags:** modelling, procedural, intermediate, advanced
 - **Summary:** Full hard-surface car-body pipeline: aligned multi-view blueprint reference setup (Collections for selectability toggling, opacity/perspective-display tuning); box-modeling from a single vertex under a Mirror(Bisect,On Cage)+Subdivision modifier stack in 4-way Quad View (Alt+Ctrl+Q); black-and-white matcap smoothness checking; and a Shrink Wrap technique (holed duplicate conforming to a hidden, extra-smooth original) for cutting clean windows/grilles without pinching geometry.
 - **File:** tutorials/blender-secrets---car-modeling-tips.md
 
@@ -1951,7 +1951,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=UojINqTfZsM
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Skinify Rig/Rigify/Metaball/GP-trace workflow, 3.x-5.x)
-- **Tags:** #organic #procedural #rigging #modelling #intermediate #advanced
+- **Tags:** organic, procedural, rigging, modelling, intermediate, advanced
 - **Summary:** Three base-mesh workflows: (1) Skinify Rig + Rigify — pose a rig, Add Shape to generate skin/subdivision geometry from bones, Visual Geometry to Mesh, Inflate-brush + Separate/Join cleanup (dragon/wyvern example); (2) Metaball blockout over a photo reference, Convert to Mesh, Symmetrize + Merge by Distance (horse example); (3) Grease Pencil trace of a 2D silhouette → Path → Mesh, fill+cleanup, Mirror+Solidify+Voxel-Remesh, with primitive meshes addable in Edit Mode for the remesh to auto-merge (mech/robot example).
 - **File:** tutorials/blender-secrets---how-to-make-a-base-mesh-for-sculpting-three-methods.md
 
@@ -1961,7 +1961,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=jlh275ZKsLw
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (core transform-tool workflow, 2.9x-5.x)
-- **Tags:** #modelling #procedural #beginner #intermediate
+- **Tags:** modelling, procedural, beginner, intermediate
 - **Summary:** Three scaling techniques: G,G shape-conforming scale for insets that should follow non-uniform surrounding edges; S+Shift+[axis] to exclude one axis when scaling an Alt+E-extruded face; the Scale Cage tool (Toolbar) for interactive multi-object/edit-mode scaling with opposite-handle pivot and numeric input; and Shrink/Fatten (Alt+S) with Proportional Editing's "Connected" option for thickness-only adjustments (e.g. fattening a cylinder without lengthening it) that don't drag along nearby-but-disconnected geometry.
 - **File:** tutorials/blender-secrets---scaling-tips-for-better-3d-modeling.md
 
@@ -1971,7 +1971,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=Q6nq1HEA5Y8
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (core operators/modifiers, 2.8x-5.x)
-- **Tags:** #procedural #modelling #animation #intermediate #advanced
+- **Tags:** procedural, modelling, animation, intermediate, advanced
 - **Summary:** Six circular/radial array methods with different tradeoffs: Spin operator (Alt+E, edit-mode, fast); manual Duplicate+Rotate+Shift-R-repeat (precise angle=360/count control); Vertex-Parented Instancing on a Mesh Circle (non-destructive, animatable, Align to Vertex Normal); Screw modifier driven by a single displaced vertex (fully procedural); Curve modifier + stacked Array modifiers around a Bezier Circle (best for tapering/twisting tower-like structures, Ctrl+T twist, Constant Offset brick-coursing); and Array modifier with Object Offset driven by an interactively-rotated Empty (fully non-destructive).
 - **File:** tutorials/blender-secrets---every-circular-array-or-radial-array-method.md
 
@@ -1981,7 +1981,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=JvJ_Hoj82us
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (core mesh/modifier + Loop Tools workflow, 2.9x-5.x)
-- **Tags:** #modelling #procedural #intermediate #advanced
+- **Tags:** modelling, procedural, intermediate, advanced
 - **Summary:** Four all-quad hole-cutting methods for cylinders: (1) snap a separate low-poly Circle onto the surface (Face snap + Project Individual Elements), join, remove+Grid-Fill, Inset+Extrude; (2) circularize duplicated cylinder faces via Loop Tools Circle, snap, Bridge Edge Loops; (3) snap in reusable Asset-Browser detail geometry, Merge by Distance + recalc normals; (4) build the hole pattern flat on a Plane with a 2D Array grid of circular cutouts, then wrap it into a cylinder via a Simple Deform Bend 360° modifier (+Weld/Solidify/Subdivision).
 - **File:** tutorials/blender-secrets---making-holes-in-cylinders-with-decent-quad-topology.md
 
@@ -1991,7 +1991,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=hpFaDiTDZgc
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (version-agnostic core workflow, 3.x-5.x)
-- **Tags:** #cloth #simulation #materials #procedural #intermediate
+- **Tags:** cloth, simulation, materials, procedural, intermediate
 - **Summary:** Four ArchViz soft-furnishing techniques: a gravity-free, pressure-inflated Cloth-sim pillow finished with Cloth Brush sculpt wrinkles; curve-based decorative piping/edges built from a duplicated edge selection (or, for scanned geometry, vertex-by-vertex with face snapping) converted to a beveled Curve; diamond-tufted button upholstery via Poke Faces → Tris to Quads → Select Similar (connecting edges) → Bevel Vertices → dual Extrude Along Face Normals with Individual-Origins scaling; and a draped Cloth sim pinned to a Vertex Group and reshaped live via a Hook modifier.
 - **File:** tutorials/blender-secrets---5-mins-of-archviz-tips-diamond-tufting-pillow-edges-pillows-in.md
 
@@ -2001,7 +2001,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=V7Y-Il-7JFE
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (core mesh-editing workflow, 3.x-5.x)
-- **Tags:** #modelling #procedural #intermediate
+- **Tags:** modelling, procedural, intermediate
 - **Summary:** Five manual topology-cleanup techniques: Rotate Edge (Ctrl+E) to fix bad triangle shading; systematic extrude/merge/fill patterns to reduce N quads down to fewer quads (4→2, 5→3, 3→1); adding an edge loop across triangulated geometry where Ctrl+R fails (Alt-select loop → Ctrl+I invert → Subdivide → slide new loop); conforming/straightening a wavy edge loop (G,G,E or LoopTools Flatten); and three ways to flatten (Select Similar Coplanar+Flatten, scale-to-zero, delete+Grid Fill) or smooth (Smooth Vertices, Sculpt Mode, Vertex-Group-masked Smooth modifier) a patch of geometry.
 - **File:** tutorials/blender-secrets---5-minutes-of-topology-tips.md
 
@@ -2011,7 +2011,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=rzZFIpqc98M
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (modern 3.x-5.x Bevel modifier/shader Bevel node)
-- **Tags:** #procedural #materials #shaders #cycles #intermediate #advanced
+- **Tags:** procedural, materials, shaders, cycles, intermediate, advanced
 - **Summary:** Dense bevel-technique reel: Ctrl+B vs. Bevel modifier vs. per-edge Bevel Weight (Limit Method=Weight) for varying bevels from one modifier, Data Transfer/Weighted Normal for smoothing simple 2-edge bevels, the Cycles-only shader Bevel node for fake render-time rounding, Inner/Outer Miter (Sharp/Patch/Arc) for meeting-corner resolution, Custom Bevel Profiles for stairs/hard-surface detail, and fixes for common bevel failures (N-gons via J, double geometry via Merge By Distance, tight geometry via Edge Slide, unapplied Scale).
 - **File:** tutorials/blender-secrets---5-minutes-of-beveling-knowledge-17-tips.md
 
@@ -2021,7 +2021,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=DwpajQ0oQPI
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (core mesh-editing/modifier workflow, 3.x-5.x)
-- **Tags:** #modelling #procedural #intermediate
+- **Tags:** modelling, procedural, intermediate
 - **Summary:** Five n-gon/triangle-to-quad cleanup techniques: Knife Project a subdivided helper plane onto a traced organic outline for a clean bendable quad grid; Solidify (thin) + Remesh (Smooth, Octree Depth) + Convert to Mesh + Merge by Distance for flat n-gon shapes; Triangulate (Ctrl+T) then Tris to Quads (Alt+J) for boolean-created n-gon patches; Crease (Shift+E, 1) + apply Subdivision Surface to protect and quad-ify Knife-tool cuts; and a plain Alt+J pass for models that were originally quad-based before being triangulated (e.g. internet downloads).
 - **File:** tutorials/blender-secrets---5-minutes-of-n-gons-to-quads-tips.md
 
@@ -2031,7 +2031,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=_S3D8djM5bE
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Boolean Fast/Exact solver + BoolTool add-on, 2.9x-5.x)
-- **Tags:** #procedural #modelling #materials #intermediate
+- **Tags:** procedural, modelling, materials, intermediate
 - **Summary:** Full non-destructive Boolean hard-surface workflow: modifier-based Boolean Difference with cutter objects hidden via Wire display or render-visibility toggle; the BoolTool add-on's Ctrl+Numpad− fast live/destructive cutting (cutter stays editable as a bounding box); layered Solidify+Bevel cutter objects for rounded slice cuts (stack multiple Solidify modifiers above the Bevel for multi-slice variation); Quick-Favorites/Modifier-Tools workflow speedups (Apply All); and cleanup for boolean-leftover geometry via manual merge, Auto-Merge+Edge-Slide, inset support loops, or the Weld modifier (On Cage, Vertex-Group-limited).
 - **File:** tutorials/blender-secrets---6-minutes-of-boolean-basics.md
 
@@ -2041,7 +2041,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=f8xoUkPY4e8
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Dyntopo/Multires/Mask Extract workflow, 3.x-5.x)
-- **Tags:** #organic #procedural #materials #advanced
+- **Tags:** organic, procedural, materials, advanced
 - **Summary:** Part 2 of a hard-surface sculpting series (helmet/creature-head example): Dyntopo base-mesh blocking (Grab/Snake Hook/Clay Strip/Crease/Scrape/Smooth); panel cuts via Mask+Mesh-Filter-Inflate+Remesh; Mask Extract to split a design into separately-sculptable sub-objects (auto Solidify thickness, Paint-Mask-preserving Remesh beforehand, Separate by Loose Parts, Alt+Q to pick the active sculpt target); Multires+alpha detailing; and the Line Project tool for fast flat faceting on a Round-Cube Quadsphere (Ctrl-constrain angle, Limit to Segment, remesh afterward since it doesn't boolean-cut).
 - **File:** tutorials/blender-secrets---hard-surface-sculpting-tips-part-2.md
 
@@ -2051,7 +2051,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=3Ty0dNNO4bE
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Multires/Dyntopo sculpt workflow, 3.x-5.x)
-- **Tags:** #organic #procedural #materials #advanced
+- **Tags:** organic, procedural, materials, advanced
 - **Summary:** Part 1 of a hard-surface sculpting series (Part 2 continues it): panel cuts via Crease brush (accumulates depth at overlaps — a problem) vs. the Layer brush with Persistent+Set Persistent Base (the fix, clean non-accumulating cuts); geometric Mask workflow (Curve/Line/Lasso stroke, Strength>1 for crisp edges, Shrink Mask+Paint-Mask-preserving Remesh+Smooth-filter for clean inflated-panel sides); and alpha-texture stamping (free JRO Tools/Bergman 3D packs, Area Plane mapping, Ctrl+F to rotate) including a Radial-value Drag-Dot mode for perfect circular bolt/rivet arrays.
 - **File:** tutorials/blender-secrets---hard-surface-sculpting-tips.md
 
@@ -2061,7 +2061,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=tHnKR8DB1gg
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Curve modifier + Knife Project, version-agnostic)
-- **Tags:** #modelling #procedural #intermediate
+- **Tags:** modelling, procedural, intermediate
 - **Summary:** Bends a flat sci-fi panel (Boolean slice-cuts + Solidify, hand-detailed) into a circular band via a Curve modifier — fixing the initial faceted bend by transferring the pattern onto a denser plane first with Knife Project.
 - **File:** tutorials/blender-secrets---modeling-circular-hard-surface-details.md
 
@@ -2071,7 +2071,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=IeLNfxeEqz0
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (core Annotate/Snapping/Shrinkwrap/Solidify workflow, 2.9x-5.x)
-- **Tags:** #modelling #procedural #sci-fi #intermediate
+- **Tags:** modelling, procedural, sci-fi, intermediate
 - **Summary:** Sketches a sci-fi panel-line/greeble design directly onto a curved surface (dome/sphere) using the Annotate tool (Placement=Surface), then manually traces real edge geometry over the sketch (single-vertex merge + extrude, Face-snap + Project Individual Elements, "In Front" viewport display to see through the sphere), and finally conforms + thickens it with a Shrinkwrap modifier (target=sphere) followed by a Solidify modifier.
 - **File:** tutorials/blender-secrets---modeling-sci-fi-greebles-on-a-sphere-using-annotate-tool.md
 
@@ -2081,7 +2081,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=8D8F0BpeZvQ
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (core mesh/curve workflow, 3.x-5.x)
-- **Tags:** #modelling #materials #procedural #intermediate
+- **Tags:** modelling, materials, procedural, intermediate
 - **Summary:** Short standalone tip (same technique as this channel's fuller "5 mins of ArchViz Tips" video): curve-based decorative piping for upholstery — duplicate+separate an edge selection, Convert to Curve, add Bevel Depth + Shade Smooth; for complex/scanned geometry without a clean edge loop, use Snap-to-Face + Project Individual Elements to build the seam path vertex by vertex instead, then convert/bevel the same way. Subdivide+smooth extra vertices at corners for rounder turns.
 - **File:** tutorials/blender-secrets---decorative-edges-for-sofas-and-cushions.md
 
@@ -2091,7 +2091,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=VzsxFT3-Kmk
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (core Knife tool/Images-as-Planes/UV workflow, 2.9x-5.x)
-- **Tags:** #modelling #materials #procedural #beginner #intermediate
+- **Tags:** modelling, materials, procedural, beginner, intermediate
 - **Summary:** Uses the Knife tool (K) directly on an Images-as-Planes photo (Material Preview, Front Orthographic) to trace and cut a textured 3D shape from a building facade photo, deleting unneeded faces, extruding sub-selections for real depth, and fixing UV stretching on extruded faces via U → Project From View.
 - **File:** tutorials/blender-secrets---modeling-from-photos-with-the-knife-tool-part-1-basics.md
 
@@ -2101,7 +2101,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=rUh2cEWAIgk
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (KeenTools FaceBuilder 2021.2.0; 2.9x-3.x era)
-- **Tags:** #organic #modelling #materials #intermediate
+- **Tags:** organic, modelling, materials, intermediate
 - **Summary:** Reconstructs a photorealistic 3D head from a handful of photos using the paid KeenTools FaceBuilder add-on: auto-align a generic head mesh per photo, refine with manually-dragged Pins on facial landmarks, then bake a texture from the aligned photo set.
 - **File:** tutorials/blender-secrets---reconstruct-a-face-head-from-just-a-few-photos-with-keen-tools.md
 
@@ -2111,7 +2111,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=IcL7N335oCk
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (BlenderGIS + Gaffer add-on workflow, 2.8x-4.x)
-- **Tags:** #procedural #materials #lighting #hdri #rendering #cycles #advanced
+- **Tags:** procedural, materials, lighting, hdri, rendering, cycles, advanced
 - **Summary:** Real-world terrain render using the BlenderGIS add-on: load/lock/zoom a real satellite basemap (e.g. the Matterhorn) and download its height map for accurate displaced terrain, subdivide for detail, fix the shiny default material (lower Specular, raise Roughness), light with Gaffer HDRIs, and handle the resulting massive real-world-scale mesh (increased Camera Clip End, Simple viewport display, DOF Empty target, 30mm lens). Includes a render-crash fix: scale up the camera, delete everything outside its frustum to cut memory usage before rendering.
 - **File:** tutorials/blender-secrets---blender-gis-extra-bonus-tutorial.md
 
@@ -2121,7 +2121,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=oFg367w5Cpo
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (BoolTool + Carver + Box Cutter add-ons, native LoopTools; 2.9x-5.x)
-- **Tags:** #modelling #procedural #intermediate
+- **Tags:** modelling, procedural, intermediate
 - **Summary:** Rapid-fire survey of 10 distinct ways to cut a hole into a mesh — Knife Project, BoolTool boolean, beveled vertex, LoopTools Circle/Bridge, curve-to-mesh, snap-and-project, Face-menu Intersect, Carver, and Box Cutter — each labeled on-screen as it's demonstrated.
 - **File:** tutorials/daily-blender-secrets---10-ways-to-make-holes-in-blender.md
 
@@ -2131,7 +2131,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=xLAakVcA1hc
 - **Author:** Blender Secrets
 - **Blender Version:** 2.8+ (Scatter Objects described as a new default 2.8 add-on)
-- **Tags:** #rigging #animation #cloth #simulation #rendering #particles
+- **Tags:** rigging, animation, cloth, simulation, rendering, particles
 - **Summary:** Continues Part 2's ragdoll build (Rigid Body Constraint limits, then Armature parented to the ragdoll via Child Of bone constraints), then covers 13 more tips: slow-motion cloth, inverted-hull outlines, baked normal maps, vacuum-pack cloth pressure, Scatter Objects, 3D-Print-Toolbox particle cleanup, Blue Noise Particles, OpenVDB volumetrics, self-repulsing particles, wireframe thickness, inset/outset, and view-isolation shortcuts.
 - **File:** tutorials/daily-blender-secrets---15-tips-compilation-part-3.md
 
@@ -2141,7 +2141,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=4AttSorvirM
 - **Author:** Blender Secrets
 - **Blender Version:** 2.82+ (Custom Bevel Profile stairs preset explicitly requires 2.82 or later)
-- **Tags:** #materials #modelling #procedural #simulation #cloth #rigid-body
+- **Tags:** materials, modelling, procedural, simulation, cloth, rigid-body
 - **Summary:** 13-tip grab-bag: box/triplanar texture mapping, Auto Smooth, BoolTool cutting, LoopTools bridging/twisting and circular holes, bevel-profile stairs, vertex sliding, Cloth Pressure inflation, Subdivision shortcuts, PolyBuild retopology, and three bouncy-ball/ragdoll physics methods (keyframes, Rigid Body, Soft Body).
 - **File:** tutorials/daily-blender-secrets---15-tips-compilation-part-2.md
 
@@ -2151,7 +2151,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=hZ2iWrbRNd0
 - **Author:** Blender Secrets
 - **Blender Version:** 2.8x (references Blender 2.8 + a Blender 2.83 alpha experimental build)
-- **Tags:** #materials #shaders #procedural #animation #rigging #cloth #simulation #beginner #intermediate
+- **Tags:** materials, shaders, procedural, animation, rigging, cloth, simulation, beginner, intermediate
 - **Summary:** Grab-bag of 13 unrelated quick tips: cross-build smoke sim via Alembic, select-linked (L/Ctrl+L), Noise/ColorRamp/Bump procedural shading, Shift+RMB reroute-node insertion, tris-to-quads (Alt+J), custom transform orientations for sliding along a face, Copy Attributes rotation copying, linked/unlinked animation data, a cloth-sim curtain baked to a static mesh via shape keys, Holdout collections for render masking, support loops for non-destructive sharp edges, and the experimental Blender 2.83 alpha Cloth Sculpt Brush (mask, pinch, expand) for sculpting fabric.
 - **File:** tutorials/15-blender-secrets-compilation-of-15-blender-tutorials-in-11-minutes.md
 
@@ -2171,7 +2171,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=qJgbhKcHKsY
 - **Author:** Blender Secrets
 - **Blender Version:** Blender 2.7 and 2.8 (explicitly named)
-- **Tags:** #animation #organic #beginner
+- **Tags:** animation, organic, beginner
 - **Summary:** Animates a growing vine by keyframing a Bezier curve's Bevel Start value (with Taper/Bevel objects for thickness) from 1.0 to 0.0, while individual leaves along the path pop into view via Scale keyframes timed to the growing tip's position.
 - **File:** tutorials/daily-blender-tip-224---growing-plant-animation-part-2-blender-27-28.md
 
@@ -2181,7 +2181,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=v6WFoVV3IhY
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Screw + Curve + Array modifiers, version-agnostic)
-- **Tags:** #modelling #procedural #intermediate
+- **Tags:** modelling, procedural, intermediate
 - **Summary:** Procedural rope: a merged cloverleaf profile is twisted into a helical strand via the Screw modifier, bent along a target path with a Curve modifier, and extended/looped with an Array modifier for a longer coiled rope.
 - **File:** tutorials/daily-blender-tip-186---make-a-rope.md
 
@@ -2191,7 +2191,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=i0c4uCa-WRQ
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Cycles Experimental Adaptive Subdivision; 2.9x-5.x)
-- **Tags:** #displacement #shaders #cycles #materials #intermediate
+- **Tags:** displacement, shaders, cycles, materials, intermediate
 - **Summary:** True Cycles microdisplacement: Noise Texture Fac → Displacement socket, Experimental feature set + Adaptive Subdivision modifier, Material Displacement set to real (not Bump), a Multiply node for strength control, and Dicing Scale for render detail.
 - **File:** tutorials/daily-blender-tip-146---microdisplacement-in-one-minute.md
 
@@ -2201,7 +2201,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=Tc3Q_OzR628
 - **Author:** Blender Secrets
 - **Blender Version:** Custom "Fracture Modifier" build (third-party fork)
-- **Tags:** #rigid-body #simulation #intermediate
+- **Tags:** rigid-body, simulation, intermediate
 - **Summary:** A third-party helper add-on adds one-click Add Fracture/Add RigidBody buttons plus Debris/Dust scattering tools on top of the Fracture Modifier build; also covers Start Deactivated so a fractured object stays visually intact until disturbed.
 - **File:** tutorials/daily-blender-tip-141---fracture-modifier-helper-add-on.md
 
@@ -2211,7 +2211,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=Lh1wtY2uRPE
 - **Author:** Blender Secrets
 - **Blender Version:** Custom "Fracture Modifier" build (third-party fork)
-- **Tags:** #rigid-body #simulation #intermediate
+- **Tags:** rigid-body, simulation, intermediate
 - **Summary:** Fracture Constraint Settings keep pre-shattered shards glued together until stress exceeds a threshold; the key Angle value controls how much bending a joint tolerates before breaking — demoed with a cube crushed under a rolling cylinder at 4° vs 7°.
 - **File:** tutorials/daily-blender-tip-140---fracture-modifier-use-constraints.md
 
@@ -2221,7 +2221,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=6Tk22EdbbLc
 - **Author:** Blender Secrets
 - **Blender Version:** Custom "Fracture Modifier" build (third-party fork, not stock Blender)
-- **Tags:** #rigid-body #simulation #beginner
+- **Tags:** rigid-body, simulation, beginner
 - **Summary:** Quick start for the third-party Fracture Modifier Blender build: passive Rigid Body ground, a Fracture system (Voronoi + Boolean, 1000 shards) pre-shatters an object via Execute Fracture, then Alt+A plays the rigid body sim as it breaks apart realistically.
 - **File:** tutorials/daily-blender-tip-139---blender-fracture-modifier-build---quick-start.md
 
@@ -2231,7 +2231,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=lYoeTliKX_4
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Cloth Pinning + animated Collision; 2.8+)
-- **Tags:** #cloth #simulation #animation #beginner
+- **Tags:** cloth, simulation, animation, beginner
 - **Summary:** A pre-wrinkled plane with Cloth Pinning (Silk preset, top-edge Vertex Group) drapes as a curtain; an animated, scaling Torus with Collision cinches the fabric into a tied-back drape as it shrinks from frame 1 to 50.
 - **File:** tutorials/daily-blender-tip-138---how-to-make-a-curtain-in-one-minute.md
 
@@ -2241,7 +2241,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=8wimWMzVA9M
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (earlier-era Tissue add-on Tesselate operator)
-- **Tags:** #organic #procedural #abstract #intermediate
+- **Tags:** organic, procedural, abstract, intermediate
 - **Summary:** Final Tissue experiment: a branching "unit" object grows itself fractally via Tissue's Tesselate + repeated Refresh, then a Remesh modifier set to Metaball fuses the resulting branch network into one smooth organic tree/coral surface.
 - **File:** tutorials/daily-blender-tip-137---tissue-add-on-experiment-3.md
 
@@ -2251,7 +2251,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=HabMke3KDFc
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (earlier-era Tissue add-on workflow)
-- **Tags:** #organic #procedural #displacement #abstract #intermediate
+- **Tags:** organic, procedural, displacement, abstract, intermediate
 - **Summary:** Sequel to Experiment 1: a painted Weight Map restricts the Displace modifier to specific regions, and the same weight map continues masking later Decimate/Dual-Mesh/Wireframe steps — showing vertex-group masking survives topology-changing operations.
 - **File:** tutorials/daily-blender-tip-136---tissue-add-on-experiment-2.md
 
@@ -2261,7 +2261,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=aoZD_EwpWmo
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (earlier-era Tissue add-on workflow)
-- **Tags:** #organic #procedural #displacement #abstract #intermediate
+- **Tags:** organic, procedural, displacement, abstract, intermediate
 - **Summary:** Early exploratory pass: procedural Displace (Marble/Magic textures) bakes organic bumps into a sphere, Decimate simplifies it into low-poly facets, then Tissue's Dual Mesh operator + a Wireframe modifier transform it into a tangled cage-like structure. First of a 3-part experiment series.
 - **File:** tutorials/daily-blender-tip-135---tissue-add-on-experiment-1.md
 
@@ -2271,7 +2271,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=yEDi5SIqXxs
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Cast + Solidify + Subdivision, version-agnostic)
-- **Tags:** #modelling #procedural #intermediate
+- **Tags:** modelling, procedural, intermediate
 - **Summary:** Companion "weird sphere" trick: select a deliberate maze/pattern of faces on a subdivided cube, delete the rest, then use a Cast modifier (Sphere, Factor 1) to bend the resulting lattice into a ball, finished with Solidify + Subdivision for a dimensional ornamental sphere.
 - **File:** tutorials/daily-blender-tip-133---cast-modifier-or-how-to-make-another-weird-sphere.md
 
@@ -2281,7 +2281,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=EAKd0g65fo8
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Cloth Sewing Springs + Force Field; 2.8+)
-- **Tags:** #cloth #simulation #beginner
+- **Tags:** cloth, simulation, beginner
 - **Summary:** Puffs a flattened cube into a pillow: Cloth Sewing Springs + zero Gravity hold two near-overlapping "fabric" faces together at the edges, while a high-Strength Force Field blows them apart from the inside for natural creases.
 - **File:** tutorials/daily-blender-tip-131---how-to-make-a-pillow-in-one-minute.md
 
@@ -2291,7 +2291,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=HnbVAwIk0lk
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Limited Dissolve + Solidify + Bevel, version-agnostic)
-- **Tags:** #modelling #procedural #intermediate
+- **Tags:** modelling, procedural, intermediate
 - **Summary:** "Death Star" panel-sphere trick: Limited Dissolve randomly merges a dense sphere's faces into jigsaw n-gon panels, invert-selection + a Solidify-style offset modifier stagger alternating panel heights, finished with a Bevel modifier for defined edges.
 - **File:** tutorials/daily-blender-tip-132---limited-dissolve-or-how-to-make-an-awewsome-scifi-sphere.md
 
@@ -2301,7 +2301,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=1F-wFa-oExw
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Geometry Normal node shading, version-agnostic)
-- **Tags:** #shaders #materials #procedural #beginner
+- **Tags:** shaders, materials, procedural, beginner
 - **Summary:** Fakes dust/snow on upward-facing surfaces: Geometry Normal → Separate RGB isolates the "faces up" channel, used as a Mix Shader Fac to blend a dust/snow material with a base material, shaped further with a ColorRamp for coverage/sharpness control.
 - **File:** tutorials/daily-blender-tip-128---material-basics-dustsnow.md
 
@@ -2311,7 +2311,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=7SXqr_HlYEg
 - **Author:** Blender Secrets
 - **Blender Version:** Blender 2.8 Beta (explicitly noted as beta, not for production)
-- **Tags:** #animation #beginner
+- **Tags:** animation, beginner
 - **Summary:** First look at Grease Pencil's then-new Curve tool: editable Bezier-like control points, E to extrude/continue a curve, a configurable Thickness Profile, and Shift for perfectly straight segments.
 - **File:** tutorials/daily-blender-tip-120---new-curve-tool-in-grease-pencil-blender-28.md
 
@@ -2321,7 +2321,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=t1v7lPbCipo
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Node Wrangler, version-agnostic)
-- **Tags:** #materials #shaders #cycles #beginner
+- **Tags:** materials, shaders, cycles, beginner
 - **Summary:** Quick Node Wrangler PBR workflow: subdivide a test UV sphere (Ctrl+4), create a material, then Ctrl+Shift+T with the Principled BSDF selected to select a whole folder of PBR maps and auto-wire them all in one step.
 - **File:** tutorials/daily-blender-tip-119---super-easy-pbr-textures-with-node-wrangler.md
 
@@ -2331,7 +2331,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=KMcdkXGBTo8
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Images as Planes + Shape Keys, version-agnostic)
-- **Tags:** #animation #camera #materials #motion-design #beginner
+- **Tags:** animation, camera, materials, motion-design, beginner
 - **Summary:** Fakes camera-move parallax on a still 2D painting by splitting it into depth-offset image planes (Images as Planes add-on, foreground PNG with alpha) each skewed via an animated Shape Key.
 - **File:** tutorials/daily-blender-tip-114---easily-add-camera-movement-to-a-2d-painting.md
 
@@ -2341,7 +2341,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=QO5a2rKhMtQ
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Grease Pencil layers, matured in 2.8x)
-- **Tags:** #animation #beginner
+- **Tags:** animation, beginner
 - **Summary:** Photoshop-style sketch-to-lineart workflow: rough sketch on a low-opacity Grease Pencil layer, clean strokes traced on a layer above, Sculpt Mode to smooth lines, Edit Mode to select/duplicate stroke parts, then hide the sketch layer for the finished line art.
 - **File:** tutorials/daily-blender-tip-113---from-sketch-to-clean-lines-in-grease-pencil.md
 
@@ -2351,7 +2351,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=3G0OxL2lfLs
 - **Author:** Blender Secrets
 - **Blender Version:** Blender 2.8 (explicitly named)
-- **Tags:** #beginner
+- **Tags:** beginner
 - **Summary:** Viewport Shading > Color = Random gives every object a distinct color automatically; combined with the Cavity and viewport-only Shadow overlays for much more readable modeling than the flat default gray shading.
 - **File:** tutorials/daily-blender-tip-102---random-object-colors-in-blender-28.md
 
@@ -2361,7 +2361,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=OIXSc-DM4Pk
 - **Author:** Blender Secrets
 - **Blender Version:** Blender 2.8 (Cycles Bevel shader, not EEVEE)
-- **Tags:** #shaders #cycles #materials #beginner
+- **Tags:** shaders, cycles, materials, beginner
 - **Summary:** Fakes a rounded-edge look on sharp hard-surface geometry using Cycles' Bevel shader node (no real geometry change); joining two objects with Ctrl+J is required for the fake bevel to read continuously across their shared seam.
 - **File:** tutorials/daily-blender-tip-101---cycles-bevel-shader-in-blender-28.md
 
@@ -2671,7 +2671,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=dQZ2RwpvFtM
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Ctrl+Alt+Space, version-agnostic)
-- **Tags:** #modelling #beginner
+- **Tags:** modelling, beginner
 - **Summary:** Ctrl+Alt+Space creates a Custom Transform Orientation from a selected face, letting Move/Rotate/Scale be constrained to that face's own local axes; saved orientations remain reusable afterward in the Transform Orientation dropdown.
 - **File:** tutorials/daily-blender-tip-47---custom-transform-orientation.md
 
@@ -2681,7 +2681,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=eElKEBoKUG8
 - **Author:** Blender Secrets
 - **Blender Version:** Legacy Quick Fluid operator (2.8x-era)
-- **Tags:** #fluid #simulation #beginner
+- **Tags:** fluid, simulation, beginner
 - **Summary:** The Quick Fluid search operator sets up a full fluid rig instantly in two flavors: the object itself becomes a one-time falling/settling fluid mass, or (by switching its Fluid Type to Inflow) it becomes a continuous fluid source for an ongoing stream/pour effect.
 - **File:** tutorials/daily-blender-tip-46---2-types-of-quick-fluids.md
 
@@ -2701,7 +2701,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=JBJ5dYjPieI
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Boolean + Wireframe draw type, version-agnostic)
-- **Tags:** #modelling #procedural #intermediate
+- **Tags:** modelling, procedural, intermediate
 - **Summary:** Models a rounded L-bracket, then cuts non-destructive Boolean mounting holes using cutter cylinders with Maximum Draw Type set to Wire for real-time-visible positioning, finished with a Bevel modifier for realistic edge highlights.
 - **File:** tutorials/daily-blender-tip-44---non-destructive-boolean-workflow-round-edges-bevels.md
 
@@ -2711,7 +2711,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=d028uL7ZRXE
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (bundled add-on, disabled by default)
-- **Tags:** #materials #beginner
+- **Tags:** materials, beginner
 - **Summary:** Enables the bundled-but-inactive Import Images as Planes add-on (Preferences search + Save User Settings); once active, Shift+A imports any image as a textured plane with shader nodes (including PNG alpha) auto-wired, demoed by compositing smoke into a photoreal interior render.
 - **File:** tutorials/daily-blender-tip-43---import-images-as-planes-add-on.md
 
@@ -2721,7 +2721,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=v6mJ6XJatUI
 - **Author:** Blender Secrets
 - **Blender Version:** Not specified (Curve conversion + Bevel Object, version-agnostic)
-- **Tags:** #modelling #procedural #beginner
+- **Tags:** modelling, procedural, beginner
 - **Summary:** Turns any object's edges into a pipe: merge all vertices to a skeleton path, bevel corners for rounded bends, convert to Curve, assign a Circle as Bevel Object for thickness, then edit/duplicate that circle profile for ridge/band detail along the pipe.
 - **File:** tutorials/daily-blender-tip-40---how-to-make-pipes.md
 
@@ -2731,7 +2731,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=mS27dSXDSuc
 - **Author:** 3D Singh VFX
 - **Blender Version:** Not specified (EEVEE + simulation zones; Blender 4.x)
-- **Tags:** #geometry-nodes #procedural #simulation #animation #motion-design #abstract #advanced
+- **Tags:** geometry-nodes, procedural, simulation, animation, motion-design, abstract, advanced
 - **Summary:** Feature tour of the paid "Extra Nodes" v4.0 add-on: Curve Roller (physically-accurate curve rolling), Recursive Topology, Mesh Cutter (simulated CNC-style cutting), Geometry Roller, Step Force, Plexus, Inflate Solver with Tear, Edge Tracer, and Animated Follow.
 - **File:** tutorials/extra-nodes-v40-powerful-new-tools-for-blender-geometry-nodes---full-demo.md
 
@@ -2821,7 +2821,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=VU_FhO4Jlpg
 - **Author:** CGMatter
 - **Blender Version:** 5.3
-- **Tags:** #geometry-nodes #simulation #smoke-fire #volume #procedural #displacement #cycles #advanced #blender-5x
+- **Tags:** geometry-nodes, simulation, smoke-fire, volume, procedural, displacement, cycles, advanced, blender-5x
 - **Summary:** Deforms an already-baked OpenVDB smoke+fire simulation (bend, twist, split, noise-distort) without re-simulating, by converting volume grids to points with Grid to Points, transforming point positions with ordinary node math, and rebuilding the volume with Blender 5.3's new Rasterize Points node. Covers a divide-by-1 trick to recover lost density weighting and a Principled Volume fire material from the recombined density/flame grids.
 - **File:** tutorials/volume-editing---blender-geometry-nodes-tutorial.md
 - **Related:** Fluid sim testing in Blender 5.3! (Rasterize Points Node) (`fluid-sim-testing-in-blender-53-rasterize-points-node.md`) — same Rasterize Points node and Blender 5.3. Also shares tags with 3D Smoke (Blender Geometry Nodes) (geometry-nodes, simulation, smoke-fire, volume, blender-5x, advanced) and Blender 5.0's NEW Audio Visualisation is INSANE! (smoke-fire, volume, blender-5x).
@@ -2942,7 +2942,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=BePg_iEbaM4
 - **Author:** Nick Sayce
 - **Blender Version:** 5.1.x (approximate, partially legible in frames)
-- **Tags:** #procedural #displacement #particles #organic #product-viz #beginner
+- **Tags:** procedural, displacement, particles, organic, product-viz, beginner
 - **Summary:** Third-party NS Rock Sculptor add-on (Nick Sayce): decimating a sculpted rock (~0.1-0.2 ratio, repeatable) into a low-poly pebble for scattering, a warning that Edge Wear must be applied before decimating (it turns white/blotchy on mangled decimated topology), and the Scatter tab workflow — plane target, rock presets, vertex-group-painted density, Number/Scale/Length tuning to build a layered rock pile.
 - **File:** tutorials/ns-rock-sculptor-guide---geometry-scatter.md
 
@@ -2982,7 +2982,7 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=E9J_1VH2aPM
 - **Author:** Nick Sayce
 - **Blender Version:** 5.1.x (approximate, partially legible in frames)
-- **Tags:** #procedural #displacement #organic #product-viz #beginner
+- **Tags:** procedural, displacement, organic, product-viz, beginner
 - **Summary:** Third-party NS Rock Sculptor add-on (Nick Sayce): layering four bump-detail channels (standard bump, cracks bump, cracks bump 2, dusty bump) each with their own strength/distance and mask, plus dusty bump's dedicated Colour Ramp; cracks bump overrides standard bump at full strength; a strength ~1.5-2 tip for extra weathered detail.
 - **File:** tutorials/ns-rock-sculptor-guide-bump.md
 

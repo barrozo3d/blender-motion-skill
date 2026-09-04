@@ -1011,6 +1011,21 @@ WATCHED_FILES = {
                           # still printing a confident score.
                           "tag_terms",
                           "record_baseline", "run"),
+    # added 2026-09-03: the sanctioned INDEX writer. render_tags decides the
+    # ONE style tags are emitted in, and update_one decides whether a block is
+    # rewritten at all -- a copy that drifts back to style-preserving, or to
+    # skipping whenever the tag SETS match, silently re-forks the corpus into
+    # the five styles that were just normalised away.
+    "update_index_entry.py": ("render_tags", "update_one", "file_tags",
+                              "tag_set", "block_re"),
+    # ⚠️ retrieval_reachable.py is byte-identical across all five and is NOT
+    # watchable here: it is a flat script with no functions, and this checker
+    # compares named function bodies. Naming a function it does not have would
+    # be a SILENT no-op -- the exact "missing evidence reads as a clean pass"
+    # shape this file exists to prevent -- so it is left out deliberately
+    # rather than gated for appearance. It shares tag_terms() with
+    # retrieval_test.py, which IS watched; if it is ever given functions,
+    # watch it then.
     "validate.py": ("get_transcript_text", "get_notes_content",
                     "parse_duration_secs", "is_youtube_source",
                     "get_tutorial_files", "parse_index_refs",

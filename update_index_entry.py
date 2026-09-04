@@ -159,13 +159,33 @@ def tag_set(text):
 
 
 def render_tags(tags_csv, existing_line):
-    """Render the file's tags in the style the INDEX block already uses."""
-    tags = [t.strip() for t in tags_csv.split(",") if t.strip()]
-    if "`#" in existing_line:
-        return " ".join("`#%s`" % t.lstrip("#") for t in tags)
-    if '"' in existing_line:
-        return ", ".join('"%s"' % t for t in tags)
-    return ", ".join(tags)
+    """Render tags in ONE style: comma-separated, bare.
+
+    ⚠️ This used to preserve whatever style the block already had -- emitting
+    `#tag` `#tag` for a backtick+hash block, "tag", "tag" for a quoted one. The
+    intent was kind (don't churn blocks you are only lightly editing) and the
+    effect was that FIVE styles became self-perpetuating: nothing could ever
+    converge, because every edit re-emitted the old form.
+
+    Measured 2026-09-03 over 1488 INDEX entries: comma 978, backtick+hash 224,
+    hash 187, backtick 97. Meanwhile all 1481 TUTORIAL FILES use a single style
+    (`tags: [a, b]`) with zero exceptions -- so the variation was never a corpus
+    taxonomy anyone chose, only drift in a derived field.
+
+    🔴 The cost was silent and real: each consumer of this line has to
+    rediscover every style or misread part of the corpus, and one did.
+    `retrieval_test.py` split on commas alone, so 508 entries -- 34%, and 100%
+    of paint-me -- contributed ZERO domain vocabulary while the run printed a
+    confident score. `retrieval_reachable.py` had a third, differently-wrong
+    parser. Two tools disagreeing about what a tag is, on the same corpus.
+
+    `existing_line` is kept in the signature: callers pass it, and it is the
+    natural hook if a style ever has to be honoured again. It is deliberately
+    unused.
+    """
+    tags = [t.strip().strip("`").lstrip("#").strip("`").strip('"')
+            for t in tags_csv.split(",")]
+    return ", ".join(t for t in tags if t)
 
 
 def block_re(slug):
@@ -228,9 +248,14 @@ def update_one(idx, slug, check, with_summary, from_file, overrides):
             continue          # only fields the block already has
         current_line = current.group(0)
         if label == "Tags":
-            # semantic comparison; keep the block's own punctuation style
-            if tag_set(current_line.split(":**", 1)[1]) == tag_set(value):
-                continue
+            # ⚠️ This used to `continue` whenever the tag SETS matched, so a
+            # block keeping the same tags in a different punctuation style
+            # was never rewritten. Together with a style-preserving
+            # render_tags that made the corpus's five styles permanent:
+            # nothing could converge, because every edit either skipped or
+            # re-emitted the old form. The `current_line == new_line` test
+            # below is the correct guard -- it still suppresses genuine
+            # no-ops while letting a pure style change through.
             new_line = "- **Tags:** %s\n" % render_tags(value, current_line)
         else:
             new_line = "- **%s:** %s\n" % (label, value)

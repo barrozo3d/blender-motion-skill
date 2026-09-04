@@ -14,7 +14,11 @@ about, the INDEX genuinely does not describe them.
 """
 import collections, io, math, os, re, sys
 
-sys.path.insert(0, r'C:/Users/KABUM/.claude/skills/houdini-wand')
+# ⚠️ Was a hardcoded C:/Users/KABUM/... path -- the OTHER machine's home.
+# On any other device it silently pointed nowhere and the import fell
+# through to the working directory, which happened to work and would
+# have failed the moment this was run from elsewhere. Derive it.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import retrieval_test as rt
 
 TOPK = 5
@@ -27,15 +31,13 @@ for sk in rt.SKILLS:
     if not blocks or not os.path.isdir(tdir):
         continue
     btok = {s2: set(rt.tok(t)) for s2, t in blocks.items()}
+    # ⚠️ Shared with retrieval_test, deliberately. This file used to split on
+    # [,`] only: it mishandled the hash style entirely and kept the '#' prefix
+    # on backtick+hash tags, so the two retrieval tools DISAGREED about what a
+    # tag is while reporting on the same corpus.
     tagvocab = set()
     for txt in blocks.values():
-        m = re.search(r'\*\*Tags:\*\*\s*(.+)', txt)
-        if m:
-            for t in re.split(r'[,`]', m.group(1)):
-                t = t.strip().lower()
-                if t:
-                    tagvocab.add(t)
-                    tagvocab.update(p for p in t.split('-') if len(p) >= 3)
+        tagvocab |= rt.tag_terms(txt)
     df = collections.Counter()
     for terms in btok.values():
         df.update(terms)
