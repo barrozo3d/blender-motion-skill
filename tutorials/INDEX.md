@@ -3252,6 +3252,16 @@ Each entry format:
 - **Summary:** Brush versus material: stroke colour, fill style, the stabilizer, jitter and the texture brush. Each Grease Pencil tool has its own brush family — the freehand draw tool and the primitives use **draw** brushes, the fill tool uses **fill** brushes, the eraser uses **eraser** brushes. Brush settings live in the Active Tool panel or the top bar, which in [frame_001] reads `Draw Pencil | Radius 221px | Strength 0.936 |...
 - **File:** tutorials/grease-pencil-fundamentals-drawing-brushes-and-materials.md
 
+
+### Making my lens in Blender (Bokeh, glare, chromatic aberrations)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=nru_2wdBqsY
+- **Author:** Robin Squares
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/making-my-lens-in-blender-bokeh-glare-chromatic-aberrations.md
+
 ---
 
 ## Tag Reference
