@@ -331,6 +331,31 @@ python select_frames.py <slug> <ts1> <ts2> ...
 ```
 This downloads the low-quality video, extracts exactly those frames to `tutorials/frames/<slug>/` (local only, not in git), appends a `## Captured Frames` section to the tutorial file, and sets `frame_status: complete` in the frontmatter. It does **not** commit — that happens together with the Structured Notes in Step 3.
 
+> **Capture height is set per skill, and it is a rule, not a preference.**
+> `ingest.py` carries `DEFAULT_FRAME_HEIGHT` as a module constant (it is deliberately
+> not a literal inside `download_video_low()`, which is drift-gated by
+> `validate.py::check_script_drift()` and must stay byte-identical across all five
+> skills while the VALUE differs per skill):
+>
+> | Skill | Height | Why |
+> |---|---|---|
+> | `houdini-wand` | **1080** | parameter pane, dense numeric fields |
+> | `nuke-em-all` | **1080** | node graph, dense numeric fields |
+> | `paint-me-like-your-french-substances` | **1080** | layer stack and parameter panes |
+> | `unreal-sidekick` | **1080** | details panel and Blueprint graphs |
+> | `blender-motion` | **720** | viewport/result-led more than parameter-pane-led |
+>
+> **The recapture trigger:** legibility is judged from the captured frames themselves,
+> not guessed in advance. If a parameter value, node name or menu entry had to be
+> guessed because the frame could not be read, that tutorial is recaptured at 1080:
+> ```bash
+> INGEST_FRAME_HEIGHT=1080 python select_frames.py <slug> <ts1> <ts2> ... --force
+> ```
+> Frame grounding cannot work when the frame cannot be read — a guessed value is
+> exactly the failure the frames exist to prevent, so never write one into the
+> Structured Notes when a recapture would settle it.
+
+
 ### Step 3 — Extraction (done by Claude Code immediately after)
 
 1. **Read each frame** listed in the `## Captured Frames` section using the Read tool — the Read tool supports images, so `Read("tutorials/frames/slug/frame_000.jpg")` shows the actual frame
