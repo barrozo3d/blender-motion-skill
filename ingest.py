@@ -235,14 +235,28 @@ def build_video_prompt(base_hint, info, budget_tokens=PROMPT_TOKEN_BUDGET):
         used += len(cand) + 2
     return base_hint + ". " + ", ".join(picked) if picked else base_hint
 
-def whisper_transcribe(audio_path, model_name, info=None):
+def whisper_transcribe(audio_path, model_name, info=None, language=None):
     model = _load_whisper_model(model_name)
     # initial_prompt biases decoding toward this skill's vocabulary — without it
     # Whisper mis-hears domain terms (e.g. "COPs" -> "cups", "Houdini" -> "Odini").
     # `info` is optional so every existing caller keeps working; when supplied,
     # the video's own title/chapters/description extend the hint (§3.7 item 2).
     prompt = build_video_prompt(WHISPER_VOCAB_HINT, info)
-    return model.transcribe(str(audio_path), initial_prompt=prompt)
+    # ⚠️ `language=None` keeps Whisper's per-chunk AUTO-DETECT, which is the
+    # long-standing behaviour and is right for a library that genuinely holds
+    # Russian, Hindi, Spanish and Chinese tutorials alongside English ones.
+    # 🔴 But auto-detect can LATCH ONTO THE WRONG LANGUAGE AND STAY THERE.
+    # Documented case: a 4h42m ENGLISH Rebelway lighting course transcribed as
+    # 6,496 of ~6,531 lines of fluent, fabricated RUSSIAN -- not gibberish, so
+    # no repetition safeguard caught it. Two retries (small, then medium) both
+    # failed; the fix is to stop asking Whisper to guess.
+    # Pass `--language en` for a source you KNOW the language of. It is opt-in
+    # precisely because forcing it globally would wreck the non-English
+    # entries this library legitimately contains.
+    kwargs = {"initial_prompt": prompt}
+    if language:
+        kwargs["language"] = language
+    return model.transcribe(str(audio_path), **kwargs)
 
 def download_audio(url, tmp):
     out = str(tmp / "audio.%(ext)s")
@@ -983,7 +997,7 @@ def _detect_hallucination(text):
     top_word, top_count = collections.Counter(tail).most_common(1)[0]
     return top_count >= 8, top_word, top_count
 
-def run_safeguards(ch_transcripts):
+def run_safeguards(ch_transcripts, duration_sec=None):
     """
     Run all Step-1 ingest quality checks (transcript completeness + ASR hallucination).
     Returns (warnings, critical) — critical items mark extraction_status: needs-review.
@@ -1006,10 +1020,24 @@ def run_safeguards(ch_transcripts):
             warnings.append(f"Very short transcript ({len(text)} chars) in '{name}'")
 
     # 2. Total transcript completeness
-    if total_chars < 500:
+    # ⚠️ DURATION-AWARE FLOOR. A flat 500-char minimum is a false positive on
+    # any genuinely SHORT video: a 28s homework lesson physically cannot
+    # contain 500 characters of speech, and flagging it "captions unavailable
+    # or audio silent" says something false about a complete, healthy
+    # transcript. Caught 2026-09-03 on designing-destruction-wk6-18-homework:
+    # 28.6s, 448 chars, five coherent sentences, zero flags, review already
+    # done -- and stuck at needs-review purely because of this threshold.
+    # 5 chars/sec is deliberately far below real speech (~12-15) so the check
+    # still catches silent or failed audio at any length; it only stops the
+    # absolute floor from being applied to clips too short to reach it.
+    floor = 500
+    if duration_sec:
+        floor = min(500, int(duration_sec * 5))
+    if total_chars < floor:
         critical.append(
-            f"Total transcript only {total_chars} chars (min 500). "
-            "Captions unavailable or audio silent — extraction will be poor."
+            f"Total transcript only {total_chars} chars (min {floor}"
+            + (f" for {int(duration_sec)}s" if duration_sec else "")
+            + "). Captions unavailable or audio silent — extraction will be poor."
         )
     elif total_chars < 1200:
         warnings.append(
@@ -1467,6 +1495,10 @@ def main():
                         help="Skip video download and frame extraction")
     parser.add_argument("--force", action="store_true",
                         help="Overwrite an existing tutorial file even if extraction_status: complete")
+    parser.add_argument("--language", default=None, metavar="CODE",
+                        help="Force Whisper's language (e.g. en). Default is "
+                             "auto-detect; use this when you KNOW the source "
+                             "language and auto-detect has drifted.")
     parser.add_argument("--video-url", action="store_true",
                         help="Treat a NON-YouTube url as a video page yt-dlp can download "
                              "(e.g. a self-hosted Blender Studio lesson) instead of an article")
@@ -1544,7 +1576,8 @@ def main():
                 print(f"[2/4] Downloading audio + transcribing with Whisper ({args.whisper_model})...")
                 try:
                     audio = download_audio(args.url, tmp)
-                    transcript = whisper_transcribe(audio, args.whisper_model, info)
+                    transcript = whisper_transcribe(audio, args.whisper_model, info,
+                                                    language=args.language)
                     ch_transcripts = segment_by_chapters(transcript, chapters)
                     print(f"      {len(transcript.get('segments',[]))} segments -> {len(ch_transcripts)} sections")
                     # §3.7 item 1: a second, independent ASR pass we already had
@@ -1615,7 +1648,8 @@ def main():
 
         # Safeguard checks — transcript completeness/hallucination only; frame-count
         # validation now happens in select_frames.py once real timestamps are chosen.
-        sg_warnings, sg_critical = run_safeguards(ch_transcripts)
+        sg_warnings, sg_critical = run_safeguards(ch_transcripts,
+                                                  info.get("duration", 0))
         if _cap_note:
             sg_warnings.append(_cap_note)
         _slice_note = slice_redecode_note(_slice_results)
