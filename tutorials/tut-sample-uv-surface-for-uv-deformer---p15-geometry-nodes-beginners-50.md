@@ -4,13 +4,14 @@ source: YouTube
 url: https://www.youtube.com/watch?v=XmSjMms8KoA
 author: Bradley Animation
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [geometry-nodes, procedural, displacement, blender-5x, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/tut-sample-uv-surface-for-uv-deformer---p15-geometry-nodes-beginners-50/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 12
+frame_status: complete
 uncertainty_frames: []
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # [Tut] Sample UV Surface for UV Deformer - P15 Geometry Nodes Beginners 5.0+
@@ -24,12 +25,7 @@ uncertainty_frames: []
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py tut-sample-uv-surface-for-uv-deformer---p15-geometry-nodes-beginners-50 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### What is Sample UV Surface about? [0:00]
@@ -350,30 +346,96 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:55] tutorials/frames/tut-sample-uv-surface-for-uv-deformer---p15-geometry-nodes-beginners-50/frame_000.jpg
+- [3:27] tutorials/frames/tut-sample-uv-surface-for-uv-deformer---p15-geometry-nodes-beginners-50/frame_001.jpg
+- [4:31] tutorials/frames/tut-sample-uv-surface-for-uv-deformer---p15-geometry-nodes-beginners-50/frame_002.jpg
+- [6:28] tutorials/frames/tut-sample-uv-surface-for-uv-deformer---p15-geometry-nodes-beginners-50/frame_003.jpg
+- [7:40] tutorials/frames/tut-sample-uv-surface-for-uv-deformer---p15-geometry-nodes-beginners-50/frame_004.jpg
+- [9:53] tutorials/frames/tut-sample-uv-surface-for-uv-deformer---p15-geometry-nodes-beginners-50/frame_005.jpg
+- [12:18] tutorials/frames/tut-sample-uv-surface-for-uv-deformer---p15-geometry-nodes-beginners-50/frame_006.jpg
+- [14:52] tutorials/frames/tut-sample-uv-surface-for-uv-deformer---p15-geometry-nodes-beginners-50/frame_007.jpg
+- [16:03] tutorials/frames/tut-sample-uv-surface-for-uv-deformer---p15-geometry-nodes-beginners-50/frame_008.jpg
+- [17:08] tutorials/frames/tut-sample-uv-surface-for-uv-deformer---p15-geometry-nodes-beginners-50/frame_009.jpg
+- [22:44] tutorials/frames/tut-sample-uv-surface-for-uv-deformer---p15-geometry-nodes-beginners-50/frame_010.jpg
+- [25:25] tutorials/frames/tut-sample-uv-surface-for-uv-deformer---p15-geometry-nodes-beginners-50/frame_011.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Building a **UV deformer** with `Sample UV Surface`: remap any geometry into 0–1 space using a `Bounding Box`, sample a target mesh's surface through its UV map to reposition it, then recover the lost height by separately sampling the surface `Normal` and driving an offset with it.
 
 ### Summary
-[PENDING EXTRACTION]
+`Sample UV Surface` maps geometry onto a mesh the way a shader maps a texture — but with real geometry, which is what makes procedural panelling, perforation and knit patterns possible. The episode teaches the node from its confusing two-UV-socket interface outward: how to tell the sockets apart, how to get source geometry into 0–1 range procedurally with `Bounding Box` (including the awkward instance case), how to diagnose the two failure modes (geometry collapsing to world origin, and flattened height), and where the whole approach breaks down. It closes with two blunt performance warnings: **all UV operations in Geometry Nodes are slow**, and **`Split to Instances` is worse than the alternatives**.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Recall the sample-node pattern.** Every sampling node needs three things — a geometry target, the value you want, and a context. `Sample UV Surface` is unusual in needing **two** contexts `[transcript 1:23-1:48]`.
+2. **Work out which UV socket is which — empirically.** The node exposes `UV Map` and `Sample UV`, and the tooltip does not explain the difference; the author says outright he cannot tell from the menu and had to test `[transcript 1:48-2:18]`. The working answer: **`UV Map` takes the UV of the geometry being sampled; `Sample UV` takes the field from your own geometry** `[frame_001]` `[transcript 3:35-3:46]`.
+3. **Diagnose a wrong context instantly.** Mix the sample result against the original position — if points collapse to the world origin, the sample is failing `[frame_001]` `[transcript 3:00-3:26]`. Swapping the two inputs fixes it.
+4. **Know why the other sample nodes lose here.** `Sample Index` fails when point counts differ (the wireframe is "just a trash"), `Sample Nearest` is better, `Sample Nearest Surface` worse still `[transcript 3:54-4:37]`.
+5. **Understand the mapping goal.** As with a shader, a texture spans 0–1 and the UV map lives in that range; so the source geometry must be pushed into 0–1 too `[transcript 5:08-5:40]`.
+6. **The brute-force version first.** `Realize Instances`, then `Map Range` set to **Vector**, with `From Min`/`From Max` hand-typed to `-0.5`/`0.5` because the grid is known to be 1×1 `[frame_004]` `[transcript 5:41-6:36]`. The author defends manual values explicitly: professionals use destructive methods daily, and brute force is a legitimate option `[transcript 6:37-7:10]`.
+7. **Make it procedural with `Bounding Box`.** Three outputs: a `Bounding Box` geometry for visualisation, plus `Min` and `Max` vectors giving the bottom-left-front and top-right-back corners. Those two define the span used for remapping, and subtracting them gives the extent per axis `[frame_004]` `[transcript 7:17-8:22]`. Note it is the smallest **world-axis-aligned** cube, so diagonal geometry yields a wastefully large box `[transcript 7:42-7:54]`.
+8. **Know the instance trap.** Feed instances in unrealized and the geometry output shows a box *per instance* (rotating with them), while `Min` and `Max` **output zero entirely** — they would need to be fields `[transcript 8:29-9:04]`.
+9. **Two ways out**: `For Each Element` on instances, or the `Instance Bounds` node — which the author calls badly designed, since its values sit at the world origin until you manually transform the points by the instance transform (position, rotation, scale) `[transcript 9:05-10:12]`. He ships his own `instance box` preset with local, global and as-a-whole modes to avoid the confusion `[transcript 10:17-11:09]`.
+10. **`Use Radius`** only matters for geometry carrying a radius attribute — points, curves, grease pencil. On such data the box expands past the point positions; disable it and only positions count. Meshes have no radius, so it is inert there `[frame_004]` `[transcript 11:16-11:58, 12:24-12:29]`.
+11. **Wire the procedural version.** Bounding Box `Min`/`Max` into Map Range `From Min`/`From Max`, output 0–1 `[frame_004]` `[transcript 12:05-12:23]`. The mapping then self-adjusts to any input size `[transcript 12:36-12:53]`.
+12. **Apply it.** Sample the target's `Position` with its UV map as context, feeding the 0–1 remapped position as `Sample UV`, into `Set Position` `[transcript 13:48-14:07]`.
+13. **Failure mode 1 — collapse to origin.** Extrusions shooting to the world origin mean some geometry received no value. Here the bounding box fits *too* perfectly, so edge points find nothing to sample `[transcript 14:52-15:19]`.
+14. **Quick fix (only for a plane-like UV):** shrink the range — `To Min` `0.100` and `To Max` `0.900` on X and Y `[frame_008]` `[transcript 15:20-15:41]`. The author flags this as a special case that will not generalise, "even for a simple cube" `[transcript 15:42-15:47]`.
+15. **The general fix — `Is Valid`.** The node's second output reports which points sampled successfully. Viewed on a cube, white regions are UV-covered and black regions got nothing; use it to `Separate Geometry` and drop the failures `[frame_008]` `[transcript 15:48-16:24]`.
+16. **Failure mode 2 — flattened geometry.** UV coordinates carry no height, so the sample cannot restore it `[transcript 16:42-16:54]`.
+17. **Recover height via normal displacement.** Run a *second* `Sample UV Surface` sampling the **`Normal`** instead of position, scale it by the Z component from the Map Range, and feed it into the `Set Position` `Offset` `[transcript 16:55-17:18]`. Height is then independent of the target's curvature.
+18. **For a Boolean, push through.** If the drilling geometry does not fully penetrate, lower the Z minimum `[transcript 17:26-17:47]`.
+19. **Compose further.** Swapping a straight grid for a hexagonal array preset gives honeycomb perforation `[transcript 19:17-19:43]`.
+20. **Think about operation order.** Starting flat and solidifying *after* the deform is likely faster than deforming geometry that already has height; same question applies to animating before vs after, or `Curve to Tube` before vs after — converting a curve to a mesh multiplies vertex count, so do it last `[transcript 19:44-20:47]`.
+21. **Caveat — you must have a UV map**, and without a named attribute you must supply the UV field manually `[transcript 21:01-21:21]`.
+22. **Caveat — overlapping UVs break it.** Where a circle and square share UV space, the sampler cannot know which 3D point to use and the result is garbage; `Separate Geometry` only exposes ugly extensions rather than fixing it `[transcript 21:22-22:08]`. Fix in Edit Mode, or use **`Pack UV Islands`** with a margin `[frame_010]` `[transcript 22:09-22:25]`.
+23. **Performance warning 1 — UV ops are expensive.** On a cube at `Vertices 55³`, the base evaluation is `0.40 ms`; inserting `Pack UV Islands` takes it to **`124 ms`** `[frame_010]`. Narration cites a comparable 2.1 ms → 100 ms case, and notes cost scales with subdivision `[transcript 22:34-23:29]`. The advice is blunt: "try not to rely on them ever for the moment."
+24. **Performance warning 2 — avoid `Split to Instances`.** It converts same-group-ID geometry into instances, but it is very slow under subdivision **and** it sets every instance origin at the world origin, so rotation spins the whole object `[transcript 24:46-25:45]`. The faster alternative: an average-position node grouped by `Mesh Island Index`, then `Vector Rotate` on position into `Set Position` `[transcript 25:54-26:24]`.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **`Sample UV Surface`** — data type `Vector`; inputs `Mesh`, `Value`, **`UV Map`** (UV of the sampled geometry), **`Sample UV`** (field from your geometry); outputs `Value` and **`Is Valid`** `[frame_001][frame_008]`
+- **`Bounding Box`** — outputs `Bounding Box`, `Min`, `Max`; input `Geometry` with a **`Use Radius`** toggle `[frame_004]`
+- **`Instance Bounds`** — needs manual transform by the instance transform to be usable; author supplies an `instance box` preset instead `[transcript 9:11-11:09]`
+- **`Map Range`** (Vector) — brute-force `From Min -0.500 / -0.500 / 0.000`, `From Max 0.500 / 0.500 / 1.000`, `To Min 0/0/0`, `To Max 1/1/1` `[frame_004]`; margin variant `To Min 0.100 / 0.100 / 0.000`, `To Max 0.900` `[frame_008]`
+- **`Realize Instances`** — `Realize All` on, `Depth 0`, required before Bounding Box works on instanced geometry `[frame_004]`
+- **`Instance on Points`** — `Pick Instance`, `Instance Index`, `Rotation`, `Scale` `[frame_004]`
+- **`Named Attribute`** (Vector) — `UVMap_A`, `UVMap_B` in the study setup `[frame_001]`
+- **`Object Info`** — `Original`/`Relative`, `As Instance`, used to bring Plane A / Plane B in `[frame_001]`
+- **`Mix`** (Vector, Uniform, `Clamp Factor`, `Factor 1.000`) — the diagnostic trick for spotting failed samples `[frame_001]`
+- **`Pack UV Islands`** — `Margin 0.001`, `Rotate` on, method `Bounding Box`, `Bottom Left 0,0`, `Top Right 1,1` `[frame_010]`
+- **Measured cost** — Cube at `Vertices 55³`: `0.40 ms` base, `124 ms` with Pack UV Islands, `125 ms` total tree `[frame_010]`
+- **Mentioned presets (author's own, not stock Blender)** — `instance box`, a UV-deformer one-click setup, `Curve Deformer` (wraps `Sample Curve`, equivalent to the Curve modifier), and a hexagonal array `[transcript 10:17-11:09, 18:10-19:30]`
+
+> **Whisper unreliability is high in this episode.** "Belander Foundation" for Blender
+> Foundation, "boot force" and "Boolean-forced" for *brute force*, "word origin" for world
+> origin, **"yetpackUBIlet"** for **`Pack UV Islands`** `[frame_010]`, "smash island index"
+> for `Mesh Island Index`, "Antagma" for Entagma, "spooling" for Boolean, "minlet points"
+> for "namely points", and "perks" for the next episode's topic. The frames carry the real
+> node and socket names.
+>
+> **An honest gap in the source, worth preserving:** the author cannot explain which UV
+> socket is which — "I don't know how to explain it better. So you would have to perceive
+> yourself" `[transcript 3:44-3:47]`. The socket names in `[frame_001]` are the reliable
+> record, and the mix-against-original-position trick is the practical way to test.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2.1 RC — read from the status bar in `[frame_001]`, `[frame_004]`, `[frame_008]` and `[frame_010]`. The title advertises "5.0+".
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, procedural, displacement, blender-5x, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [[tut-what-makes-splinecurves-more-complicated---p16-geometry-nodes-beginners-50]] — P16, the immediately following episode; its instance-vs-realized rule is the same constraint that forces `Realize Instances` before `Bounding Box` here
+- [[tut-everything-about-for-each-element-zone-in-variations---p14-geometry-nodes-be]] — P14; the `For Each Element` zone this episode names as one of the two ways to get per-instance bounding boxes
+- [[tut-align-rotation-to-vector-axes-to-rotation---p11-geometry-nodes-beginners-50]] — P11; same series, complementary instance-transform material underlying the `Instance Bounds` workaround
+- [The 6 Levels of Blender Materials](the-6-levels-of-blender-materials.md) — its Level 5/6 use `Store Named Attribute` to carry data into shaders, the mirror of this episode's use of named attributes to carry UV data between geometries
