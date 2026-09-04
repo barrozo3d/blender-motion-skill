@@ -4,13 +4,14 @@ source: YouTube
 url: https://www.youtube.com/watch?v=2xGchC_1Mi8
 author: Ducky 3D
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [geometry-nodes, motion-design, animation, procedural, compositing, eevee, blender-5x, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/dont-make-boring-audio-visualizers-blender-tutorial/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 15
+frame_status: complete
 uncertainty_frames: []
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Don't Make Boring Audio Visualizers (Blender Tutorial)
@@ -24,12 +25,7 @@ uncertainty_frames: []
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py dont-make-boring-audio-visualizers-blender-tutorial <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -191,30 +187,91 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [4:27] tutorials/frames/dont-make-boring-audio-visualizers-blender-tutorial/frame_000.jpg
+- [5:00] tutorials/frames/dont-make-boring-audio-visualizers-blender-tutorial/frame_001.jpg
+- [5:21] tutorials/frames/dont-make-boring-audio-visualizers-blender-tutorial/frame_002.jpg
+- [5:55] tutorials/frames/dont-make-boring-audio-visualizers-blender-tutorial/frame_003.jpg
+- [6:46] tutorials/frames/dont-make-boring-audio-visualizers-blender-tutorial/frame_004.jpg
+- [8:50] tutorials/frames/dont-make-boring-audio-visualizers-blender-tutorial/frame_005.jpg
+- [9:05] tutorials/frames/dont-make-boring-audio-visualizers-blender-tutorial/frame_006.jpg
+- [10:22] tutorials/frames/dont-make-boring-audio-visualizers-blender-tutorial/frame_007.jpg
+- [10:58] tutorials/frames/dont-make-boring-audio-visualizers-blender-tutorial/frame_008.jpg
+- [12:24] tutorials/frames/dont-make-boring-audio-visualizers-blender-tutorial/frame_009.jpg
+- [13:12] tutorials/frames/dont-make-boring-audio-visualizers-blender-tutorial/frame_010.jpg
+- [13:34] tutorials/frames/dont-make-boring-audio-visualizers-blender-tutorial/frame_011.jpg
+- [14:16] tutorials/frames/dont-make-boring-audio-visualizers-blender-tutorial/frame_012.jpg
+- [14:38] tutorials/frames/dont-make-boring-audio-visualizers-blender-tutorial/frame_013.jpg
+- [14:52] tutorials/frames/dont-make-boring-audio-visualizers-blender-tutorial/frame_014.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Breaking the left-to-right spatial bias of the `Sample Sound Frequencies` node by feeding it a **randomised index** instead of position, so audio-reactive values scatter across a mesh rather than reading as a visible waveform.
 
 ### Summary
-[PENDING EXTRACTION]
+The `Sample Sound Frequencies` node returns amplitude for a frequency band, but the usual way of driving it — from X position — bakes the waveform's left-to-right layout into the design, which is what makes most audio visualisers look alike. The fix here is small and reusable: drive the frequency lookup from an `Index` passed through a `Random Value` in Integer mode, which shuffles which face responds to which band. Low end then flashes in scattered patches rather than marching along one axis. The rest of the video is a design pass on top of that idea — Split Edges, Scale Elements, Extrude Mesh and Mesh Bevel for the geometry, a Layer Weight facing mix for the shading, and a Bloom + Film Grain compositor finish. The framing argument is that original visualisers come from starting with a non-audio reference and *then* making it reactive.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Store the audio as a named attribute.** `Store Named Attribute` named `song`, on the mesh `[transcript 4:18-4:32]`.
+2. **Build the frequency window.** `Scene Time (Seconds)` → the `Sample Sound Frequencies` node's `Time` input. A `Map Range` (`Float`, `Linear`, `Clamp` on, `From Min 0.000`, `From Max 1.000`, **`To Min 20.000`**, **`To Max 15000.000`**) feeds `Low`, and an `Add` node at **`Value 100.000`** offsets that into `High` `[frame_001]` `[transcript 4:47-5:02]`. The 20 Hz-15 kHz span is the audible range, and the +100 is the band width.
+3. **Import the song.** Video Sequencer → `Add` → `Sound`, then extend the scene to ~5000 frames to cover the track `[frame_008]` `[transcript 5:10-5:35]`.
+4. **Make it visible.** `Set Material`, then in the shader an `Attribute` node reading `song` into an **Emission** surface `[frame_008]` `[transcript 5:42-6:12]`.
+5. **Understand the constraint.** Driven from position, the result is literally the waveform: bass at one end, treble at the other, sweeping left to right `[transcript 6:27-7:19]`. Two of the author's own past pieces worked *around* this by spinning it in circles or displacing the points `[transcript 7:24-8:03]`.
+6. **Rebuild on a grid.** Delete the input, add a `Grid` at `Size X 16 m` × `Size Y 9 m` with `Vertices X 16`, `Vertices Y 9` `[frame_008]` `[transcript 8:28-8:56]`, and switch the attribute to the **Face** domain rather than points `[transcript 8:57-9:09]`.
+7. **The trick — shuffle the index.** Replace the position input with an `Index` node, then a `Random Value` set to **Integer** (`Min 0`, `Max 100`, `Seed 0`) into the Map Range value `[frame_008]` `[transcript 10:20-11:04]`. Each face now samples an unrelated frequency band, so the low end appears in scattered patches `[transcript 11:31-12:14]`.
+8. **Tune the response range.** Lowering the Map Range `From Min` brings more low end into the faces; raising `From Max` introduces more of the spectrum `[transcript 12:15-12:43]`. The sampled frame shows `From Min -6.900`, `From Max 266.260` `[frame_008]`.
+9. **Design the geometry.** After the Store Named Attribute: `Split Edges` → `Scale Elements` (Face domain, `Scale 0.840`) → `Extrude Mesh` (Faces, `Offset Scale 0.520`, `Individual` on) → `Mesh Bevel` (Edges, `Segments`, `Shape 0.500`) → `Set Shade Smooth` `[frame_011]` `[transcript 13:03-13:43]`. Bevel segments are called out as 8 then revised to 6 `[transcript 13:34-13:43]`.
+10. **Black out the world** so only the emissive faces read `[transcript 13:17-13:22]`.
+11. **Shade it.** Raise emission strength, add a `Mix Color` with `A` black and `B` the colour, and drive its factor from a `Layer Weight` node's **Facing** output `[transcript 14:02-14:20]`.
+12. **Switch the camera to Orthographic** and widen the orthographic scale `[transcript 14:22-14:32]`, then add a `Color Ramp` set to **B-Spline** `[transcript 14:34-14:40]`.
+13. **Composite.** Compositor → `Bloom` node (mode `Bloom`, quality `Medium`, `Strength 1.000`, `Saturation 1.000`, Glare `Size 0.500`) plus a **`Film Grain`** node group from the asset shelf `[frame_014]` `[transcript 14:42-14:55]`. **Blender 5.2 is required for this** `[transcript 14:49-14:55]`.
+14. **The design advice.** Something besides the audio should be animating — mixing in a moving noise texture is suggested — or the result reads as incomplete `[transcript 15:33-15:52]`.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **`Sample Sound Frequencies`** — inputs `Time`, `All Channels` (on), `Channel`, `Low`, `High`, `FFT` `[frame_001]`
+- **`Scene Time`** — `Seconds` output into `Time` `[frame_001]`
+- **`Map Range`** (frequency window) — `Float`, `Linear`, `Clamp` on, `From Min 0.000` / `From Max 1.000` initially; **`To Min 20.000`**, **`To Max 15000.000`** `[frame_001]`. Later retuned to `From Min -6.900`, `From Max 266.260` `[frame_008]`
+- **`Add`** — `Value 100.000` into the `High` input, setting band width `[frame_001][frame_008]`
+- **`Store Named Attribute`** — name `song` `[transcript 4:22-4:27]`
+- **`Index`** → **`Random Value`** (`Integer`, `Min 0`, `Max 100`, `Seed 0`) — the shuffle `[frame_008]`
+- **`Grid`** — `Size X 16 m`, `Size Y 9 m`, `Vertices X 16`, `Vertices Y 9` `[frame_008]`
+- **Geometry pass** — `Split Edges` → `Scale Elements` (`Face`, `Scale 0.840`, `Uniform`) → `Extrude Mesh` (`Faces`, `Offset Scale 0.520`, `Individual`) → `Mesh Bevel` (`Edges`, `Shape 0.500`, offsets `0.1 m`) `[frame_011]`
+- **Material** — `Emission` surface, `Color` driven by `Attribute | Factor`, `Strength 1.000` `[frame_008]`; plus `Mix Color` (A black) with `Layer Weight → Facing` as factor, and a `Color Ramp` on **B-Spline** `[transcript 14:02-14:40]`
+- **Compositor** — `Render Layers` → `Bloom` (`Bloom`, `Medium`, `Strength 1.000`, `Saturation 1.000`, `Tint`, Glare `Size 0.500`) → Group Output/Viewer, plus `Film Grain` node group `[frame_014]`
+- **Render** — EEVEE; Viewport `Samples 16` with `Temporal Reprojection`; Render `Samples 64`, `Shadows` on `[frame_014]`
+- **Audio source** — Epidemic Sound, chosen for copyright safety `[transcript 5:21-5:25]`
+
+> **The author flags his own uncertainty, and it is worth preserving.** At
+> `[transcript 11:00-11:22]` he wires `Index` into the Random Value's `ID` input, then
+> immediately says he does not know whether it does anything, tests deleting it — "you can
+> delete the index and it does nothing" — and concludes "I might be looking like a complete
+> fool," leaving it in regardless. He returns to it at `[transcript 12:44-12:52]`: "I feel
+> like I realize that I'm talking out of my butt. Just put in a random value." **Treat the
+> `Index → ID` connection as unverified.** The `Random Value` alone is what produces the
+> shuffle; `[frame_008]` shows `ID` present but proves nothing about its effect.
+>
+> **Frame-vs-transcript:** narration says "get a glare node, set it to bloom"
+> `[transcript 14:47]`; in 5.2 the node reads as a dedicated **`Bloom`** node with its own
+> mode dropdown `[frame_014]`. `Film Grain` is a node group added from the asset shelf,
+> which is why 5.2 is the stated minimum. Whisper writes "Blinder" for Blender throughout
+> and "mixed color" for `Mix Color`.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2.0 LTS — read from the title bar and status bar in `[frame_001]`, `[frame_008]`, `[frame_011]` and `[frame_014]`. Narration independently states 5.2 is required for the Film Grain step `[transcript 14:49]`, so both witnesses agree.
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, motion-design, animation, procedural, compositing, eevee, blender-5x, intermediate
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Create an Audio Visualizer with Geometry Nodes in Blender 5.2](create-an-audio-visualizer-with-geometry-nodes-in-blender-52.md) — same node, same Blender generation, conventional position-driven approach; the direct contrast this tutorial argues against
+- [Blender 5.0's NEW Audio Visualisation is INSANE!](blender-50s-new-audio-visualisation-is-insane.md) — the feature introduction for `Sample Sound Frequencies`; shares geometry-nodes, animation, motion-design
+- [Can Blender Still Compete (Motion Graphics)](can-blender-still-compete-motion-graphics.md) — same author and Blender version, same instancing-and-shading design vocabulary; shares geometry-nodes, motion-design, blender-5x
