@@ -1029,7 +1029,7 @@ def _detect_hallucination(text):
     top_word, top_count = collections.Counter(tail).most_common(1)[0]
     return top_count >= 8, "content word '%s' in last 50 content words" % top_word, top_count
 
-def run_safeguards(ch_transcripts, duration_sec=None):
+def run_safeguards(ch_transcripts, duration_sec=None, is_asr=True):
     """
     Run all Step-1 ingest quality checks (transcript completeness + ASR hallucination).
     Returns (warnings, critical) — critical items mark extraction_status: needs-review.
@@ -1078,16 +1078,34 @@ def run_safeguards(ch_transcripts, duration_sec=None):
         )
 
     # 3. ASR hallucination detection (per chapter)
-    for ch in ch_transcripts:
-        text = ch.get('text', '')
-        if len(text) > 200:
-            hallu, what, count = _detect_hallucination(text)
-            if hallu:
-                critical.append(
-                    f"ASR hallucination in '{ch.get('title', '?')}': "
-                    f"{what} x{count}. "
-                    "Review and truncate the affected section before extracting."
-                )
+    # ⚠️ ASR PROVENANCE REQUIRED. This check looks for an artifact of speech
+    # recognition -- a word or line the decoder got stuck repeating at the end of
+    # a segment. An ARTICLE ingest has no ASR in its history at all: is_yt is
+    # False, get_info/Whisper never ran, and the "transcript" is document text
+    # lifted out of HTML by fetch_article(). Running a decoder-artifact detector
+    # over prose it did not decode is a category error, and it is not theoretical
+    # -- it fired 2026-09-04 on the bundled substance_painter.export API page,
+    # whose closing code example legitimately writes 'export' 10x in its last 50
+    # words, and marked a complete healthy page needs-review.
+    #
+    # Deliberately NOT widened to "skip when --skip-video": a YouTube video
+    # ingested with --skip-video still has a Whisper/caption transcript, and
+    # --video-url sets is_yt True precisely because that path DOES transcribe.
+    # The discriminator is provenance, not whether frames were captured.
+    #
+    # Checks 1 and 2 above stay on for articles: an empty or 40-character page
+    # still means the fetch failed, which is true regardless of provenance.
+    if is_asr:
+        for ch in ch_transcripts:
+            text = ch.get('text', '')
+            if len(text) > 200:
+                hallu, what, count = _detect_hallucination(text)
+                if hallu:
+                    critical.append(
+                        f"ASR hallucination in '{ch.get('title', '?')}': "
+                        f"{what} x{count}. "
+                        "Review and truncate the affected section before extracting."
+                    )
 
     return warnings, critical
 
@@ -1681,7 +1699,8 @@ def main():
         # Safeguard checks — transcript completeness/hallucination only; frame-count
         # validation now happens in select_frames.py once real timestamps are chosen.
         sg_warnings, sg_critical = run_safeguards(ch_transcripts,
-                                                  info.get("duration", 0))
+                                                  info.get("duration", 0),
+                                                  is_asr=is_yt)
         if _cap_note:
             sg_warnings.append(_cap_note)
         _slice_note = slice_redecode_note(_slice_results)
