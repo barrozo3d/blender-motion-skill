@@ -3372,6 +3372,16 @@ Each entry format:
 - **Summary:** Episode 15 builds a UV deformer with Sample UV Surface: remap source geometry into 0-1 space via a Bounding Box, sample the target through its UV map to reposition it, then recover the lost height with a second sample of the surface Normal driving an offset. Resolves the node's confusing pair of UV sockets (UV Map takes the sampled geometry's UV; Sample UV takes the field from your own geometry) and gives a diagnostic: mix the result against original position, and collapse to world origin means a failed sample. Covers Bounding Box Min/Max/Use Radius, the instance case where Min and Max output zero entirely, the Is Valid socket for dropping unsampled points, and overlapping-UV breakage fixed with Pack UV Islands. Two blunt performance warnings: UV operations in geometry nodes are very slow (0.40 ms to 124 ms on a 55-cubed cube once Pack UV Islands is inserted), and Split to Instances is slow and origins every instance at the world origin — use an island-index average position with Vector Rotate instead.
 - **File:** tutorials/tut-sample-uv-surface-for-uv-deformer---p15-geometry-nodes-beginners-50.md
 
+
+### [Tut] How to use Vertex Group and Named Attribute? - P3 Geometry Nodes Beginners 5.0+
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=wgAF2lUSu70
+- **Author:** Bradley Animation
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/tut-how-to-use-vertex-group-and-named-attribute---p3-geometry-nodes-beginners-50.md
+
 ---
 
 ## Tag Reference
