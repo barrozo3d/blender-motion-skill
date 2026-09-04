@@ -3322,6 +3322,16 @@ Each entry format:
 - **Summary:** NO NARRATION — silent screencast; the ingest transcript floor flagged it CRITICAL (136 chars against a 500-char minimum), so this entry is extracted from frames alone with evenly-spaced sampling. Recreates the Studio Dumbar kinetic-typography look ("DUMBAR STYLE") entirely in Geometry Nodes: a String node into String to Curves generates the letterforms procedurally, a low-resolution Grid (12.3m x 1m, 3x3 verts) slices them into horizontal bands, and a Repeat zone with Sample Index on the Instance domain plus Set Instance Transform drives per-band motion, controlled by an Empty read through Object Info. A Bake node freezes the instance evaluation, Color Ramps drive material colour and alpha, and the whole animation is keyed from one Value socket exposed on the modifier. Captures the node vocabulary and technique shape, not the intermediate wiring.
 - **File:** tutorials/kinetic-typography-in-blender-09-geometry-nodes-tutorial.md
 
+
+### Don't Make Boring Audio Visualizers (Blender Tutorial)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=2xGchC_1Mi8
+- **Author:** Ducky 3D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/dont-make-boring-audio-visualizers-blender-tutorial.md
+
 ---
 
 ## Tag Reference
