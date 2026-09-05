@@ -3522,6 +3522,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/alembic-import-and-export.md
 
+
+### Universal Scene Description USD
+- **Source:** Article
+- **URL:** https://docs.blender.org/manual/en/5.2/files/import_export/usd.html
+- **Author:** docs.blender.org (Blender 5.2 LTS official docs)
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/universal-scene-description-usd.md
+
 ---
 
 ## Tag Reference
