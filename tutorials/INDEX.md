@@ -3512,6 +3512,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/object-solver-constraint.md
 
+
+### Alembic Import and Export
+- **Source:** Article
+- **URL:** https://docs.blender.org/manual/en/5.2/files/import_export/alembic.html
+- **Author:** docs.blender.org (Blender 5.2 LTS official docs)
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/alembic-import-and-export.md
+
 ---
 
 ## Tag Reference
