@@ -3412,6 +3412,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/python-api-quickstart.md
 
+
+### Python API Overview
+- **Source:** Article
+- **URL:** https://docs.blender.org/api/5.2/info_overview.html
+- **Author:** docs.blender.org (Blender 5.2 LTS official docs)
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/python-api-overview.md
+
 ---
 
 ## Tag Reference
