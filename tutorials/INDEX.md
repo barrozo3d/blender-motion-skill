@@ -3472,6 +3472,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/motion-tracking-introduction.md
 
+
+### Editing Motion Tracks
+- **Source:** Article
+- **URL:** https://docs.blender.org/manual/en/5.2/movie_clip/tracking/clip/editing/track.html
+- **Author:** docs.blender.org (Blender 5.2 LTS official docs)
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/editing-motion-tracks.md
+
 ---
 
 ## Tag Reference
