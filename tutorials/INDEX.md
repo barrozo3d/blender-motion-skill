@@ -3502,6 +3502,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/solving-camera-motion.md
 
+
+### Object Solver Constraint
+- **Source:** Article
+- **URL:** https://docs.blender.org/manual/en/5.2/animation/constraints/motion_tracking/object_solver.html
+- **Author:** docs.blender.org (Blender 5.2 LTS official docs)
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/object-solver-constraint.md
+
 ---
 
 ## Tag Reference
