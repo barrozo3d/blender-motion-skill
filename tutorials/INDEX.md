@@ -3432,6 +3432,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/command-line-arguments.md
 
+
+### Rendering From The Command Line
+- **Source:** Article
+- **URL:** https://docs.blender.org/manual/en/5.2/advanced/command_line/render.html
+- **Author:** docs.blender.org (Blender 5.2 LTS official docs)
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/rendering-from-the-command-line.md
+
 ---
 
 ## Tag Reference
