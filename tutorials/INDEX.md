@@ -3462,6 +3462,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/nla-tracks.md
 
+
+### Motion Tracking Introduction
+- **Source:** Article
+- **URL:** https://docs.blender.org/manual/en/5.2/movie_clip/tracking/introduction.html
+- **Author:** docs.blender.org (Blender 5.2 LTS official docs)
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/motion-tracking-introduction.md
+
 ---
 
 ## Tag Reference
