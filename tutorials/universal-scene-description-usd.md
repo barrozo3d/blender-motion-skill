@@ -23,6 +23,14 @@ uncertainty_frames: []
 
 ## Raw Data (for Claude Code extraction)
 
+## Ingest Safeguard Report
+
+_Auto-generated at ingest/frame-capture time — explains why `extraction_status` may be `needs-review`. Safe to delete once reviewed._
+
+- WARNING: Article TRUNCATED at the 25000-char cap: the page holds 25013 chars, so 13 were dropped. The Raw Data below is INCOMPLETE -- say so in the Structured Notes, and consider ingesting the missing sections as their own entries.
+
+---
+
 
 Frame capture was skipped for this ingest (--skip-video). Text-only extraction.
 
