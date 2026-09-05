@@ -3492,6 +3492,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/tracking-camera-panel.md
 
+
+### Solving Camera Motion
+- **Source:** Article
+- **URL:** https://docs.blender.org/manual/en/5.2/movie_clip/tracking/clip/toolbar/solve.html
+- **Author:** docs.blender.org (Blender 5.2 LTS official docs)
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/solving-camera-motion.md
+
 ---
 
 ## Tag Reference
