@@ -3482,6 +3482,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/editing-motion-tracks.md
 
+
+### Tracking Camera Panel
+- **Source:** Article
+- **URL:** https://docs.blender.org/manual/en/5.2/movie_clip/tracking/clip/sidebar/track/camera.html
+- **Author:** docs.blender.org (Blender 5.2 LTS official docs)
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/tracking-camera-panel.md
+
 ---
 
 ## Tag Reference
