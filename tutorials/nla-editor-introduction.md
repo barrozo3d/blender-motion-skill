@@ -4,9 +4,9 @@ source: Article
 url: https://docs.blender.org/manual/en/5.2/editors/nla/introduction.html
 author: docs.blender.org (Blender 5.2 LTS official docs)
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [nla, animation, blender-5x, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/nla-editor-introduction/
 frame_count: 0
 frame_status: skipped
@@ -37,27 +37,52 @@ Frame capture was skipped for this ingest (--skip-video). Text-only extraction.
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+The NLA editor animates with **actions** — named, reusable animation segments — instead of individual keyframes, stacking them as **strips on tracks** that layer like image-editor layers, higher over lower, with optional blending.
 
 ### Summary
-[PENDING EXTRACTION]
+This is the re-timing and re-use layer the gap named, and the concept that makes it legible is the **Action Track**: the top track, highlighted orange, holds the object's *active* action rather than strips, and that is where new keyframes land by default. Other editors — the Dope Sheet in particular — normally show only that active action's keyframes, which is why editing an action already pushed into a strip requires selecting it and pressing **`Tab`** to enter **Tweak Mode**, at which point it appears in both its original track and the Action Track while the active action is temporarily hidden. Around that sit the ordinary editor mechanics worth knowing: **Show Control F-Curves** draws a graph over each strip using Animated Influence, **Realtime Updates** decides whether the 3D Viewport follows a strip as you drag it or only once you let go, **Sync Visible Range** locks horizontal pan and zoom to other time editors, **Local Markers** shows action-local markers (created in the Action Editor) which are useful for aligning strips, and the preview range operators (**`P`**, **`Alt`-`P`**, **`Ctrl`-`Alt`-`P`**) limit playback to a segment.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Think in **actions**, not keyframes — named reusable segments instanced as **Action Strips**.
+2. Read the stack like layers: **higher tracks take precedence over lower ones**, or blend them.
+3. Identify the **Action Track** (top, orange) — it holds the active action, not strips, and receives new keyframes by default.
+4. Select a strip and press **`Tab`** for **Tweak Mode** to edit an action that is not the active one; it shows in both its own track and the Action Track.
+5. Navigate with **Frame Selected** (`NumpadPeriod`), **Frame All** (`Home`), **Frame Scene/Preview Range**, and **Go to Current Frame** (`Numpad0`).
+6. Toggle **Sidebar** (`N`) and the **Track Region** (Channels); use **Adjust Last Operation** for the pop-up of the last operator's properties.
+7. Turn on **Show Control F-Curves** to see the influence graph on strips using Animated Influence, and **Show Markers** / **Show Local Markers** to align strips against Action Editor markers.
+8. Set **Realtime Updates** according to whether you want the viewport to follow a drag or update only on release.
+9. Use **Use Timecode** (`Ctrl`-`T`) for seconds instead of frames, and **Sync Visible Range** to keep other time editors on the same section.
+10. Limit playback with **Set Preview Range** (`P`), clear it (`Alt`-`P`), or fit it to the selection (`Ctrl`-`Alt`-`P`).
+11. Select with **`A`** / **`Alt`-`A`** / **`Ctrl`-`I`**, **Box Select** (`B`), **Box Select (Axis Range)** (`Alt`-`B`), and **Before/After Current Frame** (`[` / `]`).
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Action** (reusable segment), **Action Strip**, **track**, **Action Track** (top, orange, holds the active action).
+- **Tweak Mode** — `Tab` on a selected strip.
+- View: Sidebar (`N`), Channels, Playback Controls, Frame Selected (`NumpadPeriod`), Frame All (`Home`), Frame Scene/Preview Range, Go to Current Frame (`Numpad0`), **Realtime Updates**, **Show Control F-Curves**, **Show Markers**, **Show Local Markers**, **Use Timecode** (`Ctrl`-`T`), **Sync Visible Range**.
+- Preview range: Set (`P`), Clear (`Alt`-`P`), Set to Selected (`Ctrl`-`Alt`-`P`).
+- Select: All (`A`), None (`Alt`-`A`), Invert (`Ctrl`-`I`), Box (`B`), Box Axis Range (`Alt`-`B`), Before (`[`) / After (`]`) Current Frame.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2.
 
 ### Tags
-[PENDING EXTRACTION]
+`nla`, `animation`, `blender-5x`, `intermediate`
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [NLA Tracks](nla-tracks.md) — mute, lock, solo, and the Push Down / Pin behaviour of the Action Track.
+
+---
+
+> **Provenance.** Official Blender 5.2 LTS documentation, pinned to the versioned
+> path (`docs.blender.org/manual/en/5.2/` and `docs.blender.org/api/5.2/`) rather
+> than `latest`, so the entry keeps saying what 5.2 says after `latest` moves on.
+> ⚠️ **These pages append site chrome to `<title>`** (" - Blender 5.2 LTS Manual",
+> " - Blender Python API"), so `--title` is required when ingesting them.
+> **Blender 5.2.1 LTS is installed on this machine** (`D:\Steam\steamapps\common\Blender`,
+> build 2026-08-25), so the documented behaviour can be checked against the real
+> build rather than taken on trust.

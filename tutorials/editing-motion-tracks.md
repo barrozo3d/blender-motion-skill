@@ -4,9 +4,9 @@ source: Article
 url: https://docs.blender.org/manual/en/5.2/movie_clip/tracking/clip/editing/track.html
 author: docs.blender.org (Blender 5.2 LTS official docs)
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [tracking, camera-tracking, blender-5x, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/editing-motion-tracks/
 frame_count: 0
 frame_status: skipped
@@ -37,27 +37,48 @@ Frame capture was skipped for this ingest (--skip-video). Text-only extraction.
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Drive the 2D tracking pass from the **Track** menu — track forwards, backwards or one frame at a time, clear bad segments in either direction, and **Refine** a marker you have repositioned by hand.
 
 ### Summary
-[PENDING EXTRACTION]
+This is the day-to-day tracking work, and the useful detail is how failure behaves differently depending on how you track. During **sequence** tracking, markers the algorithm loses are **disabled** and tracking continues for the rest; during **frame-by-frame** tracking the marker is **not** disabled and the most likely position on the next frame is used instead. That difference decides which mode to use on difficult footage. The **Clear** operators are directional and easy to invert in memory — **Clear › Before** deletes tracked and keyframed markers *after* the current frame, **Clear › After** deletes them *before* it — with **Clear Active** limiting the action to the active track rather than all selected ones, and **Track Path** clearing every marker except the current one. **Refine** is the recovery tool for an occlusion: when a feature reappears, place the marker on it manually, then run Refine (Forwards or Backwards to match your tracking direction) so the tracker treats your placement as an initial guess and finds the better match.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Track a whole sequence with **Track › Track Motion › Forwards** (`Ctrl`-`T`) or **Backwards** (`Shift`-`Ctrl`-`T`); tracking obeys the **Tracking Settings** panel.
+2. Step one frame at a time with **Frame Forwards** (`Alt`-`Right`) or **Frame Backwards** (`Alt`-`Left`) where the footage is difficult.
+3. Know the failure difference: sequence tracking **disables** lost markers and carries on; frame-by-frame tracking keeps the marker and guesses the most likely next position.
+4. Trim a bad tail with **Clear › Before** (`Shift`-`T`) — which deletes markers **after** the current frame — or a bad head with **Clear › After** (`Alt`-`T`), which deletes markers **before** it.
+5. Add **Clear Active** to restrict a clear to the active track instead of every selected one.
+6. Use **Clear › Track Path** (`Shift`-`Alt`-`T`) to strip a track back to the current marker alone.
+7. Recover from an occlusion with **Refine**: place the marker by hand on the frame where the feature reappears, then run **Refine Forwards** or **Refine Backwards** to match your tracking direction — the tracker runs from the previous keyframe to the current frame using your placement as the initial guess.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Track › Track Motion**: Forwards (`Ctrl`-`T`), Backwards (`Shift`-`Ctrl`-`T`), Frame Forwards (`Alt`-`Right`), Frame Backwards (`Alt`-`Left`).
+- **Track › Clear**: Before (`Shift`-`T`, deletes *after* the frame), After (`Alt`-`T`, deletes *before* it), Track Path (`Shift`-`Alt`-`T`), Clear Solution; **Clear Active** modifier.
+- **Refine** — Forwards / Backwards; runs from the previous keyframe to the current frame treating the current position as a guess.
+- Depends on the **Tracking Settings** panel.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2.
 
 ### Tags
-[PENDING EXTRACTION]
+`tracking`, `camera-tracking`, `blender-5x`, `intermediate`
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Solving Camera Motion](solving-camera-motion.md) — Cleanup by reprojection error, which consumes these tracks.
+- [Motion Tracking Introduction](motion-tracking-introduction.md) — where this sits in the whole workflow.
+
+---
+
+> **Provenance.** Official Blender 5.2 LTS documentation, pinned to the versioned
+> path (`docs.blender.org/manual/en/5.2/` and `docs.blender.org/api/5.2/`) rather
+> than `latest`, so the entry keeps saying what 5.2 says after `latest` moves on.
+> ⚠️ **These pages append site chrome to `<title>`** (" - Blender 5.2 LTS Manual",
+> " - Blender Python API"), so `--title` is required when ingesting them.
+> **Blender 5.2.1 LTS is installed on this machine** (`D:\Steam\steamapps\common\Blender`,
+> build 2026-08-25), so the documented behaviour can be checked against the real
+> build rather than taken on trust.

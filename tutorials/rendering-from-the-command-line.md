@@ -4,9 +4,9 @@ source: Article
 url: https://docs.blender.org/manual/en/5.2/advanced/command_line/render.html
 author: docs.blender.org (Blender 5.2 LTS official docs)
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [command-line, rendering, pipeline, blender-5x, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/rendering-from-the-command-line/
 frame_count: 0
 frame_status: skipped
@@ -37,27 +37,48 @@ Frame capture was skipped for this ingest (--skip-video). Text-only extraction.
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Render without a GUI — `blender -b file.blend ... -a` — with the two rules that decide whether it works: **arguments execute in the order given**, and **they are case sensitive**.
 
 ### Summary
-[PENDING EXTRACTION]
+Short, and it earns its place entirely on two gotchas that silently produce the wrong result. **Order matters**: `blender -b file.blend -a -x 1 -o //render` does *not* work, because output and extension are set *after* Blender has been told to render — `-f` and `-a` must come **last**. **Case matters**: `-F` (render format) and `-f` (render frame) are different arguments, and confusing them is a quiet failure rather than an error. Beyond that it gives the canonical invocations: a single frame with `-f 10`; a frame written to a padded path in a chosen format with `-o /project/renders/frame_##### -F OPEN_EXR -f -2` (where `-2` means the second-*last* frame); a whole animation with `-a` using the blend-file's own settings; and a bounded render on a chosen engine and thread count with `-E CYCLES -s 10 -e 500 -t 2 -a`. The framing is the pipeline argument for doing it this way at all: no graphical display is needed (no X server on Linux), so the render can run over SSH.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Render in the background with **`-b`** — no display required, so it runs over a remote shell.
+2. ⚠️ **Put `-f` or `-a` last.** Arguments execute in order, so anything set after them is set too late.
+3. ⚠️ **Watch case** — `-F` is the format, `-f` is the frame.
+4. Single frame: `blender -b file.blend -f 10`.
+5. Single frame, explicit path and format: `blender -b file.blend -o /project/renders/frame_##### -F OPEN_EXR -f -2` — five `#` give five-digit padding, `-2` is the second-last frame.
+6. Whole animation on the file's own settings: `blender -b file.blend -a`.
+7. Bounded animation with engine and threads: `blender -b file.blend -E CYCLES -s 10 -e 500 -t 2 -a`; `blender -E help` lists engines.
+8. Reach for the full argument list with `blender --help` or the Command Line Arguments page; Cycles-specific options live in Cycles Render Options.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- `-b` background; `-a` animation; `-f <frame>` single frame (negative = relative to the end); `-s` / `-e` start and end; `-t` threads; `-E` engine (`-E help`); `-o` output path with `#` padding; `-F` format override (e.g. `OPEN_EXR`); `-x 1` add extension.
+- Rules: **arguments execute in order** (`-f`/`-a` last), **arguments are case sensitive** (`-F` ≠ `-f`).
+- Motivation: no graphical display needed — renders over SSH.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2.
 
 ### Tags
-[PENDING EXTRACTION]
+`command-line`, `rendering`, `pipeline`, `blender-5x`, `intermediate`
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Command Line Arguments](command-line-arguments.md) — every argument these examples draw on.
+- [Python API Overview](python-api-overview.md) — `--python` for variant logic the command line cannot express.
+
+---
+
+> **Provenance.** Official Blender 5.2 LTS documentation, pinned to the versioned
+> path (`docs.blender.org/manual/en/5.2/` and `docs.blender.org/api/5.2/`) rather
+> than `latest`, so the entry keeps saying what 5.2 says after `latest` moves on.
+> ⚠️ **These pages append site chrome to `<title>`** (" - Blender 5.2 LTS Manual",
+> " - Blender Python API"), so `--title` is required when ingesting them.
+> **Blender 5.2.1 LTS is installed on this machine** (`D:\Steam\steamapps\common\Blender`,
+> build 2026-08-25), so the documented behaviour can be checked against the real
+> build rather than taken on trust.

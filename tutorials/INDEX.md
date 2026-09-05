@@ -3407,130 +3407,143 @@ Each entry format:
 - **Source:** Article
 - **URL:** https://docs.blender.org/api/5.2/info_quickstart.html
 - **Author:** docs.blender.org (Blender 5.2 LTS official docs)
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** python-scripting, bpy, pipeline, blender-5x, intermediate
+- **Summary:** The Blender Python API in practice: bpy.data for reading and writing any data the interface can touch, bpy.ops for running the same tools the user clicks, bpy.context for the selection they act on. Data-blocks CANNOT be created by calling the class - bpy.types.Mesh() raises deliberately, because Blender manages that data for save/load/undo; create and delete through the bpy.data collections instead. bpy.context is READ-ONLY (active_object = obj raises; view_layer.objects.active = obj works) and its members change with the area it is read from. Also custom properties on any ID data-block (basic types only, 1024-level nesting limit, animatable and usable in drivers), operator poll() gating, the Operator Cheat Sheet, and enabling Developer Extras plus Python Tooltips so buttons reveal their Python attribute.
 - **File:** tutorials/python-api-quickstart.md
+- **Related:** Python API Overview (`python-api-overview.md`) — shares `python-scripting`, `bpy`, `pipeline`. Command Line Arguments (`command-line-arguments.md`) — the batch side of automation.
 
 
 ### Python API Overview
 - **Source:** Article
 - **URL:** https://docs.blender.org/api/5.2/info_overview.html
 - **Author:** docs.blender.org (Blender 5.2 LTS official docs)
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** python-scripting, bpy, pipeline, blender-5x, intermediate
+- **Summary:** How Python and Blender fit together: one embedded interpreter alive for the whole session, with bpy and mathutils available to it. The distinction that matters for durable work is executing a script versus importing it as a module - executed scripts leave their classes inside Blender where they are awkward to reach, so the docs advise against directly executing scripts that register classes. Extending Blender means subclassing bpy.types.Panel, Menu, Operator, PropertyGroup, KeyingSet or RenderEngine, setting bl_idname and bl_label, and calling bpy.utils.register_class; modifiers, object types and shader nodes still need C/C++. Startup scans scripts/startup/ and imports everything there; add-ons load only when enabled and need a blender_manifest.toml.
 - **File:** tutorials/python-api-overview.md
+- **Related:** Python API Quickstart (`python-api-quickstart.md`) — shares `python-scripting`, `bpy`, `pipeline`; the data and operator model. Command Line Arguments (`command-line-arguments.md`) — `--python`.
 
 
 ### Command Line Arguments
 - **Source:** Article
 - **URL:** https://docs.blender.org/manual/en/5.2/advanced/command_line/arguments.html
 - **Author:** docs.blender.org (Blender 5.2 LTS official docs)
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** command-line, rendering, pipeline, blender-5x, intermediate
+- **Summary:** The full blender command line reference for headless and batch work: -b background, -a animation, -f single frame (accepting +n/-n relative frames, comma lists and .. ranges), -s/-e start and end, -j frame jump, -S scene, -E engine (-E help lists them), -t threads. The -o output argument repays attention: // is blend-relative, # characters set frame-number zero padding, {blend_name} templating is supported, and a filename with no # silently gains ####. -F overrides the blend-file's format, which is how one scene renders to several formats. Cycles options come after a double dash: -- --cycles-device OPTIX (CPU, CUDA, OPTIX, HIP, ONEAPI, METAL, or GPU+CPU), --cycles-print-stats.
 - **File:** tutorials/command-line-arguments.md
+- **Related:** Rendering From The Command Line (`rendering-from-the-command-line.md`) — shares `command-line`, `rendering`, `pipeline`; the worked invocations. Python API Overview (`python-api-overview.md`) — `--python` for variant logic.
 
 
 ### Rendering From The Command Line
 - **Source:** Article
 - **URL:** https://docs.blender.org/manual/en/5.2/advanced/command_line/render.html
 - **Author:** docs.blender.org (Blender 5.2 LTS official docs)
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** command-line, rendering, pipeline, blender-5x, intermediate
+- **Summary:** Rendering Blender without a GUI - no display needed, so it runs over SSH - and the two rules that decide whether it works. ARGUMENTS EXECUTE IN ORDER, so -f or -a must come LAST: blender -b file.blend -a -x 1 -o //render does not work, while blender -b file.blend -x 1 -o //render -a does. And ARGUMENTS ARE CASE SENSITIVE: -F is the render format, -f is the render frame. Includes the canonical invocations for a single frame, a padded OpenEXR output at a negative (end-relative) frame, a whole animation, and a bounded range on a chosen engine and thread count.
 - **File:** tutorials/rendering-from-the-command-line.md
+- **Related:** Command Line Arguments (`command-line-arguments.md`) — shares `command-line`, `rendering`, `pipeline`; every argument used here.
 
 
 ### NLA Editor Introduction
 - **Source:** Article
 - **URL:** https://docs.blender.org/manual/en/5.2/editors/nla/introduction.html
 - **Author:** docs.blender.org (Blender 5.2 LTS official docs)
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** nla, animation, blender-5x, intermediate
+- **Summary:** The NonLinear Animation editor: animating with ACTIONS - named reusable segments - instead of individual keyframes, stacked as strips on tracks that layer like image-editor layers, higher over lower, optionally blended. The concept that makes it legible is the Action Track: the orange top track holds the object's active action rather than strips, and that is where new keyframes land, which is why other editors show only that action and why editing a strip's action needs Tab to enter Tweak Mode. Also Show Control F-Curves for Animated Influence, Realtime Updates, Sync Visible Range, action-local markers for aligning strips, and the preview range operators P, Alt-P and Ctrl-Alt-P.
 - **File:** tutorials/nla-editor-introduction.md
+- **Related:** NLA Tracks (`nla-tracks.md`) — shares `nla`, `animation`; mute, lock, solo, Push Down and Pin.
 
 
 ### NLA Tracks
 - **Source:** Article
 - **URL:** https://docs.blender.org/manual/en/5.2/editors/nla/tracks.html
 - **Author:** docs.blender.org (Blender 5.2 LTS official docs)
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** nla, animation, blender-5x, intermediate
+- **Summary:** NLA tracks: one track plays actions in sequence, several tracks play actions simultaneously. Per-track Mute (strips gain a dotted outline), Lock (the practical way to move strips in every track except a few) and Solo (mutes all others including the Action Track), plus Disable NLA stack on the object header. Push Down Action is the move that builds layered animation: it creates a track below, moves the active action into it as a strip and empties the Action Track, after which the next keyframe automatically creates a fresh active action. Pin, available only in Tweak Mode, switches keyframe display between the strip's moved/scaled timing and the action's original time points.
 - **File:** tutorials/nla-tracks.md
+- **Related:** NLA Editor Introduction (`nla-editor-introduction.md`) — shares `nla`, `animation`; the editor and Tweak Mode.
 
 
 ### Motion Tracking Introduction
 - **Source:** Article
 - **URL:** https://docs.blender.org/manual/en/5.2/movie_clip/tracking/introduction.html
 - **Author:** docs.blender.org (Blender 5.2 LTS official docs)
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** tracking, camera-tracking, blender-5x, beginner
+- **Summary:** Blender motion tracking overview - 2D tracking and 3D reconstruction, camera and object solving including tripod shots, plane tracks for compositing, and tracks driving masks in the Mask Editor. The honest part is lens calibration: all cameras record distorted video, focal length can be read automatically only from camera settings or EXIF, and there is NO built-in calibration tool. The documented in-Blender workaround is to draw a poly-line with the Annotation tool along something known to be straight and adjust distortion until it matches; for accuracy the page sends you to OpenCV's grid calibration, which uses the same distortion model. Also names the post-solve scene orientation tools and 2D stabilization.
 - **File:** tutorials/motion-tracking-introduction.md
+- **Related:** Tracking Camera Panel (`tracking-camera-panel.md`), Solving Camera Motion (`solving-camera-motion.md`), Editing Motion Tracks (`editing-motion-tracks.md`), Object Solver Constraint (`object-solver-constraint.md`) — share `tracking`; the rest of the workflow this page introduces.
 
 
 ### Editing Motion Tracks
 - **Source:** Article
 - **URL:** https://docs.blender.org/manual/en/5.2/movie_clip/tracking/clip/editing/track.html
 - **Author:** docs.blender.org (Blender 5.2 LTS official docs)
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** tracking, camera-tracking, blender-5x, intermediate
+- **Summary:** The 2D tracking pass in Blender: Track Motion forwards (Ctrl-T), backwards (Shift-Ctrl-T) and frame at a time (Alt-Left/Right). Failure behaves differently by mode - during SEQUENCE tracking a lost marker is disabled and tracking continues for the rest, while during FRAME-BY-FRAME tracking the marker is not disabled and the most likely next position is used. The Clear operators are directionally counterintuitive and worth reading twice: Clear > Before (Shift-T) deletes markers AFTER the current frame, Clear > After (Alt-T) deletes them BEFORE it, with Clear Active limiting to the active track. Refine is the occlusion recovery tool: place the marker by hand where the feature reappears, then Refine Forwards or Backwards.
 - **File:** tutorials/editing-motion-tracks.md
+- **Related:** Solving Camera Motion (`solving-camera-motion.md`) — shares `tracking`, `camera-tracking`; Cleanup consumes these tracks. Motion Tracking Introduction (`motion-tracking-introduction.md`).
 
 
 ### Tracking Camera Panel
 - **Source:** Article
 - **URL:** https://docs.blender.org/manual/en/5.2/movie_clip/tracking/clip/sidebar/track/camera.html
 - **Author:** docs.blender.org (Blender 5.2 LTS official docs)
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** tracking, camera-tracking, camera, blender-5x, advanced
+- **Summary:** Camera intrinsics and lens distortion for a Blender solve - Sensor Width, Pixel Aspect (derivable: footage meant to be 1920x1080 delivered at 1280x1080 gives 1.5), Focal Length, and Optical Center in normalised image coordinates. WARNING WORTH THE READ: camera presets do NOT include distortion coefficients or the principal point, so those must be entered even when a preset is used. Four distortion models, not interchangeable: Polynomial (K1-K3), Division (K1-K2, better for fisheye), Nuke (K1-K2, matching the Nuke compositor), and Brown-Conrady (K1-K4 radial plus P1-P2 tangential). Positive radial coefficients give barrel, negative give pincushion, mixed give moustache; tangential P1/P2 compensate a sensor not perpendicular to the lens. There is no calibration tool - hand-tune K1 against the known focal length.
 - **File:** tutorials/tracking-camera-panel.md
+- **Related:** Solving Camera Motion (`solving-camera-motion.md`) — shares `tracking`, `camera-tracking`; Refine adjusts these same intrinsics. Motion Tracking Introduction (`motion-tracking-introduction.md`) — the calibration routes.
 
 
 ### Solving Camera Motion
 - **Source:** Article
 - **URL:** https://docs.blender.org/manual/en/5.2/movie_clip/tracking/clip/toolbar/solve.html
 - **Author:** docs.blender.org (Blender 5.2 LTS official docs)
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** tracking, camera-tracking, blender-5x, advanced
+- **Summary:** Solving camera or object motion in Blender, then cleaning and orienting the result. Refine chooses which intrinsics the solver may adjust - Focal Length, Optical Center, Radial and Tangential Distortion - but still needs approximate initial values and will fail from wildly wrong ones. Cleanup turns solve error into an operation: minimum Frames length, maximum reprojection Error, and a Type of Select, Delete Track or Delete Segments. Orientation supplies the scene scale and floor tools - Floor, Wall, Set Origin, Set X/Y Axis, Set Scale and Apply Scale with a Distance in scene units. The Tripod solver behaves differently: it solves relative rotation only and reprojects features onto a sphere, so MORE TRACKS DO NOT HELP - 5 to 10 per frame is the working range. Ends with Set as Background and Setup Tracking Scene.
 - **File:** tutorials/solving-camera-motion.md
+- **Related:** Tracking Camera Panel (`tracking-camera-panel.md`), Editing Motion Tracks (`editing-motion-tracks.md`), Object Solver Constraint (`object-solver-constraint.md`) — share `tracking`, `camera-tracking`.
 
 
 ### Object Solver Constraint
 - **Source:** Article
 - **URL:** https://docs.blender.org/manual/en/5.2/animation/constraints/motion_tracking/object_solver.html
 - **Author:** docs.blender.org (Blender 5.2 LTS official docs)
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** tracking, object-tracking, animation, blender-5x, intermediate
+- **Summary:** Object tracking in Blender - making an object imitate a tracked real-world object. Register the physical object in the Objects Panel of the Movie Clip Editor sidebar, track AT LEAST EIGHT markers on it, run Solve Camera/Object Motion, then add the Object Solver constraint. The Camera field should point at the Blender camera matching the physical one, and if that camera moved it needs its own Camera Solver Constraint - the constraint is still useful with a stationary camera because it places markers at their reconstructed world positions in the viewport. Set Inverse is the pivot: it declares the object's current position (with the constraint disabled) correct for this frame. Re-tweaking has a strict order - Apply Visual Transform, disable, adjust, Set Inverse, re-enable.
 - **File:** tutorials/object-solver-constraint.md
+- **Related:** Solving Camera Motion (`solving-camera-motion.md`) — shares `tracking`; the solve this consumes. Motion Tracking Introduction (`motion-tracking-introduction.md`) — object vs camera solving.
 
 
 ### Alembic Import and Export
 - **Source:** Article
 - **URL:** https://docs.blender.org/manual/en/5.2/files/import_export/alembic.html
 - **Author:** docs.blender.org (Blender 5.2 LTS official docs)
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** alembic, pipeline, blender-5x, intermediate
+- **Summary:** Alembic interchange in Blender - what survives the round trip and what deliberately does not. Alembic stores the COMPUTED result (animated vertex positions and transforms) and explicitly not the rig or dependency graph that produced it, which is what makes a CPU-heavy character cheap to load for shading and lighting, and what enables a hybrid Houdini/Maya/Blender pipeline. On import Blender wires caches automatically: Mesh Sequence Cache modifiers on time-varying meshes and a Transform Cache Constraint for animated transforms. Options worth setting deliberately: Set Frame Range, Is Sequence for split caches, Validate Meshes (recommended - bad data can crash display or editing and is not always visible), and Always Add Cache Reader. On export keep Scale at 1.0 for Blender units.
 - **File:** tutorials/alembic-import-and-export.md
+- **Related:** Universal Scene Description USD (`universal-scene-description-usd.md`) — shares `pipeline`; the other interchange route.
 
 
 ### Universal Scene Description USD
 - **Source:** Article
 - **URL:** https://docs.blender.org/manual/en/5.2/files/import_export/usd.html
 - **Author:** docs.blender.org (Blender 5.2 LTS official docs)
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2
+- **Tags:** usd, pipeline, blender-5x, intermediate
+- **Summary:** Blender's USD import and export options, mapped by group: import covers General, Object Types, Geometry, Rigging, Materials, Textures, Particles and Instancing plus Coordinate System Orientation; export covers General, Object Types, Geometry, Rigging, Materials, Accessibility and an Experimental group. The sections to read before committing a pipeline are Exporter Limitations, USD Primvar data types and USD UI. NOTE: this entry is a map of the option groups rather than a per-option reference - the source page exceeded the article character cap by 13 characters of trailing navigation, and this ingest is what exposed the silent-truncation defect in the pipeline.
 - **File:** tutorials/universal-scene-description-usd.md
+- **Related:** Alembic Import and Export (`alembic-import-and-export.md`) — shares `pipeline`; a narrower, better-defined contract.
 
 ---
 

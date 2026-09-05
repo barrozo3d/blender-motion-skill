@@ -4,9 +4,9 @@ source: Article
 url: https://docs.blender.org/manual/en/5.2/movie_clip/tracking/introduction.html
 author: docs.blender.org (Blender 5.2 LTS official docs)
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [tracking, camera-tracking, blender-5x, beginner]
+extraction_status: complete
 frames_dir: tutorials/frames/motion-tracking-introduction/
 frame_count: 0
 frame_status: skipped
@@ -37,27 +37,52 @@ Frame capture was skipped for this ingest (--skip-video). Text-only extraction.
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Track 2D features in footage, reconstruct 3D camera or object motion from them, and apply the result to 3D objects through constraints — then orient the solved scene with floor, origin and axis tools.
 
 ### Summary
-[PENDING EXTRACTION]
+The orientation page for Blender's tracker, and it is honest about the hard part: **all cameras record distorted video**, and an accurate solve needs the exact focal length and the strength of that distortion. Focal length can be read automatically only from camera settings or EXIF; distortion cannot, and there is **no built-in calibration tool**. The documented in-Blender workaround is manual and clever — draw with the **Annotation** tool's poly-line brush along something that should be straight in the footage, then adjust the distortion values until the annotation matches the line. For real accuracy the page sends you to **OpenCV's grid calibration**, noting OpenCV uses the same distortion model so the values transfer. Beyond that it names the scope: 2D tracking and 3D reconstruction, **camera** and **object** motion solving including **tripod** shots, the **plane track** for compositing, tracks driving masks for rotoscoping in the Mask Editor, scene-orientation tools for floor/origin/axes after the solve, and **2D stabilization** for hand-held jumps and tilts.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Load footage into the Movie Clip Editor and work in **Tracking Mode**, switching between its three views with the **View** selector — split the area to see a curve or dope sheet view alongside.
+2. Get the **focal length** from the camera settings or EXIF where possible.
+3. Calibrate distortion, because nothing does it for you: draw a poly-line **Annotation** over something known to be straight, then adjust the distortion values until they match.
+4. For accuracy, calibrate with **OpenCV's grid tool** — same distortion model, so the coefficients carry over.
+5. Solve **camera** motion, **object** motion relative to the camera, or a **tripod** shot; use a **plane track** where all markers lie on one plane.
+6. **Orient the solved scene** — define the floor, the scene origin and the X/Y axes so compositing is workable.
+7. Apply **2D stabilization** when hand-held footage carries spurious jumps and tilts.
+8. Reuse tracks to move and deform **masks** for rotoscoping in the Mask Editor.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Movie Clip Editor › Tracking Mode**, three views via the View selector; Mask Editor as a separate mode.
+- Solve types: camera motion, **tripod**, object motion, **plane track**.
+- Calibration: focal length from settings/EXIF; distortion by **Annotation** poly-line matching, or **OpenCV grid calibration** (same model).
+- Post-solve: floor / scene origin / X-Y axis orientation tools; **2D Stabilization**.
+- Output path: constraints applying tracking data to 3D objects.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Beginner
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2.
 
 ### Tags
-[PENDING EXTRACTION]
+`tracking`, `camera-tracking`, `blender-5x`, `beginner`
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Tracking Camera Panel](tracking-camera-panel.md) — the intrinsics and distortion models this page says you must supply.
+- [Solving Camera Motion](solving-camera-motion.md) — the solve, refine and orientation tools.
+- [Editing Motion Tracks](editing-motion-tracks.md) — the 2D tracking work that comes first.
+- [Object Solver Constraint](object-solver-constraint.md) — applying an object solve to a Blender object.
+
+---
+
+> **Provenance.** Official Blender 5.2 LTS documentation, pinned to the versioned
+> path (`docs.blender.org/manual/en/5.2/` and `docs.blender.org/api/5.2/`) rather
+> than `latest`, so the entry keeps saying what 5.2 says after `latest` moves on.
+> ⚠️ **These pages append site chrome to `<title>`** (" - Blender 5.2 LTS Manual",
+> " - Blender Python API"), so `--title` is required when ingesting them.
+> **Blender 5.2.1 LTS is installed on this machine** (`D:\Steam\steamapps\common\Blender`,
+> build 2026-08-25), so the documented behaviour can be checked against the real
+> build rather than taken on trust.

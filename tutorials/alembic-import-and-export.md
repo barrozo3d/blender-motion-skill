@@ -4,9 +4,9 @@ source: Article
 url: https://docs.blender.org/manual/en/5.2/files/import_export/alembic.html
 author: docs.blender.org (Blender 5.2 LTS official docs)
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [alembic, pipeline, blender-5x, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/alembic-import-and-export/
 frame_count: 0
 frame_status: skipped
@@ -37,27 +37,48 @@ Frame capture was skipped for this ingest (--skip-video). Text-only extraction.
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Alembic bakes an animated scene down to **geometric results** — vertex positions and transforms — and deliberately **not** the rig or dependency graph that produced them, which is exactly what makes it cheap to load in a shot file.
 
 ### Summary
-[PENDING EXTRACTION]
+The interchange page, and the first thing it settles is what survives the round trip: Alembic stores the *computed* result of an arbitrarily complex process — enveloping, correctives, volume-preserving sims, cloth and flesh — and does **not** store the network of computations that made it. A character can be animated with a CPU-heavy rig, baked to Alembic, then loaded for shading and lighting at moderate cost, which is the hybrid-pipeline argument for using it at all (Houdini or Maya out, Blender in, or the reverse). On **import**, Blender wires the cache automatically: time-varying meshes get **Mesh Sequence Cache** modifiers, and time-varying object transforms get a **Transform Cache Constraint**. The import options worth setting deliberately are **Set Frame Range** (match the scene to the archive), **Is Sequence** (when the cache is split across files), **Validate Meshes** (checks for and fixes corrupt data — slower, but recommended, because bad data can crash display or editing and is not always visible), and **Always Add Cache Reader** (add modifiers and constraints even to non-animated objects so they update when the archive reloads). **Scale** appears on both sides; on export, keep it at **1.0** to use Blender's units.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Decide the direction: bake heavy rigs to Alembic and load the result for shading/lighting, or export from Houdini/Maya and bring the cache into Blender.
+2. On import, set **Scale** relative to the world origin, and **Relative Path** to store the file relative to the blend-file.
+3. Enable **Set Frame Range** to update the scene's start and end to match the archive.
+4. Set **Is Sequence** when the cache is split into separate files.
+5. Leave **Validate Meshes** on — it checks imported meshes for corrupt data and fixes it; disabling it is faster but erroneous data can crash display or editing, and it is not always obvious.
+6. Enable **Always Add Cache Reader** so even non-animated objects carry cache modifiers and constraints and update when the archive reloads.
+7. Expect the automatic wiring: **Mesh Sequence Cache** modifiers on time-varying meshes, **Transform Cache Constraint** for animated location/rotation/scale.
+8. On export, keep **Scale** at **1.0** to stay in Blender units, and use **Selection Only** to limit what is written.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Import**: **Scale**, **Relative Path**, **Set Frame Range**, **Is Sequence**, **Validate Meshes** (recommended), **Always Add Cache Reader**.
+- Automatic on import: **Mesh Sequence Cache** modifier (time-varying meshes), **Transform Cache Constraint** (animated transforms).
+- **Export**: **Scale** (1.0 = Blender units), **Selection Only**, plus the further option groups on the page.
+- Concept: stores baked geometry and transforms, **not** rigs or the dependency graph.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2.
 
 ### Tags
-[PENDING EXTRACTION]
+`alembic`, `pipeline`, `blender-5x`, `intermediate`
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Universal Scene Description USD](universal-scene-description-usd.md) — the other interchange route, and a different set of trade-offs.
+
+---
+
+> **Provenance.** Official Blender 5.2 LTS documentation, pinned to the versioned
+> path (`docs.blender.org/manual/en/5.2/` and `docs.blender.org/api/5.2/`) rather
+> than `latest`, so the entry keeps saying what 5.2 says after `latest` moves on.
+> ⚠️ **These pages append site chrome to `<title>`** (" - Blender 5.2 LTS Manual",
+> " - Blender Python API"), so `--title` is required when ingesting them.
+> **Blender 5.2.1 LTS is installed on this machine** (`D:\Steam\steamapps\common\Blender`,
+> build 2026-08-25), so the documented behaviour can be checked against the real
+> build rather than taken on trust.

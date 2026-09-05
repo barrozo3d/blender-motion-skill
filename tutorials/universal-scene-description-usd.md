@@ -4,9 +4,9 @@ source: Article
 url: https://docs.blender.org/manual/en/5.2/files/import_export/usd.html
 author: docs.blender.org (Blender 5.2 LTS official docs)
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [usd, pipeline, blender-5x, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/universal-scene-description-usd/
 frame_count: 0
 frame_status: skipped
@@ -45,27 +45,57 @@ Frame capture was skipped for this ingest (--skip-video). Text-only extraction.
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Blender's USD importer and exporter, covering which object types, geometry, rigging, materials, textures, particles and instancing survive the round trip in each direction.
 
 ### Summary
-[PENDING EXTRACTION]
+The USD half of the interchange gap. The page is organised as two option sets — **Importing USD Files** and **Exporting to USD Files** — each broken down by **General**, **Object Types**, **Geometry**, **Rigging** and **Materials**, with import adding **Textures**, **Particles and Instancing**, and a **Coordinate System Orientation** section, and export adding **Accessibility** and an **Experimental** group. It closes with **Exporter Limitations**, **USD Primvar data types** and **USD UI** — the sections that say what does *not* make it across, which is the part worth reading before committing a pipeline to it.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Choose direction — import into Blender, or export a Blender scene to USD.
+2. On import, work through **General**, then **Object Types**, **Geometry**, **Rigging**, **Materials**, **Textures**, and **Particles and Instancing**.
+3. Check **Coordinate System Orientation** on import — axis convention is the classic silent failure in USD interchange.
+4. On export, set **General**, **Object Types**, **Geometry**, **Rigging** and **Materials**, and review the **Accessibility** and **Experimental** groups before relying on them.
+5. **Read Exporter Limitations before committing** — it names what will not survive the export.
+6. Consult **USD Primvar data types** when custom attributes have to arrive intact in the receiving application.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Import Options**: General, Object Types, Geometry, Rigging, Materials, Textures, Particles and Instancing; **Coordinate System Orientation**.
+- **Export Options**: General, Object Types, Geometry, Rigging, Materials, **Accessibility**, **Experimental**.
+- Reference sections: **Exporter Limitations**, **USD Primvar data types**, **USD UI**.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2.
 
 ### Tags
-[PENDING EXTRACTION]
+`usd`, `pipeline`, `blender-5x`, `intermediate`
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Alembic Import and Export](alembic-import-and-export.md) — the other interchange format, with a much narrower and better-defined contract.
+
+---
+
+> ⚠️ **This entry's Raw Data is TRUNCATED and the notes are correspondingly
+> shallow.** The page is 25,013 characters and `fetch_article`'s cap keeps
+> 25,000, so **13 characters were dropped** — trailing navigation text, not
+> content, verified by inspecting the tail. The notes above are therefore
+> complete in substance but summarise a page whose per-option detail is far
+> deeper than what is captured here; treat this entry as a **map of the option
+> groups**, not a reference for individual options, and open the source URL for
+> any specific setting. This ingest is also what exposed the silent-truncation
+> defect: the cap used to drop text with no warning at all, and now reports it.
+
+---
+
+> **Provenance.** Official Blender 5.2 LTS documentation, pinned to the versioned
+> path (`docs.blender.org/manual/en/5.2/` and `docs.blender.org/api/5.2/`) rather
+> than `latest`, so the entry keeps saying what 5.2 says after `latest` moves on.
+> ⚠️ **These pages append site chrome to `<title>`** (" - Blender 5.2 LTS Manual",
+> " - Blender Python API"), so `--title` is required when ingesting them.
+> **Blender 5.2.1 LTS is installed on this machine** (`D:\Steam\steamapps\common\Blender`,
+> build 2026-08-25), so the documented behaviour can be checked against the real
+> build rather than taken on trust.

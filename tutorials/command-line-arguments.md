@@ -4,9 +4,9 @@ source: Article
 url: https://docs.blender.org/manual/en/5.2/advanced/command_line/arguments.html
 author: docs.blender.org (Blender 5.2 LTS official docs)
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [command-line, rendering, pipeline, blender-5x, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/command-line-arguments/
 frame_count: 0
 frame_status: skipped
@@ -37,27 +37,51 @@ Frame capture was skipped for this ingest (--skip-video). Text-only extraction.
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+The full `blender [args ...] [file] [args ...]` reference — the render, format, animation, Cycles and Python arguments that let a shot be rendered or a script run with no interface at all.
 
 ### Summary
-[PENDING EXTRACTION]
+The reference behind headless and batch work, and the page a variant-render script is built from. The render group carries the essentials: **`-b/--background`**, **`-a/--render-anim`**, **`-f/--render-frame`** (which accepts `+n`/`-n` for start- and end-relative frames, a comma-separated list, and `..` ranges), **`-s`/`-e`** for start and end, **`-j`** for frame stepping, **`-S`** to pick a scene, **`-E`** to pick an engine (`-E help` lists them), and **`-t`** for thread count (`0` = processor count). **`-o/--render-output`** is the one worth reading twice: `//` makes the path relative to the blend-file, `#` characters are replaced by the frame number and define the zero padding, path templating like `{blend_name}` is supported, and **when the filename has no `#`, `####` is appended automatically** — so `//render_` becomes `//render_0001.png`. Cycles options come **after a double dash** (`-- --cycles-device OPTIX`), with devices `CPU`, `CUDA`, `OPTIX`, `HIP`, `ONEAPI`, `METAL`, and `+CPU` appendable to a GPU device to use both. **`-F/--render-format`** overrides the file format saved in the blend-file.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Start from `blender --help` for the build in front of you — the same content, guaranteed current.
+2. Render headless with **`-b`**, and note the audio device is disabled in background mode unless you pass `-setaudio Default` afterwards.
+3. Choose the work: **`-a`** for the whole animation, **`-f <frame>`** for one — with `+2` / `-2` relative to start/end, comma-separated lists, and `..` ranges.
+4. Bound it with **`-s`** / **`-e`**, step with **`-j`**, and pick the scene with **`-S <name>`**.
+5. Select the engine with **`-E <engine>`** (list them via `-E help`) and the thread count with **`-t`** (`0` for the system processor count).
+6. Set output with **`-o`**: `//` for blend-relative, `#` for frame-number padding (`test-######.png` → `test-000001.png`), `{blend_name}` templating — and remember **a filename without `#` silently gains `####`**.
+7. Override the format with **`-F`** rather than editing the blend-file — the route for rendering the same scene to several formats.
+8. Pass Cycles options **after `--`**: `blender -b file.blend -f 20 -- --cycles-device OPTIX`. `--cycles-print-stats` logs memory and time.
+9. Drive automation with the Python arguments (`--python`, and the expression/text variants) when the variant to render must be decided in script rather than on the command line.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Render:** `-b/--background` (`-setaudio Default` to re-enable audio), `-a/--render-anim`, `-f/--render-frame` (`+n`, `-n`, lists, `..` ranges), `-s/--frame-start`, `-e/--frame-end`, `-j/--frame-jump`, `-S/--scene`, `-E/--engine` (`-E help`), `-t/--threads` (1–1024, `0` = auto).
+- **Output:** `-o/--render-output` — `//` blend-relative, `#` padding, `{blend_name}` templating, automatic `####` when no `#` present.
+- **Format:** `-F/--render-format` (TGA, RAWTGA, …) — overrides the blend-file setting.
+- **Cycles (after `--`):** `--cycles-device` (`CPU`, `CUDA`, `OPTIX`, `HIP`, `ONEAPI`, `METAL`, `<GPU>+CPU`), `--cycles-print-stats`.
+- Usage shape: `blender [args ...] [file] [args ...]`.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2 — the page states its own version in the first line, and matches `blender --help` from the 5.2.1 LTS build installed on this machine.
 
 ### Tags
-[PENDING EXTRACTION]
+`command-line`, `rendering`, `pipeline`, `blender-5x`, `intermediate`
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Rendering From The Command Line](rendering-from-the-command-line.md) — the worked invocations, and the argument-order trap.
+- [Python API Overview](python-api-overview.md) — `--python` and what a loaded script can do once running.
+
+---
+
+> **Provenance.** Official Blender 5.2 LTS documentation, pinned to the versioned
+> path (`docs.blender.org/manual/en/5.2/` and `docs.blender.org/api/5.2/`) rather
+> than `latest`, so the entry keeps saying what 5.2 says after `latest` moves on.
+> ⚠️ **These pages append site chrome to `<title>`** (" - Blender 5.2 LTS Manual",
+> " - Blender Python API"), so `--title` is required when ingesting them.
+> **Blender 5.2.1 LTS is installed on this machine** (`D:\Steam\steamapps\common\Blender`,
+> build 2026-08-25), so the documented behaviour can be checked against the real
+> build rather than taken on trust.

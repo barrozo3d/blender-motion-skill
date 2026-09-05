@@ -4,9 +4,9 @@ source: Article
 url: https://docs.blender.org/api/5.2/info_quickstart.html
 author: docs.blender.org (Blender 5.2 LTS official docs)
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [python-scripting, bpy, pipeline, blender-5x, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/python-api-quickstart/
 frame_count: 0
 frame_status: skipped
@@ -37,27 +37,54 @@ Frame capture was skipped for this ingest (--skip-video). Text-only extraction.
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+The two halves of the Blender Python API: **`bpy.data`** for reading and writing any data the interface can touch, and **`bpy.ops`** for running the same tools the user clicks — with `bpy.context` supplying the selection they operate on.
 
 ### Summary
-[PENDING EXTRACTION]
+This is the page that closes the "scripting is effectively uncovered" gap, and its through-line is that **any setting changeable via a button is changeable from Python**, because the API is the same one the interface uses. Data lives under **`bpy.data`** as collections addressable by *both* string and index (unlike a Python dict) — with the warning that an index may change while Blender runs. Data-blocks **cannot be constructed by calling the class**: `bpy.types.Mesh()` raises, deliberately, because Blender manages that data for save/load/undo/append; you create and delete through methods on the `bpy.data` collections instead (`bpy.data.meshes.new(...)`, `.remove(...)`). **`bpy.context`** carries the user's state and is **read-only** — `bpy.context.active_object = obj` raises, while `bpy.context.view_layer.objects.active = obj` works — and its members change with the area it is read from. **Operators** run through `bpy.ops`, take their own settings, and many have a **poll** function that decides whether they can run at all in the current context. **Custom properties** can be attached to any ID data-block, are saved with the file, copied with objects, and are usable by drivers and F-Curves — limited to basic types, with a hard nesting limit of 1024 levels.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Enable **Developer Extras** and **Python Tooltips** first — button tooltips then show the Python attribute and operator name, and a button's context menu links straight to the API docs.
+2. Work in the **Scripting workspace** from the Topbar rather than rearranging editors by hand; use the **Python Console** for one-liners (it autocompletes) and the **Text Editor** with **Run Script** for files.
+3. Reach data through **`bpy.data`** — `bpy.data.objects`, `bpy.data.scenes`, `bpy.data.materials` — indexing by name **or** integer, remembering the integer can shift.
+4. Walk to the attribute you want the same way the UI names it: `bpy.data.scenes[0].render.resolution_percentage`, `bpy.data.objects[0].name`, `bpy.data.scenes[0].objects["Torus"].data.vertices[0].co.x`.
+5. **Create and delete through the collection**, never the class: `mesh = bpy.data.meshes.new(name="MyMesh")`, `bpy.data.meshes.remove(mesh)`. `bpy.types.Mesh()` is an intentional `TypeError`.
+6. Attach **custom properties** to any ID: `bpy.context.object["MyOwnProperty"] = 42`, membership-test with `in`, read with `.get(key, fallback)`, delete with `del`. Basic types only — int, float, string, arrays of ints/floats, and string-keyed dicts.
+7. Operate on the user's selection through **`bpy.context`** — `bpy.context.object`, `.selected_objects`, `.visible_bones` — treating it as **read-only** and changing state through the data API instead.
+8. Run tools with **`bpy.ops`**: `bpy.ops.mesh.flip_normals()`, `bpy.ops.mesh.hide(unselected=False)`, `bpy.ops.object.transform_apply()`. 💡 The **Operator Cheat Sheet** lists every operator with default values in Python syntax.
+9. Expect **poll()** to gate operators — the wrong area or object mode makes them unavailable, which is why an operator that works in the console can fail elsewhere.
+10. Read the bundled scripts as reference: `scripts/startup/bl_ui` for interface, `scripts/startup/bl_operators` for operators; the Text Editor's **template menu** holds many runnable examples.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **`bpy.data`** — collections (`objects`, `scenes`, `materials`, `meshes`, `collections`…); index by name or integer; `.new(name=)` / `.remove(obj)` for lifecycle.
+- **`bpy.context`** — read-only; `object`, `selected_objects`, `visible_bones`, `view_layer.objects.active`; contents vary by area.
+- **`bpy.ops`** — operators with their own settings; **poll()** gating; the **Operator Cheat Sheet**.
+- **Custom properties** — `obj["name"] = value`, `.get(key, fallback)`, `del`; int / float / string / int-float arrays / string-keyed dicts; **1024-level nesting limit**; animatable by curves and usable in driver paths.
+- UI aids: **Developer Extras**, **Python Tooltips**, **Scripting workspace**, **Python Console** (autocomplete), **Text Editor › Run Script**, template menu.
+- Reference sources: `scripts/startup/bl_ui`, `scripts/startup/bl_operators`.
+- API capabilities named: edit any UI-editable data, preferences/keymaps/themes, run tools with own settings, build menus/headers/panels, new and interactive tools, new render engines, subscribe to data changes, define settings on existing data, draw in the 3D Viewport. **Not** possible: new space types, custom properties on *every* type.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2 (API docs pinned at `/api/5.2/`).
 
 ### Tags
-[PENDING EXTRACTION]
+`python-scripting`, `bpy`, `pipeline`, `blender-5x`, `intermediate`
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Python API Overview](python-api-overview.md) — how the interpreter is embedded, and registering classes as real tools.
+- [Command Line Arguments](command-line-arguments.md) — `--python` and the batch side of automation.
+
+---
+
+> **Provenance.** Official Blender 5.2 LTS documentation, pinned to the versioned
+> path (`docs.blender.org/manual/en/5.2/` and `docs.blender.org/api/5.2/`) rather
+> than `latest`, so the entry keeps saying what 5.2 says after `latest` moves on.
+> ⚠️ **These pages append site chrome to `<title>`** (" - Blender 5.2 LTS Manual",
+> " - Blender Python API"), so `--title` is required when ingesting them.
+> **Blender 5.2.1 LTS is installed on this machine** (`D:\Steam\steamapps\common\Blender`,
+> build 2026-08-25), so the documented behaviour can be checked against the real
+> build rather than taken on trust.

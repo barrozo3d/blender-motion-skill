@@ -4,9 +4,9 @@ source: Article
 url: https://docs.blender.org/api/5.2/info_overview.html
 author: docs.blender.org (Blender 5.2 LTS official docs)
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [python-scripting, bpy, pipeline, blender-5x, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/python-api-overview/
 frame_count: 0
 frame_status: skipped
@@ -37,27 +37,52 @@ Frame capture was skipped for this ingest (--skip-video). Text-only extraction.
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Blender embeds a Python interpreter that lives for the whole session; extending Blender means **subclassing a `bpy.types` class and registering it**, not executing a script over and over.
 
 ### Summary
-[PENDING EXTRACTION]
+Where the Quickstart teaches the data model, this page explains the *architecture*, and the distinction that matters most for repeatable work is **executing a script versus importing it as a module**. Run a script directly and the classes it defines linger inside Blender after it finishes, which makes them awkward to reach later — to unregister, for instance. Import it as a module and its classes stay in the module, reachable by importing again. The page is explicit: **prefer not to directly execute scripts that register classes.** Integration happens through a deliberately limited set of base classes — `Panel`, `Menu`, `Operator`, `PropertyGroup`, `KeyingSet`, `RenderEngine` — by subclassing, setting `bl_`-prefixed identifiers, and calling `bpy.utils.register_class`. Anything deeper (mesh modifiers, object types, shader nodes) still requires C/C++. Startup behaviour is concrete and worth knowing for a studio setup: Blender scans **`scripts/startup/`** on launch and imports every module there, while **add-ons** load only when enabled in preferences and are distributed as extensions carrying a **`blender_manifest.toml`** with name, author, tags and project link.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Understand the runtime: one embedded interpreter, loaded at startup and alive for the session, with `bpy` and `mathutils` made available to it.
+2. Import the modules — any script touching Blender data needs `import bpy`. The one-liner `bpy.data.objects["Cube"].data.vertices[0].co.x += 1.0` modifies internal data directly and updates the viewport live.
+3. Decide **execute vs import**. Executing directly leaves defined classes inside Blender after the script ends; importing as a module keeps them reachable through the module.
+4. Run directly when testing: Text Editor › **Run Script**, typing/pasting into the console, or `blender --python /path/my_script.py` from the command line.
+5. Load as a module for anything durable: `import some_module`; a text data-block with **Register** checked (loads with the blend-file); a file copied into **`scripts/startup`** (auto-imported at launch); or packaged as an **add-on**.
+6. Extend by subclassing one of `bpy.types.Panel`, `Menu`, `Operator`, `PropertyGroup`, `KeyingSet`, `RenderEngine` — and accept that modifiers, object types and shader nodes are C/C++ territory.
+7. Follow the class contract: subclass from `bpy.types`, set `bl_idname` and `bl_label`, implement the expected method (`execute(self, context)` returning `{'FINISHED'}` for an Operator), then `bpy.utils.register_class(...)`.
+8. Ship it as an extension with a **`blender_manifest.toml`** — the only structural difference between an add-on and a built-in module, and what the preferences listing reads.
+9. Read the bundled scripts as worked examples — they use the same API you are writing against.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- Embedded interpreter; modules **`bpy`**, **`mathutils`**.
+- Script loading: **Run Script**, console, `blender --python file.py`, `import`, text data-block **Register**, **`scripts/startup/`**, add-on.
+- Integration base classes: `bpy.types.Panel`, `Menu`, `Operator`, `PropertyGroup`, `KeyingSet`, `RenderEngine`. Registration: `bpy.utils.register_class`.
+- Class members: `bl_idname`, `bl_label`; `execute(self, context)` → `{'FINISHED'}`.
+- Add-ons: enabled in preferences, distributed as extensions, require **`blender_manifest.toml`** (name, author, tags, project link).
+- Boundary: mesh modifiers, object types and shader nodes need **C/C++**, not Python.
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2 (API docs pinned at `/api/5.2/`).
 
 ### Tags
-[PENDING EXTRACTION]
+`python-scripting`, `bpy`, `pipeline`, `blender-5x`, `intermediate`
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [Python API Quickstart](python-api-quickstart.md) — the data, context and operator model these classes are built on.
+- [Command Line Arguments](command-line-arguments.md) — `--python`, `--python-expr` and running the result headless.
+
+---
+
+> **Provenance.** Official Blender 5.2 LTS documentation, pinned to the versioned
+> path (`docs.blender.org/manual/en/5.2/` and `docs.blender.org/api/5.2/`) rather
+> than `latest`, so the entry keeps saying what 5.2 says after `latest` moves on.
+> ⚠️ **These pages append site chrome to `<title>`** (" - Blender 5.2 LTS Manual",
+> " - Blender Python API"), so `--title` is required when ingesting them.
+> **Blender 5.2.1 LTS is installed on this machine** (`D:\Steam\steamapps\common\Blender`,
+> build 2026-08-25), so the documented behaviour can be checked against the real
+> build rather than taken on trust.

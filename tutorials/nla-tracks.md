@@ -4,9 +4,9 @@ source: Article
 url: https://docs.blender.org/manual/en/5.2/editors/nla/tracks.html
 author: docs.blender.org (Blender 5.2 LTS official docs)
 ingested: 2026-09-04
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2"
+tags: [nla, animation, blender-5x, intermediate]
+extraction_status: complete
 frames_dir: tutorials/frames/nla-tracks/
 frame_count: 0
 frame_status: skipped
@@ -37,27 +37,48 @@ Frame capture was skipped for this ingest (--skip-video). Text-only extraction.
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A track plays one or more actions in sequence; multiple tracks play actions **at the same time** — and **Push Down Action** is the move that turns the active action into a strip so a new one can be built on top.
 
 ### Summary
-[PENDING EXTRACTION]
+The operational half of the NLA. Each track carries **Mute** (stops contributing, strips get a dotted outline), **Lock** (prevents changes — the practical way to move strips in every track *except* a few), and **Solo** (mutes all others *including* the Action Track, for inspecting one track cleanly), with a **Disable NLA stack** checkbox on the object header that mutes everything except the Action Track. The Action Track shows one of two buttons depending on mode. **Push Down Action** — unavailable in Tweak Mode — creates a new track below, moves the active action into it as a strip, and leaves the Action Track empty; keyframe after that and Blender automatically makes a new active action to hold it. That single operation is the loop by which layered NLA animation gets built. **Pin**, available only in Tweak Mode, controls whether keyframes are displayed at their **original** time points or at the new ones produced by the strip being moved and scaled — the strip may play from frame 20 while the action itself still starts at frame 1, and unchecking Pin shows the original timing.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Put actions that should play **in sequence** on one track; use **multiple tracks** for actions that should play **simultaneously**.
+2. Rename a track by double-clicking it — not possible for the Action Track, which simply displays the action's name.
+3. **Mute** a track to stop it contributing (its strips gain a dotted outline); individual strips can be muted too.
+4. **Lock** the tracks you want untouched, then move strips freely in the rest.
+5. **Solo** a track to mute every other track *including the Action Track* while inspecting it.
+6. Use **Disable NLA stack** on the object header to mute all tracks except the Action Track at once.
+7. **Push Down Action** to move the active action into a new track below as a strip, emptying the Action Track — the next keyframe creates a fresh active action automatically.
+8. In **Tweak Mode**, uncheck **Pin** to view keyframes at their original time points rather than the strip's moved/scaled timing.
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Track** — plays actions in sequence; several tracks play in parallel.
+- Per-track: **name** (double-click), **Mute** (dotted-outline strips), **Lock** (padlock), **Solo** (star).
+- Object header: **Disable NLA stack** — mutes all but the Action Track.
+- **Action Track**: **Push Down Action** (not in Tweak Mode) and **Pin** (Tweak Mode only).
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2.
 
 ### Tags
-[PENDING EXTRACTION]
+`nla`, `animation`, `blender-5x`, `intermediate`
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- [NLA Editor Introduction](nla-editor-introduction.md) — the editor these tracks live in, and Tweak Mode.
+
+---
+
+> **Provenance.** Official Blender 5.2 LTS documentation, pinned to the versioned
+> path (`docs.blender.org/manual/en/5.2/` and `docs.blender.org/api/5.2/`) rather
+> than `latest`, so the entry keeps saying what 5.2 says after `latest` moves on.
+> ⚠️ **These pages append site chrome to `<title>`** (" - Blender 5.2 LTS Manual",
+> " - Blender Python API"), so `--title` is required when ingesting them.
+> **Blender 5.2.1 LTS is installed on this machine** (`D:\Steam\steamapps\common\Blender`,
+> build 2026-08-25), so the documented behaviour can be checked against the real
+> build rather than taken on trust.
