@@ -3442,6 +3442,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/rendering-from-the-command-line.md
 
+
+### NLA Editor Introduction
+- **Source:** Article
+- **URL:** https://docs.blender.org/manual/en/5.2/editors/nla/introduction.html
+- **Author:** docs.blender.org (Blender 5.2 LTS official docs)
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/nla-editor-introduction.md
+
 ---
 
 ## Tag Reference
