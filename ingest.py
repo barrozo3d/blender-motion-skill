@@ -1444,6 +1444,16 @@ def update_readme_tutorial_count():
     if new_content != content:
         readme.write_text(new_content, encoding="utf-8")
 
+ARTICLE_CHAR_CAP = 25000
+"""Maximum characters kept from a fetched article/documentation page.
+
+Raised once already for vendor documentation (D4b, 2026-08-24): a doc page is
+legitimately longer than a blog post and much shorter than a transcript. When a
+page exceeds it the excess is dropped, and fetch_article reports the full length
+so the caller can warn -- see the note on the return statement.
+"""
+
+
 def fetch_article(url):
     """Fetch a web article or documentation page as plain text.
 
@@ -1510,8 +1520,17 @@ def fetch_article(url):
                  r"How can we improve.*$"):
         text = re.sub(tail, "", text, flags=re.I | re.DOTALL).strip()
 
+    # ⚠️ THE CAP MUST ANNOUNCE ITSELF. `text[:ARTICLE_CHAR_CAP]` used to truncate
+    # in silence: the Blender USD manual page (2026-09-04) came back at exactly
+    # the cap, mid-content, and run_safeguards reported "All checks passed"
+    # because nothing in the pipeline knew anything had been dropped. That is the
+    # recurring failure of this program -- missing evidence presented as a clean
+    # result -- so the full length is returned alongside the truncated text and
+    # the caller raises a warning. The cap itself is unchanged: it is a real
+    # protection against pulling a whole site into one entry.
     return {"title": title, "uploader": urlparse(url).netloc,
-            "description": text[:25000], "duration": 0,
+            "description": text[:ARTICLE_CHAR_CAP], "duration": 0,
+            "article_full_len": len(text), "article_cap": ARTICLE_CHAR_CAP,
             "webpage_url": url, "chapters": []}
 
 # ── Main ───────────────────────────────────────────────────────────────────────
@@ -1703,6 +1722,17 @@ def main():
                                                   is_asr=is_yt)
         if _cap_note:
             sg_warnings.append(_cap_note)
+        # Article/doc page longer than the character cap -- say so, loudly enough
+        # that the extraction pass knows the Raw Data is partial.
+        _full = info.get("article_full_len") or 0
+        _cap = info.get("article_cap") or 0
+        if _cap and _full > _cap:
+            sg_warnings.append(
+                f"Article TRUNCATED at the {_cap}-char cap: the page holds "
+                f"{_full} chars, so {_full - _cap} were dropped. The Raw Data "
+                f"below is INCOMPLETE -- say so in the Structured Notes, and "
+                f"consider ingesting the missing sections as their own entries."
+            )
         _slice_note = slice_redecode_note(_slice_results)
         if _slice_note:
             sg_warnings.append(_slice_note)
