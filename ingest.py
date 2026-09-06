@@ -1168,7 +1168,13 @@ def run_safeguards(ch_transcripts, duration_sec=None, is_asr=True):
                    "%.1f cues/min. Whisper did not fail loudly -- it produced "
                    "coherent text for part of the runtime and nothing for the "
                    "rest, so the Structured Notes will silently describe only "
-                   "the part that survived."
+                   "the part that survived. FIRST THING TO TRY: re-run with "
+                   "--whisper-model medium. On the 2026-09-06 case that is not "
+                   "a guess -- `small` gave 25 cues over 92% silence, forcing "
+                   "--language hi gave 67 and no usable text, and `medium` gave "
+                   "116 cues, 7,672 chars and a coherent code-switched "
+                   "transcript. Model capacity was the cause, not language "
+                   "detection."
                    % (worst, worst / med, med, unwitnessed, duration_sec,
                       100.0 * unwitnessed / duration_sec,
                       len(cues) / (duration_sec / 60.0)))
