@@ -3550,9 +3550,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=kO_vPohvF-k
 - **Author:** Ducky 3D
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2.0 LTS -- observed in frame_000
+- **Tags:** geometry-nodes, materials, shaders, procedural, animation, compositing, eevee, motion-design, abstract, intermediate, blender-5x
+- **Summary:** An LED-wall audio visualizer in Blender 5.2: a 16x9 Grid split into faces carries two Store Named Attribute channels — `noise` for a 4D-noise drift panned by Scene Time, `song` for a Sample Sound Frequencies read of a music strip — both switched to the Face domain and read back in the shader by Attribute nodes driving Emission strength, finished with two stacked Fog Glow passes and 70mm film grain.
 - **File:** tutorials/tutorial-making-an-audio-visualizer-in-blender-52.md
 
 

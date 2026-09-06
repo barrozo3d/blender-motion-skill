@@ -4,13 +4,14 @@ source: YouTube
 url: https://www.youtube.com/watch?v=kO_vPohvF-k
 author: Ducky 3D
 ingested: 2026-09-06
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2.0 LTS -- observed in frame_000"
+tags: [geometry-nodes, materials, shaders, procedural, animation, compositing, eevee, motion-design, abstract, intermediate, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/tutorial-making-an-audio-visualizer-in-blender-52/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
 uncertainty_frames: []
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Tutorial: Making an Audio Visualizer in Blender 5.2
@@ -24,12 +25,7 @@ uncertainty_frames: []
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py tutorial-making-an-audio-visualizer-in-blender-52 <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -399,30 +395,75 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [2:22] tutorials/frames/tutorial-making-an-audio-visualizer-in-blender-52/frame_000.jpg
+- [4:34] tutorials/frames/tutorial-making-an-audio-visualizer-in-blender-52/frame_001.jpg
+- [7:42] tutorials/frames/tutorial-making-an-audio-visualizer-in-blender-52/frame_002.jpg
+- [8:42] tutorials/frames/tutorial-making-an-audio-visualizer-in-blender-52/frame_003.jpg
+- [9:40] tutorials/frames/tutorial-making-an-audio-visualizer-in-blender-52/frame_004.jpg
+- [12:05] tutorials/frames/tutorial-making-an-audio-visualizer-in-blender-52/frame_005.jpg
+- [13:20] tutorials/frames/tutorial-making-an-audio-visualizer-in-blender-52/frame_006.jpg
+- [17:40] tutorials/frames/tutorial-making-an-audio-visualizer-in-blender-52/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+An audio-reactive LED-wall visualiser: a Grid split into square faces carries two **Store Named Attribute** channels -- `noise` for the drifting pattern and `song` for the audio -- which the shader reads back with **Attribute** nodes, so all the animation lives in geometry nodes while all the look lives in the material, joined by a **Sample Sound Frequencies** node reading the scene's own audio strip.
 
 ### Summary
-[PENDING EXTRACTION]
+The geometry is one Grid (16 x 9 m, 16 x 9 vertices) split into individual faces, extruded and bevelled -- modelled in under three minutes so the rest of the tutorial can be about signal. Two attributes are stored *before* the Split Edges, on the Face domain, and read in the shader by name: a 4D noise texture panned by Scene Time gives the constant drift, and Sample Sound Frequencies drives per-face emission strength from a music strip in the Video Sequencer. Two stacked Fog Glow passes in the compositor turn the loudest faces into blooms, with film grain over the top.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. `Shift A` a plane, then in the Geometry Nodes editor delete the input and add a **Grid**: **Size X 16 m, Size Y 9 m, Vertices X 16, Vertices Y 9** -- the frame shows both the metres and the vertex counts are 16/9 [frame_000] [transcript 1:41-2:00].
+2. **Split Edges** -> **Scale Elements** (domain **Face**, **Uniform**) to inset each quad into a separate square; the scale reads **0.790** while he tunes it [frame_000] and settles at **0.900** [frame_001] [frame_005].
+3. **Extrude Mesh** with **Individual** on, Offset Scale **0.610** [frame_001], then **Bevel** with **Segments 6, Shape 0.500** [frame_001], then **Set Shade Smooth** and **Set Material** [transcript 2:24-3:02].
+4. Render settings: Cycles at first [frame_000], switched to **EEVEE**; world colour to black; camera set to **Orthographic** so the wall reads perfectly flat with no visible side faces [transcript 3:06-3:44].
+5. Create the two channels **before the Split Edges** so the values land per-face, not per-point: two **Store Named Attribute** nodes named `noise` and `song` [frame_001] [frame_005]. They default to the **Point** domain -- both must be switched to **Face** [frame_005] [frame_007], which is the step the narrator admits he forgot to say out loud [transcript 6:41-6:51].
+6. Pattern channel: **Noise Texture** set to **4D** and **fBM**, **Scale 0.350**, **Detail 0.000**, Roughness 0.500, Lacunarity 2.000, W 1.540, Normalize on [frame_002], fed through **Position -> Vector Math (Add) -> Vector Math (Multiply)** as a hand-built mapping. The **Multiply** carries **both** tuning numbers -- **X 0.200, Y 4.000, Z 1.000** [frame_002] [frame_003] -- the narration's "0.2 here and 4 here" [transcript 7:34] refers to two sockets of that one node, not to the Add.
+7. Animate the pan: **Scene Time (Seconds) -> Math Divide -> Combine XYZ (X)** into the Add's second Vector, so only X scrolls. The divisor settles at **0.200** [frame_004] -- smaller is faster [transcript 8:01-8:41]. Timeline End set to **5000** [frame_004].
+8. Read it back in the shader with an **Attribute** node named `noise` into an **Emission** (Strength 1.000) [frame_002]. Depth comes from a **Layer Weight** (Blend 0.500) **Facing** output through a **Color Ramp** set to **B-Spline** interpolation, stop 0 at Pos **0.007**, mixed with **Mix Color** [frame_004] [transcript 9:19-9:47] -- the B-Spline is the "hack" that washes the rim highlight out to grey instead of a hard edge.
+9. Audio: in the **Video Sequencer** (Scene strip view) add the music at frame 1; the timeline End becomes **7421** for this song [frame_005] [transcript 11:11-11:41]. Add **Sample Sound Frequencies**, point it at that sound, **All Channels** on, and drive **Time** from a **Scene Time (Seconds)** node so nothing needs keyframing [frame_005] [transcript 11:54-12:18].
+10. Scatter the reactivity across faces: a second **Noise Texture** (set to Detail 0, Scale 3, 4D) into a **Map Range** -- **Clamp on, From 0.000-1.000, To Min 20.000, To Max 15000.000** -- whose Result goes to **Low**, and through a **Math Add of 100.000** to **High** [frame_006]. *The transcript renders these two numbers as the single figure "15,020" [transcript 13:14]; the frame shows they are **20 Hz** and **15000 Hz**, the audible band.* The node's own defaults before this are Low 0 Hz / High 10000 Hz [frame_005].
+11. Tame it: a Map Range on the `song` attribute in geometry nodes, **-0.1 to 0.5** by the narrator's account [transcript 15:02-15:07], then in the shader an **Attribute** node `song` -> **Map Range (Clamp, To Min 3.530, To Max 70.300)** into the Emission **Strength**, so each face's brightness is its own frequency band [frame_007] [transcript 16:47-17:03].
+12. Compositing: a **Glare** node in **Fog Glow** mode, quality **Medium**, **Strength 3.000**, **Size 0.500** [frame_007], then a second Fog Glow with the same strength and a much larger size [transcript 18:14-18:25]. Both dropped to quality **Low** while editing because the viewport lags, raised to Medium at the end [transcript 18:34-20:22]. A **Film Grain** node set from Super 8 to **70 mm Cinema Animated** finishes it [transcript 19:36-19:46].
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+| Node | Setting | Value | Source |
+|---|---|---|---|
+| Grid | Size X / Size Y / Vertices X / Vertices Y | **16 m / 9 m / 16 / 9** | [frame_000] |
+| Scale Elements | Domain / Mode / Scale | **Face** / **Uniform** / 0.790 while tuning -> **0.900** | [frame_000] [frame_001] |
+| Extrude Mesh | Individual / Offset Scale | on / **0.610** | [frame_001] |
+| Bevel | Segments / Shape | **6** / **0.500** | [frame_001] |
+| Store Named Attribute | Names / Type / Domain | `noise`, `song` -- Float, created on **Point**, switched to **Face** | [frame_001] [frame_005] [frame_007] |
+| Noise Texture (pattern) | Dimensions / Type / Scale / Detail / W / Normalize | **4D** / **fBM** / **0.350** / **0.000** / 1.540 / on | [frame_002] |
+| Vector Math (Multiply) | X / Y / Z | **0.200 / 4.000 / 1.000** | [frame_002] [frame_003] |
+| Math (Divide) | Value | **0.200** (smaller = faster pan) | [frame_004] |
+| Emission | Strength | 1.000, later driven by the `song` Map Range | [frame_002] [frame_007] |
+| Layer Weight | Blend / output used | **0.500** / **Facing** | [frame_004] |
+| Color Ramp (rim) | Interpolation / stop 0 Pos | **B-Spline** / **0.007** | [frame_004] |
+| Sample Sound Frequencies | All Channels / Time / Low / High | on / Scene Time Seconds / **0 Hz** and **10000 Hz** by default | [frame_005] |
+| Map Range (frequency) | Clamp / From / To Min / To Max | on / 0.000-1.000 / **20.000** / **15000.000** | [frame_006] |
+| Math (Add) | Value | **100.000** (Result + 100 -> High) | [frame_006] |
+| Map Range (brightness) | Clamp / To Min / To Max | on / **3.530** / **70.300** | [frame_007] |
+| Glare | Mode / Quality / Strength / Size | **Fog Glow** / **Medium** / **3.000** / **0.500** | [frame_007] |
+| Film Grain | Preset | Super 8 -> **70 mm Cinema Animated** | [transcript 19:41] |
+| Scene | Frame End | 5000 while building, **7421** once the song is loaded | [frame_004] [frame_005] |
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2.0 LTS -- read from the title bar in [frame_000]; the narrator also states "we are going to need Blender 5.2" [transcript 1:12].
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, materials, shaders, procedural, animation, compositing, eevee, motion-design, abstract, intermediate, blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `tutorials/blender-sound-reactive-geometry-nodes-tutorial-how-to-audio-music-simulation-mog.md` -- the same Sample Sound Frequencies -> stored attribute -> shader chain on a different geometry base; shares tags: geometry-nodes, procedural, animation, abstract, motion-design.
+- `tutorials/make-this-blender-particle-effect-with-just-2-objects.md` -- the other half of the Store Named Attribute pattern, using a hand-built attribute as an age counter rather than an audio channel; shares tags: geometry-nodes, procedural, abstract, motion-design.
+- `tutorials/everything-new-in-blender-52-geometry-nodes.md` -- the same Blender version's geometry-node feature set, useful for what is and is not available here; shares tags: geometry-nodes, procedural, blender-5x.
