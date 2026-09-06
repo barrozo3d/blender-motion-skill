@@ -641,6 +641,8 @@ def check_reference_provenance():
     print(f"    not examined: the body of any reference file -- provenance headers only")
 
 
+FRAME_CITATION_CUTOFF = "2026-09-06"   # see check_frame_provenance()'s ratchet
+
 def check_frame_provenance():
     """Check #16 -- frame citations in Structured Notes resolve to captured frames.
 
@@ -670,6 +672,36 @@ def check_frame_provenance():
         cited = {int(x) for x in re.findall(r"frame_(\d{3})", notes)}
         if not cited:
             no_citations += 1
+            # THE RATCHET. Measured 2026-09-06 across the five skills: of 1,412
+            # entries marked `complete` that HAVE frames captured, 1,274 (90%)
+            # cite not one of them. The frames were downloaded, listed in a
+            # Captured Frames section, and then never used as evidence for a
+            # single claim -- so those notes are traceable to nothing, exactly
+            # the condition check #16 exists to detect and, until now, only
+            # counted. Per skill: paint-me 100%, unreal 98%, nuke 98%,
+            # houdini 87%, blender 83%.
+            #
+            # Failing all 1,274 outright would turn the whole library red and
+            # force a backfill nobody chose, so this HOLDS THE LINE instead:
+            # entries ingested from the cutoff onward must cite at least one
+            # frame; everything older stays counted and visible in the
+            # "not examined" line below. Raise the cutoff only by backfilling
+            # up to it, never to make a red result go away.
+            m_ing = re.search(r"^ingested:\s*(\d{4}-\d{2}-\d{2})", content, re.M)
+            m_cnt = re.search(r"^frame_count:\s*(\d+)", content, re.M)
+            m_st = re.search(r"^extraction_status:\s*(\S+)", content, re.M)
+            if (m_ing and m_cnt and m_st
+                    and m_ing.group(1) >= FRAME_CITATION_CUTOFF
+                    and int(m_cnt.group(1)) > 0
+                    and m_st.group(1) == "complete"):
+                fail(f"{fname}: extraction_status is 'complete' with "
+                     f"{m_cnt.group(1)} frame(s) captured, but the Structured "
+                     f"Notes cite none of them. Ingested {m_ing.group(1)}, on or "
+                     f"after the {FRAME_CITATION_CUTOFF} cutoff, so frame "
+                     f"grounding is required: read the frames and tag the names "
+                     f"and values they settle, e.g. `Fractal Noise 3D` "
+                     f"[frame_003]. If a frame genuinely settles nothing, say so "
+                     f"in the notes rather than leaving them unsourced.")
             continue
         citing += 1
         citations += len(re.findall(r"frame_(\d{3})", notes))
