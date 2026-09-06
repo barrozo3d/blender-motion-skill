@@ -1151,18 +1151,42 @@ def run_safeguards(ch_transcripts, duration_sec=None, is_asr=True):
     # (0.78%), every one of them genuinely gappy; the Hindi file scores 75.8.
     # The 60-second floor stops a very tight cadence turning an ordinary pause
     # into a finding.
+    # ⚠️ A TRAILING SILENCE IS NOT A COVERAGE GAP, and the first version of this
+    # check said it was. Caught the same day it shipped, by running it backwards
+    # over the corpus: `how-to-make-pokemon-in-zbrush-and-substance-painter-gengar`
+    # is 1,601s of which 1,520s (95%) carries no cue -- and it is CORRECT. The
+    # video is a time-lapse; the narrator says so at [1:18]. Whisper transcribed
+    # the 81-second spoken intro and then rightly produced nothing, because there
+    # is nothing. Flagging that as critical would have trained whoever reads
+    # these to ignore the check, which is how a safeguard dies.
+    # The discriminator, measured across the corpus: the time-lapse has ZERO
+    # interior holes -- its whole gap is the tail -- while every genuinely broken
+    # transcript has speech resuming after the hole. So interior gaps and the
+    # tail are judged separately, and only interior gaps can be critical.
     COVERAGE_RATIO = 20.0
     COVERAGE_MIN_GAP = 60
     cues = sorted(t for ch in ch_transcripts for t, _ in ch.get("segments", []))
     if duration_sec and len(cues) >= 10:
-        gaps = [cues[i] - cues[i-1] for i in range(1, len(cues))]
-        gaps.append(max(0, duration_sec - cues[-1]))
-        gaps = sorted(g for g in gaps if g >= 0)
-        med = gaps[len(gaps)//2] or 1
-        worst = gaps[-1]
+        inner = [cues[i] - cues[i-1] for i in range(1, len(cues))]
+        tail = max(0, duration_sec - cues[-1])
+        allg = sorted(g for g in inner + [tail] if g >= 0)
+        med = allg[len(allg)//2] or 1
+        # A video that simply goes quiet and stays quiet: report it, because the
+        # entry can then only be grounded in frames -- but never as critical.
+        if tail >= duration_sec * 0.25 and tail >= COVERAGE_MIN_GAP:
+            warnings.append(
+                "Transcript STOPS at %ds of %ds: the last %ds (%.0f%%) carry no "
+                "speech at all. Usually a time-lapse, a music outro or a silent "
+                "build section, and usually CORRECT -- but it means the "
+                "Structured Notes for that stretch can only come from frames. "
+                "Cite them, and do not describe what no source shows."
+                % (cues[-1], duration_sec, tail, 100.0 * tail / duration_sec))
+        gaps = allg
+        worst = max(inner) if inner else 0
         if worst >= COVERAGE_MIN_GAP and worst / med >= COVERAGE_RATIO:
-            unwitnessed = min(duration_sec, sum(g for g in gaps if g >= 4 * med))
-            msg = ("Transcript COVERAGE GAP: the largest silent stretch is %ds, "
+            unwitnessed = min(duration_sec, sum(g for g in inner if g >= 4 * med))
+            msg = ("Transcript COVERAGE GAP: the largest INTERIOR silent stretch "
+                   "is %ds, "
                    "%.0fx this transcript's own median cadence of %.0fs. Roughly "
                    "%d of %ds (%.0f%%) of the runtime carries NO cue at all, at "
                    "%.1f cues/min. Whisper did not fail loudly -- it produced "
@@ -1170,7 +1194,7 @@ def run_safeguards(ch_transcripts, duration_sec=None, is_asr=True):
                    "rest, so the Structured Notes will silently describe only "
                    "the part that survived. FIRST THING TO TRY: re-run with "
                    "--whisper-model medium. On the 2026-09-06 case that is not "
-                   "a guess -- `small` gave 25 cues over 92% silence, forcing "
+                   "a guess -- `small` gave 25 cues over 92%% silence, forcing "
                    "--language hi gave 67 and no usable text, and `medium` gave "
                    "116 cues, 7,672 chars and a coherent code-switched "
                    "transcript. Model capacity was the cause, not language "
