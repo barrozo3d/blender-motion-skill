@@ -3545,6 +3545,16 @@ Each entry format:
 - **File:** tutorials/universal-scene-description-usd.md
 - **Related:** Alembic Import and Export (`alembic-import-and-export.md`) — shares `pipeline`; a narrower, better-defined contract.
 
+
+### Tutorial: Making an Audio Visualizer in Blender 5.2
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=kO_vPohvF-k
+- **Author:** Ducky 3D
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/tutorial-making-an-audio-visualizer-in-blender-52.md
+
 ---
 
 ## Tag Reference
