@@ -4,13 +4,14 @@ source: YouTube
 url: https://www.youtube.com/watch?v=YZYXQSFwJEY
 author: Aria Faith Jones
 ingested: 2026-09-06
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 5.2.0 -- observed in frame_000"
+tags: [geometry-nodes, simulation, particles, procedural, motion-design, abstract, intermediate, blender-5x]
+extraction_status: complete
 frames_dir: tutorials/frames/make-this-blender-particle-effect-with-just-2-objects/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 8
+frame_status: complete
 uncertainty_frames: []
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Make THIS Blender Particle Effect With Just 2 Objects
@@ -24,12 +25,7 @@ uncertainty_frames: []
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py make-this-blender-particle-effect-with-just-2-objects <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Full Content [0:00]
@@ -112,30 +108,71 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:40] tutorials/frames/make-this-blender-particle-effect-with-just-2-objects/frame_000.jpg
+- [0:53] tutorials/frames/make-this-blender-particle-effect-with-just-2-objects/frame_001.jpg
+- [1:58] tutorials/frames/make-this-blender-particle-effect-with-just-2-objects/frame_002.jpg
+- [3:20] tutorials/frames/make-this-blender-particle-effect-with-just-2-objects/frame_003.jpg
+- [4:16] tutorials/frames/make-this-blender-particle-effect-with-just-2-objects/frame_004.jpg
+- [5:10] tutorials/frames/make-this-blender-particle-effect-with-just-2-objects/frame_005.jpg
+- [5:46] tutorials/frames/make-this-blender-particle-effect-with-just-2-objects/frame_006.jpg
+- [6:42] tutorials/frames/make-this-blender-particle-effect-with-just-2-objects/frame_007.jpg
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+A geometry-nodes simulation zone that emits points with Distribute Points on Faces and pushes them outward using a **Geometry Proximity** node measured against a second, smaller object -- a two-object substitute for writing the outward vector in pure math -- with every force scaled by Delta Time and a stored `life` attribute driving both culling and radius falloff.
 
 ### Summary
-[PENDING EXTRACTION]
+Two icospheres, one scaled to 0.5, are all the geometry this effect needs: the small one is never rendered, it only serves as the thing points are pushed *away from*. Points are distributed on the large sphere's faces, accumulated inside a simulation zone, and offset each step by the Geometry Proximity position vector, so they travel radially outward without any vector math. A noise texture recentred by subtracting 0.5 adds organic drift, and a hand-rolled `life` counter (Named Attribute + Math Add 1) gives the points an age that a Compare node uses to delete them and a Map Range + Float Curve uses to shrink them.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. Add an icosphere, `Shift D` to duplicate, `S` `0.5` to scale the copy -- the small copy is the push object. With the **original** selected, open the Geometry Nodes workspace and click New, then drag the duplicate into the node tree, which creates an **Object Info** node [frame_000] [transcript 0:15-0:35]. *(Whisper renders "into the node tree" as "in Tornow Tree" -- the frame settles it.)*
+2. `Shift A` -> **Distribute Points on Faces**, left on its defaults: distribution **Random**, **Density 10.000**, **Seed 0** [frame_001].
+3. Add a **Simulation Zone** and put a **Join Geometry** inside it feeding Simulation Output -> Group Output. Nothing appears to happen on playback, but the Spreadsheet shows the point count climbing every frame -- they are stacking in place [transcript 1:00-1:21].
+4. Add **Set Position** inside the zone. An Offset of 0.1 proves the mechanism but only pushes up the Z axis [transcript 1:21-1:32].
+5. Add **Geometry Proximity**, feed the Object Info geometry into its Target (Target Element **Faces**), and wire its **Position** output into Set Position's **Offset** [frame_002]. Object Info's **Original** mode works only while the object sits at the world origin; switch it to **Relative** if the object will ever move -- the frame at 1:58 shows Relative selected [frame_002] [transcript 1:45-1:56].
+6. The particles jump outward the instant the force is connected, because the offset is applied *per frame* and frame 1 already counts [transcript 2:26-2:41]. Fix it with a **Vector Math -> Scale**: force into Vector, the Simulation Input's **Delta Time** into Scale [frame_003]. The motion becomes one unit per *second*, so the same distance now takes 24 frames [transcript 3:09-3:32].
+7. For organic drift, add a second **Set Position** driven by a **Noise Texture**. Its Color output is all-positive, so every point drifts into +X/+Y/+Z; a **Vector Math -> Subtract** with **0.500 / 0.500 / 0.500** recentres it [frame_004] [transcript 3:50-4:14]. Scale this force by Delta Time as well, then set the noise to **4D** and drive **W** from a **Scene Time** node through a **Multiply** to slow the evolution [transcript 4:20-4:37].
+8. There is no age attribute to work with, so build one: **Store Named Attribute** named `life`, fed by a **Named Attribute** (`life`) into a **Math -> Add** of **1.000**, inside the zone. Each point's value now climbs by one per frame -- visible as a new `life` column in the Spreadsheet [frame_005] [transcript 4:44-5:14].
+9. Cull with **Delete Geometry** (domain **Point**, mode **All**) gated by a **Compare -> Greater Than** with **B = 75.000** [frame_006]. Replace that constant with a **Random Value** node (**Min 75.000, Max 100.000**) so the deaths stagger instead of happening in one wave [frame_006] [transcript 5:25-5:56].
+10. Shrink points as they age with **Set Point Radius** driven by a **Float Curve**. The curve expects 0-1 but `life` runs to 100, so add a second Store Named Attribute -- the Spreadsheet column reads **`lifescale`**, one word, though the narration says "life scale" [frame_007] -- fed by a **Map Range** whose **From Max** is the Random Value output, normalising each point's own lifespan to 0-1 [frame_007] [transcript 6:02-6:47].
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+| Node | Setting | Value | Source |
+|---|---|---|---|
+| Distribute Points on Faces | Distribution / Density / Seed | Random / **10.000** / **0** | [frame_001] |
+| Object Info | Transform Space | **Original**, switched to **Relative** once the object may move | [frame_001] [frame_002] |
+| Geometry Proximity | Target Element | **Faces** | [frame_002] |
+| Simulation Input | Delta Time | drives Vector Math -> Scale | [frame_003] |
+| Vector Math (force scale) | Operation | **Scale** | [frame_003] |
+| Noise Texture | Dimensions / Scale / Detail / Roughness / Lacunarity / Normalize | 3D->**4D** / **5.000** / **2.000** / **0.500** / **2.000** / on | [frame_004] |
+| Vector Math (recentre) | Subtract | **0.500, 0.500, 0.500** | [frame_004] |
+| Math (age counter) | Add | **1.000** | [frame_005] |
+| Store Named Attribute | Name / Type / Domain | `life` -- Float, Point | [frame_005] |
+| Compare | Operation / B | **Greater Than** / **75.000** | [frame_006] |
+| Random Value | Min / Max | **75.000** / **100.000** | [frame_006] |
+| Delete Geometry | Domain / Mode | **Point** / **All** | [frame_006] |
+| Store Named Attribute (2) | Name | **`lifescale`** (narration says "life scale") | [frame_007] |
+| Map Range | From Max | the Random Value output, so 0-`life` maps to 0-1 | [frame_007] |
+| Set Point Radius | Radius | driven by a **Float Curve** on `lifescale` | [frame_007] |
 
 ### Difficulty
-[PENDING EXTRACTION]
+Intermediate
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender 5.2.0 -- read from the status bar in [frame_000]; the transcript never states a version.
 
 ### Tags
-[PENDING EXTRACTION]
+geometry-nodes, simulation, particles, procedural, motion-design, abstract, intermediate, blender-5x
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `tutorials/blender-50-particle-attraction-and-follow-surface-motion.md` -- the same simulation-zone-plus-proximity family, solving the opposite problem (attraction to a surface rather than repulsion from an object); shares tags: geometry-nodes, simulation, particles, procedural.
+- `tutorials/sand-simulation---blender-tutorial-nexus.md` -- points in a simulation zone with a per-point stored attribute driving behaviour, at much higher counts; shares tags: geometry-nodes, simulation, particles, procedural, abstract.
+- `tutorials/я-сделал-инструмент-которого-мне-не-хватало-в-blender.md` -- a simulation-zone point system wrapped into a reusable node tool; shares tags: geometry-nodes, simulation, particles, procedural, abstract.
+- `tutorials/blender-sound-reactive-geometry-nodes-tutorial-how-to-audio-music-simulation-mog.md` -- the same Store Named Attribute -> shader-side read pattern, driven by audio instead of age; shares tags: geometry-nodes, simulation, particles, procedural, abstract.

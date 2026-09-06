@@ -3560,9 +3560,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=YZYXQSFwJEY
 - **Author:** Aria Faith Jones
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 5.2.0 -- observed in frame_000
+- **Tags:** geometry-nodes, simulation, particles, procedural, motion-design, abstract, intermediate, blender-5x
+- **Summary:** A radial particle burst built from two icospheres: Geometry Proximity against the smaller one supplies the outward vector, so no math node is needed. Covers the delta-time fix for the frame-one jump, a noise force recentred with Subtract 0.5, and a hand-built `life` attribute that drives both Delete Geometry and a Float Curve radius falloff.
 - **File:** tutorials/make-this-blender-particle-effect-with-just-2-objects.md
 
 ---
