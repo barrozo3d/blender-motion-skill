@@ -3555,6 +3555,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/tutorial-making-an-audio-visualizer-in-blender-52.md
 
+
+### Make THIS Blender Particle Effect With Just 2 Objects
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=YZYXQSFwJEY
+- **Author:** Aria Faith Jones
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/make-this-blender-particle-effect-with-just-2-objects.md
+
 ---
 
 ## Tag Reference
