@@ -304,7 +304,7 @@ _VTT_TIME_RE = re.compile(
 def _vtt_secs(h, m, s, ms):
     return int(h) * 3600 + int(m) * 60 + int(s) + int(ms) / 1000.0
 
-def ytdlp_caption_cues(url, tmp):
+def ytdlp_caption_cues(url, tmp, status=None):
     """
     Fetch YouTube's auto-captions and return [(start, end, text), ...] with the
     cue TIMINGS INTACT. The timings are the entire point: a second transcript
@@ -314,6 +314,30 @@ def ytdlp_caption_cues(url, tmp):
 
     Returns [] when no caption track exists — common on small channels. Every
     caller must read [] as "NO WITNESS AVAILABLE", never as "no problems found".
+
+    🔴 [] IS NOT A FACT ABOUT THE VIDEO, and until 2026-09-06 this function
+    said it was. It ran yt-dlp with capture_output=True, never looked at the
+    RETURN CODE, and globbed for *.vtt — so a fetch that DIED returned exactly
+    the same [] as a video with genuinely no captions, and the caller printed
+    "no caption track" for both. Measured that day on a three-video batch: TWO
+    of the three "no caption track" verdicts were false. The audio-visualizer
+    video has 1,155 English cues and the Hindi Houdini video has both `hi-orig`
+    and an auto-translated `en` track; both downloaded on demand, seconds later,
+    with the same flags. The real error was `HTTP Error 429: Too Many Requests`
+    on the caption endpoint — intermittent and session-bound, hitting the
+    android client on one attempt and the default client on the next.
+    The cost was not theoretical: those captions render the disputed frequency
+    figure as "15,000" and "20." where Whisper produced the single value
+    "15,020". The witness that would have caught the worst transcript error of
+    the batch was reported absent while it was sitting there, downloadable.
+
+    So: pass a dict as `status` and this fills in {'ok', 'reason', 'attempts'}.
+    Callers MUST distinguish the two states when they report to the user —
+    "this video has no second witness" and "we failed to fetch the second
+    witness" call for different actions, and collapsing them is what hid a
+    working safeguard for three months. A failed fetch is retried once without
+    `--extractor-args`, because the 429 is bound to the player client and the
+    plain client demonstrably succeeds when the forced one does not.
 
     ⚠️ ENGLISH IS HARDCODED (`--sub-lang en`), and that is an assumption, not a
     fact about the world. All five skills' online paths are English-facing today,
@@ -328,15 +352,40 @@ def ytdlp_caption_cues(url, tmp):
     the online path gains a PROFILE dict (Phase 2 onward), the caption language
     belongs in it beside the prompt's — one language decision, one place.
     """
-    try:
-        subprocess.run(
-            _ytdlp_cmd() + ["--write-auto-subs", "--sub-lang", "en",
-             "--sub-format", "vtt", "--skip-download", "--no-playlist",
-             "-o", str(tmp / "%(id)s"), url],
-            capture_output=True, timeout=120
-        )
-    except Exception:
-        return []
+    st = status if status is not None else {}
+    st["ok"], st["attempts"], st["reason"] = False, 0, ""
+    sub_args = ["--write-auto-subs", "--sub-lang", "en", "--sub-format", "vtt",
+                "--skip-download", "--no-playlist", "-o", str(tmp / "%(id)s"), url]
+    # Attempt 2 drops --extractor-args (and only that) so the retry reaches
+    # YouTube through a different player client. Cookies, if configured, are
+    # kept: they are what makes the plain client usable at all.
+    base = _ytdlp_cmd()
+    alt, _skip = [], False
+    for _a in base:
+        if _skip:
+            _skip = False
+            continue
+        if _a == "--extractor-args":
+            _skip = True
+            continue
+        alt.append(_a)
+    plans = [base] if alt == base else [base, alt]
+    last_err = ""
+    for cmd in plans:
+        st["attempts"] += 1
+        try:
+            r = subprocess.run(cmd + sub_args, capture_output=True, timeout=120)
+        except Exception as e:
+            last_err = "%s while fetching captions" % e.__class__.__name__
+            continue
+        if r.returncode != 0:
+            err = (r.stderr or b"").decode("utf-8", "ignore")
+            m = re.search(r"ERROR:.*", err)
+            last_err = (m.group(0).strip()[:200] if m
+                        else "yt-dlp exited %d with no ERROR line" % r.returncode)
+            continue
+        last_err = ""
+        break
     for f in sorted(tmp.glob("*.vtt")):
         cues, start, end, buf = [], None, None, []
         for line in f.read_text(encoding="utf-8", errors="ignore").splitlines():
@@ -365,7 +414,9 @@ def ytdlp_caption_cues(url, tmp):
         except OSError:
             pass
         if cues:
+            st["ok"] = True
             return cues
+    st["reason"] = last_err or "no caption track for --sub-lang en"
     return []
 
 def ytdlp_captions(url, tmp):
@@ -1077,6 +1128,59 @@ def run_safeguards(ch_transcripts, duration_sec=None, is_asr=True):
             "Notes may be shallow — consider --whisper-model small."
         )
 
+    # 3b. TEMPORAL COVERAGE -- does the transcript actually span the video?
+    # Every check above this line measures the transcript as a BLOB: total
+    # characters, per-chapter emptiness, repeated lines. None of them can see a
+    # transcript that is coherent where it exists and simply ABSENT for minutes
+    # at a time. Measured 2026-09-06 on a 15m04s Hindi Houdini tutorial: 25
+    # cues, 1,496 characters, 92% of the runtime carrying no cue at all, one
+    # unbroken 303-second hole -- and it passed every check here. It cleared the
+    # 500-char floor outright and cleared the 1,200-char "thin" WARNING by 296
+    # characters, because a flat character count cannot tell 1,496 characters
+    # spread over 15 minutes from 1,496 characters covering the first two.
+    #
+    # The ratio is measured against the transcript's OWN median cadence, not an
+    # absolute number of seconds, and that choice is load-bearing. Two simpler
+    # rules were tried against the whole 1,200-file corpus first and both were
+    # rejected on the evidence: an absolute-gap threshold scores every
+    # chapter-marker-only entry at "0% covered" (their cues are 60-90s apart by
+    # design), and a chars-per-minute floor flags legitimately quiet
+    # timelapse-style tutorials that have nothing wrong with them.
+    # Tuning, measured over the 893 corpus files that carry per-sentence cues:
+    # ratio median 3.0, p90 6.0, p95 7.8, p99 16.5. At >= 20 it flags 7 files
+    # (0.78%), every one of them genuinely gappy; the Hindi file scores 75.8.
+    # The 60-second floor stops a very tight cadence turning an ordinary pause
+    # into a finding.
+    COVERAGE_RATIO = 20.0
+    COVERAGE_MIN_GAP = 60
+    cues = sorted(t for ch in ch_transcripts for t, _ in ch.get("segments", []))
+    if duration_sec and len(cues) >= 10:
+        gaps = [cues[i] - cues[i-1] for i in range(1, len(cues))]
+        gaps.append(max(0, duration_sec - cues[-1]))
+        gaps = sorted(g for g in gaps if g >= 0)
+        med = gaps[len(gaps)//2] or 1
+        worst = gaps[-1]
+        if worst >= COVERAGE_MIN_GAP and worst / med >= COVERAGE_RATIO:
+            unwitnessed = min(duration_sec, sum(g for g in gaps if g >= 4 * med))
+            msg = ("Transcript COVERAGE GAP: the largest silent stretch is %ds, "
+                   "%.0fx this transcript's own median cadence of %.0fs. Roughly "
+                   "%d of %ds (%.0f%%) of the runtime carries NO cue at all, at "
+                   "%.1f cues/min. Whisper did not fail loudly -- it produced "
+                   "coherent text for part of the runtime and nothing for the "
+                   "rest, so the Structured Notes will silently describe only "
+                   "the part that survived."
+                   % (worst, worst / med, med, unwitnessed, duration_sec,
+                      100.0 * unwitnessed / duration_sec,
+                      len(cues) / (duration_sec / 60.0)))
+            # A single hole worth a quarter of the video is not a gap in a
+            # usable transcript, it is a mostly-missing one. Calibrated so the
+            # 7 flagged corpus files stay WARNINGS (their worst holes run 0.5%
+            # to 11% of runtime) and the 33%-hole Hindi file becomes CRITICAL.
+            if worst >= duration_sec * 0.25:
+                critical.append(msg)
+            else:
+                warnings.append(msg)
+
     # 3. ASR hallucination detection (per chapter)
     # ⚠️ ASR PROVENANCE REQUIRED. This check looks for an artifact of speech
     # recognition -- a word or line the decoder got stuck repeating at the end of
@@ -1638,6 +1742,7 @@ def main():
         ch_transcripts = []
         used_captions_fallback = False
         _cap_note = None
+        _witness_note = None
         _cap_flags = []
         _slice_results = []
         if is_yt:
@@ -1654,15 +1759,33 @@ def main():
                     # caption_crosscheck() for why it never overrules Whisper.
                     if os.getenv("INGEST_CAPTION_CROSSCHECK", "1").lower() not in ("0", "false", "no"):
                         try:
-                            _cues = ytdlp_caption_cues(args.url, tmp)
+                            _cap_status = {}
+                            _cues = ytdlp_caption_cues(args.url, tmp, status=_cap_status)
                             _cap_flags = caption_crosscheck(transcript.get("segments", []), _cues)
                             _cap_note = caption_crosscheck_note(_cap_flags, len(_cues))
                             if _cues:
                                 print(f"      caption cross-check: {len(_cues)} cues, "
                                       f"{len(_cap_flags)} unsupported span(s)")
-                            else:
+                            elif _cap_status.get("reason", "").startswith("no caption track"):
                                 print("      caption cross-check: no caption track "
                                       "(no second witness available -- not a clean result)")
+                                _witness_note = (
+                                    "NO SECOND WITNESS: the video exposes no `en` caption "
+                                    "track, so nothing independent confirms any node name, "
+                                    "parameter value or number in the transcript below. "
+                                    "Frames are the only check available for this entry -- "
+                                    "prefer them over the transcript wherever they disagree.")
+                            else:
+                                print("      caption cross-check FAILED after "
+                                      f"{_cap_status.get('attempts', 0)} attempt(s): "
+                                      f"{_cap_status.get('reason', 'unknown')}")
+                                _witness_note = (
+                                    "Caption cross-check FAILED -- which is NOT the same as "
+                                    "the video having no captions: "
+                                    f"{_cap_status.get('reason', 'unknown')}. The second "
+                                    "witness was never read, so this transcript is UNVERIFIED "
+                                    "rather than verified-clean. Re-running ingest.py on this "
+                                    "URL may well succeed; the failure is usually transient.")
                         except Exception as _e:
                             print(f"      caption cross-check skipped ({_e})")
                     # §3.7 item 3: when flags CLUSTER, cut that span out and
@@ -1722,6 +1845,10 @@ def main():
                                                   is_asr=is_yt)
         if _cap_note:
             sg_warnings.append(_cap_note)
+        # Whether a second witness was READ is a property of this entry and
+        # belongs in the file, not only in the console the run scrolled past.
+        if _witness_note:
+            sg_warnings.append(_witness_note)
         # Article/doc page longer than the character cap -- say so, loudly enough
         # that the extraction pass knows the Raw Data is partial.
         _full = info.get("article_full_len") or 0
