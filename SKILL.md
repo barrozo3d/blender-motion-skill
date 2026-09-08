@@ -477,6 +477,24 @@ asks the extraction pass to **state plainly whether the video demonstrates a
 technique or only advertises one**. That sentence is what check #11 reads, so
 write it honestly either way.
 
+> **Phrase that sentence positively. A denial scores the same as a confession.**
+> The self-declared patterns in `scan_promo.py` match literal phrases, and nothing
+> in them distinguishes an assertion from its negation. Writing *"this is not a
+> course trailer"* matches `course trailer` exactly as *"this is a course trailer"*
+> does, and fails check #11 on an entry that is provably fine.
+>
+> - Write: **"This video demonstrates a technique."** Then say what is on screen.
+> - Do not write: *"this is not a course trailer / promotional / an advertisement /
+>   only an overview"* — every one of those phrasings self-triggers the gate.
+>
+> 🔴 **Observed 2026-09-08.** `houdini-22-how-to-bake-texture-details.md` scored
+> **50** and failed validate on nothing but its own disclaimer, while every
+> structural signal said the opposite: 110 named node/tool terms, 13 key steps, 0
+> tail CTA phrases. Rewording it positively took the score to 0 with no change to
+> the entry's substance. The scorer is not wrong to be literal — it is a keyword
+> gate by design, and making it negation-aware risks the blind spot it exists to
+> cover. The convention is the fix.
+
 ### Re-ingesting an existing tutorial
 `ingest.py --force` re-collects transcript-only data and refuses to overwrite a file that's already `extraction_status: complete` unless `--force` is passed. `select_frames.py --force` re-captures frames even if `frame_status` is already `complete`.
 
