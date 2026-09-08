@@ -324,12 +324,28 @@ The script prints the tutorial file path and a reminder to run `select_frames.py
 ### Step 2 — Frame selection (run select_frames.py)
 
 1. **Read the timestamped transcript** in the tutorial file's `## Raw Data` section.
-2. **Pick 4-8 moments** that actually show a technique/result worth a still — not blind percentages of the runtime, and not just chapter-start + a few seconds. Verify each pick against the transcript's own timestamps.
+2. **Pick every moment that carries information** — as many as the tutorial earns, and no more. Verify each pick against the transcript's own timestamps; not blind percentages of the runtime, and not just chapter-start + a few seconds.
 3. **Run the script** with those timestamps (seconds or mm:ss, mixed freely):
 ```bash
 python select_frames.py <slug> <ts1> <ts2> ...
 ```
 This downloads the low-quality video, extracts exactly those frames to `tutorials/frames/<slug>/` (local only, not in git), appends a `## Captured Frames` section to the tutorial file, and sets `frame_status: complete` in the frontmatter. It does **not** commit — that happens together with the Structured Notes in Step 3.
+
+> **Frame count follows informational density — there is no target number.**
+> Judge from the transcript what the video actually shows, then capture that many.
+> A dense node-graph or parameter-pane walkthrough earns a still at every state a
+> later reader would otherwise have to guess at; a short single-technique clip is
+> finished in a handful.
+>
+> - **Never pad** to reach a number, and never stop early because a range said so.
+> - **Below 4 on anything but a very short clip** usually means the transcript was
+>   skimmed rather than read — check before accepting it.
+> - **Past ~20**, ask whether the video is really that dense, or whether the picks
+>   have begun duplicating the same UI state.
+>
+> Calibration — the 2026-09-04 batch (23 tutorials across Blender, Houdini and UE)
+> landed between **7 and 19 frames, averaging 12.3**. Only 3 of the 23 fell inside
+> the fixed "4-8" band this rule replaced.
 
 > **Capture height is set per skill, and it is a rule, not a preference.**
 > `ingest.py` carries `DEFAULT_FRAME_HEIGHT` as a module constant (it is deliberately
