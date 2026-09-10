@@ -22,6 +22,9 @@ This reuses ingest.py's download_video_low()/extract_frames() unchanged, so
 there's no duplicated yt-dlp/ffmpeg logic to drift out of sync.
 """
 
+import os
+import struct
+import subprocess
 import re
 import sys
 import shutil
@@ -30,6 +33,60 @@ import tempfile
 from pathlib import Path
 
 import ingest  # same directory — reuse download_video_low / extract_frames
+
+
+
+def _jpeg_height(path):
+    """Height from the JPEG SOF marker. No PIL dependency (same approach as
+    reground_frames.py, which needs it for the identical reason)."""
+    try:
+        data = Path(path).read_bytes()[:200000]
+        i = 2
+        while i < len(data) - 9:
+            if data[i] != 0xFF:
+                i += 1
+                continue
+            marker = data[i + 1]
+            if marker in (0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7,
+                          0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF):
+                return struct.unpack(">HH", data[i + 5:i + 9])[0]
+            if marker in (0xD8, 0xD9) or 0xD0 <= marker <= 0xD7:
+                i += 2
+                continue
+            i += 2 + struct.unpack(">H", data[i + 2:i + 4])[0]
+    except Exception:
+        pass
+    return None
+
+
+def _rescue_download(url, tmp, min_height):
+    """Re-fetch via the DEFAULT player client when the normal chain came back
+    short.
+
+    download_video_low() tries `web_embedded` and then falls back to the skill's
+    own client, which for most skills is `android` -- and android exposes ONE
+    muxed stream at 640x360. So a transient web_embedded failure silently yields
+    360p frames, and the existing safeguard never notices because it counts
+    frames and not their height. Measured 2026-09-10: the 84-minute chops class
+    logged "Falling back to this skill's own player client" and produced 26
+    frames at 360p while reporting "All requested frames captured".
+
+    Two predicates carry this, both learned in reground_frames.py:
+      * `protocol^=https` avoids the default client's fragmented HLS ladder --
+        on 0XnjEVcaq6A it picks a 985-fragment stream that comes down at 38KB/s.
+      * `height>=N` with `-S +height` takes the SMALLEST rung that clears the
+        target rather than the largest, because only 16:9 sources ladder at
+        720/1080 and a cap lands below the target forever on the others.
+    """
+    fmt = (f"bestvideo[height>={min_height}][protocol^=https][ext=mp4]/"
+           f"bestvideo[height>={min_height}][protocol^=https]/"
+           f"best[height>={min_height}][protocol^=https]")
+    out = str(tmp / "rescue.%(ext)s")
+    subprocess.run([sys.executable, "-m", "yt_dlp", "-f", fmt, "-S", "+height",
+                    "--no-playlist", "-o", out, url],
+                   capture_output=True, timeout=3600, check=True)
+    got = sorted(Path(tmp).glob("rescue.*"))
+    return str(got[0]) if got else None
 
 SKILL_DIR     = Path(__file__).parent
 TUTORIALS_DIR = SKILL_DIR / "tutorials"
@@ -190,6 +247,37 @@ def main():
             frame_paths = ingest.extract_frames(video, timestamps, out_dir)
         print(f"      {len(frame_paths)}/{len(timestamps)} frame(s) saved to "
               f"{out_dir.relative_to(SKILL_DIR)}")
+
+        # HEIGHT guard. The count check below asks "did we get every frame?" and
+        # says nothing about whether they are legible -- which is the entire
+        # point of the resolution policy. Verify it here rather than discovering
+        # 360p frames weeks later in a grounding citation.
+        if frame_paths and not args.at_max:
+            target = int(os.environ.get("INGEST_FRAME_HEIGHT",
+                                        ingest.DEFAULT_FRAME_HEIGHT))
+            got = [h for h in (_jpeg_height(p) for p in frame_paths) if h]
+            shortest = min(got) if got else None
+            if shortest is not None and shortest < target:
+                print(f"[SAFEGUARD] {shortest}p < this skill's {target}p -- the "
+                      f"player client capped the download. Rescuing via the "
+                      f"default client...")
+                try:
+                    rescued = _rescue_download(url, tmp, target)
+                except Exception as exc:
+                    rescued = None
+                    print(f"      rescue download failed ({type(exc).__name__})")
+                if rescued:
+                    frame_paths = ingest.extract_frames(rescued, timestamps, out_dir)
+                    got = [h for h in (_jpeg_height(p) for p in frame_paths) if h]
+                    shortest = min(got) if got else shortest
+                    print(f"      re-extracted {len(frame_paths)} frame(s) at {shortest}p")
+                if shortest is not None and shortest < target:
+                    note = (f"Frames captured at {shortest}p, below the {target}p "
+                            f"this skill's policy asks for. The rescue via the "
+                            f"default client did not beat it, so the source "
+                            f"itself may not offer a taller stream.")
+                    print(f"[SAFEGUARD] WARNING: {note}")
+                    content = ingest.append_safeguard_note(content, note, level="WARNING")
 
         if len(frame_paths) == 0:
             note = "0 frames captured — check ffmpeg is in PATH and the video downloaded correctly."
