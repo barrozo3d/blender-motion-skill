@@ -9,6 +9,8 @@ tags: [geometry-nodes, materials, shaders, procedural, glass, lighting, volume, 
 extraction_status: complete
 frames_dir: tutorials/frames/how-to-create-abstract-crystal-renders-in-blender/
 frame_count: 4
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # How to Create Abstract Crystal Renders in Blender
@@ -81,15 +83,9 @@ Not specified in transcript or frames (UI style in frames is consistent with Ble
 
 ## Captured Frames
 
-<!-- BUG 6 REPAIR 2026-08-25. These frames were captured at
-     duration * (0.1, 0.3, 0.55, 0.8), but the .md parked them under a
-     fallback '### Full Content [0:00]' heading, so reground_frames.py
-     re-captured them at 0:00 and produced title cards. Moments below are
-     re-derived from the source's duration, not chosen. Bullet refs take
-     precedence over the heading layout, so the stale [0:00] line above is
-     ignored. Still BLIND-ERA moments: legible, not content-anchored. -->
+- [0:15] tutorials/frames/how-to-create-abstract-crystal-renders-in-blender/frame_000.jpg
+- [1:21] tutorials/frames/how-to-create-abstract-crystal-renders-in-blender/frame_001.jpg
+- [2:41] tutorials/frames/how-to-create-abstract-crystal-renders-in-blender/frame_002.jpg
+- [3:15] tutorials/frames/how-to-create-abstract-crystal-renders-in-blender/frame_003.jpg
 
-- [0:21] tutorials/frames/how-to-create-abstract-crystal-renders-in-blender/frame_000.jpg
-- [1:04] tutorials/frames/how-to-create-abstract-crystal-renders-in-blender/frame_001.jpg
-- [1:58] tutorials/frames/how-to-create-abstract-crystal-renders-in-blender/frame_002.jpg
-- [2:51] tutorials/frames/how-to-create-abstract-crystal-renders-in-blender/frame_003.jpg
+---

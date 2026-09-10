@@ -8,7 +8,9 @@ blender_version: "Blender 5.1.0 -- observed in frame_002"
 tags: [cloth, simulation, physics, add-on, third-party, contact-solver, self-intersection, pinning, vertex-groups, toml, pc2-cache, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/
-frame_count: 4
+frame_count: 9
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # ZoZos Contact Solver - The ultimate Blender cloth simulator
@@ -88,15 +90,14 @@ cloth, simulation, physics, add-on, third-party, contact-solver, self-intersecti
 
 ## Captured Frames
 
-<!-- BUG 6 REPAIR 2026-08-25. These frames were captured at
-     duration * (0.1, 0.3, 0.55, 0.8), but the .md parked them under a
-     fallback '### Full Content [0:00]' heading, so reground_frames.py
-     re-captured them at 0:00 and produced title cards. Moments below are
-     re-derived from the source's duration, not chosen. Bullet refs take
-     precedence over the heading layout, so the stale [0:00] line above is
-     ignored. Still BLIND-ERA moments: legible, not content-anchored. -->
+- [0:15] tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/frame_000.jpg
+- [1:20] tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/frame_001.jpg
+- [2:41] tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/frame_002.jpg
+- [4:02] tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/frame_003.jpg
+- [5:23] tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/frame_004.jpg
+- [6:43] tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/frame_005.jpg
+- [7:26] tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/frame_006.jpg
+- [9:18] tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/frame_007.jpg
+- [11:11] tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/frame_008.jpg
 
-- [1:14] tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/frame_000.jpg
-- [3:44] tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/frame_001.jpg
-- [6:50] tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/frame_002.jpg
-- [9:56] tutorials/frames/zozos-contact-solver---the-ultimate-blender-cloth-simulator/frame_003.jpg
+---

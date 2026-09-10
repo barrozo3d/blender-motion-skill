@@ -8,7 +8,9 @@ blender_version: "Blender 5.1.2 -- observed in frame_000"
 tags: [materials, shaders, water, ocean, procedural-texture, displacement, noise-texture, driver, adaptive-subdivision, hdri, eevee, spanish, beginner]
 extraction_status: complete
 frames_dir: tutorials/frames/como-hacer-agua-realista-en-blender/
-frame_count: 4
+frame_count: 7
+frame_status: complete
+frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
 # Como hacer Agua Realista en Blender
@@ -88,15 +90,12 @@ Not stated — uses Adaptive Subdivision + 4D Noise Texture + driver expressions
 
 ## Captured Frames
 
-<!-- BUG 6 REPAIR 2026-08-25. These frames were captured at
-     duration * (0.1, 0.3, 0.55, 0.8), but the .md parked them under a
-     fallback '### Full Content [0:00]' heading, so reground_frames.py
-     re-captured them at 0:00 and produced title cards. Moments below are
-     re-derived from the source's duration, not chosen. Bullet refs take
-     precedence over the heading layout, so the stale [0:00] line above is
-     ignored. Still BLIND-ERA moments: legible, not content-anchored. -->
+- [0:15] tutorials/frames/como-hacer-agua-realista-en-blender/frame_000.jpg
+- [1:21] tutorials/frames/como-hacer-agua-realista-en-blender/frame_001.jpg
+- [2:43] tutorials/frames/como-hacer-agua-realista-en-blender/frame_002.jpg
+- [4:06] tutorials/frames/como-hacer-agua-realista-en-blender/frame_003.jpg
+- [5:26] tutorials/frames/como-hacer-agua-realista-en-blender/frame_004.jpg
+- [6:47] tutorials/frames/como-hacer-agua-realista-en-blender/frame_005.jpg
+- [8:00] tutorials/frames/como-hacer-agua-realista-en-blender/frame_006.jpg
 
-- [0:51] tutorials/frames/como-hacer-agua-realista-en-blender/frame_000.jpg
-- [2:34] tutorials/frames/como-hacer-agua-realista-en-blender/frame_001.jpg
-- [4:42] tutorials/frames/como-hacer-agua-realista-en-blender/frame_002.jpg
-- [6:50] tutorials/frames/como-hacer-agua-realista-en-blender/frame_003.jpg
+---
