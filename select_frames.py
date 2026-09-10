@@ -226,8 +226,21 @@ def main():
         captured_section += "\n---\n"
 
         if "\n## Captured Frames\n" in content:
-            content = re.sub(r"\n## Captured Frames\n.*?\n---\n", captured_section, content,
-                              count=1, flags=re.DOTALL)
+            # The old section runs to its `---` rule -- or, when it is the LAST
+            # section in the file, to the next top-level heading or EOF. Matching
+            # only the `---` form was a silent no-op on those entries: re.sub
+            # replaced nothing, so the frames on disk were rewritten while their
+            # citations kept the OLD timestamps. That is worse than a crash --
+            # the entry still looks grounded while every reference points at a
+            # moment that is no longer there. Found 2026-09-10 on
+            # 53-recreating-our-solver-with-pops-v1-1080p, whose section ends the
+            # file. Fail loudly rather than write a file that lies.
+            content, _n = re.subn(
+                r"\n## Captured Frames\n(?:.*?\n---\n|.*?(?=\n## )|.*\Z)",
+                captured_section, content, count=1, flags=re.DOTALL)
+            if _n != 1:
+                sys.exit("ERROR: could not rewrite the existing '## Captured "
+                         "Frames' section; refusing to leave stale citations.")
         else:
             content = content.replace("\n## Structured Notes",
                                        f"{captured_section}\n## Structured Notes", 1)
