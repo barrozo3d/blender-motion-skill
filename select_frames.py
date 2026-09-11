@@ -297,7 +297,19 @@ def main():
         content = set_frontmatter_field(content, "frame_status", "complete")
         content = set_frontmatter_field(
             content, "frame_selection",
-            "content-anchored (manual timestamps chosen from transcript, not blind percentages)"
+            # This records WHICH CODE PATH RAN -- timestamps were supplied
+            # explicitly rather than derived from runtime percentages. It is NOT
+            # a judgement that anyone looked at the frames, and it cannot be:
+            # this script never sees the pixels. Two entries were found on
+            # 2026-09-11 carrying this stamp over evenly-spaced round-number
+            # moments (a 42-minute course framed at 1:30/7:00/12:00/18:00/...),
+            # because percentages typed in by hand arrive here looking exactly
+            # like moments chosen by eye. The old wording claimed "not blind
+            # percentages", which this script has no way to know.
+            # The trustworthy signal is `grounding: key-steps-anchored`, which
+            # is earned by passing `validate.py --grounding <slug>`.
+            "explicit-timestamps (supplied to select_frames.py; NOT evidence "
+            "that the frames were read -- see `grounding:`)"
         )
 
         # Replace the "not captured yet" instructional note, if still present
