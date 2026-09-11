@@ -40,8 +40,8 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=_7N7emOvDko
 - **Author:** SharpWind
 - **Blender Version:** Blender 4.5
-- **Tags:** compositing, rendering, materials, shaders, lighting, beginner, intermediate, advanced
-- **Summary:** Full Compositor walkthrough: practical FX (Glare/Bloom, Mist-Pass fake fog, color grading, Ellipse Mask grading/vignettes, fake Defocus-based DOF via the Z-Pass, Cycles compositor-side denoising), then Render Layers with manual secondary-bounce visibility, and full Render Pass reconstruction (diffuse/glossy/transmission/volume × direct/indirect/color) with Cryptomatte for post-render per-object recoloring.
+- **Tags:** compositing, rendering, render-passes, color-grading, denoise, intermediate
+- **Summary:** 42m19s, six chapters. The through-line is that **anything with a `Factor` or `Mask` input takes a grayscale image, black = no effect, white = full effect** [transcript 13:34], so every effect in the course is built by feeding one image into another's factor. Setup is a compositor window with the backdrop off and a second editor showing the Viewer node output live [frame_000, frame_001, frame_002]. The practical half...
 - **File:** tutorials/a-full-blender-compositor-course.md
 
 
