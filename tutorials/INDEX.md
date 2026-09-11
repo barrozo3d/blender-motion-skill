@@ -621,8 +621,8 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=ih100VB7BUI
 - **Author:** SouthernShotty
 - **Blender Version:** Blender 5.2 (experimental)
-- **Tags:** cloth, simulation, geometry-nodes, animation, organic, blender-5x, intermediate, advanced
-- **Summary:** Full breakdown of Blender 5.2's Cloth Dynamics Experimental GN node — covers all parameters (Pin Group, Stretchiness, Bendiness, Sub Steps, Tearing, Geometry Collider, Custom Force, Bake node) then builds a "peeling skin" effect where an offset outer shell tears away from a skull mesh. The GN modifier is portable to any object. Requires Blender 5.2 experimental build.
+- **Tags:** simulation, cloth, geometry-nodes, physics, vfx, advanced
+- **Summary:** SouthernShotty covers the new experimental Cloth Dynamics GeoNodes system in Blender 5.2, first explaining all settings (Pin Group, Stretchiness/Bendiness, Sub-steps, Collision, Tearing, Effectors), then building a complete peeling-off effect. The effect uses two overlapping versions of the same object: (1) outer shell offset outward ~0.027 units along normals via Set Position, shrunk via a Simulation Zone for ~12...
 - **File:** tutorials/blender-new-cloth-simulator-changes-everything.md
 
 
