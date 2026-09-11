@@ -994,9 +994,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=5_Jy97TzZuM
 - **Author:** Robin Squares
-- **Blender Version:** Not specified (thin film + shader repeat zone imply 4.5+; modern 4.x/5.x UI)
+- **Blender Version:** Blender 5.0.0 -- observed in frame_004
 - **Tags:** materials, shaders, procedural, compositing, rendering, cycles, eevee, geometry-nodes, cloth, intermediate
-- **Summary:** Rapid-fire collection of 30 short tips: texture bombing (Voronoi per-cell offset), Substance-style histogram-range roughness group, baked-emission instant renders, hybrid Cycles+Eevee fog compositing, shader AOV render passes, Filmic Log grading sandwich, clone-stamp texture tiling on a 3×3 array, thin-film boosting via repeat zone, Dual Mesh instant hexagons, plus workflow one-liners (Ctrl+F2 batch rename, Ctrl+F node search, GPU driver restart, EXR/DWAB output, realistic albedo 0.2–0.9, shot numbering by tens).
+- **Summary:** 12m17s, 33 chapters, **Blender 5.0.0** throughout (status bar, e.g. [frame_004]). Robin Squares delivers thirty short, mostly independent tips spanning shading, rendering, compositing and workflow. Each tip runs 10–40 seconds, so the value of this entry is as a checklist to raid rather than a single build — which is why the Key Steps below follow the video's own chapter list one-for-one instead of summarising it....
 - **File:** tutorials/30-little-known-blender-tricks.md
 
 

@@ -8,8 +8,9 @@ blender_version: "Blender 5.0.0 -- observed in frame_004"
 tags: [materials, shaders, procedural, compositing, rendering, cycles, eevee, geometry-nodes, cloth, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/30-little-known-blender-tricks/
-frame_count: 8
+frame_count: 29
 frame_status: complete
+grounding: key-steps-anchored (30/30 steps, 2026-09-11)
 frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
 ---
 
@@ -342,55 +343,106 @@ Frames captured — see "Captured Frames" section below.
 
 ## Captured Frames
 
-- [1:04] tutorials/frames/30-little-known-blender-tricks/frame_000.jpg
-- [3:32] tutorials/frames/30-little-known-blender-tricks/frame_001.jpg
-- [4:12] tutorials/frames/30-little-known-blender-tricks/frame_002.jpg
-- [4:55] tutorials/frames/30-little-known-blender-tricks/frame_003.jpg
-- [7:02] tutorials/frames/30-little-known-blender-tricks/frame_004.jpg
-- [8:25] tutorials/frames/30-little-known-blender-tricks/frame_005.jpg
-- [10:31] tutorials/frames/30-little-known-blender-tricks/frame_006.jpg
-- [11:44] tutorials/frames/30-little-known-blender-tricks/frame_007.jpg
+- [0:14] tutorials/frames/30-little-known-blender-tricks/frame_000.jpg
+- [0:25] tutorials/frames/30-little-known-blender-tricks/frame_001.jpg
+- [1:04] tutorials/frames/30-little-known-blender-tricks/frame_002.jpg
+- [1:21] tutorials/frames/30-little-known-blender-tricks/frame_003.jpg
+- [1:44] tutorials/frames/30-little-known-blender-tricks/frame_004.jpg
+- [2:05] tutorials/frames/30-little-known-blender-tricks/frame_005.jpg
+- [2:16] tutorials/frames/30-little-known-blender-tricks/frame_006.jpg
+- [2:43] tutorials/frames/30-little-known-blender-tricks/frame_007.jpg
+- [3:34] tutorials/frames/30-little-known-blender-tricks/frame_008.jpg
+- [4:11] tutorials/frames/30-little-known-blender-tricks/frame_009.jpg
+- [4:35] tutorials/frames/30-little-known-blender-tricks/frame_010.jpg
+- [4:58] tutorials/frames/30-little-known-blender-tricks/frame_011.jpg
+- [5:25] tutorials/frames/30-little-known-blender-tricks/frame_012.jpg
+- [5:49] tutorials/frames/30-little-known-blender-tricks/frame_013.jpg
+- [6:09] tutorials/frames/30-little-known-blender-tricks/frame_014.jpg
+- [6:24] tutorials/frames/30-little-known-blender-tricks/frame_015.jpg
+- [6:51] tutorials/frames/30-little-known-blender-tricks/frame_016.jpg
+- [7:16] tutorials/frames/30-little-known-blender-tricks/frame_017.jpg
+- [7:32] tutorials/frames/30-little-known-blender-tricks/frame_018.jpg
+- [8:18] tutorials/frames/30-little-known-blender-tricks/frame_019.jpg
+- [8:39] tutorials/frames/30-little-known-blender-tricks/frame_020.jpg
+- [9:01] tutorials/frames/30-little-known-blender-tricks/frame_021.jpg
+- [9:33] tutorials/frames/30-little-known-blender-tricks/frame_022.jpg
+- [9:42] tutorials/frames/30-little-known-blender-tricks/frame_023.jpg
+- [9:59] tutorials/frames/30-little-known-blender-tricks/frame_024.jpg
+- [10:26] tutorials/frames/30-little-known-blender-tricks/frame_025.jpg
+- [10:57] tutorials/frames/30-little-known-blender-tricks/frame_026.jpg
+- [11:22] tutorials/frames/30-little-known-blender-tricks/frame_027.jpg
+- [11:47] tutorials/frames/30-little-known-blender-tricks/frame_028.jpg
 
 ---
 
 ## Structured Notes
 
 ### Core Technique
-A rapid-fire collection of 30 workflow, shading, compositing, and rendering tricks — the highest-value ones being texture bombing (per-cell texture offset via Voronoi), a Substance-style "histogram range" roughness control group, hybrid Cycles+Eevee fog rendering, shader AOV render passes, and Dual Mesh instant hexagons.
+A rapid-fire run through the video's own 30 tips, each one self-contained — the substantial ones being texture bombing via Voronoi-offset image lookup, a Substance-style "Histogram range" node group for roughness, a Filmic-Log grading sandwich in the compositor, shader AOVs, hybrid Cycles/Eevee rendering, and Dual Mesh for instant hexagons.
 
 ### Summary
-Robin Squares runs through 30 short, mostly independent tips spanning shading (texture bombing, material matching by color division, layered smudge shaders, thin-film boosting via repeat zones, large-scale color variation via noise→HSV), rendering (noise-threshold cheat sheet, EXR/DWAB output, baked-emission "instant renders", hybrid Cycles/Eevee fog compositing), compositing (Filmic Log grading sandwich, shader AOVs), and workflow (Ctrl+F2 batch rename, F2 rename, Ctrl+F node search, lattice shrinkwrap, triangle-parent alignment, shot numbering by tens). Each tip is 10–40 seconds; the video is a checklist to raid rather than a single build.
+12m17s, 33 chapters, **Blender 5.0.0** throughout (status bar, e.g. [frame_004]). Robin Squares delivers thirty short, mostly independent tips spanning shading, rendering, compositing and workflow. Each tip runs 10–40 seconds, so the value of this entry is as a checklist to raid rather than a single build — which is why the Key Steps below follow the video's own chapter list one-for-one instead of summarising it. Several tips the earlier transcript-written version of these notes missed entirely are recovered here from the frames: **Steal a GIF** (Trace Image to Grease Pencil) [frame_001], **Shrinkwrap an object** onto a surface with a Lattice [frame_006], **Smoothing nodes** [frame_020], **Sunlight fringe** [frame_026], and the physical albedo reference with its actual picker values [frame_022].
+
+Three corrections the frames force on the old notes. The Shader AOV is type **Value**, not Color [frame_011]. "Batch rename files" is not Ctrl+F2 — that chapter demonstrates the third-party Windows tool **Bulk Rename Utility** [frame_014]; Ctrl+F2 is the *next* chapter, Blender's own Batch Rename [frame_015]. And the thin-film tip does not set "IOR 0" — it sets Specular **IOR Level 0.000** on a black base, with the Thin Film block's own **IOR 1.330** [frame_025].
 
 ### Key Steps
-1. **Match materials** — sample wrong + right colors, Divide the two, multiply/divide into base color to align two materials' albedo.
-2. **Texture bombing** [frame_000, 1:04] — Texture Coordinate → Voronoi, mix a faint Noise into the vector to warp cells; then Vector Math (Add) offsets an image texture per Voronoi cell (optional Vector Rotate per cell) so tiling repetition disappears.
-3. **Instant Cycles renders** — bake diffuse light to a texture, set base color black, multiply baked texture by base color, plug into Emission; renders instantly but light/object become static.
-4. **Histogram-range roughness control** [frame_001, 3:32] — node group replicating Substance Designer's Histogram Range: Level (0.520) and Range (0.500) Value nodes feed Subtract/Add into a clamped Map Range (From 0–1) on the roughness input — "brightness/contrast tailor-made for roughness".
-5. **Cloth topology** [frame_002, 4:12] — rotate a subdivided plane 45°, cut your shape, Merge by Distance; diagonal topology falls with more interesting folds; a decimated plane gives a wrinkly look.
-6. **Shader AOV render passes** [frame_003, 4:55] — add AOV Output node in the shader (e.g. name "grunge"), add a matching Shader AOV in View Layer properties; Geometry Nodes attributes can feed shaders → AOVs.
-7. **Filmic Log grading sandwich** — in the compositor, wrap all color grading between two Convert Colorspace nodes (working space → Filmic Log → back).
-8. **Hybrid fog rendering** [frame_004, 7:02] — fog collection set to Indirect Only in the Cycles scene; linked-copy scene renders the volume pass in Eevee; Mix (Add) the two Render Layers in the compositor for near-Cycles quality at a fraction of the time.
-9. **Make any texture tile** [frame_005, 8:25] — texture on unwrapped plane, 3×3 Array modifier grid, Texture Paint clone stamp (samples from 3D cursor, Shift+RMB to place it) to paint out seams, then bake to a new texture.
-10. **Stronger thin film** [frame_006, 10:31] — black material with IOR 0, thin film thickness 50–1000, Repeat Zone with Add Shader inside to boost the effect through iterations, mix over the base material.
-11. **Instant hexagons** [frame_007, 11:44] — Geometry Nodes Dual Mesh on a grid (skewed slightly) = hexagons; on an icosphere = force-field shield; on a decimated Suzanne = creature scales.
-12. **Workflow one-liners** — Alt-click folder icon opens it in Explorer; Win+Ctrl+Shift+B restarts the GPU driver (safe mid-render); F2 rename / Ctrl+F2 batch rename with find-and-replace; Ctrl+F searches node graphs; number shots 10/20/30 to leave insertion room; realistic albedo stays ~0.2 (dark cloth) to ~0.9 (printer paper); save renders as EXR with DWA(B) compression instead of PNG.
+1. **Match materials** — sample the wrong and right colours, feed both into a **Divide** node (`Color`, `Divide`, Clamp Result off, Clamp Factor on, Factor `1.000`) and route the result into the Principled BSDF's Base Color; the Roughness input keeps its `concrete_raw_pa…` image [frame_000].
+2. **Steal a GIF** — `Object ▸ Trace Image to Grease Pencil`: Target Object `New Object`, Radius `0.010`, Color Threshold `0.500`, Turn Policy `Minority`, Mode `Single` or **`Sequence`** (Sequence is what turns an animated GIF into animated Grease Pencil), plus a Trace Frame field [frame_001].
+3. **Texture bombing** — `Texture Coordinate` → `Voronoi Texture` (3D, F1, Euclidean, Normalize on) → `Vector Math (Add)` offsets the image lookup per Voronoi cell; a `Mapping` node at Scale `0.010 / 0.010 / 0.010` sets the cell size, and the image (`mossy_cliff_rock_basecolor.png`) is set to **Box** projection with **Blend `0.100`** so the per-cell copies merge [frame_002].
+4. **Moody Pinterest** — collect reference on **Cosmos** rather than Pinterest; the grid view shown is the one to build boards in [frame_003].
+5. **Instant Cycles renders** — bake the lighting down: Render Properties ▸ **Bake**, `Bake Type: Diffuse`, `View From: Above Surface`, Influence Contributions **Direct ✓ Indirect ✓ Color ✗**, `Target: Image Textures` with `Clear Image` on, Margin `Adjacent Faces` at `16 px` [frame_004]. The baked texture then drives an Emission shader, so the frame renders instantly but the lighting is frozen.
+6. **Open a folder** — Alt-click a path's folder icon to open it in Explorer; the render output here is an EXR sequence `0001.exr…0040.exr` under `…\Blender\tmp\render` [frame_005].
+7. **Shrinkwrap an object** — give a **Lattice** a **Shrinkwrap** modifier with `Wrap Method: Nearest Surface Point`, `Snap Mode: On Surface`, `Target:` the mesh to hug, `Offset 0 m`, then move the lattice along an axis (`G`, `Z`) to slide the deformed object across the surface [frame_006].
+8. **Composition tip** — before lighting, write the one sentence the image is about ("IMAGE IS ABOUT: Path to Lighthouse") and cut anything that does not serve it [frame_007].
+9. **GPU refresh** — `Win+Ctrl+Shift+B` restarts the graphics driver without killing Blender, safe to use mid-render [no frame: the chapter at 3:02–3:20 is talking head only; the shortcut has no on-screen demonstration].
+10. **Roughness control** — a **"Histogram range"** node group rebuilding Substance Designer's operator: a `Level` Value node (shown mid-drag at `-0.410`) and a `Range` Value node (`0.500`) feed a `Subtract` and an `Add` (both **Clamp** on), which drive a **`Map Range`** (Float, Linear, Clamp on, From Min `0.000`, From Max `1.000`) into Roughness — brightness/contrast tailor-made for a roughness map [frame_008].
+11. **Cloth topology** — rotate a subdivided plane 45°, cut the shape, then `M ▸ ` **Merge ▸ By Distance** to weld the cut edge; the diagonal topology folds more interestingly than a square grid [frame_009].
+12. **Realistic smudges** — layer the smudges as their own shader: a `Fingerprints004_OVERLAY_VAR1_3K` image (Linear, Flat, Repeat, sRGB) → **Color Ramp** (position `0.186`) → **Mix Shader** `Factor 0.500` blending a **Glass BSDF** (`Multiscatter GGX`, Roughness `0.045`, IOR `1.500`) over the base material [frame_010].
+13. **Custom render passes** — add an **AOV Output** node in the shader named `grunge`, then a matching **Shader AOV** in View Layer Properties, type **`Value`**; the pass then appears in the Render Result's pass dropdown alongside Combined and Depth [frame_011].
+14. **Better color grading** — sandwich the grade between two **Convert Colorspace** nodes: `Working Space → Filmic Log`, then `Hue/Saturation/Value` (Hue `0.500`, Saturation `1.556`, Value `1.000`) and `Brightness/Contrast` (Bright `3.560`, Contrast `16.210`), then `Filmic Log → Working Space` back out [frame_012].
+15. **Text editor** — keep scene notes inside the file using Blender's built-in **Text Editor** (TO DO / CHANGES lists, notes to whoever opens it next) [frame_013].
+16. **Batch rename files** — for files on disk, **Bulk Rename Utility** (third-party, Windows): pick the files, use its RegEx / Replace / Remove / Numbering panels, Preview, Rename — 160 files renamed in one pass here [frame_014].
+17. **Batch rename objects** — inside Blender, `Ctrl+F2` opens **Batch Rename**: scope `Selected`/`All`, data type `Objects`, `Type: Find/Replace` with Find and Replace fields and a Case Sensitive toggle; the dialog reports the count ("Rename 93 Object(s)") [frame_015].
+18. **Render fog fast** — render the volume in **EEVEE** and everything else in **Cycles**, then combine: the Render Engine dropdown (EEVEE / Workbench / Cycles) is switched per scene, with Cycles here at Viewport Noise Threshold `0.1000` / Samples `500` and Render Noise Threshold `0.0250`, Max Samples `8138`, Min Samples `200` [frame_016]. Mix the two Render Layers with an Add node in the compositor.
+19. **Align weird angles** — select **three vertices** forming a triangle on the angled face, then parent/align to that triangle to get a working axis on geometry with no sensible orientation [frame_017].
+20. **How to number your shots** — name shots in tens (`Shot_010`, `Shot_020`, `Shot_03…`) so a new shot can always be inserted between two existing ones [frame_018].
+21. **Make any texture tile** — put the texture on an unwrapped plane, build a 3×3 grid with **two Array modifiers** (`Array`, `Array.001`), then in **Texture Paint** use the **Clone** brush (Size `133 px`, Strength `1.000`, sampling from the 3D cursor) to paint the seams out, and bake the result to a new texture [frame_019].
+22. **Smoothing nodes** — insert a **Bump** node (Invert off, Strength `1.000`, Distance `0.010`, Filter Width `0.100`) into the Principled BSDF's Normal input to soften the hard edges a crack/detail map leaves in the shading [frame_020].
+23. **What noise threshold?** — the cheat sheet: **`0.01`** for low-end production, ~45× faster render time, and a decent animation denoise [frame_021].
+24. **How black, how white?** — real albedo has a much narrower range than people assume. Blender's own picker on the reference objects: a black dress shirt reads **Value `0.200`, hex `#333333FF`**; a sheet of printer paper reads **Value `0.900`, hex `#E5E5E5FF`** (both HSV, Perceptual) [frame_022].
+25. **Node search** — `Ctrl+F` searches a node graph by name, which is the only way to navigate trees like the `MT_track` Geometry Nodes tree shown, several hundred nodes wide [frame_023].
+26. **Save your render as…** — the format chart: **EXR (DWAB)** sits at the top for quality while landing near JPG/WebP/AVIF on file size; PNG is the worst trade in the set, large *and* lower quality than EXR (DWAB); TIFF is largest [frame_024].
+27. **Stronger thin film** — on a **black** Base Color material set Specular **`IOR Level 0.000`** with `Multiscatter GGX`, then open the **Thin Film** block and drive its thickness (in nm) with **IOR `1.330`** [frame_025]. Repeat the shader through a Repeat Zone with an Add Shader inside to intensify the iridescence, then mix over the base.
+28. **Sunlight fringe** — on a Sun lamp (`Strength 100.000`, `Exposure 0.000`, Normalize on, **`Angle 0.526°`**, Temperature `6500 K`), enable **Use Nodes** and drive the light's colour through an **Invert Color** node (Factor `1.000`) into **Emission** (Strength `1.000`) → Light Output, to get the coloured fringe at the shadow terminator [frame_026].
+29. **Break up flat colors** — large-scale variation instead of a flat albedo: a **Noise Texture** (3D, fBm, Normalize on, Scale `0.170`, Detail `10.000`, Roughness `0.966`, Lacunarity `2.000`, Distortion `0.000`) → **Separate Color** (RGB) drives `Brightness/Contrast` (Contrast `0.200`) and `Hue/Saturation/Value` on the base texture, so two copies of the same rock read as different rocks [frame_027].
+30. **Instant hexagons** — a Geometry Nodes tree of exactly one node: `Group Input → ` **Dual Mesh** (`Keep Boundaries` off) ` → Group Output`. On a grid it gives hexagons; on a **Decimate**d Suzanne, as shown, it gives creature scales [frame_028].
 
 ### Nodes / Settings
-- Texture bombing: Texture Coordinate, Voronoi Texture, Noise Texture (faint vector mix), Mapping, Image Texture, Vector Math (Add), Vector Rotate
-- Histogram range group: Value ("Level" 0.520), Value ("Range" 0.500), Subtract, Add (both clamped), Map Range (Float, Clamp, From Min 0.000 / From Max 1.000) → Roughness; scene used Cycles GPU Compute, Noise Threshold 0.0100, Max Samples 4096
-- AOV pass: AOV Output (Name: "grunge", Color) after Mapping/Image Texture (Box projection, Blend 0.200) + Map Range; View Layer Properties → Shader AOV (same name)
-- Fog composite: two Render Layers (Cycles scene + Eevee linked-copy scene, volume/indirect-only split), Mix node set to Add
-- Thin film boost: Principled thin film thickness 50–1000, IOR 0 black base, Repeat Zone (Iterations) containing Add Shader
-- Color variation: Noise Texture (large scale) → Separate Color → Hue/Saturation/Value per R/G/B channel
-- Grading: Convert Colorspace (working → Filmic Log) … grading nodes … Convert Colorspace (Filmic Log → working)
-- Render output: EXR, DWAB compression, ~60% quality (or lossless ZIP) instead of PNG; noise threshold 0.01 (general, denoised) / 0.0025 (high-end, denoised)
-- GeoNodes: Dual Mesh (Keep Boundaries option visible) on Grid / Icosphere / decimated mesh
+- **Divide** (Color, Clamp Factor on, Factor 1.000) for material matching [frame_000]
+- **Trace Image to Grease Pencil**: Radius 0.010, Color Threshold 0.500, Turn Policy Minority, Mode Single/Sequence [frame_001]
+- **Texture bombing**: Texture Coordinate → Voronoi Texture (3D, F1, Euclidean, Normalize) → Vector Math (Add) → Image Texture (Box projection, Blend 0.100); Mapping Scale 0.010 [frame_002]
+- **Bake**: Diffuse, Above Surface, Direct+Indirect without Color, Image Textures target, Clear Image, Margin Adjacent Faces 16 px [frame_004]
+- **Shrinkwrap** on a Lattice: Nearest Surface Point, On Surface, Offset 0 m [frame_006]
+- **Histogram range** group: Value "Level" (−0.410 mid-drag), Value "Range" (0.500), Subtract + Add (both Clamp), Map Range (Float, Linear, Clamp, From 0.000–1.000) → Roughness [frame_008]
+- **Smudge stack**: Fingerprints overlay image → Color Ramp (pos 0.186) → Mix Shader (0.500) with Glass BSDF (Multiscatter GGX, Roughness 0.045, IOR 1.500) [frame_010]
+- **Shader AOV**: AOV Output named `grunge`, View Layer Shader AOV type **Value** [frame_011]
+- **Grading sandwich**: Convert Colorspace (Working→Filmic Log) → HSV (0.500 / 1.556 / 1.000) → Brightness/Contrast (3.560 / 16.210) → Convert Colorspace (Filmic Log→Working) [frame_012]
+- **Batch Rename** (Ctrl+F2): Selected/All, Objects, Find/Replace, Case Sensitive [frame_015]
+- **Cycles sampling** seen in the fog chapter: Viewport NT 0.1000 / 500 samples; Render NT 0.0250, Max 8138, Min 200 [frame_016]
+- **Texture Paint Clone** brush: Size 133 px, Strength 1.000, over a 3×3 Array/Array.001 grid [frame_019]
+- **Bump**: Strength 1.000, Distance 0.010, Filter Width 0.100 → Principled Normal [frame_020]
+- **Albedo reference**: 0.200 / #333333FF (black shirt), 0.900 / #E5E5E5FF (printer paper) [frame_022]
+- **Output format ranking**: EXR (DWAB) > TIFF > PNG > AVIF > WebP > JPG on quality; EXR (DWAB) near JPG/WebP/AVIF on size, PNG and TIFF far larger [frame_024]
+- **Chrome thin film**: black Base Color, Metallic 0.000, Roughness 0.500, IOR 1.500, Specular Multiscatter GGX with IOR Level 0.000, Thin Film thickness in nm, Thin Film IOR 1.330 [frame_025]
+- **Sun**: Strength 100.000, Angle 0.526°, 6500 K, Normalize on; light nodes Invert Color (1.000) → Emission (1.000) → Light Output [frame_026]
+- **Colour break-up**: Noise Texture (3D fBm, Scale 0.170, Detail 10.000, Roughness 0.966, Lacunarity 2.000) → Separate Color (RGB) → Brightness/Contrast (0.200) + Hue/Saturation/Value [frame_027]
+- **Dual Mesh** (Keep Boundaries) as a one-node Geometry Nodes tree, after a Decimate modifier [frame_028]
 
 ### Difficulty
 Intermediate
 
 ### Blender Version
-Not specified (thin film + shader repeat zone imply 4.5+; modern 4.x/5.x UI throughout)
+Blender 5.0.0 — read from the status bar in the Blender-UI frames (e.g. [frame_004], [frame_008], [frame_015]).
 
 ### Tags
 materials, shaders, procedural, compositing, rendering, cycles, eevee, geometry-nodes, cloth, intermediate
