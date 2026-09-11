@@ -3585,6 +3585,16 @@ Each entry format:
 - **Summary:** Placing a CG object behind a REAL transparent object in Cycles. Five view layers (MainObject, Shadow, Reflections, ObjectThroughGlass, GlassMask) rendered to two multilayer EXRs: the CG glass acts as Holdout and as the source of a Transmission Indirect pass, its Ray Visibility for Shadow/Diffuse/Glossy switched off so the real glass is not doubled. The part seen through the glass is keyed in with a black-and-white mask built from an emission-shaded duplicate of the scene, and a Light Path > Is Glossy Ray > Invert > Background Strength hookup removes the HDRI from the transmission pass.
 - **File:** tutorials/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full.md
 
+
+### Finally! A VFX Workflow With Less Guesswork
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=G2SacOKhJto
+- **Author:** InLightVFX
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/finally-a-vfx-workflow-with-less-guesswork.md
+
 ---
 
 ## Tag Reference
