@@ -4,13 +4,15 @@ source: YouTube
 url: https://www.youtube.com/watch?v=qdqV4oortP0
 author: InLightVFX
 ingested: 2026-09-11
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 2.81.16 -- observed in frame_001, frame_004, frame_015, frame_025"
+tags: [compositing, vfx, cycles, render-passes, view-layers, holdout, shadow-catcher, glass, transmission, light-path, camera-tracking, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/
 frame_count: 37
 frame_status: complete
 uncertainty_frames: []
+uncited_frames: [9]  # render just launched: transparent-background tile crosses only, no content resolved
+grounding: key-steps-anchored (40/40 steps, 2026-09-11)
 frame_selection: explicit-timestamps (supplied to select_frames.py; NOT evidence that the frames were read -- see `grounding:`)
 ---
 
@@ -345,27 +347,105 @@ Frames captured — see "Captured Frames" section below.
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Placing a CG object *behind* a real transparent object in Blender Cycles by rendering **five view layers** — `MainObject`, `Shadow`, `Reflections`, `ObjectThroughGlass` and `GlassMask` — and reassembling them in the compositor. The glass is rebuilt in CG only so it can act as a **Holdout** and as the source of a **Transmission Indirect** pass; the part of the CG object seen through the glass is a separate render pass keyed in by a purpose-built black-and-white mask made from a second, emission-shaded copy of the scene. A **Light Path ▸ Is Glossy Ray → Invert → Background Strength** trick removes the HDRI from the transmission pass so only the CG object shows through the glass.
 
 ### Summary
-[PENDING EXTRACTION]
+18m53s, **Blender 2.81.16** [frame_001, frame_004, frame_015, frame_025], Cycles, GPU Compute, `512` render samples [frame_004]. A CG mechanical keyboard is composited behind a real drinking glass on a real table: it must be seen *through* the glass with the right refraction, reflect in the table, cast shadow on it, and be masked wherever the glass covers it [frame_000, frame_036]. The plate is a 123-frame image sequence, shot range 0-122 [frame_004, frame_027]; the camera track came in through the **AE2Blend** add-on [frame_001, frame_011].
+
+**Three levels of visibility control** run the whole tutorial — object visibility, collection visibility and view-layer visibility (render passes) — and the author (**Jacob J Holiday** / InLightVFX) supplies a one-page infographic covering all three, linked in the video description [frame_005]. The video deliberately refuses the usual "just tick these two passes" hand-wave and explains the ray labelling instead [transcript 2:20-2:53].
+
+**Why each pass:** a ray is labelled by the **last surface it touches before the camera**, and *indirect* when it bounced more than once. Light → keyboard → table → camera is **glossy indirect** (the table reflection) [frame_016]; light → keyboard → *through the glass* → camera is **transmission indirect** (the object seen through glass) [frame_019].
+
+**Two EXR renders, not one.** The first three layers need the HDRI world behaving normally; the last two need it suppressed, so the shot is rendered twice with `Use for Rendering` toggled and saved as two **OpenEXR MultiLayer** files [frame_025, transcript 10:46-11:14]. In the compositor these arrive as `Image` nodes with a **Layer** dropdown rather than Render Layers nodes [frame_031].
+
+**Compositing order:** plate → shadows (multiplied in as a graded black-and-white matte) [frame_027, frame_028] → main object with Alpha Over [frame_029] → object-through-glass keyed in with the glass mask on an Alpha Over's `Fac` [frame_032] → table reflections added [frame_033] → the through-glass glossy contribution added and toned down with a grey Multiply [frame_034, frame_035].
+
+Transcript note: Whisper renders "360 degree HDRI" as "368 degree" and "Ricoh Theta V" as "Ryko Theta V" at 0:57 — both are ASR slips, not the narration.
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Film the plate and solve the camera.** The track arrives in Blender through the **AE2Blend** add-on panel (Scale `100.00`, Marker 1 / Marker 2, Distance `1.00`, Calculate Scale) [frame_001, frame_011]; timeline runs `1-120` in the viewport file and `0-122` at render [frame_001, frame_004].
+2. **Rebuild the set geometry.** A `Plane` (`FloorForGlass`) for the surface and a `Cylinder` modelled into the glass, positioned against the backdrop under "1. Match geometry" — `Scale 0.098` uniform, nudged along global Z to sit on the plane [frame_001]. Scrub the shot; if the CG floats, first check it is resting on the plane, then suspect the camera track [transcript 0:45-0:57].
+3. **Match the lighting with a 360° HDRI.** World ▸ Surface `Background`, Color `hdri-1.hdr`, Strength `1.000` [frame_003, frame_021]. Shot on a Ricoh Theta V (the transcript's "368 degree" and "Ryko" are ASR slips) [transcript 0:57-1:11].
+4. **Match the table texture** with a plain Principled BSDF — colour changed and roughness dialled to match [transcript 1:11-1:22]. [no frame: the table material is narrated over the viewport, only the glass material is opened on screen — see frame_002]
+5. **Build the glass shader.** Principled BSDF with **`Transmission 1.000`**, **`Roughness 0.033`**, `Specular 0.500`, `IOR 1.450`, `Clearcoat Roughness 0.030`, Base Color white [frame_002, frame_024]. For the real glass's surface irregularity, drive the **Normal** input with `Texture Coordinate → Mapping` (Point, Scale Z `0.300`) `→ Noise Texture` (3D, Scale `15.000`, Detail `0.100`, Distortion `0.000`) `→ Normal Map` (World Space, **Strength `0.005`**) [frame_002]. Tweak in rendered view until the HDRI distorts through the CG glass the way it does through the real one [transcript 1:22-1:34].
+6. **Add the CG object.** Here a mechanical keyboard model from BlendSwap — `Keyboard.001` under a `KeyboardParent`, 174,831 verts / 155,238 faces [frame_003, frame_006].
+7. **Set up Cycles.** Render Properties ▸ Cycles, Feature Set `Supported`, Device **`GPU Compute`**, Path Tracing, Render `512` / Viewport `32` [frame_004]. Set Film ▸ Transparent and render once: everything is CG, which is not what is wanted [transcript 1:47-1:58].
+8. **Learn the three levels of control** before touching anything — object visibility, collection visibility, view layers/render passes. The author's infographic maps all three: scene hierarchy with per-view-layer pass checkboxes, the light-pass matrix (diffuse / glossy / transmission / subsurface × direct / indirect / color), collection visibility and object visibility [frame_005, transcript 1:58-2:53].
+9. **Sort objects into four collections.** Select each and press **`M` ▸ New Collection**: `Collection` (Camera), `MainObject` (Keyboard.001 + KeyboardParent), `Table`, `Glass`. Scene camera is `Camera.001`; scene units are Imperial [frame_006].
+10. **Name the current view layer `MainObject`** — the topbar's view-layer field reads `MainObject` where it read the default `View Layer` before [frame_001, frame_006], and the EXR's layer dropdown later confirms the same spelling [frame_029]. It renders the CG keyboard alone [transcript 2:57-3:05].
+11. **Holdout the glass in that layer.** Right-click the `Glass` collection ▸ **View Layer ▸ Set Holdout** — the submenu also carries `Disable from View Layer` (`E`), `Enable in View Layer` (`Alt E`), `Set Indirect Only` and the Clear entries [frame_008]. Note the sibling **Visibility** submenu is a different, non-view-layer control set [frame_007].
+12. **Set `Table` to Indirect Only** in the same submenu, so the table shows up indirectly in the keyboard without rendering itself [frame_008, transcript 3:48-3:54]. Rendering now gives the keyboard minus whatever the glass covers [transcript 3:54-4:00].
+13. **Add a view layer named `Shadow`.** The same four collections appear, because all view layers share one collection list [frame_010, transcript 4:01-4:11].
+14. **Make the table a shadow catcher.** Object Properties ▸ Visibility ▸ **Shadow Catcher** on the `Table` object [frame_010, transcript 4:16-4:21].
+15. **Holdout the glass again, then strip its ray visibility.** The glass still casts a shadow while held out, so select it and **uncheck Ray Visibility ▸ Shadow, Diffuse and Glossy** — leaving Camera, Transmission and Volume Scatter on [frame_011, frame_012]. The real glass already contributes those in the plate, so the CG copy must not add them twice [transcript 4:28-4:52].
+16. **Set `MainObject` to Indirect Only in this layer**, leaving only the shadow the keyboard throws, with the glass masking it [transcript 4:52-5:00]. [no frame: this click lands on the same collection ▸ View Layer ▸ Set Indirect Only entry captured in frame_008]
+17. **Add a view layer named `Reflections`** for the keyboard's reflection in the table surface [frame_013].
+18. **Duplicate the table collection.** Right-click ▸ **Duplicate Collection** gives `TableReflection` / `Table.001`; disable the original, because that one is now a shadow catcher and must stay one [frame_013, frame_015, frame_018]. On the duplicate, turn **Shadow Catcher off** so it renders normally [transcript 5:28-5:39].
+19. **Holdout `MainObject` and `Glass` in the Reflections layer** — what remains in rendered view is the table carrying shadows and reflections [frame_014, transcript 5:39-5:51].
+20. **Enable the Glossy Indirect pass.** View Layer Properties ▸ **Passes**: Data keeps `Combined` + `Z` (Alpha Threshold `0.500`, Cryptomatte Levels `6`), and in the **Light** block click **`Glossy ▸ Indirect`** [frame_015]. The reasoning: the reflection rays go light → keyboard → table → camera, so glossy (last surface is partially reflective) and indirect (more than one bounce) [frame_016, transcript 6:00-6:35].
+21. **Preview the pass.** Tick `Render Single Layer`, render, and use the Image Editor header's **Slot / View Layer / Pass** dropdowns to inspect it [frame_017]; in 2.81+ the same is available live in rendered viewport through the shading popover's **Render Pass** menu [frame_023]. Untick `Render Single Layer` afterwards [transcript 6:40-7:06].
+22. **Add a view layer named `ObjectThroughGlass`.** Keyboard and glass collections stay fully visible; disable the `TableReflection` duplicate [frame_018].
+23. **Enable Transmission Indirect (and Glossy Indirect) on it.** The rays that matter go light → keyboard → *through* the glass → camera: last surface is a transmitting one, and it bounced more than once [frame_019, frame_020, transcript 7:28-8:12]. Glossy Indirect is enabled here too and used at the very end to add sparkle [transcript 8:06-8:13].
+24. **Kill the HDRI inside the glass.** The transmission pass shows the whole HDRI environment refracting through the glass [frame_020]. In the **World shader editor**, add a **Light Path** node and an **Invert** node (`Fac 1.000`): wire `Is Glossy Ray → Invert → Background ▸ Strength` [frame_021]. The HDRI disappears from the transmission pass while still lighting the scene; disconnect these nodes again for the first three view layers [transcript 8:28-8:56].
+25. **Add a fifth view layer named `GlassMask`.** Duplicate the `MainObject` collection to `MainObject.001` (keeping `Keyboard.000` and its bezier-circle parts) and turn the original off [frame_022]; duplicate the table collection to `TableEmission` / `Table.002`, disable the other two table collections and make sure the shadow catcher is off [frame_023].
+26. **Assign a flat Emission shader to every material on those duplicates** — Surface `Emission`, Color white, Strength `1.000`, replacing e.g. the original `plastic.top` Mix Shader / Diffuse BSDF setup [frame_022, frame_023].
+27. **Enable Transmission Indirect and Glossy Indirect on the GlassMask layer too**, and keep the Light Path world hookup connected for it [frame_025]. Its transmission-indirect output is a clean black-and-white image of exactly where the CG object shows through the glass [frame_023, transcript 9:31-9:50].
+28. **Clean up the shared collection list.** Because collections were added as the layers were built, go back through the earlier view layers and **untick the box to exclude** the collections they do not need — the tooltip reads *Exclude from View Layer* [frame_024, transcript 9:54-10:11].
+29. **Render twice and save two multilayer EXRs.** Untick `Use for Rendering` on the last two layers, disconnect the Light Path nodes, render the first three and save as **OpenEXR MultiLayer**; then invert the selection — enable only `ObjectThroughGlass` and `GlassMask`, reconnect the Light Path nodes, render and save a second EXR [frame_025, transcript 10:46-11:14].
+30. **Open the Compositor** with Use Nodes and Backdrop on, delete everything, and add `Viewer` + `Composite` nodes. Load the plate as an **Image Sequence** (`Frames 123`, `Start Frame 0`, `Offset -1`, Auto-Refresh, Color Space `sRGB`) through a **Scale** node set to `Render Size / Stretch`; `Ctrl+Shift+Click` any node to view it [frame_027, frame_028].
+31. **Load the first EXR as an Image node.** Because it is a multilayer EXR, the node gets a **Layer** dropdown (here listing the layers written into that file) and exposes whatever passes each layer carried [frame_027, frame_031].
+32. **Composite the shadows.** With the node on **Layer `Shadow`**, drop its **Alpha** into the `Fac` of a Mix ▸ **Multiply** (top colour white, bottom black) to get a true black-and-white shadow image [frame_027], then **Color Ramp** (stop 1 at `Pos 0.745`) for range, **RGB Curves** (`Fac 1.000`, point `X 0.47222 / Y 0.49375`) for colour and brightness, and a Mix ▸ Multiply against the plate [frame_028, transcript 13:01-13:30].
+33. **Alpha Over the main object.** Duplicate the image node, switch it to **Layer `MainObject`**, and feed `Combined` into an **Alpha Over** (`Convert Premul` off, `Premul 0.000`, `Fac 1.000`) on top of plate + shadows [frame_029, transcript 13:32-13:45].
+34. **Try, and reject, the obvious ways of adding the through-glass pass.** Load the second EXR on **Layer `ObjectThroughGlass`** and take its `TransInd` output: a Mix ▸ Add looks wrong, an Alpha Over does almost nothing because the pass has black baked in with no alpha, and a **Luminance Key** on the black background keys badly [frame_030, transcript 14:07-14:37].
+35. **Use the glass mask instead.** Duplicate the image node and switch the **Layer** dropdown to `GlassMask` — the dropdown lists `Composite`, `GlassMask` and `ObjectThroughGlass` [frame_031]. Run it through a **Color Ramp** (stop at `Pos 0.966`) to crush the mask to solid black and white, and plug that into the **`Fac`** of an Alpha Over whose inputs are the composite so far and the `TransInd` output [frame_032, transcript 14:47-15:17].
+36. **Add the table reflections.** Switch another image node to **Layer `Reflections`** and `Add` its **`GlossInd`** output into the composite — the equation says glossy indirect is added, and it looks right [frame_033, transcript 15:23-15:41]. Duplicating the Add node strengthens the effect if more is wanted [transcript 15:41-15:47].
+37. **Add the through-glass glossy sparkle.** Take the `GlossInd` output of the `ObjectThroughGlass` layer, Add it in using the same black-and-white mask in the `Fac` input, and tone it down with a Mix ▸ **Multiply** against a chosen grey [frame_034, frame_035, transcript 15:47-16:22].
+38. **Read the equation behind all of it** — `docs.blender.org ▸ manual ▸ render ▸ layers ▸ passes` [frame_026]: light passes **add**, colour passes **multiply**, the sum is Combined; Add, Multiply and Alpha Over are the only nodes needed [transcript 12:04-12:58].
+39. **Render the sequences and swap the stills for them.** Re-enable `Use for Rendering` on the first three layers only, restore the normal HDRI, put a **Render Layers** node into the `Composite` node (whatever feeds Composite is what gets written), set an OpenEXR MultiLayer sequence output and Render Animation; then do the same for the last two layers with the Light Path world hooked up, to a different folder. Point every image node at the new sequences and re-pick each layer [transcript 16:34-17:44]. [no frame: this pass is narrated over fast-forwarded screen recording, with no panel held long enough to read]
+40. **Final render.** Hook the finished composite into the `Composite` node, set output to **PNG**, and Render Animation — fast, since it only re-composites [frame_035, transcript 17:44-18:05]. The Image Editor's pass dropdown set to `Composite` shows the finished frame [frame_036].
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Render engine** — Cycles, `Supported`, `GPU Compute`, Path Tracing, Render `512` / Viewport `32` [frame_004]
+- **View layers (5)** — `MainObject`, `Shadow` [frame_010], `Reflections` [frame_013], `ObjectThroughGlass` [frame_018], `GlassMask` [frame_022]
+- **Collections** — `Collection` (Camera), `MainObject`, `Table`, `Glass` [frame_006], plus the duplicates `TableReflection`/`Table.001` [frame_015, frame_018], `MainObject.001` [frame_022] and `TableEmission`/`Table.002` [frame_023]
+- **`M`** — Move to Collection / New Collection [frame_006]
+- **Collection ▸ View Layer submenu** — `Disable from View Layer` (`E`), `Enable in View Layer` (`Alt E`), `Set Indirect Only`, `Clear Indirect Only`, `Set Holdout`, `Clear Holdout` [frame_008]
+- **Collection ▸ Duplicate Collection** — the way to keep one object in two states across layers [frame_013]
+- **Exclude from View Layer** — the outliner checkbox, for collections a layer does not need at all [frame_024]
+- **Object Ray Visibility on the glass** — `Shadow`, `Diffuse`, `Glossy` all off; `Camera`, `Transmission`, `Volume Scatter` on [frame_012]
+- **Shadow Catcher** — on the `Table` object in the Shadow layer [frame_010]; off on the duplicated table in Reflections [frame_015]
+- **View Layer ▸ Passes panel** — Data (`Combined`, `Z`, Alpha Threshold `0.500`, Cryptomatte Object/Material/Asset, Levels `6`, Accurate Mode on) and Light (Diffuse / Glossy / Transmission / Subsurface × Direct / Indirect / Color, Volume Direct / Indirect, Emission, Environment, Shadow, AO) [frame_015]
+- **Passes enabled** — `Glossy Indirect` on Reflections [frame_015]; `Transmission Indirect` + `Glossy Indirect` on ObjectThroughGlass [frame_020] and on GlassMask [frame_025]
+- **`Use for Rendering` / `Render Single Layer`** — the per-layer toggles that split the shot into two EXR renders [frame_018, frame_025]
+- **Viewport Shading ▸ Render Pass** — live per-pass preview in rendered view (2.81+): General (Combined, Emission, Background, AO), Light (all direct/indirect/color rows), Data (Normal, UV, Mist) [frame_023]
+- **Glass material** — Principled BSDF, `Transmission 1.000`, `Roughness 0.033`, `Specular 0.500`, `IOR 1.450`, `Clearcoat Roughness 0.030` [frame_002, frame_024]
+- **Glass normal detail** — `Texture Coordinate → Mapping` (Point, Scale Z `0.300`) `→ Noise Texture` (3D, Scale `15.000`, Detail `0.100`) `→ Normal Map` (World Space, Strength `0.005`) [frame_002]
+- **World** — Environment Texture `hdri-1.hdr` (Linear, Equirectangular, Single Image) → Background (`Strength 1.000`) → World Output [frame_021]
+- **HDRI-out-of-glass trick** — `Light Path ▸ Is Glossy Ray → Invert (Fac 1.000) → Background ▸ Strength` [frame_021]
+- **Glass mask source** — duplicated object + table collections with every material replaced by `Emission` (white, Strength `1.000`), read through the Transmission Indirect pass [frame_022, frame_023]
+- **Compositor image nodes** — multilayer EXRs arrive as `Image` nodes with a **Layer** dropdown (`Composite` / `GlassMask` / `ObjectThroughGlass` in the second file) [frame_030, frame_031]
+- **Plate node** — Image Sequence, `Frames 123`, `Start Frame 0`, `Offset -1`, Auto-Refresh, `sRGB`; **Scale** `Render Size / Stretch` [frame_027, frame_028]
+- **Shadow chain** — Alpha → Mix `Multiply` (white/black) → `Color Ramp` (`Pos 0.745`) → `RGB Curves` (`X 0.47222 / Y 0.49375`) → Mix `Multiply` against the plate [frame_027, frame_028]
+- **Alpha Over** — `Convert Premul` off, `Premul 0.000`, `Fac 1.000`; used plain for the main object [frame_029] and with the mask in `Fac` for the through-glass pass [frame_032]
+- **Glass mask crush** — `Color Ramp` at `Pos 0.966` [frame_032]
+- **Reflection add** — `Reflections ▸ GlossInd` into a Mix `Add` (`Fac 1.000`) [frame_033]; the `ObjectThroughGlass ▸ GlossInd` added the same way and multiplied down by a grey [frame_034, frame_035]
+- **Rejected approaches** — Mix `Add`, plain `Alpha Over` and `Luminance Key` on the transmission pass all fail because the pass has black baked in with no alpha [frame_030]
+- **Documentation** — `docs.blender.org/manual/latest/render/layers/passes` [frame_026]
+- **Output** — two OpenEXR MultiLayer sequences, then a PNG sequence out of the Composite node [frame_036]
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender **2.81.16**, read from the status bar [frame_001, frame_004, frame_015, frame_025]. The viewport Render Pass preview is called out as Blender 2.81+ [frame_023, transcript 6:51-7:02].
 
 ### Tags
-[PENDING EXTRACTION]
+compositing, vfx, cycles, render-passes, view-layers, holdout, shadow-catcher, glass, transmission, light-path, camera-tracking, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `composite-cgi-around-real-object---blender-vfx-tutorial-full.md` — the companion shot from the same author: the same three levels of visibility control, solving occlusion with Holdout and Z-depth instead of transmission passes
+- `add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2.md` — same author; the same view-layer/holdout/shadow-catcher split wrapped in an ACES colour pipeline
+- `add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1.md` — same author; the colour-gamut and gamma groundwork under any live-action comp
+- `replacing-adobe-after-effects-with-blender-tutorial.md` — Blender's compositor as a standalone 2D toolset
