@@ -1012,8 +1012,217 @@ def check_orphan_frames():
     else:
         print("  B (disk):   none on this device.")
 
+
+# ── Check #19: Key Steps grounding depth ──────────────────────────────────────
+# Added 2026-09-11 at the user's instruction, off the back of the reground pilot
+# (houdini-wand `84cad2a`, `78-building-the-vortex-dop-network`).
+#
+# WHY A SECOND FRAME CHECK EXISTS. Check #16 asks "does this entry cite ANY
+# frame?", and the pilot showed that bar is too low to catch the defect that
+# matters. That entry scored 10/12 on frame quality while the one parameter the
+# whole tutorial exists to explain -- Buoyancy Dir = -Z -- was never captured at
+# all, and the notes written from narration alone carried TWO INVENTED NODE
+# NAMES (a "Dissipation micro-solver" that is really Pyro Solver > Shape; a
+# division-size link on the wrong node) and two wrong values ("0.3" for `0.03`,
+# "0.2" for `0.9`). A citation count sees none of that.
+#
+# What sees it is COVERAGE. The `### Key Steps` list is the entry's own claim
+# about what the tutorial teaches, so requiring a frame behind EVERY step tests
+# the notes and the frames in one move: a step with no frame is either a moment
+# nobody captured or a claim nobody verified, and both are the defect. The
+# corollary matters too -- a frame showing a step the list never mentions is not
+# a pass with something spare, it is evidence the list is thin, which is why
+# FRAMES_PER_STEP_WARN below looks at the ratio.
+#
+# THE RATCHET, same shape as check #16's. Measured 2026-09-11 across the five
+# skills: 1,465 entries have frames and are marked complete; 1,334 cite no frame
+# in a single step, 107 cite some steps but not others, 10 are fully anchored.
+# Arming this on all of them turns the library red on arrival, and a gate that
+# fails on arrival gets ignored rather than fixed (plan Gotcha #1: gate LAST).
+# So it arms PER ENTRY, two ways:
+#
+#   * `ingested:` on or after KEY_STEP_ANCHOR_CUTOFF  -- every new ingest complies;
+#   * `grounding: key-steps-anchored` in frontmatter  -- an entry the reground
+#     campaign has taken to depth is stamped, and from then on it is gated
+#     forever, whatever its ingest date.
+#
+# That second arm is the half a pure date cutoff cannot do. Without it a
+# regrounded 2026-06 entry could silently rot back to transcript-only prose and
+# no check would notice. Everything not yet armed is COUNTED and printed on
+# every run -- visible backlog, never hidden.
+#
+# Raise the cutoff only by backfilling up to it. Never to make a red run green.
+KEY_STEP_ANCHOR_CUTOFF = "2026-09-11"
+KEY_STEP_MIN = 3            # a "thorough" list is not one line; see SKILL.md Step 3
+FRAMES_PER_STEP_WARN = 2.0  # frames >= 2x steps: the step list is probably thin
+GROUNDING_STAMP = "key-steps-anchored"
+
+_STEP_RE = re.compile(r"^(?:\d+\.|[-*])\s+(.*?)(?=^(?:\d+\.|[-*])\s+|\Z)", re.M | re.S)
+_CITE_RE = re.compile(r"\[[^\]]*frame_\d{3}")
+# The honest escape hatch for a step no frame can show -- "download the project
+# files", "render overnight". It must name a reason, so it stays greppable and
+# cannot be used as a blanket silencer.
+_NOFRAME_RE = re.compile(r"\[no frame:[^\]]+\]")
+
+
+def key_steps_block(notes):
+    m = re.search(r"^### Key Steps\s*$(.*?)(?=^### |\Z)", notes, re.M | re.S)
+    return m.group(1) if m else None
+
+
+def split_key_steps(block):
+    """Top-level steps only. Nested bullets are indented and belong to their
+    parent step -- counting them as steps would inflate the denominator and fail
+    entries that are actually fine."""
+    return [s for s in _STEP_RE.findall(block) if s.strip()]
+
+
+def grade_key_step_grounding(fname, content):
+    """Grade ONE entry against the bar. Returns (verdict, [problem strings]).
+
+    verdict: 'pass' | 'fail' | 'zero' | 'partial' | 'skip'
+    'zero'/'partial' are the unarmed legacy states -- counted, not failed.
+    """
+    m_cnt = re.search(r"^frame_count:\s*(\d+)", content, re.M)
+    m_st = re.search(r"^extraction_status:\s*(\S+)", content, re.M)
+    if not m_cnt or int(m_cnt.group(1)) == 0 or not m_st or m_st.group(1) != "complete":
+        return "skip", []
+    if "## Structured Notes" not in content:
+        return "skip", []
+
+    frames = int(m_cnt.group(1))
+    notes = content.split("## Structured Notes")[-1]
+    block = key_steps_block(notes)
+    problems = []
+
+    if block is None:
+        return "fail", ["has no '### Key Steps' section at all -- the step list "
+                        "IS the claim being grounded, so there is nothing to check"]
+
+    steps = split_key_steps(block)
+    if len(steps) < KEY_STEP_MIN:
+        problems.append(f"only {len(steps)} Key Step(s); a thorough list walks the "
+                        f"whole tutorial, not its highlights (minimum {KEY_STEP_MIN})")
+
+    unanchored = [i for i, s in enumerate(steps, 1)
+                  if not _CITE_RE.search(s) and not _NOFRAME_RE.search(s)]
+    anchored = len(steps) - len(unanchored)
+
+    if steps and frames >= FRAMES_PER_STEP_WARN * len(steps):
+        problems.append(f"{frames} frames for {len(steps)} steps -- frames that map "
+                        f"to no step mean the step list is incomplete, not that the "
+                        f"frames are spare")
+
+    if unanchored:
+        shown = ", ".join(f"#{i}" for i in unanchored[:6])
+        more = f" (+{len(unanchored) - 6} more)" if len(unanchored) > 6 else ""
+        problems.append(f"{len(unanchored)} of {len(steps)} step(s) anchored to no "
+                        f"frame: {shown}{more} -- capture the moment and cite it "
+                        f"`[frame_NNN]`, or mark it `[no frame: <reason>]` if the "
+                        f"step genuinely cannot be shown")
+        return ("partial" if anchored else "zero"), problems
+
+    return ("fail" if problems else "pass"), problems
+
+
+def entry_is_armed(content):
+    """Is this entry inside check #19's ratchet yet? See the block comment."""
+    if re.search(rf"^grounding:\s*{GROUNDING_STAMP}\b", content, re.M):
+        return True
+    m_ing = re.search(r"^ingested:\s*(\d{4}-\d{2}-\d{2})", content, re.M)
+    return bool(m_ing and m_ing.group(1) >= KEY_STEP_ANCHOR_CUTOFF)
+
+
+def check_key_step_grounding():
+    """Check #19 -- every Key Step is anchored to a frame. See block comment."""
+    print("\n[12] Checking Key Steps grounding depth...")
+    files = get_tutorial_files()
+    stamped = passing = 0
+    backlog = {"zero": 0, "partial": 0, "fail": 0}
+    thin = []
+    for fname in files:
+        with open(os.path.join(TUTORIALS_DIR, fname), "r", encoding="utf-8-sig") as fh:
+            content = fh.read()
+        verdict, problems = grade_key_step_grounding(fname, content)
+        if verdict == "skip":
+            continue
+        armed = entry_is_armed(content)
+        if re.search(rf"^grounding:\s*{GROUNDING_STAMP}\b", content, re.M):
+            stamped += 1
+        if verdict == "pass":
+            passing += 1
+            continue
+        if armed:
+            for p in problems:
+                fail(f"{fname}: {p}")
+        else:
+            backlog[verdict if verdict in backlog else "fail"] += 1
+            if verdict == "partial":
+                thin.append(fname)
+    print(f"  {passing} entry/entries fully anchored ({stamped} carry the "
+          f"`grounding: {GROUNDING_STAMP}` stamp).")
+    print(f"    not yet armed: {backlog['zero']} cite no frame in any step, "
+          f"{backlog['partial']} anchor only some steps, {backlog['fail']} have no "
+          f"step list -- the reground backlog, see check #16")
+    if thin:
+        # Partial is the most misleading state in the library: it reads as
+        # grounded at a glance. Name a few so the backlog has a face.
+        print(f"    partially anchored, e.g.: {', '.join(sorted(thin)[:3])}")
+
+
+def run_grounding_gate(slugs):
+    """`python validate.py --grounding <slug> [...]` -- Step 3's mandatory gate.
+
+    Arms UNCONDITIONALLY on the entries named, whatever their ingest date or
+    stamp: this is the command the pipeline runs *before* the stamp exists, so
+    deferring to the ratchet here would make it a no-op exactly when it matters.
+
+    Exit code is the contract. 0 means the entry may be committed and stamped
+    `grounding: key-steps-anchored`; anything else means go back to the frames.
+    """
+    if not slugs:
+        print("usage: python validate.py --grounding <slug> [<slug> ...]")
+        return 2
+    bad = 0
+    for slug in slugs:
+        slug = slug[:-3] if slug.endswith(".md") else slug
+        slug = os.path.basename(slug)
+        path = os.path.join(TUTORIALS_DIR, slug + ".md")
+        if not os.path.isfile(path):
+            print(f"  FAIL: {slug} -- no such tutorial file")
+            bad += 1
+            continue
+        with open(path, "r", encoding="utf-8-sig") as fh:
+            content = fh.read()
+        verdict, problems = grade_key_step_grounding(slug + ".md", content)
+        if verdict == "skip":
+            print(f"  SKIP: {slug} -- no frames, or extraction_status is not "
+                  f"'complete'; nothing to ground yet")
+            continue
+        if verdict == "pass":
+            steps = len(split_key_steps(key_steps_block(
+                content.split("## Structured Notes")[-1]) or ""))
+            print(f"  PASS: {slug} -- {steps}/{steps} Key Steps anchored to frames")
+            continue
+        bad += 1
+        print(f"  FAIL: {slug}")
+        for p in problems:
+            print(f"        {p}")
+    if bad:
+        print(f"\n{bad} entry/entries are not grounded. Step 3 is not finished: read "
+              f"the frames, fix the steps they contradict, capture the moments that "
+              f"are missing. Do not stamp `grounding: {GROUNDING_STAMP}` until this "
+              f"passes.")
+    return 1 if bad else 0
+
+
 def main():
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    # Step 3's per-entry gate. Runs the Key Steps grounding check on the
+    # named entries and nothing else, so the pipeline can block on it before
+    # an entry is ever committed. See run_grounding_gate().
+    if len(sys.argv) > 1 and sys.argv[1] == "--grounding":
+        sys.exit(run_grounding_gate(sys.argv[2:]))
     print("=" * 60)
     print("blender-motion validate.py")
     print("=" * 60)
@@ -1034,6 +1243,7 @@ def main():
     check_cross_links()
     check_reference_provenance()
     check_frame_provenance()
+    check_key_step_grounding()
     check_orphan_frames()
     check_retrieval_decay()
     check_tag_variants()

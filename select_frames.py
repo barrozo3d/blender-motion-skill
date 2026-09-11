@@ -336,6 +336,15 @@ def main():
         out_md.write_text(content, encoding="utf-8")
         print(f"      Done. {out_md.relative_to(SKILL_DIR)} updated (not committed — "
               f"commit together with the Structured Notes once written).")
+        # `frame_status: complete` means PIXELS EXIST. It has never meant the
+        # entry is grounded, and reading it that way is what produced 1,300+
+        # entries whose notes were written from narration alone. Say so here, in
+        # the same breath as "Done", because this is the moment the operator
+        # decides whether they are finished.
+        print(f"      NOT FINISHED. Step 3 is still owed on this entry: read every "
+              f"frame, correct the notes against it, and anchor EVERY Key Step "
+              f"with [frame_NNN].")
+        print(f"      Gate:  python validate.py --grounding {args.slug}")
 
     finally:
         shutil.rmtree(tmp, ignore_errors=True)

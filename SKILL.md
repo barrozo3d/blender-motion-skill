@@ -384,19 +384,64 @@ This downloads the low-quality video, extracts exactly those frames to `tutorial
    > disagree, prefer the frame and record both** — the transcript is the
    > unreliable source (Whisper mishears node names), the frame is not.
    >
-   > This is already common practice — 719 such citations exist across the five
-   > skills — and `validate.py` **check #16** now verifies every `frame_NNN`
-   > citation against the file's own `frame_count`. It checks the file's record,
-   > not the filesystem, because frames are gitignored and device-local: a
-   > machine that never downloaded them is not evidence of absence.
+   > **Do not trust the old "719 citations" figure that used to stand here.**
+   > Corrected 2026-09-11: that number counted `frame_NNN` *path strings* inside
+   > `## Captured Frames` listings, which `validate.py` accepts as documentation
+   > by design. Real grounding citations — the bracket form, in prose — existed
+   > in **2 entries in the whole corpus**. Grounding is not common practice
+   > here; it is the thing being established.
+   >
+   > `validate.py` **check #16** verifies every `frame_NNN` citation against the
+   > file's own `frame_count`, and **check #19** (below) verifies that every Key
+   > Step is anchored. Both check the file's record, not the filesystem, because
+   > frames are gitignored and device-local: a machine that never downloaded
+   > them is not evidence of absence.
    - **Core Technique** — one sentence, the main Blender technique
    - **Summary** — 2-3 sentences, what the viewer learns and the end result
-   - **Key Steps** — 5-10 steps with exact node names, menu paths, shortcuts
+   - **Key Steps** — **as many steps as the tutorial actually contains**, in order,
+     with exact node names, menu paths and shortcuts. Not a highlight reel: if the
+     video does it and it matters to reproducing the result, it is a step. A
+     long, dense tutorial earns 20+ steps; a three-minute one earns three. There
+     is no upper bound and the old "5-10" cap is withdrawn — it was producing
+     lists that skipped the step the tutorial existed to teach.
+     **Every step must be anchored** — see the gate below.
    - **Nodes / Settings** — all nodes and parameter values seen in transcript + frames
    - **Difficulty** — Beginner / Intermediate / Advanced / Expert
    - **Blender Version** — from transcript or frames; "Not specified" if unclear
    - **Tags** — from the approved tag pool in the Key Rules section
-4. **Update frontmatter**: set `blender_version:`, `tags:`, `extraction_status: complete`
+
+   > ### ⛔ MANDATORY GATE — Step 3 is not finished until this passes
+   >
+   > **Every Key Step must be anchored to a frame that shows it**, cited in the
+   > step itself as `[frame_NNN]`. A step you cannot point at a frame for is one
+   > of two things, and both are defects: a moment nobody captured (go capture
+   > it with `select_frames.py`) or a claim nobody verified (read the frame and
+   > fix the claim). The rare step no frame can ever show — "download the
+   > project files", "let it render overnight" — is marked `[no frame: reason]`,
+   > which must state the reason.
+   >
+   > **The numbers in each step must be read off the frame, not off the
+   > narration.** Where they disagree the frame wins and both are recorded. The
+   > pilot that produced this rule found a narrated "0.3" that was `0.03` on
+   > screen, a narrated "0.2" that was `0.9`, and two node names that do not
+   > exist in the application — in notes that read as confident and detailed.
+   >
+   > **And the reverse check:** a frame showing something the Key Steps never
+   > mention is not a spare frame, it is evidence the step list is thin. Add the
+   > step.
+   >
+   > Run the gate, per entry, before committing:
+   >
+   > ```bash
+   > python validate.py --grounding <slug>
+   > ```
+   >
+   > Exit 0 means the entry may be committed. Then stamp the frontmatter:
+   > `grounding: key-steps-anchored (N/N steps, YYYY-MM-DD)`. The stamp arms
+   > check #19 on that entry permanently, so it can never quietly rot back to
+   > transcript-only prose.
+
+4. **Update frontmatter**: set `blender_version:`, `tags:`, `extraction_status: complete`, and `grounding: key-steps-anchored (N/N steps, DATE)` once `validate.py --grounding <slug>` exits 0
 5. **Find related tutorials**: scan `INDEX.md` for entries sharing 2+ tags, add cross-links in `## Related Tutorials`
 6. **Update INDEX.md entry**: replace `[PENDING]` fields with real version, tags, and summary
 
