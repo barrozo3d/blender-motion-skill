@@ -8,9 +8,10 @@ blender_version: "Blender 5.2.0 Alpha -- observed in frame_000"
 tags: [materials, shaders, glass, transparency, thin-wall, rendering, beginner]
 extraction_status: complete
 frames_dir: tutorials/frames/blenders-new-transparency-material-is-crazy/
-frame_count: 6
+frame_count: 15
 frame_status: complete
-frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
+grounding: key-steps-anchored (16/16 steps, 2026-09-11)
+frame_selection: explicit-timestamps (supplied to select_frames.py; NOT evidence that the frames were read -- see `grounding:`)
 ---
 
 # Blender's NEW Transparency Material is CRAZY!
@@ -62,11 +63,20 @@ frame_selection: content-anchored (manual timestamps chosen from transcript, not
 ## Captured Frames
 
 - [1:40] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_000.jpg
-- [3:30] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_001.jpg
-- [5:10] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_002.jpg
-- [6:00] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_003.jpg
-- [7:00] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_004.jpg
-- [8:40] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_005.jpg
+- [2:20] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_001.jpg
+- [2:55] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_002.jpg
+- [3:20] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_003.jpg
+- [5:05] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_004.jpg
+- [6:00] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_005.jpg
+- [6:35] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_006.jpg
+- [7:00] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_007.jpg
+- [7:32] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_008.jpg
+- [7:55] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_009.jpg
+- [8:12] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_010.jpg
+- [8:35] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_011.jpg
+- [9:10] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_012.jpg
+- [9:30] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_013.jpg
+- [10:10] tutorials/frames/blenders-new-transparency-material-is-crazy/frame_014.jpg
 
 ---
 
@@ -79,28 +89,33 @@ Blender 5.2's new Thin Wall checkbox on Principled BSDF: enables correct light t
 SouthernShotty covers the Thin Wall parameter added to Principled BSDF in Blender 5.2. Previously, one-sided planes with Transmission would show no light until a Solidify modifier was added (doubles geo, can cause Z-fighting). Thin Wall eliminates this — Blender treats the surface as having negligible thickness rather than as a solid volume, so SSS radius/scale are cleared and light passes through correctly. The `Backscatter` sub-setting (−1 to +1) controls which side of the plane emits projected light. Use cases shown: basic transparency, thin-film bubbles (glass sphere now reads as soap bubble surface rather than solid glass), foliage (more natural light transmission, faster render, no need to double-side leaves), glass windows (fixes dark-glass-eats-light problem in complex scenes), paper, and a frosted horror-glass creative effect (noise textures × grunge maps → roughness + bump, Transmission material, front and back lighting).
 
 ### Key Steps
-1. **Enable Thin Wall:** Select object with Principled BSDF shader → check the **Thin Wall** checkbox. It is a **top-level socket sitting directly under `Alpha` and above `Normal`**, not a sub-setting of Transmission [frame_000, frame_002]. Solidify is no longer required for one-sided planes — the "before" setup it replaces is visible as a Solidify modifier in **Simple** mode, Thickness **0.01 m**, Offset **−1.0000**, Rim **Fill** on [frame_000].
-2. **Basic transparency:** Transmission = 1, Roughness ≈ 0; check Thin Wall. SSS Radius/Scale are automatically cleared — the values being cleared are the Subsurface defaults visible before the switch: method **Random Walk**, Weight 1.000, Radius **1.000 / 0.200 / 0.100**, Scale **0.05 m**, Anisotropy 0.000 [frame_000].
-3. **Backscatter:** `Backscatter` value (−1 to +1) controls which side receives projected light; set to 0 to split evenly or 1 to favor front-lit surfaces.
-4. **Bubble / thin film:** On a glass sphere, enabling Thin Wall switches from solid-glass look to soap-bubble surface rendering. **`Thin Film` is a built-in section of the Principled BSDF, not a separate node** [frame_002] — it carries `Thickness` (in **nm**, default 0) and `IOR` (default **1.330**). This entry previously said "add Thin Film node or iridescent shader", which is wrong about where the control lives.
-5. **Foliage optimization:** Check Thin Wall on leaf material → light passes through more naturally; eliminates need to double-side leaves → better render quality AND faster render times. **The comparison is run as named render slots** — `Thin Wall`, `Normal`, `Solidify` — so the three variants can be flipped between in the Render Result window [frame_003]; the visible render is 1920×1080 RGBA float at `Time 00:26.38`, Peak 1599M. The test asset is an oak: GeoNodes group `Tree Leaves` scattering `EN-leaves-oak` over `EN-oak.1.branches` at Density 1000.0, Randomness 0.400, Viewport Visibility 0.100, mask `Leaves` — a CC-BY asset credited in an open text block [frame_003].
-6. **Fix dark glass:** Add glass plane to window opening → check Thin Wall → scene lighting is restored while still getting real glass reflections. The original dark-glass problem: one-sided glass without Thin Wall absorbs too much light energy.
-7. **Frosted horror glass (creative example):**
-   - Geometry: flat plane with two extruded border pieces (black material for contrast).
-   - Material: Principled BSDF with Transmission (not SSS); Thin Wall ON.
-   - Roughness/bump: Noise Texture (stretched) → Color Ramp; second larger Noise → both multiplied; add grunge maps × grunge scratches → Color Ramp (B&W) → multiply onto base; result feeds both Roughness and Bump Normal.
-   - Base Color: warm color → Base Color input.
-   - Lighting: Area light + Sunlight behind character; 2–3 colored fill lights in front (pale tones) to highlight bump.
-   - Animation: simple shape key on character to simulate approach.
+1. **Find the checkbox.** `Thin Wall` is a **top-level socket on the Principled BSDF**, sitting directly under `Alpha` and above `Normal` — not a sub-setting of Transmission [frame_000, frame_004]. Blender **5.2.0 Alpha** throughout [frame_000].
+2. **It replaces the Solidify workaround.** The "before" setup on the test plane is a `Solidify` modifier in **`Simple`** mode, `Thickness 0.01 m`, `Offset −1.0000`, `Rim ▸ Fill` on [frame_000]; with Thin Wall a one-sided plane no longer needs it.
+3. **Tick it and the subsurface settings clear themselves.** Before: `Subsurface` at `Random Walk`, `Weight 1.000`, `Radius 1.000 / 0.200 / 0.100`, `Scale 0.05 m`, `Anisotropy 0.000` [frame_000]. After ticking `Thin Wall` those fields grey out and the plane starts transmitting the sphere's shadow [frame_001].
+4. **The direction control is `Anisotropy`, under Subsurface.** Dragged to **`−1.000`** the projection favours one side [frame_002] and to **`1.000`** the other [frame_003]; `0` splits it evenly. (This entry previously called the control `Backscatter`; no frame shows a socket by that name — the slider being dragged in both demonstrations is labelled `Anisotropy`.)
+5. **It works with Transmission too, which is what makes it useful for glass.** `Transmission ▸ Weight` is taken from `0.000` [frame_002] to `1.000`, its tooltip reading *"Blend between transmission and other base layer components"* [frame_003, transcript 3:15].
+6. **Thin Film is a built-in section of the Principled BSDF, not a separate node.** On a glass sphere (`Metallic 0.000`, `Roughness 0.000`, `IOR 1.500`, `Transmission Weight 1.000`) the `Thin Film` block carries `Thickness` in **nm** (default `0 nm`) and `IOR` (default **`1.330`**) [frame_004]. Enabling Thin Wall on top turns the solid-glass read into a soap-bubble surface.
+7. **Foliage: compare the variants as named render slots.** The Render Result window holds slots named **`Thin Wall`**, **`Normal`** and **`Solidify`** so the three can be flipped between [frame_005, frame_006]. The asset is an oak driven by a `Tree Leaves` GeoNodes group scattering `EN-leaves-oak` over `EN-oak.1.branches` at `Density 1000.000`, `Randomness 0.400`, `Viewport Visibility 0.100`, mask `Leaves`; a CC-BY asset credited to Simon Tho… in an open text block [frame_005].
+8. **Thin Wall renders faster as well as better.** Same 1920 × 1080 RGBA-float frame, same peak memory (1599 M): the `Normal` slot took **`00:26.38`** [frame_005], the `Thin Wall` slot **`00:24.12`** [frame_006] — and across a forest that difference stacks up per frame [transcript 6:29].
+9. **The glass problem, as the original scene author solved it.** The classroom's `windows.001` uses a `dayLight_portal` material built from a **`Mix Shader`** with `Factor: Geometry ▸ Backfacing` blending a `Transparent BSDF` against an `Emission` [frame_007] — a workaround for glass eating light, and the interior still reads dim.
+10. **The fix.** Give the window a plain `Principled BSDF` (`Metallic 0.000`, `Roughness 0.000`, `IOR 1.500`, `Transmission Weight 1.000`) and tick **`Thin Wall`**: the interior lights up and the windows show real glass and reflections [frame_008, transcript 7:29].
+11. **Creative example — the frosted-glass horror shot.** A `Paper_Wall` plane with two dark border pieces, a `Human_Hands_On_Glass` figure pressed behind it, rendered in Cycles at `Viewport 1024` / `Render 150` samples with OpenImageDenoise [frame_009].
+12. **Animate the figure with a simple shape key** so it appears to lean in — the pose is visible at frame 4 with the hands flattened against the glass [frame_010, transcript 8:09].
+13. **Light it from behind with an area light.** The scene carries `Area`, `Area.001`, `Area.002`, `Area.003` plus a `Directional`; each is a plain `Emission` → `Light Output` node pair [frame_011]. Final area-light settings: `Temperature 6500 K`, **`Power 50.000 W`**, `Normalize` on, `Shape Square`, `Size 1 m`, `Spread 180°`, `Max Bounces 1024`, `Cast Shadow` and `Multiple Importance` on [frame_014].
+14. **Build the frosted surface by multiplying noise together.** Two Noise Textures are combined through a **`Multiply`** node (`Color`, `Multiply`, `Clamp Factor` on, **`Factor 0.250`**) [frame_012, transcript 9:06], then grunge maps and scratch textures are multiplied on top of that base [transcript 9:26].
+15. **Feed the combined map to both Roughness and a Bump normal.** The multiply chain runs into a `Bump` node and into the Principled BSDF's `Roughness`, giving the blurry scratched-glass read [frame_013, transcript 9:26].
+16. **Tint the lights rather than the glass.** Each light gets a small amount of colour — the back lights warm, the front fills pale — so the bump map catches bounce light and the roughness reads [frame_014, transcript 9:45-10:06].
 
 ### Nodes / Settings
-- Principled BSDF → **Thin Wall** checkbox (new in Blender 5.2), a top-level socket between `Alpha` and `Normal` [frame_000, frame_002] — replaces Solidify modifier for transmission on single-sided geometry
-- Principled BSDF → **Thin Film** section: `Thickness` (nm, default 0), `IOR` (default 1.330) [frame_002]
-- Principled BSDF section order as shown: Metallic, Roughness, IOR, Alpha, **Thin Wall**, Normal, Diffuse, Subsurface, Specular, Transmission (`Weight`), Coat, Sheen, Emission, **Thin Film** [frame_002]
-- **Backscatter** (Thin Wall sub-setting) — range −1 to +1; controls light projection direction. ⚠️ **Transcript-only**: no captured frame shows this socket, so the name and range are as narrated, not as read
+- Principled BSDF → **Thin Wall** checkbox (new in Blender 5.2), a top-level socket between `Alpha` and `Normal` [frame_000, frame_004] — replaces Solidify modifier for transmission on single-sided geometry
+- Principled BSDF → **Thin Film** section: `Thickness` (nm, default `0 nm`), `IOR` (default `1.330`) [frame_004]
+- Principled BSDF section order as shown: Metallic, Roughness, IOR, Alpha, **Thin Wall**, Normal, Diffuse, Subsurface, Specular, Transmission (`Weight`), Coat, Sheen, Emission, **Thin Film** [frame_004]
+- **`Anisotropy`** (under `Subsurface`) — this is the direction control the narration describes. Demonstrated at **`−1.000`** [frame_002] and **`1.000`** [frame_003]; `0` splits the projection evenly. The name **`Backscatter`** this entry previously carried appears in no frame — the slider being dragged in both demonstrations reads `Anisotropy`
 - **Transmission** — use for glass/frosted glass; **not** SSS (SSS is for skin/wax)
-- Frosted glass roughness chain: `Noise Texture` (stretched scale) → `Color Ramp` → `Multiply` with second `Noise Texture` → `Multiply` with grunge maps → feeds Roughness + Bump Normal
-- Solidify modifier — **no longer needed** for one-sided plane transparency; can be removed
+- Frosted glass roughness chain — two `Noise Texture`s combined through a `Multiply` (`Color`, `Clamp Factor` on, `Factor 0.250`) [frame_012], grunge maps multiplied on top, the result feeding both `Roughness` and a `Bump` normal [frame_013]
+- Solidify modifier — **no longer needed** for one-sided plane transparency; the "before" state is `Simple` mode, `Thickness 0.01 m`, `Offset −1.0000`, `Rim ▸ Fill` on [frame_000]
+- Render slots named `Thin Wall` / `Normal` / `Solidify` for A/B comparison; same frame renders in `00:26.38` normal vs `00:24.12` with Thin Wall [frame_005, frame_006]
+- Area light final settings — `Temperature 6500 K`, `Power 50.000 W`, `Normalize` on, `Square`, `Size 1 m`, `Spread 180°`, `Max Bounces 1024` [frame_014]
 
 ### Difficulty
 Beginner — single checkbox enables the feature; the creative frosted glass example is intermediate.
