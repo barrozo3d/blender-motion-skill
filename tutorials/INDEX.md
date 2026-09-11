@@ -3269,7 +3269,7 @@ Each entry format:
 - **Author:** Christopher 3D
 - **Blender Version:** Blender 5.3
 - **Tags:** materials, shaders, glass, rendering, cycles, blender-5x, intermediate
-- **Summary:** Blender 5.3 adds native dispersion to the Principled BSDF transmission channel via Dispersion Scale and Dispersion Abbe Number, replacing the legacy trick of splitting RGB into three hard IOR offsets with a quasi-spectral approximation converted back through a CIE colour matching function. Covers the inverse Abbe scale, an IOR/Abbe table for 16 real materials, and the critical fix: Cycles default indirect clamp of 10 truncates the red and blue spectral spikes and leaves a green cast, so raise it to 50+ — with a worked counter-example where disabling clamping entirely reintroduces denoiser-breaking fireflies.
+- **Summary:** Blender 5.3 retrofits OpenPBR-style dispersion directly into the Principled BSDF's transmission channel, replacing the old trick of splitting RGB into three hard IOR offsets. Cycles instead runs a quasi-spectral approximation driven by the Abbe number and converts back to RGB through a CIE colour matching function. The practical catch is that Blender's historical indirect clamp of `10.00` truncates the red and blue...
 - **File:** tutorials/blender-53-gets-dispersion.md
 
 

@@ -8,10 +8,11 @@ blender_version: "Blender 5.3"
 tags: [materials, shaders, glass, rendering, cycles, blender-5x, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-53-gets-dispersion/
-frame_count: 10
+frame_count: 15
 frame_status: complete
+grounding: key-steps-anchored (16/16 steps, 2026-09-11)
 uncertainty_frames: []
-frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
+frame_selection: explicit-timestamps (supplied to select_frames.py; NOT evidence that the frames were read -- see `grounding:`)
 ---
 
 # Blender 5.3 gets dispersion!
@@ -195,16 +196,21 @@ Frames captured — see "Captured Frames" section below.
 
 ## Captured Frames
 
-- [3:16] tutorials/frames/blender-53-gets-dispersion/frame_000.jpg
-- [5:33] tutorials/frames/blender-53-gets-dispersion/frame_001.jpg
-- [7:10] tutorials/frames/blender-53-gets-dispersion/frame_002.jpg
-- [7:50] tutorials/frames/blender-53-gets-dispersion/frame_003.jpg
-- [8:33] tutorials/frames/blender-53-gets-dispersion/frame_004.jpg
-- [8:46] tutorials/frames/blender-53-gets-dispersion/frame_005.jpg
-- [10:14] tutorials/frames/blender-53-gets-dispersion/frame_006.jpg
-- [10:22] tutorials/frames/blender-53-gets-dispersion/frame_007.jpg
-- [10:47] tutorials/frames/blender-53-gets-dispersion/frame_008.jpg
-- [11:29] tutorials/frames/blender-53-gets-dispersion/frame_009.jpg
+- [1:35] tutorials/frames/blender-53-gets-dispersion/frame_001.jpg
+- [3:16] tutorials/frames/blender-53-gets-dispersion/frame_004.jpg
+- [4:30] tutorials/frames/blender-53-gets-dispersion/frame_005.jpg
+- [5:10] tutorials/frames/blender-53-gets-dispersion/frame_006.jpg
+- [5:33] tutorials/frames/blender-53-gets-dispersion/frame_008.jpg
+- [7:10] tutorials/frames/blender-53-gets-dispersion/frame_009.jpg
+- [7:50] tutorials/frames/blender-53-gets-dispersion/frame_010.jpg
+- [8:05] tutorials/frames/blender-53-gets-dispersion/frame_011.jpg
+- [8:33] tutorials/frames/blender-53-gets-dispersion/frame_012.jpg
+- [8:46] tutorials/frames/blender-53-gets-dispersion/frame_013.jpg
+- [10:14] tutorials/frames/blender-53-gets-dispersion/frame_010.jpg
+- [10:22] tutorials/frames/blender-53-gets-dispersion/frame_011.jpg
+- [10:47] tutorials/frames/blender-53-gets-dispersion/frame_012.jpg
+- [11:29] tutorials/frames/blender-53-gets-dispersion/frame_013.jpg
+- [11:50] tutorials/frames/blender-53-gets-dispersion/frame_014.jpg
 
 ---
 
@@ -214,51 +220,59 @@ Frames captured — see "Captured Frames" section below.
 Using the native `Dispersion Scale` and `Dispersion Abbe Number` controls added to the Principled BSDF transmission channel in Blender 5.3, and raising Cycles' indirect light clamp to stop that clamp from truncating the spectrum into a green cast.
 
 ### Summary
-Blender 5.3 retrofits OpenPBR-style dispersion directly into the Principled BSDF's transmission channel, replacing the old trick of splitting RGB into three hard IOR offsets. Cycles instead runs a quasi-spectral approximation driven by the Abbe number and converts back to RGB through a CIE colour matching function. The practical catch is that Blender's historical indirect clamp of `10.00` truncates the red and blue spectral spikes this produces, leaving green to dominate — so the feature ships looking wrong until the clamp is raised. Covers the physics, an IOR/Abbe reference table for real materials `[frame_000]`, the clamp fix with a worked counter-example where disabling clamping entirely is harmful, and measured render-time overhead.
+Blender 5.3 retrofits OpenPBR-style dispersion directly into the Principled BSDF's transmission channel, replacing the old trick of splitting RGB into three hard IOR offsets. Cycles instead runs a quasi-spectral approximation driven by the Abbe number and converts back to RGB through a CIE colour matching function. The practical catch is that Blender's historical indirect clamp of `10.00` truncates the red and blue spectral spikes this produces, leaving green to dominate — so the feature ships looking wrong until the clamp is raised. Covers the physics, an IOR/Abbe reference table for real materials `[frame_001]`, the clamp fix with a worked counter-example where disabling clamping entirely is harmful, and measured render-time overhead.
 
 ### Key Steps
-1. **Set the base IOR as usual.** Dispersion does not replace the index of refraction — you still set it normally (1.52 for common glass), and the Abbe number then tells the engine how far to vary IOR across the spectrum away from that target `[transcript 2:31-2:47]`.
-2. **Set `Dispersion Scale`.** Found under Principled BSDF, Transmission, alongside `Weight`. `1.000` is full effect; `0.5` gives roughly 50% strength `[frame_002]` `[transcript 7:13-7:28]`.
-3. **Set `Dispersion Abbe Number`.** Shown at `55.000` for glass `[frame_002]`. **The scale is inverse**: a *high* Abbe value means a narrow IOR spread and *less* dispersion; a *low* value means a wide spread and *more* `[transcript 1:29-1:43]`. Most optical materials fall in roughly 20–100 `[transcript 1:44]`.
-4. **Look the value up rather than guessing.** Abbe numbers are laboratory-measured and documented for nearly every real material `[transcript 2:48]`. The on-screen table `[frame_000]` gives IOR / Abbe pairs: Fluorite 1.434/95, Fused Quartz 1.458/68, Crown Glass 1.517/64, Rock Crystal 1.550/67, Emerald 1.580/60, Topaz 1.620/61, Dense Flint Glass 1.690/34, Peridot 1.700/47, Lead Crystal 1.700/33, Spinels 1.720/61, Sapphire/Ruby 1.760/72, Garnet 1.800/35, Zircon 1.900/36, Cubic Zirconia 2.170/32, Diamond 2.417/55, Moissanite 2.650/20.
-5. **Understand the diamond exception.** The general trend is that higher IOR pairs with lower Abbe and more dispersion, but diamond's famous fire comes from its extreme IOR (2.417) bending light so intensely that even a moderate Abbe of 55 spreads the spectrum across dramatic angles `[transcript 3:23-3:45]` `[frame_000]`.
-6. **Fix the green cast by raising the indirect clamp.** Render Properties, Light Paths, Clamping, `Indirect Light` — default `10.00` `[frame_003]`. Set it to `50` as a starting point `[transcript 7:52-7:56]`.
-7. **Let samples accumulate before judging.** The render still looks green early in the sampling; the cast resolves as samples build `[transcript 7:57-8:07]`.
-8. **Compare, do not assume more is better.** The A/B progression on the same scene: `10` `[frame_004]`, `50` `[frame_005]`, `100` `[frame_006]`. Beyond a point there is almost no visible difference, so turning clamping off buys nothing `[transcript 9:22-9:30]`.
-9. **Know when disabling clamping backfires.** With clamping `OFF`, fireflies return strongly enough that the denoiser produces artifacts — visible as light splotches on the cabinet, arrowed on screen `[frame_007]` `[transcript 10:12-10:28]`. This example has no dispersion at all; it is purely about the clamp.
-10. **Budget the overhead.** Material test at 2K: `2:10` without dispersion `[frame_008]` versus `2:32` with `[transcript 10:44-10:50]`. Simple scene `3:52` to `4:17` `[transcript 10:56-11:01]`. Complex refractive interior `33:48` to `37:48` `[transcript 11:20-11:27]`.
-11. **Raise samples for dispersive materials.** Splitting light into spectral paths spreads energy across more pixels, making caustics and refractive surfaces harder to converge; higher sample counts prevent blotchy, muddy caustics even though modern denoisers resolve dispersed samples into clean white light `[transcript 11:42-12:07]`.
+1. **Set the base IOR as usual.** Dispersion does not replace the index of refraction — it varies it. The prism diagram shows a `1.52` glass with `Abbe 55` and the resulting per-wavelength IOR ladder beneath it: **`1.49` at 380 nm, `1.50` at 486, `1.51` at 555, `1.52` at 587, `1.53` at 650, `1.54` at 750 nm** [frame_000, transcript 2:31-2:47].
+2. **Read the Abbe number as an inverse.** A *high* Abbe means a narrow IOR spread and *less* dispersion; a *low* one means a wide spread and *more*. The same `1.52` glass at **`Abbe: 25`** fans the spectrum far wider, its ladder running roughly `1.43` to `1.56` instead of `1.49` to `1.54` [frame_002, frame_000, transcript 1:29-1:43]. Most optical materials fall in roughly 20–100 [transcript 1:44].
+3. **Set `Dispersion Scale`.** Principled BSDF ▸ **Transmission**, alongside `Weight`. `1.000` is full effect; `0.5` gives roughly 50% strength [frame_005, transcript 7:13-7:28].
+4. **Set `Dispersion Abbe Number`** in the same block — shown at **`55.000`** for glass, with `Weight 1.000` and `Dispersion Scale 1.000` above it [frame_005].
+5. **Look the value up rather than guessing.** Abbe numbers are laboratory-measured and documented for nearly every real material [transcript 2:48]. The on-screen table gives IOR / Abbe pairs: Fluorite 1.434/95, Fused Quartz 1.458/68, Crown Glass 1.517/64, Rock Crystal 1.550/67, Emerald 1.580/60, Topaz 1.620/61, Dense Flint Glass 1.690/34, Peridot 1.700/47, Lead Crystal 1.700/33, Spinels 1.720/61, Sapphire/Ruby 1.760/72, Garnet 1.800/35, Zircon 1.900/36, Cubic Zirconia 2.170/32, Diamond 2.417/55, Moissanite 2.650/20 [frame_001].
+6. **Understand the diamond exception.** The general trend is higher IOR with lower Abbe and more dispersion, but diamond's fire comes from its extreme IOR (`2.417`) bending light so intensely that even a moderate Abbe of `55` spreads the spectrum across dramatic angles [frame_001, transcript 3:23-3:45].
+7. **Know what Cycles actually does.** It does not split RGB into three hard offsets the way legacy shader add-ons did. It runs a **quasi-spectral approximation** driven by the Abbe number — simulating wavelength-dependent transport, computing the refraction angle per wavelength, then converting back to RGB through the **CIE Standard Observer colour matching functions** [frame_003, transcript 4:05-4:45].
+8. **That conversion is what causes the green cast.** The CIE curves turn some red and blue rays into large floating-point RGB spikes, so with the default clamp those ends of the spectrum are truncated first and green survives: the frame puts numbers on it — **`Default Clamp: 10` → `R10, G2, B30`**, i.e. the blue channel's value is three times the clamp and the red's exactly at it, while green sits well under [frame_003, transcript 4:45-5:07].
+9. **Human vision compounds it.** Photopic sensitivity peaks around **550 nm**, in the greens, so surviving green energy reads as brighter than it is [frame_004, transcript 5:07-5:27]. Ernst Abbe anchored his reference wavelengths around that same visual peak when he defined the number [transcript 5:27-5:48].
+10. **Raise the indirect clamp.** Render Properties ▸ **Light Paths ▸ Clamping ▸ Indirect Light**, default **`10.00`** (Direct Light `0.00`, Caustics Filter Glossy `0.00`, Reflective and Refractive both on) [frame_006]. Set it to **`50`** as a starting point [frame_007, transcript 7:52-7:56]. The default dates from the era before modern denoising, when aggressive clamping was the only firefly control; today it chokes dispersion rays and loses scene energy [transcript 6:08-6:28].
+11. **Let samples accumulate before judging.** The render still looks green and speckled early on — captured at **`Sample 144/1024 (Using optimized kernels)`** with the clamp already at `50.00`, the frame is still full of coloured fireflies that resolve as sampling continues [frame_007, transcript 7:57-8:07].
+12. **Compare, do not assume more is better.** The A/B progression on the same bathroom scene: **`10`** leaves a clear green tint [frame_008], **`50`** removes most of it [frame_009], **`100`** is barely distinguishable from 50 [frame_010]. Beyond a point there is almost no visible difference, so turning clamping off buys nothing [transcript 9:22-9:30].
+13. **Know when disabling clamping backfires.** With clamping **`OFF`**, fireflies return strongly enough that the denoiser produces artifacts — light splotches on the cabinet, arrowed on screen [frame_011, transcript 10:12-10:28]. That example has no dispersion at all; it is purely about the clamp.
+14. **Budget the overhead.** Material test at 2K: **`2:10` without dispersion** [frame_012] versus `2:32` with [transcript 10:44-10:50]. Simple scene `3:52` → `4:17` [transcript 10:56-11:01]. Complex refractive interior `33:48` → `37:48` [transcript 11:20-11:27].
+15. **What it buys you.** On a finished shot the effect is subtle and physical rather than showy — coloured fringing in the thick glass of a jar lid and along the rim, where a non-dispersive glass would be neutral [frame_013].
+16. **Raise samples for dispersive materials.** Splitting light into spectral paths spreads energy across more pixels, so caustics and refractive surfaces converge more slowly; higher sample counts prevent blotchy, muddy caustics even though modern denoisers resolve dispersed samples back into clean white light [frame_014, transcript 11:42-12:07].
 
 ### Nodes / Settings
-- **Principled BSDF, Transmission** — `Weight 1.000`, `Dispersion Scale 1.000`, `Dispersion Abbe Number 55.000` `[frame_002]`
-- **Render Properties, Light Paths, Clamping** — `Direct Light 0.00`, `Indirect Light 10.00` (the default that causes the green cast; raise to `50`+) `[frame_003]`
-- **Render Properties, Light Paths, Caustics** — `Filter Glossy 0.00`, `Reflective` on, `Refractive` on `[frame_003]`
-- **Render engine** — Cycles, `GPU Compute`, `Noise Threshold 0.1000`, `Max Samples 1024`, `Min Samples 0` `[frame_002]`
-- **Material shown** — `Dispersion Glass` on object `External Sphere` / `Sphere.002` `[frame_002]`
-- **Reference data** — IOR/Abbe table for 16 materials `[frame_000]`; photopic vision sensitivity curve peaking near 550 nm `[frame_001]`
+- **Principled BSDF, Transmission** — `Weight 1.000`, `Dispersion Scale 1.000`, `Dispersion Abbe Number 55.000` `[frame_005]`
+- **Render Properties, Light Paths, Clamping** — `Direct Light 0.00`, `Indirect Light 10.00` (the default that causes the green cast; raise to `50`+) `[frame_006]`
+- **Render Properties, Light Paths, Caustics** — `Filter Glossy 0.00`, `Reflective` on, `Refractive` on `[frame_006]`
+- **Render engine** — Cycles, `GPU Compute`, `Noise Threshold 0.1000`, `Max Samples 1024`, `Min Samples 0` `[frame_005]`
+- **Material shown** — `Dispersion Glass` on object `External Sphere` / `Sphere.002` `[frame_005]`
+- **Reference data** — IOR/Abbe table for 16 materials `[frame_001]`; photopic vision sensitivity curve peaking near 550 nm `[frame_004]`
+- **Per-wavelength IOR ladder** — `1.52` glass at `Abbe 55` runs `1.49`@380 nm to `1.54`@750 nm `[frame_000]`; the same glass at `Abbe 25` runs roughly `1.43` to `1.56` `[frame_002]`
+- **CIE Standard Observer colour matching functions** — the RGB conversion Cycles uses; at the default clamp of 10 the per-channel values read `R10, G2, B30`, which is why red and blue truncate first `[frame_003]`
+- **Mid-render state** — `Sample 144/1024 (Using optimized kernels)` with Indirect Light already at `50.00`, still speckled `[frame_007]`
 
 > **Terminology — the transcript is mostly wrong here, but not uniformly.** Whisper
 > renders the term as "ABBA number" for the whole first half and once as "obin number"
 > `[transcript 7:08]`, then spells it correctly at `[transcript 5:38]` ("Ernst Abbe
 > developed the ABBE number"). The controls are named **`Dispersion Scale`** and
-> **`Dispersion Abbe Number`** `[frame_002]`, after the German physicist Ernst Abbe.
+> **`Dispersion Abbe Number`** `[frame_005]`, after the German physicist Ernst Abbe.
 > Same pattern with the clamp default: Whisper writes "indirect clamping to tan"
 > at `[transcript 5:58]` but "that default clamp value of 10" at `[transcript 6:15]`.
-> The field reads `10.00` `[frame_003]`. Worth noting for anyone tuning the transcript
+> The field reads `10.00` `[frame_006]`. Worth noting for anyone tuning the transcript
 > floor — a term can be mangled in one pass and clean in another within the same file,
 > so a single correct occurrence is not evidence the rest are reliable.
 >
 > **One unresolved disagreement.** The narration says common glass has an Abbe number of
 > "about 55.3" `[transcript 2:12]`, but the on-screen chart lists Crown Glass at **64**
-> `[frame_000]` — 55 is the value on Diamond's row. Both are recorded; the chart is the
+> `[frame_001]` — 55 is the value on Diamond's row. Both are recorded; the chart is the
 > more reliable witness per the frame-over-transcript convention, and the demo material
-> is in fact set to `55.000` `[frame_002]`.
+> is in fact set to `55.000` `[frame_005]`.
 
 ### Difficulty
 Intermediate
 
 ### Blender Version
-Blender 5.3.0 Alpha — read from the title bar (`Material Object 01 _ dispersion.blend — Blender 5.3.0 Alpha`) and the status bar in `[frame_002]` and `[frame_003]`. Narration says only "Blender 5.3" `[transcript 0:10]`.
+Blender 5.3.0 Alpha — read from the title bar (`Material Object 01 _ dispersion.blend — Blender 5.3.0 Alpha`) and the status bar in `[frame_005]` and `[frame_006]`. Narration says only "Blender 5.3" `[transcript 0:10]`.
 
 ### Tags
 materials, shaders, glass, rendering, cycles, blender-5x, intermediate
