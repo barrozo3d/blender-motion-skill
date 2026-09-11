@@ -692,8 +692,8 @@ Each entry format:
 - **URL:** https://www.youtube.com/watch?v=aJF2sAjRsy0
 - **Author:** InLightVFX
 - **Blender Version:** Any (theory only)
-- **Tags:** compositing, rendering, intermediate
-- **Summary:** Color theory primer (not hands-on Blender): color gamut via the CIE diagram (ACES2065-1's gamut covers the full visible spectrum), gamma/transfer functions (linear vs. non-linear luminance math, why human vision is non-linear), and display-referred vs. scene-referred camera storage (RAW/Log) — explains why RAW/Log footage looks flat and how ACES's linear working space lets VFX artists ignore source footage gamma. Note: a near-duplicate entry for this video exists at the 80-char-truncated slug `tutorials/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-par.md` — left as-is per the known slugify duplicate-entry issue, not merged.
+- **Tags:** color-management, aces, vfx, compositing, theory, beginner
+- **Summary:** 9m59s of theory, no Blender work except one demonstration. Part 1 of two; part 2 covers the actual workflow in DaVinci Resolve and Blender [transcript 0:49]. The author also made a downloadable poster of these concepts [transcript 1:06]. Gamut is developed on the **CIE 1931 xy chromaticity diagram** [frame_000]: the coloured horseshoe is the **gamut of human vision** [frame_001], real colour spaces are the triangles...
 - **File:** tutorials/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1.md
 
 

@@ -8,9 +8,10 @@ blender_version: "Any (theory only)"
 tags: [color-management, aces, vfx, compositing, theory, beginner]
 extraction_status: complete
 frames_dir: tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/
-frame_count: 5
+frame_count: 19
 frame_status: complete
-frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
+grounding: key-steps-anchored (19/19 steps, 2026-09-11)
+frame_selection: explicit-timestamps (supplied to select_frames.py; NOT evidence that the frames were read -- see `grounding:`)
 ---
 
 # Add VFX into Cinematic RAW+LOG Footage (the right way) | ACES Part 1
@@ -53,71 +54,79 @@ frame_selection: content-anchored (manual timestamps chosen from transcript, not
 
 ## Captured Frames
 
-- [1:50] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_000.jpg
-- [3:50] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_001.jpg
-- [5:20] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_002.jpg
-- [6:50] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_003.jpg
-- [8:30] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_004.jpg
+- [1:30] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_000.jpg
+- [1:50] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_001.jpg
+- [2:20] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_002.jpg
+- [2:33] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_003.jpg
+- [3:35] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_004.jpg
+- [4:05] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_005.jpg
+- [4:25] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_006.jpg
+- [4:40] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_007.jpg
+- [5:10] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_008.jpg
+- [5:25] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_009.jpg
+- [5:50] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_010.jpg
+- [6:02] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_011.jpg
+- [6:25] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_012.jpg
+- [6:52] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_013.jpg
+- [7:10] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_014.jpg
+- [7:40] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_015.jpg
+- [8:08] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_016.jpg
+- [8:28] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_017.jpg
+- [8:38] tutorials/frames/add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1/frame_018.jpg
 
 ---
 
 ## Structured Notes
 
 ### Core Technique
-Theory-only Part 1: understanding color gamut (why ACES 2065-1 can contain all camera color spaces) and gamma (linear vs non-linear transfer functions, display-referred vs scene-referred footage) as the conceptual foundation for the ACES VFX pipeline covered in Part 2.
+The two things ACES manages, explained from first principles: **colour gamut** (which colours a space can hold, drawn as a region on the CIE 1931 xy diagram) and **gamma** (the transfer function mapping scene luminance to stored values). ACES 2065-1 is the answer to both — a gamut that encloses all visible light and a linear transfer function — so footage of any origin can be converted in and the artist works in one space.
 
 ### Summary
-InLightVFX explains the two core concepts behind ACES before touching any software. **Color gamut:** the CIE 1931 diagram maps all visible colors; cameras capture a triangular subset of that gamut; ACES 2065-1 has a gamut so large it encompasses all other camera color spaces, which is why any footage can be converted into it. **Gamma:** a transfer function exponent applied to luminance values; a gamma of 1 = linear (math works as expected — doubling luminance doubles output); non-linear curves (camera profiles, display gamma) cause unexpected arithmetic. Blender/3D software uses linear calculations so adding two render passes equals rendering them together. Human vision is non-linear (more sensitive to changes in shadow). **Camera types:** display-referred (phones, basic DSLRs) apply a non-linear transfer to compress dynamic range; scene-referred RAW stores linear light values directly (large files); scene-referred LOG applies a log function to represent original light values in smaller files. ACES can reverse-engineer all three into its linear color space via IDTs. Part 2 shows the actual workflow in DaVinci Resolve and Blender.
+9m59s of theory, no Blender work except one demonstration. Part 1 of two; part 2 covers the actual workflow in DaVinci Resolve and Blender [transcript 0:49]. The author also made a downloadable poster of these concepts [transcript 1:06].
+
+Gamut is developed on the **CIE 1931 xy chromaticity diagram** [frame_000]: the coloured horseshoe is the **gamut of human vision** [frame_001], real colour spaces are the triangles inside it — **DCI-P3** and **sRGB** are the two drawn [frame_002] — and **ACES 2065-1** is a triangle large enough to enclose the entire horseshoe [frame_003]. That is the whole argument for ACES as a working space: any camera's gamut fits inside it, so nothing has to be discarded on the way in.
+
+Gamma is developed on an input/output graph [frame_004]: gamma is the exponent in `y = x^γ`, and the pair together is the **gamma transfer function** [frame_005]. `γ = 1` is linear; `0.5` and `1.5` bend the line in opposite directions [frame_006], and under a non-linear curve the arithmetic stops behaving — an input of `0.5` lands near `0.71` on output [frame_007]. Linear light is why compositing works at all, and the video proves it in Blender rather than asserting it: a cube lit by two lights, world shader black, rendered once per light and once with both [frame_008], then the two single-light renders summed with an `Add` node — the result matches the both-lights render exactly [frame_009].
+
+Human vision is non-linear — a candle changes a dark room far more than a bright one [frame_010, frame_011] — which is why display-referred devices (phone, DSLR) bake a non-linear curve into storage [frame_012]. Scene-referred formats do not: **RAW** keeps the linear values [frame_013] and **LOG** applies a reversible log curve instead [frame_014], trading file size for recoverable range. The comparison card states the trade plainly [frame_015]. Display gamma then explains the flat look: a screen applies its own curve, which pairs with a display-referred camera's curve to look normal [frame_016, frame_017] but does not pair with LOG or RAW. ACES closes the loop — 2065-1 is linear *and* all-encompassing [frame_018], so its IDT can take footage of either kind and hand the artist one predictable space.
 
 ### Key Steps
-1. **Color gamut** — understand that camera sensors capture a triangular subset of all visible colors; ACES 2065-1's gamut encompasses all visible light, making it the universal container for any footage.
-2. **Gamma = transfer function** — gamma value is an exponent applied to luminance; gamma 1 = linear (y=x); any other value = non-linear curve.
-3. **Linear light math** — with linear gamma, adding two images in compositing equals rendering with both lights; this is why multi-pass compositing works. **This is demonstrated in Blender, not just asserted** [frame_002]: two `Render Layers` nodes pointing at view layers `Light1` and `Light2` (scene `Scene`, slot 3) feed a `Mix` node whose blend-mode dropdown is open on the additive group — `Lighten`, `Screen`, `Color Dodge`, `Add` — with a `Viewer` node (`Use Alpha` on, `Alpha` 1.000, `Z` 1.000) showing the result.
-4. **Human vision** — non-linear sensitivity (candle in dark room vs. bright room); cameras and displays account for this with non-linear gamma.
-5. **Display-referred cameras** — apply non-linear transfer to reduce file size; loss of dynamic range; poor base for VFX compositing.
-6. **Scene-referred RAW** — stores linear light values; large files; best source for VFX.
-7. **Scene-referred LOG** — log transfer function applied to linear values; smaller than RAW, recoverable via ACES IDT; good VFX source.
-8. **ACES role** — its IDT converts any footage's color gamut + gamma into ACES 2065-1 linear; artists then work purely in ACES without worrying about source formats.
+1. **Start from the CIE 1931 xy chromaticity diagram** — the chart every colour-space discussion uses, plotting x against y from 0.0–0.8 with the spectral wavelengths (460–620 nm) marked around the curved edge [frame_000, transcript 1:21].
+2. **The coloured region is the gamut of human vision** — every colour the average eye can see in nature; its boundary is what "gamut" means, the total range of a colour space [frame_001, transcript 1:37-1:49].
+3. **Real colour spaces are triangles inside it.** Anything inside a triangle can be captured or displayed by that space; anything outside cannot. **DCI-P3** (dashed) and **sRGB** (dotted) are the two shown, sRGB visibly the smaller [frame_002, transcript 2:12].
+4. **ACES 2065-1 is drawn as a triangle that encloses the whole horseshoe** — including regions outside human vision [frame_003]. That is why any footage can be transformed into it without clipping the source gamut [transcript 2:29-2:47].
+5. **Switch to the luminance graph for gamma.** X is **luminance input**, 0.0 = black, 1.0 = white; Y is output [frame_004, transcript 3:23-3:39].
+6. **Gamma is an exponent, and the pair is a transfer function.** `y = x¹` plots as a straight diagonal — **linear gamma** [frame_005, transcript 3:39-3:58].
+7. **Linear arithmetic behaves.** With `γ = 1`, `0.25 + 0.25` gives `0.5` on output — twice the luminance, as expected [transcript 4:04-4:14, frame_005].
+8. **Non-linear gamma bends the line.** `y = x^0.5` bows above the diagonal, `y = x^1.5` below it [frame_006, transcript 4:14-4:32].
+9. **Under a curve the arithmetic stops behaving.** On the `x^0.5` curve an input of `0.5` reads out near `0.71`, so adding inputs no longer adds outputs [frame_007, transcript 4:32-4:44].
+10. **Why this matters in 3D: real light is linear, and so is Blender.** Double the input, double the output; Blender renders and composites linearly by default [transcript 4:47-5:02] [no frame: spoken premise delivered over the previous graph, with nothing new on screen -- the claim is demonstrated instead in steps 11-12].
+11. **The proof, built in Blender.** A cube with a light either side, the **World surface set to black** (HSV `0.000 / 0.000 / 0.000`, Strength `1.000`) so nothing else contributes; the scene is organised into collections `Elements` (Camera, Cube, Plane), `BothLights` (`Blue`, `Orange`), and `Light1` / `Light2` [frame_008, transcript 5:02-5:12].
+12. **Add the two single-light renders and you get the both-lights render.** Three `Render Layers` nodes on scene `Scene` (slot 3) reading view layers **`Both On`**, **`Light1`** and **`Light2`**; the last two feed an **`Add`** node (`Clamp` off, `Fac 1.000`) into a `Viewer` (`Use Alpha` on, `Alpha 1.000`, `Z 1.000`). The sum matches the `Both On` thumbnail — which is also why multi-pass compositing works at all [frame_009, transcript 5:12-5:36].
+13. **Human vision is non-linear.** A candle lit in a dark room is a large perceived change; the same candle in a bright environment barely registers, though the luminance added is identical — we are more sensitive to change in the dark end [frame_010, frame_011, transcript 5:36-6:10].
+14. **Display-referred cameras** — a phone or a basic DSLR — record less light information and apply a non-linear transfer function on the way in, brightening the shadows where the eye is most sensitive, for smaller files [frame_012, transcript 6:12-6:34].
+15. **Scene-referred, RAW** stores the linear light values unmodified — the transfer function is the straight diagonal — at the cost of much larger files [frame_013, transcript 6:39-7:01].
+16. **Scene-referred, LOG** applies a log transfer function instead: the curve rises steeply and flattens, so shadow detail is kept without RAW's file size, and ACES can reverse it to recover the original light values [frame_014, transcript 7:01-7:24].
+17. **The trade, stated side by side.** *Display-Referred*: "discards light information", "optimizes and stores only what's needed for good display". *Scene-Referred*: "collects more light information to better represent original scene" — which is what makes it the better VFX source [frame_015, transcript 7:24-7:48].
+18. **Why LOG and RAW look flat on a monitor.** Every display applies its own gamma curve; that curve is designed to pair with the curve a display-referred camera already applied, and the two cancel to look normal [frame_016, frame_017, transcript 7:52-8:20]. LOG and RAW carry a different curve, so the pairing fails and the image reads flat [transcript 8:20-8:28].
+19. **ACES closes both halves at once.** ACES 2065-1 is a **linear** colour space — the transfer function is `y = x` — whose gamut still encloses all visible light [frame_018, transcript 8:28-8:44]. Its input transform converts display-referred or scene-referred footage into that one space, so the artist stops worrying about the source format [transcript 8:44-9:06].
 
 ### Nodes / Settings
-⚠️ **Corrected 2026-09-01.** This section previously read *"No Blender nodes — this is a theory/concepts tutorial"*. That was written from the transcript, and it is wrong: the *Linear Light* chapter carries a working compositor demo [frame_002].
-
-- `Render Layers` ×2 — one per view layer (`Light1`, `Light2`), each rendering a single light
-- `Mix` — blend mode dropdown; the additive modes (`Lighten`, `Screen`, `Color Dodge`, `Add`) are what make the two single-light renders reconstruct the both-lights render
-- `Viewer` — `Use Alpha` enabled, `Alpha` 1.000, `Z` 1.000
-
-The node is named **`Mix`**, not `Mix Color`, so the demo footage predates Blender 4.0 [frame_002]. That dates the *footage*; the concepts are version-independent.
-
-Key terms:
-- ACES 2065-1 — the main ACES linear color space; gamut encompasses all visible light
-- IDT (Input Device Transform) — converts source footage color space + gamma into ACES
-- ODT (Output Device Transform) — converts from ACES to display device color space (e.g. sRGB)
-- Linear gamma — gamma = 1; luminance math is predictable; used in 3D rendering
-- Display-referred — camera applies non-linear encoding; optimized for display, not VFX
-- Scene-referred (RAW / LOG) — stores original scene light values; better for VFX
+- **CIE 1931 xy chromaticity diagram** — x 0.0–0.8, y 0.0–0.9, spectral locus labelled 460–620 nm [frame_000]
+- **Gamuts drawn**: gamut of human vision (the horseshoe) [frame_001], **DCI-P3** (dashed), **sRGB** (dotted) [frame_002], **ACES 2065-1** (solid triangle enclosing the horseshoe) [frame_003]
+- **Transfer functions**: `y = x¹` linear [frame_005]; `y = x^0.5` and `y = x^1.5` non-linear [frame_006]; `0.5 → ~0.71` on the `x^0.5` curve [frame_007]; Scene-Referred RAW = straight line [frame_013]; Scene-Referred LOG = log curve [frame_014]; display gamma curve [frame_016]
+- **Blender demo scene** — World Surface `Background`, Color HSV `0.000 / 0.000 / 0.000`, Strength `1.000`; collections `Elements` / `BothLights` (`Blue`, `Orange`) / `Light1` / `Light2` [frame_008]
+- **Blender compositor demo** — three `Render Layers` (view layers `Both On`, `Light1`, `Light2`; scene `Scene`, slot 3) → `Add` (Clamp off, `Fac 1.000`) → `Viewer` (`Use Alpha`, `Alpha 1.000`, `Z 1.000`) [frame_009]
+- **Camera categories** — display-referred (DSLR / phone) [frame_012]; scene-referred RAW [frame_013]; scene-referred LOG [frame_014]
 
 ### Difficulty
-Beginner — no software required; pure theory; helpful prerequisite for Part 2.
+Beginner — concept-only; no Blender operation is required to follow it, and the single Blender section is a demonstration rather than a build.
 
 ### Blender Version
-Any — the concepts are version-independent. The one piece of Blender footage in the video is pre-4.0, dated by the compositor node still being called `Mix` rather than `Mix Color` [frame_002].
+Any (theory only). The one Blender section shows a generic Render Layers / Add / Viewer compositor setup with no version-specific UI [frame_008, frame_009].
 
 ### Tags
-#color-management #aces #vfx #compositing #theory #beginner
-
----
-
-## Frame verification (2026-09-01)
-
-| | |
-|---|---|
-| **Corrected** | *"No Blender nodes — this is a theory/concepts tutorial"* was false. The *Linear Light* chapter contains a real compositor demo [frame_002], and it is the one place the video proves rather than states its central claim. |
-| **Confirmed** | the CIE-style gamut-of-human-vision plot on 0–1 axes [frame_000]; the gamma formula written on screen as **y = x^(gamma value)**, plotted as the linear y=x diagonal [frame_001]; the *Scene-Referred, RAW* transfer plotted as a straight line from origin [frame_003]. |
-
-⚠️ **`frame_004` (8:30) is a mistimed pick** — it lands mid-wipe on b-roll of a
-room, with the caption caught half-transitioned ("Ga… RAW"). Chapter-heading
-picks miss at a measured ~25% (plan batch D3c); this is one. It grounds nothing
-and is left recorded rather than quietly re-rolled.
+color-management, aces, vfx, compositing, theory, beginner
 
 ---
 
