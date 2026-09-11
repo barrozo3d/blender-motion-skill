@@ -3575,6 +3575,16 @@ Each entry format:
 - **Summary:** [PENDING EXTRACTION]
 - **File:** tutorials/composite-cgi-around-real-object---blender-vfx-tutorial-full.md
 
+
+### Composite CGI Element Behind Real Glass - Blender VFX Tutorial (Full)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=qdqV4oortP0
+- **Author:** InLightVFX
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full.md
+
 ---
 
 ## Tag Reference
