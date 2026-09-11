@@ -701,9 +701,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=LssHxDCM7H4
 - **Author:** InLightVFX
-- **Blender Version:** Any (with ACES config installed)
-- **Tags:** compositing, rendering, lighting, hdri, intermediate, advanced
-- **Summary:** Full hands-on ACES pipeline: DaVinci Resolve (Color Workspace ACES CC, IDT per clip, ODT sRGB for preview, disable ODT before EXR/RGB-Half export) → Blender (Display Device ACES, View Transform sRGB, render in ACES CG, per-image IDT via node Color Space, Shadow Catcher + split Main-Objects/Shadows render layers) → Compositor (Alpha Over chain, EEVEE 1-sample render-trigger workaround) → re-import final EXR to Resolve (IDT: ACES CG) for color grading and final ODT-based delivery export. EXR throughout preserves full dynamic range (demonstrated recovering blown highlights via the Gain slider). Note: a near-duplicate entry for this video exists at `tutorials/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces.md` — left as-is per the known slugify duplicate-entry issue, not merged.
+- **Blender Version:** Blender 2.81.16 -- observed in frame_008
+- **Tags:** color-management, aces, vfx, compositing, rendering, davinci-resolve, intermediate
+- **Summary:** 12m17s, DaVinci Resolve 16 (Public Beta) and **Blender 2.81.16** [frame_008]. Part 2 of two — part 1 covers the gamut and gamma theory this applies. The source is a Blackmagic RAW clip, `4096 x 2160`, 24 fps, 16-bit [frame_000]; a paid "ACES Kickstart Kit" supplies the footage, HDRI and blend file [transcript 0:19]. **Resolve, in:** Project Settings ▸ Image Scaling for the frame fit [frame_001], then Color...
 - **File:** tutorials/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2.md
 
 

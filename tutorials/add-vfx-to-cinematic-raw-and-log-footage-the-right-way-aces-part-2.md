@@ -4,13 +4,14 @@ source: YouTube
 url: https://www.youtube.com/watch?v=LssHxDCM7H4
 author: InLightVFX
 ingested: 2026-06-25
-blender_version: "Blender 2.81 -- observed in frame_002"
+blender_version: "Blender 2.81.16 -- observed in frame_008"
 tags: [color-management, aces, vfx, compositing, rendering, davinci-resolve, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/
-frame_count: 6
+frame_count: 27
 frame_status: complete
-frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
+grounding: key-steps-anchored (25/25 steps, 2026-09-11)
+frame_selection: explicit-timestamps (supplied to select_frames.py; NOT evidence that the frames were read -- see `grounding:`)
 ---
 
 # Add VFX to Cinematic RAW and LOG Footage (the right way) | ACES Part 2
@@ -43,88 +44,106 @@ frame_selection: content-anchored (manual timestamps chosen from transcript, not
 
 ## Captured Frames
 
-- [1:40] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_000.jpg
-- [3:30] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_001.jpg
-- [5:30] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_002.jpg
-- [7:00] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_003.jpg
-- [9:00] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_004.jpg
-- [10:30] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_005.jpg
+- [1:12] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_000.jpg
+- [1:20] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_001.jpg
+- [1:32] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_002.jpg
+- [2:05] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_003.jpg
+- [3:38] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_004.jpg
+- [4:18] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_005.jpg
+- [4:42] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_006.jpg
+- [5:00] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_007.jpg
+- [5:38] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_008.jpg
+- [5:58] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_009.jpg
+- [6:35] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_010.jpg
+- [6:52] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_011.jpg
+- [7:32] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_012.jpg
+- [7:52] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_013.jpg
+- [8:12] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_014.jpg
+- [8:22] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_015.jpg
+- [8:30] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_016.jpg
+- [8:42] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_017.jpg
+- [8:48] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_018.jpg
+- [9:08] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_019.jpg
+- [9:25] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_020.jpg
+- [9:45] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_021.jpg
+- [10:02] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_022.jpg
+- [10:20] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_023.jpg
+- [10:45] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_024.jpg
+- [11:12] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_025.jpg
+- [11:28] tutorials/frames/add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2/frame_026.jpg
 
 ---
 
 ## Structured Notes
 
 ### Core Technique
-Full ACES VFX compositing pipeline: export LOG/RAW footage from DaVinci Resolve as EXR (ACES 2065-1 linear, ODT disabled) → import into Blender with ACES config → render CG objects over real footage with a shadow catcher → composite in Blender → export EXR → back to Resolve for final grade + H.264 output.
+The end-to-end ACES round trip for adding CG to RAW/LOG footage: set DaVinci Resolve's project to an ACES colour science, bring footage in through an **IDT** and preview through an **ODT**, export EXR in ACES 2065-1, render the CG in Blender with ACES as the display device and ACEScg as the working space (tagging every incoming image with its own IDT), composite shadows and objects over the plate, and hand the result back to Resolve for grading and final delivery.
 
 ### Summary
-Part 2 of InLightVFX's ACES series. Practical walkthrough of the complete workflow: in DaVinci Resolve, set Color Workspace to ACES CC, apply an IDT per-clip (for log footage), set ODT to sRGB for preview, then disable ODT and export as EXR (RGB half) for Blender. In Blender (with ACES config), set display device to ACES, view transform sRGB, sequencer ACES CG; import EXR footage with color space ACES 2065-1; import HDRI with IDT "utility-linear-sRGB"; match camera via F-Spy; build minimal scene geometry; use a shadow-catcher floor plane with render layers (main objects + shadows) to separate CG from shadow; composite in a second Blender scene using Alpha Over nodes; export composite as EXR. Back in Resolve, import composite EXR (IDT: ACES CG) and enable ODT (sRGB) to preview; color grade safely with gain/offset/temperature; export final H.264 with SRGB or P3 DCI ODT.
+12m17s, DaVinci Resolve 16 (Public Beta) and **Blender 2.81.16** [frame_008]. Part 2 of two — part 1 covers the gamut and gamma theory this applies. The source is a Blackmagic RAW clip, `4096 x 2160`, 24 fps, 16-bit [frame_000]; a paid "ACES Kickstart Kit" supplies the footage, HDRI and blend file [transcript 0:19].
+
+**Resolve, in:** Project Settings ▸ Image Scaling for the frame fit [frame_001], then Color Management ▸ **Color science → `ACEScc`** (the dropdown also offers DaVinci YRGB, DaVinci YRGB Color Managed and ACEScct) [frame_002], **ACES version 1.1**, and the **ACES Output Device Transform → `sRGB`** so the preview looks normal again [frame_004, frame_006]. The **Input Device Transform** list is huge and mostly camera-and-profile specific — Canon C200/C300/C500/C700 CanonLog/CLog2/CLog3 in Daylight and Tungsten, Rec.709/Rec.2020/Cinema variants, Blackmagic Design Film/Video Gen 3 and 4, Alexa, DCDM [frame_003]. RAW converts automatically; LOG needs an IDT chosen per project or per clip [transcript 2:33-2:53].
+
+Grading before export is deliberately minimal — white balance, exposure, offset and gain only, because other operations destroy the linear light information. The video puts **"Don't do this!"** on screen over the Color Wheels panel to make the point [frame_005]. The ODT is then disabled and the clip exported as **EXR / `RGB half (No Compression)`** [frame_007], the only format that carries the full ACES data [transcript 4:49-5:07].
+
+**Blender:** Color Management set to Display Device **`ACES`**, View Transform **`sRGB`**, Sequencer **`ACES - ACEScg`** [frame_008]; the camera comes from fSpy [frame_009]. Scene build is a floor plane with a rough wood-matching material [frame_010], Suzanne and two spheres. The HDRI comes in via `Add ▸ Texture ▸ Environment Texture` [frame_011] and — the ACES-specific part — **every incoming image must be tagged with its own colour space** on the node: the file arrives as `ACES - ACEScg` and is switched to `Utility - Linear - sRGB` [frame_012, frame_013], since the 360 camera shoots sRGB and HDRIs carry linear scene-referred gamma [transcript 7:18-7:45]. `Ctrl+T` adds Texture Coordinate + Mapping to rotate it [frame_013].
+
+**Render layers:** objects are sorted into collections with `M` [frame_014] — `Camera` (FSpy Camera), `Environment` (Floor), `Objects` (Sphere_Grey, Sphere_Reflective, Suzanne) [frame_016]. Two view layers, `Main Objects` and `Shadows`, each setting the *other* collection to **Set Indirect Only** via the collection's View Layer menu [frame_017]; the floor is a shadow catcher, Film ▸ **Transparent** is ticked [frame_018], and output is OpenEXR MultiLayer.
+
+**Compositing** happens in a separate scene [frame_019] at the project resolution [frame_020]: the plate image sequence tagged `ACES` and the two CG layers tagged ACEScg, combined by two stacked **Alpha Over** nodes — plate under shadows, that under main objects — into Composite and Viewer [frame_021]. Rendering just a node graph needs a camera in that scene and the engine set to Eevee [frame_022].
+
+**Resolve, out:** the comped EXR sequence gets an **ACES Input Transform** of its own [frame_023], the sRGB ODT goes back on, and the grade happens with the full original latitude intact — the gain slider still recovers window detail and the mirror ball's highlight [frame_024, frame_025]. Final delivery is QuickTime **H.264 at 3840 x 2160**, 24 fps [frame_026]; swapping the ODT to `P3 DCI` would target a cinema projector instead [transcript 11:00-11:18].
 
 ### Key Steps
-1. **DaVinci Resolve — Project setup:** New project → Color Management → Color Workspace = `ACES CC` → save.
-2. **Apply IDT to LOG footage:** Right-click clip → select appropriate IDT (e.g. `Adobe RGB` for the example LOG clip); for RAW footage Resolve auto-applies the conversion. The two source clips are visible in the Media Pool [frame_001]: `A007_04061039_C036.mov` (the LOG clip) and `BlackmagicRAW_Clip.braw` — so the RAW case is specifically **Blackmagic RAW**, in project `ACES Main`.
-3. **Preview:** Color Management → Output Device Transform = `sRGB` → footage now looks correct.
-4. **Color correction (safe only):** Adjust color temperature, exposure, offset, and gain wheels only; avoid all other operations (they destroy linear data).
-5. **Export EXR:** Disable ODT (set to None) before exporting; Export → Format: `OpenEXR`, Codec: `RGB Half`; render. (Optionally export an H.264 with ODT enabled for camera tracking reference.)
-6. **Camera match:** Use F-Spy (free) to align camera perspective from a still frame; import camera into Blender via **File → Import → fSpy (.fspy)** — the entry in the Import submenu, which requires the fSpy Blender importer add-on [frame_002].
-7. **Blender — ACES config:** Render Properties → Color Management → Display Device: `ACES`, View Transform: `sRGB`, Sequencer: `ACES CG`.
-8. **Import footage:** In Camera tab, add background footage (EXR sequence) → Color Space: `ACES 2065-1`.
-9. **HDRI:** World Shader Editor → Environment Texture node; select HDRI file; Color Space dropdown → `utility-linear-sRGB` IDT. Use `Ctrl+T` to add Mapping nodes; rotate via Z value.
-10. **Scene geometry:** Floor plane as shadow catcher (Object Properties → Visibility → Shadow Catcher); add CG objects (monkey, balls, etc.) with rough material matching scene.
-11. **Render layers:** Collection for floor (Indirect Only on main layer), collection for objects (Indirect Only on shadow layer); transparent background; output = `OpenEXR Multi-Layer`.
-12. **Compositing scene:** New Blender scene (created as `Scene.001`, 1920×1080 at 100%, aspect 1.000 [frame_004]) → Compositing tab; import background EXR (color space: ACES 2065-1); import CG multi-layer EXR (color space: ACES CG); Alpha Over: background + shadows → Alpha Over + main objects → Composite node. Add temp camera + EEVEE 1 sample to enable Render Animation.
-13. **Back in Resolve:** Import composite EXR → IDT: `ACES CG` → enable SRGB ODT → compare to original footage (colors should match). Color grade for final look. The composite comes back as an **EXR image sequence**, not a single file — `o_ServantSequence_Comped_v[10001-10024].exr`, cut on V2 above the original `.braw` on V1 [frame_005].
-14. **Final export:** ODT = `sRGB` (or `P3 DCI` for cinema) → Render H.264.
+1. **Import the footage in Resolve.** Media page; the source here is `BlackmagicRAW_Clip.braw`, **`4096 x 2160`**, `24.000` fps, 24 frames, bit depth 16, with Linear PCM audio at 48 kHz [frame_000].
+2. **Fix the frame fit.** Project Settings ▸ **Image Scaling**; input and output "Mismatched resolution files" are the controls, and the narration selects *scale full frame with crop* to lose the small black bars [frame_001, transcript 1:13-1:20].
+3. **Switch the project to ACES.** Project Settings ▸ **Color Management** ▸ **Color science** — the dropdown offers `DaVinci YRGB`, `DaVinci YRGB Color Managed`, **`ACEScc`** and `ACEScct`; pick ACEScc [frame_002]. Expect the image to look wrong until the ODT is set.
+4. **Understand what the IDT list is.** ACES ships hundreds of **Input Device Transforms**, nearly all camera-and-profile specific — e.g. `Canon C300MkII CLog2 Daylight v1.0 Rec.2020`, `Canon C500 Daylight v1.1 DCI-P3+`, `Blackmagic Design 4.6K Film Gen 3`, `Alexa`, `DCDM` [frame_003]. Scene-referred footage usually has an exact match; display-referred footage only has coarse general transforms [transcript 2:14-2:33].
+5. **Apply the IDT.** RAW is converted automatically; for LOG set it either project-wide in Color Management or per clip by right-clicking it [transcript 2:33-2:53]. The per-clip route is shown later on the comped sequence [frame_023].
+6. **Set the ODT so the preview is viewable.** **ACES Output Device Transform** → `sRGB`; the dropdown also offers `Rec.709`, `Rec.709 (D60 sim.)` and `sRGB (D60 sim.)` [frame_006]. Saved state: Color science `ACEScc`, ACES version **`ACES 1.1`**, Input Transform `No Input Transform`, Output Transform `sRGB`, Process Node LUTs in `ACEScc AP1 Timeline Space` [frame_004].
+7. **Grade only what is safe before export.** Colour temperature, the exposure slider, the **Offset** wheel and the **Gain** wheel are safe; everything else destroys linear light information at this stage — the video labels the Color Wheels panel **"Don't do this!"** [frame_005, transcript 4:10-4:28].
+8. **Disable the ODT before exporting**, so the export lands in ACES 2065-1 rather than sRGB [transcript 4:28-4:40] [no frame: the clearing itself is not on screen -- frame_006 catches this same ACES Output Device Transform dropdown, but at the moment `sRGB` is being chosen].
+9. **Export EXR.** Deliver page, Format **`EXR`**, Codec **`RGB half (No Compression)`** — the dropdown also offers RGB half with DWAA/DWAB/PIZ/RLE/ZIP compression and the RGB float equivalents [frame_007]. EXR is the only format that carries the whole ACES colour space, at the cost of file size [transcript 4:49-5:07].
+10. **Set Blender's colour management.** Render Properties ▸ Color Management: **Display Device `ACES`**, **View Transform `sRGB`**, Look `None`, Exposure `0.000`, Gamma `1.000`, **Sequencer `ACES - ACEScg`** — ACEScg being the slightly smaller linear space used for CG rendering [frame_008, transcript 5:28-5:46].
+11. **Bring in the camera and the plate.** The camera was solved in the free tool **fSpy** and imported (`ServantFSpy2.fspy` in the outliner) [frame_009]; the exported EXR sequence is loaded as the camera background with its colour space set to `ACES 2065-1`, which is the IDT on the Blender side [transcript 5:46-6:08].
+12. **Build the scene geometry.** A floor `Plane` with a material roughly matching the wood's colour and roughness (Principled BSDF, Specular `0.500`, Roughness `0.500`) [frame_010], plus Suzanne and two spheres [frame_016].
+13. **Add the HDRI.** Shader Editor ▸ World ▸ `Add ▸ Texture ▸ Environment Texture`, wired into `Background` → `World Output` [frame_011], pointing at `ServantHDRI_FINAL_Gumroad.hdr`, `Equirectangular`, `Single Image` [frame_012].
+14. **Tag the HDRI with its own IDT — the step that is easy to miss.** The node's **Color Space** drop-down is the input transform for that image: it arrives as `ACES - ACEScg` and must be set to **`Utility - Linear - sRGB`**, because the 360 camera shoots sRGB primaries and HDRIs carry linear scene-referred gamma [frame_012, frame_013, transcript 6:47-7:45]. The same applies to every image texture in the scene.
+15. **Rotate the HDRI.** With the Environment Texture node selected press `Ctrl+T` to add `Texture Coordinate` → `Mapping`, then drive the Z rotation to align it [frame_013, transcript 7:45-8:04].
+16. **Sort the scene into collections.** Press `M` ▸ Move to Collection ▸ New Collection and name it — the video puts the shortcut on screen [frame_014]. Result: `Camera` (FSpy Camera), `Environment` (Floor), `Objects` (Sphere_Grey, Sphere_Reflective, Suzanne) [frame_016].
+17. **Make the floor a shadow catcher.** Object Properties ▸ **Visibility** ▸ **Shadow Catcher** ticked on `Floor`, alongside Show in Viewports / Show in Renders / Selectable and the Ray Visibility block (Camera, Diffuse, Glossy, Transmission, Volume Scatter, Shadow) — the floor then takes shadow without rendering itself [frame_015, transcript 8:12-8:18].
+18. **Split objects and shadows into two view layers.** Name the current layer **`Main Objects`** [frame_016] and set the `Environment` collection to **Set Indirect Only** — right-click the collection ▸ **View Layer ▸ Set Indirect Only** [frame_017]. Add a second view layer **`Shadows`** and set the `Objects` collection to Indirect Only instead [transcript 8:23-8:41].
+19. **Render with a transparent background.** Render Properties ▸ **Film ▸ Transparent** ticked (Transparent Glass off) [frame_018]; output type **OpenEXR MultiLayer**, then render the animation [transcript 8:41-8:52].
+20. **Composite in a separate scene.** New scene, Compositing workspace, **Use Nodes** and **Backdrop** on, with a `Composite` and a `Viewer` node to start (both `Use Alpha`, `Alpha 1.000`, `Z 1.000`) [frame_019]. Check the scene's own resolution and output settings — the captured state reads `1920 x 1080`, `Frame Start 1 / End 250`, `24 fps`, File Format `PNG`, while the narration asks for 4K [frame_020, transcript 9:15-9:20]; set it to match the project before rendering.
+21. **Wire the composite.** Load the plate image sequence with Color Space **`ACES`** (2065-1, matching the Resolve export) and the two CG layers with **`ACES - ACEScg`** (matching the render); stack two **`Alpha Over`** nodes (`Convert Premul` off, `Premul 0.000`, `Fac 1.000`) — plate in the top socket with `Shadows` beneath, then that result in the top socket with `Main Objects` beneath — and route the last one into `Composite` [frame_021, transcript 9:22-9:46].
+22. **Render the graph.** A node graph alone will not render, so add a camera to the compositing scene and set the engine to **Eevee** — the narration says one sample, the captured state reads `Render 64 / Viewport 16` [frame_022, transcript 9:46-10:00] — and set the output to OpenEXR.
+23. **Back in Resolve, tag the comp.** Right-click the comped EXR sequence ▸ **ACES Input Transform** and pick the transform matching what Blender wrote (`ACEScg`) [frame_023, transcript 10:00-10:21].
+24. **Re-enable the sRGB ODT and grade.** The composite now matches the original plate with the CG added [frame_024]. Because everything stayed EXR, the full latitude survives — pulling gain down recovers detail outside the window and in the mirror ball's highlight, which PNG would have clipped [transcript 10:21-11:00]. A second example clip shows the same recovery in the sky [frame_025].
+25. **Deliver.** Set the ODT for the target display — `sRGB` for screens, `P3 DCI` for a cinema projector [transcript 11:00-11:18] — then Deliver page: Format `QuickTime`, Codec **`H.264`**, Resolution **`3840 x 2160 Ultra HD`**, Frame rate `24`, Quality Automatic/Best, Add to Render Queue and render [frame_026].
 
 ### Nodes / Settings
-- DaVinci: Color Workspace = `ACES CC`; IDT per clip (log-specific, e.g. `Adobe RGB`); ODT = `sRGB` for preview, `None` for export; Format: OpenEXR RGB Half
-- Blender **2.81** [frame_002]: Display Device = ACES; View Transform = sRGB; Sequencer = ACES CG
-- Cycles setup shown alongside: Feature Set `Supported`, Device `GPU Compute`, Integrator `Path Tracing`, samples Render **128** / Viewport **32** [frame_002]
-- Background EXR color space node: `ACES 2065-1`
-- HDRI environment texture color space: `utility-linear-sRGB`
-- Ctrl+T (Node Wrangler) on image/env node → auto-creates Mapping + Texture Coordinate nodes
-- Shadow Catcher: Object Properties → Visibility → Shadow Catcher checkbox
-- Render Layers: Main Objects (floor = Indirect Only) + Shadows (objects = Indirect Only)
-- Composite: two Alpha Over nodes stacked (background → shadows → objects)
-- EXR output (ACES CG) → Resolve IDT: `ACES CG`
-- Final ODT: `sRGB` for monitors, `P3 DCI` for cinema projectors
+- **Resolve project** — Color science `ACEScc`, ACES version `ACES 1.1`, ACES ODT `sRGB`, Process Node LUTs in `ACEScc AP1 Timeline Space`; Resolve 16 Public Beta [frame_002, frame_004]
+- **Resolve IDT list** — camera+profile specific (Canon CLog/CLog2/CLog3 by body and white balance, Blackmagic Film/Video Gen 3–4, Alexa, DCDM) [frame_003]
+- **Safe pre-export grading** — colour temperature, exposure, Offset wheel, Gain wheel only [frame_005]
+- **Resolve EXR export** — Format `EXR`, Codec `RGB half (No Compression)` [frame_007]
+- **Blender Color Management** — Display Device `ACES`, View Transform `sRGB`, Sequencer `ACES - ACEScg`, Exposure `0.000`, Gamma `1.000` [frame_008]
+- **Environment Texture** — `ServantHDRI_FINAL_Gumroad.hdr`, Equirectangular, Single Image, Color Space `Utility - Linear - sRGB` [frame_012, frame_013]
+- **`Ctrl+T`** — adds Texture Coordinate + Mapping to the selected texture node [frame_013]
+- **`M`** — Move to Collection / new collection [frame_014]
+- **Collection ▸ View Layer ▸ Set Indirect Only** — the per-view-layer split for objects vs shadows [frame_017]
+- **Film ▸ Transparent** — transparent background for the CG render [frame_018]
+- **Alpha Over** — `Convert Premul` off, `Premul 0.000`, `Fac 1.000`; two stacked, plate → shadows → main objects [frame_021]
+- **Compositing scene render** — camera required, engine Eevee (`Render 64` in the captured state) [frame_022]
+- **Resolve delivery** — QuickTime / H.264 / `3840 x 2160 Ultra HD` / 24 fps [frame_026]
 
 ### Difficulty
-Intermediate — requires DaVinci Resolve + Blender ACES config; multi-step pipeline spanning two applications; Part 1 concepts are prerequisite.
+Intermediate
 
 ### Blender Version
-**Blender 2.81** — read from the status bar, `v2.81.16` [frame_002]. This entry
-previously said *"Any (with ACES color config installed)"*, which was an
-inference from the transcript; the footage dates the workflow precisely.
-
-⚠️ **The version is not incidental for this tutorial.** 2.81 predates Filmic
-being replaced by AgX (4.0), predates the compositor's `Mix` → `Mix Color`
-rename, and predates the current Color Management panel layout. The
-Display Device / View Transform / Sequencer settings in Key Step 7 are described
-as they appear in 2.81. An ACES config is still required (see the Mario Cossadez
-tutorial linked in the original video description).
-
-**DaVinci Resolve 16 (PUBLIC BETA)** — read from the application's own status
-bar [frame_001, frame_005]. The Resolve half of this workflow is likewise
-described as it stood in 16.
+Blender **2.81.16**, read from the status bar [frame_008, frame_010]. DaVinci Resolve **16 (Public Beta)** [frame_000, frame_002].
 
 ### Tags
-#color-management #aces #vfx #compositing #rendering #davinci-resolve #intermediate
-
----
-
-## Frame verification (2026-09-01)
-
-| | |
-|---|---|
-| **Corrected** | `blender_version` was *"Any (with ACES config installed)"* — an inference. The status bar reads **v2.81.16** [frame_002]. For a colour-management tutorial this is load-bearing: 2.81 predates AgX, the `Mix Color` rename and the current Color Management panel. |
-| **Added** | **DaVinci Resolve 16 PUBLIC BETA**, project `ACES Main` [frame_001, frame_005]; the RAW example is **Blackmagic RAW** (`BlackmagicRAW_Clip.braw`) beside the LOG `.mov` [frame_001]; fSpy arrives through **File → Import → fSpy (.fspy)** [frame_002]; Cycles at GPU Compute, 128/32 samples [frame_002]; the compositing scene is `Scene.001` at 1920×1080 [frame_004]; the composite returns as an EXR **sequence**, `[10001-10024]` [frame_005]. |
-
-⚠️ **`frame_000` (1:40) and `frame_003` (7:00) are mistimed picks** — both land on
-talking-head shots. 2 of 6 here, against the ~25% rate plan batch D3c measured for
-chapter-anchored picks. This file's chapters are unusually coarse (`SOFTWARE SETUP`
-spans 0:49–8:06), which is exactly the condition that makes an interpolated moment
-a guess.
+color-management, aces, vfx, compositing, rendering, davinci-resolve, intermediate
 
 ---
 
