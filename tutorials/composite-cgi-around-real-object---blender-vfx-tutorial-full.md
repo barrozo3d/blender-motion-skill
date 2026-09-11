@@ -4,13 +4,15 @@ source: YouTube
 url: https://www.youtube.com/watch?v=fnAGtXMkRMY
 author: InLightVFX
 ingested: 2026-09-11
-blender_version: "[PENDING]"
-tags: []
-extraction_status: pending
+blender_version: "Blender 2.81.16 -- observed in frame_005, frame_008, frame_013, frame_019"
+tags: [compositing, vfx, cycles, render-passes, view-layers, holdout, shadow-catcher, z-depth, masking, camera-tracking, advanced]
+extraction_status: complete
 frames_dir: tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 28
+frame_status: complete
 uncertainty_frames: []
+grounding: key-steps-anchored (32/32 steps, 2026-09-11)
+frame_selection: explicit-timestamps (supplied to select_frames.py; NOT evidence that the frames were read -- see `grounding:`)
 ---
 
 # Composite CGI Around Real Object - Blender VFX Tutorial (FULL)
@@ -24,12 +26,7 @@ uncertainty_frames: []
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py composite-cgi-around-real-object---blender-vfx-tutorial-full <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### <Untitled Chapter 1> [0:00]
@@ -265,30 +262,122 @@ frontmatter before you write the Structured Notes below.
 
 ---
 
+## Captured Frames
+
+- [0:02] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_000.jpg — goal shot ring around real pot
+- [0:40] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_001.jpg — lazy leaf proxy geometry
+- [1:15] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_002.jpg — bsdf box pot roughness
+- [1:36] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_003.jpg — naive render shows problem
+- [2:38] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_004.jpg — four collections in outliner
+- [3:11] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_005.jpg — pot collection holdout
+- [3:33] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_006.jpg — box leaf indirect only
+- [3:44] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_007.jpg — main objects layer render
+- [4:05] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_008.jpg — shadow catcher object visibility
+- [5:07] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_009.jpg — shadow view layer result
+- [6:44] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_010.jpg — render passes diffuse glossy indirect
+- [7:06] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_011.jpg — viewport pass dropdown glossy
+- [7:36] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_012.jpg — pot base disable glossy
+- [8:03] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_013.jpg — pot base disable diffuse
+- [9:22] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_014.jpg — background image scale node
+- [9:59] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_015.jpg — shadow mix multiply factor alpha
+- [10:42] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_016.jpg — cycles master equation
+- [11:38] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_017.jpg — diffuse indirect x diffuse color
+- [12:14] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_018.jpg — alpha over main ring
+- [12:56] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_019.jpg — leaf mask in mask tab
+- [13:30] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_020.jpg — luminance key settings
+- [13:56] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_021.jpg — dilate blur mask chain
+- [14:26] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_022.jpg — alpha over premult leaves wrong
+- [14:56] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_023.jpg — z depth normalize node
+- [15:26] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_024.jpg — colorramp gamma depth divide
+- [15:47] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_025.jpg — multiply zdepth by leafmask
+- [16:24] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_026.jpg — shadows multiplied over leaves
+- [17:00] tutorials/frames/composite-cgi-around-real-object---blender-vfx-tutorial-full/frame_027.jpg — final composited result
+
+---
+
 ## Structured Notes
 
 ### Core Technique
-[PENDING EXTRACTION]
+Wrapping a CG object *around* a real one in Blender Cycles by splitting the shot into three view layers — **Main Objects**, **Shadow** and **Glossy/Diffuse** — using **collection Holdout** to let stand-in geometry mask the CG, **Indirect Only** to keep an object's reflections without the object, **Shadow Catcher** to harvest only its shadows, and **Diffuse/Glossy Indirect render passes** to harvest only the light it throws. Foreground detail too fiddly to model (plant leaves) is recovered in 2D with a **Luminance Key + animated mask**, then placed correctly in depth with **Z-depth compositing** — multiplying the leaf matte by a Color Ramp'd depth pass so the leaves stop covering the parts of the ring that are in front of them.
 
 ### Summary
-[PENDING EXTRACTION]
+17m29s, **Blender 2.81.16** [frame_005, frame_008, frame_013, frame_019], Cycles, GPU Compute. A chrome ring orbits a real potted plant: it must pass *behind* the pot and leaves, pick up their reflections, cast shadows on them and bounce light into the pot [frame_000, frame_027]. Footage is a tracked 1920x1080 image sequence (`plantBG3_######.jpg` / `pngSeqHD_####`, 156 frames, shot range 26-139) [frame_014, frame_019].
+
+**The three levels of visibility control** the video is built around: **object visibility** (Object Properties ▸ Visibility ▸ Shadow Catcher / Holdout / Ray Visibility) [frame_008, frame_013], **collection visibility** (right-click ▸ View Layer ▸ Set Holdout / Set Indirect Only / Disable from View Layer) [frame_005] and **view-layer visibility**, i.e. render passes [frame_010, frame_017]. A companion infographic is linked in the video description [transcript 2:06-2:09]. One gotcha stated outright: object visibility settings and the collection list are **shared by every view layer** — only the per-collection *view layer* settings and the enable checkbox are per-layer [transcript 4:27-5:02, frame_011].
+
+**Scene prep** is the ordinary matchmove work — match geometry (a stand-in box and pot, plus deliberately sloppy warped planes for the leaves) [frame_001], match lighting (a 360° HDRI shot with a Ricoh Theta V), match textures (Principled BSDF, colour and roughness only) [frame_002]. The leaf proxies are intentionally rough because they exist only for reflections and shadow catching — their silhouette is solved in 2D later [transcript 0:38-0:43, 12:35-12:46].
+
+**Compositing** follows the Cycles pass equation from the manual: light passes **add**, colour passes **multiply**, everything sums to Combined [frame_016]. Shadows are converted to a controllable black-and-white matte rather than alpha-over'd [frame_015, frame_017], the pot's diffuse-indirect is multiplied by diffuse-colour before being added [frame_017], reflections are added straight in, and the ring goes on with Alpha Over [frame_018]. The leaves come from a Luminance Key on the original plate, cut down by an animated mask [frame_019, frame_020, frame_021], tidied with Dilate/Erode and Blur [frame_023], and finally depth-sorted against the ring [frame_024, frame_025, frame_026].
 
 ### Key Steps
-[PENDING EXTRACTION]
+1. **Shoot and track the plate, then rebuild the set.** Recreate only what interacts with the CG — here a box and a pot as grey proxy geometry, "1. Match geometry" [frame_001]. Scrub the whole shot to confirm nothing slips; small drift can be cheated with animated object position or shape keys [transcript 0:46-0:57].
+2. **Make the leaf proxies deliberately rough.** Plane objects warped roughly into the leaf shapes — accuracy is not needed because they only ever serve as reflection and shadow-catching surfaces [transcript 0:38-0:43]; the real silhouette arrives later as a 2D matte [frame_021].
+3. **Match the lighting with a 360° HDRI** shot on a Ricoh Theta V — the reason the CG ring's chrome reflects the real room [transcript 0:58-1:07]. [no frame: the HDRI and world setup are narrated over B-roll, never shown as a panel]
+4. **Match textures with a plain Principled BSDF.** Colour and roughness only — `PotMaterial` is set by HSV `H 0.111 / S 0.553 / V 0.633`, IOR `1.450`, Transmission `0.000`, with **Roughness 0.15** called out in narration as the value that matters later [frame_002, transcript 5:38-5:46].
+5. **Set the render engine.** Render Properties ▸ **Cycles**, Feature Set `Supported`, Device **`GPU Compute`**, Integrator `Path Tracing`, Render samples `128` / Viewport `32`, Film Exposure `1.00`, Pixel Filter `Blackman-Harris` at `1.50 px` [frame_003].
+6. **Render once as-is to see the problem.** Everything renders — CG pot, box and leaves included — and the ring sits in front of the pot instead of orbiting it [transcript 1:35-1:46]. [no frame: the faulty render is shown only as a full-screen beauty frame indistinguishable from the finished shot at still resolution; frame_007 shows the corrected version of the same layer]
+7. **Sort every object into its own collection.** Starting from a flat outliner (`Camera`, `CameraParent`, `Box`, `leaf-layer1/2/3`, `Pot`, `PotBase`, `RingMirror`, `RingWhite1/2/3`) [frame_004], select and press **`M` ▸ New Collection**. Result: four collections — `Camera`, `Rings`, `Pot`, `Box&Leaves` [frame_008].
+8. **Name the current view layer `Main Objects`** — the layer that will carry the ring alone [frame_004].
+9. **Holdout the pot.** Right-click the `Pot` collection ▸ **View Layer ▸ Set Holdout** [frame_005]. Holdout makes everything in that collection punch a hole through whatever falls behind it from camera, so the ring disappears where it passes behind the pot and survives where it passes in front [transcript 3:14-3:29]. The same submenu carries `Disable from View Layer`, `Set Indirect Only` and the matching Clear entries; the sibling **Visibility** submenu (Isolate / Hide / Disable in Viewports / Disable in Renders) is the *other*, non-view-layer kind of control [frame_006].
+10. **Set `Box&Leaves` to Indirect Only** — the same right-click ▸ View Layer submenu, one entry above Set Holdout [frame_005] — so the box and leaves show up in the ring's reflections without rendering themselves [transcript 3:30-3:38].
+11. **Turn on a transparent background and render the layer.** Render Properties ▸ Film ▸ **Transparent** [frame_010]. The Main Objects layer now outputs the ring alone on alpha, already masked by the pot and carrying the room's reflections [frame_007].
+12. **Add a second view layer named `Shadow`.** Set the leaves and box to **Shadow Catcher** in Object Properties ▸ Visibility, and **uncheck Ray Visibility ▸ Shadow** on them so they catch shadow without casting any [frame_008, transcript 4:02-4:12]. A shadow catcher still appears in other objects' reflections, which is why leaving it enabled does not hurt the Main Objects layer [transcript 4:12-4:27].
+13. **Duplicate the pot collection for the shadow layer.** Right-click ▸ Duplicate Collection gives `PotShadow`; turn the original `Pot` off in this layer and make the duplicates shadow catchers too. Because all view layers share the same collection list, `PotShadow` also appears in Main Objects and must be disabled there [frame_011, transcript 4:37-5:02].
+14. **Set `Rings` to Indirect Only in the Shadow layer** — the output is then nothing but the shadows the ring throws onto pot, leaves and box, over alpha [frame_009, transcript 5:02-5:10].
+15. **Add a third view layer named `Glossy/Diffuse`** and disable `PotShadow` in it [frame_011]. Its job is the light the ring bounces *into* the pot.
+16. **Understand why the pot needs two passes.** At Roughness `0.15` the pot is both a diffuse and a glossy surface, and Cycles labels a light ray by the last surface it hits before the camera — so the ring's contribution arrives split across both. These rays bounce more than once, hence *indirect* [transcript 5:31-7:01]. [no frame: this segment is an animated ray diagram, not a Blender panel]
+17. **Enable the passes.** View Layer Properties ▸ Passes ▸ Light: **Diffuse Indirect**, **Diffuse Color** and **Glossy Indirect** — the render-layers node then exposes `DiffInd`, `DiffCol` and `GlossInd` sockets [frame_017, transcript 6:41-8:21]. In 2.81+ each pass can be previewed live in rendered viewport via the pass dropdown; at low sample counts it is extremely sparse and noisy [frame_012], which is why render samples go up to **`512`** for this layer [frame_010].
+18. **Set `Rings` to Indirect Only here too** (same collection ▸ View Layer ▸ Set Indirect Only entry [frame_005]), so only the ring's *reflection* lands in the pot, not the ring itself [transcript 7:10-7:19].
+19. **Stop the pot base from double-lighting the pot.** Select `PotBase` and in Object Properties ▸ Visibility ▸ Ray Visibility **uncheck `Glossy` and `Diffuse`** — that light is already present in the real footage and would otherwise be added twice [frame_011, frame_013, transcript 7:19-8:10]. Completely disable `Box&Leaves` in this layer as well.
+20. **Render all layers and open the Compositor.** Use Nodes and Backdrop on; an `Image` node loads the plate as an **Image Sequence** (`Frames 156`, `Start Frame 0`, `Offset -1`, Auto-Refresh on, Color Space `sRGB`), a **Scale** node set to **Render Size / Stretch** fits it, and `Composite` + `Viewer` nodes take the output. `Ctrl+Shift+Click` a node to preview it [frame_014].
+21. **Composite the shadows as a matte, not as alpha.** Add a Render Layers node on the `Shadow` layer and drop its **Alpha** output into the **Fac** of a `Mix` node set to **Multiply**, with the top colour white and the bottom black — that produces a true black-and-white shadow image that curves can actually grade [frame_015, transcript 9:43-10:05]. Then a **Color Ramp** (stop at `Pos 0.218`) sets the black/white range, an **RGB Curves** (`Fac 1.000`, curve point `X 0.49444 / Y 0.47188`) tints and balances it, and a second **Multiply** mix multiplies the plate by it [frame_017].
+22. **Read the Cycles pass equation before wiring the light passes.** From the manual: `(Diffuse Direct + Diffuse Indirect) x Diffuse Color + (Glossy Direct + Glossy Indirect) x Glossy Color + (Transmission Direct + Transmission Indirect) x Transmission Color + Emission + Environment = Combined` — light passes **add**, colour passes **multiply** [frame_016]. Add, Multiply and Alpha Over are the only nodes needed.
+23. **Add the diffuse and glossy contribution.** Duplicate the Render Layers node onto `Glossy/Diffuse` [frame_017], multiply `DiffInd` by `DiffCol` with a Mix ▸ Multiply, then `Add` that into the composite; `GlossInd` is added straight in with another `Add` (no glossy colour pass was exported — it is pure white and would change nothing) [frame_026, transcript 11:35-12:07].
+24. **Alpha Over the ring on top.** A fourth Render Layers node on `Main Objects` feeds an **Alpha Over** node — appropriate because a Combined pass carries a real alpha channel [frame_018, transcript 12:07-12:17].
+25. **Rotoscope the leaves in 2D instead of modelling them.** Masking workspace ▸ Mask mode: draw a loose bezier mask around the leaf cluster, keyframe it roughly across the shot, and name it `Leaf` [frame_019]. The plant was filmed against a plain white wall specifically so this would work [transcript 12:46-12:50].
+26. **Pull a luminance key on the plate.** Duplicate the footage + Scale pair, add a **Mask** node pointing at `Leaf` (Feather on, `Scene Size`) and a **Luminance Key** node (`High 1.000 / Low 0.000` at default, then dialled in until the wall separates near the leaves) [frame_020]. The key selects the wall, so an **Invert** node (`RGB` on, `Fac 1.000`) flips it to select the leaves [frame_021].
+27. **Cut the key down to the mask.** A Mix ▸ **Multiply** of the inverted luma matte by the mask output confines the key to the leaf region — the backdrop then shows a clean leaf silhouette [frame_021]. Tighten it with **Dilate/Erode** (`Mode: Step`, `Distance -1`) and a **Blur** (`X 2 / Y 2`, `Size 1.000`) [frame_023].
+28. **Turn the matte into pixels.** A **Set Alpha** node takes the matte into `Alpha` and the original plate into `Image`, yielding just the leaves (and a sliver of pot) on transparency [frame_023, frame_026]. Alpha Over it under the composite with **Convert Premul** ticked — at which point the leaves correctly cover the ring in places, and wrongly cover it everywhere else [frame_022, transcript 14:16-14:36].
+29. **Build a Z-depth mask.** Another Render Layers node on `Main Objects` — the view-layer dropdown lists all three layers [frame_023] — with its **Depth** output into a **Normalize** node, then a **Color Ramp** with the two stops pushed close together to make a hard dividing line at a chosen distance (captured mid-drag at `Pos 0.618`, settling at `Pos 0.255`) [frame_024, frame_026]. Nearer is black, farther is white; a **Gamma** node makes fine adjustment easier [transcript 15:35-15:40]. The isolated result is the front half of the ring in black on white [frame_025].
+30. **Multiply the leaf matte by the depth mask.** Anything black in either input stays black, so wherever the ring is in front of the leaves the leaf matte is knocked out — exactly the wanted result. Feed this into the Set Alpha node's `Alpha` input [frame_026, transcript 15:40-16:16].
+31. **Put the shadows back on top of the leaves.** Multiply the earlier shadow output over the isolated leaves before the final Alpha Over, so the ring's shadow falls on them too [frame_026, transcript 16:16-16:33].
+32. **Check other frames, then render.** Scrub to a different frame and re-render to confirm the comp holds; plug the final node into **Composite**, set output to **PNG**, and Render Animation. Grade afterwards [frame_027, transcript 16:34-17:03].
 
 ### Nodes / Settings
-[PENDING EXTRACTION]
+- **Render engine** — Cycles, Feature Set `Supported`, Device `GPU Compute`, Path Tracing, samples `128` / viewport `32` early on [frame_003], raised to `512` for the noisy indirect passes [frame_010]
+- **Film ▸ Transparent** — required for every CG layer [frame_010]
+- **Collection ▸ View Layer ▸ Set Holdout** — stand-in geometry masks CG behind it, per view layer [frame_005]
+- **Collection ▸ View Layer ▸ Set Indirect Only** — contributes reflections/bounce without rendering itself [frame_005]
+- **Collection ▸ Visibility submenu** — Isolate / Hide / Disable in Viewports / Disable in Renders; the non-view-layer control set [frame_006]
+- **Object Properties ▸ Visibility** — `Shadow Catcher`, `Holdout`, and Ray Visibility toggles `Camera / Diffuse / Glossy / Transmission / Volume Scatter / Shadow` [frame_008, frame_013]
+- **`M`** — Move to Collection / New Collection [frame_004]
+- **View layers used** — `Main Objects` (Combined + Z) [frame_007], `Shadow` (Combined + Z) [frame_009], `Glossy/Diffuse` (+ Diffuse Indirect, Diffuse Color, Glossy Indirect) [frame_011, frame_017]
+- **Collections used** — `Camera`, `Rings`, `Pot`, `Box&Leaves`, `PotShadow` (5 total, matching the scene stats) [frame_008, frame_011, frame_019]
+- **Principled BSDF `PotMaterial`** — HSV `0.111 / 0.553 / 0.633`, Roughness `0.15`, IOR `1.450`, Transmission `0.000` [frame_002]
+- **Image node** — Image Sequence, `Frames 156`, `Start Frame 0`, `Offset -1`, Auto-Refresh, Color Space `sRGB`; **Scale** node `Render Size / Stretch` [frame_014]
+- **`Ctrl+Shift+Click`** — preview any node through the Viewer [frame_014]
+- **Shadow chain** — Mix `Multiply` with Alpha into `Fac` (white over black) → `Color Ramp` (`Pos 0.218`) → `RGB Curves` (`X 0.49444 / Y 0.47188`) → Mix `Multiply` against the plate [frame_015, frame_017]
+- **Cycles pass equation** — light passes add, colour passes multiply, summed to Combined [frame_016]
+- **Leaf matte chain** — `Mask` node (`Leaf`, Feather, Scene Size) + `Luminance Key` (`High 1.000 / Low 0.000`) → `Invert` (`RGB`, `Fac 1.000`) → Mix `Multiply` → `Dilate/Erode` (`Step`, `Distance -1`) → `Blur` (`X 2 / Y 2`, `Size 1.000`) → `Set Alpha` [frame_020, frame_021, frame_023]
+- **Alpha Over** — `Convert Premul` on for the premultiplied leaf plate; `Fac 1.000` [frame_018, frame_022]
+- **Z-depth chain** — `Depth` → `Normalize` → `Color Ramp` with stops crushed together (`Pos 0.255`, shown mid-drag at `0.618`), optional `Gamma`, then Mix `Multiply` against the leaf matte [frame_024, frame_025, frame_026]
+- **Plate** — `plantBG3_######.jpg` / `pngSeqHD_####`, `1920 x 1080`, shot range frames `26-139` of 156 [frame_005, frame_019]
+- **Camera** — `45.56 mm`, Clip Start `0.328'` / End `3281'`, driven by `CameraParent` [frame_005]
+- **Final output** — PNG sequence out of the Composite node, graded afterwards [frame_027]
 
 ### Difficulty
-[PENDING EXTRACTION]
+Advanced
 
 ### Blender Version
-[PENDING EXTRACTION]
+Blender **2.81.16**, read from the status bar [frame_005, frame_008, frame_013, frame_019]. The per-pass rendered-viewport preview used throughout is called out as Blender 2.8+ only [transcript 7:01-7:10].
 
 ### Tags
-[PENDING EXTRACTION]
+compositing, vfx, cycles, render-passes, view-layers, holdout, shadow-catcher, z-depth, masking, camera-tracking, advanced
 
 ---
 
 ## Related Tutorials
-[PENDING EXTRACTION]
+- `composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full.md` — the companion shot: same three levels of visibility control, but transmission-indirect through real glass instead of holdout around a real pot
+- `add-vfx-to-cinematic-raw-and-log-footage-the-right-way-aces-part-2.md` — same author, same view-layer / holdout / shadow-catcher split, wrapped in an ACES colour pipeline
+- `add-vfx-into-cinematic-rawlog-footage-the-right-way-aces-part-1.md` — same author; the colour-gamut and gamma groundwork under any live-action comp
+- `replacing-adobe-after-effects-with-blender-tutorial.md` — Blender's compositor as a standalone 2D toolset

@@ -3570,9 +3570,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=fnAGtXMkRMY
 - **Author:** InLightVFX
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 2.81.16 -- observed in frame_005, frame_008, frame_013, frame_019
+- **Tags:** compositing, vfx, cycles, render-passes, view-layers, holdout, shadow-catcher, z-depth, masking, camera-tracking, advanced
+- **Summary:** Wrapping a CG ring around a real potted plant in Cycles. Splits the shot into Main Objects / Shadow / Glossy-Diffuse view layers, using collection Holdout to let a stand-in pot mask the CG, Indirect Only for reflection-only contribution, Shadow Catcher plus an unchecked Shadow ray-visibility for catch-without-cast, and Diffuse/Glossy Indirect passes for the bounce light. Foreground leaves are solved in 2D with a Luminance Key and animated mask, then depth-sorted against the ring by multiplying the matte with a Color-Ramp'd Z-depth pass.
 - **File:** tutorials/composite-cgi-around-real-object---blender-vfx-tutorial-full.md
 
 

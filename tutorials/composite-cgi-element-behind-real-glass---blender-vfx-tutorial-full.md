@@ -8,9 +8,10 @@ blender_version: "[PENDING]"
 tags: []
 extraction_status: pending
 frames_dir: tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/
-frame_count: 0
-frame_status: pending-selection
+frame_count: 37
+frame_status: complete
 uncertainty_frames: []
+frame_selection: explicit-timestamps (supplied to select_frames.py; NOT evidence that the frames were read -- see `grounding:`)
 ---
 
 # Composite CGI Element Behind Real Glass - Blender VFX Tutorial (Full)
@@ -24,12 +25,7 @@ uncertainty_frames: []
 ## Raw Data (for Claude Code extraction)
 
 
-Frames are not captured yet. Read the timestamped transcript below, pick moments
-that actually show a technique/result worth a still (not blind percentages —
-even within a named chapter, verify the real moment against its timestamps), then run:
-  python select_frames.py composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full <ts1> <ts2> ...
-(seconds or mm:ss). This appends a "Captured Frames" section and updates the
-frontmatter before you write the Structured Notes below.
+Frames captured — see "Captured Frames" section below.
 
 
 ### Intro [0:00]
@@ -301,6 +297,48 @@ frontmatter before you write the Structured Notes below.
 [18:36] I am holding my phone with a sock over it so that you can have impeccable audio for this tutorial. You are welcome.
 
 
+
+---
+
+## Captured Frames
+
+- [0:02] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_000.jpg — goal cg behind real glass
+- [0:42] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_001.jpg — model glass and plane
+- [1:24] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_002.jpg — principled glass noise normal
+- [1:37] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_003.jpg — blendswap keyboard model
+- [1:49] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_004.jpg — full cg render problem
+- [2:45] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_005.jpg — visibility infographic
+- [3:23] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_006.jpg — four collections outliner
+- [3:45] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_007.jpg — glass collection holdout
+- [3:51] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_008.jpg — table indirect only
+- [3:57] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_009.jpg — main object layer render
+- [4:18] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_010.jpg — table shadow catcher
+- [4:41] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_011.jpg — glass disable shadow diffuse glossy
+- [4:57] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_012.jpg — shadow layer result
+- [5:17] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_013.jpg — duplicate table collection
+- [5:41] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_014.jpg — main glass holdout reflections layer
+- [6:02] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_015.jpg — enable glossy indirect pass
+- [6:16] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_016.jpg — glossy ray path diagram
+- [6:48] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_017.jpg — viewport pass toggle glossy
+- [7:31] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_018.jpg — enable transmission indirect
+- [7:46] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_019.jpg — transmission ray path diagram
+- [8:19] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_020.jpg — hdri through glass problem
+- [8:35] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_021.jpg — light path isglossy invert background
+- [9:17] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_022.jpg — emission shader duplicated objects
+- [9:39] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_023.jpg — glass mask transmission pass
+- [10:13] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_024.jpg — disable unneeded collections
+- [10:55] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_025.jpg — use for render exr save
+- [12:11] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_026.jpg — cycles master equation
+- [13:08] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_027.jpg — shadow multiply white black
+- [13:22] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_028.jpg — colorramp rgbcurves shadow
+- [13:45] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_029.jpg — alpha over main object
+- [14:33] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_030.jpg — luma key attempt bad
+- [14:57] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_031.jpg — glass mask colorramp crush
+- [15:11] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_032.jpg — mix mask factor through glass
+- [15:37] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_033.jpg — add glossy indirect reflection
+- [16:05] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_034.jpg — glossy through glass masked
+- [16:23] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_035.jpg — final composite look
+- [18:03] tutorials/frames/composite-cgi-element-behind-real-glass---blender-vfx-tutorial-full/frame_036.jpg — final png output
 
 ---
 
