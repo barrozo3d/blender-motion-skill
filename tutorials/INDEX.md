@@ -3565,6 +3565,16 @@ Each entry format:
 - **Summary:** A radial particle burst built from two icospheres: Geometry Proximity against the smaller one supplies the outward vector, so no math node is needed. Covers the delta-time fix for the frame-one jump, a noise force recentred with Subtract 0.5, and a hand-built `life` attribute that drives both Delete Geometry and a Float Curve radius falloff.
 - **File:** tutorials/make-this-blender-particle-effect-with-just-2-objects.md
 
+
+### Composite CGI Around Real Object - Blender VFX Tutorial (FULL)
+- **Source:** YouTube
+- **URL:** https://www.youtube.com/watch?v=fnAGtXMkRMY
+- **Author:** InLightVFX
+- **Blender Version:** [PENDING]
+- **Tags:** [PENDING]
+- **Summary:** [PENDING EXTRACTION]
+- **File:** tutorials/composite-cgi-around-real-object---blender-vfx-tutorial-full.md
+
 ---
 
 ## Tag Reference
