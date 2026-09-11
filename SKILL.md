@@ -324,13 +324,56 @@ The script prints the tutorial file path and a reminder to run `select_frames.py
 ### Step 2 — Frame selection (run select_frames.py)
 
 1. **Read the timestamped transcript** in the tutorial file's `## Raw Data` section.
-2. **Pick every moment that carries information** — as many as the tutorial earns, and no more. Verify each pick against the transcript's own timestamps; not blind percentages of the runtime, and not just chapter-start + a few seconds.
-3. **Run the script** with those timestamps (seconds or mm:ss, mixed freely):
+2. **Draft the `### Key Steps` list first, from the transcript.** This is the
+   ordering the 2026-09-11 review settled on, and it is the opposite of what the
+   pipeline used to do. Writing the steps first means every timestamp below is
+   chosen *for* a step, so the notes and the frames cannot drift apart. Drafting
+   from the transcript is fine — the frames are what correct it in Step 3.
+3. **Pick every moment that carries information** — as many as the tutorial earns,
+   and no more. Verify each pick against the transcript's own timestamps; not blind
+   percentages of the runtime, and not just chapter-start + a few seconds.
+4. **Run the script**, labelling each timestamp with the step it is for
+   (seconds or mm:ss, mixed freely):
 ```bash
-python select_frames.py <slug> <ts1> <ts2> ...
+python select_frames.py <slug> 0:25=pyro-solver-defaults 3:45=buoyancy-dir 5:15=gas-resize ...
 ```
-This downloads the low-quality video, extracts exactly those frames to `tutorials/frames/<slug>/` (local only, not in git), appends a `## Captured Frames` section to the tutorial file, and sets `frame_status: complete` in the frontmatter. It does **not** commit — that happens together with the Structured Notes in Step 3.
+This downloads the low-quality video, extracts exactly those frames to
+`tutorials/frames/<slug>/` (local only, not in git), appends a `## Captured Frames`
+section to the tutorial file — **with your label beside each frame** — and sets
+`frame_status: complete` in the frontmatter. It does **not** commit; that happens
+together with the Structured Notes in Step 3.
 
+> ### Label every timestamp. `ts=label` is the whole point of this step.
+>
+> Without a label the file records a timestamp and a path, and the *reason* the
+> moment was chosen is lost the moment you close the session. Step 3 then has only
+> one self-describing source to work from — the transcript — which is exactly how
+> the corpus ended up with well-chosen frames sitting beside notes written from
+> narration. Measured 2026-09-11 while regrounding: entry after entry had good
+> frames and a step list that cited none of them.
+>
+> The label is also the **only durable record of what the frame showed**. Frames
+> are gitignored and device-local; the `.md` outlives the disk, the video, and the
+> uploader's decision to keep it public.
+>
+> Labels are short and mechanical — `buoyancy-dir`, `gas-resize-tracking`,
+> `abbe-25-wide-spread`. Hyphens and underscores become spaces in the file.
+
+> **Frame count follows informational density — there is no target number.**
+> Judge from the transcript what the video actually shows, then capture that many.
+> A dense node-graph or parameter-pane walkthrough earns a still at every state a
+> later reader would otherwise have to guess at; a short single-technique clip is
+> finished in a handful.
+>
+> - **Never pad** to reach a number, and never stop early because a range said so.
+> - **Below 4 on anything but a very short clip** usually means the transcript was
+>   skimmed rather than read — check before accepting it.
+> - **Past ~20**, ask whether the video is really that dense, or whether the picks
+>   have begun duplicating the same UI state.
+>
+> Calibration — the 2026-09-04 batch (23 tutorials across Blender, Houdini and UE)
+> landed between **7 and 19 frames, averaging 12.3**. Only 3 of the 23 fell inside
+> the fixed "4-8" band this rule replaced.
 > **Frame count follows informational density — there is no target number.**
 > Judge from the transcript what the video actually shows, then capture that many.
 > A dense node-graph or parameter-pane walkthrough earns a still at every state a
@@ -430,6 +473,13 @@ This downloads the low-quality video, extracts exactly those frames to `tutorial
    > mention is not a spare frame, it is evidence the step list is thin. Add the
    > step.
    >
+   >
+   > **And the reverse, enforced since 2026-09-11.** A captured frame that no note
+   > cites anywhere is the same defect seen from the other side, and it is the side
+   > that hides — the entry still looks finished. Either the notes are missing what
+   > the frame shows, or the frame earns no place in the set: cite it, drop it, or
+   > declare it in `uncited_frames: [...]` with the reason written in the notes.
+   > `validate.py` check #19 now fails both directions.
    > Run the gate, per entry, before committing:
    >
    > ```bash

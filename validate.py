@@ -1108,6 +1108,36 @@ def grade_key_step_grounding(fname, content):
                   if not _CITE_RE.search(s) and not _NOFRAME_RE.search(s)]
     anchored = len(steps) - len(unanchored)
 
+    # THE REVERSE DIRECTION, added 2026-09-11. A step with no frame is half the
+    # defect; a FRAME NO NOTE CITES is the other half, and it is the half that
+    # goes unnoticed, because the entry still looks complete. It caught a
+    # screenshot of a social-media post sitting in a cloth-simulation frame set,
+    # and a frame of a presenter talking over an unchanged pane. Both had been
+    # captured in good faith and grounded nothing.
+    #
+    # Citations count from ANYWHERE in the Structured Notes, not only Key Steps:
+    # a value recorded in a settings table is evidence used, same as in a step.
+    # The `## Captured Frames` list is excluded -- those are path strings, which
+    # is exactly the confusion the old "719 citations" claim rested on.
+    notes_prose = re.sub(r"^- \[\d+:\d\d\].*$", "", notes, flags=re.M)
+    cited_anywhere = {int(x)
+                      for br in re.findall(r"\[([^\]]*frame_\d{3}[^\]]*)\]", notes_prose)
+                      for x in re.findall(r"frame_(\d{3})", br)}
+    # Escape hatch for frames deliberately kept but not individually cited --
+    # e.g. a progressive-typing sequence where only the final state is quoted.
+    # It must be declared in frontmatter, so it stays visible and greppable.
+    m_unc = re.search(r"^uncited_frames:\s*\[([^\]]*)\]", content, re.M)
+    allowed = {int(x) for x in re.findall(r"\d+", m_unc.group(1))} if m_unc else set()
+    orphans = sorted(set(range(frames)) - cited_anywhere - allowed)
+    if orphans:
+        shown = ", ".join(f"frame_{i:03d}" for i in orphans[:6])
+        more = f" (+{len(orphans) - 6} more)" if len(orphans) > 6 else ""
+        problems.append(f"{len(orphans)} captured frame(s) that no note cites: "
+                        f"{shown}{more} -- either the notes are missing what the "
+                        f"frame shows, or the frame earns no place in the set. "
+                        f"Cite it, drop it, or declare it in `uncited_frames: [...]` "
+                        f"with the reason written in the notes")
+
     if steps and frames >= FRAMES_PER_STEP_WARN * len(steps):
         problems.append(f"{frames} frames for {len(steps)} steps -- frames that map "
                         f"to no step mean the step list is incomplete, not that the "

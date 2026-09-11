@@ -92,8 +92,29 @@ SKILL_DIR     = Path(__file__).parent
 TUTORIALS_DIR = SKILL_DIR / "tutorials"
 
 
+def split_label(raw):
+    """Split `3:45=buoyancy-dir` into ('3:45', 'buoyancy dir').
+
+    WHY LABELS EXIST. Capture used to record a timestamp and a path and nothing
+    else -- the *reason* a moment was chosen lived only in the operator's head,
+    and Step 3 (often a different session) had no record of it. So the notes
+    fell back on the one self-describing thing in the file, the transcript, and
+    the frames sat beside them grounding nothing. Measured across the corpus in
+    2026-09, that is the most common shape of the defect: frames that were
+    genuinely well chosen, next to notes written from narration.
+
+    The label is also the only durable record of what a frame showed. Frames are
+    gitignored and device-local; the .md survives the disk.
+    """
+    if "=" in raw:
+        ts, _, label = raw.partition("=")
+        return ts.strip(), label.strip().replace("-", " ").replace("_", " ")
+    return raw.strip(), None
+
+
 def parse_timestamp(raw):
     """Accept plain seconds ('485', '485.0') or 'mm:ss' / 'h:mm:ss'."""
+    raw, _ = split_label(raw)
     if ":" not in raw:
         return float(raw)
     parts = [float(p) for p in raw.split(":")]
@@ -122,7 +143,11 @@ def main():
     )
     parser.add_argument("slug", help="Tutorial slug (tutorials/<slug>.md must exist)")
     parser.add_argument("timestamps", nargs="*",
-                         help="Timestamps to capture, seconds or mm:ss (e.g. 10 60 4:20 8:05)")
+                         help="Timestamps to capture, seconds or mm:ss (e.g. 10 60 4:20 8:05). "
+                              "Append =LABEL to record WHY the moment was chosen -- "
+                              "`3:45=buoyancy-dir 5:15=gas-resize-tracking`. The label is written "
+                              "into the Captured Frames list, so Step 3 opens a file that already "
+                              "says what each frame is for.")
     parser.add_argument("--at-max", action="store_true",
                          help="fetch each timestamp as a short SECTION at the source's best "
                               "height instead of the capped whole-file download (plan §3.6) -- "
@@ -157,6 +182,7 @@ def main():
         sys.exit(1)
 
     timestamps = [parse_timestamp(t) for t in args.timestamps]
+    labels = [split_label(t)[1] for t in args.timestamps]
     if args.from_flags:
         # §3.7 item 4: aim the frame budget at what the detectors distrust.
         # ⚠️ These come from Step 1's caption cross-check and mean "the two ASRs
@@ -320,9 +346,16 @@ def main():
         )
 
         captured_section = "\n## Captured Frames\n\n"
-        for ts, fp in zip(timestamps, frame_paths):
+        for _i, (ts, fp) in enumerate(zip(timestamps, frame_paths)):
             mm, ss = int(ts) // 60, int(ts) % 60
-            captured_section += f"- [{mm}:{ss:02d}] {fp.relative_to(SKILL_DIR).as_posix()}\n"
+            # The label records WHY this moment was chosen. Without it Step 3 has
+            # nothing to work from but the transcript, which is how frames and notes
+            # drifted apart across the corpus. It also outlives the pixels, which are
+            # gitignored and device-local.
+            _label = labels[_i] if _i < len(labels) else None
+            _suffix = f" \u2014 {_label}" if _label else ""
+            captured_section += (f"- [{mm}:{ss:02d}] "
+                                 f"{fp.relative_to(SKILL_DIR).as_posix()}{_suffix}\n")
         captured_section += "\n---\n"
 
         if "\n## Captured Frames\n" in content:
