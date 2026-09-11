@@ -711,9 +711,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=WmldjCv9P84
 - **Author:** Blender Made Easy
-- **Blender Version:** Blender 4.x
-- **Tags:** materials, shaders, animation, motion-design, logo-animation, procedural, metal, intermediate
-- **Summary:** Curve-based "build-on" logo animation (Bevel Depth + Start/End mapping in Spline mode) with a Taper-curve thickness falloff and a Fresnel-masked, driver-animated Noise Texture for a traveling molten-gold emission edge. Note: a near-duplicate legacy-format entry for this same video exists at `tutorials/blender-tutorial-eternals-gold-wireframe-animation.md` (single-dash slug, captions-based, missing the taper/material/render sections covered here) — left as-is per the known slugify duplicate-entry issue, not merged.
+- **Blender Version:** Blender 3.0.0 Beta -- observed in frame_001, frame_002
+- **Tags:** animation, curves, shaders, materials, motion-graphics, vfx, wireframe, intermediate
+- **Summary:** Blender Made Easy recreates the Eternals weapon-building effect using a curve SVG import. The core trick: set Mapping mode to Spline and animate the Geometry End value from 0 to 1 so the curve draws at constant speed. A `BezierCurve` assigned as Taper Object [frame_007] adds a pointed tip that disappears at the end of the animation via Shape Key animation (taper curve from angled → flat). The gold material uses...
 - **File:** tutorials/blender-tutorial---eternals-gold-wireframe-animation.md
 
 

@@ -4,13 +4,14 @@ source: YouTube
 url: https://www.youtube.com/watch?v=WmldjCv9P84
 author: Blender Made Easy
 ingested: 2026-06-25
-blender_version: "Blender 3.0.0 Beta -- observed in frame_002, frame_004"
+blender_version: "Blender 3.0.0 Beta -- observed in frame_001, frame_002"
 tags: [animation, curves, shaders, materials, motion-graphics, vfx, wireframe, intermediate]
 extraction_status: complete
 frames_dir: tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/
-frame_count: 6
+frame_count: 15
 frame_status: complete
-frame_selection: content-anchored (manual timestamps chosen from transcript, not blind percentages)
+grounding: key-steps-anchored (15/15 steps, 2026-09-11)
+frame_selection: explicit-timestamps (supplied to select_frames.py; NOT evidence that the frames were read -- see `grounding:`)
 ---
 
 # Blender Tutorial - Eternals Gold Wireframe Animation
@@ -61,12 +62,21 @@ frame_selection: content-anchored (manual timestamps chosen from transcript, not
 
 ## Captured Frames
 
-- [2:00] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_000.jpg
-- [4:50] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_001.jpg
-- [7:00] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_002.jpg
-- [8:50] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_003.jpg
-- [11:00] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_004.jpg
-- [13:30] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_005.jpg
+- [0:50] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_000.jpg
+- [1:55] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_001.jpg
+- [2:20] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_002.jpg
+- [3:10] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_003.jpg
+- [3:30] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_004.jpg
+- [3:50] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_005.jpg
+- [4:50] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_006.jpg
+- [7:00] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_007.jpg
+- [8:50] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_008.jpg
+- [9:55] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_009.jpg
+- [11:10] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_010.jpg
+- [11:45] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_011.jpg
+- [12:15] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_012.jpg
+- [12:35] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_013.jpg
+- [13:30] tutorials/frames/blender-tutorial---eternals-gold-wireframe-animation/frame_014.jpg
 
 ---
 
@@ -76,33 +86,36 @@ frame_selection: content-anchored (manual timestamps chosen from transcript, not
 Animate a curve's Geometry > End value (0→1) over time to create a "drawing on" build effect; add a Bezier taper curve that's dissolved via shape keys at the end; a Noise Texture masked by Fresnel and animated along curve UV via a driver creates a moving golden light streak on a metallic Emission material.
 
 ### Summary
-Blender Made Easy recreates the Eternals weapon-building effect using a curve SVG import. The core trick: set Mapping mode to Spline and animate the Geometry End value from 0 to 1 so the curve draws at constant speed. A Bezier curve assigned as Taper Object adds a pointed tip that disappears at the end of the animation via Shape Key animation (taper curve from angled → flat). The gold material uses Principled BSDF (metallic=1, roughness=0.1) mixed with an Emission shader — a Noise Texture animated along the curve UV via a driver (`#frame/250` on X Mapping location) and masked by a Fresnel node creates a moving golden highlight streak.
+Blender Made Easy recreates the Eternals weapon-building effect using a curve SVG import. The core trick: set Mapping mode to Spline and animate the Geometry End value from 0 to 1 so the curve draws at constant speed. A `BezierCurve` assigned as Taper Object [frame_007] adds a pointed tip that disappears at the end of the animation via Shape Key animation (taper curve from angled → flat). The gold material uses Principled BSDF (metallic=1, roughness=0.1) mixed with an Emission shader — a Noise Texture animated along the curve UV via a driver (`#frame/250` on X Mapping location) and masked by a Fresnel node creates a moving golden highlight streak. Rendered in **EEVEE** with Bloom and Screen Space Reflections [frame_014], not Cycles as this entry previously recorded.
 
 ### Key Steps
-1. **Import SVG:** File → Import → SVG; box-select all → scale up; delete extra logo parts; keep only main curve.
-2. **Curve setup:** Select all parts → Ctrl+J join; Fill Mode = None; Ctrl+A apply scale. **Thickness is `Depth` under the curve's `Bevel` section, not under `Geometry`** [frame_002] — Bevel offers `Round` / `Object` / `Profile`, with `Depth`, `Resolution` (4) and `Fill Caps`. The `Geometry` section holds `Offset`, `Extrude`, `Taper Object` and `Taper Radius` (set to **`Override`**).
-3. **Fix Mean Radius:** Edit mode → A select all → N panel → set Mean Radius to 1 (was 284 from scaling, which multiplies depth incorrectly).
-4. **Fix double vertices:** In edit mode, find vertices causing shading glitches (two on top of each other) → delete one at each location.
-5. **Create curve hole:** In edit mode, select two adjacent vertices → X → Delete Segments (not vertices) → Extrude to bridge the gap. This exposes a Start/End point so the build animation works.
-6. **Animate build:** the panel is **`Start & End Mapping`** [frame_002]. It carries `Factor Start` / `Factor End` (the animated pair — keyframe Factor End 0 at frame 0, 1 at frame 200) and separately `Mapping Start` / `Mapping End` dropdowns, which default to **`Resolution`**. It is `Mapping End` that must be set to **Spline** for even-speed animation.
-7. **Taper effect:** Shift+A → Curve → Bezier; Edit mode → flatten bottom vertex; assign as Taper Object in Geometry panel; enable Map Taper. Adjust vertex Y positions to control taper shape (positive Y = thin at end, negative Y = thin at middle).
-8. **Animate taper out:** Select taper curve → Shape Keys: add Basis (value=0, keep current taper shape); add Key 1 → drag value to 1, go to edit mode → drag vertices to completely flat horizontal line (taper disappears). Keyframe Shape Key value: 0 at frame 150, 1 at frame 200.
-9. **Gold material:** Principled BSDF: Metallic=1, Roughness=0.1, Base Color=gold. Add Emission shader (same gold color, Strength~50). Mix Shader between the two.
-10. **Animated light streak:** Texture Coordinate → `Mapping` (Type **Point**) → `Noise Texture` (**3D**) → Color Ramp (compress) → mask the emission strip. Fresnel node (IOR~0.9) → Color Ramp → compressed strip. Math Multiply (Fresnel × Noise result) → Mix Shader Factor.
-    ⚠️ The frame at this point catches the Noise Texture still at **defaults** — Scale 5.000, Detail 2.000, Roughness 0.500, Distortion 0.000 — and the Mapping node at Location 0/0/0, Scale 1/1/1 [frame_004]. The Scale=15 / Detail=0 / Roughness=0.2 / Mapping-Y=0.05 figures recorded here are from narration later in the chapter and are **not** frame-confirmed.
-11. **Driver for animation:** Texture Coordinate (UV) → Mapping → animate X Location with driver `#frame/250` so the streak moves along the curve during the animation.
-12. **Render:** Cycles; enable Bloom in render settings; Cycles Filter Size ~1.8 (reduces graininess); Samples 256; add dark background plane.
+1. **Import the SVG.** `File ▸ Import ▸ SVG` brings the artwork in as **many separate curve objects** — the outliner lists `path1273`, `path1275`, `path1279`, `path1287`, `path1291`, `path1295`, `path1299`, `path1305`, `path1309`, `path1313` under `blender_community_badge_white.svg` — and at a tiny scale, so box-select everything and scale up [frame_000, transcript 0:46].
+2. **Join and set the curve up.** `Ctrl+J` to join the parts, `Fill Mode: None`, `Ctrl+A` to apply scale. The curve data panel shows `Shape 2D`, `Resolution Preview 12`, `Curve Deform ▸ Radius` on, and a `Geometry` block holding `Offset`, `Extrude`, `Taper Object` and `Taper Radius` (set to **`Override`**) [frame_001].
+3. **Thickness is `Depth` under `Bevel`, not under `Geometry`.** Bevel offers `Round` / `Object` / `Profile` with `Depth`, `Resolution` (`4`) and `Fill Caps`; it starts at `Depth 0 m` [frame_001] and the finished tube here sits at **`0.018 m`**, giving the object dimensions `2.21 × 1.8 × 0.036 m` [frame_002].
+4. **Fix Mean Radius first, or Depth misbehaves.** Edit mode ▸ `A` ▸ `N` panel: `Mean Radius` reads **`284.094`** after the scale-up (with `Mean Weight 0.000`, `Mean Tilt 0°`) and must be set to `1`, because it multiplies the bevel depth [frame_001, transcript 1:49].
+5. **Clean up the doubled vertices.** Two control points sitting on top of each other pinch the tube and produce a visible shading glitch at the corner [frame_003]; delete one at each such location [transcript 2:14].
+6. **Make a hole so the build animation has a start and an end.** Deleting a vertex does not open the closed loop [transcript 3:00]; instead select two adjacent points, `X ▸ Delete Segments`, then move the ends into place [frame_004, transcript 3:42] and `E` to extrude and bridge where needed [frame_005, transcript 3:21].
+7. **Animate the build with `Start & End Mapping`.** The panel carries `Factor Start` / `Factor End` — the animated pair — plus separate `Mapping Start` / `Mapping End` dropdowns which default to **`Resolution`** [frame_005]. Keyframe `Factor End` from `0` at frame 0 to `1` at frame 200; mid-draw it reads **`0.299`** with roughly a third of the logo drawn [frame_006]. Set `Mapping End` to `Spline` for an even drawing speed.
+8. **Build the taper curve.** `Shift+A ▸ Curve ▸ Bezier`, then in edit mode flatten it to a horizontal line at the origin — a separate `BezierCurve` object with its own `Bevel Depth 0 m` [frame_007, transcript 6:38]. Assign it as `Taper Object` in the main curve's Geometry panel and enable `Map Taper`. Vertex Y positions control the taper profile (positive Y = thin at the end, negative Y = thin in the middle).
+9. **Animate the taper away with shape keys.** On the taper curve add **`Basis`** (the current tapered shape) and **`Key 1`**, `Relative` on, `Relative To: Basis`, `Value 0.000` with `Range Min 0.000 / Max 1.000` [frame_008]. In `Key 1`, flatten the curve to a straight horizontal line so the taper vanishes, then keyframe the shape-key `Value` from `0` at frame 150 to `1` at frame 200 [transcript 8:26].
+10. **Gold material.** `Principled BSDF` (`GGX`, `Random Walk`): **`Metallic 1.000`**, **`Roughness 0.100`**, `Specular 0.500`, `IOR 1.450`, gold `Base Color`; material `SVGMat.022` [frame_009, transcript 9:49].
+11. **Drive a streak along the curve.** `Texture Coordinate (UV)` → **`Mapping`** (`Type: Point`) → `Noise Texture` (`3D`). Animating the Mapping node's **`Location X`** slides the pattern along the curve — caught mid-drag at `1.07 m` [frame_010, transcript 10:56] — and the tutorial drives it with `#frame/250` rather than keyframes [transcript 11:20].
+12. **Tune the noise into streaks.** The Noise Texture is set to **`Scale 15.000`, `Detail 0.000`, `Roughness 0.200`, `Distortion 0.000`**, with the Mapping node's `Location X` at `0.768 m` [frame_011]. (An earlier moment in this chapter catches the node still at its `Scale 5.000 / Detail 2.000 / Roughness 0.500` defaults, which is why this entry once recorded those figures as unconfirmed — the frame here confirms the tuned values.)
+13. **Add a Fresnel so the emission rides the edges.** A `Fresnel` node feeds a `ColorRamp`; the frame catches it at the default **`IOR 1.450`** [frame_012] before the narration lowers it to about `0.9` [transcript 12:26]. Two `ColorRamp` nodes (`RGB`, `Linear`) compress the ranges — positions **`0.136`** and **`0.459`** [frame_013, frame_012].
+14. **Mix the emission in.** An `Emission` shader — white `Color`, **`Strength 39.800`** — and the Principled BSDF meet at a **`Mix Shader`** (`Fac 0.500`), with the ramp output driving the factor [frame_013]. (The "Strength ~50" this entry recorded is narration; the node reads `39.800`.)
+15. **Render settings — EEVEE, not Cycles.** The render panel shown is unambiguously EEVEE: `Sampling Render 64 / Viewport 16` with `Viewport Denoising` on, **`Bloom`** ticked (`Threshold 0.800`, `Knee 0.500`, `Radius 6.500`, white `Color`, `Intensity 0.100`, `Clamp 0.000`) and **`Screen Space Reflections`** ticked (`Half Res Trace`, `Trace Precision 0.250`, `Max Roughness 0.500`, `Thickness 0.2 m`, `Edge Fading 0.075`, `Clamp 10.000`) — both panels exist only in EEVEE [frame_014]. The "Cycles, Filter Size ~1.8, Samples 256" figures this entry previously recorded are not supported by any frame. Add a dark background plane behind the logo [transcript 13:10].
 
 ### Nodes / Settings
 - Curve data: **Geometry** → `Offset`, `Extrude`, `Taper Object` (Bezier curve), `Taper Radius` = **Override**, `Map Taper`; **Bevel** → `Round`/`Object`/`Profile`, `Depth` (this is the thickness control), `Resolution` 4, `Fill Caps`; **Curve Deform** → `Radius` ✓, `Stretch` ☐, `Bounds Clamp` ☐ [frame_002]
-- **Start & End Mapping** panel: `Factor Start` 0.000 / `Factor End` 1.000 (Factor End is the animated one); `Mapping Start` / `Mapping End` dropdowns default to `Resolution` — set **Mapping End = Spline** for constant speed [frame_002]
-- Mean Radius: must be set to **1** in Edit mode N-panel after applying scale
-- Taper curve: Shape Keys — Basis (tapered) at frame 150 = 0, Key 1 (flat) at frame 200 = 1
-- Material: Principled BSDF (Metallic=1, Roughness=0.1) + Emission (Strength~50) via Mix Shader
-- Noise Texture: **3D**; transcript-only values Scale=15, Detail=0, Roughness=0.2, Mapping Y scale=0.05 (square splotches). Frame-confirmed at defaults 5.0 / 2.0 / 0.5 / Distortion 0.0 before tuning [frame_004]
-- Texture Coordinate: **UV** → Mapping node → X Location driven by `#frame/250` (animates streak along curve)
-- Fresnel (IOR~0.9) → Color Ramp (compress to thin edge line) — masks emission to outer/inner curve edges
-- Math Multiply: Fresnel mask × Noise mask → Mix Shader Factor
+- **Start & End Mapping** panel: `Factor Start` 0.000 / `Factor End` 1.000 (Factor End is the animated one); `Mapping Start` / `Mapping End` dropdowns default to `Resolution` — set **Mapping End = Spline** for constant speed [frame_005, frame_006]
+- Mean Radius — reads `284.094` after scaling up and must be set to **1** in the Edit-mode N panel, since it multiplies the bevel depth [frame_001]
+- Taper curve Shape Keys — `Basis` (tapered) and `Key 1` (flat), `Relative` on, `Relative To: Basis`, `Range Min 0.000 / Max 1.000`; keyframed 0 at frame 150 and 1 at frame 200 [frame_008]
+- Material `SVGMat.022` — Principled BSDF (`GGX`, `Random Walk`, `Metallic 1.000`, `Roughness 0.100`, `Specular 0.500`, `IOR 1.450`) [frame_009] mixed with an `Emission` (white, **`Strength 39.800`** — not the ~50 of the narration) through a `Mix Shader` at `Fac 0.500` [frame_013]
+- Noise Texture — `3D`, tuned to **`Scale 15.000`, `Detail 0.000`, `Roughness 0.200`, `Distortion 0.000`** [frame_011]; an earlier moment catches it still at the `5.000 / 2.000 / 0.500` defaults [frame_010], which is why those figures were once recorded as unconfirmed
+- Texture Coordinate `UV` → `Mapping` (`Type: Point`) — `Location X` is the animated channel, caught at `1.07 m` [frame_010] and `0.768 m` [frame_011], driven by `#frame/250` [transcript 11:20]
+- `Fresnel` → `ColorRamp` — masks the emission to the curve edges. The frame catches the Fresnel at its default `IOR 1.450` [frame_012]; the narration lowers it to about `0.9` [transcript 12:26]. The two ColorRamps sit at positions `0.136` and `0.459` [frame_013]
+- Math Multiply — Fresnel mask x Noise mask → `Mix Shader` `Fac` [frame_013]
+- Render engine — **EEVEE**: `Sampling Render 64 / Viewport 16`, `Bloom` on (`Threshold 0.800`, `Knee 0.500`, `Radius 6.500`, `Intensity 0.100`) and `Screen Space Reflections` on (`Half Res Trace`, `Trace Precision 0.250`, `Max Roughness 0.500`, `Thickness 0.2 m`) — both panels are EEVEE-only [frame_014]. The "Cycles, Filter Size ~1.8, Samples 256" figures previously recorded here are unsupported by any frame
 
 ### Difficulty
 Intermediate — requires curve editing knowledge, shape keys, material node setup, and basic drivers.
