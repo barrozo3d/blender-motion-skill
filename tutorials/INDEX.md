@@ -3590,9 +3590,9 @@ Each entry format:
 - **Source:** YouTube
 - **URL:** https://www.youtube.com/watch?v=G2SacOKhJto
 - **Author:** InLightVFX
-- **Blender Version:** [PENDING]
-- **Tags:** [PENDING]
-- **Summary:** [PENDING EXTRACTION]
+- **Blender Version:** Blender 3.4+ -- inferred, no version string on screen; unified Mix node (3.4) in frame_021, Shadow Catcher pass (3.0) in frame_035
+- **Tags:** color-management, aces, vfx, compositing, hdri, lighting, camera-tracking, nuke, davinci-resolve, photoshop, shadow-catcher, cycles, advanced
+- **Summary:** A measured lighting-match workflow that replaces eyeballed compositing. Shoot a ColorChecker in the plate and in bracketed 360 stills, merge to an HDRI in Photoshop, convert both through per-source ACES IDTs in Nuke (Input - Panasonic - V-Log - V-Gamut for GH5 footage, Utility - Linear - sRGB for the HDRI), then sample the same grey patch in each and multiply the HDRI per-channel until they match. Sun strength is set objectively by rendering an ACEScg ColorChecker EXR in-scene until its grey patch reads the plate's value. Compositing is then just plate x Shadow Catcher pass, Alpha Over, and two Color Balance tweaks.
 - **File:** tutorials/finally-a-vfx-workflow-with-less-guesswork.md
 
 ---
